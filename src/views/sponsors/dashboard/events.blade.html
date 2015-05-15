@@ -1,0 +1,101 @@
+
+
+
+
+ <div id="page-wrapper" ng-class="{'active': toggle}" class="active">
+    <div ng-include="menuprincipal"></div>
+      <div id="content-wrapper">
+        <div class="page-content">
+          <div class="row header">
+            <div class="col-xs-12">
+              <div class="user pull-right">
+        
+                <div class="item dropdown" dropdown="" is-open="status.isopen">
+                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                    <input type="hidden" data-ng-init="viewUserInfoheader()">
+                    <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">luisj135@gmail.com</li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="#/settings">{{ 'settings' | translate }}</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="http://www.sponzor.me/logout">{{ 'logout' | translate }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="item dropdown" dropdown="" is-open="status.isopens">
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                    <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
+                    <i class="fa fa-bell-o"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">{{ 'notification' | translate }}</li>
+                    <li class="divider"></li>
+                    <section ng-show="!viewitem">Sin Notificaciones</section>
+                    <ul class="notifications_list">
+                      <!-- ngRepeat: alertnot in alertsnot -->
+                    </ul>
+                  </ul>
+                </div>
+              </div>
+              <div class="meta">
+                <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
+                <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" ng-model="sponzors.current" ng-init="sponzors.current = 1"/> 
+              <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">      
+                  <div class="widget">
+                    <div class="widget-header">
+                      <i class="fa fa-tasks"></i> {{'youfollowing' | translate}}
+                    </div>
+                    <div class="widget-body medium no-padding" data-ng-controller="followingController">
+                      <div class="table-responsive">
+                        <rd-loading ng-show="followloading==1"></rd-loading>
+                        <table class="table table-striped" ng-if="followloading==0">
+                          <thead>
+                            <tr>
+                              <th class="text-center">{{'OrganizerName' | translate}}</th>
+                              <th class="text-center">{{'OrganizerEmail' | translate}}</th>
+                              <th class="text-center">{{'location' | translate}}</th>
+                              <th class="text-center">{{'eventtitle' | translate}}</th>
+                              <th class="text-center">{{'sponzoring' | translate}} type</th>
+                              <th class="text-center">{{'state' | translate}}</th>
+                              <th class="text-center">{{'options' | translate}}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr data-ng-repeat="s in sponzors.list" >
+                              <td class="text-center">{{ s.name }}</td>
+                              <td class="text-center">{{ s.email }}</td>
+                              <td class="text-center">{{ s.eventlocation }}</td>
+                              <td class="text-center">{{ s.event }}</td>
+                              <td class="text-center">{{ s.kind }}</td>
+                              <td class="text-center" ng-if="s.eventstate == 0"><i class="fa fa-cog fa-spin" ng-class="icon"></i> {{'eventPendingApprobation' | translate}}</td>
+                              <td class="text-center" ng-if="s.eventstate == 1"><i class="fa fa-cog fa-spin" ng-class="icon"></i><i class="fa fa-check">{{'eventApprobed' | translate}}</td>
+                              <td class="text-center">
+                                <a href="" ng-click="removeRelSponzorPeak(s.idRelSponzoring)"><i class="fa fa-trash-o"></i></a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+
+ <div id="page-wrapper" ng-class="{'active': toggle}" class="active">
+    <div ng-include="menuprincipal"></div>
+      <div id="content-wrapper">
+        <div class="page-content">
+          <div class="row header">
+            <div class="col-xs-12">
+              <div class="user pull-right">
+        
+                <div class="item dropdown" dropdown="" is-open="status.isopen">
+                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                    <input type="hidden" data-ng-init="viewUserInfoheader()">
+                    <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">luisj135@gmail.com</li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="#/settings">{{ 'settings' | translate }}</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="http://www.sponzor.me/logout">{{ 'logout' | translate }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="item dropdown" dropdown="" is-open="status.isopens">
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                    <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
+                    <i class="fa fa-bell-o"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">{{ 'notification' | translate }}</li>
+                    <li class="divider"></li>
+                    <section ng-show="!viewitem">Sin Notificaciones</section>
+                    <ul class="notifications_list">
+                      <!-- ngRepeat: alertnot in alertsnot -->
+                    </ul>
+                  </ul>
+                </div>
+              </div>
+              <div class="meta">
+                <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
+                <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
+              </div>
+            </div>
+          </div>
+
+        <!--Template asociado al dashboard principal-->
+            <div class="row">
+              <div class="col-lg-10 col-lg-offset-1  ">
+                <h1>{{'searchtitle' | translate}}</h1>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-10 col-lg-offset-1 " data-ng-controller="searchController">
+                <div class="widget">
+                  <div class="widget-header">
+                    <i class="fa fa-search"></i>
+                    <input type="text" value="" id="search" data-ng-model="search1" ng-keyup="$event.keyCode == 13 && searchEvents()" />
+                    <button data-ng-click="searchEvents()" class="btn btn-info">Search</button>
+                  </div>
+                  <div class="widget-body large no-padding" style="height:500px"><!--fronend arregla-->
+                    <rd-loading ng-show="searchloading==1"></rd-loading>
+                    <div ng-if="searchloading==0" data-ng-repeat="s in search.list" class="col-lg-5 col-lg-offset-1 evento" style="height:200px"><!--fronend arregla-->
+                      <div class="pull-left"><img class="organizer-image img-square" src="images/events/{{ s.eventimage }}" alt="User"></div>
+                      <div class="info-event">
+                        <div class=""><h1><a href="event/{{ s.event }}" target="_blank">{{ s.title }}</a></h1></div>
+                        <div class="">{{ s.eventlocation }}</div>
+                        <div class="">{{ s.email }}</div>
+                        <div class=""><a class="btn btn-success" href="" data-ng-click="openDialog($index)"><i class="fa fa-money"></i> Sponzor</a>
+                      </div>        
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </script>
+          <script type="text/ng-template" id="loading.html">
+          <div class="text-center">
+            <rd-loading></rd-loading>
+            </div>
+          </script>
+      </div>
+    </div>
+  </div>
+</div>

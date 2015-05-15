@@ -1,0 +1,44 @@
+    <!-- Sidebar -->
+
+    <div id="sidebar-wrapper">
+      <ul class="sidebar">
+        <li class="sidebar-main" id="step3">
+          <a href="" ng-click="toggleSidebar()">
+            {{'dashboard' | translate }}
+            <span class="menu-icon glyphicon glyphicon-transfer"></span>
+          </a>
+        </li>
+        <li class="sidebar-title"><span>{{'navigation' | translate }}</span></li>
+        <li class="sidebar-list">
+          <a href="#/sponsors/dashboard">{{'dashboard' | translate }}<span class="menu-icon fa fa-tachometer"></span></a>
+        </li>       
+        <li class="sidebar-list">
+          <a href="#/sponsors/following">{{'following' | translate }} <span class="menu-icon fa fa-eye"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/sponsors/sponzoring">{{'sponzoring' | translate }} <span class="menu-icon fa fa-bolt"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/sponsors/settings">{{'settings' | translate }}<span class="menu-icon fa fa-cogs"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="#/sponsors/friend">{{'invitefriendstring' | translate }} <span class="menu-icon fa fa-smile-o"></span></a>
+        </li>
+        <li class="sidebar-list">
+          <a href="logout">{{'logout' | translate }}<span class="menu-icon fa fa-sign-out"></span></a>
+        </li>  
+      </ul>
+      <div class="sidebar-footer" id="step4">
+    <div class="col-xs-4">
+      <a id="blogUrl" href="http://blogen.sponzor.me/">{{ 'blog' | translate }}</a>
+    </div>
+    <div class="col-xs-4">
+      <a href="http://www.sponzor.me/testimonials" target="_blank">{{ 'about' | translate }}</a>
+    </div>
+    <div class="col-xs-4">
+      <a target="_blank" href="http://support.sponzor.me/">{{ 'support' | translate }}</a>
+    </div>
+  </div>
+    </div>
+
+    <!-- End Sidebar -->
