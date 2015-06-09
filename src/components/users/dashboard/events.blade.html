@@ -1,0 +1,328 @@
+<div id="page-wrapper" ng-class="{'active': toggle}" class="active">
+    <div ng-include="menuprincipal"></div>
+      <div id="content-wrapper">
+        <div class="page-content">
+          <div class="row header">
+            <div class="col-xs-12">
+              <div class="user pull-right">
+        
+                <div class="item dropdown" dropdown="" is-open="status.isopen">
+                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                    <input type="hidden" data-ng-init="viewUserInfoheader()">
+                    <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">luisj135@gmail.com</li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="#/settings">{{ 'settings' | translate }}</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="http://www.sponzor.me/logout">{{ 'logout' | translate }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="item dropdown" dropdown="" is-open="status.isopens">
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                    <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
+                    <i class="fa fa-bell-o"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">{{ 'notification' | translate }}</li>
+                    <li class="divider"></li>
+                    <section ng-show="!viewitem">Sin Notificaciones</section>
+                    <ul class="notifications_list">
+                      <!-- ngRepeat: alertnot in alertsnot -->
+                    </ul>
+                  </ul>
+                </div>
+              </div>
+              <div class="meta">
+                <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
+                <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
+              </div>
+            </div>
+          </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="widget">
+            <div class="widget-header">
+              <i class="fa fa-plus"></i>{{ 'addevent' | translate }}
+              <div class="clearfix"></div>
+            </div>
+            <form class="form-horizontal" role="form">
+            <!--form field-->
+              <div class="form-group" id="title">
+                <label for="label" class="col-sm-4 control-label">
+                  {{ 'neweventtitle' | translate }}
+                </label>
+                <div class="col-sm-7">
+                  <input  type="text" data-ng-model="newevent.title" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" />
+                </div><br/><br/>
+              </div>
+             <!--form field-->
+              <div class="form-group" id="location">
+                <label for="label" class="col-sm-4 control-label">
+                  {{ 'neweventlocation' | translate }}
+                </label>
+                <div class="col-sm-7">
+                  <input  type="text" data-ng-model="newevent.location" ng-autocomplete="results3" details="details3" options="options3" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="description">
+                <label for="label" class="col-sm-4 control-label">
+                  {{ 'neweventdescription' | translate }}
+                </label>
+                <div class="col-sm-7">
+                  <textarea rows="5" data-ng-model="newevent.description" placeholder="{{trans('dashboard.neweventdescriptiondescription')}}" name="description" class="form-control"></textarea>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="starts">
+                <label for="label" class="col-sm-4 control-label">
+                  {{ 'neweventstarts' | translate }}
+                </label>
+                <div class="col-sm-7">
+                  <div class="dropdown">
+                      <a class="dropdown-toggle my-toggle-select" id="dLabel1"  role="button" data-toggle="dropdown" data-target="#" href="">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" id="starts" class="form-control" data-ng-model="newevent.starts">                        
+                          </div>
+                      </a>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                          <datetimepicker data-ng-model="newevent.starts" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+                      </ul>
+                  </div>                
+                </div>
+              </div>
+              <div class="form-group" id="ends">
+                <label for="label" class="col-sm-4 control-label">
+                  {{ 'neweventends' | translate }}
+                </label>
+                <div class="col-sm-7">
+                  <div class="dropdown">
+                      <a class="dropdown-toggle my-toggle-select" id="dLabel2"  role="button" data-toggle="dropdown" data-target="#" href="">
+                          <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <input type="text" id="ends" class="form-control" data-ng-model="newevent.ends">                        
+                          </div>
+                      </a>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                          <datetimepicker data-ng-model="newevent.ends" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+                      </ul>
+                  </div>    
+                  <input type="hidden" data-ng-model="newevent.organizer" name="organizer" ng-init="newevent.organizer = 42"/>
+                </div>
+              </div>
+              <hr/>
+              <!--form field-->
+              <div class="form-group" id="public">
+                <div class="col-sm-4 control-label">
+                    <input id="privacy0"  type="radio" data-ng-model="newevent.privacy" name="privacy" value="0" /> 
+                </div>  
+                    <label for="privacy0" class="col-sm-7">
+                      <strong>{{ 'privacyoption0' | translate }} :  </strong>                   
+                   
+                    {{ 'privacydescription0' | translate }} </label>
+
+                <div class="col-sm-4 control-label">
+                    <input id="privacy1" type="radio" data-ng-model="newevent.privacy" name="privacy" value="1" />   
+                </div>
+
+                  <label for="privacy1" class="col-sm-7">
+                      <strong>{{ 'privacyoption1' | translate }} :  </strong>                   
+                    
+                    {{ 'privacydescription1' | translate }}</label>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="type">
+                <label for="label" class="col-sm-4 control-label">
+                  {{ 'neweventtype' | translate }}
+                </label>
+                <div class="col-sm-7">
+                  <select ng-model="newevent.type" name="type" class="form-control">
+                    <option value="">{{ 'choosetype' | translate }}}</option>
+                    <option data-ng-repeat="c in categorias.list" data-ng-value="c.id">
+                      {{c.title}}
+                    </option>                
+                  </select>
+                </div>
+              </div>
+              <!-- Imagen -->
+              <hr/>
+              <div class="form-group" id="image">
+                  <div class="col-sm-12 ">
+                    <input class="col-sm-6 " id="imageInput" type="file" ng-model="temp.image" nv-file-select uploader="uploader"/><br/>
+                  <div>                
+              </div>
+              <div class="clearfix"></div>
+              <!-- End Imagen -->
+              <hr/>
+              <!--form field-->            
+              <div class="table-responsive">              
+                <table class="table table-striped">
+                  <thead>
+                    <th class="text-center">
+                      {{ 'typesponzor' | translate }}
+                    </th>
+                    <th class="text-center">
+                      {{ 'quantitysponzor' | translate }}
+                    </th>
+                    <th class="text-center">
+                      {{ 'pricesponzor' | translate }}
+                    </th>
+                    <th class="text-center">
+                      {{ 'actionssponzor' | translate }}
+                    </th>              
+                  </thead>
+                  <tr ng-repeat="s in sponzors" data-ng-show="sponzors.length">
+                    <td class="text-center">
+                      <input type="text" class="form-control" placeholder="" ng-model="s.kind" />
+                    </td>   
+                    <td class="text-center">
+                      <input type="text" class="form-control" placeholder="" ng-model="s.quantity" />
+                    </td>
+                    <td class="text-center">
+                      <input type="text" class="form-control" placeholder="" ng-model="s.usd" />
+                    </td>
+                    <td class="text-center">
+                      <a href="" ng-click="removeSponzor($index)"><i class="fa fa-trash-o"></i></a>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-sm-3">
+              <button class="btn btn-block btn-warning" ng-click="addsponzor()"> + Add</button>
+              </div>
+              <div class="clearfix"></div>
+              <hr/>
+              <!--form field-->
+              <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-3">
+                  <button data-ng-click="newEvent()" class="btn btn-block btn-primary">{{ 'submitbutton' | translate }} <i class="fa fa-play-circle-o"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="widget">
+            <div class="widget-header">
+              <i class="fa fa-tasks"></i> {{ 'events' | translate }}
+              <a href="#/events" class="pull-right">{{ 'manage' | translate }}</a>
+            </div>
+            <div class="widget-body large no-padding">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                <thead>
+                  <th class="text-center">{{ 'neweventtitle' | translate }}</th>
+                  <th class="text-center">{{ 'neweventlocation' | translate }}</th>
+                  <th class="text-center">{{ 'neweventstarts' | translate }}</th>
+                  <th class="text-center">{{ 'neweventends' | translate }}</th>
+                  <th class="text-center">{{ 'eventtype' | translate }}</th>
+                  <th class="text-center">{{ 'eventprivacy' | translate }}</th>
+                  <th class="text-center">{{ 'eventImage' | translate }}</th>
+                  <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
+                </thead>
+                  <tbody>
+                    <tr data-ng-repeat="e in eventos.list" data-ng-class="{success : event.current === e.id}">
+                      <td class="text-center">{{ e.title }}</td>
+                      <td class="text-center" style="width:20%">{{ e.location }}</td>
+                      <td class="text-center">{{ e.starts }}</td>
+                      <td class="text-center">{{ e.ends }}</td>
+                      <td class="text-center">{{ e.type }}</td>
+                      <td class="text-center">{{ e.privacy }}</td>
+                      <td class="text-center"><a href="" ng-click="imageEvent(e.image)"><i class="fa fa-file-image-o"></i></a></td>
+                      <td class="text-center">
+                        <a href="event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i></a> 
+                        <a href="form/event/{{ e.id }}" target="_blank"><i class="fa fa-code"></i></a> 
+                        <a href="" ng-click="editEvent(e.id)"><i class="fa fa-edit"></i></a> 
+                        <a href="" ng-click="removeEvent(e.id)"><i class="fa fa-trash-o"></i></a> 
+                        <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy" ng-show="event.current === e.id"></i></a> 
+                        <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy text-danger" ng-show="event.current != e.id"></i></a>
+                        <a href="" ng-click="codeWidget(e.id)"><i class="fa fa-rocket"></i></i></a>  
+                        
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div class="widget">
+            <div class="widget-header">
+              <i class="fa fa-trophy"></i> {{ 'peak' | translate }} {{ peaks }}
+              <div class="clearfix"></div>
+            </div>
+            <div class="widget-body medium no-padding">
+              <div class="table-responsive">              
+                <!-- <table class="table table-striped table-center"  ng-controller="peaksController"> -->
+                <table class="table table-striped table-center">
+                  <thead>
+                    <tr>
+                      <th class="text-center">{{ 'kind' | translate }}</th>
+                      <th class="text-center">{{ 'quantity' | translate }}</th>
+                      <th class="text-center">${{ 'usd' | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="loadingpeaks"><td colspan="3"><rd-loading ng-show="loadingpeaks"></rd-loading></td></tr>                  
+                    <tr ng-show="!loadingpeaks" data-ng-repeat="p in peaks">
+                      <td class="text-center">{{ p.kind }}</td>
+                      <td class="text-center">{{ p.quantity }}</td>
+                      <td class="text-center">{{ p.usd }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+      <script type="text/ng-template" id="generalMessage.html">
+        <div class="text-center">  
+          <h3 data-ng-show="message == 'errorImage' ">{{ 'errorAddingImage' | translate }}</h3>
+          <h3 data-ng-show="message == 'errorInFields' ">{{ 'errorInNewEventFields' | translate }}:{{text}}</h3>
+          <h3 data-ng-show="message == 'removeEvent' ">{{ 'deleteEvent' | translate }}</h3>
+          <h3 data-ng-show="message == 'removeTodo' ">{{ 'removeTodo' | translate }}</h3>
+          <h3 data-ng-show="message == 'errorInFieldsTask' ">{{ 'errorInFieldsTask' | translate }}</h3>
+          <h3 data-ng-show="message == 'taskCreated' ">{{ 'taskCreated' | translate }}</h3>
+        </div>
+        <div class="ngdialog-buttons text-center">
+          <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i>{{ 'close' | translate }}</button>
+        </div>
+      </script>
+      <script type="text/ng-template" id="generalImage.html">
+      <div class="text-center">
+        <img src="images/events/{{currentImage }}" width="100%" />
+      </div>
+      <div class="ngdialog-buttons text-center">
+        <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{ 'close' | translate }}</button>
+      </div>
+      </script>
+      <script type="text/ng-template" id="codeWidget.html">
+        <div class="text-center">
+        <h3>{{ 'pasteSponzorsForm' | translate }}</h3>
+        <pre><xmp><object data="form/event/{{ eventId }}" width="600" height="400">     
+          <embed wmode="transparent" src="form/event/{{ eventId }}" width="600" height="400" /> 
+            Error: Embedded data could not be displayed. 
+          </object></xmp></pre>    
+        </div>
+        <div class="ngdialog-buttons text-center">
+          <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i>{{ 'close' | translate }}</button>
+        </div>
+      </script>
+      <script type="text/ng-template" id="loading.html">
+        <div class="text-center">
+          <rd-loading></rd-loading>
+          </div>
+      </script>
+  </div>
+</div>
