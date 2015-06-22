@@ -11,12 +11,11 @@ var _ = require('lodash');
 
 module.exports = function(options) {
   function listFiles(callback) {
-    var bowerDeps = wiredep({
-      directory: 'bower_components',
-      exclude: [/bootstrap-sass-official/, /bootstrap\.css/],
+    var wiredepOptions = _.extend({}, options.wiredep, {
       dependencies: true,
       devDependencies: true
     });
+    var bowerDeps = wiredep(wiredepOptions);
 
     var specFiles = [
       options.src + '/**/*.spec.js',
@@ -28,7 +27,7 @@ module.exports = function(options) {
     ];
 
     var srcFiles = [
-      options.src + '/{app,components}/**/*.js'
+      options.src + '/app/**/*.js'
     ].concat(specFiles.map(function(file) {
       return '!' + file;
     }));
@@ -48,7 +47,8 @@ module.exports = function(options) {
       karma.server.start({
         configFile: __dirname + '/../karma.conf.js',
         files: files,
-        singleRun: singleRun
+        singleRun: singleRun,
+        autoWatch: !singleRun
       }, done);
     });
   }

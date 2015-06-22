@@ -9,8 +9,8 @@ var $ = require('gulp-load-plugins')({
 module.exports = function(options) {
   gulp.task('partials', function () {
     return gulp.src([
-      options.src + '/{app,components}/**/*.html',
-      options.tmp + '/serve/{app,components}/**/*.html'
+      options.src + '/app/**/*.html',
+      options.tmp + '/serve/app/**/*.html'
     ])
       .pipe($.minifyHtml({
         empty: true,
@@ -18,7 +18,8 @@ module.exports = function(options) {
         quotes: true
       }))
       .pipe($.angularTemplatecache('templateCacheHtml.js', {
-        module: 'sponzorme'
+        module: 'sponzorme',
+        root: 'app'
       }))
       .pipe(gulp.dest(options.tmp + '/partials/'));
   });
