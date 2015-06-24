@@ -1,19 +1,11 @@
 'use strict';
+/* global idiomaselect */
+/*jshint -W079 */
+/*jshint camelcase: false */
+/* jslint vars: true */
 
-angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.bootstrap'])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  })
-  .config(function ($translateProvider) {
-    $translateProvider.translations('es', {
 
+var translationsES = {
       dashboard:  'Dashboard',
 
       events:  'Eventos',
@@ -32,13 +24,11 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
 
       following:  'Siguiendo',
 
-      logout:  'Salir',
+      logoutsalir:  'Salir',
 
       about:  'Acerca de',
 
-      support:  'Apoyo',
-
-      testimonialt  : "Testimonios",
+      testimonialt  : 'Testimonios',
 
       blog:  'Blog',
 
@@ -166,15 +156,15 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
 
       eventtitle:   'Título del evento',
 
-      state:  'Estado',
+      states:  'Estado',
 
-      options:  'Opciones',
+      optionsop:  'Opciones',
 
       yousponzring:   'Eventons que tu estas patrocinando',
 
       title:  'Tìtulo',
 
-      title:  'Comienza',
+      titleinicio:  'Comienza',
 
       perks:  'Perks',
 
@@ -186,7 +176,7 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
 
       navigation:   'Navegación',
 
-      home:   'Inicio',
+      homeinicio:   'Inicio',
 
       notification:   'Notificación',
 
@@ -212,27 +202,21 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
 
       eventbriteButtonUnconnect:  'Desconectar =(',
 
-      evenbriteNotConnected:  "Opss, ",
+      evenbriteNotConnected:  'Opss, ',
 
-      evenbriteConnected:  "Hemos conectado las cuentas satisfactoriamente, Algo salió mal. Seras redirigido a la pagina principal.",
+      evenbriteConnected:  'Hemos conectado las cuentas satisfactoriamente, Algo salió mal. Seras redirigido a la pagina principal.',
 
-      Import:  "Importar",
+      Import:  'Importar',
 
-      eventbriteEvents:  "Lista de tus eventos de eventbrite",
+      eventbriteEvents:  'Lista de tus eventos de eventbrite',
 
-      configureImport:  "Configurar tu importación desde eventbrite",
+      configureImport:  'Configurar tu importación desde eventbrite',
 
-      comunitySize: "Tamaño de tu comunidad",
+      comunitySize: 'Tamaño de tu comunidad',
 
-      meetupMessage: "Conectar tu cuenta con Meetup",
+      meetupMessage: 'Conectar tu cuenta con Meetup',
 
       meetupButton:  'Conectar con Meetup!',
-
-      /*
-      |--------------------------------------------------------------------------
-      | Task Lists
-      |--------------------------------------------------------------------------
-      */
 
       todo : 'Lista de Tareas',
 
@@ -261,13 +245,6 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
       addTodosListSponzor:  'Agregar Tareas',
 
       addSponzorTodo:  'Agregar Tarea',
-
-
-      /*
-        |--------------------------------------------------------------------------
-        | Language strings for views
-        |--------------------------------------------------------------------------
-        */
         subject: 'Bienvenido a SponzorMe',
 
         
@@ -276,55 +253,26 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
         invitefriend: 'Hola, <br/><br/> Estas invitado para usar <a href="http://sponzor.me">SponzorMe</a>.',
 
         header       : '<p dir="ltr">Hola,</p><br/><p dir="ltr">Mi nombre es Carlos y soy el fundador de SponzorMe. Yo solo queria contactarte y decirte gracias por unirte! Te queria decir que este proyecto nació de una </br> necesidad que yo mismo tenía cada vez que organizaba un evento y que es un problema que muchas veces acaba con las comunidades y con el entusiasmo de sus </br>organizadores. Si tienes un tiempo te invito a leer nuestra entrada donde puedes ver lo que motiva al equipo de SponzorMe ( <a href="http://bloges.sponzor.me/">http://bloges.sponzor.me/</a> )</p><br/><p dir="ltr">Como sabes esto es un viaje y no sabemos la mayoría de las cosas, es por esto que vamos a necesitar de tu ayuda. Cualquier comentario, preocupación, </br> problema, sugerencia. Estoy disponible para escucharte.</p><br/><p dir="ltr">Mi correo es: <a href="mailto:carlos@sponzor.me">carlos@sponzor.me</a></p><br/><p dir="ltr">Para empezar debes confirmar tu correo electronico en el siguiente link:</p><br/><p dir="ltr">',
-        'footer'           :'</p><br/><p dir="ltr">Gracias de nuevo por unirte - Es grandioso conocerte :)</p><br/><p dir="ltr">Un abrazo,</p><p>Carlos Rojas</p>',
+        footer           :'</p><br/><p dir="ltr">Gracias de nuevo por unirte - Es grandioso conocerte :)</p><br/><p dir="ltr">Un abrazo,</p><p>Carlos Rojas</p>',
 
+      created     : 'Grupo creado.',  
 
-        /*
-      |--------------------------------------------------------------------------
-      | Group Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+      userexists    : 'El usuario ya existe.',
 
-      created     : "Grupo creado.",  
+      updated     : 'El grupo ha sido actualizado.',
 
-      loginreq    : "Campo de login requerido.",
+      updateproblem   : 'Hubo un problema actualizando el grupo.',
 
-      userexists    : "El usuario ya existe.",
+      namereq     : 'Debes proveer un nombre para el grupo.',
 
-      updated     : "El grupo ha sido actualizado.",
+      groupexists   : 'El grupo que intentas crear ya existe.',
 
-      updateproblem   : "Hubo un problema actualizando el grupo.",
+      notfound    : 'El grupo no fue encontrado.',
 
-      namereq     : "Debes proveer un nombre para el grupo.",
-
-      groupexists   : "El grupo que intentas crear ya existe.",
-
-      notfound    : "El grupo no fue encontrado.",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines contain the default error messages used by
-      | the validator class. Some of these rules have multiple versions such
-      | such as the size rules. Feel free to tweak each of these messages.
-      |
-      */
-
-      title     : "Ingresar",
-      rememberme  : "Recuerdame",
-      signin      : "Registrarse",
-      forgot    : "¿Olvidó su contraseña?",
-
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Language strings for views
-      |--------------------------------------------------------------------------
-      */
+      titlelogin     : 'Ingresar',
+      rememberme  : 'Recuerdame',
+      signin      : 'Registrarse',
+      forgot    : '¿Olvidó su contraseña?',
 
       flashsuccess   :  'Exitoso',
 
@@ -336,203 +284,174 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
 
       register     :  'Registrarse',
 
-      login      :  "Ingresar",
+      login      :  'Ingresar',
 
-      logout     :  "Salir",
+      logout     :  'Salir',
 
-      home       :  "Home",
+      home       :  'Home',
 
-      users      :  "Usuarios",
+      users      :  'Usuarios',
 
-      user       :  "Usuario",
+      user       :  'Usuario',
 
-      groups     :  "Grupos",
+      groups     :  'Grupos',
 
-      helloworld   :  "SponzorMe",
+      helloworld   :  'SponzorMe',
 
-      description  :  "Events, Sponsors, Marketplace",
+      description  :  'Events, Sponsors, Marketplace',
 
-      loginstatus  :  "Tu estas ingresado actualmente.",
+      loginstatus  :  'Tu estas ingresado actualmente.',
 
-      sessiondata  :  "Datos de la sesión",
+      sessiondata  :  'Datos de la sesión',
 
-      currentusers   :  "Usuarios Actuales",
+      currentusers   :  'Usuarios Actuales',
 
       options    :  'Opciones',
 
-      status     :  "Estado",
+      status     :  'Estado',
 
-      active     :  "Activo",
+      active     :  'Activo',
 
-      notactive    :  "No activo",
+      actionedit   :  'Editar',
 
-      suspended    :  "Suspendido",
+      actionsuspend  :  'Suspender',
 
-      banned     :  "Baneado",
+      actionunsuspend  :  'No suspender',
 
-      actionedit   :  "Editar",
+      actionban    :  'Prohibir',
 
-      actionsuspend  :  "Suspender",
+      actionunban  :  'No Prohibir',
 
-      actionunsuspend  :  "No suspender",
+      actiondelete   :  'Borrar',
 
-      actionban    :  "Prohibir",
+      sponsorreg   :  'Eres Patrocinador?',
 
-      actionunban  :  "No Prohibir",
+      organizerreg   :  'Eres Organizador?',
 
-      actiondelete   :  "Borrar",
+      copy   :  'Conectamos Eventos con Patrocinadores',
 
-      sponsorreg   :  "Eres Patrocinador?",
+      nextaction   :  'Solo sube tu evento y deja que la magia comience...',
 
-      organizerreg   :  "Eres Organizador?",
+      testimonialts   :  'Testimonios',
 
-      copy   :  "Conectamos Eventos con Patrocinadores",
+      blogs   :  'Blog',
 
-      nextaction   :  "Solo sube tu evento y deja que la magia comience...",
+      blogUrl  :  'http://bloges.sponzor.me/',
 
-      testimonialt   :  "Testimonios",
+      woman  :  'Mujer',
 
-      blog   :  "Blog",
+      man  :  'Hombre',
 
-      blogUrl  :  "http://bloges.sponzor.me/",
+      ageiam   :  'Tengo',
 
-      woman  :  "Mujer",
+      old  :  'Años',
 
-      man  :  "Hombre",
+      chooseSex  :  'Genero',
 
-      ageiam   :  "Tengo",
+      livein   :  'Vivo en',
 
-      old  :  "Años",
+      country  :  'País',
 
-      chooseSex  :  "Genero",
+      state  :  'Departamento',
 
-      livein   :  "Vivo en",
+      city   :  'Ciudad',
 
-      country  :  "País",
+      areyouinterested   :  '¿Estoy interesado en?',
 
-      state  :  "Departamento",
+      weresendingandemail  :  'Hemos enviado un email a',
 
-      city   :  "Ciudad",
+      toactivateyouraccount  :  'para activar tu cuenta.',
 
-      next   :  "Siguiente",
+      forbidden  :  'Prohibido',
 
-      areyouinterested   :  "¿Estoy interesado en?",
+      aboutyou   :  'Algo sobre tí!',
 
-      weresendingandemail  :  "Hemos enviado un email a",
+      almostdone   :  'Ya casi está!',
 
-      toactivateyouraccount  :  "para activar tu cuenta.",
+      team   :  'Equipo',
 
-      forbidden  :  "Prohibido",
+      support  :  'Soporte',
 
-      aboutyou   :  "Algo sobre tí!",
+      supportUrl   :  'http://support.sponzor.me/',
 
-      almostdone   :  "Ya casi está!",
+      terms  :  'Terminos del Servicio',
 
-      dashboard  :  "Dashboard",
+      privacy  :  'Privacidad',
 
-      team   :  "Equipo",
+      getting  :  'Vamos a hacerlo',
 
-      support  :  "Soporte",
+      error404  : 'Ohh.....Esto es bochornoso pero no hemos podido encontrar tu solicitud.',
 
-      supportUrl   :  "http://support.sponzor.me/",
-
-      terms  :  "Terminos del Servicio",
-
-      privacy  :  "Privacidad",
-
-      getting  :  "Vamos a hacerlo",
-
-      error404  : "Ohh.....Esto es bochornoso pero no hemos podido encontrar tu solicitud.",
-
-      backhome  : "Regresar",
+      backhome  : 'Regresar',
 
 
-      language : "Mi leguaje favorito es: ",
+      language : 'Mi leguaje favorito es: ',
 
-      chooseLang : "Escoje tu lenguaje",
+      chooseLang : 'Escoje tu lenguaje',
 
-      en : "Inglés",
+      en : 'Inglés',
 
-      es : "Español",
+      es : 'Español',
 
-      pt : "Portugues",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Pagination Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines are used by the paginator library to build
-      | the simple pagination links. You are free to change them to anything
-      | you want to customize your views to better match your application.
-      |
-      */
+      pt : 'Portugues',
 
       previous : '&laquo; Anterior',
 
       next     : 'Siguiente &raquo;',
 
+      headprivacy:  'Política de privacidad',
 
-      /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+      head2privacy: 'Acerca de SponzorMe:',
 
-      headprivacy:  "Política de privacidad",
+      head3privacy: 'Nuestra política:',
 
-      head2privacy: "Acerca de SponzorMe:",
+        head4privacy:  'Consentimiento:',
 
-      head3privacy: "Nuestra política:",
+      head5privacy: 'Información que recopilamos:',
 
-        head4privacy:  "Consentimiento:",
+      head6privacy: '1. Datos personales:',
 
-      head5privacy: "Información que recopilamos:",
+        head7privacy:  '2. Datos no personales::',
 
-      head6privacy: "1. Datos personales:",
+      head8privacy: '3. Cookies, etiquetas de píxel, objetos locales compartidos, almacenamiento web y tecnología similares:',
 
-        head7privacy:  "2. Datos no personales::",
+      head9privacy: 'El uso que hacemos de la información recopilada:',
 
-      head8privacy: "3. Cookies, etiquetas de píxel, objetos locales compartidos, almacenamiento web y tecnología similares:",
+        head10privacy:  '1. Datos personales:',
 
-      head9privacy: "El uso que hacemos de la información recopilada:",
+      head11privacy:  '2. Datos no personales:',
 
-        head10privacy:  "1. Datos personales:",
+      head12privacy:  'Divulgación de la información recopilada:',
 
-      head11privacy:  "2. Datos no personales:",
+        head13privacy:  '1. Datos personales:',
 
-      head12privacy:  "Divulgación de la información recopilada:",
+      head14privacy:  '2. Datos no personales:',
 
-        head13privacy:  "1. Datos personales:",
+      head15privacy:  'Tus opciones:',
 
-      head14privacy:  "2. Datos no personales:",
+        head16privacy:  'Exclusiones:',
 
-      head15privacy:  "Tus opciones:",
+      head17privacy:  'Niños:',
 
-        head16privacy:  "Exclusiones:",
+      head18privacy:  'Enlaces a otros sitios web:',
 
-      head17privacy:  "Niños:",
+        head19privacy:  'Almacenamiento y seguridad:',
 
-      head18privacy:  "Enlaces a otros sitios web:",
+      head20privacy:  'Leyes internacionales de privacidad:',
 
-        head19privacy:  "Almacenamiento y seguridad:",
+      head21privacy:  'Programas de Puerto Seguro entre EE. UU. y la U.E. y entre EE. UU. y Suiza:',
 
-      head20privacy:  "Leyes internacionales de privacidad:",
+        head22privacy:  'Otros términos y condiciones:',
 
-      head21privacy:  "Programas de Puerto Seguro entre EE. UU. y la U.E. y entre EE. UU. y Suiza:",
+      head23privacy:  'Cambios en esta Política de privacidad:',
 
-        head22privacy:  "Otros términos y condiciones:",
+      head24privacy:  'Acceso a la información:',
 
-      head23privacy:  "Cambios en esta Política de privacidad:",
+        head25privacy:  'Conservación y eliminación:',
 
-      head24privacy:  "Acceso a la información:",
+      head26privacy:  'Contacto de SponzorMe:',
 
-        head25privacy:  "Conservación y eliminación:",
-
-      head26privacy:  "Contacto de SponzorMe:",
-
-      head27privacy:  "Resolución de disputas:",
+      head27privacy:  'Resolución de disputas:',
 
       text1:  'Te damos la bienvenida a SponzorMe. SponzorMe, Inc. ("Compañía", "nosotros", "nosotros" y/o "nuestro") permite que la gente de todo el mundo planifique, promocione y venda entradas para cualquier evento. Y hacemos que descubrir y compartir eventos a los que se va a asistir con personas que se conoce sea más fácil para todo el mundo. Lo hacemos a través de nuestros sitios web y dominios, los servicios están disponibles en nuestros sitios web y dominios o a través de ellos o también los podemos proporcionar nosotros, y el software disponible en nuestros sitios web y dominios o que proporcionemos nosotros, (incluidas nuestras aplicaciones móviles) (de forma colectiva, los "Services").',
 
@@ -560,641 +479,463 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
       text23: 'Si tienes cualquier pregunta acerca de esta Política de privacidad o nuestras prácticas al manejar la información, no dudes en ponerte en contacto con nosotros. Puedes escribirnos aquí: http://www.Sponzor.me/contact-us o llamarnos al +1 5104176510',
       text24: 'Si tienes alguna reclamación sobre las prácticas relacionadas con la política de privacidad de SponzorMe, escríbenos a la siguiente dirección: SponzorMe, Inc., A/A: Responsable de privacidad, 2081 Center Street, Berkeley, CA 94704, EE. UU., o envíanos un correo electrónico a la dirección: privacy@sponzor.me. Tomaremos las medidas razonables para colaborar contigo e intentar resolver tu reclamación. Como parte de nuestra participación en el marco de trabajo de Puerto Seguro entre EE. UU. y la U.E. y entre EE. UU. y Suiza, SponzorMe ha designado a TRUSTe como su único mecanismo para la resolución de conflictos para todas las reclamaciones relacionadas con los principios de Puerto Seguro. Puedes presentar dicha reclamación a TRUSTe a través de Internet aquí, por fax al número 415-520-3420 o por correo electrónico al Departamento de aplicación de Puerto Seguro de TRUSTe a la dirección indicada aquí; sin embargo, en cualquier caso, únicamente deberás hacerlo después de ponerte primero en contacto con nuestro Responsable de privacidad para comunicarle tu reclamación y dejarnos una cantidad de tiempo razonable para tratar de resolver dicha reclamación. Si envías un fax o un correo a TRUSTe para presentar una reclamación, deberás incluir la siguiente información: el nombre de la empresa, la presunta violación de privacidad, tu información de contacto y si deseas compartir con la empresa los detalles de tu reclamación. Para obtener más información sobre TRUSTe o sobre el funcionamiento del proceso de resolución de conflictos de TRUSTe, haz clic aquí o solicita dicha información a TRUSTe en cualquiera de las direcciones indicadas anteriormente. El proceso de resolución de conflictos de TRUSTe se llevará a cabo en inglés.', 
 
+      invalid   : 'Nombre de usuario o contraseña invalido.',
 
-      /*
-      |--------------------------------------------------------------------------
-      | Session Repository Messages
-      |--------------------------------------------------------------------------
-      */
+      notactive :  'Tu no has activado esta cuenta aun. <a href=":url" class="alert-link">¿Reenviar de nuevo el codigo de activación?</a>',
 
-      invalid   : "Nombre de usuario o contraseña invalido.",
+      suspended : 'Tu cuenta ha sido temporalmente suspendida.',
 
-      notactive :  "Tu no has activado esta cuenta aun. <a href=':url' class='alert-link'>¿Reenviar de nuevo el codigo de activación?</a>",
-
-      suspended : "Tu cuenta ha sido temporalmente suspendida.",
-
-      banned  : "Tu cuenta ha sido baneada.",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Language strings for views
-      |--------------------------------------------------------------------------
-      */
+      banned  : 'Tu cuenta ha sido baneada.',
       eventbrite_msg: 'Por favor conecte su cuenta de Eventbrite',
       meetup_msg: 'Por favor conecte su cuenta de Meetup',
+      titleregis: 'Registrarse',    
+
+      exists  : 'El usuario ya existe.',
+
+      noaccess  : 'No tienes permisos para ejecutar esta acción.',
+
+      notupdated: 'Imposible actualizar el perfil.',
+
+      activated : 'Activación completada. <a href=":url" class="alert-link">Ya puedes logear!</a>',
+
+      notactivated: 'La activación no se puede completar.',
+
+      alreadyactive:  'La cuenta ya se encuentra activada.',
+
+      emailconfirm: 'Revisa tu e-mail por el link de confirmación.',
+
+      emailinfo : 'Revisa tu e-mail por instrucciones.',
+
+      emailpassword:  'Tu contraseña ha cambiado, revisa tu email por mas instrucciones.',
+
+      problem : 'Hay un problema, por favor contacta con el administrador.',
+
+      passwordchg:  'Tu contraseña ha cambiado.',
+
+      passwordprob: 'Tu contraseña no se puede cambiar.',
+
+      oldpassword:  'Contraseña original incorrecta.',
 
 
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines contain the default error messages used by
-      | the validator class. Some of these rules have multiple versions such
-      | such as the size rules. Feel free to tweak each of these messages.
-      |
-      */
+      unsuspended:  'La cuenta ha sido reestablecida.',
 
-      title: "Registrarse",
-      rememberme: "Recuerdame",
-      signin: "Registrarse",
-      forgot: "¿Olvidó su contraseña?",
+      unbanned  : 'El usuario ha sido des-baneado.',
 
+      accepted       : 'El campo :attribute debe ser aceptado.',
+      active_url     : 'El campo :attribute no es una URL válida.',
+      after          : 'El campo :attribute debe ser una fecha después de :date.',
+      alpha          : 'El campo :attribute sólo puede contener letras.',
+      alpha_dash     : 'El campo :attribute sólo puede contener letras, números y guiones.',
+      alpha_num      : 'El campo :attribute sólo puede contener letras y números.',
+      array          : 'El campo :attribute debe ser un arreglo.',
+      before         : 'El campo :attribute debe ser una fecha antes :date.',
 
-      /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+        between_numeric : 'El campo :attribute debe estar entre :min - :max.',
+        between_file    : 'El campo :attribute debe estar entre :min - :max kilobytes.',
+        between_string  : 'El campo :attribute debe estar entre :min - :max caracteres.',
+        between_array   : 'El campo :attribute debe tener entre :min y :max elementos.',
 
-      testimonial1 :  "SponzorMe es una herramienta que se debio haber construido hace mucho tiempo...",  
+      confirmed      : 'El campo :attribute confirmación no coincide.',
+      date           : 'El campo :attribute no es una fecha válida.',
+      date_format    : 'El campo :attribute no corresponde con el formato :format.',
+      different      : 'El campo :attribute and :other debe ser diferente.',
+      digits         : 'El campo :attribute debe ser de :digits dígitos.',
+      digits_between : 'El campo :attribute debe terner entre :min y :max dígitos.',
+      emailerror          : 'El formato del :attribute es invalido.',
+      image          : 'El campo :attribute debe ser una imagen.',
+      In             : 'El campo :attribute seleccionado es inválido.',
+      integer        : 'El campo :attribute debe ser un entero.',
+      ip             : 'El campo :attribute Debe ser una dirección IP válida.',
+      match          : 'El formato :attribute es inválido.',
+        max_numeric : 'El campo :attribute debe ser menor que :max.',
+        max_file    : 'El campo :attribute debe ser menor que :max kilobytes.',
+        max_string  : 'El campo :attribute debe ser menor que :max caracteres.',
+        max_array   : 'El campo :attribute debe tener al menos :min elementos.',
 
-      testimonial2 :  "Necesitábamos esta herramienta para que cada evento sea cada vez más fácil y gratificante...",
+      mimes         : 'El campo :attribute debe ser un archivo de tipo :values.',
+        min_numeric : 'El campo :attribute debe tener al menos :min.',
+        min_file    : 'El campo :attribute debe tener al menos :min kilobytes.',
+        min_string  : 'El campo :attribute debe tener al menos :min caracteres.',
 
-      testimonial3: "Gracias a SponzorMe yo me puedo concentrar en crear mas contenido para mi comunidad...",
+      not_in                : 'El campo :attribute seleccionado es invalido.',
+      numeric               : 'El campo :attribute debe ser un numero.',
+      regex                 : 'El formato del campo :attribute es inválido.',
+      required              : 'El campo :attribute es requerido',
+      required_if           : 'El campo :attribute es requerido cuando el campo :other es :value.',
+      required_with         : 'El campo :attribute es requerido cuando :values está presente.',
+      required_with_all     : 'El campo :attribute es requerido cuando :values está presente.',
+      required_without      : 'El campo :attribute es requerido cuando :values no está presente.',
+      required_without_all  : 'El campo :attribute es requerido cuando ningún :values está presentes.',
+      same                  : 'El campo :attribute y :other debe coincidir.',
+        size_numeric : 'El campo :attribute debe ser :size.',
+        size_file    : 'El campo :attribute debe terner :size kilobytes.',
+        size_string  : 'El campo :attribute debe tener :size caracteres.',
+        size_array  : 'El campo :attribute debe contener :size elementos.',
 
+      unique : 'El campo :attribute ya ha sido tomado.',
+      url    : 'El formato de :attribute es inválido.',
 
-      /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
-
-      created   :  "Tu cuenta ha sido creada, revisa tu email por el link de confirmación.",  
-
-      loginreq  : "El campo de login es requerido.",
-
-      exists  : "El usuario ya existe.",
-
-      notfound  : "Usuario no encontrado.",
-
-      noaccess  : "No tienes permisos para ejecutar esta acción.",
-
-      updated : "Perfil actualizado.",
-
-      notupdated: "Imposible actualizar el perfil.",
-
-      activated : "Activación completada. <a href=':url' class='alert-link'>Ya puedes logear!</a>",
-
-      notactivated: "La activación no se puede completar.",
-
-      alreadyactive:  "La cuenta ya se encuentra activada.",
-
-      emailconfirm: "Revisa tu e-mail por el link de confirmación.",
-
-      emailinfo : "Revisa tu e-mail por instrucciones.",
-
-      emailpassword:  "Tu contraseña ha cambiado, revisa tu email por mas instrucciones.",
-
-      problem : "Hay un problema, por favor contacta con el administrador.",
-
-      passwordchg:  "Tu contraseña ha cambiado.",
-
-      passwordprob: "Tu contraseña no se puede cambiar.",
-
-      oldpassword:  "Contraseña original incorrecta.",
-
-      suspended : "La cuenta ha sido suspendida por :minutes minutos.",
-
-      unsuspended:  "La cuenta ha sido reestablecida.",
-
-      banned  : "El usuario ha sido baneado.",
-
-      unbanned  : "El usuario ha sido des-baneado.",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines contain the default error messages used
-      | by the validator class. Some of the rules contain multiple versions,
-      | such as the size (max, min, between) rules. These versions are used
-      | for different input types such as strings and files.
-      |
-      | These language lines may be easily changed to provide custom error
-      | messages in your application. Error messages for custom validation
-      | rules may also be added to this file.
-      |
-      */
-
-      accepted       : "El campo :attribute debe ser aceptado.",
-      active_url     : "El campo :attribute no es una URL válida.",
-      after          : "El campo :attribute debe ser una fecha después de :date.",
-      alpha          : "El campo :attribute sólo puede contener letras.",
-      alpha_dash     : "El campo :attribute sólo puede contener letras, números y guiones.",
-      alpha_num      : "El campo :attribute sólo puede contener letras y números.",
-      array          : "El campo :attribute debe ser un arreglo.",
-      before         : "El campo :attribute debe ser una fecha antes :date.",
-
-      //between        : {},
-        between_numeric : "El campo :attribute debe estar entre :min - :max.",
-        between_file    : "El campo :attribute debe estar entre :min - :max kilobytes.",
-        between_string  : "El campo :attribute debe estar entre :min - :max caracteres.",
-        between_array   : "El campo :attribute debe tener entre :min y :max elementos.",
-
-      confirmed      : "El campo :attribute confirmación no coincide.",
-      date           : "El campo :attribute no es una fecha válida.",
-      date_format    : "El campo :attribute no corresponde con el formato :format.",
-      different      : "El campo :attribute and :other debe ser diferente.",
-      digits         : "El campo :attribute debe ser de :digits dígitos.",
-      digits_between : "El campo :attribute debe terner entre :min y :max dígitos.",
-      emailerror          : "El formato del :attribute es invalido.",
-      exists         : "El campo :attribute seleccionado es inválido.",
-      image          : "El campo :attribute debe ser una imagen.",
-      In             : "El campo :attribute seleccionado es inválido.",
-      integer        : "El campo :attribute debe ser un entero.",
-      ip             : "El campo :attribute Debe ser una dirección IP válida.",
-      match          : "El formato :attribute es inválido.",
-      //max            : {},
-        max_numeric : "El campo :attribute debe ser menor que :max.",
-        max_file    : "El campo :attribute debe ser menor que :max kilobytes.",
-        max_string  : "El campo :attribute debe ser menor que :max caracteres.",
-        max_array   : "El campo :attribute debe tener al menos :min elementos.",
-
-      mimes         : "El campo :attribute debe ser un archivo de tipo :values.",
-      //min           : {},
-        min_numeric : "El campo :attribute debe tener al menos :min.",
-        min_file    : "El campo :attribute debe tener al menos :min kilobytes.",
-        min_string  : "El campo :attribute debe tener al menos :min caracteres.",
-
-      not_in                : "El campo :attribute seleccionado es invalido.",
-      numeric               : "El campo :attribute debe ser un numero.",
-      regex                 : "El formato del campo :attribute es inválido.",
-      required              : "El campo :attribute es requerido",
-      required_if           : "El campo :attribute es requerido cuando el campo :other es :value.",
-      required_with         : "El campo :attribute es requerido cuando :values está presente.",
-      required_with_all     : "El campo :attribute es requerido cuando :values está presente.",
-      required_without      : "El campo :attribute es requerido cuando :values no está presente.",
-      required_without_all  : "El campo :attribute es requerido cuando ningún :values está presentes.",
-      same                  : "El campo :attribute y :other debe coincidir.",
-      //size                  : {}
-        size_numeric : "El campo :attribute debe ser :size.",
-        size_file    : "El campo :attribute debe terner :size kilobytes.",
-        size_string  : "El campo :attribute debe tener :size caracteres.",
-        size_array  : "El campo :attribute debe contener :size elementos.",
-
-      unique : "El campo :attribute ya ha sido tomado.",
-      url    : "El formato de :attribute es inválido.",
-
-      /*
-      |--------------------------------------------------------------------------
-      | Custom Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | Here you may specify custom validation messages for attributes using the
-      | convention "attribute_rule" to name the lines. This helps keep your
-      | custom validation clean and tidy.
-      |
-      | So, say you want to use a custom validation message when validating that
-      | the "email" attribute is unique. Just add "email_unique" to this array
-      | with your custom message. The Validator will handle the rest!
-      |
-      */
-
-      //custom : {}
-      //custom_attribute_name : {},
       custom_attribute_name_rule_name  : 'custom-message',
 
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Attributes
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines are used to swap attribute place-holders
-      | with something more reader friendly such as "E-Mail Address" instead
-      | of "email". Your users will thank you.
-      |
-      | The Validator class will automatically search this array of lines it
-      | is attempting to replace the :attribute place-holder in messages.
-      | It's pretty slick. We think you'll like it.
-      |
-      */
-
-      //attributes : {},
       attributes_username : 'Usuario',
       attributes_password : 'Contraseña',
       attributes_confirmpassword : 'Confirmar contraseña',
-
-      /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
 
       testimonial1  :   'SponzorMe es una herramienta que se debio haber construido hace mucho tiempo...',  
 
       testimonial2    :  'Necesitábamos esta herramienta para que cada evento sea cada vez más fácil y gratificante...',
 
-      testimonial3    :  'Gracias a SponzorMe yo me puedo concentrar en crear mas contenido para mi comunidad...',
+      testimonial3    :  'Gracias a SponzorMe yo me puedo concentrar en crear mas contenido para mi comunidad...'
+};
 
+var translationsEN = {
+      dashboard: 'Dashboard',
 
+      events            : 'Events',
 
-      });
-      $translateProvider.translations('en', {
-        /*
-        |--------------------------------------------------------------------------
-        | Language strings for views
-        |--------------------------------------------------------------------------
-        */
-        dashboard: 'Dashboard',
+      settings            : 'Settings',
 
-        events            : 'Events',
+      sponzors            : 'Sponzors',
 
-        settings            : 'Settings',
+      account          : 'Account',
 
-        sponzors            : 'Sponzors',
+      addevent            : 'Add Event',
 
-        account          : 'Account',
+      seesponzors         : 'See Sponzors',
 
-        addevent            : 'Add Event',
+      sponzoring          : 'Sponzoring',
 
-        seesponzors         : 'See Sponzors',
+      following           : 'Following',
 
-        sponzoring          : 'Sponzoring',
+      logout           : 'Logout',
 
-        following           : 'Following',
+      about            : 'About',
 
-        logout           : 'Logout',
+      support          : 'Support',
 
-        about            : 'About',
+      blog             : 'Blog',
 
-        support          : 'Support',
+      balance          : 'Balance',
 
-        blog             : 'Blog',
+      comunity            : 'Comunity',
 
-        balance          : 'Balance',
+      peak             : 'Perks',
 
-        comunity            : 'Comunity',
+      yourevents         : 'Your Events',
 
-        peak             : 'Perks',
+      suggestions        : 'Suggestions',
 
-        yourevents         : 'Your Events',
+      latestsponzors       : 'Latest Sponzors',
 
-        suggestions        : 'Suggestions',
+      neweventtitle         :  'Title',
 
-        latestsponzors       : 'Latest Sponzors',
+      neweventtitledescription   :  'Give it a Short Distinc Name',
 
-        neweventtitle         :  'Title',
+      neweventdescription     :  'Description',
 
-        neweventtitledescription   :  'Give it a Short Distinc Name',
+      neweventdescriptiondescription:  'Tell people what\'s special about this event',
 
-        neweventdescription     :  'Description',
+      neweventlocation        :  'Location',
 
-        neweventdescriptiondescription:  'Tell people what\'s special about this event',
+      neweventlocationdescription :  'Specify where it\'s the held',
 
-        neweventlocation        :  'Location',
+      neweventorganizer       :  'Organizer Name',
 
-        neweventlocationdescription :  'Specify where it\'s the held',
+      neweventorganizerdescription :  'Who is the organizer',
 
-        neweventorganizer       :  'Organizer Name',
+      neweventstarts       :  'Starts',
 
-        neweventorganizerdescription :  'Who is the organizer',
+      neweventstartsdescription  :  'The Action Starts',
 
-        neweventstarts       :  'Starts',
+      neweventends         :  'Ends',
 
-        neweventstartsdescription  :  'The Action Starts',
+      neweventendsdescription  :  'The Action Ends!',
 
-        neweventends         :  'Ends',
+      neweventtype        :  'Event Type',
 
-        neweventendsdescription  :  'The Action Ends!',
+      neweventtypedescription  :  'Event Type',
 
-        neweventtype        :  'Event Type',
+      neweventtopic        :  'Event Topic',
 
-        neweventtypedescription  :  'Event Type',
+      neweventtopicdescription   :  'Event Topic',
 
-        neweventtopic        :  'Event Topic',
+      neweventprivacy      :  'Listing Privacy',
 
-        neweventtopicdescription   :  'Event Topic',
+      neweventprivacydescription :  'Listing Privacy',
 
-        neweventprivacy      :  'Listing Privacy',
+      privacyoption0        :  'Public Page',
 
-        neweventprivacydescription :  'Listing Privacy',
+      privacyoption1       :  'Private Page',
 
-        privacyoption0        :  'Public Page',
+      privacydescription0    :  'List this item in SponzorMe publicy.',
 
-        privacyoption1       :  'Private Page',
+      privacydescription1    :  'Do not list this event publicy.',
 
-        privacydescription0    :  'List this item in SponzorMe publicy.',
+      eventsponzors       :  'Sponzors',
 
-        privacydescription1    :  'Do not list this event publicy.',
+      goldSponzor     :  'Gold Sponzor',
 
-        eventsponzors       :  'Sponzors',
+      silverSponzor      :  'Silver Sponzor',
 
-        goldSponzor     :  'Gold Sponzor',
+      bronzeSponzor       :  'Bronze Sponzor',
 
-        silverSponzor      :  'Silver Sponzor',
+      buttonsugestions      :  'Button',
 
-        bronzeSponzor       :  'Bronze Sponzor',
+      eventdetails          :  'Event Details',
 
-        buttonsugestions      :  'Button',
+      submitbutton        :  'Submit',
 
-        eventdetails          :  'Event Details',
+      deleteEvent         :  'Event Deleted.',
 
-        submitbutton        :  'Submit',
+      createEventSuccess   :  'The Event has been created successfuly',
 
-        deleteEvent         :  'Event Deleted.',
+      removeEventSuccess    :  'The Event has been Remove successfuly',
 
-        createEventSuccess   :  'The Event has been created successfuly',
+      eventaditionalseetings  :  'Additional Settings',
 
-        removeEventSuccess    :  'The Event has been Remove successfuly',
+      choosetype      :  '-- Choose Type --',
 
-        eventaditionalseetings  :  'Additional Settings',
+      eventprivacy       :  'Privacy',
 
-        choosetype      :  '-- Choose Type --',
+      eventtype      :  'Type',
 
-        eventprivacy       :  'Privacy',
+      typesponzor      :  'Type of Sponzor',
 
-        eventtype      :  'Type',
+      quantitysponzor    :  'Quantity Available',
 
-        typesponzor      :  'Type of Sponzor',
+      pricesponzor       :  'Price',
 
-        quantitysponzor    :  'Quantity Available',
+      actionssponzor       :  'Actions',
 
-        pricesponzor       :  'Price',
+      editaccountname     :  'Full Name',
 
-        actionssponzor       :  'Actions',
+      editaccountemail      :  'E-mail',
 
-        editaccountname     :  'Full Name',
+      editaccountcompany    :  'Company',
 
-        editaccountemail      :  'E-mail',
+      editaccountage       :  'Age',
 
-        editaccountcompany    :  'Company',
+      editaccountsex      :  'Sex',
 
-        editaccountage       :  'Age',
+      editaccountlocation  :  'Location',
 
-        editaccountsex      :  'Sex',
+      editaccountdescription   :  'Description',
 
-        editaccountlocation  :  'Location',
+      editaccount       :  'Edit Account',
 
-        editaccountdescription   :  'Description',
+      by           :  'By',
 
-        editaccount       :  'Edit Account',
+      close          :  'Close',
 
-        by           :  'By',
+      youfollowing         :  'Your Followed Events',
 
-        close          :  'Close',
+      yousponzoring        :  'Your Sponsored Events',
 
-        youfollowing         :  'Your Followed Events',
+      name            :  'Name',
 
-        yousponzoring        :  'Your Sponsored Events',
+      email          :  'E-mail',
 
-        name            :  'Name',
+      location         :  'Location',
 
-        email          :  'E-mail',
+      eventtitle        :  'Event Title',
 
-        location         :  'Location',
+      states          :  'State',
 
-        eventtitle        :  'Event Title',
+      optionsop        :  'Options',
 
-        state          :  'State',
+      yousponzring         :  'Events You are Sponzoring',
 
-        options        :  'Options',
+      title         :  'Title',
 
-        yousponzring         :  'Events You are Sponzoring',
+      starts       :  'Starts',
 
-        title         :  'Title',
+      perks          :  'Perks',
 
-        starts       :  'Starts',
+      kind           :  'Kind',
 
-        perks          :  'Perks',
+      quantity           :  'Quantity',
 
-        kind           :  'Kind',
+      usd           :  'USD',
 
-        quantity           :  'Quantity',
+      navigation        :  'Navigation',
 
-        usd           :  'USD',
+      homeinicio         :  'Home',
 
-        navigation        :  'Navigation',
+      notification         :  'Notification',
 
-        home         :  'Home',
+      notifications       :  'Notifications',
 
-        notification         :  'Notification',
+      friendemail          : 'Friends Email',
 
-        notifications       :  'Notifications',
+      friendmessage       : 'Message to your friend',
 
-        starts           :  'Starts',
+      invitefriendstring       : 'Invite your friend',
 
-        friendemail          : 'Friends Email',
+      friendemailrequired   : 'Email field is required',
 
-        friendmessage       : 'Message to your friend',
+      invitefriendcomplete     :'Your Friend has been invited',
 
-        invitefriendstring       : 'Invite your friend',
+      friendinvitiation      :'Has been invited to know Sponzor.me',
 
-        friendemailrequired   : 'Email field is required',
+      seemore       : 'See More ...',
+      
+      manage          : 'Manage',
 
-        invitefriendcomplete     :'Your Friend has been invited',
+      searchtitle        : 'Search for you next event...',
 
-        invitefriendcomplete     :'Your Friend has been invited',
+      eventbriteMessage     : 'Connect account with EventBrite',
 
-        friendinvitiation      :'Has been invited to know Sponzor.me',
+      eventbriteButton     : 'Connect to Eventbrite!',
 
-        seemore       : 'See More ...',
-        
-        manage          : 'Manage',
+      eventbriteButtonUnconnect : 'Unconnect',
 
-        searchtitle        : 'Search for you next event...',
+      evenbriteNotConnected: 'Opss Something was not good, you will be redirected to the Dashboard Page',
 
-        eventbriteMessage     : 'Connect account with EventBrite',
+      evenbriteConnected: 'You are connected successfuly, you will be redirected to the Dashboard Page',
 
-        eventbriteButton     : 'Connect to Eventbrite!',
+      Import: 'Import',
 
-        eventbriteButtonUnconnect : 'Unconnect',
+      eventbriteEvents: 'List of your Eventbrite Events',
 
-        evenbriteNotConnected: "Opss Something was not good, you will be redirected to the Dashboard Page",
+      comunitySize :'Comunity Size',
 
-        evenbriteConnected: "You are connected successfuly, you will be redirected to the Dashboard Page",
+      meetupMessage :'Connect account with Meetup',
 
-        Import: "Import",
+      meetupButton        : 'Connect to Meetup!',
 
-        eventbriteEvents: "List of your Eventbrite Events",
+      chooseGroup      : 'Choose group',
 
-        comunitySize :"Comunity Size",
+      configureMeetupImport  : 'Configure your import from Meetup',
 
-        meetupMessage :"Connect account with Meetup",
+      configureEventbriteImport : 'Configure your import from eventbrite',
 
-        meetupButton        : 'Connect to Meetup!',
+      eventImage:'Image',
 
-        chooseGroup      : 'Choose group',
+      sponzor :'Sponzor',
 
-        configureMeetupImport  : "Configure your import from Meetup",
+      errorAddingImage:'You must upload a valid image',
 
-        configureEventbriteImport : "Configure your import from eventbrite",
+      errorInNewEventFields:'You must complete appropriately all form fields',
 
-        eventImage:"Image",
+      pasteSponzorsForm:'Place this code in your website and let´s start!',
 
-        sponzor :"Sponzor",
+      newEventInvalidDates:'Invalid dates for the event',
 
-        errorAddingImage:"You must upload a valid image",
+      eventPendingApprobation :'Waiting for the organizer approbation',
 
-        errorInNewEventFields:"You must complete appropriately all form fields",
+      OrganizerName :'Organizer Name',
 
-        pasteSponzorsForm:"Place this code in your website and let's start!",
+      OrganizerEmail :'Organizer Email',
 
-        newEventInvalidDates:"Invalid dates for the event",
+      eventApprobed : 'Event Aprobbed',
 
-        eventPendingApprobation :"Waiting for the organizer approbation",
+      newSponzorEmailNotification : 'new Sponzor is interested in your Event!',
 
-        OrganizerName :"Organizer Name",
+      sponzorButton       : 'Sponzor!',
 
-        OrganizerEmail :"Organizer Email",
+      sponzoringKind       : 'Sponzoring Kind',
 
-        eventApprobed : "Event Aprobbed",
+      description : 'Description',
 
-        newSponzorEmailNotification : "new Sponzor is interested in your Event!",
+      contactOrganizer:'Ask to Organizer',
 
-        sponzorButton       : 'Sponzor!',
+      nextEvent:'Next Event',
 
-        sponzoringKind       : 'Sponzoring Kind',
+      members:'Miembros',
 
-        description : 'Description',
+      sponzorButtonNotSponsor:'You need an Sponzor account to Sponzor this event',
 
-        contactOrganizer:'Ask to Organizer',
+      sponzorButtonNotlogin:'Log in to sponzor',
 
-        nextEvent:'Next Event',
+      eventstate0:'Waiting your approbation',
 
-        members:'Miembros',
+      eventstate1:'Aprobed',
 
-        sponzorButtonNotSponsor:"You need an Sponzor account to Sponzor this event",
+      meetupconnectaccounttest: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 
-        sponzorButtonNotlogin:"Log in to sponzor",
+      eventbriteconnectaccounttest : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 
-        eventstate0:"Waiting your approbation",
+      todo:'Task List',
 
-        eventstate1:"Aprobed",
+      todoEvent:'Event',
 
-        meetupconnectaccounttest: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      chooseEvent:'Choose an Event',
 
-        eventbriteconnectaccounttest : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      todoPeak:'Type of Sponzor',
 
-        /*
-        |--------------------------------------------------------------------------
-        | Task Lists
-        |--------------------------------------------------------------------------
-        */
+      choosepeak:'Choose an Sponzor',
 
-        todo:"Task List",
+      todoTitle : 'Task Title',
 
-        todoEvent:"Event",
+      removeTodo : 'Task Deleted',
 
-        chooseEvent:"Choose an Event",
+      todoDescription : 'Task Description',
 
-        todoPeak:"Type of Sponzor",
+      todosList : 'Tasks Status',
 
-        choosepeak:"Choose an Sponzor",
+      todoActions : 'Actions',
 
-        todoTitle : "Task Title",
+      todosListSponzor : 'My Tasks',
 
-        removeTodo : "Task Deleted",
+      todoStatus : 'Status',
 
-        todoDescription : "Task Description",
+      addTodosListSponzor : 'Add Tasks',
 
-        todosList : "Tasks Status",
+      addSponzorTodo : 'Add Task',
 
-        todoActions : "Actions",
+      taskNoCompleted:'No completed',
 
-        todosListSponzor : "My Tasks",
+      taskCompleted :'Completed',
 
-        todoStatus : "Status",
+      errorInFieldsTask:'You must complete all fields',
 
-        addTodosListSponzor : "Add Tasks",
+      taskCreated:'Task created successfuly',
 
-        addSponzorTodo : "Add Task",
+      NotificationNewSponzorAnEvent: 'You have a new Sponzor for the event <a href="#/sponzors"> :titleEvent </a>',
 
-        taskNoCompleted:"No completed",
+      NotificationOrganizerSponzorAceptance : 'The organizer has accepted your sponzoring in the event <a href="#/sponzors">:titleEvent</a>',
 
-        taskCompleted :"Completed",
+      OrganizerSponzorAceptanceEmailNotification: 'Your sponzoring by the event :titleEvent has been accepted',
 
-        errorInFieldsTask:"You must complete all fields",
+      NotificationOrganizerSponzorDesaceptance:'Your sponzoring by the event <a href="#/sponzors"> :titleEvent </a> has been not accepted',
 
-        taskCreated:"Task created successfuly",
+      OrganizerSponzorDesaceptanceEmailNotification:'Your sponzoring by the event :titleEvent has been not accepted',
 
-        /*
-        |--------------------------------------------------------------------------
-        | Messages for pusher notifications
-        |--------------------------------------------------------------------------
-        */
+      NotificationSponzorDelete:'Your sponzoring by the event :titleEvent has been not accepted and has been removed',
 
-        NotificationNewSponzorAnEvent: 'You have a new Sponzor for the event <a href="#/sponzors"> :titleEvent </a>',
+      NotificationOrganizerDelete:'The sponzoring by the event :titleEvent has been removed by the sponzor',
 
-        NotificationOrganizerSponzorAceptance : 'The organizer has accepted your sponzoring in the event <a href="#/sponzors">:titleEvent</a>',
+      NotificationSponzorDeleteEmailNotification: 'Your sponzoring by the event :titleEvent has been not accepted and has been removed',
 
-        OrganizerSponzorAceptanceEmailNotification: 'Your sponzoring by the event :titleEvent has been accepted',
+      NotificationOrganizerDeleteEmailNotification:'The sponzoring by the event :titleEvent has been removed by the sponzor',
 
-        NotificationOrganizerSponzorDesaceptance:'Your sponzoring by the event <a href="#/sponzors"> :titleEvent </a> has been not accepted',
+      subject: 'Welcome to SponzorMe',
 
-        OrganizerSponzorDesaceptanceEmailNotification:'Your sponzoring by the event :titleEvent has been not accepted',
+      click : 'Click Here',
 
-        NotificationSponzorDelete:'Your sponzoring by the event :titleEvent has been not accepted and has been removed',
+      invitefriend : 'Hello, <br/> <br/> You are invited to use <a href="http://sponzor.me">SponzorMe</a>.',
 
-        NotificationOrganizerDelete:'The sponzoring by the event :titleEvent has been removed by the sponzor',
+      header : '<p dir="ltr"></br>Hi,</br></p><br/><br/><p dir="ltr">My name is Carlos and I’m the founder of SponzorMe. I’m reaching out to say thank you for joining us! This project was born out of a necessity that I had </br>myself every time I would organize an event, and it is a problem that can end with a community and the enthusiasm of its organizers. Please take a moment</br>to read more about what motivates me and the team behind SponzorMe <a href="http://blogen.sponzor.me/">http://blogen.sponzor.me/</a>.</p><br/><p dir="ltr">As you know this is a journey and there are many unknowns so I need your help, any comment, suggestion, trouble or feedback that you have is welcome. I’m here to help.</p><br/><p dir="ltr">You can get in touch with me personally at <a href="mailto:carlos@sponzor.me">carlos@sponzor.me</a></p><br/><p dir="ltr">Please verify your email to get started with the following link:',
+      footer : '</p><br/><p dir="ltr">Again, thanks for joining - is great to meet you :)</p><br/><p dir="ltr">All the best,</p><p>Carlos Rojas</p>',
 
-        NotificationSponzorDeleteEmailNotification: 'Your sponzoring by the event :titleEvent has been not accepted and has been removed',
+      created     : 'Group Created.',  
 
-        NotificationOrganizerDeleteEmailNotification:'The sponzoring by the event :titleEvent has been removed by the sponzor',
+      userexists  : 'User already exists.',
 
+      updated     : 'Group has been updated.',
 
-        /*
-      |--------------------------------------------------------------------------
-      | Language strings for views
-      |--------------------------------------------------------------------------
-      */
-        subject: 'Welcome to SponzorMe',
+      updateproblem : 'There was a problem updating the group.',
 
-        click : 'Click Here',
+      namereq     : 'You must provide a group name.',
 
-        invitefriend : 'Hello, <br/> <br/> You are invited to use <a href="http://sponzor.me">SponzorMe</a>.',
+      groupexists   : 'That group already exists.',
 
-        header : '<p dir="ltr"></br>Hi,</br></p><br/><br/><p dir="ltr">My name is Carlos and I’m the founder of SponzorMe. I’m reaching out to say thank you for joining us! This project was born out of a necessity that I had </br>myself every time I would organize an event, and it is a problem that can end with a community and the enthusiasm of its organizers. Please take a moment</br>to read more about what motivates me and the team behind SponzorMe <a href="http://blogen.sponzor.me/">http://blogen.sponzor.me/</a>.</p><br/><p dir="ltr">As you know this is a journey and there are many unknowns so I need your help, any comment, suggestion, trouble or feedback that you have is welcome. I’m here to help.</p><br/><p dir="ltr">You can get in touch with me personally at <a href="mailto:carlos@sponzor.me">carlos@sponzor.me</a></p><br/><p dir="ltr">Please verify your email to get started with the following link:',
-        footer : '</p><br/><p dir="ltr">Again, thanks for joining - is great to meet you :)</p><br/><p dir="ltr">All the best,</p><p>Carlos Rojas</p>',
+      notfound    : 'Group not found.',
 
-      /*
-      |--------------------------------------------------------------------------
-      | Group Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
-
-      created     : "Group Created.",  
-
-      loginreq    : "Login field required.",
-
-      userexists  : "User already exists.",
-
-      updated     : "Group has been updated.",
-
-      updateproblem : "There was a problem updating the group.",
-
-      namereq     : "You must provide a group name.",
-
-      groupexists   : "That group already exists.",
-
-      notfound    : "Group not found.",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines contain the default error messages used by
-      | the validator class. Some of these rules have multiple versions such
-      | such as the size rules. Feel free to tweak each of these messages.
-      |
-      */
-
-      title        : "Login",
-      rememberme       : "Rememberme",
-      signin       : "Sign Up",
-      forgot : "Forgot Password?", 
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Language strings for views
-      |--------------------------------------------------------------------------
-      */
+      titlelogin        : 'Login',
+      rememberme       : 'Rememberme',
+      signin       : 'Sign Up',
+      forgot : 'Forgot Password?', 
 
       flashsuccess  : 'Exitoso',
 
@@ -1206,203 +947,165 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
 
       register    : 'Sign In',
 
-      login    : "Login",
+      login    : 'Login',
 
-      logout    : "Logout",
+      home      : 'Home',
 
-      home      : "Home",
+      users    : 'Users',
 
-      users    : "Users",
+      user      : 'User',
 
-      user      : "User",
+      groups    : 'Groups',
 
-      groups    : "Groups",
+      helloworld  : 'SponzorMe',
 
-      helloworld  : "SponzorMe",
+      loginstatus : 'You are currently logged in.',
 
-      description : "Events, Sponsors, Marketplace",
+      sessiondata : 'Session Data',
 
-      loginstatus : "You are currently logged in.",
-
-      sessiondata : "Session Data",
-
-      currentusers  : "Current Users",
+      currentusers  : 'Current Users',
 
       options   : 'Options',
 
-      status    : "Status",
+      status    : 'Status',
 
-      active    : "Active",
+      active    : 'Active',
 
-      notactive   : "Not Active",
+      actionedit : 'Edit',
 
-      suspended   : "Suspended",
+      actionsuspend : 'Suspend',
 
-      banned    : "Banned",
+      actionunsuspend : 'Un-Suspend',
 
-      actionedit : "Edit",
+      actionban   : 'Ban',
 
-      actionsuspend : "Suspend",
+      actionunban : 'Un-Ban',
 
-      actionunsuspend : "Un-Suspend",
+      actiondelete : 'Delete',
 
-      actionban   : "Ban",
+      sponsorreg  : 'Sponzor?',
 
-      actionunban : "Un-Ban",
+      organizerreg  : 'Organizer?',
 
-      actiondelete : "Delete",
+      copy  : 'We connect events with Sponzors',
 
-      sponsorreg  : "Sponzor?",
+      nextaction  : 'Just upload your event and let the magic begin...',
 
-      organizerreg  : "Organizer?",
+      testimonialts  : 'Testimonials',
 
-      copy  : "We connect events with Sponzors",
+      blogs  : 'Blog',
 
-      nextaction  : "Just upload your event and let the magic begin...",
+      blogUrl : 'http://blogen.sponzor.me/',
 
-      testimonialt  : "Testimonials",
+      woman : 'Female',
 
-      blog  : "Blog",
+      man : 'Male',
 
-      blogUrl : "http://blogen.sponzor.me/",
+      ageiam  : 'I am',
 
-      woman : "Female",
+      old : 'Old',
 
-      man : "Male",
+      chooseSex : 'Gender',
 
-      ageiam  : "I am",
+      livein  : 'I live in',
 
-      old : "Old",
+      country : 'Country',
 
-      chooseSex : "Gender",
+      state : 'State',
 
-      livein  : "I live in",
+      city  : 'City',
 
-      country : "Country",
+      next  : 'Next',
 
-      state : "State",
+      areyouinterested  : 'Are you interested in?',
 
-      city  : "City",
+      weresendingandemail : 'We sent an email to',
 
-      next  : "Next",
+      toactivateyouraccount : 'to activate your account',
 
-      areyouinterested  : "Are you interested in?",
+      forbidden : 'Forbidden',
 
-      weresendingandemail : "We sent an email to",
+      aboutyou  : 'Tell us about yourself...',
 
-      toactivateyouraccount : "to activate your account",
+      almostdone  : 'Almost Done!',
 
-      forbidden : "Forbidden",
+      team  : 'Team',
 
-      aboutyou  : "Tell us about yourself...",
+      supportUrl  : 'http://support.sponzor.me/',
 
-      almostdone  : "Almost Done!",
+      terms : 'Terms of Service',
 
-      dashboard : "Dashboard",
+      privacy : 'Privacy',
 
-      team  : "Team",
+      getting : 'Lets do it',
 
-      support : "Support",
+      error404 :'Ohh.....This is embarrassing but we could not find your request.',
 
-      supportUrl  : "http://support.sponzor.me/",
+      backhome :'Back to home',
 
-      terms : "Terms of Service",
+      language:'My Prefer language is: ',
 
-      privacy : "Privacy",
+      chooseLang:'Choose language',
 
-      location  : "Location",
+      en:'English',
 
-      getting : "Let's do it",
+      es:'Spanish',
 
-      error404 :"Ohh.....This is embarrassing but we could not find your request.",
-
-      backhome :"Back to home",
-
-      language:"My Prefer language is: ",
-
-      chooseLang:"Choose language",
-
-      en:"English",
-
-      es:"Spanish",
-
-      pt:"Portuguese",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Pagination Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines are used by the paginator library to build
-      | the simple pagination links. You are free to change them to anything
-      | you want to customize your views to better match your application.
-      |
-      */
+      pt:'Portuguese',
 
       previous : '&laquo; Previous',
 
-      next     : 'Next &raquo;',
+      head2privacy:  'About SponzorMe:',
 
-      /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+      head3privacy:  'Our Policy:',
 
-      headprivacy:  "Privacy Policy",
+      head4privacy:  'Consent:',
 
-      head2privacy:  "About SponzorMe:",
+      head5privacy:  'Information We Collect:',
 
-      head3privacy:  "Our Policy:",
+      head6privacy:  '1. Personal Data:',
 
-      head4privacy:  "Consent:",
+      head7privacy:  '2. Non-Personal Data:',
 
-      head5privacy:  "Information We Collect:",
+      head8privacy:  '3. Cookies, Pixels Tags, Local Shared Objects, Web Storage and Similar Technologies:',
 
-      head6privacy:  "1. Personal Data:",
+      head9privacy:  'Our Use of Information That We Collect:',
 
-      head7privacy:  "2. Non-Personal Data:",
+      head10privacy  :  '1. Personal Data:',
 
-      head8privacy:  "3. Cookies, Pixels Tags, Local Shared Objects, Web Storage and Similar Technologies:",
+      head11privacy  :  '2. Non-Personal Data:',
 
-      head9privacy:  "Our Use of Information That We Collect:",
+      head12privacy:  'Our Disclosure of Information That We Collect:',
 
-      head10privacy  :  "1. Personal Data:",
+      head13privacy  :  '1. Personal Data:',
 
-      head11privacy  :  "2. Non-Personal Data:",
+      head14privacy  :  '2. Non-Personal Data:',
 
-      head12privacy:  "Our Disclosure of Information That We Collect:",
+      head15privacy:  'Your Choices:',
 
-      head13privacy  :  "1. Personal Data:",
+      head16privacy  :  'Exclusions:',
 
-      head14privacy  :  "2. Non-Personal Data:",
+      head17privacy  :  'Children:',
 
-      head15privacy:  "Your Choices:",
+      head18privacy:  'Links to Other Web Sites:',
 
-      head16privacy  :  "Exclusions:",
+      head19privacy  :  'Storage and Security:',
 
-      head17privacy  :  "Children:",
+      head20privacy  :  'International Privacy Laws:',
 
-      head18privacy:  "Links to Other Web Sites:",
+      head21privacy:  'US-EU & US-Swiss Safe Harbor Programs:',
 
-      head19privacy  :  "Storage and Security:",
+      head22privacy  :  'Other Terms and Conditions:',
 
-      head20privacy  :  "International Privacy Laws:",
+      head23privacy  :  'Changes to This Privacy Policy:',
 
-      head21privacy:  "US-EU & US-Swiss Safe Harbor Programs:",
+      head24privacy:  'Access to Information:',
 
-      head22privacy  :  "Other Terms and Conditions:",
+      head25privacy  :  'Retention and Deletion:',
 
-      head23privacy  :  "Changes to This Privacy Policy:",
+      head26privacy  :  'Contacting SponzorMe:',
 
-      head24privacy:  "Access to Information:",
-
-      head25privacy  :  "Retention and Deletion:",
-
-      head26privacy  :  "Contacting SponzorMe:",
-
-      head27privacy:  "Dispute Resolution:",
+      head27privacy:  'Dispute Resolution:',
 
       text1:  'Welcome to SponzorMe. SponzorMe, Inc. ("SponzorMe", "we", "us" and/or "our") enables people all over the world to plan, promote, and sell tickets to any event. And we make it easy for everyone to discover events, and to share the events they are attending with the people they know. We do this through our websites and domains, the services available on or through our websites and domains or otherwise provided by us, and the software available on or through our websites and domains or otherwise provided by us (including our mobile applications) (collectively, the "Services").',
 
@@ -1414,240 +1117,115 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
       text6:  'Non-Identifiable Data: When you interact with the Services, we collect certain personally non-identifiable information ("Non-Personal Data"). The Non-Personal Data we collect includes without limitation Internet Protocol (IP) addresses, Internet browser type, other characteristics of your device and software, domain names of your Internet Service Provider, your approximate geographic location, a record of your usage of the Services, the time of your usage and aggregated Personal Data that cannot be used to specifically identify you. Such information, which is collected passively using various technologies, cannot, in and of itself, be used to specifically identify you. We also collect Non-Personal Data (including, without limitation, of the type set forth above) from third parties. The information we collect from third parties may be combined with the information we collect.</br> Aggregated Personal Data: In an ongoing effort to better understand and serve the users of the Services, we often conduct research on our customer demographics, interests and behavior based on Personal Data and other information that we have collected. This research may be compiled and analyzed on an aggregate basis and this aggregate information does not identify you personally and therefore is considered and treated as Non-Personal Data under this Privacy Policy.',
 
       text7:  'Please refer to our Cookie Policy, which is hereby incorporated by reference into this Privacy Policy, for more information about our use of these technologies.',
-      text8:  "We use the Personal Data we collect in a manner that is consistent with this Privacy Policy. We may use the Personal Data as follows:</br>Specific Reason: If you provide Personal Data for a certain reason, we may use the Personal Data in connection with the reason for which it was provided. For instance, if you contact us by e-mail, we will use the Personal Data you provide to answer your question or resolve your problem and will respond to the email address from which the contact came.</br>Access and Use: If you provide Personal Data in order to obtain access to or use of the Services or any functionality thereof, we will use your Personal Data to provide you with access to or use of the Services or functionality and to monitor your use of such Services or functionality. For instance, if you supply payment information (e.g., bank account or credit card information) to the Services for the purpose of purchasing tickets as a Buyer or processing payments as an Organizer, we will use that information to facilitate such purchase or process such payments.</br>Internal Business Purposes: We may use your Personal Data for internal business purposes including without limitation to help us improve the content and functionality of the Services, to better understand our users, to improve the Services, to protect against, identify or address wrongdoing, to enforce our Terms of Service, to manage your account and provide you with customer service, and to generally manage the Services and our business.</br>Marketing: We may use your Personal Data to contact you in the future for our marketing and advertising purposes, including without limitation to inform you about services or events we believe might be of interest to you, to develop promotional or marketing materials and provide those materials to you, and to display content and advertising on or off the Services that we believe might be of relevance to you. In particular, Organizers should note that we may use information we receive or collect regarding Buyers (including without limitation via an Organizer's event registration page) in accordance with the terms of this Privacy Policy, including in the manner set forth above.</br>Organizer Emails: We allow Organizers to use our email system to contact Buyers for their current and past events, so you may receive emails from our system that originate with such Organizers.</br>If we intend to use any Personal Data in any manner that is not consistent with this Privacy Policy, you will be informed of such anticipated use prior to or at the time at which the Personal Data is collected or we will obtain your consent subsequent to such collection but prior to such use.",
+      text8:  'We use the Personal Data we collect in a manner that is consistent with this Privacy Policy. We may use the Personal Data as follows:</br>Specific Reason: If you provide Personal Data for a certain reason, we may use the Personal Data in connection with the reason for which it was provided. For instance, if you contact us by e-mail, we will use the Personal Data you provide to answer your question or resolve your problem and will respond to the email address from which the contact came.</br>Access and Use: If you provide Personal Data in order to obtain access to or use of the Services or any functionality thereof, we will use your Personal Data to provide you with access to or use of the Services or functionality and to monitor your use of such Services or functionality. For instance, if you supply payment information (e.g., bank account or credit card information) to the Services for the purpose of purchasing tickets as a Buyer or processing payments as an Organizer, we will use that information to facilitate such purchase or process such payments.</br>Internal Business Purposes: We may use your Personal Data for internal business purposes including without limitation to help us improve the content and functionality of the Services, to better understand our users, to improve the Services, to protect against, identify or address wrongdoing, to enforce our Terms of Service, to manage your account and provide you with customer service, and to generally manage the Services and our business.</br>Marketing: We may use your Personal Data to contact you in the future for our marketing and advertising purposes, including without limitation to inform you about services or events we believe might be of interest to you, to develop promotional or marketing materials and provide those materials to you, and to display content and advertising on or off the Services that we believe might be of relevance to you. In particular, Organizers should note that we may use information we receive or collect regarding Buyers (including without limitation via an Organizers event registration page) in accordance with the terms of this Privacy Policy, including in the manner set forth above.</br>Organizer Emails: We allow Organizers to use our email system to contact Buyers for their current and past events, so you may receive emails from our system that originate with such Organizers.</br>If we intend to use any Personal Data in any manner that is not consistent with this Privacy Policy, you will be informed of such anticipated use prior to or at the time at which the Personal Data is collected or we will obtain your consent subsequent to such collection but prior to such use.',
       text9:  'Because Non-Personal Data cannot be used to personally identify you, we may use such information for any lawful purpose.',
       text10:  'We are not in the business of selling your Personal Data. We consider this information to be a vital part of our relationship with you. Therefore, we will not sell your Personal Data to third parties, including third party advertisers. There are, however, certain circumstances in which we may disclose, transfer or share your Personal Data with certain third parties without further notice to you, as set forth below:</br>Business Transfers: As we develop our business, we might sell or buy businesses or assets. In the event of a corporate sale, merger, reorganization, dissolution or similar event, Personal Data may be part of the transferred assets. You acknowledge and agree that any successor to or acquirer of SponzorMe (or its assets) will continue to have the right to use your Personal Data and other information in accordance with the terms of this Privacy Policy.</br>Subsidiaries and Affiliates: We may also share your Personal Data with our subsidiaries and/or affiliates for purposes consistent with this Privacy Policy. Our subsidiaries and affiliates will be bound to maintain that Personal Data in accordance with this Privacy Policy.</br>Agents, Consultants and Related Third Parties: We, like many businesses, sometimes engage other companies to perform certain business-related functions. Examples of such functions include mailing information, ticket fulfillment, fraud prevention, maintaining databases and processing payments. When we engage another company to perform such functions, we may provide them with information, including Personal Data, in connection with their performance of such functions.</br>Organizers: When you purchase tickets to, register for or donate to an event or related fundraising page on the Services, you consent to our providing your Personal Data to the Organizers of such event and related fundraising page, if applicable. For fundraising pages we may provide your personal information both to the Organizer charity of the fundraising page and the Organizer of the event to which the fundraising page is linked. These Organizers are not bound to treat your Personal Data in accordance with this Privacy Policy. You agree that we are not responsible for the actions of these Organizers with respect to your Personal Data. It is important that you review the applicable policies of the Organizers of an event (and the related fundraising page, if applicable) before providing Personal Data or other information in connection with that event or related fundraising page.</br>Facebook and Other Third Party Connections: You can connect your SponzorMe account to your accounts on third party services like Facebook, in which case we may collect, use, disclose, transfer and store information relating to your account with such third party services in accordance with this Privacy Policy. For example, if you connect with Facebook, we store your Facebook id, first name, last name, email, location, friends list and profile picture and use them to connect with your Facebook account to provide certain functionality on the Services, like recommending events that your Facebook friends are interested in and sharing the events you are interested in with certain groups of people like your Facebook friends.</br>Legal Requirements: We may disclose your Personal Data if required to do so by law (including, without limitation responding to a subpoena or request from law enforcement, court or government agency) or in the good faith belief that such action is necessary (i) to comply with a legal obligation, (ii) to protect or defend our rights, interests or property or that of third parties, (iii) to prevent, investigate, or identify possible wrongdoing in connection with the Services, (iv) to act in urgent circumstances to protect the personal safety of users of the Services or the public, or (v) to protect against legal liability.',
       text11:  'Because Non-Personal Data cannot be used to personally identify you, we may disclose, transfer or share Non-Personal Data for any lawful purpose.',
-      text12:  "You have several choices available when it comes to your Personal Data:</br>Limit the Personal Data You Provide: You can use the Services without providing any Personal Data or with limiting the Personal Data you provide. If you choose not to provide any Personal Data or limit the Personal Data you provide, you may not be able to use certain functionality of the Services. For instance, in order to open an account, or buy or sell tickets, your name and email address will be required.</br>Opt Out: You can 'opt out' of receiving SponzorMe newsletter emails by logging in, clicking on 'Account' and following the instructions to 'email preferences.'' You may modify your choices at any time in your SponzorMe account. In the event an Organizer uses our system to email you, you will be able to 'opt out' of receiving those communications as well. Please note that if you unsubscribe from receiving a particular Organizer's emails, you will no longer receive emails from the particular Organizer that are sent through our system (but you may still receive emails sent by that Organizer through means other than our system), however, you will still receive SponzorMe communications and communications from other Organizers whose events you have attended or are registered to attend or who have otherwise obtained your email address. Likewise, if you unsubscribe from our communications you will continue to receive communications from Organizers. So you may have to unsubscribe from multiple emails before you stop receiving all communications. You can also unsubscribe from receiving all Organizer emails sent through our system. It may take up to 24 hours for us to process an unsubscribe request. Note that you cannot unsubscribe from update communications about the Services. You can stop receiving Service communications only by contacting us at https://www.SponzorMe.com/contact-us and closing your account. By electing to stop receiving all communications from us or through our system you will no longer receive any updates on your account or on events you are registered to attend or have previously attended, including communications regarding refunds. We do not recommend that you do this unless you plan to no longer use the Services, are not currently registered for an event, are not currently organizing an event and will have no need to receive further communications from us or through our system. Even after you opt out of all communications, we will retain your Personal Data and Non-Personal Data in accordance with this Privacy Policy, however, we will no longer use it to contact you. However, Organizers who have received your Personal Data in accordance with this Privacy Policy may still use that Personal Data to contact you in accordance with their own privacy policies, but they may not use our system to do so.</br>Do Not Track: We currently do not participate in any 'Do Not Track' frameworks that would allow us to respond to signals or other mechanisms from you regarding the collection of your Personal Data.",
+      text12:  'You have several choices available when it comes to your Personal Data:</br>Limit the Personal Data You Provide: You can use the Services without providing any Personal Data or with limiting the Personal Data you provide. If you choose not to provide any Personal Data or limit the Personal Data you provide, you may not be able to use certain functionality of the Services. For instance, in order to open an account, or buy or sell tickets, your name and email address will be required.</br>Opt Out: You can "opt out" of receiving SponzorMe newsletter emails by logging in, clicking on "Account" and following the instructions to "email preferences." You may modify your choices at any time in your SponzorMe account. In the event an Organizer uses our system to email you, you will be able to "opt out" of receiving those communications as well. Please note that if you unsubscribe from receiving a particular Organizer"s emails, you will no longer receive emails from the particular Organizer that are sent through our system (but you may still receive emails sent by that Organizer through means other than our system), however, you will still receive SponzorMe communications and communications from other Organizers whose events you have attended or are registered to attend or who have otherwise obtained your email address. Likewise, if you unsubscribe from our communications you will continue to receive communications from Organizers. So you may have to unsubscribe from multiple emails before you stop receiving all communications. You can also unsubscribe from receiving all Organizer emails sent through our system. It may take up to 24 hours for us to process an unsubscribe request. Note that you cannot unsubscribe from update communications about the Services. You can stop receiving Service communications only by contacting us at https://www.SponzorMe.com/contact-us and closing your account. By electing to stop receiving all communications from us or through our system you will no longer receive any updates on your account or on events you are registered to attend or have previously attended, including communications regarding refunds. We do not recommend that you do this unless you plan to no longer use the Services, are not currently registered for an event, are not currently organizing an event and will have no need to receive further communications from us or through our system. Even after you opt out of all communications, we will retain your Personal Data and Non-Personal Data in accordance with this Privacy Policy, however, we will no longer use it to contact you. However, Organizers who have received your Personal Data in accordance with this Privacy Policy may still use that Personal Data to contact you in accordance with their own privacy policies, but they may not use our system to do so.</br>Do Not Track: We currently do not participate in any "Do Not Track" frameworks that would allow us to respond to signals or other mechanisms from you regarding the collection of your Personal Data.',
       text13: 'This Privacy Policy does not apply to any Personal Data collected by us other than Personal Data collected through the Services. This Privacy Policy shall not apply to any unsolicited information you provide to us or another user or visitor through the Services or through any other means. This includes, but is not limited to, information posted to any public areas of the Services, such as bulletin boards, any ideas for new products or modifications to existing products, claim or demand letters, Digital Millennium Copyright Act notices, and other unsolicited submissions (collectively, "Unsolicited Information"). All Unsolicited Information shall be deemed to be non-confidential and we shall be free to reproduce, use, disclose, distribute and exploit such Unsolicited Information without limitation or attribution.',
-      text14: "We do not knowingly collect Personal Data from children under the age of 13. If you are under the age of 13, please do not submit any Personal Data through the Services. We encourage parents and legal guardians to monitor their children's Internet usage and to help enforce our Privacy Policy by instructing their children never to provide Personal Data through the Services without their permission. If you have reason to believe that a child under the age of 13 has provided Personal Data to us through the Services, please contact us, and we will endeavor to delete that information from our databases.",
+      text14: 'We do not knowingly collect Personal Data from children under the age of 13. If you are under the age of 13, please do not submit any Personal Data through the Services. We encourage parents and legal guardians to monitor their childrens Internet usage and to help enforce our Privacy Policy by instructing their children never to provide Personal Data through the Services without their permission. If you have reason to believe that a child under the age of 13 has provided Personal Data to us through the Services, please contact us, and we will endeavor to delete that information from our databases.',
       text15: 'This Privacy Policy applies only to the Services. The Services may contain links to other websites not operated or controlled by us (the "Third Party Sites"). The policies and procedures we described here do not apply to the Third Party Sites. The links from the Services do not imply that we endorse or have reviewed the Third Party Sites. We suggest contacting those sites directly for information on their privacy policies.',
       text16: 'We may store Personal Data itself or such information may be included in databases owned and maintained by our affiliates, agents or service providers. We take what we believe to be reasonable steps to protect the Personal Data provided via the Services from loss, misuse, unauthorized access, inadvertent disclosure, alteration, and destruction. However, no Internet or e-mail transmission is ever fully secure or error free. In particular, e-mail sent to or from the Services may not be secure. Therefore, you should take special care in deciding what information you send to us via e-mail. Please keep this in mind when disclosing any Personal Data via the Internet.',
       text17: 'If you are visiting our website or using one of our software applications from outside the United States, please be aware that you are sending information (including Personal Data) to the United States where our servers are located. We will hold and process your Personal Data and Non-Personal Data in accordance with privacy laws in the United States and this Privacy Policy. Please note that privacy laws in the United States may not be the same as, and in some cases may be less protective than, the privacy laws in your country.',
-      text18: "We participate in the US-EU & US-Swiss Safe Harbor Frameworks covering the collection, use and retention of personal information gathered in the European Union member countries and Switzerland. Our participation means that we self certify that we adhere to the Safe Harbor principles of notice, choice, onward transfer, security, integrity, access and enforcement with respect to such personal information. For more information about these frameworks and our participation in them, please visit the US Department of Commerce's Safe Harbor website. If you have any questions about our participation, please contact our SponzorMe Safe Harbor Privacy Contact at SponzorMe, Inc., Attn: Privacy Officer, 2081 Center Street, Berkeley, CA 94704, USA, or by email to privacy@SponzorMe.com.",
+      text18: 'We participate in the US-EU & US-Swiss Safe Harbor Frameworks covering the collection, use and retention of personal information gathered in the European Union member countries and Switzerland. Our participation means that we self certify that we adhere to the Safe Harbor principles of notice, choice, onward transfer, security, integrity, access and enforcement with respect to such personal information. For more information about these frameworks and our participation in them, please visit the US Department of Commerces Safe Harbor website. If you have any questions about our participation, please contact our SponzorMe Safe Harbor Privacy Contact at SponzorMe, Inc., Attn: Privacy Officer, 2081 Center Street, Berkeley, CA 94704, USA, or by email to privacy@SponzorMe.com.',
       text19: 'Your access to and use of the Services is subject to the Terms of Service. If you are using the SponzorMe application programming interfaces (the "SponzorMe APIs"), you are subject to the SponzorMe API Terms of Use.',
       text20: 'The Services and our business may change from time to time. As a result, at times it may be necessary for us to make changes to this Privacy Policy. We reserve the right, in our sole discretion, to update or modify this Privacy Policy at any time (collectively, "Modifications"). Modifications to this Privacy Policy will be posted to the SponzorMe website with a change to the "Last Updated" date at the top of this Privacy Policy. In certain circumstances SponzorMe may, but need not, provide you with additional notice of such Modifications, such as via email or with in-Service notifications. Modifications will be effective 30 days following the "Last Updated" date or such other date as communicated in any other notice to you. Please review this policy periodically, and especially before you provide any Personal Data. This Privacy Policy was last updated on the date indicated above. Your continued use of the Services following the effectiveness of any Modifications to this Privacy Policy constitutes acceptance of those Modifications. If any Modification to this Privacy Policy is not acceptable to you, your sole remedy is to cease accessing, browsing and otherwise using the Services.',
       text21: 'Organizers may access and update their Personal Data being stored by us by logging in and visiting the My Account page. Organizers may also contact us directly at the address specified below with respect to Personal Data that is not accessible through the My Account page. Buyers and other non-Organizers do not have a formal account with SponzorMe, however, you can create a formal account by signing up. After signing up, you can update and access your Personal Data on the My Account page. Buyers and other non-Organizers can also contact us directly with requests to update Personal Data at the address specified below. We will take reasonable steps to respond to requests relating to Personal Data within 30 days, however, we may reject requests that we find to be unreasonable (i.e., require disproportionate efforts or material changes to our information systems), impractical or abusive (i.e., repetitive requests, requests made in bad faith, requests that would compromise third party information). Note that you may not have access to or the ability to update Non-Personal Data, much of which is held in aggregate form.',
       text22: 'We may retain your Personal Data as long as you continue to use the Services. You may close your account by contacting us. However, we may retain Personal Data and Non-Personal Data for an additional period as is permitted or required under applicable laws. Even if we delete your Personal Data it may persist on backup or archival media and other information systems.',
       text23: 'Please also feel free to contact us if you have any questions about this Privacy Policy or our information practices. You may contact us by writing to http://www.SponzorMe.com/contact-us or by calling us at 5104176510.',
-      text24: "If you have a complaint about SponzorMe's privacy practices you should write to us at SponzorMe, Inc., Attn: Privacy Officer, 155 5th St, 7th Floor, San Francisco, CA 94103, USA, or by email to privacy@SponzorMe.com. We will take reasonable steps to work with you to attempt to resolve your complaint. As part of our participation in the US-EU & US-Swiss Safe Harbor Frameworks, SponzorMe has appointed TRUSTe as its exclusive dispute resolution mechanism for all Safe Harbor Framework related complaints. You may raise such a complaint with TRUSTe by Internet here or by fax to 415-520-3420 or by mail to the TRUSTe Safe Harbor Compliance Department at the address listed here, but in each case only after first contacting our Privacy Officer with your complaint and allowing us a reasonable amount of time to address your complaint. If you are faxing or mailing TRUSTe to lodge a complaint, you must include the following information: the name of the company, the alleged privacy violation, your contact information, and whether you would like the particulars of your complaint shared with the company. For information about TRUSTe or the operation of TRUSTe's dispute resolution process, click here or request this information from TRUSTe at any of the addresses listed above. The TRUSTe dispute resolution process will be conducted in English.",
+      text24: 'If you have a complaint about SponzorMe´s privacy practices you should write to us at SponzorMe, Inc., Attn: Privacy Officer, 155 5th St, 7th Floor, San Francisco, CA 94103, USA, or by email to privacy@SponzorMe.com. We will take reasonable steps to work with you to attempt to resolve your complaint. As part of our participation in the US-EU & US-Swiss Safe Harbor Frameworks, SponzorMe has appointed TRUSTe as its exclusive dispute resolution mechanism for all Safe Harbor Framework related complaints. You may raise such a complaint with TRUSTe by Internet here or by fax to 415-520-3420 or by mail to the TRUSTe Safe Harbor Compliance Department at the address listed here, but in each case only after first contacting our Privacy Officer with your complaint and allowing us a reasonable amount of time to address your complaint. If you are faxing or mailing TRUSTe to lodge a complaint, you must include the following information: the name of the company, the alleged privacy violation, your contact information, and whether you would like the particulars of your complaint shared with the company. For information about TRUSTe or the operation of TRUSTe´s dispute resolution process, click here or request this information from TRUSTe at any of the addresses listed above. The TRUSTe dispute resolution process will be conducted in English.',
 
+      invalid   : 'Invalid username or password.',
 
-      /*
-      |--------------------------------------------------------------------------
-      | Session Repository Messages
-      |--------------------------------------------------------------------------
-      */
+      notactive :  'You have not yet activated this account. <a href=":url" class="alert-link">Resend Activation Email?</a>',
 
-      invalid   : "Invalid username or password.",
+      suspended : 'Your account has been temporarily suspended.',
 
-      notactive :  "You have not yet activated this account. <a href=':url' class='alert-link'>Resend Activation Email?</a>",
-
-      suspended : "Your account has been temporarily suspended.",
-
-      banned  : "You have been banned.",
-
-      /*
-      |--------------------------------------------------------------------------
-      | Language strings for views
-      |--------------------------------------------------------------------------
-      */
+      banned  : 'You have been banned.',
       eventbrite_msg: 'Please connect your Eventbrite account',
 
       meetup_msg: 'Please connect your Meetup account',
 
-
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines contain the default error messages used by
-      | the validator class. Some of these rules have multiple versions such
-      | such as the size rules. Feel free to tweak each of these messages.
-      |
-      */
-
-      title         : "Register",
-      rememberme       : "Rememberme",
-      signin       : "Sign Up",
-      forgot : "Forgot Password?",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Attributes
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines are used to swap attribute place-holders
-      | with something more reader friendly such as "E-Mail Address" instead
-      | of "email". Your users will thank you.
-      |
-      | The Validator class will automatically search this array of lines it
-      | is attempting to replace the :attribute place-holder in messages.
-      | It's pretty slick. We think you'll like it.
-      |
-      */
-
-      //attributes : {},
+      titleregister         : 'Register',
       attributes_username : 'User',
       attributes_password : 'Password',
       attributes_confirmpassword : 'Confirm password',
 
-     
+      loginreq    :  'Login field required.',
 
-      /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+      exists    :  'User already exists.',
 
-      testimonial1    :  "SponzorMe is a tool that should have been built long ago...",  
+      noaccess    :  'You are not allowed to do that.',
 
-      testimonial2   :  "We needed this tool for every event becoming easier and rewarding...",
+      notupdated  :  'Unable to update profile',
 
-      testimonial3    :  "Thanks to SponzorMe I can focus on creating better content for my community...",
-    /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+      activated   :  'Activation complete. <a href=":url" class="alert-link">You may now login</a>',
 
-      created     :  "Your account has been created. Check your email for the confirmation link.", 
+      notactivated  :  'Activation could not be completed.',
 
-      loginreq    :  "Login field required.",
+      alreadyactive :  'That account has already been activated.',
 
-      exists    :  "User already exists.",
+      emailconfirm  :  'Check your email for the confirmation link.',
 
-      notfound    :  "User not found",
+      emailinfo   :  'Check your email for instructions.',
 
-      noaccess    :  "You are not allowed to do that.",
+      emailpassword :  'Your password has been changed. Check your email for the new password.',
 
-      updated   :  "Profile updated",
+      problem   :  'There was a problem. Please contact the system administrator.',
 
-      notupdated  :  "Unable to update profile",
+      passwordchg :  'Your password has been changed.',
 
-      activated   :  "Activation complete. <a href=':url' class='alert-link'>You may now login</a>",
+      passwordprob  :  'Your password could not be changed.',
 
-      notactivated  :  "Activation could not be completed.",
+      oldpassword :  'You did not provide the correct original password.',
 
-      alreadyactive :  "That account has already been activated.",
+      unsuspended :  'Suspension removed.',
 
-      emailconfirm  :  "Check your email for the confirmation link.",
+      unbanned    :  'User has been unbanned.',
+      accepted: 'The :attribute must be accepted.',
+      active_url: 'The :attribute is not a valid URL.',
+      after: 'The :attribute must be a date after :date.',
+      alpha: 'The :attribute may only contain letters.',
+      alpha_dash: 'The :attribute may only contain letters, numbers, and dashes.',
+      alpha_num: 'The :attribute may only contain letters and numbers.',
+      before: 'The :attribute must be a date before :date.',
+      between_numeric : 'The :attribute must be between :min - :max.',
+      between_file    : 'The :attribute must be between :min - :max kilobytes.',
+      between_string  : 'The :attribute must be between :min - :max characters.',
 
-      emailinfo   :  "Check your email for instructions.",
+      confirmed        : 'The :attribute confirmation does not match.',
+      date             : 'The :attribute is not a valid date.',
+      date_format      : 'The :attribute does not match the format :format.',
+      different        : 'The :attribute and :other must be different.',
+      digits           : 'The :attribute must be :digits digits.',
+      digits_between   : 'The :attribute must be between :min and :max digits.',
+      emailerror            : 'The :attribute format is invalid.',
+      image            : 'The :attribute must be an image.',
+      In               : 'The selected :attribute is invalid.',
+      integer          : 'The :attribute must be an integer.',
+      ip               : 'The :attribute must be a valid IP address.',
+      max_numeric : 'The :attribute may not be greater than :max.',
+      max_file    : 'The :attribute may not be greater than :max kilobytes.',
+      max_string  : 'The :attribute may not be greater than :max characters.',
 
-      emailpassword :  "Your password has been changed. Check your email for the new password.",
+      mimes            : 'The :attribute must be a file of type: :values.',
+      min_numeric : 'The :attribute must be at least :min.',
+      min_file    : 'The :attribute must be at least :min kilobytes.',
+      min_string  : 'The :attribute must be at least :min characters.',
 
-      problem   :  "There was a problem. Please contact the system administrator.",
+      not_in           : 'The selected :attribute is invalid.',
+      numeric          : 'The :attribute must be a number.',
+      regex            : 'The :attribute format is invalid.',
+      required        : 'The :attribute field is required.',
+      required_with    : 'The :attribute field is required when :values is present.',
+      required_without : 'The :attribute field is required when :values is not present.',
+      same             : 'The :attribute and :other must match.',
+      size_numeric : 'The :attribute must be :size.',
+      size_file    : 'The :attribute must be :size kilobytes.',
+      size_string  : 'The :attribute must be :size characters.',
 
-      passwordchg :  "Your password has been changed.",
-
-      passwordprob  :  "Your password could not be changed.",
-
-      oldpassword :  "You did not provide the correct original password.",
-
-      suspended   :  "User has been suspended for :minutes minutes.",
-
-      unsuspended :  "Suspension removed.",
-
-      banned    :  "User has been banned.",
-
-      unbanned    :  "User has been unbanned.",
-
-
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines contain the default error messages used by
-      | the validator class. Some of these rules have multiple versions such
-      | such as the size rules. Feel free to tweak each of these messages.
-      |
-      */
-
-      accepted: "The :attribute must be accepted.",
-      active_url: "The :attribute is not a valid URL.",
-      after: "The :attribute must be a date after :date.",
-      alpha: "The :attribute may only contain letters.",
-      alpha_dash: "The :attribute may only contain letters, numbers, and dashes.",
-      alpha_num: "The :attribute may only contain letters and numbers.",
-      before: "The :attribute must be a date before :date.",
-      //between: {}
-        between_numeric : "The :attribute must be between :min - :max.",
-        between_file    : "The :attribute must be between :min - :max kilobytes.",
-        between_string  : "The :attribute must be between :min - :max characters.",
-
-      confirmed        : "The :attribute confirmation does not match.",
-      date             : "The :attribute is not a valid date.",
-      date_format      : "The :attribute does not match the format :format.",
-      different        : "The :attribute and :other must be different.",
-      digits           : "The :attribute must be :digits digits.",
-      digits_between   : "The :attribute must be between :min and :max digits.",
-      emailerror            : "The :attribute format is invalid.",
-      exists           : "The selected :attribute is invalid.",
-      image            : "The :attribute must be an image.",
-      In               : "The selected :attribute is invalid.",
-      integer          : "The :attribute must be an integer.",
-      ip               : "The :attribute must be a valid IP address.",
-      //max              : {},
-        max_numeric : "The :attribute may not be greater than :max.",
-        max_file    : "The :attribute may not be greater than :max kilobytes.",
-        max_string  : "The :attribute may not be greater than :max characters.",
-
-      mimes            : "The :attribute must be a file of type: :values.",
-      //min              : {},
-        min_numeric : "The :attribute must be at least :min.",
-        min_file    : "The :attribute must be at least :min kilobytes.",
-        min_string  : "The :attribute must be at least :min characters.",
-
-      not_in           : "The selected :attribute is invalid.",
-      numeric          : "The :attribute must be a number.",
-      regex            : "The :attribute format is invalid.",
-      required        : "The :attribute field is required.",
-      required_with    : "The :attribute field is required when :values is present.",
-      required_without : "The :attribute field is required when :values is not present.",
-      same             : "The :attribute and :other must match.",
-      //size             : {},
-        size_numeric : "The :attribute must be :size.",
-        size_file    : "The :attribute must be :size kilobytes.",
-        size_string  : "The :attribute must be :size characters.",
-
-      unique           : "The :attribute has already been taken.",
-      url              : "The :attribute format is invalid.",
-
-      /*
-      |--------------------------------------------------------------------------
-      | Custom Validation Language Lines
-      |--------------------------------------------------------------------------
-      |
-      | Here you may specify custom validation messages for attributes using the
-      | convention "attribute.rule" to name the lines. This makes it quick to
-      | specify a specific custom language line for a given attribute rule.
-      |
-      */
-
-      'custom' : {},
-
-      /*
-      |--------------------------------------------------------------------------
-      | Custom Validation Attributes
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines are used to swap attribute place-holders
-      | with something more reader friendly such as E-Mail Address instead
-      | of "email". This simply helps us make messages a little cleaner.
-      |
-      */
-
-      'attributes' : {},
-
-      /*
-      |--------------------------------------------------------------------------
-      | Language strings for widgets
-      |--------------------------------------------------------------------------
-      */
+      unique           : 'The :attribute has already been taken.',
+      url              : 'The :attribute format is invalid.',
 
       sponzorname:'Sponsor Name',
 
@@ -1669,350 +1247,313 @@ angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 
 
       whichlevelsponzorplaceholder:'Contacts Name',
 
-      submitbutton:'Submit',
-
       price:'Price',
 
       signupform:'Sign Up Form',
 
-      details:"Sponsorship details",
+      details:'Sponsorship details',
 
-      nosponzoremail:"We Sorry, the entered email is not a valid sponzor email.",
+      nosponzoremail:'We Sorry, the entered email is not a valid sponzor email.',
 
-      sponzoringsaveandemailsent:"Your sponzorchip request has been sent please check your email to further instructions",
+      sponzoringsaveandemailsent:'Your sponzorchip request has been sent please check your email to further instructions',
 
-      validationRules:"Please complete all field form",
+      validationRules:'Please complete all field form',
 
-      /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+      testimonial1    :  'SponzorMe is a tool that should have been built long ago...',  
 
-      testimonial1    :  "SponzorMe is a tool that should have been built long ago...",  
+      testimonial2    :  'We needed this tool for every event becoming easier and rewarding...',
 
-      testimonial2    :  "We needed this tool for every event becoming easier and rewarding...",
+      testimonial3    :  'Thanks to SponzorMe I can focus on creating better content for my community...'
+};
 
-      testimonial3    :  "Thanks to SponzorMe I can focus on creating better content for my community...",
+var translationsPT = {
+      dashboard           : 'Dashboard',
 
+      events            : 'Eventos',
 
-      });
+      settings            : 'Configuração',
 
-      $translateProvider.translations('pt', {
+      sponzors            : 'Sponzors',
 
-          /*
-        |--------------------------------------------------------------------------
-        | Language strings for views
-        |--------------------------------------------------------------------------
-        */
-        dashboard           : 'Dashboard',
+      account           : 'Conta',
 
-        events            : 'Eventos',
+      addevent            : 'Adicionar Evento',
 
-        settings            : 'Configuração',
+      seesponzors         : 'Ver Sponzors',
 
-        sponzors            : 'Sponzors',
+      sponzoring          : 'Sponzoring',
 
-        account           : 'Conta',
+      following           : 'Seguinte',
 
-        addevent            : 'Adicionar Evento',
+      logout            : 'Sair',
 
-        seesponzors         : 'Ver Sponzors',
+      about             : 'Sobre o que',
 
-        sponzoring          : 'Sponzoring',
+      support           : 'Apoio',
 
-        following           : 'Seguinte',
+      blog              : 'Blog',
 
-        logout            : 'Sair',
+      balance           : 'Saldo',
 
-        about             : 'Sobre o que',
+      comunity            : 'Comunidade',
 
-        support           : 'Apoio',
+      peak              : 'Beneficios',
 
-        blog              : 'Blog',
+      yourevents          : 'Seus Eventos',
 
-        balance           : 'Saldo',
+      suggestions         : 'Sugestões',
 
-        comunity            : 'Comunidade',
+      latestsponzors        : 'Últimas Sponsors',
 
-        peak              : 'Beneficios',
+      neweventtitle         :  'Tìtulo',
 
-        yourevents          : 'Seus Eventos',
+      neweventtitledescription    :  'Dê um nome distinto',
 
-        suggestions         : 'Sugestões',
+      neweventdescription     :  'Descrição',
 
-        latestsponzors        : 'Últimas Sponsors',
+      neweventdescriptiondescription:  'Diga às pessoas o quão especial o seu evento',
 
-        neweventtitle         :  'Tìtulo',
+      neweventlocation        :  'Localização',
 
-        neweventtitledescription    :  'Dê um nome distinto',
+      neweventlocationdescription :  'Especifica onde está a questão',
 
-        neweventdescription     :  'Descrição',
+      neweventorganizer       :  'Nome Organizer',
 
-        neweventdescriptiondescription:  'Diga às pessoas o quão especial o seu evento',
+      neweventorganizerdescription  :  'Quem é o organizador',
 
-        neweventlocation        :  'Localização',
+      neweventstarts        :  'Inicia',
 
-        neweventlocationdescription :  'Especifica onde está a questão',
+      neweventstartsdescription   :  'A ação começa',
 
-        neweventorganizer       :  'Nome Organizer',
+      neweventends          :  'Termina',
 
-        neweventorganizerdescription  :  'Quem é o organizador',
+      neweventendsdescription   :  'As extremidades de ação!',
 
-        neweventstarts        :  'Inicia',
+      neweventtype          :  'Tipo de evento',
 
-        neweventstartsdescription   :  'A ação começa',
+      neweventtypedescription   :  'Tipo de evento',
 
-        neweventends          :  'Termina',
+      neweventtopic         :  'Tema do evento',
 
-        neweventendsdescription   :  'As extremidades de ação!',
+      neweventtopicdescription    :  'Tema do evento',
 
-        neweventtype          :  'Tipo de evento',
+      neweventprivacy       :  'Lista de Privacidade',
 
-        neweventtypedescription   :  'Tipo de evento',
+      neweventprivacydescription  :  'Lista de Privacidade',
 
-        neweventtopic         :  'Tema do evento',
+      privacyoption0        :  'Página Pública',
 
-        neweventtopicdescription    :  'Tema do evento',
+      privacyoption1        :  'Site privado',
 
-        neweventprivacy       :  'Lista de Privacidade',
+      privacydescription0     :  'Lista em SponzorMe e Search Engines',
 
-        neweventprivacydescription  :  'Lista de Privacidade',
+      privacydescription1     :  'Nenhuma lista evento público',
 
-        privacyoption0        :  'Página Pública',
+      eventsponzors         :  'Sponsors',
 
-        privacyoption1        :  'Site privado',
+      goldSponzor         :  'Patrocinador Ouro',
 
-        privacydescription0     :  'Lista em SponzorMe e Search Engines',
+      silverSponzor         :  'Patrocinador Prata',
 
-        privacydescription1     :  'Nenhuma lista evento público',
+      bronzeSponzor         :  'Bronze Sponsor',
 
-        eventsponzors         :  'Sponsors',
+      buttonsugestions        :  'Botão',
 
-        goldSponzor         :  'Patrocinador Ouro',
+      eventdetails          :  'Detalhes do Evento',
 
-        silverSponzor         :  'Patrocinador Prata',
+      submitbutton          :  'Enviar',
 
-        bronzeSponzor         :  'Bronze Sponsor',
+      deleteEvent           :  'Evento excluído',
 
-        buttonsugestions        :  'Botão',
+      createEventSuccess      :  'O evento foi criado com sucesso',
 
-        eventdetails          :  'Detalhes do Evento',
+      removeEventSuccess      :  'O evento foi removido com sucesso',
 
-        submitbutton          :  'Enviar',
+      eventaditionalseetings    :  'Configurações adicionais',
 
-        deleteEvent           :  'Evento excluído',
+      choosetype          :  '-- Escolha o tipo de --',
 
-        createEventSuccess      :  'O evento foi criado com sucesso',
+      eventprivacy          :  'Tipo',
 
-        removeEventSuccess      :  'O evento foi removido com sucesso',
+      eventtype           :  'Privacidade',
 
-        eventaditionalseetings    :  'Configurações adicionais',
+      typesponzor         :  'Tipo de patrocinador',
 
-        choosetype          :  '-- Escolha o tipo de --',
+      quantitysponzor       :  'Quantidade disponível',
 
-        eventprivacy          :  'Tipo',
+      pricesponzor          :  'Preço',
 
-        eventtype           :  'Privacidade',
+      actionssponzor        :  'Ações',
 
-        typesponzor         :  'Tipo de patrocinador',
+      editaccountname       :  'Nome completo',
 
-        quantitysponzor       :  'Quantidade disponível',
+      editaccountemail        :  'E-mail',
 
-        pricesponzor          :  'Preço',
+      editaccountcompany      :  'Negócio',
 
-        actionssponzor        :  'Ações',
+      editaccountage        :  'Idade',
 
-        editaccountname       :  'Nome completo',
+      editaccountsex        :  'Sexo',
 
-        editaccountemail        :  'E-mail',
+      editaccountlocation     :  'Localização',
 
-        editaccountcompany      :  'Negócio',
+      editaccountdescription    :  'Descrição',
 
-        editaccountage        :  'Idade',
+      editaccount         :  'Editar Conta',
 
-        editaccountsex        :  'Sexo',
+      by                :  'Por',
 
-        editaccountlocation     :  'Localização',
+      close             :  'Desligar',
 
-        editaccountdescription    :  'Descrição',
+      youfollowing          :  'Seus Eventos Seguido',
 
-        editaccount         :  'Editar Conta',
+      yousponzoring         :  'Seus Eventos Patrocinados',
 
-        by              :  'Por',
+      name              :  'Nome',
 
-        close             :  'Desligar',
+      email             :  'E-mail',
 
-        youfollowing          :  'Seus Eventos Seguido',
+      location            :  'Localização',
 
-        yousponzoring         :  'Seus Eventos Patrocinados',
+      eventtitle          :  'Título do Evento',
 
-        name              :  'Nome',
+      states             :  'Estado',
 
-        email             :  'E-mail',
+      optionsop           :  'Opções',
 
-        location            :  'Localização',
+      yousponzring          :  'Eventos que você está patrocinando',
 
-        eventtitle          :  'Título do Evento',
+      title             :  'Título',
 
-        state             :  'Estado',
+      titleinicia             :  'Inicia',
 
-        options           :  'Opções',
+      perks             :  'Benefícios',
 
-        yousponzring          :  'Eventos que você está patrocinando',
+      kind              :  'Tipo',
 
-        title             :  'Título',
+      quantity            :  'Quantidade',
 
-        title             :  'Inicia',
+      usd             :  'USD',
 
-        perks             :  'Benefícios',
+      navigation          :  'Navegação',
 
-        kind              :  'Tipo',
+      homeinicio              :  'Iniciação',
 
-        quantity            :  'Quantidade',
+      notification          :  'Notificação',
 
-        usd             :  'USD',
+      notifications         :  'Notificações',
 
-        navigation          :  'Navegação',
+      starts            :  'Inicia',
 
-        home              :  'Iniciação',
+      friendemail           : 'E-mail do seu amigo',
 
-        notification          :  'Notificação',
+      friendmessage         : 'Mensagem para seu amigo',
 
-        notifications         :  'Notificações',
+      invitefriendstring          : 'Convide seu amigo',
 
-        starts            :  'Inicia',
+      seemore           : 'Veja mais ...',
 
-        friendemail           : 'E-mail do seu amigo',
+      manage            : 'Gerir',
 
-        friendmessage         : 'Mensagem para seu amigo',
+      searchtitle         : 'Procure o seu próximo evento ...',
 
-        invitefriendstring          : 'Convide seu amigo',
+      eventbriteMessage       : 'Conecte-se com a sua conta Eventbrite',
 
-        seemore           : 'Veja mais ...',
+      eventbriteButton        : 'Conectar !',
 
-        manage            : 'Gerir',
+      eventbriteButtonUnconnect   : 'Sair =(',
 
-        searchtitle         : 'Procure o seu próximo evento ...',
+      evenbriteNotConnected     : 'Opss, ',
 
-        eventbriteMessage       : 'Conecte-se com a sua conta Eventbrite',
+      evenbriteConnected      : 'Temos conectado com sucesso contas, algo deu errado. Você será redirecionado para a página inicial.',
 
-        eventbriteButton        : 'Conectar !',
+      Import            : 'Importação',
 
-        eventbriteButtonUnconnect   : 'Sair =(',
+      eventbriteEvents        : 'Liste seus eventos Eventbrite',
 
-        evenbriteNotConnected     : "Opss, ",
+      configureImport       : 'Configure sua importação a partir de Eventbrite',
 
-        evenbriteConnected      : "Temos conectado com sucesso contas, algo deu errado. Você será redirecionado para a página inicial.",
+      comunitySize :'Tamanho da sua comunidade',
 
-        Import            : "Importação",
+      meetupMessage :'Conecte sua conta com Meetup',
 
-        eventbriteEvents        : "Liste seus eventos Eventbrite",
+      meetupButton        : 'Conecte-se com Meetup!',
 
-        configureImport       : "Configure sua importação a partir de Eventbrite",
+      todo:'Listas de tarefas',
 
-        comunitySize :"Tamanho da sua comunidade",
+      todoEvent:'Evento',
 
-        meetupMessage :"Conecte sua conta com Meetup",
+      chooseEvent:'Escolha um Evento',
 
-        meetupButton        : 'Conecte-se com Meetup!',
+      todoPeak:'Tipo de Patrocínio',
 
-        /*
-        |--------------------------------------------------------------------------
-        | Task Lists
-        |--------------------------------------------------------------------------
-        */
+      choosepeak:'Escolha um Patrocinador',
 
-        todo:"Listas de tarefas",
+      removeTodo : 'tarefa excluído',
 
-        todoEvent:"Evento",
+      todoTitle : 'Título da tarefa',
 
-        chooseEvent:"Escolha um Evento",
+      todoDescription : 'Descrição da tarefa',
 
-        todoPeak:"Tipo de Patrocínio",
+      todosList : 'O status da tarefa',
 
-        choosepeak:"Escolha um Patrocinador",
+      todoActions : 'Ações',
 
-        removeTodo : "tarefa excluído",
+      todosListSponzor : 'Minhas tarefas',
 
-        todoTitle : "Título da tarefa",
+      todoStatus : 'Estado',
 
-        todoDescription : "Descrição da tarefa",
+      addTodosListSponzor : 'AAdicionar tarefas',
 
-        todosList : "O status da tarefa",
+      addSponzorTodo : 'Adicionar tarefa',
 
-        todoActions : "Ações",
+      subject                 : 'Bem-vindo ao SponzorMe',
 
-        todosListSponzor : "Minhas tarefas",
+  
+      click                 : 'Clique Aqui',
 
-        todoStatus : "Estado",
+      invitefriend                 : 'Olá, <br/><br/> Você está convidado a usar <a href="http://sponzor.me">SponzorMe</a>.',
 
-        addTodosListSponzor : "AAdicionar tarefas",
-
-        addSponzorTodo : "Adicionar tarefa",
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Language strings for views
-        |--------------------------------------------------------------------------
-        */
-
-        subject                      : 'Bem-vindo ao SponzorMe',
-
-        
-        click                        : 'Clique Aqui',
-
-        invitefriend                 : 'Olá, <br/><br/> Você está convidado a usar <a href="http://sponzor.me">SponzorMe</a>.',
-
-        header                       : '<p dir="ltr">Olá,</p><br/><p dir="ltr">Meu nome é Carlos e eu sou o fundador da SponzorMe. Eu só queria entrar em contato com você e dizer obrigado por se juntar! </br>Eu queria dizer que este projeto nasceu de uma necessidade que eu tinha sempre que organizar um evento e é um problema que muitas </br> vezes acaba com as comunidades e com o entusiasmo de seus organizadores. Se você tiver tempo eu convido você a ler a nossa entrada, </br> onde você pode ver o que motiva a equipe SponzorMe (<a href="http://blogpt.sponzor.me/">http://blogpt.sponzor.me/</a> )</p><p dir="ltr">Como você sabe que esta é uma jornada e sabemos que a maioria das coisas, é por isso que vamos precisar da sua ajuda. </br> Quaisquer comentários, preocupações, problemas, sugestões. Estou disponível para ouvir.</p><br/><p dir="ltr">Meu e-mail é: <a href="mailto:carlos@sponzor.me">carlos@sponzor.me</a></p><br/><p dir="ltr">Para começar você deve confirmar seu e-mail no seguinte link:</p><br/><p dir="ltr">',
-        footer: '</p><br/><p dir="ltr">Mais uma vez obrigado por se juntar - É muito bom conhecê-lo :)</p><br/><p dir="ltr">Um abraço,,</p><p>Carlos Rojas</p>',
-
-      
-      /*
-      |--------------------------------------------------------------------------
-      | Validation Attributes
-      |--------------------------------------------------------------------------
-      |
-      | The following language lines are used to swap attribute place-holders
-      | with something more reader friendly such as "E-Mail Address" instead
-      | of "email". Your users will thank you.
-      |
-      | The Validator class will automatically search this array of lines it
-      | is attempting to replace the :attribute place-holder in messages.
-      | It's pretty slick. We think you'll like it.
-      |
-      */
-
-      //attributes : {},
+      header                       : '<p dir="ltr">Olá,</p><br/><p dir="ltr">Meu nome é Carlos e eu sou o fundador da SponzorMe. Eu só queria entrar em contato com você e dizer obrigado por se juntar! </br>Eu queria dizer que este projeto nasceu de uma necessidade que eu tinha sempre que organizar um evento e é um problema que muitas </br> vezes acaba com as comunidades e com o entusiasmo de seus organizadores. Se você tiver tempo eu convido você a ler a nossa entrada, </br> onde você pode ver o que motiva a equipe SponzorMe (<a href="http://blogpt.sponzor.me/">http://blogpt.sponzor.me/</a> )</p><p dir="ltr">Como você sabe que esta é uma jornada e sabemos que a maioria das coisas, é por isso que vamos precisar da sua ajuda. </br> Quaisquer comentários, preocupações, problemas, sugestões. Estou disponível para ouvir.</p><br/><p dir="ltr">Meu e-mail é: <a href="mailto:carlos@sponzor.me">carlos@sponzor.me</a></p><br/><p dir="ltr">Para começar você deve confirmar seu e-mail no seguinte link:</p><br/><p dir="ltr">',
+      footer: '</p><br/><p dir="ltr">Mais uma vez obrigado por se juntar - É muito bom conhecê-lo :)</p><br/><p dir="ltr">Um abraço,,</p><p>Carlos Rojas</p>',
       attributes_username : 'Usuário',
       attributes_password : 'Senha',
       attributes_confirmpassword : 'Confirme sua senha',
+      testimonial1    :  'SponzorMe é uma ferramenta que deve ter construído há muito tempo...', 
 
+      testimonial2    :  'Precisávamos essa ferramenta para todos os eventos cada vez mais fácil e gratificante...',
 
+      testimonial3    :  'Graças a SponzorMe eu posso me concentrar na criação de mais conteúdo para minha comunidade...'
+};
 
-        /*
-      |--------------------------------------------------------------------------
-      | User Repositiory Messages
-      |--------------------------------------------------------------------------
-      */
+var idiomaselect = '';
 
-      testimonial1    :  "SponzorMe é uma ferramenta que deve ter construído há muito tempo...", 
+var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.bootstrap'])
+.config(function ($translateProvider) {
+      
+      $translateProvider.translations('es', translationsES);
 
-      testimonial2    :  "Precisávamos essa ferramenta para todos os eventos cada vez mais fácil e gratificante...",
+      $translateProvider.translations('en', translationsEN);
 
-      testimonial3    :  "Graças a SponzorMe eu posso me concentrar na criação de mais conteúdo para minha comunidade...",
+      $translateProvider.translations('pt', translationsPT);
 
-
-
-      });
       $translateProvider.preferredLanguage('en');
-      $translateProvider.useSanitizeValueStrategy(null);
+      $translateProvider.useSanitizeValueStrategy('sanitize');
+      
+      })
 
-    })
-;
+      .config(function ($routeProvider) {
+          $routeProvider
+            .when('/', {
+              templateUrl: 'app/views/main.html',
+              controller: 'MainCtrl'
+            })
+            .otherwise({
+              redirectTo: '/'
+            });
+      });
 
-angular.module('sponzorme').controller('setlogin', ['$cookies', function($cookies) {
+sponzorme.controller('setlogin', ['$cookies', function($cookies) {
   // Retrieving a cookie
   var cookiesponzorme = $cookies.cookiesponzorme;
 
@@ -2023,7 +1564,7 @@ angular.module('sponzorme').controller('setlogin', ['$cookies', function($cookie
 }]);
 
 
-angular.module('sponzorme').controller('HomeController', function ($scope, $translate, $cookies) {
+sponzorme.controller('HomeController', function ($scope, $translate, $cookies) {
 
   var cookieini = $cookies.cookiesponzorme;
 
@@ -2038,8 +1579,9 @@ angular.module('sponzorme').controller('HomeController', function ($scope, $tran
   $scope.userfroups = 0;
 
   $scope.changeLanguage = function (key) {
-    console.log(key);
+      console.log(key);
     $translate.use(key);
     idiomaselect = key;
   };
 });
+
