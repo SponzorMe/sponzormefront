@@ -1,0 +1,96 @@
+
+<section ng-controller="LoginController">
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="" href="#/"><p height="45px">SponzorMe</p></a>
+    </div>
+    <div class="collapse navbar-collapse">
+      
+      <section ng-show="userfroups">
+          <ul class="nav navbar-nav">
+            <a href="#/users">{{ 'users' | translate }}</a></li>
+            <a href="#/groups">{{ 'groups' | translate }}</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <a href="#/users">{{ 'users' | translate }}</a></li>
+            <a href="#/groups">{{ 'groups' | translate }}</a></li>
+          </ul>
+      </section>
+      <ul class="nav navbar-nav navbar-right">
+        <section ng-show="vieuser">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/login">{{ 'login' | translate }}</a></li>
+            <li><a href="#/sponsors/create">{{ 'sponsorreg' | translate }}</a></li>
+            <li><a href="#/users/create">{{ 'organizerreg' | translate }}</a></li>
+          </ul> 
+        </section> 
+        <section ng-show="!vieuser">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/users/userId">{{ email.user }}</a></li>
+              <li ng-show="typeuser"><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!typeuser"><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
+            <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
+          </ul> 
+        </section>
+      </ul>
+    </div><!--/.nav-collapse -->
+      
+  </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <form class="form-signin">
+                <input name="_token" type="hidden" value="TLCxXCWkJwef63QePHHnXUdpBGJMGtvRe5sfcgNb">
+                <div class="account-wall">
+                    <img class="profile-img" src="images/photo.png?sz=120" alt="">
+                
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="{{'editaccountemail' | translate }}" autofocus required ng-model="email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder = "{{'attributes_password' | translate }}" required ng-model="password">
+                    </div>
+                        <input class="btn btn-block" type="submit" value="{{'login' | translate}}" ng-click="sendfrom()">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <label class="checkbox">
+                                <input type="checkbox" value="remember-me"/>Remember me   
+                            </label>
+                        </div>
+                        <div class="col-xs-6">
+                            <a class="btn btn-link" href="{{ route('forgotPasswordForm') }}">{{ 'forgot' | translate }}</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="footer">
+  <div class="row">
+  <div class="col-md-4">&nbsp;&nbsp;&nbsp;
+      <p id="newlog">SponzorMe</p>&nbsp;&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('es')"><img height="16px" src="images/spanish.png"></a>&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('en')"><img height="16px" src="images/english.png"></a>&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('pt')"><img height="16px" src="images/pt.png"></a>
+  </div>
+  <div class="col-md-4">
+      <a href="#/testimonials">{{ 'testimonials' | translate }}</a>&nbsp;|&nbsp
+      <a href="http://support.sponzor.me" target="_blank">{{ 'support' | translate }}</a>&nbsp;|&nbsp
+      <a href="http://bloges.sponzor.me/" target="_blank">{{ 'blog' | translate }}</a> 
+      &nbsp|&nbsp{{ 'team' | translate }}&nbsp;|&nbsp
+      <a href="#/privacy" target="_blank">{{ 'privacy' | translate }}</a> 
+  </div>
+  <div class="col-md-4" align="right">
+      Made with Love ❤&nbsp;&nbsp;&nbsp;
+  </div>   
+  </div>
+</div>
+</section>
