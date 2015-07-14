@@ -1775,9 +1775,9 @@ sponzorme.controller('logoutController', function ($scope, $translate, $cookieSt
       $location.path("/");
 });
 
-sponzorme.controller('LoginController', function ($scope, $translate, loginRequest, $base64, $cookie, $location) {
+sponzorme.controller('LoginController', ['$cookies', function ($scope, $translate, loginRequest, $base64, $cookies, $location) {
 
-      var cookie = $cookie.get('cookiesponzorme');
+      var cookie = $cookies.get("cookiesponzorme");
 
       if(cookie == undefined){
             $scope.vieuser = 1;
@@ -1785,7 +1785,7 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
             $scope.vieuser = 0;
       }
 
-      var typeini = $cookie.get('typesponzorme');      
+      var typeini = $cookies.get('typesponzorme');      
       if (typeini != undefined){
          if(typeini == '1'){
            $scope.typeuser = 0;
@@ -1815,14 +1815,14 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                   console.log(adata);
                   var expireDate = new Date();
                   expireDate.setDate(expireDate.getDate() + 1);
-                  $cookie.put('cookiesponzorme', btoa($scope.email+':'+$scope.password), {'expires': expireDate});
-                  $cookie.put('typesponzorme', adata.user.type, {'expires': expireDate});
+                  $cookies.put('cookiesponzorme', btoa($scope.email+':'+$scope.password), {'expires': expireDate});
+                  $cookies.put('typesponzorme', adata.user.type, {'expires': expireDate});
 
-                  $cookie.put('token', btoa($scope.email+':'+$scope.password), {'expires': expireDate});
+                  $cookies.put('token', btoa($scope.email+':'+$scope.password), {'expires': expireDate});
                   var url = $location.host();
 
                   if(url == 'localhost'){
-                        $cookieStore.put('developer', 1, {'expires': expireDate});
+                        $cookies.put('developer', 1, {'expires': expireDate});
                   }
 
                   if(adata.user.type == 1){
@@ -1834,7 +1834,8 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
       }
 
 
-});
+}]);
+
 
 sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $cookieStore, userRequest, ngDialog) {
 
