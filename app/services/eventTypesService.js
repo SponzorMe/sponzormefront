@@ -4,10 +4,10 @@
 * @author Sebastian
 * @version 0.1
 */
-angular.module('eventTypeService', ['ngCookies'])
-	.factory('eventTypeRequest', function($http,$cookieStore) {
+angular.module('eventTypeService', ['ngStorage'])
+	.factory('eventTypeRequest', function($http, $sessionStorage) {
 		var path = "http://api.sponzor.me/"; //API path
-		var token = $cookieStore.get('token');
+		var token = $sessionStorage.token;
 		return {
 			allEventTypes : function(){
 				return $http.get(path + 'event_types');

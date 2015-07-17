@@ -4,10 +4,10 @@
 * @author Sebastian
 * @version 0.1
 */
-angular.module('categoryService', ['ngCookies'])
-	.factory('categoryRequest', function($http,$cookieStore) {
+angular.module('categoryService', ['ngStorage'])
+	.factory('categoryRequest', function($http,$sessionStorage) {
 		var path = "http://api.sponzor.me/"; //API path
-		var token = $cookieStore.get('token');
+		var token = $sessionStorage.token;
 		return {
 			/**
 			* Get all categories
@@ -23,7 +23,7 @@ angular.module('categoryService', ['ngCookies'])
 			* @returns success(function(data, status, headers, config)
 			*/
 			oneCategory : function(categoryId){
-				return $http.get(path + 'categories/' + categoriesId);
+				return $http.get(path + 'categories/' + categoryId);
 				
 			},
 			createCategory : function(data){
@@ -37,14 +37,14 @@ angular.module('categoryService', ['ngCookies'])
 			deleteCategory : function(categoryId){
 				return $http({
 					method: 'DELETE',
-					url: path + 'categories/' + categoriesId,
+					url: path + 'categories/' + categoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
 			editCategoryPatch : function(categoryId,data){
 				return $http({
 					method: 'PATCH',
-					url: path + 'categories/' + categoriesId,
+					url: path + 'categories/' + categoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -52,7 +52,7 @@ angular.module('categoryService', ['ngCookies'])
 			editCategoryPut : function(categoryId,data){
 				return $http({
 					method: 'PUT',
-					url: path + 'categories/' + CategoryId,
+					url: path + 'categories/' + categoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});

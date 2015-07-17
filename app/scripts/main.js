@@ -1655,7 +1655,7 @@ var translatiosnPT = {
 
 var idiomaselect = 'en';
 
-var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService'])
+var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService'])
       .config(function ($translateProvider) {
       
       $translateProvider.translations('es', translationsES);
@@ -1722,44 +1722,52 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
 
 
 
+sponzorme.controller('HomeController', function ($scope, $translate, $sessionStorage, $location) {
+      if($sessionStorage) {
 
-sponzorme.controller('HomeController', function ($scope, $translate, $cookieStore) {
+            var cookie = $sessionStorage.cookiesponzorme;
 
-      var cookie = $cookieStore.get('cookiesponzorme');
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
 
-      if(cookie == undefined){
-            $scope.vieuser = 1;
+            var typeini = $sessionStorage.typesponzorme; 
+
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+
+      
+            $sessionStorage.developer = 1;
+            console.log('ploop');
       }else{
-            $scope.vieuser = 0;
+           $location.path("/"); 
       }
 
-      var typeini = $cookieStore.get('typesponzorme');      
-      if (typeini != undefined){
-         if(typeini == '1'){
-           $scope.typeuser = 0;
-        }else{
-           $scope.typeuser = 1;
-        }   
-      }
-
-  $scope.userfroups = 0;
-
-  $scope.changeLanguage = function (key) {
-      console.log(key);
-    $translate.use(key);
-    idiomaselect = key;
-  };
+      $scope.changeLanguage = function (key) {
+            console.log(key);
+            $translate.use(key);
+            idiomaselect = key;
+      };
 });
 
-sponzorme.controller('logoutController', function ($scope, $translate, $cookieStore, $location) {
+sponzorme.controller('logoutController', function ($scope, $translate, $sessionStorage, $location) {
 
-      $cookieStore.remove('cookiesponzorme');
+      delete $sessionStorage.cookiesponzorme;
 
-      $cookieStore.remove('typesponzorme');
+      delete $sessionStorage.typesponzorme;
 
-      $cookieStore.remove('token');
+      delete $sessionStorage.token;
 
-      $cookieStore.remove('developer');
+      delete $sessionStorage.developer;
 
       $scope.vieuser = 0;
 
@@ -1775,32 +1783,37 @@ sponzorme.controller('logoutController', function ($scope, $translate, $cookieSt
       $location.path("/");
 });
 
-sponzorme.controller('LoginController', ['$cookies', function ($scope, $translate, loginRequest, $base64, $cookies, $location) {
+sponzorme.controller('LoginController', function ($scope, $translate, loginRequest, $base64, $sessionStorage, $location) {
 
-      var cookie = $cookies.get("cookiesponzorme");
+      if($sessionStorage) {
 
-      if(cookie == undefined){
-            $scope.vieuser = 1;
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
       }else{
-            $scope.vieuser = 0;
+           $location.path("/"); 
       }
 
-      var typeini = $cookies.get('typesponzorme');      
-      if (typeini != undefined){
-         if(typeini == '1'){
-           $scope.typeuser = 0;
-        }else{
-           $scope.typeuser = 1;
-        }   
-      }
-
-  $scope.userfroups = 0;
-
-  $scope.changeLanguage = function (key) {
-    console.log(key);
-    $translate.use(key);
-    idiomaselect = key;
-  };
+      $scope.changeLanguage = function (key) {
+      console.log(key);
+      $translate.use(key);
+      idiomaselect = key;
+      };
 
       $scope.sendfrom = function(){
             console.log($scope.email);
@@ -1815,14 +1828,14 @@ sponzorme.controller('LoginController', ['$cookies', function ($scope, $translat
                   console.log(adata);
                   var expireDate = new Date();
                   expireDate.setDate(expireDate.getDate() + 1);
-                  $cookies.put('cookiesponzorme', btoa($scope.email+':'+$scope.password), {'expires': expireDate});
-                  $cookies.put('typesponzorme', adata.user.type, {'expires': expireDate});
+                  $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
+                  $sessionStorage.typesponzorme = adata.user.type;
+                  $sessionStorage.token = btoa($scope.email+':'+$scope.password);
 
-                  $cookies.put('token', btoa($scope.email+':'+$scope.password), {'expires': expireDate});
                   var url = $location.host();
 
                   if(url == 'localhost'){
-                        $cookies.put('developer', 1, {'expires': expireDate});
+                        $sessionStorage.developer = 1;
                   }
 
                   if(adata.user.type == 1){
@@ -1834,38 +1847,40 @@ sponzorme.controller('LoginController', ['$cookies', function ($scope, $translat
       }
 
 
-}]);
+});
 
+sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
 
-sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $cookieStore, userRequest, ngDialog) {
+      if($sessionStorage) {
 
-      var cookie = $cookieStore.get('cookiesponzorme');
+            var cookie = $sessionStorage.cookiesponzorme;
 
-      if(cookie == undefined){
-            $scope.vieuser = 1;
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
       }else{
-            $scope.vieuser = 0;
-      }
-
-      var typeini = $cookieStore.get('typesponzorme');      
-      if (typeini != undefined){
-         if(typeini == '1'){
-           $scope.typeuser = 0;
-        }else{
-           $scope.typeuser = 1;
-        }   
+           $location.path("/"); 
       }
   
 
-  
-
-  $scope.userfroups = 0;
-
-  $scope.changeLanguage = function (key) {
-    console.log(key);
-    $translate.use(key);
-    idiomaselect = key;
-  };
+      $scope.changeLanguage = function (key) {
+            console.log(key);
+            $translate.use(key);
+            idiomaselect = key;
+      };
 
       $scope.sendfrom = function(){   
       console.log($scope.passwordone);
@@ -1922,36 +1937,39 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
 });
 
 
-sponzorme.controller('UsersCreateController', function ($scope, $translate, $cookieStore, userRequest, ngDialog) {
+sponzorme.controller('UsersCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
 
-      var cookie = $cookieStore.get('cookiesponzorme');
+      if($sessionStorage) {
 
-      if(cookie == undefined){
-            $scope.vieuser = 1;
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
       }else{
-            $scope.vieuser = 0;
+           $location.path("/"); 
       }
 
-      var typeini = $cookieStore.get('typesponzorme');      
-      if (typeini != undefined){
-         if(typeini == '1'){
-           $scope.typeuser = 0;
-        }else{
-           $scope.typeuser = 1;
-        }   
-      }
-
-  $scope.userfroups = 0;
-
-  $scope.changeLanguage = function (key) {
-    console.log(key);
-    $translate.use(key);
-    idiomaselect = key;
-  };
+      $scope.changeLanguage = function (key) {
+            console.log(key);
+            $translate.use(key);
+            idiomaselect = key;
+      };
 
       $scope.sendfrom = function(){
-            console.log($scope.passwordone);
-            console.log($scope.passwordtwo);
                   if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){
                         if ($scope.passwordone == $scope.passwordtwo){
                               $scope.objuser = {}
@@ -1987,63 +2005,92 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $coo
 
 });
 
-sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $cookieStore) {
+sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $location) {
 
-      var cookie = $cookieStore.get('cookiesponzorme');
+      if($sessionStorage) {
 
-      if(cookie == undefined){
-            $scope.vieuser = 1;
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
       }else{
-            $scope.vieuser = 0;
+           $location.path("/"); 
       }
 
-      var typeini = $cookieStore.get('typesponzorme');      
-      if (typeini != undefined){
-         if(typeini == '1'){
-           $scope.typeuser = 0;
-        }else{
-           $scope.typeuser = 1;
-        }   
-      }
+      $scope.userfroups = 0;
 
-  $scope.userfroups = 0;
+      $translate.use(idiomaselect);
 
-  $translate.use(idiomaselect);
+      $scope.changeLanguage = function (key) {
+            console.log(key);
+            $translate.use(key);
+            idiomaselect = key;
+      };
 
-  $scope.menuprincipal = 'views/users/menu.html';
+      $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersEventsController', function ($scope, $translate, $cookieStore, FileUploader, eventTypeRequest, eventRequest, ngDialog) {
+sponzorme.controller('UsersEventsController', function ($scope, $translate, $sessionStorage, FileUploader, eventTypeRequest, eventRequest, ngDialog, categoryRequest) {
 
-      var cookie = $cookieStore.get('cookiesponzorme');
+      if($sessionStorage) {
 
-      if(cookie == undefined){
-            $scope.vieuser = 1;
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            var developer = $sessionStorage.developer;      
+            if (developer != undefined){
+               if(developer == '1'){
+                 $scope.developer = 1;
+              }else{
+                 $scope.developer = 0;
+              }   
+            }
+
+            $scope.userfroups = 0;
       }else{
-            $scope.vieuser = 0;
+           $location.path("/"); 
       }
 
-      var typeini = $cookieStore.get('typesponzorme');      
-      if (typeini != undefined){
-         if(typeini == '1'){
-           $scope.typeuser = 0;
-        }else{
-           $scope.typeuser = 1;
-        }   
-      }
-
-      var developer = $cookieStore.get('developer');      
-      if (developer != undefined){
-         if(developer == '1'){
-           $scope.developer = 1;
-        }else{
-           $scope.developer = 0;
-        }   
-      }
+      
 
       eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata){
-            $scope.categorias = {};
-            $scope.categorias.list = adata.eventTypes;
+            $scope.type = {};
+            $scope.type.list = adata.eventTypes;
+      });
+
+      $scope.categorias = {};
+
+      categoryRequest.allCategories($scope.typeuser).success(function(adata){
+            
+            $scope.categorias.list = adata.categories;
       });
 
       $scope.userfroups = 0;
@@ -2159,7 +2206,9 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $coo
             $scope.events.ends = $scope.dtfinal;
             $scope.events.lang = idiomaselect;
             $scope.events.type = $scope.typeevent;
+            $scope.events.category = $scope.categoryRequest;
             $scope.events.privacy = $scope.privacyevent;
+            $scope.events.image = 'test';
 
             eventRequest.createEvent($scope.events).success(function(adata){
                   console.log(adata);
@@ -2187,18 +2236,86 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $coo
             $scope.eventput.lang = lang;
             eventTypeRequest.editEventTypePatch(id, $scope.eventput).success(function(adata){
                   console.log(adata);
-                  $scope.categorias.list[index].id = adata.EventType.id;
-                  $scope.categorias.list[index].name = adata.EventType.name;
-                  $scope.categorias.list[index].description = adata.EventType.description;
-                  $scope.categorias.list[index].lang = adata.EventType.lang;
-                  console.log($scope.categorias);
+                  $scope.type.list[index].id = adata.EventType.id;
+                  $scope.type.list[index].name = adata.EventType.name;
+                  $scope.type.list[index].description = adata.EventType.description;
+                  $scope.type.list[index].lang = adata.EventType.lang;
+                  console.log($scope.type);
                   ngDialog.open({ template: 'templateidsevent' }); 
             }); 
       }
 
       $scope.removeeventtype = function(index){
-            var id = $scope.categorias.list[index].id;
+            var id = $scope.type.list[index].id;
             eventTypeRequest.deleteEventType(id).success(function(adata){
+                  $scope.type.list.splice(index, 1);
+                  if(adata.message == "Not inserted"){
+                        switch(idiomaselect) {
+                            case 'es':
+                                $scope.error_log = translationsES.errorreg;
+                                break;
+                            case 'en':
+                                $scope.error_log = translationsEN.errorreg;
+                                break;
+                            case 'pt':
+                                $scope.error_log = translationsPT.errorreg;
+                                break;
+                        }
+                  }
+
+                  if(adata.message == "Deleted"){
+                        switch(idiomaselect) {
+                            case 'es':
+                                $scope.error_log = translationsES.deleteelement;
+                                break;
+                            case 'en':
+                                $scope.error_log = translationsEN.deleteelement;
+                                break;
+                            case 'pt':
+                                $scope.error_log = translationsPT.deleteelement;
+                                break;
+                        }
+                  }
+                  ngDialog.open({ template: 'templateidsevent' });
+            }); 
+      }
+
+
+
+      $scope.savecategory = function(){
+            $scope.category = {};
+            $scope.category.title = $scope.categorytitle;
+            $scope.category.body = $scope.categorybody;
+            $scope.category.lang = idiomaselect;
+
+            categoryRequest.createCategory($scope.category).success(function(adata){
+                  $scope.categorias.list.push(adata.category);
+                  $scope.categorytitle = "";
+                  $scope.categorybody = "";
+                  ngDialog.open({ template: 'templateidsevent' }); 
+            });
+      }
+
+      $scope.updateeventcategory = function(id, index, titulo, body, lang){
+            console.log(id, index, titulo, body, lang);
+            $scope.categoryput = {};
+            $scope.categoryput.title = titulo;
+            $scope.categoryput.body = body;
+            $scope.categoryput.lang = lang;
+            categoryRequest.editCategoryPatch(id, $scope.categoryput).success(function(adata){
+                  console.log(adata);
+                  $scope.categorias.list[index].id = adata.category.id;
+                  $scope.categorias.list[index].name = adata.category.name;
+                  $scope.categorias.list[index].description = adata.category.description;
+                  $scope.categorias.list[index].lang = adata.category.lang;
+                  console.log($scope.categorias);
+                  ngDialog.open({ template: 'templateidsevent' }); 
+            }); 
+      }
+
+      $scope.removeeventcategory = function(index){
+            var id = $scope.categorias.list[index].id;
+            categoryRequest.deleteCategory(id).success(function(adata){
                   $scope.categorias.list.splice(index, 1);
                   if(adata.message == "Not inserted"){
                         switch(idiomaselect) {
