@@ -5,22 +5,21 @@
 * @version 0.1
 */
 'use strict';
-angular.module('userService', ['ngCookies'])
-	.factory('userRequest', function($http,$cookies) {
+angular.module('userService', ['ngStorage'])
+	.factory('userRequest', function($http,$sessionStorage) {
 		var path = "http://api.sponzor.me/"; //API path
 
-		var token = $cookies.token;
-
-		if(isNaN(token)){
-			token = "";
-		}
+		var token = $sessionStorage.token;
+		console.log(token);
 
 		return {
 			allUsers : function(){
 				return $http.get(path + 'users');
 			},
 			oneUser : function(userId){
+				$http.defaults.headers.common['Authorization'] = 'Basic ' + token;
 				return $http.get(path + 'users/' + userId);
+
 			},
 			createUser : function(data){
 				return $http({

@@ -53,14 +53,14 @@
                     <i class="fa fa-plus"></i>{{'todo' | translate }}
                     <div class="clearfix"></div>
                   </div>
-                  <form class="form-horizontal" role="form" data-ng-controller="todoController">
+                  <form class="form-horizontal" role="form">
                   <!--form field-->
                     <div class="form-group" id="name">
                       <label for="label" class="col-sm-2 control-label">
                         {{'todoEvent' | translate}}
                       </label>
                       <div class="col-sm-5">
-                     	<select ng-model="todo.event" ng-options="event.title for event in events"  ng-change="updatePeak()">
+                     	<select ng-model="todo.event" ng-options="event.title for event in events"  ng-change="updatePeak(event.id)">
               				<option value="">-- {{ 'chooseEvent' | translate }} --</option>
             			</select>
                       </div>
@@ -106,7 +106,7 @@
                 </div>
               </div>
               <!-- A partir de aca se muestran las notas de acuerdo al peak y al sponzor seleccionado -->
-              <div class="row" data-ng-controller="todoController">
+              <div class="row">
               <div class="col-lg-12">
                 <div class="widget">
                   <div class="widget-header">

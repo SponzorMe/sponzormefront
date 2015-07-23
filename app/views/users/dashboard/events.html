@@ -71,6 +71,7 @@
                   <input  type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="locationevent"/>
                 </div>
               </div>
+
               <!--form field-->
               <div class="form-group" id="description">
                 <label for="label" class="col-sm-4 control-label">
@@ -148,7 +149,7 @@
                 <div class="col-sm-7">
                   <select ng-model="typeevent" name="type" class="form-control">
                     <option value="">{{ 'choosetype' | translate }}</option>
-                    <option data-ng-repeat="t in type.list" data-ng-value="t.id">
+                    <option data-ng-repeat="t in typefilter" data-ng-value="t.id">
                       {{t.name}}
                     </option>                
                   </select>
@@ -162,7 +163,7 @@
                 <div class="col-sm-7">
                   <select ng-model="categoryevent" name="type" class="form-control">
                     <option value="">{{ 'choosetype' | translate }}</option>
-                    <option data-ng-repeat="c in categorias.list" data-ng-value="c.id">
+                    <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id">
                       {{c.title}}
                     </option>                
                   </select>
@@ -250,7 +251,7 @@
                   <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
                 </thead>
                   <tbody>
-                    <tr data-ng-repeat="e in eventos.list" data-ng-class="{success : event.current === e.id}">
+                    <tr data-ng-repeat="e in eventos" data-ng-class="{success : event.current === e.id}">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
                       <td class="text-center">{{ e.starts }}</td>
@@ -277,7 +278,7 @@
           <br/>
           <div class="widget">
             <div class="widget-header">
-              <i class="fa fa-trophy"></i> {{ 'peak' | translate }} {{ peaks }}
+              <i class="fa fa-trophy"></i> {{ 'peak' | translate }}
               <div class="clearfix"></div>
             </div>
             <div class="widget-body medium no-padding">
@@ -295,7 +296,7 @@
                     <tr ng-show="loadingpeaks"><td colspan="3"><rd-loading ng-show="loadingpeaks"></rd-loading></td></tr>                  
                     <tr ng-show="!loadingpeaks" data-ng-repeat="p in peaks">
                       <td class="text-center">{{ p.kind }}</td>
-                      <td class="text-center">{{ p.quantity }}</td>
+                      <td class="text-center">{{ p.total_quantity }}</td>
                       <td class="text-center">{{ p.usd }}</td>
                     </tr>
                   </tbody>
@@ -395,21 +396,21 @@
                       {{ 'actionssponzor' | translate }}
                     </th>              
                   </thead>
-                  <tr ng-repeat="p in perks.list">
+                  <tr ng-repeat="p in peaks">
                     <td class="text-center">
                       <input type="text" class="form-control" placeholder="" ng-model="p.id" />
                     </td>   
                     <td class="text-center">
-                      <input type="text" class="form-control" placeholder="" ng-model="p.name" />
+                      <input type="text" class="form-control" placeholder="" ng-model="p.id_event" />
                     </td>
                     <td class="text-center">
-                      <input type="text" class="form-control" placeholder="" ng-model="p.description" />
+                      <input type="text" class="form-control" placeholder="" ng-model="p.kind" />
                     </td>
                     <td class="text-center">
-                      <input type="text" class="form-control" placeholder="" ng-model="p.lang" />
+                      <input type="text" class="form-control" placeholder="" ng-model="p.total_quantity" />
                     </td>
                     <td class="text-center">
-                      <input type="text" class="form-control" placeholder="" ng-model="p.lang" />
+                      <input type="text" class="form-control" placeholder="" ng-model="p.usd" />
                     </td>
                     <td class="text-center">
                       <a href="" ng-click="updateeventperks(p.id, $index, p.name, p.description, p.lang)"><i class="fa fa-refresh"></i></a>

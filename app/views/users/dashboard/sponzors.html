@@ -44,7 +44,7 @@
                 <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
                 <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
               </div>
-                <div class="row" data-ng-controller="sponzorsController">
+                <div class="row">
                   <div class="col-lg-10 col-lg-offset-1">      
                     <div class="widget">
                       <div class="widget-header">
@@ -108,7 +108,7 @@
                             <th>{{ 'todoActions' | translate }}</th>
                           </thead>
                           <tbody>
-                            <tr data-ng-repeat="t in todo.list" ng-class="{success: t.status === 1, warning: t.status === 0}">
+                            <tr data-ng-repeat="t in todo" ng-class="{success: t.status === 1, warning: t.status === 0}">
                               <td>{{ t.title }}</td>
                               <td>{{ t.description }}</td>
                               <td><div ng-if="t.status == 0">{{ 'taskNoCompleted' | translate }}</div><div ng-if="t.status == 1">{{ 'taskCompleted' | translate }}</div></td>
