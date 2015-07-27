@@ -88,7 +88,7 @@
                       {{'editaccountage' | translate}}
                     </label>
                     <div class="col-sm-5">
-                      <input  type="number" data-ng-model="account.age" name="age" class="form-control" />
+                      <input  type="text" data-ng-model="account.age" name="age" class="form-control" />
                     </div>
                   </div>            
                   <!--form field-->
@@ -110,7 +110,7 @@
                       {{'editaccountlocation' | translate}}
                     </label>
                     <div class="col-sm-5">
-                      <input type="text" class="form-control" id="#location" ng-model="account.location" ng-autocomplete="results2" details="details2" options="options2" name="location" ng-click="details2.reference=undefined; account.location=undefined;"/>
+                      <input  type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="account.location"/>
                     </div>
                   </div>
                   <!--form field-->
@@ -119,7 +119,7 @@
                       {{'comunitySize' | translate}}
                     </label>
                     <div class="col-sm-5">
-                      <input  type="number" data-ng-model="account.comunitySize" name="comunity_size" class="form-control" />
+                      <input  type="text" ng-model="account.comunity_size" name="comunity_size" class="form-control" />
                     </div>
                   </div>
                   <!--form field-->
@@ -140,7 +140,7 @@
                                <img ng-src="<%account.image%>" style="border-radius:50%; height:120px; wigth:120px;"> 
                             </div>
                             <div style="margin:25px;">
-                              <input type="file" id="imageInput" nv-file-select uploader="uploader"/>
+                              <input class="col-sm-6 " id="imageInput" type="file" ng-model="temp.image" nv-file-select uploader="uploader"/><br/>
                             </div>
                           </div>
                         <div>               
@@ -176,7 +176,7 @@
                   <h2>{{'eventbriteEvents' | translate}}</h2>
                   <rd-loading ng-hide="account.loadingEventbrite"></rd-loading>
                   <div class="table-responsive" ng-show="account.loadingEventbrite">
-                    <table class="table table-striped" data-ng-controller="eventsController">
+                    <table class="table table-striped">
                       <thead>
                         <th>{{'title' | translate }}</th>
                         <th>{{'location' | translate }}</th>
@@ -206,7 +206,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="widget-body large">
-                    <div  ng-include src="'eventbriteImport.html'" ng-controller="eventsController">
+                    <div  ng-include src="'eventbriteImport.html'">
                   </div>
                 </div>
             </div>      
@@ -218,7 +218,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="widget-body large">
-                    <div  ng-include src="'eventbriteImport.html'" ng-controller="eventsController">
+                    <div  ng-include src="'eventbriteImport.html'">
                   </div>
                 </div>
             </div>      

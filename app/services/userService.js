@@ -10,7 +10,6 @@ angular.module('userService', ['ngStorage'])
 		var path = "http://api.sponzor.me/"; //API path
 
 		var token = $sessionStorage.token;
-		console.log(token);
 
 		return {
 			allUsers : function(){

@@ -1655,7 +1655,7 @@ var translatiosnPT = {
 
 var idiomaselect = 'en';
 
-var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService'])
+var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService'])
       .config(function ($translateProvider) {
       
       $translateProvider.translations('es', translationsES);
@@ -1715,9 +1715,17 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
                   templateUrl: 'views/users/dashboard/sponzors.html',
                   controller: 'UsersSponzorsController'
             })
+            .when( '/users/friend',{
+                  templateUrl: 'views/users/dashboard/friend.html',
+                  controller: 'UsersFriendController'
+            })
             .when( '/users/todo',{
                   templateUrl: 'views/users/dashboard/todo.html',
                   controller: 'UsersTodoController'
+            })
+            .when('/users/settings',{
+                  templateUrl: 'views/users/dashboard/settings.html',
+                  controller: 'UsersSettingsController'
             })
             .otherwise({
               redirectTo: '/'
@@ -2015,7 +2023,7 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
 
 });
 
-sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $location) {
+sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $location, userRequest, perkRequest) {
 
       if($sessionStorage) {
 
@@ -2050,6 +2058,52 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             $translate.use(key);
             idiomaselect = key;
       };
+
+      $scope.eventos = {};
+      $scope.eventos.size = 0;
+
+      $scope.sponzors = {};
+      $scope.sponzors.size = 0;
+
+      $scope.sponzors.balance = 0;
+
+      $scope.users = {};
+      $scope.users.size = 0;
+
+      userRequest.oneUser($sessionStorage.id).success(function(adata){
+            $scope.events = [];
+            $scope.users.size = adata.data.user.comunity_size;
+            angular.forEach(adata.data.user.events, function(value, key) {
+                  if(value.lang == idiomaselect){
+                        this.push(value);   
+                  }
+            },$scope.events);
+
+            for (var i = 0 ; i <= $scope.events.length; i++) {
+                  $scope.eventos.size = i;
+            };
+
+            $scope.peaks = [];
+
+            perkRequest.onePerk($scope.events[0].id).success(function(adata){ 
+                $scope.peaks.push(adata.data.Perk);
+                $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
+            });
+            
+      });
+
+      $scope.$watch('event.current', function(newvalue, oldvalue){
+            $scope.loadingpeaks=true;
+            if($scope.event.current){
+                  //Mostramos el boton de cargar.            
+                  perkRequest.onePerk(newvalue).success(function(adata) 
+                  {   
+                      $scope.peaks = [];             
+                      $scope.peaks.push(adata.data.Perk);
+                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
+                  });           
+            }
+      });
 
       $scope.menuprincipal = 'views/users/menu.html';
 });
@@ -2253,8 +2307,6 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   url: 'http://localhost/sponzormeyeo/app/upload.php'
             });
 
-      console.info('uploader', uploader);
-
       $scope.newEvent = function(){
 
             uploader.uploadAll();
@@ -2437,7 +2489,7 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
 
 });
 
-sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $cookies) {
+sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $cookies, taskSponzorRequest, userRequest, eventRequest, perkTaskRequest) {
 
   var cookieini = $cookies.cookiesponzorme;
 
@@ -2457,11 +2509,17 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $c
 
   $scope.menuprincipal = 'views/users/menu.html';
 
+      $scope.todo = []
+
+      perkTaskRequest.allPerkTasks().success(function(adata){
+            $scope.todo = adata.PerkTasks; 
+      });
+
 
 });
 
 
-sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest) {
+sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest) {
 
       if($sessionStorage) {
 
@@ -2497,13 +2555,53 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $s
             idiomaselect = key;
       };
 
-      taskSponzorRequest.oneTaskSponzor('1').success(function(dtada){
-            console.log(dtada.TasksSponzor);
-            $scope.todo = dtada.TasksSponzor;
+      $scope.sponzors = []
+
+      sponzorshipRequest.allSponzorships().success(function(adata){
+            console.log(adta);
+            $scope.sponzors = adata; 
+      });
+
+      $scope.todo = []
+
+      perkTaskRequest.allPerkTasks().success(function(adata){
+            $scope.todo = adata.PerkTasks; 
       });
 
       $scope.menuprincipal = 'views/users/menu.html';
 });
+
+sponzorme.controller('UsersFriendController', function ($scope, $translate, $sessionStorage) {
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+  $scope.menuprincipal = 'views/users/menu.html';
+
+
+});
+
 
 sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, userRequest, eventRequest, perkTaskRequest) {
 
@@ -2551,6 +2649,12 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
             },$scope.events);
       });
 
+      $scope.todo = []
+
+      perkTaskRequest.allPerkTasks().success(function(adata){
+            $scope.todo = adata.PerkTasks; 
+      });
+
       $scope.updatePeak = function(){
             eventRequest.oneEvent($scope.todo.event.id).success(function(adata){
                   console.log(adata);
@@ -2589,6 +2693,58 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
       }
 
       $scope.menuprincipal = 'views/users/menu.html';
+});
+
+sponzorme.controller('UsersSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader) {
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      userRequest.oneUser($sessionStorage.id).success(function(adata){
+            $scope.account = [];
+            console.log(adata);
+            $scope.account = adata.data.user;
+      });
+
+      $scope.editAccount = function(){
+            console.log($scope.account);
+            $scope.account.location = $scope.account.location.formatted_address;
+            userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata){
+                  console.log(adata);
+                  $scope.account = adata.User;
+            });
+      }
+
+      var uploader = $scope.uploader = new FileUploader({
+                  url: 'http://localhost/sponzormeyeo/app/upload.php'
+            });
+
+      console.info('uploader', uploader);
+
+  $scope.menuprincipal = 'views/users/menu.html';
+
+
 });
 
 

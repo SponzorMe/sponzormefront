@@ -111,7 +111,7 @@
             <div class="widget">
               <div class="widget-header">
                 <i class="fa fa-tasks"></i> {{ 'events' | translate }}
-                <a href="#/events" class="pull-right">{{ 'manage' | translate }}</a>
+                <a href="#/users/events" class="pull-right">{{ 'manage' | translate }}</a>
               </div>
               <div class="widget-body medium no-padding">
                 <div class="table-responsive">
@@ -125,7 +125,7 @@
                     </tr>
                   </thead>
                     <tbody>
-                      <tr data-ng-repeat="e in eventos.list" data-ng-class="{success : event.current === e.id}">
+                      <tr data-ng-repeat="e in events" data-ng-class="{success : event.current === e.id}">
                         <td class="text-center">{{ e.title }}</td>
                         <td class="text-center">{{ e.location }}</td>
                         <td class="text-center">{{ e.starts }}</td>
@@ -145,7 +145,7 @@
           <div class="col-lg-6">
             <div class="widget">
               <div class="widget-header">
-                <i class="fa fa-trophy"></i> {{ 'peak' | translate }} {{ peaks }}
+                <i class="fa fa-trophy"></i> {{ 'peak' | translate }}
                 <div class="clearfix"></div>
               </div>
               <div class="widget-body medium no-padding">
@@ -162,7 +162,7 @@
                       <tr ng-show="loadingpeaks"><td colspan="3"><rd-loading ng-show="loadingpeaks"></rd-loading></td></tr>                  
                       <tr ng-show="!loadingpeaks" data-ng-repeat="p in peaks">
                         <td class="text-center">{{ p.kind }}</td>
-                        <td class="text-center">{{ p.quantity }}</td>
+                        <td class="text-center">{{ p.total_quantity }}</td>
                         <td class="text-center">{{ p.usd }}</td>
                       </tr>
                     </tbody>
