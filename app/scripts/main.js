@@ -2105,6 +2105,26 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             }
       });
 
+      $scope.rss = [];
+      var blogUrl= $('#page').find("#blogUrl");
+      //console.log(blogUrl);
+      var url=blogUrl+"feeds/posts/default";
+      var url = 'http://blogen.sponzor.me/feeds/posts/default';
+      $.ajax({
+        url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+        dataType: 'json',
+        success: function(data) {
+          //console.log(data);
+            for(i=0;i<data.responseData.feed.entries.length;i++)
+            {
+                 $scope.rss[i]={
+                    "title":data.responseData.feed.entries[i].title,
+                    "link":data.responseData.feed.entries[i].link
+                };
+            }
+        }
+      });
+
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
