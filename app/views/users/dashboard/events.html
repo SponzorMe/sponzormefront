@@ -13,10 +13,10 @@
                     <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">luisj135@gmail.com</li>
+                    <li class="dropdown-header">{{emailuser}}</li>
                     <li class="divider"></li>
                     <li class="link">
-                      <a href="#/settings">{{ 'settings' | translate }}</a>
+                      <a href="#/users/settings">{{ 'settings' | translate }}</a>
                     </li>
                     <li class="divider"></li>
                     <li class="link">
@@ -260,9 +260,9 @@
                       <td class="text-center">{{ e.privacy }}</td>
                       <td class="text-center"><a href="" ng-click="imageEvent(e.image)"><i class="fa fa-file-image-o"></i></a></td>
                       <td class="text-center">
-                        <a href="event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i></a> 
+                        <a href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i></a> 
                         <a href="form/event/{{ e.id }}" target="_blank"><i class="fa fa-code"></i></a> 
-                        <a href="" ng-click="editEvent(e.id)"><i class="fa fa-edit"></i></a> 
+                        <a href="" data-ng-click="editEvent(e.id)"><i class="fa fa-edit"></i></a> 
                         <a href="" ng-click="removeEvent(e.id)"><i class="fa fa-trash-o"></i></a> 
                         <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy" ng-show="event.current === e.id"></i></a> 
                         <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy text-danger" ng-show="event.current != e.id"></i></a>
@@ -396,7 +396,7 @@
                       {{ 'actionssponzor' | translate }}
                     </th>              
                   </thead>
-                  <tr ng-repeat="p in peaks">
+                  <tr ng-repeat="p in peakslist">
                     <td class="text-center">
                       <input type="text" class="form-control" placeholder="" ng-model="p.id" />
                     </td>   

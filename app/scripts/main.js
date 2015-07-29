@@ -1727,6 +1727,10 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
                   templateUrl: 'views/users/dashboard/settings.html',
                   controller: 'UsersSettingsController'
             })
+            .when('/sponsors/dashboard', {
+                  templateUrl: 'views/sponsors/dashboard/main.html',
+                  controller: 'SponsorsMainController'
+              })
             .otherwise({
               redirectTo: '/'
             });
@@ -1759,19 +1763,17 @@ sponzorme.controller('HomeController', function ($scope, $translate, $sessionSto
 
       
             $sessionStorage.developer = 1;
-            console.log('ploop');
       }else{
            $location.path("/"); 
       }
 
       $scope.changeLanguage = function (key) {
-            console.log(key);
             $translate.use(key);
             idiomaselect = key;
       };
 });
 
-sponzorme.controller('logoutController', function ($scope, $translate, $sessionStorage, $location) {
+sponzorme.controller('logoutController', function ($scope, $translate, $sessionStorage, $location, $localStorage) {
 
       delete $sessionStorage.cookiesponzorme;
 
@@ -1784,6 +1786,8 @@ sponzorme.controller('logoutController', function ($scope, $translate, $sessionS
       delete $sessionStorage.id;
 
       delete $sessionStorage.email;
+
+      $localStorage.$reset();
 
       $scope.vieuser = 0;
 
@@ -1826,14 +1830,11 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
       }
 
       $scope.changeLanguage = function (key) {
-      console.log(key);
-      $translate.use(key);
-      idiomaselect = key;
+            $translate.use(key);
+            idiomaselect = key;
       };
 
       $scope.sendfrom = function(){
-            console.log($scope.email);
-            console.log($scope.password);
             $scope.objuser = {}
             $scope.objuser.email = $scope.email;
             $scope.objuser.password = $scope.password;
@@ -1841,7 +1842,6 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
             $scope.objuser.lang = idiomaselect
 
             loginRequest.login($scope.objuser).success(function(adata){
-                  console.log(adata);
                   var expireDate = new Date();
                   expireDate.setDate(expireDate.getDate() + 1);
                   $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
@@ -1895,14 +1895,11 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
   
 
       $scope.changeLanguage = function (key) {
-            console.log(key);
             $translate.use(key);
             idiomaselect = key;
       };
 
       $scope.sendfrom = function(){   
-      console.log($scope.passwordone);
-      console.log($scope.passwordtwo);
             if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){
                   if ($scope.passwordone == $scope.passwordtwo){
                         $scope.objuser = {}
@@ -1914,11 +1911,9 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                         $scope.objuser.name = $scope.name + " " + $scope.lastname; 
 
                         userRequest.createUser($scope.objuser).success(function(adata){
-                              console.log(adata);
                               if(adata.message == "Not inserted"){
                                     switch(idiomaselect) {
                                         case 'es':
-                                        console.log(translationsES);
                                             $scope.error_log = translationsES.errorreg;
                                             break;
                                         case 'en':
@@ -1982,7 +1977,6 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
       }
 
       $scope.changeLanguage = function (key) {
-            console.log(key);
             $translate.use(key);
             idiomaselect = key;
       };
@@ -1999,11 +1993,9 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                               $scope.objuser.name = $scope.name + " " + $scope.lastname; 
 
                               userRequest.createUser($scope.objuser).success(function(adata){
-                                    console.log(adata);
                                     if(adata.message == "Not inserted"){
                                           switch(idiomaselect) {
                                               case 'es':
-                                              console.log(translationsES);
                                                   $scope.error_log = translationsES.errorreg;
                                                   break;
                                               case 'en':
@@ -2023,7 +2015,7 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
 
 });
 
-sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $location, userRequest, perkRequest) {
+sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, perkRequest) {
 
       if($sessionStorage) {
 
@@ -2049,12 +2041,13 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
            $location.path("/"); 
       }
 
+      $scope.emailuser = $sessionStorage.email;
+
       $scope.userfroups = 0;
 
       $translate.use(idiomaselect);
 
       $scope.changeLanguage = function (key) {
-            console.log(key);
             $translate.use(key);
             idiomaselect = key;
       };
@@ -2070,10 +2063,36 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
       $scope.users = {};
       $scope.users.size = 0;
 
-      userRequest.oneUser($sessionStorage.id).success(function(adata){
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  $scope.events = [];
+                  $scope.users.size = adata.data.user.comunity_size;
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
+                  angular.forEach(adata.data.user.events, function(value, key) {
+                        if(value.lang == idiomaselect){
+                              this.push(value);   
+                        }
+                  },$scope.events);
+
+                  for (var i = 0 ; i <= $scope.events.length; i++) {
+                        $scope.eventos.size = i;
+                  };
+
+                  $scope.peaks = [];
+
+                  perkRequest.onePerk($scope.events[0].id).success(function(adata){ 
+                      $scope.peaks.push(adata.data.Perk);
+                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
+                  });
+                  
+            });
+      }else{
+
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
             $scope.events = [];
-            $scope.users.size = adata.data.user.comunity_size;
-            angular.forEach(adata.data.user.events, function(value, key) {
+            $scope.users.size = sponzormeObj.comunity_size;
+            angular.forEach(sponzormeObj.events, function(value, key) {
                   if(value.lang == idiomaselect){
                         this.push(value);   
                   }
@@ -2088,9 +2107,8 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             perkRequest.onePerk($scope.events[0].id).success(function(adata){ 
                 $scope.peaks.push(adata.data.Perk);
                 $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
-            });
-            
-      });
+            }); 
+      }
 
       $scope.$watch('event.current', function(newvalue, oldvalue){
             $scope.loadingpeaks=true;
@@ -2107,14 +2125,12 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
 
       $scope.rss = [];
       var blogUrl= $('#page').find("#blogUrl");
-      //console.log(blogUrl);
       var url=blogUrl+"feeds/posts/default";
       var url = 'http://blogen.sponzor.me/feeds/posts/default';
       $.ajax({
         url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
         dataType: 'json',
         success: function(data) {
-          //console.log(data);
             for(i=0;i<data.responseData.feed.entries.length;i++)
             {
                  $scope.rss[i]={
@@ -2128,7 +2144,7 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersEventsController', function ($scope, $translate, $sessionStorage, FileUploader, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest) {
+sponzorme.controller('UsersEventsController', function ($scope, $translate, $sessionStorage, $localStorage, FileUploader, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $location) {
 
       if($sessionStorage) {
 
@@ -2163,6 +2179,8 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
            $location.path("/"); 
       }
 
+      $scope.emailuser = $sessionStorage.email;
+
       $scope.event = {};
       $scope.event.current = "";
 
@@ -2192,21 +2210,72 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
       });
 
       $scope.eventos = {};
+      
+
+      $scope.sponzors = {};
+      $scope.sponzors.size = 0;
+
+      $scope.sponzors.balance = 0;
+
+      $scope.users = {};
+      $scope.users.size = 0;
 
       $scope.peaks = [];
 
-      userRequest.oneUser($sessionStorage.id).success(function(adata){
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  $scope.events = [];
+                  $scope.eventos = [];
+                  $scope.users.size = adata.data.user.comunity_size;
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
+                  angular.forEach(adata.data.user.events, function(value, key) {
+                        if(value.lang == idiomaselect){
+                              this.push(value);   
+                        }
+                  },$scope.eventos);
+
+                  for (var i = 0 ; i <= $scope.events.length; i++) {
+                        $scope.eventos.size = i;
+                  };
+
+                  $scope.peaks = [];
+
+                  perkRequest.onePerk($scope.eventos[0].id).success(function(adata){ 
+                      $scope.peaks.push(adata.data.Perk);
+                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
+                  });
+                  
+            });
+      }else{
+
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+
             $scope.eventos = [];
-            angular.forEach(adata.data.user.events, function(value, key) {
+            angular.forEach(sponzormeObj.events, function(value, key) {
                   if(value.lang == idiomaselect){
                         this.push(value);   
                   }
             },$scope.eventos);
+
+            $scope.peaks = [];
+            $scope.peakslist = [];
+
             perkRequest.onePerk($scope.eventos[0].id).success(function(adata){ 
                 $scope.peaks.push(adata.data.Perk);
                 $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
+            }); 
+      }
+
+      
+
+      var url = $location.host();
+
+      if(url == 'localhost'){
+            perkRequest.allPerks().success(function(adata){ 
+                $scope.peakslist = adata.Perk;      
             });
-      });
+      }
 
       
 
@@ -2301,12 +2370,10 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
             $scope.category.description = $scope.descriptionevventtype;
             $scope.category.lang = idiomaselect;
             eventTypeRequest.createEventType($scope.category).success(function(adata){
-                  console.log(adata);
                   $scope.nameevettype = '';
                   $scope.descriptionevventtype = '';
                   $scope.msgevent = adata.message;
                   $scope.categorias.list.push(adata.eventype);
-                  console.log($scope.categorias);
             });
       }
 
@@ -2345,8 +2412,6 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
             $scope.events.image = '/test.jpg';
             $scope.events.organizer = $sessionStorage.id;
             eventRequest.createEvent($scope.events).success(function(adata){
-                  console.log(adata);
-                  console.log($scope.sponzors);
                   angular.forEach($scope.sponzors, function(value, key) {
                         $scope.perkitems = {};
                         $scope.perkitems.kind = value.kind;
@@ -2358,9 +2423,15 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                         });
                         
                   },$scope.peaks);
-                  console.log($scope.peaks);
                   
                   $scope.eventos.push(adata.event);
+                  $scope.events = {};
+            });
+      }
+
+      $scope.editEvent = function(idevent){
+            eventRequest.oneEvent(idevent).success(function(adata){
+                  console.log(adata);
             });
       }
 
@@ -2388,18 +2459,15 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
       }
 
       $scope.updateeventtype = function(id, index, name, description, lang){
-            console.log(id, index, name, description, lang);
             $scope.eventput = {};
             $scope.eventput.name = name;
             $scope.eventput.description = description;
             $scope.eventput.lang = lang;
             eventTypeRequest.editEventTypePatch(id, $scope.eventput).success(function(adata){
-                  console.log(adata);
                   $scope.type.list[index].id = adata.EventType.id;
                   $scope.type.list[index].name = adata.EventType.name;
                   $scope.type.list[index].description = adata.EventType.description;
                   $scope.type.list[index].lang = adata.EventType.lang;
-                  console.log($scope.type);
                   ngDialog.open({ template: 'templateidsevent' }); 
             }); 
       }
@@ -2456,18 +2524,15 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
       }
 
       $scope.updateeventcategory = function(id, index, titulo, body, lang){
-            console.log(id, index, titulo, body, lang);
             $scope.categoryput = {};
             $scope.categoryput.title = titulo;
             $scope.categoryput.body = body;
             $scope.categoryput.lang = lang;
             categoryRequest.editCategoryPatch(id, $scope.categoryput).success(function(adata){
-                  console.log(adata);
                   $scope.categorias.list[index].id = adata.category.id;
                   $scope.categorias.list[index].name = adata.category.name;
                   $scope.categorias.list[index].description = adata.category.description;
                   $scope.categorias.list[index].lang = adata.category.lang;
-                  console.log($scope.categorias);
                   ngDialog.open({ template: 'templateidsevent' }); 
             }); 
       }
@@ -2509,37 +2574,8 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
 
 });
 
-sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $cookies, taskSponzorRequest, userRequest, eventRequest, perkTaskRequest) {
 
-  var cookieini = $cookies.cookiesponzorme;
-
-  if(isNaN(cookieini)){
-     $scope.vieuser = 1;
-  }else{
-     $scope.vieuser = 0;
-  }
-
-  $scope.typeuser = 1;
-
-  $scope.userfroups = 0;
-
-  console.log(idiomaselect);
-
-  $translate.use(idiomaselect);
-
-  $scope.menuprincipal = 'views/users/menu.html';
-
-      $scope.todo = []
-
-      perkTaskRequest.allPerkTasks().success(function(adata){
-            $scope.todo = adata.PerkTasks; 
-      });
-
-
-});
-
-
-sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest) {
+sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest) {
 
       if($sessionStorage) {
 
@@ -2565,28 +2601,37 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $s
            $location.path("/"); 
       }
 
+      $scope.emailuser = $sessionStorage.email;
+
       $scope.userfroups = 0;
 
       $translate.use(idiomaselect);
 
       $scope.changeLanguage = function (key) {
-            console.log(key);
             $translate.use(key);
             idiomaselect = key;
       };
 
-      $scope.sponzors = []
+      $scope.sponzors = [];
 
-      sponzorshipRequest.allSponzorships().success(function(adata){
-            console.log(adta);
-            $scope.sponzors = adata; 
-      });
+      $scope.todo = [];
 
-      $scope.todo = []
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
 
-      perkTaskRequest.allPerkTasks().success(function(adata){
-            $scope.todo = adata.PerkTasks; 
-      });
+                  $scope.todo = adata.data.user.perk_tasks;
+                  $scope.sponzors = adata.data.user.sponzorships;
+            });
+
+      }else{
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+            $scope.todo = sponzormeObj.perk_tasks;
+            $scope.sponzors = sponzormeObj.sponzorships;
+ 
+      }
+      
 
       $scope.menuprincipal = 'views/users/menu.html';
 });
@@ -2617,13 +2662,15 @@ sponzorme.controller('UsersFriendController', function ($scope, $translate, $ses
            $location.path("/"); 
       }
 
+      $scope.emailuser = $sessionStorage.email;
+
   $scope.menuprincipal = 'views/users/menu.html';
 
 
 });
 
 
-sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, userRequest, eventRequest, perkTaskRequest) {
+sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, userRequest, eventRequest, perkTaskRequest, $localStorage) {
 
       if($sessionStorage) {
 
@@ -2649,35 +2696,43 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
            $location.path("/"); 
       }
 
+      $scope.emailuser = $sessionStorage.email;
+
       $scope.userfroups = 0;
 
       $translate.use(idiomaselect);
 
       $scope.changeLanguage = function (key) {
-            console.log(key);
             $translate.use(key);
             idiomaselect = key;
       };
 
-      userRequest.oneUser($sessionStorage.id).success(function(adata){
-            $scope.events = [];
-            console.log(adata);
-            angular.forEach(adata.data.user.events, function(value, key) {
-                  if(value.lang == idiomaselect){
-                        this.push(value);   
-                  }
-            },$scope.events);
-      });
+      $scope.todo = [];
+      $scope.events = [];
 
-      $scope.todo = []
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
 
-      perkTaskRequest.allPerkTasks().success(function(adata){
-            $scope.todo = adata.PerkTasks; 
-      });
+                  $scope.todo = adata.data.user.perk_tasks;
+
+                  angular.forEach(adata.data.user.events, function(value, key) {
+                        if(value.lang == idiomaselect){
+                              this.push(value);   
+                        }
+                  },$scope.events);
+            });
+
+      }else{
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+            $scope.todo = sponzormeObj.perk_tasks;
+            $scope.events = sponzormeObj.events;
+ 
+      }
 
       $scope.updatePeak = function(){
             eventRequest.oneEvent($scope.todo.event.id).success(function(adata){
-                  console.log(adata);
                   $scope.peaks=adata.data.event.perks;        
             });
       }
@@ -2715,7 +2770,67 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader) {
+sponzorme.controller('UsersSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage) {
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      $scope.emailuser = $sessionStorage.email;
+
+      $scope.account = [];
+
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
+                  $scope.account = adata.data.user;
+            });
+
+      }else{
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+            $scope.todo = sponzormeObj.perk_tasks;
+            $scope.sponzors = sponzormeObj.sponzorships;
+            $scope.account = sponzormeObj;
+      }
+
+      $scope.editAccount = function(){
+            $scope.account.location = $scope.account.location.formatted_address;
+            userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata){
+                  $scope.account = adata.User;
+            });
+      }
+
+      var uploader = $scope.uploader = new FileUploader({
+                  url: 'http://localhost/sponzormeyeo/app/upload.php'
+            });
+
+  $scope.menuprincipal = 'views/users/menu.html';
+
+
+});
+
+sponzorme.controller('SponsorsMainController', function ($scope, $translate, $sessionStorage, userRequest) {
 
       if($sessionStorage) {
 
@@ -2743,26 +2858,10 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
 
       userRequest.oneUser($sessionStorage.id).success(function(adata){
             $scope.account = [];
-            console.log(adata);
             $scope.account = adata.data.user;
       });
 
-      $scope.editAccount = function(){
-            console.log($scope.account);
-            $scope.account.location = $scope.account.location.formatted_address;
-            userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata){
-                  console.log(adata);
-                  $scope.account = adata.User;
-            });
-      }
-
-      var uploader = $scope.uploader = new FileUploader({
-                  url: 'http://localhost/sponzormeyeo/app/upload.php'
-            });
-
-      console.info('uploader', uploader);
-
-  $scope.menuprincipal = 'views/users/menu.html';
+      $scope.menuprincipal = 'views/sponsors/menu.html';
 
 
 });
