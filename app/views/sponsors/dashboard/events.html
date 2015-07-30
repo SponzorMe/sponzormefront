@@ -17,14 +17,14 @@
                     <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">luisj135@gmail.com</li>
+                    <li class="dropdown-header">{{emailuser}}</li>
                     <li class="divider"></li>
                     <li class="link">
                       <a href="#/settings">{{ 'settings' | translate }}</a>
                     </li>
                     <li class="divider"></li>
                     <li class="link">
-                      <a href="http://www.sponzor.me/logout">{{ 'logout' | translate }}</a>
+                      <a href="#/logout">{{ 'logout' | translate }}</a>
                     </li>
                   </ul>
                 </div>
@@ -57,7 +57,7 @@
                     <div class="widget-header">
                       <i class="fa fa-tasks"></i> {{'youfollowing' | translate}}
                     </div>
-                    <div class="widget-body medium no-padding" data-ng-controller="followingController">
+                    <div class="widget-body medium no-padding">
                       <div class="table-responsive">
                         <rd-loading ng-show="followloading==1"></rd-loading>
                         <table class="table table-striped" ng-if="followloading==0">

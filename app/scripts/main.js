@@ -1730,7 +1730,23 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
             .when('/sponsors/dashboard', {
                   templateUrl: 'views/sponsors/dashboard/main.html',
                   controller: 'SponsorsMainController'
-              })
+            })
+            .when('/sponsors/settings', {
+                  templateUrl: 'views/sponsors/dashboard/settings.html',
+                  controller: 'SponsorsSettingsController'
+            })
+            .when('/sponsors/friend', {
+                  templateUrl: 'views/sponsors/dashboard/friend.html',
+                  controller: 'SponsorsFriendController'
+            })
+            .when('/sponsors/following', {
+                  templateUrl: 'views/sponsors/dashboard/events.html',
+                  controller: 'SponsorsFollowingController'
+            })
+            .when('/sponsors/sponzoring', {
+                  templateUrl: 'views/sponsors/dashboard/sponzors.html',
+                  controller: 'SponsorsSponzorsController'
+            })
             .otherwise({
               redirectTo: '/'
             });
@@ -2818,6 +2834,7 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
             $scope.account.location = $scope.account.location.formatted_address;
             userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata){
                   $scope.account = adata.User;
+                  $localStorage.$reset();
             });
       }
 
@@ -2830,7 +2847,7 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
 
 });
 
-sponzorme.controller('SponsorsMainController', function ($scope, $translate, $sessionStorage, userRequest) {
+sponzorme.controller('SponsorsMainController', function ($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest) {
 
       if($sessionStorage) {
 
@@ -2856,12 +2873,213 @@ sponzorme.controller('SponsorsMainController', function ($scope, $translate, $se
            $location.path("/"); 
       }
 
-      userRequest.oneUser($sessionStorage.id).success(function(adata){
-            $scope.account = [];
-            $scope.account = adata.data.user;
+      $scope.account = [];
+
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
+                  $scope.account = adata.data.user;
+            });
+
+      }else{
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+            $scope.todo = sponzormeObj.perk_tasks;
+            $scope.sponzors = sponzormeObj.sponzorships;
+            $scope.account = sponzormeObj;
+      }
+
+      $scope.searchloading = 1;
+
+      eventRequest.allEvents().success(function(adata){
+            $scope.search = [];
+            $scope.search = adata.events;
+            $scope.searchloading = 0;
+            console.log($scope.search);
       });
 
+
+
       $scope.menuprincipal = 'views/sponsors/menu.html';
+
+
+});
+
+
+sponzorme.controller('SponsorsSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage) {
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      $scope.emailuser = $sessionStorage.email;
+
+      $scope.account = [];
+
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
+                  $scope.account = adata.data.user;
+            });
+
+      }else{
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+            $scope.todo = sponzormeObj.perk_tasks;
+            $scope.sponzors = sponzormeObj.sponzorships;
+            $scope.account = sponzormeObj;
+      }
+
+      $scope.editAccount = function(){
+            $scope.account.location = $scope.account.location.formatted_address;
+            userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata){
+                  $scope.account = adata.User;
+                  $localStorage.$reset();
+            });
+      }
+
+      var uploader = $scope.uploader = new FileUploader({
+                  url: 'upload.php'
+            });
+
+  $scope.menuprincipal = 'views/sponsors/menu.html';
+
+
+});
+
+sponzorme.controller('SponsorsFriendController', function ($scope, $translate, $sessionStorage) {
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      $scope.emailuser = $sessionStorage.email;
+
+  $scope.menuprincipal = 'views/sponsors/menu.html';
+
+
+});
+
+sponzorme.controller('SponsorsSponzorsController', function ($scope, $translate, $sessionStorage, $localStorage, userRequest) {
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      $scope.emailuser = $sessionStorage.email;
+
+      $scope.account = [];
+      $scope.sponzors = [];
+      $scope.sponzoringEventsloading = 1;
+
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
+                  $scope.sponzors = adata.data.user.sponzorships;
+            });
+
+      }else{
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+            console.log(sponzormeObj);
+            $scope.sponzors = sponzormeObj.sponzorships;
+            $scope.sponzoringEventsloading = 0;
+      }
+
+  $scope.menuprincipal = 'views/sponsors/menu.html';
+
+
+});
+
+sponzorme.controller('SponsorsFollowingController', function ($scope, $translate, $sessionStorage) {
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      $scope.emailuser = $sessionStorage.email;
+
+  $scope.menuprincipal = 'views/sponsors/menu.html';
 
 
 });

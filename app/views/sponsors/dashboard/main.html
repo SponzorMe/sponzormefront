@@ -21,7 +21,7 @@
                     </li>
                     <li class="divider"></li>
                     <li class="link">
-                      <a href="http://www.sponzor.me/logout">{{ 'logout' | translate }}</a>
+                      <a href="#/logout">{{ 'logout' | translate }}</a>
                     </li>
                   </ul>
                 </div>
@@ -50,21 +50,23 @@
         <!--Template asociado al dashboard principal-->
             <div class="row">
               <div class="col-lg-10 col-lg-offset-1  ">
-                <h1>{{'searchtitle' | translate}}</h1>
+                <h1 style="color:black; padding-bottom:0px; margin-bottom:0px;">{{'searchtitle' | translate}}</h1>
               </div>
             </div>
             <div class="row">
-              <div class="col-lg-10 col-lg-offset-1 " data-ng-controller="searchController">
+              <div class="col-lg-10 col-lg-offset-1">
                 <div class="widget">
                   <div class="widget-header">
                     <i class="fa fa-search"></i>
-                    <input type="text" value="" id="search" data-ng-model="search1" ng-keyup="$event.keyCode == 13 && searchEvents()" />
+                    <input type="text" value="" id="search" ng-model="searchevents" ng-keyup="$event.keyCode == 13 && searchEvents()" />
                     <button data-ng-click="searchEvents()" class="btn btn-info">Search</button>
                   </div>
                   <div class="widget-body large no-padding" style="height:500px"><!--fronend arregla-->
                     <rd-loading ng-show="searchloading==1"></rd-loading>
-                    <div ng-if="searchloading==0" data-ng-repeat="s in search.list" class="col-lg-5 col-lg-offset-1 evento" style="height:200px"><!--fronend arregla-->
-                      <div class="pull-left"><img class="organizer-image img-square" src="images/events/{{ s.eventimage }}" alt="User"></div>
+                    <div ng-if="searchloading==0" ng-repeat="s in search | filter:searchevents" class="col-lg-5 col-lg-offset-1 evento" style="height:200px"><!--fronend arregla-->
+                      <div class="pull-left">
+                        <img class="organizer-image img-square" ng-src="images/events/{{ s.eventimage }}" alt="User">
+                      </div>
                       <div class="info-event">
                         <div class=""><h1><a href="event/{{ s.event }}" target="_blank">{{ s.title }}</a></h1></div>
                         <div class="">{{ s.eventlocation }}</div>

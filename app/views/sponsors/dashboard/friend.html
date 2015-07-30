@@ -16,14 +16,14 @@
                     <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">luisj135@gmail.com</li>
+                    <li class="dropdown-header">{{emailuser}}</li>
                     <li class="divider"></li>
                     <li class="link">
                       <a href="#/settings">{{ 'settings' | translate }}</a>
                     </li>
                     <li class="divider"></li>
                     <li class="link">
-                      <a href="http://www.sponzor.me/logout">{{ 'logout' | translate }}</a>
+                      <a href="#/logout">{{ 'logout' | translate }}</a>
                     </li>
                   </ul>
                 </div>
@@ -57,7 +57,7 @@
                   <i class="fa fa-plus"></i>{{'invitefriendstring' | translate}}
                   <div class="clearfix"></div>
                 </div>
-                <form class="form-horizontal" role="form" data-ng-controller="friendController">
+                <form class="form-horizontal" role="form">
                 <!--form field-->
                   <div class="form-group" id="name">
                     <label for="label" class="col-sm-2 control-label">
