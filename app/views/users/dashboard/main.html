@@ -125,7 +125,12 @@
                     </tr>
                   </thead>
                     <tbody>
-                      <tr data-ng-repeat="e in events" data-ng-class="{success : event.current === e.id}">
+                      <tr ng-show="loadingevents">
+                        <td colspan="3">
+                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                        </td>
+                      </tr>
+                      <tr data-ng-repeat="e in events" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
                         <td class="text-center">{{ e.title }}</td>
                         <td class="text-center">{{ e.location }}</td>
                         <td class="text-center">{{ e.starts }}</td>
@@ -159,7 +164,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingpeaks"><td colspan="3"><rd-loading ng-show="loadingpeaks"></rd-loading></td></tr>                  
+                      <tr ng-show="loadingpeaks">
+                        <td colspan="3">
+                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                        </td>
+                      </tr>                  
                       <tr ng-show="!loadingpeaks" data-ng-repeat="p in peaks">
                         <td class="text-center">{{ p.kind }}</td>
                         <td class="text-center">{{ p.total_quantity }}</td>
@@ -177,8 +186,11 @@
                 <i class="fa fa-plus"></i> {{ 'suggestions' | translate }}
                 <div class="clearfix"></div>
               </div>
-              <div class="widget-body">
-                <div class="message" data-ng-repeat="r in rss">
+              <div class="widget-body" style="min-height:200px;">
+                <div ng-show="loadingrss">
+                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-3" spinner-start-active="true"></span>
+                </div> 
+                <div class="message" data-ng-repeat="r in rss" ng-show="!loadingrss">
                   <h1 class="suggh1">{{ r.title }}</h1>
                   <a href="{{ r.link }}" target="_blank">{{ 'seemore' | translate }}</a>
                 </div>

@@ -59,8 +59,7 @@
                     </div>
                     <div class="widget-body medium no-padding">
                       <div class="table-responsive">
-                        <rd-loading ng-show="followloading==1"></rd-loading>
-                        <table class="table table-striped" ng-if="followloading==0">
+                        <table class="table table-striped">
                           <thead>
                             <tr>
                               <th class="text-center">{{'OrganizerName' | translate}}</th>
@@ -73,7 +72,12 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr data-ng-repeat="s in sponzors.list" >
+                            <tr ng-show="loadinglistsponzors">
+                              <td colspan="4">
+                                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-3" spinner-start-active="true"></span>
+                              </td>
+                            </tr>
+                            <tr data-ng-repeat="s in sponzors" ng-show="!loadinglistsponzors">
                               <td class="text-center">{{ s.name }}</td>
                               <td class="text-center">{{ s.email }}</td>
                               <td class="text-center">{{ s.eventlocation }}</td>

@@ -122,7 +122,12 @@
                         <th>{{'todoActions' | translate }}</th>
                       </thead>
                       <tbody>
-                        <tr data-ng-repeat="t in todo">
+                        <tr ng-show="loadingtodo">
+                          <td colspan="3">
+                            <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                          </td>
+                        </tr>
+                        <tr data-ng-repeat="t in todo" ng-show="!loadingtodo">
                           <td>{{ t.title }}</td>
                           <td>{{ t.description }}</td>
                           <td>

@@ -1,3 +1,8 @@
+<style>
+  .spinner{
+    top: 30% !important;
+  }
+</style>
 <div id="page-wrapper" ng-class="{'active': toggle}" ng-controller="UsersEventsController" class="active">
     <div ng-include="menuprincipal"></div>
       <div id="content-wrapper">
@@ -251,7 +256,12 @@
                   <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
                 </thead>
                   <tbody>
-                    <tr data-ng-repeat="e in eventos" data-ng-class="{success : event.current === e.id}">
+                    <tr ng-show="loadingevents && eventos.lenght == 0">
+                      <td colspan="8">
+                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                      </td>
+                    </tr>
+                    <tr data-ng-repeat="e in eventos" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
                       <td class="text-center">{{ e.starts }}</td>
@@ -293,7 +303,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingpeaks"><td colspan="3"><rd-loading ng-show="loadingpeaks"></rd-loading></td></tr>                  
+                    <tr ng-show="loadingpeaks">
+                      <td colspan="3">
+                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                      </td>
+                    </tr>                  
                     <tr ng-show="!loadingpeaks" data-ng-repeat="p in peaks">
                       <td class="text-center">{{ p.kind }}</td>
                       <td class="text-center">{{ p.total_quantity }}</td>

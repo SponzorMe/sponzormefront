@@ -55,8 +55,7 @@
                     </div>
                     <div class="widget-body medium no-padding">
                       <div class="table-responsive">
-                        <rd-loading ng-show="sponzoringEventsloading==1"></rd-loading>
-                        <table class="table table-striped" ng-if="sponzoringEventsloading==0">
+                        <table class="table table-striped">
                           <thead>
                             <tr>
                               <th class="text-center">{{'name' | translate }}</th>
@@ -69,7 +68,12 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr data-ng-repeat="s in sponzors" >
+                            <tr ng-show="loadingsponzors">
+                              <td colspan="7">
+                                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                              </td>
+                            </tr>
+                            <tr data-ng-repeat="s in sponzors" ng-show="!loadingsponzors">
                               <td class="text-center"><%s.name%></td>
                               <td class="text-center"><%s.email%></td>
                               <td class="text-center"><%s.eventlocation%></td>
@@ -99,15 +103,19 @@
                     </div>
                   <div class="widget-body medium no-padding">
                     <div class="table-responsive">
-                    <rd-loading ng-show="todo.loadingTask==1"></rd-loading>
-                      <table class="table table-striped" ng-if="todo.loadingTask==0">
+                      <table class="table table-striped">
                         <thead>
                           <th>{{'todoTitle' | translate }}</th>
                           <th>{{'todoDescription' | translate }}</th>
                           <th>{{'todoStatus' | translate }}</th>
                         </thead>
                         <tbody>
-                          <tr data-ng-repeat="t in todo.list" ng-class="{success: t.status === 1, warning: t.status === 0}">
+                          <tr ng-show="loadingtodo">
+                            <td colspan="7">
+                              <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                            </td>
+                          </tr>
+                          <tr data-ng-repeat="t in todo" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="loadingtodo">
                             <td><% t.title %></td>
                             <td><% t.description %></td>
                             <td><div ng-if="t.status == 0">{{'eventstate0' | translate }}</div><div ng-if="t.status == 1">{{'eventstate1' | translate }}</div></td>
@@ -129,8 +137,7 @@
                       </div>
                     <div class="widget-body medium no-padding">
                       <div class="table-responsive">
-                      <rd-loading ng-show="todo.loadingTaskRel==1"></rd-loading>
-                        <table class="table table-striped" ng-if="todo.loadingTaskRel==0">
+                        <table class="table table-striped">
                           <thead>
                             <th>{{'todoTitle' | translate }}</th>
                             <th>{{'todoDescription' | translate }}</th>
@@ -138,7 +145,12 @@
                             <th>{{'todoActions' | translate }}</th>
                           </thead>
                           <tbody>
-                            <tr data-ng-repeat="t in todo.listSponzor" ng-class="{success: t.status === 1, warning: t.status === 0}">
+                            <tr ng-show="loadinglikesponzors">
+                              <td colspan="4">
+                                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-3" spinner-start-active="true"></span>
+                              </td>
+                            </tr>
+                            <tr data-ng-repeat="t in todoperks" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadinglikesponzors">
                               <td><% t.title %></td>
                               <td><% t.description %></td>
                               <td><div ng-if="t.status == 0">{{'eventstate0' | translate }}</div><div ng-if="t.status == 1">{{'eventstate1' | translate }}</div></td>

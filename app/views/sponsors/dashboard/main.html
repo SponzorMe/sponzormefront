@@ -14,7 +14,7 @@
                     <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">luisj135@gmail.com</li>
+                    <li class="dropdown-header">{{emailuser}}</li>
                     <li class="divider"></li>
                     <li class="link">
                       <a href="#/settings">{{ 'settings' | translate }}</a>
@@ -62,8 +62,10 @@
                     <button data-ng-click="searchEvents()" class="btn btn-info">Search</button>
                   </div>
                   <div class="widget-body large no-padding" style="height:500px"><!--fronend arregla-->
-                    <rd-loading ng-show="searchloading==1"></rd-loading>
-                    <div ng-if="searchloading==0" ng-repeat="s in search | filter:searchevents" class="col-lg-5 col-lg-offset-1 evento" style="height:200px"><!--fronend arregla-->
+                    <div ng-show="loadingsearch">
+                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                    </div>
+                    <div ng-if="searchloading==0" ng-repeat="s in search | filter:searchevents" class="col-lg-5 col-lg-offset-1 evento" style="height:200px" ng-show="!loadingsearch"><!--fronend arregla-->
                       <div class="pull-left">
                         <img class="organizer-image img-square" ng-src="images/events/{{ s.eventimage }}" alt="User">
                       </div>

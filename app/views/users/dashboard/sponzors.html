@@ -64,7 +64,12 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr data-ng-repeat="s in sponzors.list" >
+                              <tr ng-show="loadingevents">
+                                <td colspan="6">
+                                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                                </td>
+                              </tr>
+                              <tr data-ng-repeat="s in sponzors" ng-show="!loadingevents">
                                 <td class="text-center">{{s.name}}</td>
                                 <td class="text-center">{{s.email}}</td>
                                 <td class="text-center">{{s.event}}</td>
@@ -108,7 +113,12 @@
                             <th>{{ 'todoActions' | translate }}</th>
                           </thead>
                           <tbody>
-                            <tr data-ng-repeat="t in todo" ng-class="{success: t.status === 1, warning: t.status === 0}">
+                            <tr ng-show="loadingtodo">
+                                <td colspan="4">
+                                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                                </td>
+                              </tr>
+                            <tr data-ng-repeat="t in todo" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadingtodo">
                               <td>{{ t.title }}</td>
                               <td>{{ t.description }}</td>
                               <td><div ng-if="t.status == 0">{{ 'taskNoCompleted' | translate }}</div><div ng-if="t.status == 1">{{ 'taskCompleted' | translate }}</div></td>
