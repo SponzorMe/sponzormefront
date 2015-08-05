@@ -1821,7 +1821,7 @@ sponzorme.controller('logoutController', function ($scope, $translate, $sessionS
       $location.path("/");
 });
 
-sponzorme.controller('LoginController', function ($scope, $translate, loginRequest, $base64, $sessionStorage, $location) {
+sponzorme.controller('LoginController', function ($scope, $translate, loginRequest, $base64, $sessionStorage, $location, usSpinnerService, ngDialog) {
 
       if($sessionStorage) {
 
@@ -1853,33 +1853,42 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
       };
 
       $scope.sendfrom = function(){
-            $scope.objuser = {}
-            $scope.objuser.email = $scope.email;
-            $scope.objuser.password = $scope.password;
-            $scope.objuser.password_confirmation = $scope.passwordtwo;
-            $scope.objuser.lang = idiomaselect
 
-            loginRequest.login($scope.objuser).success(function(adata){
-                  var expireDate = new Date();
-                  expireDate.setDate(expireDate.getDate() + 1);
-                  $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
-                  $sessionStorage.typesponzorme = adata.user.type;
-                  $sessionStorage.token = btoa($scope.email+':'+$scope.password);
-                  $sessionStorage.id = adata.user.id;
-                  $sessionStorage.email = adata.user.email;
+            if($scope.email != undefined || $scope.password != undefined){
+                  $scope.objuser = {}
+                  $scope.objuser.email = $scope.email;
+                  $scope.objuser.password = $scope.password;
+                  $scope.objuser.password_confirmation = $scope.passwordtwo;
+                  $scope.objuser.lang = idiomaselect;
+                  $scope.loagind = true;
+                  loginRequest.login($scope.objuser).success(function(adata){
+                        $scope.loagind = false;
+                        var expireDate = new Date();
+                        expireDate.setDate(expireDate.getDate() + 1);
+                        $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
+                        $sessionStorage.typesponzorme = adata.user.type;
+                        $sessionStorage.token = btoa($scope.email+':'+$scope.password);
+                        $sessionStorage.id = adata.user.id;
+                        $sessionStorage.email = adata.user.email;
 
-                  var url = $location.host();
+                        var url = $location.host();
 
-                  if(url == 'localhost'){
-                        $sessionStorage.developer = 1;
-                  }
+                        if(url == 'localhost'){
+                              $sessionStorage.developer = 1;
+                        }
 
-                  if(adata.user.type == 1){
-                        $location.path("/sponsors/dashboard");
-                  }else{
-                        $location.path("/users/dashboard");
-                  }
-            });
+                        if(adata.user.type == 1){
+                              $location.path("/sponsors/dashboard");
+                        }else{
+                              $location.path("/users/dashboard");
+                        }
+
+                  }).error(function(edata){
+                        $scope.loagind = false;
+                        ngDialog.open({ template: 'errorloging.html' });
+                  });  
+            }
+            
       }
 
 
@@ -2690,7 +2699,7 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $s
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersFriendController', function ($scope, $translate, $sessionStorage) {
+sponzorme.controller('UsersFriendController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog) {
 
       if($sessionStorage) {
 
@@ -2714,6 +2723,26 @@ sponzorme.controller('UsersFriendController', function ($scope, $translate, $ses
             $scope.userfroups = 0;
       }else{
            $location.path("/"); 
+      }
+
+      $scope.friend = {};
+      $scope.friend.email = "";
+      $scope.friend.message = "";
+
+      $scope.invitefriend = function(){
+
+            $scope.objuserinv = {};
+            $scope.objuserinv.user_id = $sessionStorage.id;
+            $scope.objuserinv.email = $scope.friend.email;
+            $scope.objuserinv.message = $scope.friend.message;
+            userRequest.invitedUser($scope.objuserinv).success(function(adata){
+                  if (adata.code == 200){
+                        ngDialog.open({ template: 'emailsend.html', scope: $scope });
+                  }else{
+                        ngDialog.open({ template: 'errorsend.html' }); 
+                  }
+            });
+
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -3013,7 +3042,7 @@ sponzorme.controller('SponsorsSettingsController', function ($scope, $translate,
 
 });
 
-sponzorme.controller('SponsorsFriendController', function ($scope, $translate, $sessionStorage) {
+sponzorme.controller('SponsorsFriendController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog) {
 
       if($sessionStorage) {
 
@@ -3037,6 +3066,22 @@ sponzorme.controller('SponsorsFriendController', function ($scope, $translate, $
             $scope.userfroups = 0;
       }else{
            $location.path("/"); 
+      }
+
+      $scope.invitefriend = function(){
+
+            $scope.objuserinv = {};
+            $scope.objuserinv.user_id = $sessionStorage.id;
+            $scope.objuserinv.email = $scope.friend.email;
+            $scope.objuserinv.message = $scope.friend.message;
+            userRequest.invitedUser($scope.objuserinv).success(function(adata){
+                  if (adata.code == 200){
+                        ngDialog.open({ template: 'emailsend.html', scope: $scope });
+                  }else{
+                        ngDialog.open({ template: 'errorsend.html' }); 
+                  }
+            });
+
       }
 
       $scope.emailuser = $sessionStorage.email;

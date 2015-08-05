@@ -50,6 +50,15 @@ angular.module('userService', ['ngStorage'])
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
+			},
+			invitedUser : function(data){
+				return $http({
+					method: 'POST',
+					url: path + 'invite_friend/',
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					data: $.param(data)
+				});
 			}
+
 		}
 	});
