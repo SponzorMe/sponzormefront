@@ -30,14 +30,12 @@
           </ul> 
         </section> 
         <section ng-show="!vieuser">
+          <ul class="nav navbar-nav navbar-right">
             <li><a href="#/users/userId">{{ email.user }}</a></li>
-            <section ng-show="typeuser">
-              <li><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
-            </section>
-            <section ng-show="!typeuser">
-              <li><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
-            </section>
+              <li ng-show="typeuser"><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!typeuser"><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
             <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
+          </ul> 
         </section>
       </ul>
     </div><!--/.nav-collapse -->

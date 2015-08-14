@@ -30,14 +30,12 @@
           </ul> 
         </section> 
         <section ng-show="!vieuser">
+          <ul class="nav navbar-nav navbar-right">
             <li><a href="#/users/userId">{{ email.user }}</a></li>
-            <section ng-show="typeuser">
-              <li><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
-            </section>
-            <section ng-show="!typeuser">
-              <li><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
-            </section>
+              <li ng-show="typeuser"><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!typeuser"><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
             <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
+          </ul> 
         </section>
       </ul>
     </div><!--/.nav-collapse -->
@@ -95,7 +93,7 @@
 				</form>
 				</div>
 				<!--Step 2, the user choose the categories and the interests --> 
-				<div class="col-md-8 col-md-offset-2 step1" id="step2">
+				<div class="col-md-8 col-md-offset-2 step1" id="step2" ng-show="step2">
 					<form ng-submit="submitCategoryInfo()">
 						<h1 class="form-signin-heading" style='color:black'>{{pages.areyouinterested  | translate }}</h1>
 						<div class="row contenedor-intereses">
@@ -106,7 +104,7 @@
 									</a>
 							</div>
 						</div>
-						<div class="col-md-12" id="step3">
+						<div class="col-md-12" id="step3" ng-show="step3">
 							<div class="row contenedor-categorias">					
 								<div class="interest col-md-4" ng-repeat="interest in interests">
 									<label>
@@ -121,7 +119,7 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-md-8 col-md-offset-2 step1" id="step4">
+				<div class="col-md-8 col-md-offset-2 step1" id="step4" ng-show="step4">
 					<h1>{{pages.almostdone  | translate }}</h1>
 					<p>{{pages.weresendingandemail | translate }} {{ scope.emailuser }} {{pages.toactivateyouraccount | translate }}.</p>
 				</div>
