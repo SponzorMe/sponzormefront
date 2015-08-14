@@ -1,0 +1,156 @@
+<section ng-controller="HomeController">
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="" href="#/"><p height="45px">SponzorMe</p></a>
+    </div>
+    <div class="collapse navbar-collapse">
+      
+      <section ng-show="userfroups">
+          <ul class="nav navbar-nav">
+            <a href="#/users">{{ 'users' | translate }}</a></li>
+            <a href="#/groups">{{ 'groups' | translate }}</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <a href="#/users">{{ 'users' | translate }}</a></li>
+            <a href="#/groups">{{ 'groups' | translate }}</a></li>
+          </ul>
+      </section>
+      <ul class="nav navbar-nav navbar-right">
+        <section ng-show="vieuser">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/login">{{ 'login' | translate }}</a></li>
+            <li><a href="#/sponsors/create">{{ 'sponsorreg' | translate }}</a></li>
+            <li><a href="#/users/create">{{ 'organizerreg' | translate }}</a></li>
+          </ul> 
+        </section> 
+        <section ng-show="!vieuser">
+            <li><a href="#/users/userId">{{ email.user }}</a></li>
+            <section ng-show="typeuser">
+              <li><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
+            </section>
+            <section ng-show="!typeuser">
+              <li><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
+            </section>
+            <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
+        </section>
+      </ul>
+    </div><!--/.nav-collapse -->
+      
+  </div>
+</div>
+<div class="container">
+
+	<div ng-if="emailuser!='' || emailuser!=NULL">
+		<div class="container" style="padding-top:25px">
+		<!--Step 1, the user choose the age, sex, and location --> 
+			<div class="col-md-8 col-md-offset-2 step1" id="step1">
+				<form class="form-inline" ng-submit="submitUserInfo()">
+				<h1 class="form-signin-heading" style='color:black'>{{pages.aboutyou  | translate }}</h1>	<br/>	
+					<div class="form-group">
+						<label for="age">{{pages.ageiam | translate }}</label>
+					</div>
+					<div class="form-group">
+						<input type="number" class="form-control" min="18" max="120" name="age" ng-model="userData.age" id="age" value="43" required/>
+					</div> 
+					<div class="form-group">
+						<label for="sex"> {{pages.old | translate }}</label>
+					</div>
+					<div class="form-group">
+					<select class="form-control" ng-model="userData.sex" name="sex" id="sex">			
+						<option value="" selected>{{pages.chooseSex  | translate }}</option>
+						<option value="0">{{pages.woman | translate }}</option>
+						<option value="1">{{pages.man | translate }}</option>
+					</select> 
+				    </div> <br/><br/>
+				    <div class="form-group">
+				    	<label for="country"> {{ pages.language | translate }}</label>
+				    </div>
+				    <div class="form-group">
+					<select class="form-control" ng-model="userData.lang" name="lang" id="lang">			
+						<option value="" selected>{{ pages.chooseLang | translate }}</option>
+						<option value="en">{{pages.en | translate }}</option>
+						<option value="es">{{pages.es | translate }}</option>
+						<option value="pt">{{pages.pt | translate }}</option>
+					</select> 
+				    </div> <br/><br/>
+				    <div class="form-group">
+				    	<label for="country"> {{pages.livein  | translate }}}</label>
+				    </div>	 
+					<div class="form-group">
+					<label>{{pages.location | translate }}</label><br/> 
+					</div>
+						<div class="form-group">				
+							<input type="text" class="form-control" ng-model="userData.location" ng-autocomplete="results" details="details" options="options" required/>
+							<input type="hidden" id="userId" value="" required/>
+						</div>	
+						<div class="">	
+						<button type="submit" class="btn btn-block">{{pages.next | translate }}</button>
+					</div>	
+				</form>
+				</div>
+				<!--Step 2, the user choose the categories and the interests --> 
+				<div class="col-md-8 col-md-offset-2 step1" id="step2">
+					<form ng-submit="submitCategoryInfo()">
+						<h1 class="form-signin-heading" style='color:black'>{{pages.areyouinterested  | translate }}</h1>
+						<div class="row contenedor-intereses">
+							<div id="c<% category.id %>" class="col-md-3 category" ng-hide="loading" ng-repeat="category in categories">
+									<a href="#" ng-click="showInterests(category.id)">
+										<% category.title %>						
+										<span class="glyphicon glyphicon-chevron-down"></span>
+									</a>
+							</div>
+						</div>
+						<div class="col-md-12" id="step3">
+							<div class="row contenedor-categorias">					
+								<div class="interest col-md-4" ng-repeat="interest in interests">
+									<label>
+										<input type="checkbox" id="interest<% interest.idinterests %>" data-ng-model='_interests[interest.idinterests]' name="interest[]" value="<% interest.idinterests %>" data-ng-click="toggle(interest.idinterests)" data-ng-true-value="1" data-ng-false-value="0" /> 
+				    					<% interest.name %>
+			  						</label>
+								</div>
+							</div>
+						</div>			
+						<div class="form-group">
+							<button type="submit" class="btn btn-block">{{pages.next  | translate }}</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-8 col-md-offset-2 step1" id="step4">
+					<h1>{{pages.almostdone  | translate }}</h1>
+					<p>{{pages.weresendingandemail | translate }} {{ scope.emailuser }} {{pages.toactivateyouraccount | translate }}.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-if="emailuser =='' || emailuser == NULL">
+		<p>{{pages.forbidden | translate }}</p>
+	</div>
+
+</div>
+<div class="footer">
+  <div class="row">
+  <div class="col-md-4">&nbsp;&nbsp;&nbsp;
+      <p id="newlog">SponzorMe</p>&nbsp;&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('es')"><img height="16px" src="images/spanish.png"></a>&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('en')"><img height="16px" src="images/english.png"></a>&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('pt')"><img height="16px" src="images/pt.png"></a>
+  </div>
+  <div class="col-md-4">
+      <a href="#/testimonials">{{ 'testimonialts' | translate }}</a>&nbsp;|&nbsp
+      <a href="http://support.sponzor.me" target="_blank">{{ 'support' | translate }}</a>&nbsp;|&nbsp
+      <a href="http://bloges.sponzor.me/" target="_blank">{{ 'blog' | translate }}</a> 
+      &nbsp|&nbsp{{ 'team' | translate }}&nbsp;|&nbsp
+      <a href="#/privacy" target="_blank">{{ 'privacy' | translate }}</a> 
+  </div>
+  <div class="col-md-4" align="right">
+      Made with Love ❤&nbsp;&nbsp;&nbsp;
+  </div>   
+  </div>
+</div>
+</section>

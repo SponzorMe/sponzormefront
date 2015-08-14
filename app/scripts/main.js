@@ -1655,7 +1655,7 @@ var translatiosnPT = {
 
 var idiomaselect = 'en';
 
-var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner'])
+var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage'])
       .config(function ($translateProvider) {
       
       $translateProvider.translations('es', translationsES);
@@ -1671,6 +1671,10 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
 
       .config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
           usSpinnerConfigProvider.setDefaults({color: '#042333'});
+      }])
+
+      .config(['CloudStorageConfigProvider', function (CloudStorageConfigProvider) {
+          CloudStorageConfigProvider.setDefaults({PROJECT: '471996657056', clientId :'471996657056-lb3iuvrk8gaivcubp2bck9434opruhkk.apps.googleusercontent.com', apiKey : 'AIzaSyD-4feaf3-w-iz1wt4rfajI_hM9o2K4j00', scopes : 'https://www.googleapis.com/auth/devstorage.full_control', API_VERSION : 'v1'});
       }])
 
       .config(function ($routeProvider) {
@@ -1718,6 +1722,10 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
             .when( '/users/sponzors',{
                   templateUrl: 'views/users/dashboard/sponzors.html',
                   controller: 'UsersSponzorsController'
+            })
+            .when( '/users/customization',{
+                  templateUrl: 'views/customization/customization.html',
+                  controller: 'UsersCustomController'
             })
             .when( '/users/friend',{
                   templateUrl: 'views/users/dashboard/friend.html',
@@ -2859,7 +2867,7 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage) {
+sponzorme.controller('UsersSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage, CloudStorageService, CloudStorageConfig) {
 
       if($sessionStorage) {
 
@@ -2902,8 +2910,11 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
             $scope.sponzors = sponzormeObj.sponzorships;
             $scope.account = sponzormeObj;
       }
+      console.log(CloudStorageConfig.config);
+      console.log(CloudStorageService.handleClientLoad(CloudStorageConfig.config.apiKey, CloudStorageConfig.config.clientId, CloudStorageConfig.config.scopes));
 
       $scope.editAccount = function(){
+
             $scope.account.location = $scope.account.location.formatted_address;
             userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata){
                   $scope.account = adata.User;
@@ -3220,6 +3231,56 @@ sponzorme.controller('SponsorsFollowingController', function ($scope, $translate
 
 
 });
+
+sponzorme.controller('UsersCustomController', function ($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest) {
+
+      $scope.loadinglistsponzors = true;
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      $scope.emailuser = $sessionStorage.email;
+      console.log($scope.emailuser);
+
+      if(!$localStorage.sponzorme){
+            userRequest.oneUser($sessionStorage.id).success(function(adata){
+                  var datuser = JSON.stringify(adata.data.user);
+                  $localStorage.sponzorme = datuser;
+            });
+
+      }else{
+            var sponzormeObj = JSON.parse($localStorage.sponzorme);
+      }
+
+      
+
+  $scope.menuprincipal = 'views/sponsors/menu.html';
+
+
+});
+
+
 
 
 
