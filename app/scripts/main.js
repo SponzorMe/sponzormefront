@@ -1905,7 +1905,6 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
 });
 
 sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, usSpinnerService, $localStorage) {
-
       if($sessionStorage) {
 
             var cookie = $sessionStorage.cookiesponzorme;
@@ -3349,6 +3348,7 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
 
       $scope.sendfrom = function(){
             console.log($scope.userData);
+            console.log($sessionStorage.token);
             $scope.objuser = {}
             $scope.objuser.age = $scope.userData.age;
             $scope.objuser.sex = $scope.userData.sex;
