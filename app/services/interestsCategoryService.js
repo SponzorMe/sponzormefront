@@ -5,9 +5,9 @@
 * @version 0.1
 */
 angular.module('allInterestsService', ['ngCookies'])
-	.factory('allInterestsServiceRequest', function($http,$cookieStore) {
+	.factory('allInterestsServiceRequest', function($http,$sessionStorage) {
 		var path = "http://api.sponzor.me/"; //API path
-		var token = $cookieStore.get('token');
+		var token = $sessionStorage.token;
 		return {
 			allInterestsCategoriesId : function(){
 				return $http.get(path + 'interests_category');

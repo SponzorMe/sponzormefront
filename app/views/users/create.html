@@ -67,10 +67,13 @@
                 <div class="form-group">
                     <input type="password" class="form-control" placeholder = "{{'attributes_confirmpassword' | translate }}" required ng-model="passwordtwo">
                 </div>
-                
-                <input class="btn btn-block" type="submit" value="{{'signin' | translate }}" ng-click="sendfrom()">
-                
+                <div ng-show="loagind">
+                    <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
                 </div>
+                <div  ng-show="!loagind">
+                    <input class="btn btn-block" type="submit" value="{{'signin' | translate }}" ng-click="sendfrom()">
+                </div>
+              </div>
             </div>
         </form >
     </div>

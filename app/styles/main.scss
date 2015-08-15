@@ -52,6 +52,7 @@ $icon-font-path: '../fonts/';
 body {
   padding-top: 20px;
   padding-bottom: 20px;
+  background-color: #042333 !important;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -7547,11 +7548,11 @@ ul.navbar-nav li a {
   border: 1px solid #222;
   overflow: hidden;
   font-size: 12px;
-  height: 5em; }
+}
 
 .interest:hover {
-  color: #00acb9;
-  background: #FFF; }
+  color: white;
+  background: #444; }
 
 .interest a {
   color: #222;
@@ -8119,10 +8120,13 @@ html {
   overflow-y: scroll; }
 
 body {
-  background: #f3f3f3 !important;
   font-family: "Montserrat";
-  color: #333 !important; }
+  color: #333 !important; 
+}
 
+body .page-content{
+  background: #f3f3f3 !important;
+}
 .row {
   margin-left: 0 !important;
   margin-right: 0 !important; }
@@ -8655,6 +8659,46 @@ ul.sidebar .sidebar-list a:hover {
 .message h1 {
   color: black !important; }
 
+.contenedor-intereses{
+  overflow-y: scroll;
+  height: 235px;
+}
 
+.categorycontent{
+  padding:0px;
+}
+
+.categorycustom{
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(50, 50, 50, 0.74);
+  -moz-box-shadow:    0px 4px 8px 0px rgba(50, 50, 50, 0.74);
+  box-shadow:         0px 4px 8px 0px rgba(50, 50, 50, 0.74);
+  border-radius: 10px;
+  margin-left:1%;
+  margin-right:1%;
+  font-size:11px;
+  background: #042333;
+  border:none !important;
+}
+
+.categorycustom .category {
+  font-size:11px;
+}
+
+.categorycustom .glyphicon {
+  float:right;
+}
+
+.categorycontent .contenedor-categorias {
+  margin-top:5px;
+}
+
+.categorycontent .interest{
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(50, 50, 50, 0.74);
+  -moz-box-shadow:    0px 4px 8px 0px rgba(50, 50, 50, 0.74);
+  box-shadow:         0px 4px 8px 0px rgba(50, 50, 50, 0.74);
+  border-radius: 10px;
+  border:none;
+  margin:5px;
+}
 
 

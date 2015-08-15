@@ -1655,7 +1655,7 @@ var translatiosnPT = {
 
 var idiomaselect = 'en';
 
-var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage'])
+var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage', 'allInterestsService', 'userInterestService'])
       .config(function ($translateProvider) {
       
       $translateProvider.translations('es', translationsES);
@@ -1870,7 +1870,7 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                   $scope.objuser.lang = idiomaselect;
                   $scope.loagind = true;
                   loginRequest.login($scope.objuser).success(function(adata){
-                        $scope.loagind = false;
+                        
                         var expireDate = new Date();
                         expireDate.setDate(expireDate.getDate() + 1);
                         $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
@@ -1879,12 +1879,14 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                         $sessionStorage.id = adata.user.id;
                         $sessionStorage.email = adata.user.email;
 
+                        idiomaselect = adata.user.lang;
+
                         var url = $location.host();
 
                         if(url == 'localhost'){
                               $sessionStorage.developer = 1;
                         }
-
+                        $scope.loagind = false;
                         if(adata.user.type == 1){
                               $location.path("/sponsors/dashboard");
                         }else{
@@ -1902,7 +1904,7 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
 
 });
 
-sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
+sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, usSpinnerService, $localStorage) {
 
       if($sessionStorage) {
 
@@ -1944,7 +1946,7 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                         $scope.objuser.lang = idiomaselect;
                         $scope.objuser.type = 1;
                         $scope.objuser.name = $scope.name + " " + $scope.lastname; 
-
+                        $scope.loagind = true;
                         userRequest.createUser($scope.objuser).success(function(adata){
                               if(adata.message == "Not inserted"){
                                     switch(idiomaselect) {
@@ -1958,6 +1960,7 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                                             $scope.error_log = translationsPT.errorreg;
                                             break;
                                     }
+                                    $scope.loagind = false;
                                     ngDialog.open({ template: 'templateId' });  
                               }
 
@@ -1974,8 +1977,21 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                                             $scope.error_log = translationsPT.errorreg;
                                             break;
                                     }
-                                    ngDialog.open({ template: 'templateId' });  
-                              }
+                                    var datuser = JSON.stringify(adata.User);
+                                    $localStorage.sponzorme = datuser;
+                                    
+                                    var expireDate = new Date();
+                                    expireDate.setDate(expireDate.getDate() + 1);
+                                    $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.passwordone);
+                                    $sessionStorage.token = btoa($scope.email+':'+$scope.passwordone);
+
+                                    $scope.loagind = false;
+                                    $sessionStorage.typesponzorme = adata.User.type;
+                                    $sessionStorage.id = adata.User.id;
+                                    $sessionStorage.email = adata.User.email;
+                                    console.log($sessionStorage.id);
+                                    $location.path("/users/customization");  
+                              } 
 
                         }); 
                   }
@@ -1985,7 +2001,7 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
 });
 
 
-sponzorme.controller('UsersCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
+sponzorme.controller('UsersCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {
 
       if($sessionStorage) {
 
@@ -2026,7 +2042,7 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                               $scope.objuser.lang = idiomaselect;
                               $scope.objuser.type = 0;
                               $scope.objuser.name = $scope.name + " " + $scope.lastname; 
-
+                              $scope.loagind = true;
                               userRequest.createUser($scope.objuser).success(function(adata){
                                     if(adata.message == "Not inserted"){
                                           switch(idiomaselect) {
@@ -2040,9 +2056,26 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                                                   $scope.error_log = translationsPT.errorreg;
                                                   break;
                                           }
+                                          $scope.loagind = false;
+                                          ngDialog.open({ template: 'templateId' }); 
                                     }
-                                    
-                                    ngDialog.open({ template: 'templateId' });  
+
+                                    if(adata.message == "Inserted"){
+                                          var datuser = JSON.stringify(adata.User);
+                                          $localStorage.sponzorme = datuser;
+
+                                          var expireDate = new Date();
+                                          expireDate.setDate(expireDate.getDate() + 1);
+                                          $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.passwordone);
+                                          $sessionStorage.token = btoa($scope.email+':'+$scope.passwordone);
+
+                                          $scope.loagind = false;
+                                          $sessionStorage.typesponzorme = adata.User.type;
+                                          $sessionStorage.id = adata.User.id;
+                                          $sessionStorage.email = adata.User.email;
+                                          
+                                          $location.path("/users/customization");  
+                                    }  
                               }); 
                         }
                   }
@@ -3232,9 +3265,14 @@ sponzorme.controller('SponsorsFollowingController', function ($scope, $translate
 
 });
 
-sponzorme.controller('UsersCustomController', function ($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest) {
+sponzorme.controller('UsersCustomController', function ($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest) {
 
       $scope.loadinglistsponzors = true;
+      $scope.userData = {};
+      $scope.categories = [];
+      $scope.interestselectarray = [];
+      $scope.step1 = true;
+      $scope.step4 = false;
 
       if($sessionStorage) {
 
@@ -3260,8 +3298,9 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
            $location.path("/"); 
       }
 
+
+
       $scope.emailuser = $sessionStorage.email;
-      console.log($scope.emailuser);
 
       if(!$localStorage.sponzorme){
             userRequest.oneUser($sessionStorage.id).success(function(adata){
@@ -3271,6 +3310,112 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
 
       }else{
             var sponzormeObj = JSON.parse($localStorage.sponzorme);
+      }
+
+      categoryRequest.allCategories().success(function(adata){
+            angular.forEach(adata.categories, function(value, key) {
+                  if (idiomaselect == value.lang){
+                        this.push(value);
+                  } 
+                  
+            }, $scope.categories);
+
+            allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata){
+                  angular.forEach(adata.InterestCategory, function(value, key) {
+                        var indiceid = value.category_id;
+                        if(value.lang == idiomaselect){
+                              $scope.interest = [];
+                              angular.forEach(this, function(valuecat, keycat) {
+                                    if(valuecat.id == indiceid){
+                                        this.push(value);  
+                                    }
+                              }, $scope.interest);
+                              angular.forEach(this, function(value, key) {
+                                    if(value.id == indiceid){
+                                        $scope.categories[key]['interest'] = $scope.interest; 
+                                    }
+                              });  
+                        }
+                        
+                        
+                  }, $scope.categories);
+            });
+            console.log($scope.categories);
+            
+      });
+
+      
+      $scope.vieuser = 1;
+
+      $scope.sendfrom = function(){
+            console.log($scope.userData);
+            $scope.objuser = {}
+            $scope.objuser.age = $scope.userData.age;
+            $scope.objuser.sex = $scope.userData.sex;
+            $scope.objuser.lang = $scope.userData.lang;
+            $scope.objuser.location = $scope.userData.location.reference;
+            $scope.loagind = true;
+            userRequest.editUserPatch($sessionStorage.id, $scope.objuser).success(function(adata){
+                  if(adata.message == "Not inserted"){
+                        switch(idiomaselect) {
+                            case 'es':
+                                $scope.error_log = translationsES.errorreg;
+                                break;
+                            case 'en':
+                                $scope.error_log = translationsEN.errorreg;
+                                break;
+                            case 'pt':
+                                $scope.error_log = translationsPT.errorreg;
+                                break;
+                        }
+                        $scope.loagind = false;
+                        ngDialog.open({ template: 'templateId' }); 
+                  }
+
+                  if(adata.message == "Updated"){
+                        var datuser = JSON.stringify(adata.User);
+                        $localStorage.sponzorme = datuser;
+
+                        $scope.loagind = false;
+                        $scope.step1 = false;
+                        $scope.step2 = true;
+                        $scope.step4 = false;
+                  }  
+            }); 
+      }
+
+      $scope.showInterests = function(categoryid){
+            console.log(categoryid);
+            $scope.idselect = categoryid;
+      }
+
+      $scope.interestselect = function(interestselect){
+            
+            var searcharray = $scope.interestselectarray.indexOf(interestselect);
+            if(searcharray == -1){
+                  $scope.interestselectarray.push(interestselect);  
+            }else{
+                  $scope.interestselectarray.splice(searcharray, 1);
+                   
+            }
+            console.log($scope.interestselectarray);
+      }
+
+      $scope.submitCategoryInfo = function(){
+            $scope.loagind = true;
+            angular.forEach($scope.interestselectarray, function(valuep, key) {
+                  $scope.itemintere = {};
+                  $scope.itemintere.interest_id = valuep;
+                  $scope.itemintere.user_id = $sessionStorage.id;
+                  userInterestRequest.createUserInterest($scope.itemintere).success(function(adata){
+                        console.log(adata);
+                  });
+            });
+            $scope.loagind = false;
+            $scope.step1 = false;
+            $scope.step2 = false;
+            $scope.step4 = true;
+            $localStorage.$reset();
       }
 
       
