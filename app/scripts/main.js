@@ -3362,8 +3362,6 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
       $scope.vieuser = 1;
 
       $scope.sendfrom = function(){
-            console.log($scope.userData);
-            console.log($sessionStorage.token);
             $scope.objuser = {}
             $scope.objuser.age = $scope.userData.age;
             $scope.objuser.sex = $scope.userData.sex;

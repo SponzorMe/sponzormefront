@@ -16,11 +16,13 @@ angular.module('userService', ['ngStorage'])
 				return $http.get(path + 'users');
 			},
 			oneUser : function(userId){
+				var token = $sessionStorage.token;
 				$http.defaults.headers.common['Authorization'] = 'Basic ' + token;
 				return $http.get(path + 'users/' + userId);
 
 			},
 			createUser : function(data){
+				var token = $sessionStorage.token;
 				return $http({
 					method: 'POST',
 					url: path + 'users',
@@ -29,6 +31,7 @@ angular.module('userService', ['ngStorage'])
 				});
 			},
 			deleteUser : function(userId){
+				var token = $sessionStorage.token;
 				return $http({
 					method: 'DELETE',
 					url: path + 'users/' + userId,
@@ -36,6 +39,7 @@ angular.module('userService', ['ngStorage'])
 				});
 			},
 			editUserPatch : function(userId,data){
+				var token = $sessionStorage.token;
 				return $http({
 					method: 'PATCH',
 					url: path + 'users/' + userId,
@@ -44,6 +48,7 @@ angular.module('userService', ['ngStorage'])
 				});
 			},
 			editUserPut : function(userId,data){
+				var token = $sessionStorage.token;
 				return $http({
 					method: 'PUT',
 					url: path + 'users/' + userId,
@@ -52,6 +57,7 @@ angular.module('userService', ['ngStorage'])
 				});
 			},
 			invitedUser : function(data){
+				var token = $sessionStorage.token;
 				return $http({
 					method: 'POST',
 					url: path + 'invite_friend/',
