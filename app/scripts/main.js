@@ -3357,7 +3357,7 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
             
       });
 
-      console.log($sessionStorage.token);
+      
       
       $scope.vieuser = 1;
 
