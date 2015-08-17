@@ -1831,6 +1831,20 @@ sponzorme.controller('logoutController', function ($scope, $translate, $sessionS
 
 sponzorme.controller('LoginController', function ($scope, $translate, loginRequest, $base64, $sessionStorage, $location, usSpinnerService, ngDialog) {
 
+      delete $sessionStorage.cookiesponzorme;
+
+      delete $sessionStorage.typesponzorme;
+
+      delete $sessionStorage.token;
+
+      delete $sessionStorage.developer;
+
+      delete $sessionStorage.id;
+
+      delete $sessionStorage.email;
+
+      $localStorage.$reset();
+
       if($sessionStorage) {
 
             var cookie = $sessionStorage.cookiesponzorme;
