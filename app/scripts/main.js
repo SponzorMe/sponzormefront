@@ -1829,7 +1829,7 @@ sponzorme.controller('logoutController', function ($scope, $translate, $sessionS
       $location.path("/");
 });
 
-sponzorme.controller('LoginController', function ($scope, $translate, loginRequest, $base64, $sessionStorage, $location, usSpinnerService, ngDialog) {
+sponzorme.controller('LoginController', function ($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
 
       delete $sessionStorage.cookiesponzorme;
 
