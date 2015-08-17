@@ -15,11 +15,19 @@ angular.module('loginService', [])
 			* @returns success(function(data, status, headers, config)
 			*/
 			login : function(credentials){
-				console.log(credentials);
 				data={"email":credentials.email,"password":credentials.password};
 				return $http({
 					method: 'POST',
 					url: path + 'auth',
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					data: $.param(data)
+				});
+			},
+			resetemail : function(email){
+				data = {"email":email};
+				return $http({
+					method: 'POST',
+					url: path + 'send_reset_password',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});

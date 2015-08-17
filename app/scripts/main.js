@@ -1699,6 +1699,10 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
                   templateUrl: 'views/users/login.html',
                   controller: 'LoginController'
             })
+            .when('/forgot', {
+                  templateUrl: 'views/forgot.html',
+                  controller: 'ForgotController'
+            })
             .when('/sponsors/create',{
                   templateUrl: 'views/sponsors/create.html',
                   controller: 'SponzorsCreateController'
@@ -3358,8 +3362,9 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
       });
 
       
-      
       $scope.vieuser = 1;
+
+      console.log($sessionStorage.token);
 
       $scope.sendfrom = function(){
             $scope.objuser = {}
@@ -3435,6 +3440,43 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
 
   $scope.menuprincipal = 'views/sponsors/menu.html';
 
+
+});
+
+sponzorme.controller('ForgotController', function ($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, loginRequest) {
+
+      $scope.email = "";
+
+      if($sessionStorage) {
+
+            var cookie = $sessionStorage.cookiesponzorme;
+
+            if(cookie == undefined){
+                  $scope.vieuser = 1;
+            }else{
+                  $scope.vieuser = 0;
+            }
+
+            var typeini = $sessionStorage.typesponzorme;      
+            if (typeini != undefined){
+               if(typeini == '1'){
+                 $scope.typeuser = 0;
+              }else{
+                 $scope.typeuser = 1;
+              }   
+            }
+
+            $scope.userfroups = 0;
+      }else{
+           $location.path("/"); 
+      }
+
+      $scope.senmail = function(){
+            console.log($scope.email);
+            loginRequest.resetemail($scope.email).success(function(adata){
+                  console.log(adata);
+            });
+      }
 
 });
 
