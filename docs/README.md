@@ -1,31 +1,102 @@
-# Yeoman Gulp-Angular Generator documentation
+# Getting Started
 
-Welcome to the documentation of the generator. The goal of the generator is to bringing to you a cutting edge project with all technologies and optimization you could want or even you don't know yet that you want!
+Welcome to the [gulp] flavor of our web app generator! If you're not familiar with gulp, we suggest checking out [their docs][gulp-docs].
 
-But it can't and shouldn't match the requirements of all projects. It's why it generates a code that you have to make it yours and adapt it to your project.
+If you haven't already, install [yo] and this generator by running:
 
-* [Usage](usage.md) - Installation, main gulp commands, options, parameters...
-* [User Guide](user-guide.md) - How to use your new project and beneficiate from all tools featured
-* [How it Works](how-it-works.md) - Description of all mechanisms in the build process.
+```sh
+$ npm install --global yo generator-gulp-webapp
+```
 
+Now you can scaffold your very own web app:
 
-## Recipes
+```sh
+$ mkdir my-webapp
+$ cd my-webapp
+$ yo gulp-webapp
+```
 
-The community has written [recipes](recipes#recipes) for common use-cases that we chose not to add as a feature of the generator.
+To start developing, run:
 
-- [Accessing 'bower_components' in .scss files without having to path ../../bower_components/](recipes/accessing-bower-components-scss.md)
-- [How to add fontawesome?](recipes/add-fontawesome.md)
-- [How to add gulp-react to a project?](recipes/add-gulp-react.md)
-- [Build without concat CSS files](recipes/build-without-concat-css.md)
-- [Is there a way to change the output directory of fonts, scripts and styles?](recipes/build-without-concat-css.md)
-- [How can I have an environment specific build?](recipes/build-without-concat-css.md)
-- [How can exclude some HTML files from being added to the Angular cache?](recipes/keep-some-html-files-in-dist.md)
-- [Where to place third-party files?](managing-third-party-files.md)
-- [How shall I properly upgrade my current project with the last version of the generator?](recipes/upgrade-my-current-project.md)
-- [Use spritesheets](recipes/use-spritesheet.md)
+```sh
+$ gulp serve
+```
 
+This will fire up a local web server, open http://localhost:9000 in your default browser and watch files for changes, reloading the browser automatically via [LiveReload].
 
-## Still got questions?
+To run the tests in the browser, run:
 
-If you have question about using your new project, come ask the community on [Gitter](https://gitter.im/Swiip/generator-gulp-angular).
-If you think you found an error in the generator, open an issue on  [GitHub](https://github.com/Swiip/generator-gulp-angular/issues).
+```sh
+$ gulp serve:test
+```
+
+To make a production-ready build of the app, run:
+
+```sh
+$ gulp
+```
+
+To preview the production-ready build to check if everything is ok:
+
+```sh
+$ gulp serve:dist
+```
+
+## Tasks
+
+To get the list of available tasks, run:
+
+```sh
+$ gulp --tasks
+```
+
+## Gulp plugins
+
+As you might have noticed, gulp plugins (the ones that begin with `gulp-`) don't have to be `require()`'d. They are automatically picked up by [gulp-load-plugins][plugins] and available through the `$` variable.
+
+## Serve
+
+We use the `.tmp` directory mostly for compiling assets like SCSS files. It has precedence over `app`, so if you had an `app/index.html` template compiling to `.tmp/index.html`, http://localhost:9000 would point to `.tmp/index.html`, which is what we want.
+
+This system can be a little confusing with the `watch` task, but it's actually pretty simple:
+
+* notify LiveReload when compiled assets change
+* run the compile task when source assets change
+
+E.g. if you have Less files, you would want to notify LiveReload when Less files have compiled, i.e. when `.tmp/styles/**/*.css` change, but you would want to compile Less files by running the `styles` task when source files change, i.e. `app/styles/**/*.less`.
+
+## Bower
+
+We keep `bower_components` in the project root, you can read details about that [here](bower.md).
+
+While `gulp serve` is running, installing Bower components will usually be as easy as:
+
+```sh
+$ bower install --save jquery
+```
+
+Behind the scenes [wiredep] will automatically inject assets from your Bower components to your HTML/SCSS files.
+
+Keep in mind that there will sometimes be situations where you will have to do some extra work.
+
+### 1. You ran `bower install` while `gulp serve` wasn't running
+
+`gulp serve` watches `bower.json` and runs `gulp wiredep` on change, so the solution is to simply run `gulp wiredep` yourself.
+
+### 2. There are images/fonts in the component
+
+These are a bit tricky, as they can't be automatically injected. Ideally you would want to put them in a place where the link would work both in development and in production, like we do with Bootstrap, but that's sometimes not possible. In those cases you would need to do some [gulp-replace][replace] trickery.
+
+### 3. Field values in the component's `bower.json` are incorrect or missing
+
+If there's a problem, it's usually with the `main` field, which wiredep uses to wire up assets. Fortunately you can always [override][override] these fields and send a pull request to that component's repository, fixing their `bower.json` :wink:
+
+[gulp]:       https://github.com/gulpjs/gulp
+[gulp-docs]:  https://github.com/gulpjs/gulp/blob/master/docs/README.md
+[yo]:         https://github.com/yeoman/yo
+[LiveReload]: https://github.com/intesso/connect-livereload
+[plugins]:    https://github.com/jackfranklin/gulp-load-plugins
+[calc]:       https://github.com/postcss/postcss-calc
+[wiredep]:    https://github.com/taptapship/wiredep
+[replace]:    https://github.com/lazd/gulp-replace
+[override]:   https://github.com/taptapship/wiredep#bower-overrides
