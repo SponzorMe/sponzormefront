@@ -6,9 +6,9 @@
           <div class="row header">
             <div class="col-xs-12">
               <div class="user pull-right">
-        
+
                 <div class="item dropdown" dropdown="" is-open="status.isopen">
-                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
+                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">
                   <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
                     <input type="hidden" data-ng-init="viewUserInfoheader()">
                     <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
@@ -140,7 +140,7 @@
                           <span class="text-success">
                           <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy text-danger" ng-show="event.current != e.id"></i></a></span>
                         </td>
-                      </tr>                  
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -154,7 +154,7 @@
                 <div class="clearfix"></div>
               </div>
               <div class="widget-body medium no-padding">
-                <div class="table-responsive">              
+                <div class="table-responsive">
                   <table class="table table-striped table-center" >
                     <thead>
                       <tr>
@@ -164,12 +164,17 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingpeaks">
+                      <tr ng-show="loadingpeaks && !noPerksMessage">
                         <td colspan="3">
                           <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
                         </td>
-                      </tr>                  
-                      <tr ng-show="!loadingpeaks" data-ng-repeat="p in peaks">
+                      </tr>
+                      <tr ng-show="!loadingpeaks && noPerksMessage">
+                        <td colspan="3" class="text-center">
+                          <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
+                        </td>
+                      </tr>
+                      <tr ng-show="!loadingpeaks && !noPerksMessage" data-ng-repeat="p in peaks">
                         <td class="text-center">{{ p.kind }}</td>
                         <td class="text-center">{{ p.total_quantity }}</td>
                         <td class="text-center">{{ p.usd }}</td>
@@ -189,7 +194,7 @@
               <div class="widget-body" style="min-height:200px;">
                 <div ng-show="loadingrss">
                   <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-3" spinner-start-active="true"></span>
-                </div> 
+                </div>
                 <div class="message" data-ng-repeat="r in rss" ng-show="!loadingrss">
                   <h1 class="suggh1">{{ r.title }}</h1>
                   <a href="{{ r.link }}" target="_blank">{{ 'seemore' | translate }}</a>

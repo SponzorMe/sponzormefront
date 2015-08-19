@@ -4,7 +4,7 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-@font-face{ 
+@font-face{
   font-family: 'BebasNeueBold';
   src: url('../fonts/bebasneue/bebasneue_bold-webFont.eot');
   src: url('../fonts/bebasneue/bebasneue_bold-webFont.eot?#iefix') format('embedded-opentype'),
@@ -13,7 +13,7 @@ $icon-font-path: '../fonts/';
        url('../fonts/bebasneue/bebasneue_bold-webFont.svg#webfont') format('svg');
 }
 
-@font-face{ 
+@font-face{
   font-family: 'BebasNeueLight';
   src: url('../fonts/bebasneue/bebasneue_light-webFont.eot');
   src: url('../fonts/bebasneue/bebasneue_light-webFont.eot?#iefix') format('embedded-opentype'),
@@ -22,7 +22,7 @@ $icon-font-path: '../fonts/';
        url('../fonts/bebasneue/bebasneue_light-webFont.svg#webfont') format('svg');
 }
 
-@font-face{ 
+@font-face{
   font-family: 'BebasNeueRegular';
   src: url('../fonts/bebasneue/bebasneue_regular-webFont.eot');
   src: url('../fonts/bebasneue/bebasneue_regular-webFont.eot?#iefix') format('embedded-opentype'),
@@ -31,7 +31,7 @@ $icon-font-path: '../fonts/';
        url('../fonts/bebasneue/bebasneue_regular-webFont.svg#webfont') format('svg');
 }
 
-@font-face{ 
+@font-face{
   font-family: 'BebasNeueThin';
   src: url('../fonts/bebasneue/WebFont.eot');
   src: url('../fonts/bebasneue/WebFont.eot?#iefix') format('embedded-opentype'),
@@ -1418,7 +1418,7 @@ pre {
   margin-right: auto;
   margin-left: auto;
   padding-left: 65px;
-  padding-right: 95px; 
+  padding-right: 95px;
 
 }
 
@@ -7499,7 +7499,7 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1); }
 
 ul.navbar-nav li a {
-  color: #ffffff !important; 
+  color: #ffffff !important;
   font-size:13px;}
 
 .btn-block {
@@ -8121,7 +8121,7 @@ html {
 
 body {
   font-family: "Montserrat";
-  color: #333 !important; 
+  color: #333 !important;
 }
 
 body .page-content{
@@ -8700,5 +8700,3 @@ ul.sidebar .sidebar-list a:hover {
   border:none;
   margin:5px;
 }
-
-

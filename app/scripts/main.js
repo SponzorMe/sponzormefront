@@ -245,7 +245,7 @@ var translationsES = {
       addSponzorTodo:  'Agregar Tarea',
         subject: 'Bienvenido a SponzorMe',
 
-        
+
         click: 'Click Aquí',
 
         invitefriend: 'Hola, <br/><br/> Estas invitado para usar <a href="http://sponzor.me">SponzorMe</a>.',
@@ -253,7 +253,7 @@ var translationsES = {
         header       : '<p dir="ltr">Hola,</p><br/><p dir="ltr">Mi nombre es Carlos y soy el fundador de SponzorMe. Yo solo queria contactarte y decirte gracias por unirte! Te queria decir que este proyecto nació de una </br> necesidad que yo mismo tenía cada vez que organizaba un evento y que es un problema que muchas veces acaba con las comunidades y con el entusiasmo de sus </br>organizadores. Si tienes un tiempo te invito a leer nuestra entrada donde puedes ver lo que motiva al equipo de SponzorMe ( <a href="http://bloges.sponzor.me/">http://bloges.sponzor.me/</a> )</p><br/><p dir="ltr">Como sabes esto es un viaje y no sabemos la mayoría de las cosas, es por esto que vamos a necesitar de tu ayuda. Cualquier comentario, preocupación, </br> problema, sugerencia. Estoy disponible para escucharte.</p><br/><p dir="ltr">Mi correo es: <a href="mailto:carlos@sponzor.me">carlos@sponzor.me</a></p><br/><p dir="ltr">Para empezar debes confirmar tu correo electronico en el siguiente link:</p><br/><p dir="ltr">',
         footer           :'</p><br/><p dir="ltr">Gracias de nuevo por unirte - Es grandioso conocerte :)</p><br/><p dir="ltr">Un abrazo,</p><p>Carlos Rojas</p>',
 
-      created     : 'Grupo creado.',  
+      created     : 'Grupo creado.',
 
       userexists    : 'El usuario ya existe.',
 
@@ -475,7 +475,7 @@ var translationsES = {
       text21: 'Los Organizadores podrán acceder a los Datos personales almacenados por nosotros y actualizarlos si inician sesión y visitan la página Mi cuenta. Asimismo, los Organizadores podrán conectarse con nosotros directamente en la dirección que se indica más abajo en referencia a Datos personales a los que no se puede acceder desde la página Mi cuenta. Los compradores y otros no Organizadores no disponen de cuenta formal en SponzorMe; sin embargo, puedes crear una cuenta formal si te inscribes. Una vez inscrito, podrás actualizar tus Datos personales y acceder a ellos en la página Mi cuenta. Los compradores y otros no Organizadores también pueden ponerse en contacto con nosotros directamente para solicitar la actualización de los Datos personales en la dirección que se indica más abajo. Tomaremos las medidas razonables para responder a las solicitudes relacionadas con Datos personales en un plazo de 30 días; sin embargo, podríamos rechazar las solicitudes que no sean razonables (es decir, que requieran un esfuerzo desproporcionado o cambios materiales en nuestros sistemas de información), o las que sean poco prácticas o abusivas (es decir, las solicitudes repetidas, las solicitudes realizadas de mala fe o las que pudieran comprometer la información de terceros). Ten en cuenta que quizás no puedas acceder o actualizar Datos no personales, muchos de los cuales se conservan en forma agregada.',
       text22: 'Podremos conservar tus Datos personales mientras continúes utilizando los Servicios. Puedes cerrar tu cuenta poniéndote en contacto con nosotros. Sin embargo, podremos conservar Datos personales y Datos no personales durante más tiempo si las leyes aplicables así lo permite o lo exigen. Aunque eliminemos tus Datos personales, estos pueden continuar en soportes de archivo o copia de seguridad y en otros sistemas de información.',
       text23: 'Si tienes cualquier pregunta acerca de esta Política de privacidad o nuestras prácticas al manejar la información, no dudes en ponerte en contacto con nosotros. Puedes escribirnos aquí: http://www.Sponzor.me/contact-us o llamarnos al +1 5104176510',
-      text24: 'Si tienes alguna reclamación sobre las prácticas relacionadas con la política de privacidad de SponzorMe, escríbenos a la siguiente dirección: SponzorMe, Inc., A/A: Responsable de privacidad, 2081 Center Street, Berkeley, CA 94704, EE. UU., o envíanos un correo electrónico a la dirección: privacy@sponzor.me. Tomaremos las medidas razonables para colaborar contigo e intentar resolver tu reclamación. Como parte de nuestra participación en el marco de trabajo de Puerto Seguro entre EE. UU. y la U.E. y entre EE. UU. y Suiza, SponzorMe ha designado a TRUSTe como su único mecanismo para la resolución de conflictos para todas las reclamaciones relacionadas con los principios de Puerto Seguro. Puedes presentar dicha reclamación a TRUSTe a través de Internet aquí, por fax al número 415-520-3420 o por correo electrónico al Departamento de aplicación de Puerto Seguro de TRUSTe a la dirección indicada aquí; sin embargo, en cualquier caso, únicamente deberás hacerlo después de ponerte primero en contacto con nuestro Responsable de privacidad para comunicarle tu reclamación y dejarnos una cantidad de tiempo razonable para tratar de resolver dicha reclamación. Si envías un fax o un correo a TRUSTe para presentar una reclamación, deberás incluir la siguiente información: el nombre de la empresa, la presunta violación de privacidad, tu información de contacto y si deseas compartir con la empresa los detalles de tu reclamación. Para obtener más información sobre TRUSTe o sobre el funcionamiento del proceso de resolución de conflictos de TRUSTe, haz clic aquí o solicita dicha información a TRUSTe en cualquiera de las direcciones indicadas anteriormente. El proceso de resolución de conflictos de TRUSTe se llevará a cabo en inglés.', 
+      text24: 'Si tienes alguna reclamación sobre las prácticas relacionadas con la política de privacidad de SponzorMe, escríbenos a la siguiente dirección: SponzorMe, Inc., A/A: Responsable de privacidad, 2081 Center Street, Berkeley, CA 94704, EE. UU., o envíanos un correo electrónico a la dirección: privacy@sponzor.me. Tomaremos las medidas razonables para colaborar contigo e intentar resolver tu reclamación. Como parte de nuestra participación en el marco de trabajo de Puerto Seguro entre EE. UU. y la U.E. y entre EE. UU. y Suiza, SponzorMe ha designado a TRUSTe como su único mecanismo para la resolución de conflictos para todas las reclamaciones relacionadas con los principios de Puerto Seguro. Puedes presentar dicha reclamación a TRUSTe a través de Internet aquí, por fax al número 415-520-3420 o por correo electrónico al Departamento de aplicación de Puerto Seguro de TRUSTe a la dirección indicada aquí; sin embargo, en cualquier caso, únicamente deberás hacerlo después de ponerte primero en contacto con nuestro Responsable de privacidad para comunicarle tu reclamación y dejarnos una cantidad de tiempo razonable para tratar de resolver dicha reclamación. Si envías un fax o un correo a TRUSTe para presentar una reclamación, deberás incluir la siguiente información: el nombre de la empresa, la presunta violación de privacidad, tu información de contacto y si deseas compartir con la empresa los detalles de tu reclamación. Para obtener más información sobre TRUSTe o sobre el funcionamiento del proceso de resolución de conflictos de TRUSTe, haz clic aquí o solicita dicha información a TRUSTe en cualquiera de las direcciones indicadas anteriormente. El proceso de resolución de conflictos de TRUSTe se llevará a cabo en inglés.',
 
       invalid   : 'Nombre de usuario o contraseña invalido.',
 
@@ -486,7 +486,7 @@ var translationsES = {
       banned  : 'Tu cuenta ha sido baneada.',
       eventbrite_msg: 'Por favor conecte su cuenta de Eventbrite',
       meetup_msg: 'Por favor conecte su cuenta de Meetup',
-      titleregis: 'Registrarse',    
+      titleregis: 'Registrarse',
 
       exists  : 'El usuario ya existe.',
 
@@ -579,7 +579,7 @@ var translationsES = {
       attributes_password : 'Contraseña',
       attributes_confirmpassword : 'Confirmar contraseña',
 
-      testimonial1  :   'SponzorMe es una herramienta que se debio haber construido hace mucho tiempo...',  
+      testimonial1  :   'SponzorMe es una herramienta que se debio haber construido hace mucho tiempo...',
 
       testimonial2    :  'Necesitábamos esta herramienta para que cada evento sea cada vez más fácil y gratificante...',
 
@@ -790,7 +790,7 @@ var translationsEN = {
       friendinvitiation      :'Has been invited to know Sponzor.me',
 
       seemore       : 'See More ...',
-      
+
       manage          : 'Manage',
 
       searchtitle        : 'Search for you next event...',
@@ -930,7 +930,7 @@ var translationsEN = {
       header : '<p dir="ltr"></br>Hi,</br></p><br/><br/><p dir="ltr">My name is Carlos and I’m the founder of SponzorMe. I’m reaching out to say thank you for joining us! This project was born out of a necessity that I had </br>myself every time I would organize an event, and it is a problem that can end with a community and the enthusiasm of its organizers. Please take a moment</br>to read more about what motivates me and the team behind SponzorMe <a href="http://blogen.sponzor.me/">http://blogen.sponzor.me/</a>.</p><br/><p dir="ltr">As you know this is a journey and there are many unknowns so I need your help, any comment, suggestion, trouble or feedback that you have is welcome. I’m here to help.</p><br/><p dir="ltr">You can get in touch with me personally at <a href="mailto:carlos@sponzor.me">carlos@sponzor.me</a></p><br/><p dir="ltr">Please verify your email to get started with the following link:',
       footer : '</p><br/><p dir="ltr">Again, thanks for joining - is great to meet you :)</p><br/><p dir="ltr">All the best,</p><p>Carlos Rojas</p>',
 
-      created     : 'Group Created.',  
+      created     : 'Group Created.',
 
       userexists  : 'User already exists.',
 
@@ -947,7 +947,7 @@ var translationsEN = {
       titlelogin        : 'Login',
       rememberme       : 'Rememberme',
       signin       : 'Sign Up',
-      forgot : 'Forgot Password?', 
+      forgot : 'Forgot Password?',
 
       flashsuccess  : 'Exitoso',
 
@@ -1271,7 +1271,7 @@ var translationsEN = {
 
       validationRules:'Please complete all field form',
 
-      testimonial1    :  'SponzorMe is a tool that should have been built long ago...',  
+      testimonial1    :  'SponzorMe is a tool that should have been built long ago...',
 
       testimonial2    :  'We needed this tool for every event becoming easier and rewarding...',
 
@@ -1283,7 +1283,10 @@ var translationsEN = {
 
       errorreg: 'The user failed to register',
 
-      eventtypestring: 'Save Event Type'
+      eventtypestring: 'Save Event Type',
+
+      noPerksMessage: 'No perks added yet.'
+
 };
 
 var translatiosnPT = {
@@ -1627,7 +1630,7 @@ var translatiosnPT = {
 
       subject                 : 'Bem-vindo ao SponzorMe',
 
-  
+
       click                 : 'Clique Aqui',
 
       invitefriend                 : 'Olá, <br/><br/> Você está convidado a usar <a href="http://sponzor.me">SponzorMe</a>.',
@@ -1637,7 +1640,7 @@ var translatiosnPT = {
       attributes_username : 'Usuário',
       attributes_password : 'Senha',
       attributes_confirmpassword : 'Confirme sua senha',
-      testimonial1    :  'SponzorMe é uma ferramenta que deve ter construído há muito tempo...', 
+      testimonial1    :  'SponzorMe é uma ferramenta que deve ter construído há muito tempo...',
 
       testimonial2    :  'Precisávamos essa ferramenta para todos os eventos cada vez mais fácil e gratificante...',
 
@@ -1657,7 +1660,7 @@ var idiomaselect = 'en';
 
 var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage', 'allInterestsService', 'userInterestService'])
       .config(function ($translateProvider) {
-      
+
       $translateProvider.translations('es', translationsES);
 
       $translateProvider.translations('en', translationsEN);
@@ -1666,7 +1669,7 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
 
       $translateProvider.preferredLanguage('en');
       $translateProvider.useSanitizeValueStrategy(null);
-      
+
       })
 
       .config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
@@ -1781,20 +1784,20 @@ sponzorme.controller('HomeController', function ($scope, $translate, $sessionSto
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme; 
+            var typeini = $sessionStorage.typesponzorme;
 
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
 
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.changeLanguage = function (key) {
@@ -1859,18 +1862,18 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.changeLanguage = function (key) {
@@ -1888,7 +1891,7 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                   $scope.objuser.lang = idiomaselect;
                   $scope.loagind = true;
                   loginRequest.login($scope.objuser).success(function(adata){
-                        
+
                         var expireDate = new Date();
                         expireDate.setDate(expireDate.getDate() + 1);
                         $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
@@ -1914,9 +1917,9 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                   }).error(function(edata){
                         $scope.loagind = false;
                         ngDialog.open({ template: 'errorloging.html' });
-                  });  
+                  });
             }
-            
+
       }
 
 
@@ -1933,27 +1936,27 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
-  
+
 
       $scope.changeLanguage = function (key) {
             $translate.use(key);
             idiomaselect = key;
       };
 
-      $scope.sendfrom = function(){   
+      $scope.sendfrom = function(){
             if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){
                   if ($scope.passwordone == $scope.passwordtwo){
                         $scope.objuser = {}
@@ -1962,7 +1965,7 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                         $scope.objuser.password_confirmation = $scope.passwordtwo;
                         $scope.objuser.lang = idiomaselect;
                         $scope.objuser.type = 1;
-                        $scope.objuser.name = $scope.name + " " + $scope.lastname; 
+                        $scope.objuser.name = $scope.name + " " + $scope.lastname;
                         $scope.loagind = true;
                         userRequest.createUser($scope.objuser).success(function(adata){
                               if(adata.message == "Not inserted"){
@@ -1978,13 +1981,13 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                                             break;
                                     }
                                     $scope.loagind = false;
-                                    ngDialog.open({ template: 'templateId' });  
+                                    ngDialog.open({ template: 'templateId' });
                               }
 
                               if(adata.message == "Inserted"){
                                     switch(idiomaselect) {
                                         case 'es':
-                                        
+
                                             $scope.error_log = translationsES.errorreg;
                                             break;
                                         case 'en':
@@ -1996,7 +1999,7 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                                     }
                                     var datuser = JSON.stringify(adata.User);
                                     $localStorage.sponzorme = datuser;
-                                    
+
                                     var expireDate = new Date();
                                     expireDate.setDate(expireDate.getDate() + 1);
                                     $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.passwordone);
@@ -2007,10 +2010,10 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                                     $sessionStorage.id = adata.User.id;
                                     $sessionStorage.email = adata.User.email;
                                     console.log($sessionStorage.id);
-                                    $location.path("/users/customization");  
-                              } 
+                                    $location.path("/users/customization");
+                              }
 
-                        }); 
+                        });
                   }
             }
       }
@@ -2030,18 +2033,18 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.changeLanguage = function (key) {
@@ -2058,7 +2061,7 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                               $scope.objuser.password_confirmation = $scope.passwordtwo;
                               $scope.objuser.lang = idiomaselect;
                               $scope.objuser.type = 0;
-                              $scope.objuser.name = $scope.name + " " + $scope.lastname; 
+                              $scope.objuser.name = $scope.name + " " + $scope.lastname;
                               $scope.loagind = true;
                               userRequest.createUser($scope.objuser).success(function(adata){
                                     if(adata.message == "Not inserted"){
@@ -2074,7 +2077,7 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                                                   break;
                                           }
                                           $scope.loagind = false;
-                                          ngDialog.open({ template: 'templateId' }); 
+                                          ngDialog.open({ template: 'templateId' });
                                     }
 
                                     if(adata.message == "Inserted"){
@@ -2090,17 +2093,17 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                                           $sessionStorage.typesponzorme = adata.User.type;
                                           $sessionStorage.id = adata.User.id;
                                           $sessionStorage.email = adata.User.email;
-                                          
-                                          $location.path("/users/customization");  
-                                    }  
-                              }); 
+
+                                          $location.path("/users/customization");
+                                    }
+                              });
                         }
                   }
       }
 
 });
 
-sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, perkRequest, usSpinnerService, $rootScope) {
+sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, perkRequest,eventRequest, usSpinnerService, $rootScope) {
 
       $scope.loadingevents = true;
       $scope.loadingrss=true;
@@ -2115,18 +2118,18 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -2162,7 +2165,7 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
                   $localStorage.sponzorme = datuser;
                   angular.forEach(adata.data.user.events, function(value, key) {
                         if(value.lang == idiomaselect){
-                              this.push(value);   
+                              this.push(value);
                         }
                   },$scope.events);
 
@@ -2175,12 +2178,12 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
 
                   $scope.peaks = [];
 
-                  perkRequest.onePerk($scope.events[0].id).success(function(adata){ 
+                  perkRequest.onePerk($scope.events[0].id).success(function(adata){
                       $scope.peaks.push(adata.data.Perk);
-                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar  
-                      usSpinnerService.stop('spinner-1');      
+                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar
+                      usSpinnerService.stop('spinner-1');
                   });
-                  
+
             });
       }else{
 
@@ -2190,7 +2193,7 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
 
             angular.forEach(sponzormeObj.events, function(value, key) {
                   if(value.lang == idiomaselect){
-                        this.push(value);   
+                        this.push(value);
                   }
             },$scope.events);
 
@@ -2203,24 +2206,43 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
 
             $scope.peaks = [];
 
-            perkRequest.onePerk($scope.events[0].id).success(function(adata){ 
-                $scope.peaks.push(adata.data.Perk);
-                $scope.loadingpeaks=false; //Ocultamos el boton de cargar 
-                usSpinnerService.stop('spinner-1');       
-            }); 
-            
+            eventRequest.oneEvent($scope.events[0].id).success(function(adata){
+              $scope.peaks.push=adata.data.event.perks;
+              console.log($scope.peaks);
+              $scope.loadingpeaks=false;
+              if(!$scope.peaks[0]){
+                $scope.noPerksMessage=true;
+              }
+              else{
+                $scope.noPerksMessage=false;
+              }
+            }).error(function (error){
+                $scope.loadingpeaks=false;
+                $scope.noPerksMessage=true;
+            });
       }
 
       $scope.$watch('event.current', function(newvalue, oldvalue){
             $scope.loadingpeaks=true;
+            $scope.noPerksMessage=false;
             if($scope.event.current){
-                  //Mostramos el boton de cargar.            
-                  perkRequest.onePerk(newvalue).success(function(adata) 
-                  {   
-                      $scope.peaks = [];             
-                      $scope.peaks.push(adata.data.Perk);
-                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
-                  });           
+                  //Mostramos el boton de cargar.
+                eventRequest.oneEvent(newvalue).success(function(adata)
+                {
+                  console.log(adata);
+                  $scope.peaks=adata.data.event.perks;
+                  console.log($scope.peaks);
+                  $scope.loadingpeaks=false;
+                  if(!$scope.peaks[0]){
+                    $scope.noPerksMessage=true;
+                  }
+                  else{
+                    $scope.noPerksMessage=false;
+                  }
+                }).error(function (error){
+                    $scope.loadingpeaks=false;
+                    $scope.noPerksMessage=true;
+                });
             }
       });
 
@@ -2261,27 +2283,27 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
-            var developer = $sessionStorage.developer;      
+            var developer = $sessionStorage.developer;
             if (developer != undefined){
                if(developer == '1'){
                  $scope.developer = 1;
               }else{
                  $scope.developer = 0;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -2295,27 +2317,27 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
             $scope.typefilter = [];
             angular.forEach(adata.eventTypes, function(value, key) {
                   if(value.lang == idiomaselect){
-                        this.push(value);   
+                        this.push(value);
                   }
             },$scope.typefilter);
-            
+
       });
 
       $scope.categorias = {};
 
       categoryRequest.allCategories($scope.typeuser).success(function(adata){
-            
+
             $scope.categorias.list = adata.categories;
             $scope.categoriasfilter = [];
             angular.forEach( adata.categories, function(value, key) {
                   if(value.lang == idiomaselect){
-                        this.push(value);   
+                        this.push(value);
                   }
             },$scope.categoriasfilter);
       });
 
       $scope.eventos = {};
-      
+
       $scope.loadingpeaks=true;
       $scope.sponzors = {};
       $scope.sponzors.size = 0;
@@ -2336,7 +2358,7 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   $localStorage.sponzorme = datuser;
                   angular.forEach(adata.data.user.events, function(value, key) {
                         if(value.lang == idiomaselect){
-                              this.push(value);   
+                              this.push(value);
                         }
                   },$scope.eventos);
 
@@ -2345,15 +2367,15 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   };
 
                   $scope.peaks = [];
-                  
-                  $scope.loadingevents = false;
-                  usSpinnerService.stop('spinner-1'); 
 
-                  perkRequest.onePerk($scope.eventos[0].id).success(function(adata){ 
+                  $scope.loadingevents = false;
+                  usSpinnerService.stop('spinner-1');
+
+                  perkRequest.onePerk($scope.eventos[0].id).success(function(adata){
                       $scope.peaks.push(adata.data.Perk);
-                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
+                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar
                   });
-                  
+
             });
       }else{
 
@@ -2362,35 +2384,35 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
             $scope.eventos = [];
             angular.forEach(sponzormeObj.events, function(value, key) {
                   if(value.lang == idiomaselect){
-                        this.push(value);   
+                        this.push(value);
                   }
             },$scope.eventos);
 
             $scope.peaks = [];
             $scope.peakslist = [];
             $scope.loadingevents = false;
-            usSpinnerService.stop('spinner-1'); 
-            
+            usSpinnerService.stop('spinner-1');
 
-            perkRequest.onePerk($scope.eventos[0].id).success(function(adata){ 
+
+            perkRequest.onePerk($scope.eventos[0].id).success(function(adata){
                 $scope.peaks.push(adata.data.Perk);
-                $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
-            }); 
+                $scope.loadingpeaks=false; //Ocultamos el boton de cargar
+            });
       }
 
-      
+
 
       var url = $location.host();
 
       if(url == 'localhost'){
-            perkRequest.allPerks().success(function(adata){ 
-                $scope.peakslist = adata.Perk;      
+            perkRequest.allPerks().success(function(adata){
+                $scope.peakslist = adata.Perk;
             });
       }
 
-      
 
-      
+
+
 
       $scope.userfroups = 0;
 
@@ -2491,13 +2513,13 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
       $scope.$watch('event.current', function(newvalue, oldvalue){
             $scope.loadingpeaks=true;
             if($scope.event.current){
-                  //Mostramos el boton de cargar.            
-                  perkRequest.onePerk(newvalue).success(function(adata) 
-                  {   
-                      $scope.peaks = [];             
+                  //Mostramos el boton de cargar.
+                  perkRequest.onePerk(newvalue).success(function(adata)
+                  {
+                      $scope.peaks = [];
                       $scope.peaks.push(adata.data.Perk);
-                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar        
-                  });           
+                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar
+                  });
             }
       });
 
@@ -2508,7 +2530,7 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
       $scope.newEvent = function(){
 
             uploader.uploadAll();
-            
+
             $scope.events = {};
             $scope.events.title = $scope.titleevent;
             $scope.events.location = $scope.locationevent.name;
@@ -2530,11 +2552,11 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                         $scope.perkitems.usd = value.usd;
                         $scope.perkitems.id_event = adata.event.id;
                         perkRequest.createPerk($scope.perkitems).success(function(pdata){
-                             $scope.peaks.push(pdata.Perk);   
+                             $scope.peaks.push(pdata.Perk);
                         });
-                        
+
                   },$scope.peaks);
-                  
+
                   $scope.eventos.push(adata.event);
                   $scope.events = {};
             });
@@ -2553,12 +2575,12 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
             $scope.perkitems.usd = $scope.perksusd;
             $scope.perkitems.id_event = $scope.perksevents;
             perkRequest.createPerk($scope.perkitems).success(function(pdata){
-                 this.push(pdata);   
+                 this.push(pdata);
             });
       }
 
       $scope.addsponzor = function () {
-        $scope.sponzors.push({ 
+        $scope.sponzors.push({
             kind: "",
             usd: 0,
             quantity: 1
@@ -2579,8 +2601,8 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   $scope.type.list[index].name = adata.EventType.name;
                   $scope.type.list[index].description = adata.EventType.description;
                   $scope.type.list[index].lang = adata.EventType.lang;
-                  ngDialog.open({ template: 'templateidsevent' }); 
-            }); 
+                  ngDialog.open({ template: 'templateidsevent' });
+            });
       }
 
       $scope.removeeventtype = function(index){
@@ -2615,7 +2637,7 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                         }
                   }
                   ngDialog.open({ template: 'templateidsevent' });
-            }); 
+            });
       }
 
 
@@ -2630,7 +2652,7 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   $scope.categorias.list.push(adata.category);
                   $scope.categorytitle = "";
                   $scope.categorybody = "";
-                  ngDialog.open({ template: 'templateidsevent' }); 
+                  ngDialog.open({ template: 'templateidsevent' });
             });
       }
 
@@ -2644,8 +2666,8 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   $scope.categorias.list[index].name = adata.category.name;
                   $scope.categorias.list[index].description = adata.category.description;
                   $scope.categorias.list[index].lang = adata.category.lang;
-                  ngDialog.open({ template: 'templateidsevent' }); 
-            }); 
+                  ngDialog.open({ template: 'templateidsevent' });
+            });
       }
 
       $scope.removeeventcategory = function(index){
@@ -2680,7 +2702,7 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                         }
                   }
                   ngDialog.open({ template: 'templateidsevent' });
-            }); 
+            });
       }
 
 });
@@ -2701,18 +2723,18 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $s
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -2740,7 +2762,7 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $s
                   $scope.loadingevents = false;
                   $scope.loadingtodo = false;
                   usSpinnerService.stop('spinner-1');
-                  usSpinnerService.stop('spinner-2');  
+                  usSpinnerService.stop('spinner-2');
             });
 
       }else{
@@ -2749,10 +2771,10 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $s
             $scope.sponzors = sponzormeObj.sponzorships;
             $scope.loadingevents = false;
             $scope.loadingtodo = false;
-            usSpinnerService.stop('spinner-1'); 
-            usSpinnerService.stop('spinner-2'); 
+            usSpinnerService.stop('spinner-1');
+            usSpinnerService.stop('spinner-2');
       }
-      
+
 
       $scope.menuprincipal = 'views/users/menu.html';
 });
@@ -2769,18 +2791,18 @@ sponzorme.controller('UsersFriendController', function ($scope, $translate, $ses
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.friend = {};
@@ -2797,7 +2819,7 @@ sponzorme.controller('UsersFriendController', function ($scope, $translate, $ses
                   if (adata.code == 200){
                         ngDialog.open({ template: 'emailsend.html', scope: $scope });
                   }else{
-                        ngDialog.open({ template: 'errorsend.html' }); 
+                        ngDialog.open({ template: 'errorsend.html' });
                   }
             });
 
@@ -2825,18 +2847,18 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -2865,7 +2887,7 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
 
                   angular.forEach(adata.data.user.events, function(value, key) {
                         if(value.lang == idiomaselect){
-                              this.push(value);   
+                              this.push(value);
                         }
                   },$scope.events);
             });
@@ -2880,7 +2902,7 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
 
       $scope.updatePeak = function(){
             eventRequest.oneEvent($scope.todo.event.id).success(function(adata){
-                  $scope.peaks=adata.data.event.perks;        
+                  $scope.peaks=adata.data.event.perks;
             });
       }
 
@@ -2929,18 +2951,18 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -2995,18 +3017,18 @@ sponzorme.controller('SponsorsMainController', function ($scope, $translate, $se
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.account = [];
@@ -3054,18 +3076,18 @@ sponzorme.controller('SponsorsSettingsController', function ($scope, $translate,
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -3115,18 +3137,18 @@ sponzorme.controller('SponsorsFriendController', function ($scope, $translate, $
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.invitefriend = function(){
@@ -3139,7 +3161,7 @@ sponzorme.controller('SponsorsFriendController', function ($scope, $translate, $
                   if (adata.code == 200){
                         ngDialog.open({ template: 'emailsend.html', scope: $scope });
                   }else{
-                        ngDialog.open({ template: 'errorsend.html' }); 
+                        ngDialog.open({ template: 'errorsend.html' });
                   }
             });
 
@@ -3168,18 +3190,18 @@ sponzorme.controller('SponsorsSponzorsController', function ($scope, $translate,
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -3212,17 +3234,17 @@ sponzorme.controller('SponsorsSponzorsController', function ($scope, $translate,
             $scope.loadingsponzors = false;
       }
 
-      
+
 
       angular.forEach($scope.taskorganizar, function(value, key) {
             $scope.objtask = {};
             $scope.objtask.title = value.title;
             $scope.objtask.description = value.description;
-            this.push($scope.objtask); 
+            this.push($scope.objtask);
 
       },$scope.todo);
 
-      $scope.loadingtodo = false; 
+      $scope.loadingtodo = false;
       $scope.loadinglikesponzors = false;
 
 
@@ -3245,18 +3267,18 @@ sponzorme.controller('SponsorsFollowingController', function ($scope, $translate
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.emailuser = $sessionStorage.email;
@@ -3275,7 +3297,7 @@ sponzorme.controller('SponsorsFollowingController', function ($scope, $translate
             $scope.loadinglistsponzors = false;
       }
 
-      
+
 
   $scope.menuprincipal = 'views/sponsors/menu.html';
 
@@ -3301,18 +3323,18 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
 
@@ -3333,8 +3355,8 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
             angular.forEach(adata.categories, function(value, key) {
                   if (idiomaselect == value.lang){
                         this.push(value);
-                  } 
-                  
+                  }
+
             }, $scope.categories);
 
             allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata){
@@ -3344,24 +3366,24 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
                               $scope.interest = [];
                               angular.forEach(this, function(valuecat, keycat) {
                                     if(valuecat.id == indiceid){
-                                        this.push(value);  
+                                        this.push(value);
                                     }
                               }, $scope.interest);
                               angular.forEach(this, function(value, key) {
                                     if(value.id == indiceid){
-                                        $scope.categories[key]['interest'] = $scope.interest; 
+                                        $scope.categories[key]['interest'] = $scope.interest;
                                     }
-                              });  
+                              });
                         }
-                        
-                        
+
+
                   }, $scope.categories);
             });
             console.log($scope.categories);
-            
+
       });
 
-      
+
       $scope.vieuser = 1;
 
       console.log($sessionStorage.token);
@@ -3387,7 +3409,7 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
                                 break;
                         }
                         $scope.loagind = false;
-                        ngDialog.open({ template: 'templateId' }); 
+                        ngDialog.open({ template: 'templateId' });
                   }
 
                   if(adata.message == "Updated"){
@@ -3398,8 +3420,8 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
                         $scope.step1 = false;
                         $scope.step2 = true;
                         $scope.step4 = false;
-                  }  
-            }); 
+                  }
+            });
       }
 
       $scope.showInterests = function(categoryid){
@@ -3408,13 +3430,13 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
       }
 
       $scope.interestselect = function(interestselect){
-            
+
             var searcharray = $scope.interestselectarray.indexOf(interestselect);
             if(searcharray == -1){
-                  $scope.interestselectarray.push(interestselect);  
+                  $scope.interestselectarray.push(interestselect);
             }else{
                   $scope.interestselectarray.splice(searcharray, 1);
-                   
+
             }
             console.log($scope.interestselectarray);
       }
@@ -3436,7 +3458,7 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
             $localStorage.$reset();
       }
 
-      
+
 
   $scope.menuprincipal = 'views/sponsors/menu.html';
 
@@ -3457,18 +3479,18 @@ sponzorme.controller('ForgotController', function ($scope, $translate, $sessionS
                   $scope.vieuser = 0;
             }
 
-            var typeini = $sessionStorage.typesponzorme;      
+            var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
                  $scope.typeuser = 0;
               }else{
                  $scope.typeuser = 1;
-              }   
+              }
             }
 
             $scope.userfroups = 0;
       }else{
-           $location.path("/"); 
+           $location.path("/");
       }
 
       $scope.senmail = function(){
@@ -3479,9 +3501,3 @@ sponzorme.controller('ForgotController', function ($scope, $translate, $sessionS
       }
 
 });
-
-
-
-
-
-
