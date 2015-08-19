@@ -1,0 +1,133 @@
+<section ng-controller="HomeController">
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="" href="#/"><p height="45px">SponzorMe</p><div style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -25px;left: 156px;"></div></a>
+    </div>
+    <div class="collapse navbar-collapse">
+      
+      <section ng-show="userfroups">
+          <ul class="nav navbar-nav">
+            <a href="#/users">{{ 'users' | translate }}</a></li>
+            <a href="#/groups">{{ 'groups' | translate }}</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <a href="#/users">{{ 'users' | translate }}</a></li>
+            <a href="#/groups">{{ 'groups' | translate }}</a></li>
+          </ul>
+      </section>
+      <ul class="nav navbar-nav navbar-right">
+        <section ng-show="vieuser">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/login">{{ 'login' | translate }}</a></li>
+            <li><a href="#/sponsors/create">{{ 'sponsorreg' | translate }}</a></li>
+            <li><a href="#/users/create">{{ 'organizerreg' | translate }}</a></li>
+          </ul> 
+        </section> 
+        <section ng-show="!vieuser">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/users/userId">{{ email.user }}</a></li>
+              <li ng-show="typeuser"><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!typeuser"><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
+            <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
+          </ul> 
+        </section>
+      </ul>
+    </div><!--/.nav-collapse -->
+      
+  </div>
+</div>
+<div class="container">
+  <div class="testimonials">
+      <div class="row">
+        <h1>{{'privacyheadprivacy' | translate}}</h1>
+      </div>
+      <div class="row">        
+          <div class="col-md-12">
+              <div class="content" align="justify">
+                  <section class="icoprivate">
+                      <i class="fa fa-lock"></i>
+                  </section>
+                  <section class="contenprivate">
+                      <p>{{ 'head2privacy' | translate }}</p>
+                      <p>{{ 'text1' | translate }}</p>
+                      <p>{{ 'head3privacy' | translate }}</p>
+                      <p>{{ 'text2' | translate }}</p>
+                      <p>{{ 'head4privacy' | translate }}</p>
+                      <p>{{ 'text3' | translate }}</p>
+                      <p>{{ 'head5privacy' | translate }}</p>
+                      <p>{{ 'text4' | translate }}</p>
+                      <p>{{ 'head6privacy' | translate }}</p>
+                      <p>{{ 'text5' | translate }}</p>
+                      <p>{{ 'head7privacy' | translate }}</p>
+                      <p>{{ 'text6' | translate }}</p>
+                      <p>{{ 'head8privacy' | translate }}</p>
+                      <p>{{ 'text7' | translate }}</p>
+                      <p>{{ 'head9privacy' | translate }}</p>
+                      <p>{{ 'head10privacy' | translate }}</p>
+                      <p>{{ 'text8' | translate }}</p>
+                      <p>{{ 'head11privacy' | translate }}</p>
+                      <p>{{ 'text9' | translate }}</p>
+                      <p>{{ 'head12privacy' | translate }}</p>
+                      <p>{{ 'head13privacy' | translate }}</p>
+                      <p>{{ 'text10' | translate }}</p>
+                      <p>{{ 'head14privacy' | translate }}</p>
+                      <p>{{ 'text11' | translate }}</p>
+                      <p>{{ 'head15privacy' | translate }}</p>
+                      <p>{{ 'text12' | translate }}</p>
+                      <p>{{ 'head16privacy' | translate }}</p>
+                      <p>{{ 'text13' | translate }}</p>
+                      <p>{{ 'head17privacy' | translate }}</p>
+                      <p>{{ 'text14' | translate }}</p>
+                      <p>{{ 'head18privacy' | translate }}</p>
+                      <p>{{ 'text15' | translate }}</p>
+                      <p>{{ 'head19privacy' | translate }}</p>
+                      <p>{{ 'text16' | translate }}</p>
+                      <p>{{ 'head20privacy' | translate }}</p>
+                      <p>{{ 'text17' | translate }}</p>
+                      <p>{{ 'head21privacy' | translate }}</p>
+                      <p>{{ 'text18' | translate }}</p>
+                      <p>{{ 'head22privacy' | translate }}</p>
+                      <p>{{ 'text19' | translate }}</p>
+                      <p>{{ 'head23privacy' | translate }}</p>
+                      <p>{{ 'text20' | translate }}</p>
+                      <p>{{ 'head24privacy' | translate }}</p>
+                      <p>{{ 'text21' | translate }}</p>
+                      <p>{{ 'head25privacy' | translate }}</p>
+                      <p>{{ 'text22' | translate }}</p>
+                      <p>{{ 'head26privacy' | translate }}</p>
+                      <p>{{ 'text23' | translate }}</p>
+                      <p>{{ 'head27privacy' | translate }}</p>
+                      <p>{{ 'text24' | translate }}</p>
+                  </section>
+              </div>
+          </div>       
+      </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="row">
+  <div class="col-md-4">&nbsp;&nbsp;&nbsp;
+      <p id="newlog">SponzorMe</p>&nbsp;&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('es')"><img height="16px" src="images/spanish.png"></a>&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('en')"><img height="16px" src="images/english.png"></a>&nbsp;
+      <a class="" href="#/" ng-click="changeLanguage('pt')"><img height="16px" src="images/pt.png"></a>
+  </div>
+  <div class="col-md-4">
+      <a href="#/testimonials">{{ 'testimonialts' | translate }}</a>&nbsp;|&nbsp
+      <a href="http://support.sponzor.me" target="_blank">{{ 'support' | translate }}</a>&nbsp;|&nbsp
+      <a href="http://bloges.sponzor.me/" target="_blank">{{ 'blog' | translate }}</a> 
+      &nbsp|&nbsp{{ 'team' | translate }}&nbsp;|&nbsp
+      <a href="#/privacy" target="_blank">{{ 'privacy' | translate }}</a> 
+  </div>
+  <div class="col-md-4" align="right">
+      Made with Love ❤&nbsp;&nbsp;&nbsp;
+  </div>   
+  </div>
+</div>
+</section>

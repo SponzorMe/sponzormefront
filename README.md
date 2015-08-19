@@ -1,72 +1,65 @@
 # sponzormefront
-SponzorMe front-end.
 
-Paths configuration are stored in `gulpfile.js`. Change `options.(src|dist|tmp|e2e)` in `gulpfile.js` if you want to config paths after the app is generated.
 
-**Warning**: The paths are also written in the `index.html` for the build with useref. If you want to change these paths, you also have to change the paths there in order to have the build task working.
 
-### Use Gulp tasks
+## Usage
 
-* `gulp` or `gulp build` to build an optimized version of your application in `/dist`
-* `gulp serve` to launch a browser sync server on your source files
-* `gulp serve:dist` to launch a server on your optimized application
-* `gulp test` to launch your unit tests with Karma
-* `gulp test:auto` to launch your unit tests with Karma in watch mode
-* `gulp protractor` to launch your e2e tests with Protractor
-* `gulp protractor:dist` to launch your e2e tests with Protractor on the dist files
+More informations, options, parameters in the [usage documentation page](docs/usage.md)
 
-More information on the gulp tasks in [this README.md](app/templates/gulp/README.md).
+### Install
 
-## Directory structure
 
-[Best Practice Recommendations for Angular App Structure](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/pub)
+## Documentation
 
-The root directory generated for a app with name `gulpAngular` :
-<pre>
-├──  src/
-│   ├──  app/
-│   │   ├──  components/
-│   │   │   └──  navbar/
-│   │   │   │   ├──  navbar.controller.js
-│   │   │   │   └──  navbar.html
-│   │   ├──  main/
-│   │   │   ├──  main.controller.js
-│   │   │   ├──  main.controller.spec.js
-│   │   │   └──  main.html
-│   │   └──  index.js
-│   │   └──  index.(css|less|scss)
-│   │   └──  vendor.(css|less|scss)
-│   ├──  assets/
-│   │   └──  images/
-│   ├──  404.html
-│   ├──  favico.ico
-│   └──  index.html
-├──  gulp/
-├──  e2e/
-├──  bower_components/
-├──  nodes_modules/
-├──  .bowerrc
-├──  .editorconfig
-├──  .gitignore
-├──  .jshintrc
-├──  bower.json
-├──  gulpfile.js
-├──  karma.conf.js
-├──  package.json
-├──  protractor.conf.js
-</pre>
+* [docs/README](docs/README.md)
+* More informations about how to use your new project is available in the [docs/user-guide](docs/user-guide.md)
+* If you want to know: [docs/how-it-works](docs/how-it-works.md).
 
-## Features included in the gulpfile
-* *useref* : allow configuration of your files in comments of your HTML file
-* *ngAnnotate* : convert simple injection to complete syntax to be minification proof
-* *uglify* : optimize all your JavaScript
-* *csso* : optimize all your CSS
-* *rev* : add a hash in the file names to prevent browser cache problems
-* *watch* : watch your source files and recompile them automatically
-* *jshint* : JavaScript code linter
-* *imagemin* : all your images will be optimized at build
-* *Unit test (karma)* : out of the box unit test configuration with karma
-* *e2e test (protractor)* : out of the box e2e test configuration with protractor
-* *browser sync* : full-featured development web server with livereload and devices sync
-* *angular-templatecache* : all HTML partials will be converted to JS to be bundled in the application
-* **TODO** lazy : don't process files which haven't changed when possible
+
+## Features
+
+![Logo](docs/assets/gulp.png)
+![Logo](docs/assets/angular.png)
+![Logo](docs/assets/bootstrap.png)
+![Logo](docs/assets/materialdesign.png)
+![Logo](docs/assets/foundation.png)
+![Logo](docs/assets/bower.png)
+![Logo](docs/assets/webpack.png)
+![Logo](docs/assets/karma.png)
+![Logo](docs/assets/istanbul.png)
+![Logo](docs/assets/browsersync.png)
+![Logo](docs/assets/jasmine.png)
+![Logo](docs/assets/protractor.png)
+
+![Logo](docs/assets/babel.png)
+![Logo](docs/assets/coffeescript.png)
+![Logo](docs/assets/typescript.png)
+![Logo](docs/assets/traceur.png)
+![Logo](docs/assets/sass.png)
+![Logo](docs/assets/less.png)
+![Logo](docs/assets/stylus.png)
+![Logo](docs/assets/jade.png)
+![Logo](docs/assets/haml.png)
+![Logo](docs/assets/handlebars.png)
+
+[List features included](docs/usage.md#features-included-in-the-gulpfile)
+
+
+## Questions the generator will ask
+
+[Questions the generator will ask](docs/usage.md#questions-the-generator-will-ask)
+
+
+## Changelog
+
+[All changes listed in the GitHub releases](https://github.com/Swiip/generator-gulp-angular/releases)
+
+
+## Contributing
+
+[Guidelines](CONTRIBUTING.md)
+
+
+## License
+
+MIT
