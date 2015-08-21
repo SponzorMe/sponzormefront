@@ -113,35 +113,28 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResourc
             });
       });
 
-
-
 sponzorme.controller('HomeController', function ($scope, $translate, $sessionStorage, $location) {
+      console.log("estoy en el home controller");
       if($sessionStorage) {
-
-            var cookie = $sessionStorage.cookiesponzorme;
-
-            if(cookie == undefined){
-                  $scope.vieuser = 1;
+          var cookie = $sessionStorage.cookiesponzorme;
+          if(cookie == undefined){
+                $scope.vieuser = 1;
+          }else{
+                $scope.vieuser = 0;
+          }
+          var typeini = $sessionStorage.typesponzorme;
+          if (typeini != undefined){
+             if(typeini == '1'){
+               $scope.typeuser = 0;
             }else{
-                  $scope.vieuser = 0;
+               $scope.typeuser = 1;
             }
-
-            var typeini = $sessionStorage.typesponzorme;
-
-            if (typeini != undefined){
-               if(typeini == '1'){
-                 $scope.typeuser = 0;
-              }else{
-                 $scope.typeuser = 1;
-              }
-            }
-
-            $scope.userfroups = 0;
-
-      }else{
-           $location.path("/");
+          }
+          $scope.userfroups = 0;
       }
-
+      else{
+         $location.path("/");
+      }
       $scope.changeLanguage = function (key) {
             $translate.use(key);
             idiomaselect = key;
@@ -362,7 +355,6 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
 
 });
 
-
 sponzorme.controller('UsersCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {
 
       if($sessionStorage) {
@@ -446,12 +438,9 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
 });
 
 sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, perkRequest,eventRequest, usSpinnerService, $rootScope) {
-
       $scope.loadingevents = true;
       $scope.loadingrss=true;
-
       if($sessionStorage) {
-
             var cookie = $sessionStorage.cookiesponzorme;
 
             if(cookie == undefined){
@@ -459,16 +448,14 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             }else{
                   $scope.vieuser = 0;
             }
-
             var typeini = $sessionStorage.typesponzorme;
             if (typeini != undefined){
                if(typeini == '1'){
-                 $scope.typeuser = 0;
-              }else{
-                 $scope.typeuser = 1;
-              }
+                    $scope.typeuser = 0;
+                }else{
+                    $scope.typeuser = 1;
+                }
             }
-
             $scope.userfroups = 0;
       }else{
            $location.path("/");
@@ -485,19 +472,15 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             $translate.use(key);
             idiomaselect = key;
       };
-
       $scope.eventos = {};
       $scope.eventos.size = 0;
-
+      $scope.event = {};
+      this.peaks = [];
       $scope.sponzors = {};
       $scope.sponzors.size = 0;
-
       $scope.sponzors.balance = 0;
-
       $scope.users = {};
       $scope.users.size = 0;
-
-
       if(!$localStorage.sponzorme){
             userRequest.oneUser($sessionStorage.id).success(function(adata){
                   $scope.events = [];
@@ -510,58 +493,24 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
                               this.push(value);
                         }
                   },$scope.events);
-
-                  for (var i = 0 ; i <= $scope.events.length; i++) {
-                        $scope.eventos.size = i;
-                  };
-
+                  $scope.eventos.size = $scope.events.length;
                   usSpinnerService.stop('spinner-2');
                   $scope.loadingevents = false;
-
-                  $scope.peaks = [];
-
-                  perkRequest.onePerk($scope.events[0].id).success(function(adata){
-                      $scope.peaks.push(adata.data.Perk);
-                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar
-                      usSpinnerService.stop('spinner-1');
-                  });
-
+                  $scope.event.current = $scope.events[0].id;
             });
       }else{
-
             var sponzormeObj = JSON.parse($localStorage.sponzorme);
             $scope.events = [];
             $scope.users.size = sponzormeObj.comunity_size;
-
             angular.forEach(sponzormeObj.events, function(value, key) {
                   if(value.lang == idiomaselect){
                         this.push(value);
                   }
             },$scope.events);
-
-            for (var i = 0 ; i <= $scope.events.length; i++) {
-                  $scope.eventos.size = i;
-            };
-
+            $scope.eventos.size = $scope.events.length;
             usSpinnerService.stop('spinner-2');
             $scope.loadingevents = false;
-
-            $scope.peaks = [];
-
-            eventRequest.oneEvent($scope.events[0].id).success(function(adata){
-              $scope.peaks.push=adata.data.event.perks;
-              console.log($scope.peaks);
-              $scope.loadingpeaks=false;
-              if(!$scope.peaks[0]){
-                $scope.noPerksMessage=true;
-              }
-              else{
-                $scope.noPerksMessage=false;
-              }
-            }).error(function (error){
-                $scope.loadingpeaks=false;
-                $scope.noPerksMessage=true;
-            });
+            $scope.event.current = $scope.events[0].id;
       }
 
       $scope.$watch('event.current', function(newvalue, oldvalue){
@@ -571,11 +520,9 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
                   //Mostramos el boton de cargar.
                 eventRequest.oneEvent(newvalue).success(function(adata)
                 {
-                  console.log(adata);
-                  $scope.peaks=adata.data.event.perks;
-                  console.log($scope.peaks);
+                  this.peaks=adata.data.event.perks;
                   $scope.loadingpeaks=false;
-                  if(!$scope.peaks[0]){
+                  if(!this.peaks[0]){
                     $scope.noPerksMessage=true;
                   }
                   else{
@@ -587,7 +534,6 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
                 });
             }
       });
-
       $scope.rss = [];
       var blogUrl= $('#page').find("#blogUrl");
       var url=blogUrl+"feeds/posts/default";
@@ -605,9 +551,13 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             }
             usSpinnerService.stop('spinner-3');
             $scope.loadingrss=false;
+            console.log($scope.rss);
+        },
+        error: function(data){
+          $scope.loadingrss=false;
+          this.noRssMessage=true;
         }
       });
-
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
@@ -1049,7 +999,6 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
 
 });
 
-
 sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService) {
 
       $scope.loadingevents = true;
@@ -1173,7 +1122,6 @@ sponzorme.controller('UsersFriendController', function ($scope, $translate, $ses
 
 
 });
-
 
 sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, userRequest, eventRequest, perkTaskRequest, $localStorage, usSpinnerService) {
 
@@ -1404,7 +1352,6 @@ sponzorme.controller('SponsorsMainController', function ($scope, $translate, $se
 
 
 });
-
 
 sponzorme.controller('SponsorsSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage) {
 

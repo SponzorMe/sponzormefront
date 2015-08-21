@@ -1,4 +1,4 @@
-<section ng-controller="HomeController">
+<section>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -10,7 +10,7 @@
       <a class="" href="#/"><p height="45px">SponzorMe</p><div style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -25px;left: 156px;"></div></a>
     </div>
     <div class="collapse navbar-collapse">
-      
+
       <section ng-show="userfroups">
           <ul class="nav navbar-nav">
             <a href="#/users">{{ 'users' | translate }}</a></li>
@@ -27,19 +27,19 @@
             <li><a href="#/login">{{ 'login' | translate }}</a></li>
             <li><a href="#/sponsors/create">{{ 'sponsorreg' | translate }}</a></li>
             <li><a href="#/users/create">{{ 'organizerreg' | translate }}</a></li>
-          </ul> 
-        </section> 
+          </ul>
+        </section>
         <section ng-show="!vieuser">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#/users/userId">{{ email.user }}</a></li>
               <li ng-show="typeuser"><a href="#/users/dashboard">{{ 'dashboard' | translate }}</a></li>
               <li ng-show="!typeuser"><a href="#/sponsors/dashboard">{{ 'dashboard' | translate }}</a></li>
             <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
-          </ul> 
+          </ul>
         </section>
       </ul>
     </div><!--/.nav-collapse -->
-      
+
   </div>
 </div>
 
@@ -63,7 +63,7 @@
         <a ng-show="!typeuser" href="#/sponsors/dashboard" class="btn btn-primary btn-lg" role="button">{{ 'dashboard' | translate }}</a>
       </section>
       <section ng-show="vieuser">
-        <a href="#/sponsors/create" class="btn btn-primary btn-lg" role="button">{{ 'sponsorreg' | translate }}</a> 
+        <a href="#/sponsors/create" class="btn btn-primary btn-lg" role="button">{{ 'sponsorreg' | translate }}</a>
         <a href="#/users/create" class="btn btn-primary btn-lg " role="button">{{ 'organizerreg' | translate }}</a>
       </section>
     </div>
@@ -81,13 +81,13 @@
   <div class="col-md-4">
       <a href="#/testimonials">{{ 'testimonialts' | translate }}</a>&nbsp;|&nbsp
       <a href="http://support.sponzor.me" target="_blank">{{ 'support' | translate }}</a>&nbsp;|&nbsp
-      <a href="http://bloges.sponzor.me/" target="_blank">{{ 'blog' | translate }}</a> 
+      <a href="http://bloges.sponzor.me/" target="_blank">{{ 'blog' | translate }}</a>
       &nbsp|&nbsp{{ 'team' | translate }}&nbsp;|&nbsp
-      <a href="#/privacy" target="_blank">{{ 'privacy' | translate }}</a> 
+      <a href="#/privacy" target="_blank">{{ 'privacy' | translate }}</a>
   </div>
   <div class="col-md-4" align="right">
       Made with Love ❤&nbsp;&nbsp;&nbsp;
-  </div>   
+  </div>
   </div>
 </div>
 </section>
