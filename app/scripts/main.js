@@ -3,14 +3,14 @@ var idiomaselect = 'en';
 var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage', 'allInterestsService', 'userInterestService'])
       .config(function ($translateProvider) {
 
-      $translateProvider.translations('es', translationsES);
-
-      $translateProvider.translations('en', translationsEN);
-
-      $translateProvider.translations('pt', translatiosnPT);
-
-      $translateProvider.preferredLanguage('en');
-      $translateProvider.useSanitizeValueStrategy(null);
+        // Languages
+        $translateProvider.useStaticFilesLoader({
+              prefix: 'langs/lang-',
+              suffix: '.json'
+            });
+        $translateProvider.useSanitizeValueStrategy('escaped');
+        $translateProvider.preferredLanguage("es");
+        $translateProvider.fallbackLanguage("en");
 
       })
 
