@@ -185,7 +185,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-8">
             <div class="widget">
               <div class="widget-header">
                 <i class="fa fa-plus"></i> {{ 'suggestions' | translate }}
@@ -195,8 +195,12 @@
                 <div ng-show="loadingrss">
                   <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-3" spinner-start-active="true"></span>
                 </div>
+                <div ng-show="noRssMessage">
+                  <h1>{{ 'noRssMessage' | translate }}</h1>
+                </div>
                 <div class="message" data-ng-repeat="r in rss" ng-show="!loadingrss">
-                  <h1 class="suggh1">{{ r.title }}</h1>
+                  <h2 class="suggh1">{{ r.title }}</h2>
+                  <p>{{r.contentSnippet}}<p>
                   <a href="{{ r.link }}" target="_blank">{{ 'seemore' | translate }}</a>
                 </div>
               </div>

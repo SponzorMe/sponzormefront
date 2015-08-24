@@ -1,6 +1,6 @@
 var idiomaselect = 'en';
 
-var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage', 'allInterestsService', 'userInterestService'])
+var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'rssService','perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage', 'allInterestsService', 'userInterestService'])
       .config(function ($translateProvider) {
 
         // Languages
@@ -437,7 +437,7 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
 
 });
 
-sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, perkRequest,eventRequest, usSpinnerService, $rootScope) {
+sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope) {
       $scope.loadingevents = true;
       $scope.loadingrss=true;
       if($sessionStorage) {
@@ -534,29 +534,13 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
                 });
             }
       });
-      $scope.rss = [];
-      var blogUrl= $('#page').find("#blogUrl");
-      var url=blogUrl+"feeds/posts/default";
-      var url = 'http://blogen.sponzor.me/feeds/posts/default';
-      $.ajax({
-        url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
-        dataType: 'json',
-        success: function(data) {
-            for(i=0;i<data.responseData.feed.entries.length;i++)
-            {
-                 $scope.rss[i]={
-                    "title":data.responseData.feed.entries[i].title,
-                    "link":data.responseData.feed.entries[i].link
-                };
-            }
-            usSpinnerService.stop('spinner-3');
-            $scope.loadingrss=false;
-            console.log($scope.rss);
-        },
-        error: function(data){
-          $scope.loadingrss=false;
-          this.noRssMessage=true;
-        }
+      $scope.rss=[];
+      rssRequest.rss('en').success(function(data){
+        $scope.rss=data.responseData.feed.entries;
+        $scope.loadingrss=false;
+      }).error(function(data){
+        $scope.loadingrss=false;
+        $scope.noRssMessage=true;
       });
       $scope.menuprincipal = 'views/users/menu.html';
 });
