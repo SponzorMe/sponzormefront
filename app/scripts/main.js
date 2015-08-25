@@ -535,7 +535,7 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             }
       });
       $scope.rss=[];
-      rssRequest.rss('en').success(function(data){
+      rssRequest.rss(idiomaselect).success(function(data){
         $scope.rss=data.responseData.feed.entries;
         $scope.loadingrss=false;
       }).error(function(data){
