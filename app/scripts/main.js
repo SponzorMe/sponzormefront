@@ -129,8 +129,9 @@ var sponzorme = angular.module('sponzorme',
 * This function allows change the language whatever be the route
 * for this reason this is a global function
 */
-sponzorme.run(function($rootScope,$translate){
+sponzorme.run(function($rootScope,$translate,$location){
   $rootScope.changeLanguage = function(key){
+      console.log($location);
       $translate.use(key);
       idiomaselect = key;
   }
