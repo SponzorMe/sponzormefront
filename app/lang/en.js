@@ -689,6 +689,11 @@ var translationsEN = {
 
       eventtypestring: 'Save Event Type',
 
-      noPerksMessage: 'No perks added yet.'
+      noPerksMessage: 'No perks added yet.',
+
+      errorRegisterEmail: "Invalid E-mail, please try again",
+      errorRegisterName: "Invalid Name, please try again",
+      errorRegisterLastame:"Invalid Lastname, please try again",
+      errorRegisterPassword:"Invalid Password, please try again"
 
 };

@@ -1,5 +1,5 @@
 /**
-* @Servicio de Usuarios 
+* @Servicio de Usuarios
 *
 * @author Sebastian
 * @version 0.1
@@ -22,7 +22,7 @@ angular.module('userService', ['ngStorage'])
 
 			},
 			createUser : function(data){
-				var token = $sessionStorage.token;
+				var token = "b3JnYW5pemVyQHNwb256b3IubWU6c3Bvbnpvcm1l";
 				return $http({
 					method: 'POST',
 					url: path + 'users',

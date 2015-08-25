@@ -84,7 +84,7 @@ var sponzorme = angular.module('sponzorme',
             templateUrl: 'views/users/dashboard/sponzors.html',
             controller: 'UsersSponzorsController'
       })
-      .when( '/users/customization',{
+      .when( '/customization',{
             templateUrl: 'views/customization/customization.html',
             controller: 'UsersCustomController'
       })
@@ -131,7 +131,6 @@ var sponzorme = angular.module('sponzorme',
 */
 sponzorme.run(function($rootScope,$translate,$location){
   $rootScope.changeLanguage = function(key){
-      console.log($location);
       $translate.use(key);
       idiomaselect = key;
   }
@@ -235,7 +234,6 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                   $scope.objuser.lang = idiomaselect;
                   $scope.loagind = true;
                   loginRequest.login($scope.objuser).success(function(adata){
-
                         var expireDate = new Date();
                         expireDate.setDate(expireDate.getDate() + 1);
                         $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
@@ -243,11 +241,8 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                         $sessionStorage.token = btoa($scope.email+':'+$scope.password);
                         $sessionStorage.id = adata.user.id;
                         $sessionStorage.email = adata.user.email;
-
                         idiomaselect = adata.user.lang;
-
                         var url = $location.host();
-
                         if(url == 'localhost'){
                               $sessionStorage.developer = 1;
                         }
@@ -257,16 +252,12 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                         }else{
                               $location.path("/users/dashboard");
                         }
-
                   }).error(function(edata){
                         $scope.loagind = false;
                         ngDialog.open({ template: 'errorloging.html' });
                   });
             }
-
       }
-
-
 });
 
 sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, usSpinnerService, $localStorage) {
@@ -295,65 +286,55 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
       }
 
       $scope.sendfrom = function(){
-            if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){
-                  if ($scope.passwordone == $scope.passwordtwo){
-                        $scope.objuser = {}
-                        $scope.objuser.email = $scope.email;
-                        $scope.objuser.password = $scope.passwordone;
-                        $scope.objuser.password_confirmation = $scope.passwordtwo;
-                        $scope.objuser.lang = idiomaselect;
-                        $scope.objuser.type = 1;
-                        $scope.objuser.name = $scope.name + " " + $scope.lastname;
-                        $scope.loagind = true;
-                        userRequest.createUser($scope.objuser).success(function(adata){
-                              if(adata.message == "Not inserted"){
-                                    switch(idiomaselect) {
-                                        case 'es':
-                                            $scope.error_log = translationsES.errorreg;
-                                            break;
-                                        case 'en':
-                                            $scope.error_log = translationsEN.errorreg;
-                                            break;
-                                        case 'pt':
-                                            $scope.error_log = translationsPT.errorreg;
-                                            break;
+                  $scope.error_log=[];//We storage here all translate error during register process
+                  if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){//We verify the passwords not empty.
+                        if ($scope.passwordone == $scope.passwordtwo){//We verify the passwords match atleast.
+                              $scope.objuser = {}
+                              $scope.objuser.email = $scope.email;//storage the email
+                              $scope.objuser.password = $scope.passwordone;//storage the password
+                              $scope.objuser.password_confirmation = $scope.passwordtwo;
+                              $scope.objuser.lang = idiomaselect;//storage the current lang
+                              $scope.objuser.type = 1;//the only difference beetwen the other method is the type.
+                              $scope.objuser.name = $scope.name + " " + $scope.lastname;
+                              $scope.loagind = true;
+                              userRequest.createUser($scope.objuser).success(function(adata){
+                                    if(adata.message == "Inserted"){
+                                          var datuser = JSON.stringify(adata.User);
+                                          $localStorage.sponzorme = datuser;
+                                          var expireDate = new Date();
+                                          expireDate.setDate(expireDate.getDate() + 1);
+                                          $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.passwordone);
+                                          $sessionStorage.token = btoa($scope.email+':'+$scope.passwordone);
+                                          $scope.loagind = false;
+                                          $sessionStorage.typesponzorme = adata.User.type;
+                                          $sessionStorage.id = adata.User.id;
+                                          $sessionStorage.email = adata.User.email;
+                                          $location.path("/customization");
                                     }
-                                    $scope.loagind = false;
-                                    ngDialog.open({ template: 'templateId' });
-                              }
-
-                              if(adata.message == "Inserted"){
-                                    switch(idiomaselect) {
-                                        case 'es':
-
-                                            $scope.error_log = translationsES.errorreg;
-                                            break;
-                                        case 'en':
-                                            $scope.error_log = "Usario Insertado Correctamente";
-                                            break;
-                                        case 'pt':
-                                            $scope.error_log = translationsPT.errorreg;
-                                            break;
+                              }).error(function(data){
+                                if(data.message == "Not inserted"){
+                                    if(data.error.email){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterEmail'));
                                     }
-                                    var datuser = JSON.stringify(adata.User);
-                                    $localStorage.sponzorme = datuser;
-
-                                    var expireDate = new Date();
-                                    expireDate.setDate(expireDate.getDate() + 1);
-                                    $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.passwordone);
-                                    $sessionStorage.token = btoa($scope.email+':'+$scope.passwordone);
-
-                                    $scope.loagind = false;
-                                    $sessionStorage.typesponzorme = adata.User.type;
-                                    $sessionStorage.id = adata.User.id;
-                                    $sessionStorage.email = adata.User.email;
-                                    console.log($sessionStorage.id);
-                                    $location.path("/users/customization");
-                              }
-
-                        });
+                                    if(data.error.name){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterName'));
+                                    }
+                                    if(data.error.lastname){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterLastname'));
+                                    }
+                                    if(data.error.password){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterPassword'));
+                                    }
+                                }
+                                $scope.loagind = false;
+                                ngDialog.open({ template: 'templateId' ,scope: $scope});
+                              });
+                        }
                   }
-            }
+                  else{
+                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterPassword'));
+                      ngDialog.open({ template: 'templateId' ,scope: $scope});
+                  }
       }
 
 });
@@ -385,6 +366,7 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
       }
 
       $scope.sendfrom = function(){
+                  $scope.error_log=[];
                   if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){
                         if ($scope.passwordone == $scope.passwordtwo){
                               $scope.objuser = {}
@@ -396,40 +378,42 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                               $scope.objuser.name = $scope.name + " " + $scope.lastname;
                               $scope.loagind = true;
                               userRequest.createUser($scope.objuser).success(function(adata){
-                                    if(adata.message == "Not inserted"){
-                                          switch(idiomaselect) {
-                                              case 'es':
-                                                  $scope.error_log = translationsES.errorreg;
-                                                  break;
-                                              case 'en':
-                                                  $scope.error_log = translationsEN.errorreg;
-                                                  break;
-                                              case 'pt':
-                                                  $scope.error_log = translationsPT.errorreg;
-                                                  break;
-                                          }
-                                          $scope.loagind = false;
-                                          ngDialog.open({ template: 'templateId' });
-                                    }
-
                                     if(adata.message == "Inserted"){
                                           var datuser = JSON.stringify(adata.User);
                                           $localStorage.sponzorme = datuser;
-
                                           var expireDate = new Date();
                                           expireDate.setDate(expireDate.getDate() + 1);
                                           $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.passwordone);
                                           $sessionStorage.token = btoa($scope.email+':'+$scope.passwordone);
-
                                           $scope.loagind = false;
                                           $sessionStorage.typesponzorme = adata.User.type;
                                           $sessionStorage.id = adata.User.id;
                                           $sessionStorage.email = adata.User.email;
-
-                                          $location.path("/users/customization");
+                                          $location.path("/customization");
                                     }
+                              }).error(function(data){
+                                if(data.message == "Not inserted"){
+                                    if(data.error.email){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterEmail'));
+                                    }
+                                    if(data.error.name){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterName'));
+                                    }
+                                    if(data.error.lastname){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterLastname'));
+                                    }
+                                    if(data.error.password){
+                                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterPassword'));
+                                    }
+                                }
+                                $scope.loagind = false;
+                                ngDialog.open({ template: 'templateId' ,scope: $scope});
                               });
                         }
+                  }
+                  else{
+                      $scope.error_log.push(eval('translations'+idiomaselect.toUpperCase()+'.errorRegisterPassword'));
+                      ngDialog.open({ template: 'templateId' ,scope: $scope});
                   }
       }
 
