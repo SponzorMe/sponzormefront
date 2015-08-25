@@ -1,120 +1,142 @@
-var idiomaselect = 'en';
-
-var sponzorme = angular.module('sponzorme', ['pascalprecht.translate','ngResource', 'ngRoute','userService', 'loginService','ngDialog', 'base64', 'ngCookies','ngStorage', 'angularFileUpload', 'ui.bootstrap', 'eventTypeService','categoryService','google.places', 'eventService', 'rssService','perkService','taskSponzorService', 'perkTaskService', 'sponzorshipService', 'angularSpinner', 'CloudStorage', 'allInterestsService', 'userInterestService'])
-      .config(function ($translateProvider) {
-
-        // Languages
-        $translateProvider.useStaticFilesLoader({
-              prefix: 'langs/lang-',
-              suffix: '.json'
-            });
-        $translateProvider.useSanitizeValueStrategy('escaped');
-        $translateProvider.preferredLanguage("es");
-        $translateProvider.fallbackLanguage("en");
-
-      })
-
-      .config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
-          usSpinnerConfigProvider.setDefaults({color: '#042333'});
-      }])
-
-      .config(['CloudStorageConfigProvider', function (CloudStorageConfigProvider) {
-          CloudStorageConfigProvider.setDefaults({PROJECT: '471996657056', clientId :'471996657056-lb3iuvrk8gaivcubp2bck9434opruhkk.apps.googleusercontent.com', apiKey : 'AIzaSyD-4feaf3-w-iz1wt4rfajI_hM9o2K4j00', scopes : 'https://www.googleapis.com/auth/devstorage.full_control', API_VERSION : 'v1'});
-      }])
-
-      .config(function ($routeProvider) {
-          $routeProvider
-            .when('', {
-                  templateUrl: 'views/main.html',
-                  controller: 'HomeController'
-            })
-            .when('/', {
-                  templateUrl: 'views/main.html',
-                  controller: 'HomeController'
-            })
-            .when('/testimonials', {
-                  templateUrl: 'views/testimonials.html',
-                  controller: 'HomeController'
-            })
-            .when('/privacy', {
-                  templateUrl: 'views/privacy.html',
-                  controller: 'HomeController'
-            })
-            .when('/login', {
-                  templateUrl: 'views/users/login.html',
-                  controller: 'LoginController'
-            })
-            .when('/forgot', {
-                  templateUrl: 'views/forgot.html',
-                  controller: 'ForgotController'
-            })
-            .when('/sponsors/create',{
-                  templateUrl: 'views/sponsors/create.html',
-                  controller: 'SponzorsCreateController'
-            })
-            .when('/users/create',{
-                  templateUrl: 'views/users/create.html',
-                  controller: 'UsersCreateController'
-            })
-            .when('/logout',{
-                  templateUrl: 'views/main.html',
-                  controller: 'logoutController'
-            })
-            .when('/users/dashboard',{
-                  templateUrl: 'views/users/dashboard/main.html',
-                  controller: 'UsersPrincipalController'
-            })
-            .when('/users/events',{
-                  templateUrl: 'views/users/dashboard/events.html',
-                  controller: 'UsersEventsController'
-            })
-            .when( '/users/sponzors',{
-                  templateUrl: 'views/users/dashboard/sponzors.html',
-                  controller: 'UsersSponzorsController'
-            })
-            .when( '/users/customization',{
-                  templateUrl: 'views/customization/customization.html',
-                  controller: 'UsersCustomController'
-            })
-            .when( '/users/friend',{
-                  templateUrl: 'views/users/dashboard/friend.html',
-                  controller: 'UsersFriendController'
-            })
-            .when( '/users/todo',{
-                  templateUrl: 'views/users/dashboard/todo.html',
-                  controller: 'UsersTodoController'
-            })
-            .when('/users/settings',{
-                  templateUrl: 'views/users/dashboard/settings.html',
-                  controller: 'UsersSettingsController'
-            })
-            .when('/sponsors/dashboard', {
-                  templateUrl: 'views/sponsors/dashboard/main.html',
-                  controller: 'SponsorsMainController'
-            })
-            .when('/sponsors/settings', {
-                  templateUrl: 'views/sponsors/dashboard/settings.html',
-                  controller: 'SponsorsSettingsController'
-            })
-            .when('/sponsors/friend', {
-                  templateUrl: 'views/sponsors/dashboard/friend.html',
-                  controller: 'SponsorsFriendController'
-            })
-            .when('/sponsors/following', {
-                  templateUrl: 'views/sponsors/dashboard/events.html',
-                  controller: 'SponsorsFollowingController'
-            })
-            .when('/sponsors/sponzoring', {
-                  templateUrl: 'views/sponsors/dashboard/sponzors.html',
-                  controller: 'SponsorsSponzorsController'
-            })
-            .otherwise({
-              redirectTo: '/'
-            });
+var idiomaselect="en";
+var sponzorme = angular.module('sponzorme',
+[ 'pascalprecht.translate','ngResource', 'ngRoute','userService',
+  'loginService','ngDialog', 'base64', 'ngCookies','ngStorage',
+  'angularFileUpload', 'ui.bootstrap', 'eventTypeService',
+  'categoryService','google.places', 'eventService', 'rssService',
+  'perkService','taskSponzorService', 'perkTaskService',
+  'sponzorshipService', 'angularSpinner', 'CloudStorage',
+  'allInterestsService', 'userInterestService'
+])
+.config(function ($translateProvider) {
+  /* Languages configuration by Carlos Rojas
+     THIS DOES NOT WORK --PLEASE FIX AND TRY AGAIN
+  $translateProvider.useStaticFilesLoader({
+        prefix: 'langs/lang-',
+        suffix: '.json'
       });
+  $translateProvider.useSanitizeValueStrategy(null);
+  $translateProvider.preferredLanguage("es");
+  $translateProvider.fallbackLanguage("en");
+  */
+  $translateProvider.translations('es', translationsES);
+  $translateProvider.translations('en', translationsEN);
+  $translateProvider.translations('pt', translatiosnPT);
+  $translateProvider.preferredLanguage('en');
+  $translateProvider.useSanitizeValueStrategy(null);
+})
+
+.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+    usSpinnerConfigProvider.setDefaults({color: '#042333'});
+}])
+
+.config(['CloudStorageConfigProvider', function (CloudStorageConfigProvider) {
+    CloudStorageConfigProvider.setDefaults({PROJECT: '471996657056', clientId :'471996657056-lb3iuvrk8gaivcubp2bck9434opruhkk.apps.googleusercontent.com', apiKey : 'AIzaSyD-4feaf3-w-iz1wt4rfajI_hM9o2K4j00', scopes : 'https://www.googleapis.com/auth/devstorage.full_control', API_VERSION : 'v1'});
+}])
+
+.config(function ($routeProvider) {
+    $routeProvider
+      .when('', {
+            templateUrl: 'views/main.html',
+            controller: 'HomeController'
+      })
+      .when('/', {
+            templateUrl: 'views/main.html',
+            controller: 'HomeController'
+      })
+      .when('/testimonials', {
+            templateUrl: 'views/testimonials.html',
+            controller: 'HomeController'
+      })
+      .when('/privacy', {
+            templateUrl: 'views/privacy.html',
+            controller: 'HomeController'
+      })
+      .when('/login', {
+            templateUrl: 'views/users/login.html',
+            controller: 'LoginController'
+      })
+      .when('/forgot', {
+            templateUrl: 'views/forgot.html',
+            controller: 'ForgotController'
+      })
+      .when('/sponsors/create',{
+            templateUrl: 'views/sponsors/create.html',
+            controller: 'SponzorsCreateController'
+      })
+      .when('/users/create',{
+            templateUrl: 'views/users/create.html',
+            controller: 'UsersCreateController'
+      })
+      .when('/logout',{
+            templateUrl: 'views/main.html',
+            controller: 'logoutController'
+      })
+      .when('/users/dashboard',{
+            templateUrl: 'views/users/dashboard/main.html',
+            controller: 'UsersPrincipalController'
+      })
+      .when('/users/events',{
+            templateUrl: 'views/users/dashboard/events.html',
+            controller: 'UsersEventsController'
+      })
+      .when( '/users/sponzors',{
+            templateUrl: 'views/users/dashboard/sponzors.html',
+            controller: 'UsersSponzorsController'
+      })
+      .when( '/users/customization',{
+            templateUrl: 'views/customization/customization.html',
+            controller: 'UsersCustomController'
+      })
+      .when( '/users/friend',{
+            templateUrl: 'views/users/dashboard/friend.html',
+            controller: 'UsersFriendController'
+      })
+      .when( '/users/todo',{
+            templateUrl: 'views/users/dashboard/todo.html',
+            controller: 'UsersTodoController'
+      })
+      .when('/users/settings',{
+            templateUrl: 'views/users/dashboard/settings.html',
+            controller: 'UsersSettingsController'
+      })
+      .when('/sponsors/dashboard', {
+            templateUrl: 'views/sponsors/dashboard/main.html',
+            controller: 'SponsorsMainController'
+      })
+      .when('/sponsors/settings', {
+            templateUrl: 'views/sponsors/dashboard/settings.html',
+            controller: 'SponsorsSettingsController'
+      })
+      .when('/sponsors/friend', {
+            templateUrl: 'views/sponsors/dashboard/friend.html',
+            controller: 'SponsorsFriendController'
+      })
+      .when('/sponsors/following', {
+            templateUrl: 'views/sponsors/dashboard/events.html',
+            controller: 'SponsorsFollowingController'
+      })
+      .when('/sponsors/sponzoring', {
+            templateUrl: 'views/sponsors/dashboard/sponzors.html',
+            controller: 'SponsorsSponzorsController'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+});
+/*
+* Author: Sebastian Gomez
+* This function allows change the language whatever be the route
+* for this reason this is a global function
+*/
+sponzorme.run(function($rootScope,$translate){
+  $rootScope.changeLanguage = function(key){
+      $translate.use(key);
+      idiomaselect = key;
+  }
+});
 
 sponzorme.controller('HomeController', function ($scope, $translate, $sessionStorage, $location) {
-      console.log("estoy en el home controller");
       if($sessionStorage) {
           var cookie = $sessionStorage.cookiesponzorme;
           if(cookie == undefined){
@@ -135,10 +157,6 @@ sponzorme.controller('HomeController', function ($scope, $translate, $sessionSto
       else{
          $location.path("/");
       }
-      $scope.changeLanguage = function (key) {
-            $translate.use(key);
-            idiomaselect = key;
-      };
 });
 
 sponzorme.controller('logoutController', function ($scope, $translate, $sessionStorage, $location, $localStorage) {
@@ -162,11 +180,6 @@ sponzorme.controller('logoutController', function ($scope, $translate, $sessionS
       $scope.typeuser = 0;
 
       $scope.userfroups = 0;
-
-      $scope.changeLanguage = function (key) {
-      $translate.use(key);
-            idiomaselect = key;
-      };
 
       $location.path("/");
 });
@@ -210,11 +223,6 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
       }else{
            $location.path("/");
       }
-
-      $scope.changeLanguage = function (key) {
-            $translate.use(key);
-            idiomaselect = key;
-      };
 
       $scope.sendfrom = function(){
 
@@ -284,12 +292,6 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
       }else{
            $location.path("/");
       }
-
-
-      $scope.changeLanguage = function (key) {
-            $translate.use(key);
-            idiomaselect = key;
-      };
 
       $scope.sendfrom = function(){
             if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){
@@ -381,11 +383,6 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
            $location.path("/");
       }
 
-      $scope.changeLanguage = function (key) {
-            $translate.use(key);
-            idiomaselect = key;
-      };
-
       $scope.sendfrom = function(){
                   if ($scope.passwordone != undefined || $scope.passwordtwo != undefined){
                         if ($scope.passwordone == $scope.passwordtwo){
@@ -467,11 +464,6 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
 
       $translate.use(idiomaselect);
       $scope.startcounter = 0;
-
-      $scope.changeLanguage = function (key) {
-            $translate.use(key);
-            idiomaselect = key;
-      };
       $scope.eventos = {};
       $scope.eventos.size = 0;
       $scope.event = {};
@@ -1018,11 +1010,6 @@ sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $s
 
       $translate.use(idiomaselect);
 
-      $scope.changeLanguage = function (key) {
-            $translate.use(key);
-            idiomaselect = key;
-      };
-
       $scope.sponzors = [];
 
       $scope.todo = [];
@@ -1140,11 +1127,6 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
       $scope.userfroups = 0;
 
       $translate.use(idiomaselect);
-
-      $scope.changeLanguage = function (key) {
-            $translate.use(key);
-            idiomaselect = key;
-      };
 
       $scope.todo = [];
       $scope.events = [];

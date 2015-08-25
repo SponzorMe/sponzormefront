@@ -110,7 +110,6 @@ gulp.task('serve', ['styles', 'fonts'], () => {
     'app/*.html',
     'app/scripts/**/*.js',
     'app/images/**/*',
-    'app/lang/**/*',
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
