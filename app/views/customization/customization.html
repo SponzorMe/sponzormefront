@@ -1,120 +1,88 @@
-<section ng-controller="HomeController">
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="" href="#/"><p height="45px">SponzorMe</p></a>
-    </div>
-    <div class="collapse navbar-collapse">
-      
-      <section ng-show="userfroups">
-          <ul class="nav navbar-nav">
-            <a href="#/users">{{ 'users' | translate }}</a></li>
-            <a href="#/groups">{{ 'groups' | translate }}</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <a href="#/users">{{ 'users' | translate }}</a></li>
-            <a href="#/groups">{{ 'groups' | translate }}</a></li>
-          </ul>
-      </section>
-      <ul class="nav navbar-nav navbar-right">
-        <section>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/login">{{ 'login' | translate }}</a></li>
-            <li><a href="#/sponsors/create">{{ 'sponsorreg' | translate }}</a></li>
-            <li><a href="#/users/create">{{ 'organizerreg' | translate }}</a></li>
-          </ul> 
-        </section> 
-      </ul>
-    </div><!--/.nav-collapse -->
-      
-  </div>
-</div>
+<section>
+<div class="navbar navbar-inverse navbar-fixed-top" ng-include src="'views/header.html'"></div>
 <div class="container" style="padding-top:60px;">
 	<div class="alert alert-success alert-dismissable">
 	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 	  <strong>Success:</strong> Your account has been created. Check your email for the confirmation link.
 	</div>
 	<div>
-		<div ng-if="emailuser!='' || emailuser!=NULL">
+		<div ng-if="emailuser">
 			<div>
-			<!--Step 1, the user choose the age, sex, and location --> 
+			<!--Step 1, the user choose the age, sex, and location -->
 				<div class="col-md-8 col-md-offset-2 step1" id="step1" ng-show="step1">
 					<form class="form-inline" ng-submit="sendfrom()">
-					<h1 class="form-signin-heading" style='color:black'>{{'aboutyou'  | translate }}</h1>	<br/>	
+					<h1 class="form-signin-heading" style='color:black'>{{'aboutyou'  | translate }}</h1>	<br/>
 						<div class="form-group">
 							<label for="age">{{'ageiam' | translate }}</label>
 						</div>
 						<div class="form-group">
 							<input type="number" class="form-control" min="18" max="120" name="age" ng-model="userData.age" id="age" value="43" required/>
-						</div> 
+						</div>
 						<div class="form-group">
 							<label for="sex"> {{'old' | translate }}</label>
 						</div>
 						<div class="form-group">
-						<select class="form-control" ng-model="userData.sex" name="sex" id="sex">			
+						<select class="form-control" ng-model="userData.sex" name="sex" id="sex">
 							<option value="" selected>{{'chooseSex'  | translate }}</option>
 							<option value="0">{{'woman' | translate }}</option>
 							<option value="1">{{'man' | translate }}</option>
-						</select> 
+						</select>
 					    </div> <br/><br/>
 					    <div class="form-group">
 					    	<label for="country"> {{ 'language' | translate }}</label>
 					    </div>
 					    <div class="form-group">
-						<select class="form-control" ng-model="userData.lang" name="lang" id="lang">			
+						<select class="form-control" ng-model="userData.lang" name="lang" id="lang">
 							<option value="" selected>{{ 'chooseLang' | translate }}</option>
 							<option value="en">{{'en' | translate }}</option>
 							<option value="es">{{'es' | translate }}</option>
 							<option value="pt">{{'pt' | translate }}</option>
-						</select> 
+						</select>
 					    </div> <br/><br/>
 					    <div class="form-group">
 					    	<label for="country"> {{'livein'  | translate }}</label>
-					    </div>	 
+					    </div>
 						<div class="form-group">
-							<label>{{'location' | translate }}</label><br/> 
+							<label>{{'location' | translate }}</label><br/>
 						</div>
-						<div class="form-group">				
+						<div class="form-group">
 							<input  type="text" class="form-control" ng-autocomplete="results" details="details" options="options" required name="location" g-places-autocomplete class="form-control" ng-model="userData.location"/>
-						</div>	
+						</div>
 						<div class="">
 							<div ng-show="loagind">
 		                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
 		                    </div>
-		                    <div  ng-show="!loagind">	
+		                    <div  ng-show="!loagind">
 								<button type="submit" class="btn btn-block">{{'next' | translate }}</button>
-							</div>	
-						</div>	
+							</div>
+						</div>
 					</form>
 					</div>
-					<!--Step 2, the user choose the categories and the interests --> 
-					<div class="col-md-8 col-md-offset-2 step1" id="step2" ng-show="step2">
+					<!--Step 2, the user choose the categories and the interests -->
+					<div class="col-md-10 col-md-offset-1 step1" id="step2" ng-show="step2">
 						<form ng-submit="submitCategoryInfo()">
 							<h1 class="form-signin-heading" style='color:black'>{{'areyouinterested'  | translate }}</h1>
 							<div class="row contenedor-intereses">
 								<div class="col-md-3 categorycontent" ng-repeat="category in categories">
 									<div id="{{category.id}}" class="category categorycustom" ng-hide="loading">
 										<div ng-click="showInterests(category.id)">
-											{{category.title}}						
+											{{category.title | normalize | translate}}
 											<span class="glyphicon glyphicon-chevron-down"></span>
 										</div>
 									</div>
-									<div class="row contenedor-categorias" ng-show="category.id == idselect">					
-										<div class="interest" ng-repeat="interest in category.interest">
+									<div class="row contenedor-categorias" ng-show="category.id == idselect">
+										<div class="interest" ng-repeat="interest in category.interests">
 											<label>
-												<input type="checkbox" id="interest{{interest.id_interest}}" data-ng-model='_interests[interest.id_interest]' name="interest[]" value="{{interest.id_interest}}" ng-click="interestselect(interest.id_interest)" data-ng-true-value="1" data-ng-false-value="0" /> 
-						    					{{interest.name}}
+												<input type="checkbox"
+                          data-ng-model='selectedInterests[interest.id_interest]'
+                          value="{{interest.id_interest}}" ng-click="interestselect(interest.id_interest)"
+                          data-ng-true-value="1" data-ng-false-value="0" />
+						    					{{interest.name| normalize | translate}}
 					  						</label>
 										</div>
 									</div>
 								</div>
-								
-							</div>		
+							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-block">{{'next'  | translate }}</button>
 							</div>
@@ -132,24 +100,5 @@
 		</div>
 	</div>
 </div>
-<div class="footer">
-  <div class="row">
-  <div class="col-md-4">&nbsp;&nbsp;&nbsp;
-      <p id="newlog">SponzorMe</p>&nbsp;&nbsp;
-      <a class="" href="#/" ng-click="changeLanguage('es')"><img height="16px" src="images/spanish.png"></a>&nbsp;
-      <a class="" href="#/" ng-click="changeLanguage('en')"><img height="16px" src="images/english.png"></a>&nbsp;
-      <a class="" href="#/" ng-click="changeLanguage('pt')"><img height="16px" src="images/pt.png"></a>
-  </div>
-  <div class="col-md-4">
-      <a href="#/testimonials">{{ 'testimonialts' | translate }}</a>&nbsp;|&nbsp
-      <a href="http://support.sponzor.me" target="_blank">{{ 'support' | translate }}</a>&nbsp;|&nbsp
-      <a href="http://bloges.sponzor.me/" target="_blank">{{ 'blog' | translate }}</a> 
-      &nbsp|&nbsp{{ 'team' | translate }}&nbsp;|&nbsp
-      <a href="#/privacy" target="_blank">{{ 'privacy' | translate }}</a> 
-  </div>
-  <div class="col-md-4" align="right">
-      Made with Love ❤&nbsp;&nbsp;&nbsp;
-  </div>   
-  </div>
-</div>
+<div class="footer" ng-include src="'views/footer.html'"></div>
 </section>

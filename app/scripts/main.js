@@ -129,13 +129,36 @@ var sponzorme = angular.module('sponzorme',
 * This function allows change the language whatever be the route
 * for this reason this is a global function
 */
-sponzorme.run(function($rootScope,$translate,$location){
+sponzorme.run(function($rootScope,$translate,$location,allInterestsServiceRequest,$filter){
   $rootScope.changeLanguage = function(key){
       $translate.use(key);
       idiomaselect = key;
   }
+  $rootScope.buildInterests = function(){
+    allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata){
+          var interests=adata.InterestCategory;
+          var log = [];
+          var a = "";
+          angular.forEach(interests, function(value, key) {
+              a=a+"</br>"+($filter('normalize')(value.name)+":'"+value.name+"',");
+          }, log);
+          document.write(a);
+    });
+  }
 });
-
+/*
+* Author: Sebastian Gomez
+* This filters replace & by AND it is used for categories and interests translations
+*/
+sponzorme.filter('normalize', function () {
+      return function (input) {
+          if (!input) return "";
+          input = input
+                  .replace('&', 'AND')
+                  .replace(/\W+/g, "");
+          return input;
+      };
+});
 sponzorme.controller('HomeController', function ($scope, $translate, $sessionStorage, $location) {
       if($sessionStorage) {
           var cookie = $sessionStorage.cookiesponzorme;
@@ -1592,41 +1615,20 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
       }
 
       categoryRequest.allCategories().success(function(adata){
-            angular.forEach(adata.categories, function(value, key) {
-                  if (idiomaselect == value.lang){
-                        this.push(value);
-                  }
-
-            }, $scope.categories);
-
+            $scope.categories=adata.categories;
             allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata){
-                  angular.forEach(adata.InterestCategory, function(value, key) {
-                        var indiceid = value.category_id;
-                        if(value.lang == idiomaselect){
-                              $scope.interest = [];
-                              angular.forEach(this, function(valuecat, keycat) {
-                                    if(valuecat.id == indiceid){
-                                        this.push(value);
-                                    }
-                              }, $scope.interest);
-                              angular.forEach(this, function(value, key) {
-                                    if(value.id == indiceid){
-                                        $scope.categories[key]['interest'] = $scope.interest;
-                                    }
-                              });
-                        }
+                  $scope.interests=adata.InterestCategory;
+                  var log = [];
+                  angular.forEach($scope.categories, function(value, key) {
+                    value.interests=$scope.interests.filter(function (el) {
+                      return el.category_id == value.id;
+                    });
+                  }, log);
 
-
-                  }, $scope.categories);
             });
-            console.log($scope.categories);
-
       });
-
-
       $scope.vieuser = 1;
-
-      console.log($sessionStorage.token);
+      $scope.step1 = true;
 
       $scope.sendfrom = function(){
             $scope.objuser = {}
@@ -1636,26 +1638,9 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
             $scope.objuser.location = $scope.userData.location.reference;
             $scope.loagind = true;
             userRequest.editUserPatch($sessionStorage.id, $scope.objuser).success(function(adata){
-                  if(adata.message == "Not inserted"){
-                        switch(idiomaselect) {
-                            case 'es':
-                                $scope.error_log = translationsES.errorreg;
-                                break;
-                            case 'en':
-                                $scope.error_log = translationsEN.errorreg;
-                                break;
-                            case 'pt':
-                                $scope.error_log = translationsPT.errorreg;
-                                break;
-                        }
-                        $scope.loagind = false;
-                        ngDialog.open({ template: 'templateId' });
-                  }
-
                   if(adata.message == "Updated"){
                         var datuser = JSON.stringify(adata.User);
                         $localStorage.sponzorme = datuser;
-
                         $scope.loagind = false;
                         $scope.step1 = false;
                         $scope.step2 = true;
@@ -1665,7 +1650,6 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
       }
 
       $scope.showInterests = function(categoryid){
-            console.log(categoryid);
             $scope.idselect = categoryid;
       }
 
@@ -1678,9 +1662,7 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
                   $scope.interestselectarray.splice(searcharray, 1);
 
             }
-            console.log($scope.interestselectarray);
       }
-
       $scope.submitCategoryInfo = function(){
             $scope.loagind = true;
             angular.forEach($scope.interestselectarray, function(valuep, key) {
@@ -1697,12 +1679,7 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
             $scope.step4 = true;
             $localStorage.$reset();
       }
-
-
-
   $scope.menuprincipal = 'views/sponsors/menu.html';
-
-
 });
 
 sponzorme.controller('ForgotController', function ($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, loginRequest) {
