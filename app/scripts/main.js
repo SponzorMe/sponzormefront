@@ -44,6 +44,10 @@ var sponzorme = angular.module('sponzorme',
             templateUrl: 'views/main.html',
             controller: 'HomeController'
       })
+      .when('/activation/:token',{
+            templateUrl: 'views/activation.html',
+            controller: 'ActivationController'
+      })
       .when('/testimonials', {
             templateUrl: 'views/testimonials.html',
             controller: 'HomeController'
@@ -360,6 +364,18 @@ sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $
                   }
       }
 
+});
+
+sponzorme.controller('ActivationController',function($scope, $routeParams, $translate, $sessionStorage, loginRequest) {
+      $scope.errorActivation = false;
+      $scope.successActivation = false;
+      loginRequest.tryActivation($routeParams.token).success(function(data){
+          if(data.code==200){
+            $scope.successActivation = true;
+          }
+      }).error(function(data){
+          $scope.errorActivation = true;
+      });
 });
 
 sponzorme.controller('UsersCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {

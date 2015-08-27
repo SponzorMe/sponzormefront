@@ -880,6 +880,10 @@ var translationsEN = {
       OpenSource:'Open Source',
       WebDesign:'Web Design',
       MobileDevelopment:'Mobile Development',
-      TechnologyStartups:'Technology Startups'
+      TechnologyStartups:'Technology Startups',
+      activationError:'Ops... Invalid activation link',
+      activationErrorMessage:'The account that you are trying to activate, is not valid, If you account is not activated yet, please try again or go to:  ',
+      activationSuccess:'Activation Success!',
+      activationSuccessMessage:'Your account has been activated and is ready to login'
 
 };

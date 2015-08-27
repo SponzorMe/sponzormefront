@@ -1,5 +1,5 @@
 /**
-* @Servicio de Login 
+* @Servicio de Login
 *
 * @author Sebastian
 * @version 0.1
@@ -23,7 +23,7 @@ angular.module('loginService', [])
 					data: $.param(data)
 				});
 			},
-			resetemail : function(email){
+			resetPassword : function(email){
 				data = {"email":email};
 				return $http({
 					method: 'POST',
@@ -31,6 +31,9 @@ angular.module('loginService', [])
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
-			}	
+			},
+			tryActivation: function(token){
+				return $http.get(path + 'verify_activation/' + token);
+			}
 		}
 	});
