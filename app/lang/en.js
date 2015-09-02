@@ -882,8 +882,13 @@ var translationsEN = {
       MobileDevelopment:'Mobile Development',
       TechnologyStartups:'Technology Startups',
       activationError:'Ops... Invalid activation link',
-      activationErrorMessage:'The account that you are trying to activate, is not valid, If you account is not activated yet, please try again or go to:  ',
+      activationErrorMessage:'The activation link has expired or is invalid, If your account is not activated yet, please try again or go to:  ',
       activationSuccess:'Activation Success!',
-      activationSuccessMessage:'Your account has been activated and is ready to login'
+      activationSuccessMessage:'Your account has been activated and now you can login',
+      forgotPassword: 'Did you forget your password?',
+      resendActivation: 'Resend activation link',
+      ActivationLinkResent: 'An e-mail with the activation Link has been sent again, please check your inbox,',
+      StillHavingProblems: 'Still having problems again?, Please contact us directly support@sponzor.me',
+      InvalidEmail: 'The email you have entered is invalid, please try again'
 
 };

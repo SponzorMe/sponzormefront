@@ -7,7 +7,7 @@
         <form class="form-createuser" name="createUser" role="form" ng-submit="createUser.$valid && sendfrom()">
             <div class="account-wall">
                 <img class="profile-img" src="images/register.png?cop_1212" alt="">
-                <h2 class="form-signin-heading">{{ 'register' | translate }} {{ 'asSponzor' | translate }}</h2>
+                <h2 class="form-signin-heading">{{ 'register' | translate }} {{ 'asOrganizer' | translate }}</h2>
                 <div class="form-group">
                     <input type="input" class="form-control" placeholder="{{'editarname' | translate }}" autofocus ng-model="name" required/>
                 </div>
@@ -43,6 +43,8 @@
     <div class="dialog-container">
     <img class="image-100 image-center" src="images/warning.png" width="100px"/>
     <p ng-repeat="e in error_log">{{e}}</p>
+    <hr/>
+    <p>{{'StillHavingProblems'|translate}}</p>
     </div>
 </script>
 </section>

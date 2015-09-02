@@ -60,6 +60,10 @@ var sponzorme = angular.module('sponzorme',
             templateUrl: 'views/users/login.html',
             controller: 'LoginController'
       })
+      .when('/resend',{
+            templateUrl: 'views/resend.html',
+            controller: 'ResendController'
+      })
       .when('/forgot', {
             templateUrl: 'views/forgot.html',
             controller: 'ForgotController'
@@ -286,7 +290,23 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
             }
       }
 });
+sponzorme.controller('ResendController', function ($scope, $translate, loginRequest, ngDialog) {
+  $scope.error_log=[];//We storage here all translate error during register process
+  $scope.resend = function() {
+    $scope.loagind = true;
+    loginRequest.resendActivation($scope.email).success(function(adata){
+      console.log(adata);
+      $scope.loagind = false;
+      $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.ActivationLinkResent');
+      ngDialog.open({ template: 'templateId' ,scope: $scope});
+    }).error(function(edata){
+          $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.InvalidEmail');
+          $scope.loagind = false;
+          ngDialog.open({ template: 'templateId', scope: $scope});
+    });
+  }
 
+});
 sponzorme.controller('SponzorsCreateController', function ($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, usSpinnerService, $localStorage) {
       if($sessionStorage) {
 
@@ -416,7 +436,9 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                               $scope.objuser.type = 0;
                               $scope.objuser.name = $scope.name + " " + $scope.lastname;
                               $scope.loagind = true;
+                              console.log($scope.objuser);
                               userRequest.createUser($scope.objuser).success(function(adata){
+                                    console.log(adata);
                                     if(adata.message == "Inserted"){
                                           var datuser = JSON.stringify(adata.User);
                                           $localStorage.sponzorme = datuser;

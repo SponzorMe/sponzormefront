@@ -34,6 +34,15 @@ angular.module('loginService', [])
 			},
 			tryActivation: function(token){
 				return $http.get(path + 'verify_activation/' + token);
+			},
+			resendActivation: function(email){
+				data={"email":email};
+				return $http({
+					method: 'POST',
+					url: path + 'send_activation',
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					data: $.param(data)
+				});
 			}
 		}
 	});
