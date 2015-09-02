@@ -492,7 +492,12 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
 sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope) {
       $scope.loadingevents = true;
       $scope.loadingrss=true;
-      if($sessionStorage) {
+      if($sessionStorage.cookiesponzorme &&
+        $sessionStorage.email &&
+        $sessionStorage.id &&
+        $sessionStorage.token &&
+        $sessionStorage.typesponzorme == 0
+      ) {
             var cookie = $sessionStorage.cookiesponzorme;
 
             if(cookie == undefined){
@@ -1314,12 +1319,16 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
 
 });
 
-sponzorme.controller('SponsorsMainController', function ($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, usSpinnerService) {
+sponzorme.controller('SponsorsMainController', function ($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService) {
 
       $scope.loadingsearch = true;
 
-      if($sessionStorage) {
-
+      if($sessionStorage.cookiesponzorme &&
+        $sessionStorage.email &&
+        $sessionStorage.id &&
+        $sessionStorage.token &&
+        $sessionStorage.typesponzorme == 1
+      ){
             var cookie = $sessionStorage.cookiesponzorme;
 
             if(cookie == undefined){
@@ -1338,40 +1347,37 @@ sponzorme.controller('SponsorsMainController', function ($scope, $translate, $se
             }
 
             $scope.userfroups = 0;
+            $scope.account = [];
+
+            if(!$localStorage.sponzorme){
+                  userRequest.oneUser($sessionStorage.id).success(function(adata){
+                        var datuser = JSON.stringify(adata.data.user);
+                        $localStorage.sponzorme = datuser;
+                        $scope.account = adata.data.user;
+                  });
+
+            }else{
+                  var sponzormeObj = JSON.parse($localStorage.sponzorme);
+                  $scope.todo = sponzormeObj.perk_tasks;
+                  $scope.sponzors = sponzormeObj.sponzorships;
+                  $scope.account = sponzormeObj;
+            }
+
+            $scope.searchloading = 1;
+
+            eventRequest.allEvents().success(function(adata){
+                  $scope.search = [];
+                  $scope.search = adata.events;
+                  $scope.searchloading = 0;
+                  $scope.loadingsearch = false;
+            });
+
+
+
+            $scope.menuprincipal = 'views/sponsors/menu.html';
       }else{
            $location.path("/");
       }
-
-      $scope.account = [];
-
-      if(!$localStorage.sponzorme){
-            userRequest.oneUser($sessionStorage.id).success(function(adata){
-                  var datuser = JSON.stringify(adata.data.user);
-                  $localStorage.sponzorme = datuser;
-                  $scope.account = adata.data.user;
-            });
-
-      }else{
-            var sponzormeObj = JSON.parse($localStorage.sponzorme);
-            $scope.todo = sponzormeObj.perk_tasks;
-            $scope.sponzors = sponzormeObj.sponzorships;
-            $scope.account = sponzormeObj;
-      }
-
-      $scope.searchloading = 1;
-
-      eventRequest.allEvents().success(function(adata){
-            $scope.search = [];
-            $scope.search = adata.events;
-            $scope.searchloading = 0;
-            $scope.loadingsearch = false;
-      });
-
-
-
-      $scope.menuprincipal = 'views/sponsors/menu.html';
-
-
 });
 
 sponzorme.controller('SponsorsSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage) {
