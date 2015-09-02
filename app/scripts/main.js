@@ -264,25 +264,34 @@ sponzorme.controller('LoginController', function ($scope, $translate, loginReque
                   $scope.objuser.password_confirmation = $scope.passwordtwo;
                   $scope.objuser.lang = idiomaselect;
                   $scope.loagind = true;
+                  $scope.error_log=[];
                   loginRequest.login($scope.objuser).success(function(adata){
-                        var expireDate = new Date();
-                        expireDate.setDate(expireDate.getDate() + 1);
-                        $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
-                        $sessionStorage.typesponzorme = adata.user.type;
-                        $sessionStorage.token = btoa($scope.email+':'+$scope.password);
-                        $sessionStorage.id = adata.user.id;
-                        $sessionStorage.email = adata.user.email;
-                        idiomaselect = adata.user.lang;
-                        var url = $location.host();
-                        if(url == 'localhost'){
-                              $sessionStorage.developer = 1;
+                        if(adata.user.activated){
+                            var expireDate = new Date();
+                            expireDate.setDate(expireDate.getDate() + 1);
+                            $sessionStorage.cookiesponzorme = btoa($scope.email+':'+$scope.password);
+                            $sessionStorage.typesponzorme = adata.user.type;
+                            $sessionStorage.token = btoa($scope.email+':'+$scope.password);
+                            $sessionStorage.id = adata.user.id;
+                            $sessionStorage.email = adata.user.email;
+                            idiomaselect = adata.user.lang;
+                            var url = $location.host();
+                            if(url == 'localhost'){
+                                  $sessionStorage.developer = 1;
+                            }
+                            $scope.loagind = false;
+                            if(adata.user.type == 1){
+                                  $location.path("/sponsors/dashboard");
+                            }else{
+                                  $location.path("/users/dashboard");
+                            }
                         }
-                        $scope.loagind = false;
-                        if(adata.user.type == 1){
-                              $location.path("/sponsors/dashboard");
-                        }else{
-                              $location.path("/users/dashboard");
+                        else{
+                          $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.UnactivatedAccount');
+                          $scope.loagind = false;
+                          ngDialog.open({ template: 'templateId', scope: $scope});
                         }
+
                   }).error(function(edata){
                         $scope.loagind = false;
                         ngDialog.open({ template: 'errorloging.html' });
@@ -295,7 +304,7 @@ sponzorme.controller('ResendController', function ($scope, $translate, loginRequ
   $scope.resend = function() {
     $scope.loagind = true;
     loginRequest.resendActivation($scope.email).success(function(adata){
-      console.log(adata);
+
       $scope.loagind = false;
       $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.ActivationLinkResent');
       ngDialog.open({ template: 'templateId' ,scope: $scope});
@@ -436,9 +445,9 @@ sponzorme.controller('UsersCreateController', function ($scope, $translate, $ses
                               $scope.objuser.type = 0;
                               $scope.objuser.name = $scope.name + " " + $scope.lastname;
                               $scope.loagind = true;
-                              console.log($scope.objuser);
+
                               userRequest.createUser($scope.objuser).success(function(adata){
-                                    console.log(adata);
+
                                     if(adata.message == "Inserted"){
                                           var datuser = JSON.stringify(adata.User);
                                           $localStorage.sponzorme = datuser;
@@ -878,7 +887,7 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
 
       $scope.editEvent = function(idevent){
             eventRequest.oneEvent(idevent).success(function(adata){
-                  console.log(adata);
+
             });
       }
 
@@ -1234,7 +1243,7 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
                         //ngDialog.open({ template: 'generalMessage.html', controller: 'eventsController', scope: $scope });
                   }
             }).error(function(data) {
-                  console.log(data);
+
             });
       }
 
@@ -1284,8 +1293,8 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
             $scope.sponzors = sponzormeObj.sponzorships;
             $scope.account = sponzormeObj;
       }
-      console.log(CloudStorageConfig.config);
-      console.log(CloudStorageService.handleClientLoad(CloudStorageConfig.config.apiKey, CloudStorageConfig.config.clientId, CloudStorageConfig.config.scopes));
+
+
 
       $scope.editAccount = function(){
 
@@ -1708,7 +1717,7 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
                   $scope.itemintere.interest_id = valuep;
                   $scope.itemintere.user_id = $sessionStorage.id;
                   userInterestRequest.createUserInterest($scope.itemintere).success(function(adata){
-                        console.log(adata);
+
                   });
             });
             $scope.loagind = false;
@@ -1749,9 +1758,9 @@ sponzorme.controller('ForgotController', function ($scope, $translate, $sessionS
       }
 
       $scope.senmail = function(){
-            console.log($scope.email);
+
             loginRequest.resetemail($scope.email).success(function(adata){
-                  console.log(adata);
+
             });
       }
 

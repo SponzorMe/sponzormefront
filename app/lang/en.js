@@ -889,6 +889,8 @@ var translationsEN = {
       resendActivation: 'Resend activation link',
       ActivationLinkResent: 'An e-mail with the activation Link has been sent again, please check your inbox,',
       StillHavingProblems: 'Still having problems again?, Please contact us directly support@sponzor.me',
-      InvalidEmail: 'The email you have entered is invalid, please try again'
+      InvalidEmail: 'The email you have entered is invalid, please try again',
+      UnactivatedAccount: 'Your account has not been activated yet, please verify you email inbox or go to ',
+      ResendActivationPage: 'Resend Activation Page'
 
 };
