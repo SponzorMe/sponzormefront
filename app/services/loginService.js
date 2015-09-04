@@ -43,6 +43,16 @@ angular.module('loginService', [])
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
+			},
+			updatePassword: function(token,data){
+				console.log(token);
+				return $http({
+					method: 'POST',
+					url: path + 'update_password/'+token,
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					data: $.param(data)
+				});
+
 			}
 		}
 	});

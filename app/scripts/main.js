@@ -68,6 +68,10 @@ var sponzorme = angular.module('sponzorme',
             templateUrl: 'views/forgot.html',
             controller: 'ForgotController'
       })
+      .when('/reset/:tokenReset', {
+            templateUrl: 'views/reset.html',
+            controller: 'ForgotController'
+      })
       .when('/sponsors/create',{
             templateUrl: 'views/sponsors/create.html',
             controller: 'SponzorsCreateController'
@@ -1735,39 +1739,52 @@ sponzorme.controller('UsersCustomController', function ($scope, $translate, $ses
   $scope.menuprincipal = 'views/sponsors/menu.html';
 });
 
-sponzorme.controller('ForgotController', function ($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, loginRequest) {
+sponzorme.controller('ForgotController', function ($scope, $translate,  $routeParams, $sessionStorage, $localStorage,ngDialog, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, loginRequest) {
 
-      $scope.email = "";
-
-      if($sessionStorage) {
-
-            var cookie = $sessionStorage.cookiesponzorme;
-
-            if(cookie == undefined){
-                  $scope.vieuser = 1;
-            }else{
-                  $scope.vieuser = 0;
-            }
-
-            var typeini = $sessionStorage.typesponzorme;
-            if (typeini != undefined){
-               if(typeini == '1'){
-                 $scope.typeuser = 0;
-              }else{
-                 $scope.typeuser = 1;
-              }
-            }
-
-            $scope.userfroups = 0;
-      }else{
-           $location.path("/");
+  $scope.error_log=[];//We storage here all translate error during register process
+  $scope.forgotPassword = function() {
+    $scope.loagind = true;
+    loginRequest.resetPassword($scope.email).success(function(adata){
+      console.log(adata);
+      $scope.loagind = false;
+      $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.PasswordResetLinkSent');
+      ngDialog.open({ template: 'templateId' ,scope: $scope});
+    }).error(function(edata){
+          $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.InvalidEmail');
+          $scope.loagind = false;
+          ngDialog.open({ template: 'templateId', scope: $scope});
+    });
+  }
+  $scope.resetPassword = function(){
+    $scope.errorActivation = false;
+    $scope.successActivation = false;
+  if($scope.password==$scope.passwordConfirmation){
+    var formData={
+      "email":$scope.email,
+      "password":$scope.password,
+      "password_confirmation":$scope.passwordConfirmation
+    };
+    console.log($routeParams.tokenReset);
+    loginRequest.updatePassword($routeParams.tokenReset,formData).success(function(data){
+          if(data.code==200){
+            $scope.successActivation = true;
+          }
+          console.log(data);
+          $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.PasswordChangedSuccesfully');
+          ngDialog.open({ template: 'templateId' ,scope: $scope});
+        }).error(function(edata){
+              console.log(edata);
+              $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.InvalidData');
+              $scope.loagind = false;
+              ngDialog.open({ template: 'templateId', scope: $scope});
+        });
+      }
+      else{
+        $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.PasswordNoMatch');
+        ngDialog.open({ template: 'templateId', scope: $scope});
       }
 
-      $scope.senmail = function(){
+  }
 
-            loginRequest.resetemail($scope.email).success(function(adata){
-
-            });
-      }
 
 });

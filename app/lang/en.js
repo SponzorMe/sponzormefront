@@ -887,10 +887,16 @@ var translationsEN = {
       activationSuccessMessage:'Your account has been activated and now you can login',
       forgotPassword: 'Did you forget your password?',
       resendActivation: 'Resend activation link',
-      ActivationLinkResent: 'An e-mail with the activation Link has been sent again, please check your inbox,',
+      ActivationLinkResent: 'An e-mail with the activation Link has been sent again, please check your inbox',
       StillHavingProblems: 'Still having problems again?, Please contact us directly support@sponzor.me',
       InvalidEmail: 'The email you have entered is invalid, please try again',
       UnactivatedAccount: 'Your account has not been activated yet, please verify you email inbox or go to ',
-      ResendActivationPage: 'Resend Activation Page'
+      ResendActivationPage: 'Resend Activation Page',
+      PasswordResetLinkSent: 'An e-mail with the instructions has been sent to reset your password',
+      email: 'Email',
+      newPassword: 'New Password',
+      newPasswordConfirm: 'Confirm new Password',
+      ResetPasswordText: 'To reset your password please complete the info below: ',
+      send: "Send"
 
 };

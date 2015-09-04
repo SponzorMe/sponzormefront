@@ -1,7 +1,8 @@
 ### Parte Externa de la aplicación
-Arreglar el bug de los usuarios nuevos que entran por primera vez que no tiene eventos ni perks.
 Cuando una persona desea recordar los datos no esta funcionando.
 Cuando una persona desea resetear el passowrd porque lo olvido no esta funcionando
+Arreglar el bug de los usuarios nuevos que entran por primera vez que no tiene eventos ni perks.
+
 
 ### Cosas Hechas
 Crear la vista de activar cuenta que reciba el token, que consuma el servicio y que active la cuenta
