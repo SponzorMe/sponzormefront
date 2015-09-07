@@ -897,6 +897,8 @@ var translationsEN = {
       newPassword: 'New Password',
       newPasswordConfirm: 'Confirm new Password',
       ResetPasswordText: 'To reset your password please complete the info below: ',
-      send: "Send"
-
+      send: "Send",
+      PasswordChangedSuccesfully: "The password has beed updated successfuly, please try a login",
+      InvalidData: "The Token/Email combination is Invalid, please try again.",
+      PasswordNoMatch: "The entered password does not match"
 };

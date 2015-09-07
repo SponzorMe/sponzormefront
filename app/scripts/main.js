@@ -1769,11 +1769,9 @@ sponzorme.controller('ForgotController', function ($scope, $translate,  $routePa
           if(data.code==200){
             $scope.successActivation = true;
           }
-          console.log(data);
           $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.PasswordChangedSuccesfully');
           ngDialog.open({ template: 'templateId' ,scope: $scope});
         }).error(function(edata){
-              console.log(edata);
               $scope.error_log[0]=eval('translations'+idiomaselect.toUpperCase()+'.InvalidData');
               $scope.loagind = false;
               ngDialog.open({ template: 'templateId', scope: $scope});
