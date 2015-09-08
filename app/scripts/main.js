@@ -68,6 +68,9 @@ var sponzorme = angular.module('sponzorme',
             templateUrl: 'views/forgot.html',
             controller: 'ForgotController'
       })
+      .when('/about', {
+            templateUrl: 'views/about.html'
+      })
       .when('/reset/:tokenReset', {
             templateUrl: 'views/reset.html',
             controller: 'ForgotController'
