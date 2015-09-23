@@ -5,9 +5,9 @@
           <div class="row header">
             <div class="col-xs-12">
               <div class="user pull-right">
-        
+
                 <div class="item dropdown" dropdown="" is-open="status.isopen">
-                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
+                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">
                   <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
                     <input type="hidden" data-ng-init="viewUserInfoheader()">
                     <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
@@ -90,18 +90,18 @@
                     <div class="col-sm-5">
                       <input  type="text" data-ng-model="account.age" name="age" class="form-control" />
                     </div>
-                  </div>            
+                  </div>
                   <!--form field-->
                   <div class="form-group" id="sex">
                     <label for="label" class="col-sm-2 control-label">
                       {{'editaccountsex' | translate}}
                     </label>
                     <div class="col-sm-5">
-                      <select class="form-control" ng-model="account.sex" name="sex" id="sex">     
+                      <select class="form-control" ng-model="account.sex" name="sex" id="sex">
                         <option value="" selected>{{'chooseSex' | translate}}</option>
                         <option value="0">{{'woman' | translate}}</option>
                         <option value="1">{{'man' | translate}}</option>
-                      </select> 
+                      </select>
                     </div>
                   </div>
                   <!--form field-->
@@ -137,26 +137,26 @@
                           <label class="col-sm-2 control-label" for="label">Imagen</label>
                           <div class="col-sm-5">
                             <div style="height:120px; wigth:120px;">
-                               <img ng-src="http://www.sponzor.me/images/photo.png?sz=120" style="border-radius:50%; height:120px; wigth:120px;"> 
+                               <img ng-src="http://www.sponzor.me/images/photo.png?sz=120" style="border-radius:50%; height:120px; wigth:120px;">
                             </div>
                             <div style="margin:25px;">
-                              <input class="col-sm-6 " id="imageInput" type="file" ng-model="temp.image" nv-file-select uploader="uploader"/><br/>
+                              <input class="col-sm-6 " id="imageInput" type="file" ng-model="temp.image" /><br/>
                             </div>
                           </div>
-                        <div>               
+                        <div>
                     </div>
                   <div class="clearfix"></div>
                   <hr/>
                   <!--form field-->
                   <div class="form-group">
-                    <div class="col-sm-offset-5 col-sm-4 "> 
+                    <div class="col-sm-offset-5 col-sm-4 ">
                       <button data-ng-click="editAccount()" class="btn btn-info">{{'submitbutton' | translate}}</button>
                     </div>
                   </div>
                 </form>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row">
             <div class="col-lg-6">
               <div class="widget">
@@ -191,13 +191,13 @@
                           <td><span class="text-success"><a class="btn btn-warning" data-ng-click="importFromEventbrite(e)"><i class="fa fa-check"></i>Import</a></span></td>
                         </tr>
                       </tbody>
-                    </table>               
+                    </table>
                     </div>
                   <div ng-click="unconnectEventbrite()"  class="text-center">
                     <button class="btn btn-primary">{{'eventbriteButtonUnconnect' | translate }}</button>
                   </div>
                 </div>
-              </div>          
+              </div>
             </div>
             <div class="col-lg-6" ng-show="a">
                 <div class="widget">
@@ -209,7 +209,7 @@
                     <div  ng-include src="'eventbriteImport.html'">
                   </div>
                 </div>
-            </div>      
+            </div>
           </div>
             <div class="col-lg-6" ng-show="b">
                 <div class="widget">
@@ -221,8 +221,8 @@
                     <div  ng-include src="'eventbriteImport.html'">
                   </div>
                 </div>
-            </div>      
-          </div>   
+            </div>
+          </div>
 
         <script type="text/ng-template" id="successevent.html">
           <div class="text-center">
@@ -232,7 +232,7 @@
             <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'close' | translate}}</button>
           </div>
         </script>
-        <script type="text/ng-template" id="eventbriteImport.html"> 
+        <script type="text/ng-template" id="eventbriteImport.html">
                   <form class="form-horizontal" role="form">
                   <!--form field-->
                     <div class="form-group" id="title">
@@ -271,13 +271,13 @@
                             <a class="dropdown-toggle my-toggle-select" id="dLabel1"  role="button" data-toggle="dropdown" data-target="#" href="">
                                 <div class="input-group">
                                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                  <input type="text" id="starts" class="form-control" data-ng-model="newevent.starts">                        
+                                  <input type="text" id="starts" class="form-control" data-ng-model="newevent.starts">
                                 </div>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                 <datetimepicker data-ng-model="newevent.starts" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
                             </ul>
-                        </div>                
+                        </div>
                       </div>
                     </div>
                     <div class="form-group" id="ends">
@@ -289,13 +289,13 @@
                             <a class="dropdown-toggle my-toggle-select" id="dLabel2"  role="button" data-toggle="dropdown" data-target="#" href="">
                                 <div class="input-group">
                                   <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                  <input type="text" id="ends" class="form-control" data-ng-model="newevent.ends">                        
+                                  <input type="text" id="ends" class="form-control" data-ng-model="newevent.ends">
                                 </div>
                             </a>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                 <datetimepicker data-ng-model="newevent.ends" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
                             </ul>
-                        </div>    
+                        </div>
                         <input type="hidden" data-ng-model="newevent.organizer" name="organizer" ng-init="newevent.organizer = event.organizer"/>
                       </div>
                     </div>
@@ -303,20 +303,20 @@
                     <!--form field-->
                     <div class="form-group" id="public">
                       <div class="col-sm-4 control-label">
-                          <input id="privacy0"  type="radio" data-ng-model="newevent.privacy" name="privacy" value="0" /> 
-                      </div>  
+                          <input id="privacy0"  type="radio" data-ng-model="newevent.privacy" name="privacy" value="0" />
+                      </div>
                           <label for="privacy0" class="col-sm-7">
-                            <strong>{{'privacyoption0' | translate}} :  </strong>                   
-                         
+                            <strong>{{'privacyoption0' | translate}} :  </strong>
+
                           {{'privacydescription0' | translate}} </label>
 
                       <div class="col-sm-4 control-label">
-                          <input id="privacy1" type="radio" data-ng-model="newevent.privacy" name="privacy" value="1" />   
+                          <input id="privacy1" type="radio" data-ng-model="newevent.privacy" name="privacy" value="1" />
                       </div>
 
                         <label for="privacy1" class="col-sm-7">
-                            <strong>{{'privacyoption1' | translate}} :  </strong>                   
-                          
+                            <strong>{{'privacyoption1' | translate}} :  </strong>
+
                           {{'privacydescription1' | translate}}</label>
                     </div>
                     <!--form field-->
@@ -329,12 +329,12 @@
                           <option value="">{{'choosetype' | translate}}</option>
                           <option data-ng-repeat="c in categorias.list" data-ng-value="c.id">
                             <%c.title%>
-                          </option>                
+                          </option>
                         </select>
                       </div>
                     </div>
-                    <!--form field-->            
-                    <div class="table-responsive">              
+                    <!--form field-->
+                    <div class="table-responsive">
                       <table class="table table-striped">
                         <thead>
                           <th class="text-center">
@@ -348,12 +348,12 @@
                           </th>
                           <th class="text-center">
                             {{'actionssponzor' | translate}}
-                          </th>              
+                          </th>
                         </thead>
                         <tr ng-repeat="s in sponzors" data-ng-show="sponzors.length">
                           <td class="text-center">
                             <input type="text" class="form-control" placeholder="" ng-model="s.kind" />
-                          </td>   
+                          </td>
                           <td class="text-center">
                             <input type="text" class="form-control" placeholder="" ng-model="s.quantity" />
                           </td>
@@ -379,8 +379,8 @@
                     </div>
                   </form>
         </script>
-        </div>      
+        </div>
       </div>
-    </div>      
+    </div>
   </div>
 </div>

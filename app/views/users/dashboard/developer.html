@@ -1,0 +1,197 @@
+<div class="col-lg-12">
+    <div class="widget" ng-show="developer">
+      <div class="widget-header">
+        <i class="fa fa-trophy"></i> {{ 'Developer Event type' | translate }}
+        <div class="clearfix"></div>
+      </div>
+      <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <th class="text-center">
+                {{ 'id' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'name' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'description' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'lang' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'actionssponzor' | translate }}
+              </th>
+            </thead>
+            <tr ng-repeat="c in type.list">
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="c.id" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="c.name" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="c.description" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="c.lang" />
+              </td>
+              <td class="text-center">
+                <a href="" ng-click="updateeventtype(c.id, $index, c.name, c.description, c.lang)"><i class="fa fa-refresh"></i></a>
+                <a href="" ng-click="removeeventtype($index)"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      <div class="widget-body medium no-padding">
+        <div class="form-group" id="type" ng-show="developer">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'eventtypestring' | translate }}
+          </label>
+          <div class="col-sm-7">
+              <input type="text" placeholder="nombre" class="form-control ng-pristine ng-untouched" ng-model="nameevettype" style="margin-bottom:15px;">
+              <input type="text" placeholder="descripcion" class="form-control ng-pristine ng-untouched" ng-model="descriptionevventtype">
+              <section style="margin:10px;">{{msgevent}}</section>
+              <button ng-click="savetype()" class="btn btn-block btn-primary ng-binding">Enviar</button>
+          </div>
+          <script type="text/ng-template" id="templateidsevent">
+              <p>{{error_log}}</p>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="col-lg-12">
+    <div class="widget" ng-show="developer">
+      <div class="widget-header">
+        <i class="fa fa-trophy"></i> {{ 'Developer Perks' | translate }}
+        <div class="clearfix"></div>
+      </div>
+      <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <th class="text-center">
+                {{ 'id' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'Event' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'Kind' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'Quantity' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'usd' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'actionssponzor' | translate }}
+              </th>
+            </thead>
+            <tr ng-repeat="p in peakslist">
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="p.id" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="p.id_event" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="p.kind" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="p.total_quantity" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="p.usd" />
+              </td>
+              <td class="text-center">
+                <a href="" ng-click="updateeventperks(p.id, $index, p.name, p.description, p.lang)"><i class="fa fa-refresh"></i></a>
+                <a href="" ng-click="removeeventperks($index)"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      <div class="widget-body medium no-padding">
+        <div class="form-group" id="type" ng-show="developer">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'Save_perks' | translate }}
+          </label>
+          <div class="col-sm-7">
+              <input type="text" placeholder="Event" class="form-control ng-pristine ng-untouched" ng-model="perksevents" style="margin-bottom:15px;">
+              <input type="text" placeholder="Kind" class="form-control ng-pristine ng-untouched" ng-model="perkskind" style="margin-bottom:15px;">
+              <input type="text" placeholder="Quantity" class="form-control ng-pristine ng-untouched" ng-model="perksquantity" style="margin-bottom:15px;">
+              <input type="text" placeholder="USD" class="form-control ng-pristine ng-untouched" ng-model="perksusd">
+              <section style="margin:10px;">{{msgevent}}</section>
+              <button ng-click="saveperks()" class="btn btn-block btn-primary ng-binding">Enviar</button>
+          </div>
+          <script type="text/ng-template" id="templateidsevent">
+              <p>{{error_log}}</p>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="col-lg-12">
+    <div class="widget" ng-show="developer">
+      <div class="widget-header">
+        <i class="fa fa-trophy"></i> {{ 'Developer Category' | translate }}
+        <div class="clearfix"></div>
+      </div>
+      <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <th class="text-center">
+                {{ 'id' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'Title' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'Body' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'Lang' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'actionssponzor' | translate }}
+              </th>
+            </thead>
+            <tr ng-repeat="cat in categorias.list">
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="cat.id" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="cat.title" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="cat.body" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="cat.lang" />
+              </td>
+              <td class="text-center">
+                <a href="" ng-click="updateeventcategory(cat.id, $index, cat.title, cat.body, cat.lang)"><i class="fa fa-refresh"></i></a>
+                <a href="" ng-click="removeeventcategory($index)"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+      <div class="widget-body medium no-padding">
+        <div class="form-group" id="type" ng-show="developer">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'Save_Category' | translate }}
+          </label>
+          <div class="col-sm-7">
+              <input type="text" placeholder="Category Title" class="form-control ng-pristine ng-untouched" ng-model="categorytitle" style="margin-bottom:15px;">
+              <input type="text" placeholder="Category Body" class="form-control ng-pristine ng-untouched" ng-model="categorybody" style="margin-bottom:15px;">
+              <section style="margin:10px;">{{msgevent}}</section>
+              <button ng-click="savecategory()" class="btn btn-block btn-primary ng-binding">Enviar</button>
+          </div>
+          <script type="text/ng-template" id="templateidsevent">
+              <p>{{error_log}}</p>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>

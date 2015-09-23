@@ -7,9 +7,9 @@
           <div class="row header">
             <div class="col-xs-12">
               <div class="user pull-right">
-        
+
                 <div class="item dropdown" dropdown="" is-open="status.isopen">
-                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
+                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">
                   <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
                     <input type="hidden" data-ng-init="viewUserInfoheader()">
                     <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
@@ -92,18 +92,18 @@
                       <div class="col-sm-5">
                         <input  type="text" data-ng-model="account.age" name="age" class="form-control" />
                       </div>
-                    </div>            
+                    </div>
                     <!--form field-->
                     <div class="form-group" id="sex">
                       <label for="label" class="col-sm-2 control-label">
                         {{'editaccountsex' | translate}}
                       </label>
                       <div class="col-sm-5">
-                        <select class="form-control" ng-model="account.sex" name="sex" id="sex">     
+                        <select class="form-control" ng-model="account.sex" name="sex" id="sex">
                           <option value="" selected>{{'chooseSex' | translate}}</option>
                           <option value="0">{{'woman' | translate}}</option>
                           <option value="1">{{'man' | translate}}</option>
-                        </select> 
+                        </select>
                       </div>
                     </div>
                     <!--form field-->
@@ -128,28 +128,28 @@
 
                         <div class="col-sm-12">
                           <label class="col-sm-2 control-label" for="label">Imagen</label>
-                          <div class="col-sm-5">  
+                          <div class="col-sm-5">
                             <div style="height:120px; wigth:120px;">
-                               <img ng-src="<%account.image%>" style="border-radius:50%; height:120px; wigth:120px;"> 
+                               <img ng-src="<%account.image%>" style="border-radius:50%; height:120px; wigth:120px;">
                             </div>
                             <div style="margin:25px;">
-                              <input type="file" id="imageInput" nv-file-select uploader="uploader"/>
+                              <input type="file" id="imageInput" />
                             </div>
                           </div>
-                        <div>               
+                        <div>
                     </div>
                   <div class="clearfix"></div>
                     <div class="clearfix"></div>
                     <hr/>
                     <!--form field-->
                     <div class="form-group">
-                      <div class="col-sm-offset-5 col-sm-4 "> 
+                      <div class="col-sm-offset-5 col-sm-4 ">
                         <button data-ng-click="editAccount()" class="btn btn-info">{{'submitbutton' | translate}}</button>
                       </div>
                     </div>
                   </form>
                 </div>
-              </div>      
+              </div>
 
           <script type="text/ng-template" id="successevent.html">
             <div class="text-center">

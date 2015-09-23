@@ -900,5 +900,6 @@ var translationsEN = {
       send: "Send",
       PasswordChangedSuccesfully: "The password has beed updated successfuly, please try a login",
       InvalidData: "The Token/Email combination is Invalid, please try again.",
-      PasswordNoMatch: "The entered password does not match"
+      PasswordNoMatch: "The entered password does not match",
+      eventCreatedSuccesfully: "New event has been created successfuly, good look finding sponzors!"
 };

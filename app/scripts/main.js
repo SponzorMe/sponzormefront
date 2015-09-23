@@ -604,7 +604,7 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersEventsController', function ($scope, $translate, $sessionStorage, $localStorage, FileUploader, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $location, usSpinnerService) {
+sponzorme.controller('UsersEventsController', function ($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $location, usSpinnerService) {
 
       $scope.loadingevents = true;
 
@@ -735,20 +735,6 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
             });
       }
 
-
-
-      var url = $location.host();
-
-      if(url == 'localhost'){
-            perkRequest.allPerks().success(function(adata){
-                $scope.peakslist = adata.Perk;
-            });
-      }
-
-
-
-
-
       $scope.userfroups = 0;
 
       $scope.sponzors = [];
@@ -857,43 +843,56 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                   });
             }
       });
-
-      var uploader = $scope.uploader = new FileUploader({
-                  url: 'http://localhost/sponzormeyeo/app/upload.php'
-            });
-
       $scope.newEvent = function(){
 
-            uploader.uploadAll();
-
-            $scope.events = {};
-            $scope.events.title = $scope.titleevent;
-            $scope.events.location = $scope.locationevent.name;
-            $scope.events.location_reference = $scope.locationevent.reference;
-            $scope.events.description = $scope.descriptionevent;
-            $scope.events.starts = $scope.dtini;
-            $scope.events.ends = $scope.dtfinal;
-            $scope.events.lang = idiomaselect;
-            $scope.events.type = $scope.typeevent;
-            $scope.events.category = $scope.categoryevent;
-            $scope.events.privacy = $scope.privacyevent;
-            $scope.events.image = '/test.jpg';
-            $scope.events.organizer = $sessionStorage.id;
-            eventRequest.createEvent($scope.events).success(function(adata){
+            $scope.newEvent = {};
+            $scope.newEvent.title = $scope.titleevent;
+            $scope.newEvent.location = $scope.locationevent.name;
+            $scope.newEvent.location_reference = $scope.locationevent.reference;
+            $scope.newEvent.description = $scope.descriptionevent;
+            $scope.newEvent.starts = $scope.dtini;
+            $scope.newEvent.ends = $scope.dtfinal;
+            $scope.newEvent.lang = idiomaselect;
+            $scope.newEvent.type = $scope.typeevent;
+            $scope.newEvent.category = $scope.categoryevent;
+            $scope.newEvent.privacy = $scope.privacyevent;
+            $scope.newEvent.image = '/test.jpg';
+            $scope.newEvent.organizer = $sessionStorage.id;
+            eventRequest.createEvent($scope.newEvent).success(function(adata){
                   angular.forEach($scope.sponzors, function(value, key) {
-                        $scope.perkitems = {};
-                        $scope.perkitems.kind = value.kind;
-                        $scope.perkitems.total_quantity = value.quantity;
-                        $scope.perkitems.usd = value.usd;
-                        $scope.perkitems.id_event = adata.event.id;
-                        perkRequest.createPerk($scope.perkitems).success(function(pdata){
-                             $scope.peaks.push(pdata.Perk);
-                        });
+                      $scope.perkitems = {};
+                      $scope.perkitems.kind = value.kind;
+                      $scope.perkitems.total_quantity = value.quantity;
+                      $scope.perkitems.usd = value.usd;
+                      $scope.perkitems.id_event = adata.event.id;
+                      $scope.perkitems.reserved_quantity = 0;
+                      perkRequest.createPerk($scope.perkitems).success(function(pdata){
 
-                  },$scope.peaks);
-
-                  $scope.eventos.push(adata.event);
-                  $scope.events = {};
+                      }).error(function(edata){
+                          console.log("Error creating a perk");
+                          console.log(edata);
+                      });
+                  });
+                  eventRequest.oneEvent(adata.event.id).success(function(response){ //we get the new  eventinfo
+                      $scope.eventos.push(response.data.event);//add new event to user event list.
+                      //if everything is ok, we clean the form
+                       $scope.titleevent="";
+                       $scope.locationevent.name="";
+                       $scope.locationevent.reference="";
+                       $scope.locationevent={};
+                       $scope.descriptionevent="";
+                       $scope.dtini="";
+                       $scope.dtfinal="";
+                       $scope.typeevent="";
+                       $scope.categoryevent="";
+                       $scope.privacyevent="";
+                       $scope.sponzors={};
+                       $scope.loadingpeaks=false// we stop the loading
+                       ngDialog.open({ template: 'success', scope: $scope});//finally we show a dialog telling the status of the things
+                  });
+            }).error(function(edata){
+              console.log("Error creating an event");
+              console.log(edata);
             });
       }
 
@@ -1262,7 +1261,7 @@ sponzorme.controller('UsersTodoController', function ($scope, $translate, $sessi
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage, CloudStorageService, CloudStorageConfig) {
+sponzorme.controller('UsersSettingsController', function ($scope, $translate, $sessionStorage, userRequest, $localStorage, CloudStorageService, CloudStorageConfig) {
 
       if($sessionStorage) {
 
@@ -1317,9 +1316,7 @@ sponzorme.controller('UsersSettingsController', function ($scope, $translate, $s
             });
       }
 
-      var uploader = $scope.uploader = new FileUploader({
-                  url: 'http://localhost/sponzormeyeo/app/upload.php'
-            });
+
 
   $scope.menuprincipal = 'views/users/menu.html';
 
@@ -1387,7 +1384,7 @@ sponzorme.controller('SponsorsMainController', function ($scope, $translate, $se
       }
 });
 
-sponzorme.controller('SponsorsSettingsController', function ($scope, $translate, $sessionStorage, userRequest, FileUploader, $localStorage) {
+sponzorme.controller('SponsorsSettingsController', function ($scope, $translate, $sessionStorage, userRequest, $localStorage) {
 
       if($sessionStorage) {
 
@@ -1438,10 +1435,6 @@ sponzorme.controller('SponsorsSettingsController', function ($scope, $translate,
                   $localStorage.$reset();
             });
       }
-
-      var uploader = $scope.uploader = new FileUploader({
-                  url: 'upload.php'
-            });
 
   $scope.menuprincipal = 'views/sponsors/menu.html';
 
