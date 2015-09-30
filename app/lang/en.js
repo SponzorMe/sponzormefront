@@ -901,5 +901,16 @@ var translationsEN = {
       PasswordChangedSuccesfully: "The password has beed updated successfuly, please try a login",
       InvalidData: "The Token/Email combination is Invalid, please try again.",
       PasswordNoMatch: "The entered password does not match",
-      eventCreatedSuccesfully: "New event has been created successfuly, good look finding sponzors!"
+      eventCreatedSuccesfully: "New event has been created successfuly, good look finding sponzors!",
+      neweventcategory: "Event Category",
+      public: "Public",
+      private: "Private",
+      completeInfoNewEvent: "Please complete the form below to create a new event",
+      comunity_size: "Comunity Size",
+      next_event: "Next Event Date",
+      contact_organizer: "Contact Organizer",
+      errorDeletingEvent: "The event you are trying to delete has sponzorships associated and can not be removed",
+      eventDeleteSuccesfully: "The event has been removed successfuly",
+      datePlaceholder: "YYYY-MM-DD HH:II:SS",
+      eventEditedSuccesfully: "The event has been successfuly edited"
 };

@@ -135,6 +135,10 @@ var sponzorme = angular.module('sponzorme',
             templateUrl: 'views/sponsors/dashboard/sponzors.html',
             controller: 'SponsorsSponzorsController'
       })
+      .when('/event/:eventId', {
+            templateUrl: 'views/event.html',
+            controller: 'EventPageController'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -534,7 +538,7 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
       $scope.eventos = {};
       $scope.eventos.size = 0;
       $scope.event = {};
-      this.peaks = [];
+      $scope.peaks = [];
       $scope.sponzors = {};
       $scope.sponzors.size = 0;
       $scope.sponzors.balance = 0;
@@ -576,12 +580,11 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
             $scope.loadingpeaks=true;
             $scope.noPerksMessage=false;
             if($scope.event.current){
-                  //Mostramos el boton de cargar.
                 eventRequest.oneEvent(newvalue).success(function(adata)
                 {
-                  this.peaks=adata.data.event.perks;
+                  $scope.peaks=adata.data.event.perks;
                   $scope.loadingpeaks=false;
-                  if(!this.peaks[0]){
+                  if(!$scope.peaks[0]){
                     $scope.noPerksMessage=true;
                   }
                   else{
@@ -604,7 +607,7 @@ sponzorme.controller('UsersPrincipalController', function ($scope, $translate, $
       $scope.menuprincipal = 'views/users/menu.html';
 });
 
-sponzorme.controller('UsersEventsController', function ($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $location, usSpinnerService) {
+sponzorme.controller('UsersEventsController', function ($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest,perkTaskRequest, $location, usSpinnerService) {
 
       $scope.loadingevents = true;
 
@@ -644,7 +647,6 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
       $scope.emailuser = $sessionStorage.email;
 
       $scope.event = {};
-      $scope.event.current = "";
 
       eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata){
             $scope.type = {};
@@ -696,20 +698,9 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
                               this.push(value);
                         }
                   },$scope.eventos);
-
-                  for (var i = 0 ; i <= $scope.events.length; i++) {
-                        $scope.eventos.size = i;
-                  };
-
-                  $scope.peaks = [];
-
+                  $scope.event.current=$scope.eventos[0].id;
                   $scope.loadingevents = false;
                   usSpinnerService.stop('spinner-1');
-
-                  perkRequest.onePerk($scope.eventos[0].id).success(function(adata){
-                      $scope.peaks.push(adata.data.Perk);
-                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar
-                  });
 
             });
       }else{
@@ -725,14 +716,28 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
 
             $scope.peaks = [];
             $scope.peakslist = [];
+            $scope.event.current=$scope.eventos[0].id;
             $scope.loadingevents = false;
             usSpinnerService.stop('spinner-1');
+      }
 
+      $scope.getEventsBySponzor = function(userId){
+        userRequest.oneUser(userId).success(function(adata){
+              $scope.events = [];
+              $scope.eventos = [];
+              $scope.users.size = adata.data.user.comunity_size;
+              var datuser = JSON.stringify(adata.data.user);
+              $localStorage.sponzorme = datuser;
+              angular.forEach(adata.data.user.events, function(value, key) {
+                    if(value.lang == idiomaselect){
+                          this.push(value);
+                    }
+              },$scope.eventos);
+              $scope.event.current=$scope.eventos[0].id;
+              $scope.loadingevents = false;
+              usSpinnerService.stop('spinner-1');
 
-            perkRequest.onePerk($scope.eventos[0].id).success(function(adata){
-                $scope.peaks.push(adata.data.Perk);
-                $scope.loadingpeaks=false; //Ocultamos el boton de cargar
-            });
+        });
       }
 
       $scope.userfroups = 0;
@@ -745,104 +750,37 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
 
       $scope.menuprincipal = 'views/users/menu.html';
 
-      $scope.today = function() {
-      $scope.dt = new Date();
-      };
-      $scope.today();
-
-      $scope.clear = function () {
-      $scope.dt = null;
-      };
-
-      // Disable weekend selection
-      $scope.disabled = function(date, mode) {
-      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-      };
-
-      $scope.toggleMin = function() {
-      $scope.minDate = $scope.minDate ? null : new Date();
-      };
-      $scope.toggleMin();
-
-      $scope.open = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.opened = true;
-      };
-
-      $scope.openfinal = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.openedfinal = true;
-      };
-
-      $scope.dateOptions = {
-      formatYear: 'yy',
-      startingDay: 1
-      };
-
-      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-      $scope.format = $scope.formats[0];
-
-      var tomorrow = new Date();
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      var afterTomorrow = new Date();
-      afterTomorrow.setDate(tomorrow.getDate() + 2);
-      $scope.events =
-      [
-      {
-        date: tomorrow,
-        status: 'full'
-      },
-      {
-        date: afterTomorrow,
-        status: 'partially'
-      }
-      ];
-
-      $scope.getDayClass = function(date, mode) {
-      if (mode === 'day') {
-      var dayToCheck = new Date(date).setHours(0,0,0,0);
-
-      for (var i=0;i<$scope.events.length;i++){
-        var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
-
-        if (dayToCheck === currentDay) {
-          return $scope.events[i].status;
-        }
-      }
-      }
-
-      return '';
-      };
-
-      $scope.savetype = function(){
-            $scope.category = {}
-            $scope.category.name = $scope.nameevettype;
-            $scope.category.description = $scope.descriptionevventtype;
-            $scope.category.lang = idiomaselect;
-            eventTypeRequest.createEventType($scope.category).success(function(adata){
-                  $scope.nameevettype = '';
-                  $scope.descriptionevventtype = '';
-                  $scope.msgevent = adata.message;
-                  $scope.categorias.list.push(adata.eventype);
-            });
-      }
-
       $scope.$watch('event.current', function(newvalue, oldvalue){
-            $scope.loadingpeaks=true;
-            if($scope.event.current){
-                  //Mostramos el boton de cargar.
-                  perkRequest.onePerk(newvalue).success(function(adata)
-                  {
-                      $scope.peaks = [];
-                      $scope.peaks.push(adata.data.Perk);
-                      $scope.loadingpeaks=false; //Ocultamos el boton de cargar
-                  });
-            }
+            if(newvalue!=""){//Some validation to ensure no empty values
+                $scope.updatePerks(newvalue);
+              }
       });
+      $scope.updatePerks = function(idevent){
+        $scope.loadingpeaks=true;
+        $scope.noPerksMessage=false;
+        if(idevent){
+            eventRequest.oneEvent(idevent).success(function(adata)
+            {
+              $scope.peaks=adata.data.event.perks;
+              $scope.loadingpeaks=false;
+              if(!$scope.peaks[0]){
+                $scope.noPerksMessage=true;
+              }
+              else{
+                $scope.noPerksMessage=false;
+              }
+            }).error(function (error){
+                $scope.loadingpeaks=false;
+                $scope.noPerksMessage=true;
+            });
+        }
+    }
+      $scope.imageEvent = function(eventId)
+      {
+        console.log(eventId);
+          $scope.currentImage=eventId;
+          ngDialog.open({ template: 'generalImage.html', scope: $scope });
+      }
       $scope.newEvent = function(){
 
             $scope.newEvent = {};
@@ -896,10 +834,93 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
             });
       }
 
-      $scope.editEvent = function(idevent){
+      $scope.formEditEvent = function(idevent){
+            $scope.eventData={};
             eventRequest.oneEvent(idevent).success(function(adata){
-
+                $scope.eventData=adata.data.event;
+                $scope.eventData.category =adata.data.category[0].id;
+                $scope.eventData.type =adata.data.type[0].id;
+                ngDialog.open({ template: 'editForm', scope: $scope});
             });
+      }
+      $scope.doEditEvent = function(idevent){
+        //first we edit the perks
+        angular.forEach($scope.eventData.perks, function(value, key) {
+          if(value.id==-1){//If new perk was added we insert that
+            $scope.perkitems = {};
+            $scope.perkitems.kind = value.kind;
+            $scope.perkitems.total_quantity = value.total_quantity;
+            $scope.perkitems.reserved_quantity = 0;
+            $scope.perkitems.usd = value.usd;
+            $scope.perkitems.id_event = idevent;
+            perkRequest.createPerk($scope.perkitems).success(function(pdata){
+            }).error(function(edata){
+                console.log("Error creating a perk");
+                console.log(edata);
+            });
+          }
+          else{ //If no perk was added just we edit the fields
+            $scope.perkitems = value;
+            perkRequest.editPerkPatch(value.id,$scope.perkitems).success(function(pdata){
+            }).error(function(edata){
+                console.log("Error editing a perk");
+                console.log(edata);
+            });
+          }
+        });
+        //Next we edit the event information
+        eventRequest.editEventPatch(idevent,$scope.eventData).success(function(pdata){
+          $scope.getEventsBySponzor($sessionStorage.id);
+          ngDialog.closeAll();
+          $scope.updatePerks(idevent);
+          ngDialog.open({ template: 'successEditingEvent', scope: $scope});
+
+        }).error(function(edata){
+            console.log("Error editing an event");
+            console.log(edata);
+        });
+      }
+      $scope.removeEvent = function(idevent){
+            eventRequest.oneEvent(idevent).success(function(adata){
+                if(adata.data.event.sponzorship.length == 0){//If event does not have sponzorhips
+                      angular.forEach(adata.data.event.sponzor_tasks, function(value, key) { //First we delete the tasks
+                            taskSponzorRequest.deleteTaskSponzor(value.id).success(function(adata){
+                              console.log("Deleted task sponzor: "+value.id);
+                              console.log(adata);
+                            }).error(function(data){
+                              console.log(adata);
+                            });
+                      });
+                      angular.forEach(adata.data.event.perk_tasks, function(value, key) { //First we delete the tasks
+                            perkTaskRequest.deletePerkTask(value.id).success(function(adata){
+                              console.log("Deleted perk task: "+value.id);
+                              console.log(adata);
+                            }).error(function(data){
+                              console.log(adata);
+                            });
+                      });
+                      angular.forEach(adata.data.event.perks, function(value, key) { //Then we delete the perks
+                            perkRequest.deletePerk(value.id).success(function(adata){
+                              console.log("Deleted perk: "+value.id);
+                              console.log(adata);
+                            }).error(function(data){
+                              console.log(adata);
+                            });
+                      });
+                      eventRequest.deleteEvent(adata.data.event.id).success(function(adata){
+                        console.log("Deleted event: ");
+                        console.log(adata);
+                        ngDialog.open({ template: 'successDeletingEvent', scope: $scope});
+                        $scope.getEventsBySponzor($sessionStorage.id);
+                      }).error(function(data){
+                        console.log(adata);
+                      });
+                  }
+                  else{//If event has sponzorhips we can not delete
+                    ngDialog.open({ template: 'errorDeletingEvent', scope: $scope});//finally we show a dialog telling the status of the things
+                  }
+            });
+
       }
 
       $scope.saveperks = function(){
@@ -917,129 +938,40 @@ sponzorme.controller('UsersEventsController', function ($scope, $translate, $ses
         $scope.sponzors.push({
             kind: "",
             usd: 0,
-            quantity: 1
+            quantity: 1,
+            id:-1
         });
       }
 
       $scope.removeSponzor = function(index){
         $scope.sponzors.splice(index, 1);
       }
-
-      $scope.updateeventtype = function(id, index, name, description, lang){
-            $scope.eventput = {};
-            $scope.eventput.name = name;
-            $scope.eventput.description = description;
-            $scope.eventput.lang = lang;
-            eventTypeRequest.editEventTypePatch(id, $scope.eventput).success(function(adata){
-                  $scope.type.list[index].id = adata.EventType.id;
-                  $scope.type.list[index].name = adata.EventType.name;
-                  $scope.type.list[index].description = adata.EventType.description;
-                  $scope.type.list[index].lang = adata.EventType.lang;
-                  ngDialog.open({ template: 'templateidsevent' });
-            });
+      $scope.addEditPerk = function () {
+        $scope.eventData.perks.push({
+            kind: "",
+            usd: 0,
+            quantity: 1
+        });
       }
 
-      $scope.removeeventtype = function(index){
-            var id = $scope.type.list[index].id;
-            eventTypeRequest.deleteEventType(id).success(function(adata){
-                  $scope.type.list.splice(index, 1);
-                  if(adata.message == "Not inserted"){
-                        switch(idiomaselect) {
-                            case 'es':
-                                $scope.error_log = translationsES.errorreg;
-                                break;
-                            case 'en':
-                                $scope.error_log = translationsEN.errorreg;
-                                break;
-                            case 'pt':
-                                $scope.error_log = translationsPT.errorreg;
-                                break;
-                        }
-                  }
-
-                  if(adata.message == "Deleted"){
-                        switch(idiomaselect) {
-                            case 'es':
-                                $scope.error_log = translationsES.deleteelement;
-                                break;
-                            case 'en':
-                                $scope.error_log = translationsEN.deleteelement;
-                                break;
-                            case 'pt':
-                                $scope.error_log = translationsPT.deleteelement;
-                                break;
-                        }
-                  }
-                  ngDialog.open({ template: 'templateidsevent' });
-            });
-      }
-
-
-
-      $scope.savecategory = function(){
-            $scope.category = {};
-            $scope.category.title = $scope.categorytitle;
-            $scope.category.body = $scope.categorybody;
-            $scope.category.lang = idiomaselect;
-
-            categoryRequest.createCategory($scope.category).success(function(adata){
-                  $scope.categorias.list.push(adata.category);
-                  $scope.categorytitle = "";
-                  $scope.categorybody = "";
-                  ngDialog.open({ template: 'templateidsevent' });
-            });
-      }
-
-      $scope.updateeventcategory = function(id, index, titulo, body, lang){
-            $scope.categoryput = {};
-            $scope.categoryput.title = titulo;
-            $scope.categoryput.body = body;
-            $scope.categoryput.lang = lang;
-            categoryRequest.editCategoryPatch(id, $scope.categoryput).success(function(adata){
-                  $scope.categorias.list[index].id = adata.category.id;
-                  $scope.categorias.list[index].name = adata.category.name;
-                  $scope.categorias.list[index].description = adata.category.description;
-                  $scope.categorias.list[index].lang = adata.category.lang;
-                  ngDialog.open({ template: 'templateidsevent' });
-            });
-      }
-
-      $scope.removeeventcategory = function(index){
-            var id = $scope.categorias.list[index].id;
-            categoryRequest.deleteCategory(id).success(function(adata){
-                  $scope.categorias.list.splice(index, 1);
-                  if(adata.message == "Not inserted"){
-                        switch(idiomaselect) {
-                            case 'es':
-                                $scope.error_log = translationsES.errorreg;
-                                break;
-                            case 'en':
-                                $scope.error_log = translationsEN.errorreg;
-                                break;
-                            case 'pt':
-                                $scope.error_log = translationsPT.errorreg;
-                                break;
-                        }
-                  }
-
-                  if(adata.message == "Deleted"){
-                        switch(idiomaselect) {
-                            case 'es':
-                                $scope.error_log = translationsES.deleteelement;
-                                break;
-                            case 'en':
-                                $scope.error_log = translationsEN.deleteelement;
-                                break;
-                            case 'pt':
-                                $scope.error_log = translationsPT.deleteelement;
-                                break;
-                        }
-                  }
-                  ngDialog.open({ template: 'templateidsevent' });
-            });
+      $scope.removeEditPerk = function(index){
+        $scope.eventData.perks.splice(index, 1);
       }
 
 });
+
+sponzorme.controller('EventPageController',function($scope, $routeParams, $translate, $sessionStorage, eventRequest) {
+  $scope.eventLoaded=false;
+  $scope.event={};
+  eventRequest.oneEvent($routeParams.eventId).success(function(data){
+        $scope.eventLoaded = true;
+        $scope.event=data.data;
+  }).error(function(data){
+      $scope.eventLoaded = true;
+  });
+});
+
+
 
 sponzorme.controller('UsersSponzorsController', function ($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService) {
 

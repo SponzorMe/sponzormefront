@@ -1,55 +1,55 @@
 <style>
-  .spinner{
+  .spinner {
     top: 30% !important;
   }
 </style>
 <div id="page-wrapper" ng-class="{'active': toggle}" ng-controller="UsersEventsController" class="active">
-    <div ng-include="menuprincipal"></div>
-      <div id="content-wrapper">
-        <div class="page-content">
-          <div class="row header">
-            <div class="col-xs-12">
-              <div class="user pull-right">
+  <div ng-include="menuprincipal"></div>
+  <div id="content-wrapper">
+    <div class="page-content">
+      <div class="row header">
+        <div class="col-xs-12">
+          <div class="user pull-right">
 
-                <div class="item dropdown" dropdown="" is-open="status.isopen">
-                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">
-                  <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
-                    <input type="hidden" data-ng-init="viewUserInfoheader()">
-                    <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">{{emailuser}}</li>
-                    <li class="divider"></li>
-                    <li class="link">
-                      <a href="#/users/settings">{{ 'settings' | translate }}</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="link">
-                      <a href="#/logout">{{ 'logout' | translate }}</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="item dropdown" dropdown="" is-open="status.isopens">
-                  <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                    <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
-                    <i class="fa fa-bell-o"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">{{ 'notification' | translate }}</li>
-                    <li class="divider"></li>
-                    <section ng-show="!viewitem">Sin Notificaciones</section>
-                    <ul class="notifications_list">
-                      <!-- ngRepeat: alertnot in alertsnot -->
-                    </ul>
-                  </ul>
-                </div>
-              </div>
-              <div class="meta">
-                <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
-                <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
-              </div>
+            <div class="item dropdown" dropdown="" is-open="status.isopen">
+              <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">
+              <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                <input type="hidden" data-ng-init="viewUserInfoheader()">
+                <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                <li class="dropdown-header">{{emailuser}}</li>
+                <li class="divider"></li>
+                <li class="link">
+                  <a href="#/users/settings">{{ 'settings' | translate }}</a>
+                </li>
+                <li class="divider"></li>
+                <li class="link">
+                  <a href="#/logout">{{ 'logout' | translate }}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="item dropdown" dropdown="" is-open="status.isopens">
+              <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
+                <i class="fa fa-bell-o"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                <li class="dropdown-header">{{ 'notification' | translate }}</li>
+                <li class="divider"></li>
+                <section ng-show="!viewitem">Sin Notificaciones</section>
+                <ul class="notifications_list">
+                  <!-- ngRepeat: alertnot in alertsnot -->
+                </ul>
+              </ul>
             </div>
           </div>
+          <div class="meta">
+            <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
+            <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
+          </div>
+        </div>
+      </div>
       <!-- -->
       <div class="row">
         <div class="col-lg-6">
@@ -58,23 +58,26 @@
               <i class="fa fa-plus"></i>{{ 'addevent' | translate }}
               <div class="clearfix"></div>
             </div>
-            <form class="form-horizontal" role="form" name="createEvent" >
-            <!--form field-->
+            <h2 class="text-center">{{ 'completeInfoNewEvent' | translate }}</h2>
+            <form class="form-horizontal" role="form" name="createEvent">
+              <!--form field-->
               <div class="form-group" id="title">
                 <label for="label" class="col-sm-4 control-label">
                   {{ 'neweventtitle' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <input  type="text" ng-model="titleevent" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" required/>
-                </div><br/><br/>
+                  <input type="text" ng-model="titleevent" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" required/>
+                </div>
+                <br/>
+                <br/>
               </div>
-             <!--form field-->
+              <!--form field-->
               <div class="form-group" id="location">
                 <label for="label" class="col-sm-4 control-label">
                   {{ 'neweventlocation' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <input  type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="locationevent" required/>
+                  <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="locationevent" required/>
                 </div>
               </div>
 
@@ -84,7 +87,7 @@
                   {{ 'neweventdescription' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <textarea rows="5" ng-model="descriptionevent" placeholder="{{trans('dashboard.neweventdescriptiondescription')}}" name="description" class="form-control" required></textarea>
+                  <textarea rows="5" ng-model="descriptionevent" name="description" class="form-control" required></textarea>
                 </div>
               </div>
               <!--form field-->
@@ -93,18 +96,7 @@
                   {{ 'neweventstarts' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <div class="dropdown">
-                      <a class="dropdown-toggle my-toggle-ini" id="dLabelini"  role="button" data-toggle="dropdown" data-target="#" href="">
-                          <div class="input-group">
-                            <p class="input-group">
-                              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtini" is-open="opened" min-date="minDate" max-date="dtfinal" datepicker-options="dateOptions" close-text="Close" required/>
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                              </span>
-                            </p>
-                          </div>
-                      </a>
-                  </div>
+                  <input type="text" class="form-control" ng-model="dtini" placeholder="{{'datePlaceholder'|translate}}" required/>
                 </div>
               </div>
               <div class="form-group" id="ends">
@@ -112,40 +104,28 @@
                   {{ 'neweventends' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <div class="dropdown">
-                      <a class="dropdown-toggle my-toggle-final" id="dLabelfinal"  role="button" data-toggle="dropdown" data-target="#" href="">
-                          <div class="input-group">
-                            <p class="input-group">
-                              <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtfinal" is-open="openedfinal" min-date="dtini" datepicker-options="dateOptions" close-text="Close" required/>
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="openfinal($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                              </span>
-                            </p>
-                          </div>
-                      </a>
-                  </div>
-                  <input type="hidden" data-ng-model="newevent.organizer" name="organizer" ng-init="newevent.organizer = 42"/>
+                  <input type="text" class="form-control" ng-model="dtfinal" placeholder="{{'datePlaceholder'|translate}}" required/>
+                  <input type="hidden" data-ng-model="newevent.organizer" name="organizer" ng-init="newevent.organizer = 42" />
                 </div>
               </div>
-              <hr/>
               <!--form field-->
               <div class="form-group" id="public">
                 <div class="col-sm-4 control-label">
-                    <input id="privacy0"  type="radio" ng-model="privacyevent" name="privacy" value="0" />
+                  <input id="privacy0" type="radio" ng-model="privacyevent" name="privacy" value="0" />
                 </div>
-                    <label for="privacy0" class="col-sm-7">
-                      <strong>{{ 'privacyoption0' | translate }} :  </strong>
+                <label for="privacy0" class="col-sm-7">
+                  <strong>{{ 'privacyoption0' | translate }} : </strong>
 
-                    {{ 'privacydescription0' | translate }} </label>
+                  {{ 'privacydescription0' | translate }} </label>
 
                 <div class="col-sm-4 control-label">
-                    <input id="privacy1" type="radio" ng-model="privacyevent" name="privacy" value="1" />
+                  <input id="privacy1" type="radio" ng-model="privacyevent" name="privacy" value="1" />
                 </div>
 
-                  <label for="privacy1" class="col-sm-7">
-                      <strong>{{ 'privacyoption1' | translate }} :  </strong>
+                <label for="privacy1" class="col-sm-7">
+                  <strong>{{ 'privacyoption1' | translate }} : </strong>
 
-                    {{ 'privacydescription1' | translate }}</label>
+                  {{ 'privacydescription1' | translate }}</label>
               </div>
               <!--form field-->
               <div class="form-group" id="type">
@@ -178,64 +158,65 @@
               <!-- Imagen -->
               <hr/>
               <div class="form-group" id="image">
-                  <div class="col-sm-12 ">
-                    <label for="label" class="col-sm-4 control-label">
-                      {{ 'file' | translate }}
-                    </label>
-                    <input class="col-sm-6 " id="imageInput" type="file" ng-model="temp.image" /><br/>
+                <div class="col-sm-12 ">
+                  <label for="label" class="col-sm-4 control-label">
+                    {{ 'file' | translate }}
+                  </label>
+                  <input class="col-sm-6 " id="imageInput" type="file" ng-model="temp.image" />
+                  <br/>
                   <div>
-              </div>
-              <div class="clearfix"></div>
-              <!-- End Imagen -->
-              <hr/>
-              <!--form field-->
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <th class="text-center">
-                      {{ 'typesponzor' | translate }}
-                    </th>
-                    <th class="text-center">
-                      {{ 'quantitysponzor' | translate }}
-                    </th>
-                    <th class="text-center">
-                      {{ 'pricesponzor' | translate }}
-                    </th>
-                    <th class="text-center">
-                      {{ 'actionssponzor' | translate }}
-                    </th>
-                  </thead>
-                  <tr ng-repeat="s in sponzors" data-ng-show="sponzors.length">
-                    <td class="text-center">
-                      <input type="text" class="form-control" placeholder="" ng-model="s.kind" />
-                    </td>
-                    <td class="text-center">
-                      <input type="text" class="form-control" placeholder="" ng-model="s.quantity" />
-                    </td>
-                    <td class="text-center">
-                      <input type="text" class="form-control" placeholder="" ng-model="s.usd" />
-                    </td>
-                    <td class="text-center">
-                      <a href="" ng-click="removeSponzor($index)"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-sm-3">
-              <button class="btn btn-block btn-warning" ng-click="addsponzor()"> + Add</button>
-              </div>
-              <div class="clearfix"></div>
-              <hr/>
-              <!--form field-->
-              <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-3">
-                  <button class="btn btn-block btn-primary" ng-click="createEvent.$valid && newEvent()">{{ 'submitbutton' | translate }}</button>
-                </div>
-              </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <!-- End Imagen -->
+                  <hr/>
+                  <!--form field-->
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <th class="text-center">
+                          {{ 'typesponzor' | translate }}
+                        </th>
+                        <th class="text-center">
+                          {{ 'quantitysponzor' | translate }}
+                        </th>
+                        <th class="text-center">
+                          {{ 'pricesponzor' | translate }}
+                        </th>
+                        <th class="text-center">
+                          {{ 'actionssponzor' | translate }}
+                        </th>
+                      </thead>
+                      <tr ng-repeat="s in sponzors" data-ng-show="sponzors.length">
+                        <td class="text-center">
+                          <input type="text" class="form-control" placeholder="" ng-model="s.kind" />
+                        </td>
+                        <td class="text-center">
+                          <input type="text" class="form-control" placeholder="" ng-model="s.quantity" />
+                        </td>
+                        <td class="text-center">
+                          <input type="text" class="form-control" placeholder="" ng-model="s.usd" />
+                        </td>
+                        <td class="text-center">
+                          <a href="" ng-click="removeSponzor($index)"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-sm-3">
+                    <button class="btn btn-block btn-warning" ng-click="addsponzor()"> + Add</button>
+                  </div>
+                  <div class="clearfix"></div>
+                  <hr/>
+                  <!--form field-->
+                  <div class="form-group">
+                    <div class="col-sm-6 col-sm-offset-3">
+                      <button class="btn btn-block btn-primary" ng-click="createEvent.$valid && newEvent()">{{ 'submitbutton' | translate }}</button>
+                    </div>
+                  </div>
             </form>
+            </div>
+            </div>
           </div>
-        </div>
-        </div>
         </div>
         <div class="col-lg-6">
           <div class="widget">
@@ -246,16 +227,13 @@
             <div class="widget-body large no-padding">
               <div class="table-responsive">
                 <table class="table table-striped">
-                <thead>
-                  <th class="text-center">{{ 'neweventtitle' | translate }}</th>
-                  <th class="text-center">{{ 'neweventlocation' | translate }}</th>
-                  <th class="text-center">{{ 'neweventstarts' | translate }}</th>
-                  <th class="text-center">{{ 'neweventends' | translate }}</th>
-                  <th class="text-center">{{ 'eventtype' | translate }}</th>
-                  <th class="text-center">{{ 'eventprivacy' | translate }}</th>
-                  <th class="text-center">{{ 'eventImage' | translate }}</th>
-                  <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
-                </thead>
+                  <thead>
+                    <th class="text-center">{{ 'neweventtitle' | translate }}</th>
+                    <th class="text-center">{{ 'neweventlocation' | translate }}</th>
+                    <th class="text-center">{{ 'neweventstarts' | translate }}</th>
+                    <th class="text-center">{{ 'eventprivacy' | translate }}</th>
+                    <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
+                  </thead>
                   <tbody>
                     <tr ng-show="loadingevents && eventos.lenght == 0">
                       <td colspan="8">
@@ -266,18 +244,17 @@
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
                       <td class="text-center">{{ e.starts }}</td>
-                      <td class="text-center">{{ e.ends }}</td>
-                      <td class="text-center">{{ e.type }}</td>
-                      <td class="text-center">{{ e.privacy }}</td>
-                      <td class="text-center"><a href="" ng-click="imageEvent(e.image)"><i class="fa fa-file-image-o"></i></a></td>
+                      <td class="text-center" ng-if="e.privacy==0">{{ 'public'| translate }}</td>
+                      <td class="text-center" ng-if="e.privacy==1">{{ 'private'| translate }}</td>
                       <td class="text-center">
+                        <a href="" ng-click="imageEvent(e.image)"><i class="fa fa-file-image-o"></i></a>
                         <a href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i></a>
-                        <a href="form/event/{{ e.id }}" target="_blank"><i class="fa fa-code"></i></a>
-                        <a href="" data-ng-click="editEvent(e.id)"><i class="fa fa-edit"></i></a>
+                        <!--a href="form/event/{{ e.id }}" target="_blank"><i class="fa fa-code"></i></a-->
+                        <a href="" ng-click="formEditEvent(e.id)"><i class="fa fa-edit"></i></a>
                         <a href="" ng-click="removeEvent(e.id)"><i class="fa fa-trash-o"></i></a>
                         <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy" ng-show="event.current === e.id"></i></a>
                         <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy text-danger" ng-show="event.current != e.id"></i></a>
-                        <a href="" ng-click="codeWidget(e.id)"><i class="fa fa-rocket"></i></i></a>
+                        <!--a href="" ng-click="codeWidget(e.id)"><i class="fa fa-rocket"></i></i></a-->
 
                       </td>
                     </tr>
@@ -304,28 +281,213 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingpeaks">
+                    <tr ng-show="loadingpeaks && !noPerksMessage">
                       <td colspan="3">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
                       </td>
                     </tr>
-                    <tr ng-show="!loadingpeaks" data-ng-repeat="p in peaks">
-                      <td class="text-center">{{ p.kind }}</td>
+                    <tr ng-show="!loadingpeaks && noPerksMessage">
+                      <td colspan="3" class="text-center">
+                        <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
+                      </td>
+                    </tr>
+                    <tr ng-show="!loadingpeaks && !noPerksMessage" ng-repeat="p in peaks">
+                      <td class="text-center">{{ p.kind}}</td>
                       <td class="text-center">{{ p.total_quantity }}</td>
                       <td class="text-center">{{ p.usd }}</td>
                     </tr>
                   </tbody>
                 </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-  </div>
-</div>
-<script type="text/ng-template" id="success">
-    <div class="dialog-container">
-    <img class="image-100 image-center" src="images/success.jpg" width="100px"/>
-    <p>{{ 'eventCreatedSuccesfully' | translate }}</p>
-    <hr/>
     </div>
-</script>
+    <script type="text/ng-template" id="editForm">
+      <h2 class="text-center">{{ 'completeInfoNewEvent' | translate }}</h2>
+      <form class="form-horizontal" role="form" name="eventEditForm">
+        <!--form field-->
+        <div class="form-group" id="title">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'neweventtitle' | translate }}
+          </label>
+          <div class="col-sm-7">
+            <input type="text" ng-model="eventData.title" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" required/>
+          </div>
+          <br/>
+          <br/>
+        </div>
+        <!--form field-->
+        <div class="form-group" id="location">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'neweventlocation' | translate }}
+          </label>
+          <div class="col-sm-7">
+            <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="eventData.location" required/>
+          </div>
+        </div>
+
+        <!--form field-->
+        <div class="form-group" id="description">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'neweventdescription' | translate }}
+          </label>
+          <div class="col-sm-7">
+            <textarea rows="5" ng-model="eventData.description" placeholder="{{trans('dashboard.neweventdescriptiondescription')}}" name="description" class="form-control" required></textarea>
+          </div>
+        </div>
+        <!--form field-->
+        <div class="form-group" id="starts">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'neweventstarts' | translate }}
+          </label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" ng-model="eventData.starts" placeholder="{{'datePlaceholder'|translate}}" required/>
+          </div>
+        </div>
+        <div class="form-group" id="ends">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'neweventends' | translate }}
+          </label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" ng-model="eventData.ends" placeholder="{{'datePlaceholder'|translate}}" required/>
+            <input type="hidden" data-ng-model="eventData.organizer" name="organizer" />
+          </div>
+        </div>
+        <!--form field-->
+        <div class="form-group" id="public">
+          <div class="col-sm-4 control-label">
+            <input id="privacy0" type="radio" ng-model="eventData.privacy" name="privacy" value="0" />
+          </div>
+          <label for="privacy0" class="col-sm-7">
+            <strong>{{ 'privacyoption0' | translate }} : </strong>
+
+            {{ 'privacydescription0' | translate }} </label>
+
+          <div class="col-sm-4 control-label">
+            <input id="privacy1" type="radio" ng-model="eventData.privacy" name="privacy" value="1" />
+          </div>
+
+          <label for="privacy1" class="col-sm-7">
+            <strong>{{ 'privacyoption1' | translate }} : </strong>
+
+            {{ 'privacydescription1' | translate }}</label>
+        </div>
+        <!--form field-->
+        <div class="form-group" id="type">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'neweventtype' | translate }}
+          </label>
+          <div class="col-sm-7">
+            <select ng-model="eventData.type" name="type" class="form-control">
+              <option data-ng-repeat="t in typefilter" data-ng-value="t.id" ng-if="t.id!=eventData.type">
+                {{t.name}}
+              </option>
+              <option data-ng-repeat="t in typefilter" data-ng-value="t.id" ng-if="t.id==eventData.type" selected="selected">
+                {{t.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" id="category">
+          <label for="label" class="col-sm-4 control-label">
+            {{ 'neweventcategory' | translate }}
+          </label>
+          <div class="col-sm-7">
+            <select ng-model="eventData.category" name="type" class="form-control">
+              <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id" ng-if="c.id!=eventData.category && c.id!=''">
+                {{c.title}}
+              </option>
+              <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id" ng-if="c.id==eventData.category" selected="selected">
+                {{c.title}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <hr/>
+        <!--form field-->
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <th class="text-center">
+                {{ 'typesponzor' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'quantitysponzor' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'pricesponzor' | translate }}
+              </th>
+              <th class="text-center">
+                {{ 'actionssponzor' | translate }}
+              </th>
+            </thead>
+            <tr ng-repeat="s in eventData.perks" data-ng-show="eventData.perks.length">
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="s.kind" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="s.total_quantity" />
+              </td>
+              <td class="text-center">
+                <input type="text" class="form-control" placeholder="" ng-model="s.usd" />
+                <input type="hidden" class="form-control" placeholder="" ng-model="s.id" ng-if="s.id" />
+                <input type="hidden" class="form-control" placeholder="" ng-model="s.id" ng-init="s.id=-1" ng-if="!s.id" />
+              </td>
+              <td class="text-center" ng-if="s.id==-1">
+                <a href="" ng-click="removeEditPerk($index)"><i class="fa fa-trash-o"></i></a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-block btn-warning" ng-click="addEditPerk()"> + Add</button>
+        </div>
+        <div class="clearfix"></div>
+        <hr/>
+        <!--form field-->
+        <div class="form-group">
+          <div class="col-sm-6 col-sm-offset-3">
+            <button class="btn btn-block btn-primary" ng-click="eventEditForm.$valid && doEditEvent(eventData.id) && closeThisDialog()">{{ 'submitbutton' | translate }}</button>
+          </div>
+        </div>
+      </form>
+    </script>
+    <script type="text/ng-template" id="success">
+      <div class="dialog-container">
+        <img class="image-100 image-center" src="images/success.jpg" width="100px" />
+        <p>{{ 'eventCreatedSuccesfully' | translate }}</p>
+        <hr/>
+      </div>
+    </script>
+    <script type="text/ng-template" id="successEditingEvent">
+      <div class="dialog-container">
+        <img class="image-100 image-center" src="images/success.jpg" width="100px" />
+        <p>{{ 'eventEditedSuccesfully' | translate }}</p>
+        <hr/>
+      </div>
+    </script>
+    <script type="text/ng-template" id="successDeletingEvent">
+      <div class="dialog-container">
+        <img class="image-100 image-center" src="images/success.jpg" width="100px" />
+        <p>{{ 'eventDeleteSuccesfully' | translate }}</p>
+        <hr/>
+      </div>
+    </script>
+    <script type="text/ng-template" id="errorDeletingEvent">
+      <div class="dialog-container">
+        <img class="image-100 image-center" src="images/warning.png" width="100px" />
+        <p>{{ 'errorDeletingEvent' | translate }}</p>
+        <hr/>
+      </div>
+    </script>
+    <script type="text/ng-template" id="generalImage.html">
+      <div class="text-center">
+        <img src="images/events/{{currentImage}}" width="100%" />
+      </div>
+      <div class="ngdialog-buttons text-center">
+        <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
+      </div>
+    </script>

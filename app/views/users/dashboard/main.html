@@ -174,8 +174,8 @@
                           <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr ng-show="!loadingpeaks && !noPerksMessage" data-ng-repeat="p in HomeController.peaks">
-                        <td class="text-center">{{ p.kind }}</td>
+                      <tr ng-show="!loadingpeaks && !noPerksMessage" ng-repeat="p in peaks">
+                        <td class="text-center">{{ p.kind}}</td>
                         <td class="text-center">{{ p.total_quantity }}</td>
                         <td class="text-center">{{ p.usd }}</td>
                       </tr>

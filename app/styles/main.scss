@@ -8725,3 +8725,98 @@ ul.sidebar .sidebar-list a:hover {
 .margintop10{
   margin-top: 10px;
 }
+div.img-div{
+    height:200px;
+    width:200px;
+    overflow:hidden;
+    border-radius:50%;
+    display: block;
+    margin-left: 25px;
+}
+
+.img-div img{
+    -webkit-transform:translate(-50%);
+    margin-left:100px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+
+.inner-page .events-slider, .inner-page .events-slider .slide {
+height: 350px;
+}
+
+.events-slider {
+position: relative;
+height: 100%;
+width: 100%;
+left: 0;
+top: 0;
+bottom: 0;
+right: 0;
+padding-top: 0px;
+padding-bottom: 25px;
+}
+
+.events-slider .slide-bg, .events-slider .slide-bg-overlay {
+position: absolute;
+background-repeat: no-repeat;
+background-size: cover;
+background-position: center;
+height: 300px;
+width: 100%;
+left: 0;
+top: 0;
+bottom: 0;
+right: 0;
+}
+
+.events-slider .slide .logo .slide-logo-wrapper {
+display: table-cell;
+width: 195px;
+height: 195px;
+vertical-align: middle;
+text-align: center;
+}
+
+
+.type{
+  color:white;
+  font-size: 24px;
+}
+
+.info h1{
+  color:white;
+  font-size: 40px;
+}
+
+.info #tags{
+color: white;
+
+}
+
+.slide-logo-wrapper img{
+  width: 300px;
+  height: 300px;
+
+}
+.col-lg-12{
+  padding-right: 0px;
+
+}
+.tags{
+  padding-top: 20px;
+}
+.socials{
+  padding-top: 20px;
+
+}
+
+.desc{
+
+  padding-left: 55px;
+  padding-right: 55px;
+}
