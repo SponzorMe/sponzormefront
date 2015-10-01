@@ -912,5 +912,9 @@ var translationsEN = {
       errorDeletingEvent: "The event you are trying to delete has sponzorships associated and can not be removed",
       eventDeleteSuccesfully: "The event has been removed successfuly",
       datePlaceholder: "YYYY-MM-DD HH:II:SS",
-      eventEditedSuccesfully: "The event has been successfuly edited"
+      eventEditedSuccesfully: "The event has been successfuly edited",
+      add_event: "Add event!",
+      actions: "Actions",
+      noTasksMessage: "No tasks added yet, try add one!",
+      add_task: "Add new Task!"
 };

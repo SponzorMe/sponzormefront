@@ -1,11 +1,27 @@
 ### Parte interna de la aplicación
 Subir Imagen del evento a Imgur.
-Traer los perks de los eventos cuando se hace click en el event.
-
+Crear la página de formulario del evento.
+En la página del evento, habilitar las opciones de patrocinio.
+Funcionalidad de embeber eventos.
+Implementar la conexión con eventbrite y meetup.
+Implementar el guardado de imagenes del usuario.
+Implementar el formulario de las tasks en la vista de los eventos.
+Implementar la opció de cambio de password.
 ### Parte Externa de la aplicación
 
 
 ### Cosas Hechas
+Se arregló el menu superior.
+Se separó el formulario de crear eventos a otra sección.
+Los perks cargan las tasks.
+Se arregló los settings del usuario.
+Mostrar la imagen del evento.
+Mostrar la página del evento.
+Formulario de edición de los eventos.
+Edicion de los eventos y perks.
+Añadir mas perks a los eventos.
+Borrar un evento.
+Traer los perks de los eventos cuando se hace click en el event.
 Crear y guardar eventos y perks.
 Cambiar la seccion de team por about y esperar a que carlos me pase la info y el mockup
 Cuando una persona desea resetear el passowrd porque lo olvido no esta funcionando
