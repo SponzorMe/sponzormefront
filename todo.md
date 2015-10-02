@@ -5,12 +5,13 @@ En la página del evento, habilitar las opciones de patrocinio.
 Funcionalidad de embeber eventos.
 Implementar la conexión con eventbrite y meetup.
 Implementar el guardado de imagenes del usuario.
-Implementar el formulario de las tasks en la vista de los eventos.
 Implementar la opció de cambio de password.
 ### Parte Externa de la aplicación
 
 
 ### Cosas Hechas
+Se creo el formulario de inserción de tareas asociadas a los perks
+Se creo la opción para borrar tareas si no tienen patrocinios
 Se arregló el menu superior.
 Se separó el formulario de crear eventos a otra sección.
 Los perks cargan las tasks.

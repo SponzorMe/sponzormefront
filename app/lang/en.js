@@ -916,5 +916,8 @@ var translationsEN = {
       add_event: "Add event!",
       actions: "Actions",
       noTasksMessage: "No tasks added yet, try add one!",
-      add_task: "Add new Task!"
+      add_task: "Add new Task!",
+      toCreateNewTask: "Please complete the info below to create new task:",
+      taskCreatedSuccesfuly: "The new task has been created and added to the current perk!",
+      errorDeletingTask: "We sorry, we can not delete this task because this event has Sponsorship"
 };

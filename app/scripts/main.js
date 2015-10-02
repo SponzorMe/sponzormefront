@@ -114,10 +114,6 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate', 'ngResour
       templateUrl: 'views/users/dashboard/friend.html',
       controller: 'UsersFriendController'
     })
-    .when('/users/todo', {
-      templateUrl: 'views/users/dashboard/todo.html',
-      controller: 'UsersTodoController'
-    })
     .when('/users/settings', {
       templateUrl: 'views/users/dashboard/settings.html',
       controller: 'UsersSettingsController'
@@ -636,9 +632,6 @@ sponzorme.controller('UsersPrincipalController', function($scope, $translate, $s
 });
 
 sponzorme.controller('UsersEventsController', function($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService) {
-
-  $scope.loadingevents = true;
-
   if ($sessionStorage) {
 
     var cookie = $sessionStorage.cookiesponzorme;
@@ -672,8 +665,8 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
     $location.path("/");
   }
 
+  $scope.loadingevents = true;
   $scope.emailuser = $sessionStorage.email;
-
   $scope.event = {};
 
   eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
@@ -847,6 +840,43 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
     }).error(function(edata) {
       console.log("Error creating an event");
       console.log(edata);
+    });
+  }
+  $scope.showTaskForm = function(){
+    $scope.todo={};
+    ngDialog.open({template: 'formNewTask',scope: $scope});
+  }
+  /*this function takes the current perk and the current event, and add a task for the
+    selected perk.*/
+  $scope.addTask = function(){
+    $scope.todo.perk_id = $scope.currentPerkId;
+    $scope.todo.event_id= $scope.event.current;
+    $scope.todo.status  = 0; //We put the defaul status
+    $scope.todo.user_id = $sessionStorage.id; //Get the organizer Id
+    $scope.todo.type    = 0; //If task is created by organizer the type is 0
+    perkTaskRequest.createPerkTask($scope.todo).success(function(data){
+        ngDialog.closeAll();
+        ngDialog.open({
+          template: 'successCreatingTask',
+          scope: $scope
+        }); //finally we show a dialog telling the status of the things
+        $scope.getPerk($scope.currentPerkId);//Refresh perks data.
+    }).error(function(data){
+        console.log(data);
+    });
+  }
+  $scope.removeTask = function(task_id){
+    perkTaskRequest.deletePerkTask(task_id).success(function(adata) {
+      console.log("Deleted perk task: " + task_id);
+      console.log(adata);
+      $scope.getPerk($scope.currentPerkId);
+    }).error(function(data) {
+      console.log(adata);
+      ngDialog.closeAll();
+      ngDialog.open({
+        template: 'errorDeletingTask',
+        scope: $scope
+      });
     });
   }
 
@@ -1119,107 +1149,6 @@ sponzorme.controller('UsersFriendController', function($scope, $translate, $sess
   $scope.menuprincipal = 'views/users/menu.html';
 
 
-});
-
-sponzorme.controller('UsersTodoController', function($scope, $translate, $sessionStorage, $location, taskSponzorRequest, userRequest, eventRequest, perkTaskRequest, $localStorage, usSpinnerService) {
-
-  $scope.loadingtodo = true;
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie == undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path("/");
-  }
-
-  $scope.emailuser = $sessionStorage.email;
-
-  $scope.userfroups = 0;
-
-  $translate.use(idiomaselect);
-
-  $scope.todo = [];
-  $scope.events = [];
-
-  if (!$localStorage.sponzorme) {
-    userRequest.oneUser($sessionStorage.id).success(function(adata) {
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-
-      $scope.todo = adata.data.user.perk_tasks;
-
-      $scope.loadingtodo = false;
-      usSpinnerService.stop('spinner-1');
-
-      angular.forEach(adata.data.user.events, function(value, key) {
-        if (value.lang == idiomaselect) {
-          this.push(value);
-        }
-      }, $scope.events);
-    });
-
-  } else {
-    var sponzormeObj = JSON.parse($localStorage.sponzorme);
-    $scope.todo = sponzormeObj.perk_tasks;
-    $scope.events = sponzormeObj.events;
-    $scope.loadingtodo = false;
-    usSpinnerService.stop('spinner-1');
-  }
-
-  $scope.updatePeak = function() {
-    eventRequest.oneEvent($scope.todo.event.id).success(function(adata) {
-      $scope.peaks = adata.data.event.perks;
-    });
-  }
-
-  $scope.addTodo = function() {
-    //ngDialog.open({ template: 'loading.html', controller: 'sponzorsController', scope: $scope });
-    $scope.perktask = {};
-    $scope.perktask.user_id = $sessionStorage.id;
-    $scope.perktask.perk_id = $scope.todo.peak.id;
-    $scope.perktask.event_id = $scope.todo.event.id;
-    $scope.perktask.title = $scope.todo.title;
-    $scope.perktask.description = $scope.todo.description;
-    $scope.perktask.type = 0;
-    $scope.perktask.status = 0;
-
-    perkTaskRequest.createPerkTask($scope.perktask).success(function(adata) {
-      //Limpiamos los datos
-      if (adata.success) {
-        $scope.todo.title = "";
-        $scope.todo.description = "";
-        $scope.updateTodos();
-        //ngDialog.close();
-        $scope.message = "taskCreated"; //Seteamos el mensaje de error
-        //ngDialog.open({ template: 'generalMessage.html', controller: 'eventsController', scope: $scope }); //Mostramos el mensaje
-      } else {
-        //ngDialog.close();
-        $scope.message = "errorInFieldsTask"; //Seteamos el mensaje de error
-        //ngDialog.open({ template: 'generalMessage.html', controller: 'eventsController', scope: $scope });
-      }
-    }).error(function(data) {
-
-    });
-  }
-
-  $scope.menuprincipal = 'views/users/menu.html';
 });
 
 sponzorme.controller('UsersSettingsController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, CloudStorageService, CloudStorageConfig) {
