@@ -1,5 +1,5 @@
 /**
-* @Servicio de Sponzorships (Beneficios) 
+* @Servicio de Sponzorships (Beneficios)
 *
 * @author Sebastian
 * @version 0.1
@@ -11,11 +11,17 @@ angular.module('sponzorshipService', ['ngStorage'])
 		return {
 			allSponzorships : function(){
 				return $http.get(path + 'sponzorships');
-					
+
 			},
 			oneSponzorship : function(sponzorshipId){
 				return $http.get(path + 'sponzorships/' + sponzorshipId);
-				
+
+			},
+			oneSponzorshipByOrganizer : function(organizerId){
+				return $http.get(path + 'sponzorships_organizer/' + organizerId);
+			},
+			oneSponzorshipBySponzor : function(sponzorId){
+				return $http.get(path + 'sponzorships_sponzor/' + sponzorId);
 			},
 			createSponzorship : function(data){
 				return $http({

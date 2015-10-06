@@ -919,5 +919,14 @@ var translationsEN = {
       add_task: "Add new Task!",
       toCreateNewTask: "Please complete the info below to create new task:",
       taskCreatedSuccesfuly: "The new task has been created and added to the current perk!",
-      errorDeletingTask: "We sorry, we can not delete this task because this event has Sponsorship"
+      errorDeletingTask: "We sorry, we can not delete this task because this event has Sponsorship",
+      eventstate0: "This sponzor still is waiting your approval",
+      eventstate1: "Congratulations, you have acccepted this sponzorship",
+      causeWhy: "Why this sponzor wants sponsor your event?",
+      cause: "Reason",
+      todoOwner : "Owner",
+      waitUnitlSponzorComplete: "Wait until Sponzor complete",
+      noSponzorshipsMessage: "You do not have sponzors for your events",
+      noSponzorshipsTaskMessage: "No tasks availables for this sponsorship"
+
 };

@@ -96,7 +96,7 @@
           <div class="widget">
             <div class="widget-header">
               <i class="fa fa-trophy"></i> {{ 'Tasks' | translate }}
-              <a href="" ng-click="showTaskForm(currentPerkId,event.current)" class="pull-right">{{ 'add_task' | translate }}</a>
+              <a href="" ng-click="showTaskForm(currentPerkId,event.current)" class="pull-right" ng-if="!loadingpeaks && !noPerksMessage">{{ 'add_task' | translate }}</a>
               <div class="clearfix"></div>
             </div>
             <div class="widget-body medium no-padding">

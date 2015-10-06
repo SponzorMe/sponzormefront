@@ -1,5 +1,5 @@
 /**
-* @Servicio de TaskSponzor (Tareas de los patrocinadores) 
+* @Servicio de TaskSponzor (Tareas de los patrocinadores)
 *
 * @author Sebastian
 * @version 0.1
@@ -11,11 +11,14 @@ angular.module('taskSponzorService', ['ngStorage'])
 		return {
 			allTaskSponzor : function(){
 				return $http.get(path + 'task_sponzor');
-					
+
 			},
 			oneTaskSponzor : function(taskSponzorId){
 				return $http.get(path + 'task_sponzor/' + taskSponzorId);
-				
+
+			},
+			tasksBySponzorship : function(sponzorshipId){
+				return $http.get(path + 'perk_tasks_sponzorship/' + sponzorshipId);
 			},
 			createTaskSponzor : function(data){
 				return $http({
