@@ -1031,8 +1031,6 @@ sponzorme.controller('EventPageController', function($scope, $routeParams, $tran
   });
 });
 
-
-
 sponzorme.controller('UsersSponzorsController', function($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog) {
 
   $scope.noSponzorshipsMessage = true;
@@ -1309,10 +1307,9 @@ sponzorme.controller('UsersSettingsController', function($scope, $translate, $se
 
 });
 
-sponzorme.controller('SponsorsMainController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService) {
+sponzorme.controller('SponsorsMainController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog) {
 
   $scope.loadingsearch = true;
-
   if ($sessionStorage.cookiesponzorme &&
     $sessionStorage.email &&
     $sessionStorage.id &&
@@ -1353,16 +1350,54 @@ sponzorme.controller('SponsorsMainController', function($scope, $translate, $ses
       $scope.account = sponzormeObj;
     }
 
-    $scope.searchloading = 1;
+    $scope.searchloading = true;
+    $scope.getAllEvents = function(){
+      eventRequest.allEvents().success(function(adata) {
+        $scope.search = [];
+        $scope.search = adata.events;
+        $scope.searchloading = 0;
+        $scope.loadingsearch = false;
+        $scope.setUpcomingEvents();
+        $scope.setBestEvents();
+      });
+    }
+    $scope.setUpcomingEvents = function(){
+      $scope.upcomingEvents=[];
+      var currentDate = new Date();
+        for (var i = 0; i < $scope.search.length; i++) {//Choose randomly events
+          var eventDate = new Date($scope.search[i].starts);
+          if( eventDate>currentDate){
+            $scope.upcomingEvents.push($scope.search[i]);
+          }
+        }
+    }
+    $scope.setBestEvents = function(){
+      $scope.bestEvents=[];
+        for (var i = 0; i < $scope.search.length/2; i++) {//Choose randomly events
+          $scope.bestEvents.push($scope.search[Math.floor(Math.random() * $scope.search.length)]);
+        }
+    }
+    $scope.showPerks = function(eventId){
+        $scope.loadingpeaks=true;
+        $scope.noPerksMessage=true;
+        eventRequest.oneEvent(eventId).success(function(data){
+            $scope.currentEvent=data.data.event;
+            $scope.loadingpeaks=false;
+            if($scope.currentEvent.perks[0]){
+              $scope.noPerksMessage=false;
+            }
+            else{
+              $scope.noPerksMessage=true;
+            }
+            ngDialog.open({
+              template: 'perks',
+              scope: $scope
+            });
+        }).error(function(data){
 
-    eventRequest.allEvents().success(function(adata) {
-      $scope.search = [];
-      $scope.search = adata.events;
-      $scope.searchloading = 0;
-      $scope.loadingsearch = false;
-    });
-
-
+        });
+    }
+    $scope.getAllEvents();
 
     $scope.menuprincipal = 'views/sponsors/menu.html';
   } else {

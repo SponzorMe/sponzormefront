@@ -1,92 +1,173 @@
+<div id="page-wrapper" ng-class="{'active': toggle}" class="active">
+  <div ng-include="menuprincipal"></div>
+  <div id="content-wrapper">
+    <div class="page-content">
+      <div class="row header" ng-include src="'views/sponsors/dashboard/header.html'"></div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="widget">
+            <div class="widget-header">
+              <h2 style="color:black; padding-bottom:0px; margin-bottom:0px;">{{'searchtitle' | translate}}</h2>
+              <br/>
+              <i class="fa fa-search"></i>
+              <input type="text" value="" id="search" ng-model="searchevents" ng-keyup="$event.keyCode == 13 && searchEvents()" />
+              <button data-ng-click="searchEvents()" class="btn btn-info">Search</button>
+            </div>
 
- <div id="page-wrapper" ng-class="{'active': toggle}" class="active">
-    <div ng-include="menuprincipal"></div>
-      <div id="content-wrapper">
-        <div class="page-content">
-          <div class="row header">
-            <div class="col-xs-12">
-              <div class="user pull-right">
-        
-                <div class="item dropdown" dropdown="" is-open="status.isopen">
-                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
-                  <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
-                    <input type="hidden" data-ng-init="viewUserInfoheader()">
-                    <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">{{emailuser}}</li>
-                    <li class="divider"></li>
-                    <li class="link">
-                      <a href="#/settings">{{ 'settings' | translate }}</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="link">
-                      <a href="#/logout">{{ 'logout' | translate }}</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="item dropdown" dropdown="" is-open="status.isopens">
-                  <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-                    <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
-                    <i class="fa fa-bell-o"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li class="dropdown-header">{{ 'notification' | translate }}</li>
-                    <li class="divider"></li>
-                    <section ng-show="!viewitem">Sin Notificaciones</section>
-                    <ul class="notifications_list">
-                      <!-- ngRepeat: alertnot in alertsnot -->
-                    </ul>
-                  </ul>
-                </div>
+            <div class="widget-body large no-padding">
+              <!--fronend arregla-->
+              <div ng-show="loadingsearch">
+                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
               </div>
-              <div class="meta">
-                <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
-                <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <th class="text-center">{{ 'neweventtitle' | translate }}</th>
+                    <th class="text-center">{{ 'neweventlocation' | translate }}</th>
+                    <th class="text-center">{{ 'neweventdate' | translate }}</th>
+                    <th class="text-center">{{ 'eventprivacy' | translate }}</th>
+                    <th class="text-center"> {{ 'page' | translate }}</th>
+                    <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="loadingevents && search.lenght == 0">
+                      <td colspan="8">
+                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                      </td>
+                    </tr>
+                    <tr data-ng-repeat="e in search | filter:searchevents" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                      <td class="text-center">{{ e.title }}</td>
+                      <td class="text-center" style="width:20%">{{ e.location }}</td>
+                      <td class="text-center">{{ e.starts }} to {{e.ends}}</td>
+                      <td class="text-center" ng-if="e.privacy==0">{{ 'public'| translate }}</td>
+                      <td class="text-center" ng-if="e.privacy==1">{{ 'private'| translate }}</td>
+                      <td class="text-center"><a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i> {{ 'eventPage'| translate }}</a></td>
+                      <td class="text-center">
+                        <a href="" class="btn btn-primary" ng-click="showPerks(e.id)"><i class="fa fa-bookmark"></i> {{ 'seePerks'| translate }}</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-
-        <!--Template asociado al dashboard principal-->
-            <div class="row">
-              <div class="col-lg-10 col-lg-offset-1  ">
-                <h1 style="color:black; padding-bottom:0px; margin-bottom:0px;">{{'searchtitle' | translate}}</h1>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="widget">
+              <div class="widget-header">
+                <h2 style="color:black; padding-bottom:0px; margin-bottom:0px;">{{'upcomingEvents' | translate}}</h2>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-10 col-lg-offset-1">
-                <div class="widget">
-                  <div class="widget-header">
-                    <i class="fa fa-search"></i>
-                    <input type="text" value="" id="search" ng-model="searchevents" ng-keyup="$event.keyCode == 13 && searchEvents()" />
-                    <button data-ng-click="searchEvents()" class="btn btn-info">Search</button>
-                  </div>
-                  <div class="widget-body large no-padding" style="height:500px"><!--fronend arregla-->
-                    <div ng-show="loadingsearch">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
-                    </div>
-                    <div ng-if="searchloading==0" ng-repeat="s in search | filter:searchevents" class="col-lg-5 col-lg-offset-1 evento" style="height:200px" ng-show="!loadingsearch"><!--fronend arregla-->
-                      <div class="pull-left">
-                        <img class="organizer-image img-square" ng-src="images/events/{{ s.eventimage }}" alt="User">
-                      </div>
-                      <div class="info-event">
-                        <div class=""><h1><a href="event/{{ s.event }}" target="_blank">{{ s.title }}</a></h1></div>
-                        <div class="">{{ s.eventlocation }}</div>
-                        <div class="">{{ s.email }}</div>
-                        <div class=""><a class="btn btn-success" href="" data-ng-click="openDialog($index)"><i class="fa fa-money"></i> Sponzor</a>
-                      </div>        
-                    </div>
-                  </div>
+              <div class="widget-body large no-padding">
+                <!--fronend arregla-->
+                <div ng-show="loadingsearch">
+                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <th class="text-center">{{ 'neweventtitle' | translate }}</th>
+                      <th class="text-center">{{ 'neweventstarts' | translate }}</th>
+                      <th class="text-center"> {{ 'page' | translate }}</th>
+                      <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
+                    </thead>
+                    <tbody>
+                      <tr ng-show="loadingevents && search.lenght == 0">
+                        <td colspan="8">
+                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                        </td>
+                      </tr>
+                      <tr data-ng-repeat="e in upcomingEvents | orderBy:'starts' | limitTo:10" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                        <td class="text-center">{{ e.title }}</td>
+                        <td class="text-center" style="width:20%">{{ e.starts }}</td>
+                        <td class="text-center"><a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i> {{ 'eventPage'| translate }}</a></td>
+                        <td class="text-center">
+                          <a href="" class="btn btn-primary" ng-click="showPerks(e.id)"><i class="fa fa-bookmark"></i> {{ 'seePerks'| translate }}</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
-          </script>
-          <script type="text/ng-template" id="loading.html">
-          <div class="text-center">
-            <rd-loading></rd-loading>
+          </div>
+          <div class="col-lg-6">
+            <div class="widget">
+              <div class="widget-header">
+                <h2 style="color:black; padding-bottom:0px; margin-bottom:0px;">{{'topRatedEvents' | translate}}</h2>
+              </div>
+              <div class="widget-body large no-padding">
+                <!--fronend arregla-->
+                <div ng-show="loadingsearch">
+                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <th class="text-center">{{ 'neweventtitle' | translate }}</th>
+                      <th class="text-center">{{ 'neweventlocation' | translate }}</th>
+                      <th class="text-center"> {{ 'page' | translate }}</th>
+                      <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
+                    </thead>
+                    <tbody>
+                      <tr ng-show="loadingevents && search.lenght == 0">
+                        <td colspan="8">
+                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                        </td>
+                      </tr>
+                      <tr data-ng-repeat="e in bestEvents" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                        <td class="text-center">{{ e.title }}</td>
+                        <td class="text-center" style="width:20%">{{ e.location }}</td>
+                        <td class="text-center"><a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i> {{ 'eventPage'| translate }}</a></td>
+                        <td class="text-center">
+                          <a href="" class="btn btn-primary" ng-click="showPerks(e.id)"><i class="fa fa-bookmark"></i> {{ 'seePerks'| translate }}</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-          </script>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
+      <script type="text/ng-template" id="perks">
+        <div class="text-center">
+        <table class="table table-striped table-center">
+          <thead>
+            <tr>
+              <th class="text-center">{{ 'kind' | translate }}</th>
+              <th class="text-center">{{ 'quantityAvailable' | translate }}</th>
+              <th class="text-center">${{ 'usd' | translate }}</th>
+              <th class="text-center">{{ 'actions' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-show="loadingpeaks && !noPerksMessage">
+              <td colspan="3">
+                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+              </td>
+            </tr>
+            <tr ng-show="!loadingpeaks && noPerksMessage">
+              <td colspan="3" class="text-center">
+                <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
+              </td>
+            </tr>
+            <tr ng-show="!loadingpeaks && !noPerksMessage" ng-repeat="p in currentEvent.perks" data-ng-class="{success : currentPerkId === p.id}">
+              <td class="text-center">{{ p.kind}}</td>
+              <td class="text-center">{{ p.total_quantity - p.reserved_quantity }}</td>
+              <td class="text-center">{{ p.usd }}</td>
+              <td class="text-center">
+                <a href="" class="btn btn-warning" ng-click="createSponzorship(p.id)"><i class="fa fa-edit" ng-show="(p.total_quantity - p.reserved_quantity) > 0"></i> {{'sponzor'|translate}}</a>
+                <span ng-show="(p.total_quantity - p.reserved_quantity) <= 0">
+                  {{'noSponzorshipAvailable'|translate}}
+                </span>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <div class="ngdialog-buttons text-center">
+          <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
+        </div>
+      </script>

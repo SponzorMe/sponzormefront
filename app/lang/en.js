@@ -927,6 +927,16 @@ var translationsEN = {
       todoOwner : "Owner",
       waitUnitlSponzorComplete: "Wait until Sponzor complete",
       noSponzorshipsMessage: "You do not have sponzors for your events",
-      noSponzorshipsTaskMessage: "No tasks availables for this sponsorship"
+      noSponzorshipsTaskMessage: "No tasks availables for this sponsorship",
+      seeSponzorshipOpportunities: "There are the available opportunities to sponzor this event!",
+      seePerks: "See Perks!",
+      neweventdate: "Start / End",
+      page: "Page",
+      eventPage: "Visit Event Page",
+      upcomingEvents: "Are you looking for the upcoming Events?",
+      topRatedEvents: "Are you looking for the best events to Sponzor?",
+      quantityAvailable: "Quantity Available",
+      noSponzorshipAvailable: "Sorry, this event does not have sponzorships in this perk",
+      sponzor: "I want sponzor it!"
 
 };
