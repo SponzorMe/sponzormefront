@@ -939,6 +939,9 @@ var translationsEN = {
       quantityAvailable: "Quantity Available",
       noSponzorshipAvailable: "Sorry, this event does not have sponzorships in this perk",
       sponzor: "I want sponzor it!",
-      sponzorshipCreatedSuccesfuly: "Congratulations you have sent an sponzorship request, you need wait organizer's approval to continue the process!"
-
+      sponzorshipCreatedSuccesfuly: "Congratulations you have sent an sponzorship request, you need wait organizer's approval to continue the process!",
+      followedEvents: "Your followed events",
+      eventSponzorState0: "Waiting for Organizer approval",
+      eventSponzorState0: "Organizer tasks",
+      organizerTasks: "Organizer tasks in this perk"
 };
