@@ -1307,7 +1307,7 @@ sponzorme.controller('UsersSettingsController', function($scope, $translate, $se
 
 });
 
-sponzorme.controller('SponsorsMainController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog) {
+sponzorme.controller('SponsorsMainController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest,perkRequest,taskSponzorRequest) {
 
   $scope.loadingsearch = true;
   if ($sessionStorage.cookiesponzorme &&
@@ -1382,6 +1382,7 @@ sponzorme.controller('SponsorsMainController', function($scope, $translate, $ses
         $scope.noPerksMessage=true;
         eventRequest.oneEvent(eventId).success(function(data){
             $scope.currentEvent=data.data.event;
+            $scope.currentOrganizer=data.data.organizer[0];
             $scope.loadingpeaks=false;
             if($scope.currentEvent.perks[0]){
               $scope.noPerksMessage=false;
@@ -1396,6 +1397,53 @@ sponzorme.controller('SponsorsMainController', function($scope, $translate, $ses
         }).error(function(data){
 
         });
+    }
+    //We display the form to get the sponzorship cause
+    $scope.formCreateSponzorship = function(perk){
+      $scope.perkToSponzor=perk;
+      console.log($scope.perkToSponzor);
+      ngDialog.open({
+        template: 'formCreateSponzorship',
+        scope: $scope
+      });
+    }
+    $scope.createSponzorship = function(){
+      /**
+        this function have two steps, first, create the sponzorhip
+        second create the sponzor tasks
+      */
+      var data = {"status"        :0,
+                  "sponzor_id"    : $sessionStorage.id,
+                  "perk_id"       : $scope.perkToSponzor.id,
+                  "event_id"      : $scope.perkToSponzor.id_event,
+                  "cause"         : $scope.perkToSponzor.cause,
+                  "organizer_id"  : $scope.currentOrganizer.id
+                };
+      ngDialog.closeAll();
+      sponzorshipRequest.createSponzorship(data).success(function(sData){
+          perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData){
+              angular.forEach(sPerkData.data.Tasks, function(value, key) {
+                var taskSponzor = {"status"   :0,
+                            "sponzor_id"      : $sessionStorage.id,
+                            "perk_id"         : $scope.perkToSponzor.id,
+                            "event_id"        : $scope.perkToSponzor.id_event,
+                            "organizer_id"    : $scope.currentOrganizer.id,
+                            "sponzorship_id"  : sData.Sponzorship.id,
+                            "task_id"         : value.id
+                          };
+                taskSponzorRequest.createTaskSponzor(taskSponzor).success(function(sTaskSponzorData){
+                });
+              });
+              ngDialog.open({
+                template: 'SponzorshipComplete'
+              });
+              $location.path("/sponsors/following");//redirection to Following page
+          }).error(function(eData){
+            console.log(eData);
+          });
+      }).error(function(eData){
+          console.log(eData);
+      });
     }
     $scope.getAllEvents();
 

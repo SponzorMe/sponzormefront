@@ -923,6 +923,7 @@ var translationsEN = {
       eventstate0: "This sponzor still is waiting your approval",
       eventstate1: "Congratulations, you have acccepted this sponzorship",
       causeWhy: "Why this sponzor wants sponsor your event?",
+      causeForm: "Why do you want sponzor this event?",
       cause: "Reason",
       todoOwner : "Owner",
       waitUnitlSponzorComplete: "Wait until Sponzor complete",
@@ -937,6 +938,7 @@ var translationsEN = {
       topRatedEvents: "Are you looking for the best events to Sponzor?",
       quantityAvailable: "Quantity Available",
       noSponzorshipAvailable: "Sorry, this event does not have sponzorships in this perk",
-      sponzor: "I want sponzor it!"
+      sponzor: "I want sponzor it!",
+      sponzorshipCreatedSuccesfuly: "Congratulations you have sent an sponzorship request, you need wait organizer's approval to continue the process!"
 
 };

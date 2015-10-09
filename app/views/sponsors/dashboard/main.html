@@ -159,7 +159,7 @@
               <td class="text-center">{{ p.total_quantity - p.reserved_quantity }}</td>
               <td class="text-center">{{ p.usd }}</td>
               <td class="text-center">
-                <a href="" class="btn btn-warning" ng-click="createSponzorship(p.id)"><i class="fa fa-edit" ng-show="(p.total_quantity - p.reserved_quantity) > 0"></i> {{'sponzor'|translate}}</a>
+                <a href="" class="btn btn-warning" ng-click="formCreateSponzorship(p)"><i class="fa fa-edit" ng-show="(p.total_quantity - p.reserved_quantity) > 0"></i> {{'sponzor'|translate}}</a>
                 <span ng-show="(p.total_quantity - p.reserved_quantity) <= 0">
                   {{'noSponzorshipAvailable'|translate}}
                 </span>
@@ -168,6 +168,23 @@
         </table>
         </div>
         <div class="ngdialog-buttons text-center">
+          <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
+        </div>
+      </script>
+      <script type="text/ng-template" id="formCreateSponzorship">
+        <div class="text-center">
+            <form class="form-horizontal" role="form" name="causeForm">
+              <label>{{'causeForm'|translate}}</label>
+              <textarea name="cause" ng-model="perkToSponzor.cause" rows="8" cols="40" placeholder="Your event is amazing!" required></textarea>
+            <button class="btn btn-block btn-primary" ng-click="causeForm.$valid && createSponzorship() && closeThisDialog()">{{ 'submitbutton' | translate }}</button>
+            </form>
+        </div>
+      </script>
+      <script type="text/ng-template" id="SponzorshipComplete">
+        <div class="dialog-container">
+          <img class="image-100 image-center" src="images/success.jpg" width="100px" />
+          <p>{{ 'sponzorshipCreatedSuccesfuly' | translate }}</p>
+          <hr/>
           <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
         </div>
       </script>
