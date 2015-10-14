@@ -114,8 +114,6 @@
                               <i class="fa fa-check"></i></a>
                             <a href="" ng-if="t.status == 1 && t.type==0" ng-click="uncompleteTask(t.id)">
                               <i class="fa fa-times"></i></a>
-                            <a href="" ng-if="t.type==0" ng-click="deleteTaskSponzor(t.id)">
-                              <i class="fa fa-trash-o"></i></a>
                             <span ng-if="t.type==1">{{ 'waitUnitlSponzorComplete' | translate }}</span>
                           </span>
                         </td>

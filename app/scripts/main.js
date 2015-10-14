@@ -1133,7 +1133,12 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
   $scope.getTaskSponzor = function(sponzorshipId){
     $scope.sponzorships.current = sponzorshipId;
     taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data){
-      $scope.tasksSponzor=data.tasks;
+      $scope.tasksSponzor=[];
+      angular.forEach(data.tasks, function(value, key) {
+          if(value.type==0){
+            $scope.tasksSponzor.push(value);
+          }
+      });
       $scope.loadingsponzorshipstasks= false;
 
       if(!$scope.tasksSponzor[0]){

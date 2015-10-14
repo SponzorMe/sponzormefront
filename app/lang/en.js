@@ -29,7 +29,7 @@ var translationsEN = {
 
       comunity            : 'Comunity',
 
-      peak             : 'Perks',
+      peak             : 'Sponzorship type',
 
       yourevents         : 'Your Events',
 
@@ -165,7 +165,7 @@ var translationsEN = {
 
       starts       :  'Starts',
 
-      perks          :  'Perks',
+      perks          :  'Sponzorships Type',
 
       kind           :  'Kind',
 
@@ -689,7 +689,7 @@ var translationsEN = {
 
       eventtypestring: 'Save Event Type',
 
-      noPerksMessage: 'No perks added yet.',
+      noPerksMessage: 'No sponzorship types added yet.',
 
       errorRegisterEmail: "Invalid E-mail, please try again",
       errorRegisterName: "Invalid Name, please try again",
@@ -918,7 +918,7 @@ var translationsEN = {
       noTasksMessage: "No tasks added yet, try add one!",
       add_task: "Add new Task!",
       toCreateNewTask: "Please complete the info below to create new task:",
-      taskCreatedSuccesfuly: "The new task has been created and added to the current perk!",
+      taskCreatedSuccesfuly: "The new task has been created and added to the current sponzorship type!",
       errorDeletingTask: "We sorry, we can not delete this task because this event has Sponsorship",
       eventstate0: "This sponzor still is waiting your approval",
       eventstate1: "Congratulations, you have acccepted this sponzorship",
@@ -932,20 +932,20 @@ var translationsEN = {
       noSponzorshipsMessage: "You do not have sponzors for your events",
       noSponzorshipsTaskMessage: "No tasks availables for this sponsorship",
       seeSponzorshipOpportunities: "There are the available opportunities to sponzor this event!",
-      seePerks: "See Perks!",
+      seePerks: "See Sponzorship types!",
       neweventdate: "Start / End",
       page: "Page",
       eventPage: "Visit Event Page",
       upcomingEvents: "Are you looking for the upcoming Events?",
       topRatedEvents: "Are you looking for the best events to Sponzor?",
       quantityAvailable: "Quantity Available",
-      noSponzorshipAvailable: "Sorry, this event does not have sponzorships in this perk",
+      noSponzorshipAvailable: "Sorry, this event does not have sponzorships available with in this type",
       sponzor: "I want sponzor it!",
       sponzorshipCreatedSuccesfuly: "Congratulations you have sent an sponzorship request, you need wait organizer's approval to continue the process!",
       followedEvents: "Your followed events",
       eventSponzorState0: "Waiting for Organizer approval",
       eventSponzorState0: "Organizer tasks",
-      organizerTasks: "Organizer tasks in this perk",
+      organizerTasks: "Organizer tasks in this sponzorship type",
       causeWhySponzor: "Why do you want sponzor this event?",
       noSponzorshipsMessageSponzor: "You do not have accepted sponzorships",
       waitUnitlOrganizerComplete:"Wait until Organizer complete",

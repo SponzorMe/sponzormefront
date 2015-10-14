@@ -52,17 +52,14 @@
                 </div>
               </div>
               <!--form field-->
-              <div class="form-group" id="sex">
+              <div class="form-group">
                 <label for="label" class="col-sm-2 control-label">
                   {{'editaccountsex' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <select class="form-control" ng-model="account.sex" name="sex" id="sex">
-                    <option value="" selected>{{'chooseSex' | translate}}</option>
-                    <option value="0" ng-if="account.sex==0" selected="selected">{{'woman' | translate}}</option>
-                    <option value="0" ng-if="account.sex!=0">{{'woman' | translate}}</option>
-                    <option value="1" ng-if="account.sex!=1">{{'man' | translate}}</option>
-                    <option value="1" ng-if="account.sex==1" selected="selected">{{'man' | translate}}</option>
+                  <select class="form-control" ng-init="account.sex=account.sex" ng-model="account.sex" aria-label="ngSelected">
+                    <option value="0" ng-selected="account.sex==0">{{'woman' | translate}}</option>
+                    <option value="1" ng-selected="account.sex">{{'man' | translate}}</option>
                   </select>
                 </div>
               </div>
