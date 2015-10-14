@@ -526,7 +526,7 @@ sponzorme.controller('UsersCreateController', function($scope, $translate, $sess
 
 });
 
-sponzorme.controller('UsersPrincipalController', function($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope) {
+sponzorme.controller('UsersPrincipalController', function($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope,sponzorshipRequest) {
   $scope.loadingevents = true;
   $scope.loadingrss = true;
   if ($sessionStorage.cookiesponzorme &&
@@ -566,10 +566,20 @@ sponzorme.controller('UsersPrincipalController', function($scope, $translate, $s
   $scope.event = {};
   $scope.peaks = [];
   $scope.sponzors = {};
-  $scope.sponzors.size = 0;
-  $scope.sponzors.balance = 0;
+  $scope.sponzors.size = eval('translations' + idiomaselect.toUpperCase() + '.calculating');
+  $scope.sponzors.balance = eval('translations' + idiomaselect.toUpperCase() + '.calculating');
   $scope.users = {};
   $scope.users.size = 0;
+  sponzorshipRequest.oneSponzorshipByOrganizer($sessionStorage.id).success(function(data){
+    $scope.sponzors.size = 0;
+    $scope.sponzors.balance = 0;
+    angular.forEach(data.SponzorsEvents, function(value,key){
+      if(value.status==1){
+        $scope.sponzors.balance=parseInt($scope.sponzors.balance)+parseInt(value.usd);
+      }
+    });
+    $scope.sponzors.size=data.SponzorsEvents.length;
+  });
   if (!$localStorage.sponzorme) {
     userRequest.oneUser($sessionStorage.id).success(function(adata) {
       $scope.events = [];

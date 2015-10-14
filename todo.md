@@ -5,7 +5,7 @@ En la página del evento, habilitar las opciones de patrocinio.
 Funcionalidad de embeber eventos.
 Implementar la conexión con eventbrite y meetup.
 Implementar el guardado de imagenes del usuario.
-Implementar la opció de cambio de password.
+Implementar la opción de cambio de password.
 ### Parte Externa de la aplicación
 
 

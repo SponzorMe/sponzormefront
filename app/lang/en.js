@@ -950,5 +950,6 @@ var translationsEN = {
       noSponzorshipsMessageSponzor: "You do not have accepted sponzorships",
       waitUnitlOrganizerComplete:"Wait until Organizer complete",
       sponzorshipsListInSponzor: "List of events that you are currently sponzor",
-      noSponzorshipsMessageSponzor: "Your are not following any event"
+      noSponzorshipsMessageSponzor: "Your are not following any event",
+      calculating: "Calculating..."
 };
