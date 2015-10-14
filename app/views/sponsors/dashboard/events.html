@@ -33,7 +33,7 @@
                     </tr>
                     <tr ng-show="!loadingsponzorships && noSponzorshipsMessage">
                       <td colspan="3" class="text-center">
-                        <h2 class="text-center">{{'noSponzorshipsMessage'| translate}}</h2>
+                        <h2 class="text-center">{{'noSponzorshipsMessageSponzor'| translate}}</h2>
                       </td>
                     </tr>
                     <tr ng-show="!loadingsponzorships && !noSponzorshipsMessage" data-ng-repeat="s in sponzorships" data-ng-class="{success : sponzorships.current === s.id}">

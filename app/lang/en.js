@@ -922,6 +922,8 @@ var translationsEN = {
       errorDeletingTask: "We sorry, we can not delete this task because this event has Sponsorship",
       eventstate0: "This sponzor still is waiting your approval",
       eventstate1: "Congratulations, you have acccepted this sponzorship",
+      eventstate0Sponzor: "Waiting organizer approval",
+      eventstate1Sponzor: "Congratulations, Organizer has acccepted this sponzorship",
       causeWhy: "Why this sponzor wants sponsor your event?",
       causeForm: "Why do you want sponzor this event?",
       cause: "Reason",
@@ -947,5 +949,6 @@ var translationsEN = {
       causeWhySponzor: "Why do you want sponzor this event?",
       noSponzorshipsMessageSponzor: "You do not have accepted sponzorships",
       waitUnitlOrganizerComplete:"Wait until Organizer complete",
-      sponzorshipsListInSponzor: "List of events that you are currently sponzor"
+      sponzorshipsListInSponzor: "List of events that you are currently sponzor",
+      noSponzorshipsMessageSponzor: "Your are not following any event"
 };
