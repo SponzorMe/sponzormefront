@@ -562,7 +562,7 @@ sponzorme.controller('UsersPrincipalController', function($scope, $translate, $s
   $translate.use(idiomaselect);
   $scope.startcounter = 0;
   $scope.eventos = {};
-  $scope.eventos.size = 0;
+  $scope.eventos.size = eval('translations' + idiomaselect.toUpperCase() + '.calculating');
   $scope.event = {};
   $scope.peaks = [];
   $scope.sponzors = {};
@@ -601,11 +601,7 @@ sponzorme.controller('UsersPrincipalController', function($scope, $translate, $s
     var sponzormeObj = JSON.parse($localStorage.sponzorme);
     $scope.events = [];
     $scope.users.size = sponzormeObj.comunity_size;
-    angular.forEach(sponzormeObj.events, function(value, key) {
-      if (value.lang == idiomaselect) {
-        this.push(value);
-      }
-    }, $scope.events);
+    $scope.events=sponzormeObj.events;
     $scope.eventos.size = $scope.events.length;
     usSpinnerService.stop('spinner-2');
     $scope.loadingevents = false;
@@ -1231,24 +1227,28 @@ sponzorme.controller('UsersFriendController', function($scope, $translate, $sess
   $scope.friend.message = "";
 
   $scope.invitefriend = function() {
-
+    $scope.loadingInvite=true;
     $scope.objuserinv = {};
     $scope.objuserinv.user_id = $sessionStorage.id;
     $scope.objuserinv.email = $scope.friend.email;
     $scope.objuserinv.message = $scope.friend.message;
     userRequest.invitedUser($scope.objuserinv).success(function(adata) {
+      $scope.friend.tempEmail=$scope.friend.email;
+      $scope.friend.email="";
+      $scope.friend.message="";
       if (adata.code == 200) {
         ngDialog.open({
           template: 'emailsend.html',
           scope: $scope
         });
+
       } else {
         ngDialog.open({
           template: 'errorsend.html'
         });
       }
+      $scope.loadingInvite=false;
     });
-
   }
 
   $scope.emailuser = $sessionStorage.email;
@@ -1556,24 +1556,28 @@ sponzorme.controller('SponsorsFriendController', function($scope, $translate, $s
   }
 
   $scope.invitefriend = function() {
-
+    $scope.loadingInvite=true;
     $scope.objuserinv = {};
     $scope.objuserinv.user_id = $sessionStorage.id;
     $scope.objuserinv.email = $scope.friend.email;
     $scope.objuserinv.message = $scope.friend.message;
     userRequest.invitedUser($scope.objuserinv).success(function(adata) {
+      $scope.friend.tempEmail=$scope.friend.email;
+      $scope.friend.email="";
+      $scope.friend.message="";
       if (adata.code == 200) {
         ngDialog.open({
           template: 'emailsend.html',
           scope: $scope
         });
+
       } else {
         ngDialog.open({
           template: 'errorsend.html'
         });
       }
+      $scope.loadingInvite=false;
     });
-
   }
 
   $scope.emailuser = $sessionStorage.email;

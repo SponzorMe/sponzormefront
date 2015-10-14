@@ -185,7 +185,9 @@ var translationsEN = {
 
       friendmessage       : 'Message to your friend',
 
-      invitefriendstring       : 'Invite your friend',
+      invitefriendstring       : 'Do you know more Sponzors or Organizers?, Invite them!',
+
+      invite       : 'Invite your friend',
 
       friendemailrequired   : 'Email field is required',
 
