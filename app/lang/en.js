@@ -943,5 +943,9 @@ var translationsEN = {
       followedEvents: "Your followed events",
       eventSponzorState0: "Waiting for Organizer approval",
       eventSponzorState0: "Organizer tasks",
-      organizerTasks: "Organizer tasks in this perk"
+      organizerTasks: "Organizer tasks in this perk",
+      causeWhySponzor: "Why do you want sponzor this event?",
+      noSponzorshipsMessageSponzor: "You do not have accepted sponzorships",
+      waitUnitlOrganizerComplete:"Wait until Organizer complete",
+      sponzorshipsListInSponzor: "List of events that you are currently sponzor"
 };
