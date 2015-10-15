@@ -96,10 +96,10 @@
                   <label class="col-sm-2 control-label" for="label">Imagen</label>
                   <div class="col-sm-5">
                     <div style="height:120px; wigth:120px;">
-                      <img ng-src="http://www.sponzor.me/images/photo.png?sz=120" style="border-radius:50%; height:120px; wigth:120px;">
+                      <img src="{{account.image}}" style="border-radius:50%; height:120px; wigth:120px;">
                     </div>
                     <div style="margin:25px;">
-                      <input class="col-sm-6 " id="imageInput" type="file" ng-model="temp.image" />
+                      <input type="file" ng-model="file" name="file" maxsize="500" accept="image/*" base-sixty-four-input>
                       <br/>
                     </div>
                   </div>

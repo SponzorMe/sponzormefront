@@ -1,5 +1,4 @@
 ### Parte interna de la aplicación
-Subir Imagen del evento a Imgur.
 Crear la página de formulario del evento.
 En la página del evento, habilitar las opciones de patrocinio.
 Funcionalidad de embeber eventos.
@@ -10,6 +9,8 @@ Implementar la opción de cambio de password.
 
 
 ### Cosas Hechas
+Subir Imagen del evento a Imgur.
+Subir Imagen del usuario a Imgur.
 Se creo el formulario de inserción de tareas asociadas a los perks
 Se creo la opción para borrar tareas si no tienen patrocinios
 Se arregló el menu superior.

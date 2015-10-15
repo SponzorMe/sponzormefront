@@ -4,7 +4,6 @@
 
         this.clientId = "bdff09d775f47b9"; // change here with your clientId
         this.apiBase = "https://api.imgur.com/3";
-
         this.$get = ['$q', '$http', function ($q, $http) {
 
             Imgur.prototype = {
@@ -32,7 +31,7 @@
                  * @returns {Promise<object>} a promise for the result
                  */
                 _makeRequest: function(url, method, params) {
-
+                    console.log(url+method+params);
                     var settings = {
                         method: method,
                         url: url,
