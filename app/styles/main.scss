@@ -54,6 +54,7 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #042333 !important;
+  background: #f3f3f3 !important;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -8127,6 +8128,7 @@ body {
 
 body .page-content{
   background: #f3f3f3 !important;
+  height: 100% !important;
 }
 .row {
   margin-left: 0 !important;
@@ -8804,7 +8806,7 @@ color: white;
 
 }
 .col-lg-12{
-  padding-right: 0px;
+  padding-right: 15px;
 
 }
 .tags{
