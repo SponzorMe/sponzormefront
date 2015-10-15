@@ -54,6 +54,7 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #042333 !important;
+  background: #f3f3f3 !important;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -2027,7 +2028,7 @@ table td[class*="col-"], table th[class*="col-"] {
 
 .table-responsive {
   overflow-x: auto;
-  min-height: 0.01%; }
+  min-height: 100%; }
   @media screen and (max-width: 767px) {
     .table-responsive {
       width: 100%;
@@ -8127,6 +8128,7 @@ body {
 
 body .page-content{
   background: #f3f3f3 !important;
+  height: 100% !important;
 }
 .row {
   margin-left: 0 !important;
@@ -8804,7 +8806,7 @@ color: white;
 
 }
 .col-lg-12{
-  padding-right: 0px;
+  padding-right: 15px;
 
 }
 .tags{
