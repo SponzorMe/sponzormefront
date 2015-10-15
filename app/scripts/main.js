@@ -5,7 +5,7 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate', 'ngResour
     'categoryService', 'google.places', 'eventService', 'rssService',
     'perkService', 'taskSponzorService', 'perkTaskService',
     'sponzorshipService', 'angularSpinner', 'CloudStorage',
-    'allInterestsService', 'userInterestService', 'naif.base64', 'imgurService'
+    'allInterestsService', 'userInterestService', 'naif.base64', 'imgurService', 'angularUtils.directives.dirPagination'
   ])
   .config(function($translateProvider) {
     /* Languages configuration by Carlos Rojas
