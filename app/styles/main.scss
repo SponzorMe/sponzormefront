@@ -2028,7 +2028,7 @@ table td[class*="col-"], table th[class*="col-"] {
 
 .table-responsive {
   overflow-x: auto;
-  min-height: 0.01%; }
+  min-height: 100%; }
   @media screen and (max-width: 767px) {
     .table-responsive {
       width: 100%;
