@@ -3,12 +3,12 @@ Crear la página de formulario del evento.
 En la página del evento, habilitar las opciones de patrocinio.
 Funcionalidad de embeber eventos.
 Implementar la conexión con eventbrite y meetup.
-Implementar el guardado de imagenes del usuario.
 Implementar la opción de cambio de password.
 ### Parte Externa de la aplicación
 
 
 ### Cosas Hechas
+Implementar el guardado de imagenes del usuario.
 Subir Imagen del evento a Imgur.
 Subir Imagen del usuario a Imgur.
 Se creo el formulario de inserción de tareas asociadas a los perks
