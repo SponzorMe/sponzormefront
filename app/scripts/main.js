@@ -712,7 +712,7 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
     });
   }
 
-  $scope.getEventsBySponzor($sessionStorage.id);
+  $scope.getEventsByOrganizer($sessionStorage.id);
 
   $scope.userfroups = 0;
 
@@ -745,7 +745,6 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
       $scope.updatePerks(newvalue);
     }
   });
->>>>>>> menu_lateral
   $scope.updatePerks = function(idevent) {
     $scope.loadingPerks = true;//We need put in load mode the widget
     $scope.noPerksMessage = false;//We suppose that exists persks
@@ -1199,10 +1198,8 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
         });
       });
     }
-    console.log("fuck");
     //this function gets the tasks sponzorships by sponzorship id
   $scope.getTaskSponzor = function(sponzorshipId) {
-    console.log("ntro");
     $scope.loadingsponzorshipstasks = true;
     $scope.noSponzorshipsTaskMessage = false;
 
@@ -1264,7 +1261,7 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
       scope: $scope
     });
   }
-  $scope.getSponzorshipsByOrganizer();
+
 
   $scope.toggleSidebar = function() {
     console.log($scope.tolsctive);
@@ -1287,8 +1284,7 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
            $scope.tolsctive = 'active';
         }
     }
-
->>>>>>> menu_lateral
+$scope.getSponzorshipsByOrganizer();
   $scope.menuprincipal = 'views/users/menu.html';
 });
 
