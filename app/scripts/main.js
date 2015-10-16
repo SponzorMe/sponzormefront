@@ -31,16 +31,6 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate', 'ngResour
   });
 }])
 
-.config(['CloudStorageConfigProvider', function(CloudStorageConfigProvider) {
-  CloudStorageConfigProvider.setDefaults({
-    PROJECT: '471996657056',
-    clientId: '471996657056-lb3iuvrk8gaivcubp2bck9434opruhkk.apps.googleusercontent.com',
-    apiKey: 'AIzaSyD-4feaf3-w-iz1wt4rfajI_hM9o2K4j00',
-    scopes: 'https://www.googleapis.com/auth/devstorage.full_control',
-    API_VERSION: 'v1'
-  });
-}])
-
 .config(function($routeProvider) {
   $routeProvider
     .when('', {
@@ -529,6 +519,7 @@ sponzorme.controller('UsersCreateController', function($scope, $translate, $sess
 sponzorme.controller('UsersPrincipalController', function($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
   $scope.loadingevents = true;
   $scope.loadingrss = true;
+  $scope.tolsctive = 'active';
   if ($sessionStorage.cookiesponzorme &&
     $sessionStorage.email &&
     $sessionStorage.id &&
@@ -634,6 +625,23 @@ sponzorme.controller('UsersPrincipalController', function($scope, $translate, $s
     $scope.loadingrss = false;
     $scope.noRssMessage = true;
   });
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
   $scope.menuprincipal = 'views/users/menu.html';
 });
 
@@ -703,6 +711,41 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
       $scope.event.current = $scope.eventos[0].id;
     });
   }
+
+  $scope.getEventsBySponzor($sessionStorage.id);
+
+  $scope.userfroups = 0;
+
+  $scope.sponzors = [];
+
+  $scope.error_log = '';
+
+  $translate.use(idiomaselect);
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+  $scope.menuprincipal = 'views/users/menu.html';
+
+  $scope.$watch('event.current', function(newvalue, oldvalue) {
+    if (newvalue != "") { //Some validation to ensure no empty values
+      $scope.updatePerks(newvalue);
+    }
+  });
+>>>>>>> menu_lateral
   $scope.updatePerks = function(idevent) {
     $scope.loadingPerks = true;//We need put in load mode the widget
     $scope.noPerksMessage = false;//We suppose that exists persks
@@ -1222,6 +1265,30 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
     });
   }
   $scope.getSponzorshipsByOrganizer();
+
+  $scope.toggleSidebar = function() {
+    console.log($scope.tolsctive);
+        $scope.tolsctive = !$scope.tolsctive;
+        $scope.$apply();
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+>>>>>>> menu_lateral
   $scope.menuprincipal = 'views/users/menu.html';
 });
 
@@ -1281,6 +1348,14 @@ sponzorme.controller('UsersFriendController', function($scope, $translate, $sess
   }
 
   $scope.emailuser = $sessionStorage.email;
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
 
   $scope.menuprincipal = 'views/users/menu.html';
 
@@ -1360,7 +1435,13 @@ sponzorme.controller('UsersSettingsController', function($scope, $translate, $se
     }
   }
 
-
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
 
   $scope.menuprincipal = 'views/users/menu.html';
 
