@@ -529,6 +529,7 @@ sponzorme.controller('UsersCreateController', function($scope, $translate, $sess
 sponzorme.controller('UsersPrincipalController', function($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
   $scope.loadingevents = true;
   $scope.loadingrss = true;
+  $scope.tolsctive = 'active';
   if ($sessionStorage.cookiesponzorme &&
     $sessionStorage.email &&
     $sessionStorage.id &&
@@ -634,6 +635,23 @@ sponzorme.controller('UsersPrincipalController', function($scope, $translate, $s
     $scope.loadingrss = false;
     $scope.noRssMessage = true;
   });
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+  
   $scope.menuprincipal = 'views/users/menu.html';
 });
 
@@ -739,6 +757,22 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
   $scope.error_log = '';
 
   $translate.use(idiomaselect);
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
 
   $scope.menuprincipal = 'views/users/menu.html';
 
@@ -1264,6 +1298,28 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
   }
   $scope.getSponzorshipsByOrganizer();
 
+  $scope.toggleSidebar = function() {
+    console.log($scope.tolsctive);
+        $scope.tolsctive = !$scope.tolsctive;
+        $scope.$apply();
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
+
   $scope.menuprincipal = 'views/users/menu.html';
 });
 
@@ -1323,6 +1379,14 @@ sponzorme.controller('UsersFriendController', function($scope, $translate, $sess
   }
 
   $scope.emailuser = $sessionStorage.email;
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
 
   $scope.menuprincipal = 'views/users/menu.html';
 
@@ -1402,7 +1466,13 @@ sponzorme.controller('UsersSettingsController', function($scope, $translate, $se
     }
   }
 
-
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    }
 
   $scope.menuprincipal = 'views/users/menu.html';
 
