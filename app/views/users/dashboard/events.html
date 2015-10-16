@@ -11,7 +11,7 @@
               <i class="fa fa-tasks"></i> {{ 'events' | translate }}
               <a href="#/add/event" class="pull-right">{{ 'add_event' | translate }}</a>
             </div>
-            <div class="widget-body large no-padding">
+            <div class="widget-body medium no-padding">
               <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
@@ -22,11 +22,6 @@
                     <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingevents && eventos.lenght == 0">
-                      <td colspan="8">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
-                      </td>
-                    </tr>
                     <tr data-ng-repeat="e in eventos" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
@@ -58,8 +53,7 @@
             </div>
             <div class="widget-body medium no-padding">
               <div class="table-responsive">
-                <!-- <table class="table table-striped table-center"  ng-controller="peaksController"> -->
-                <table class="table table-striped table-center">
+                <table class="table table-striped">
                   <thead>
                     <tr>
                       <th class="text-center">{{ 'kind' | translate }}</th>
@@ -69,17 +63,17 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingpeaks && !noPerksMessage">
+                    <tr ng-show="loadingPerks && !noPerksMessage">
                       <td colspan="3">
                         <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
                       </td>
                     </tr>
-                    <tr ng-show="!loadingpeaks && noPerksMessage">
+                    <tr ng-show="!loadingPerks && noPerksMessage">
                       <td colspan="3" class="text-center">
                         <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr ng-show="!loadingpeaks && !noPerksMessage" ng-repeat="p in peaks" data-ng-class="{success : currentPerkId === p.id}">
+                    <tr ng-show="!loadingPerks && !noPerksMessage" ng-repeat="p in peaks" data-ng-class="{success : currentPerkId === p.id}">
                       <td class="text-center">{{ p.kind}}</td>
                       <td class="text-center">{{ p.total_quantity }}</td>
                       <td class="text-center">{{ p.usd }}</td>
@@ -96,13 +90,12 @@
           <div class="widget">
             <div class="widget-header">
               <i class="fa fa-trophy"></i> {{ 'Tasks' | translate }}
-              <a href="" ng-click="showTaskForm(currentPerkId,event.current)" class="pull-right" ng-if="!loadingpeaks && !noPerksMessage">{{ 'add_task' | translate }}</a>
+              <a href="" ng-click="showTaskForm(currentPerkId,event.current)" class="pull-right" ng-if="!loadingPerks && !noPerksMessage">{{ 'add_task' | translate }}</a>
               <div class="clearfix"></div>
             </div>
             <div class="widget-body medium no-padding">
               <div class="table-responsive">
-                <!-- <table class="table table-striped table-center"  ng-controller="peaksController"> -->
-                <table class="table table-striped table-center">
+                <table class="table table-striped">
                   <thead>
                     <tr>
                       <th class="text-center">{{ 'title' | translate }}</th>
@@ -112,8 +105,8 @@
                   </thead>
                   <tbody>
                     <tr ng-show="loadingtasks && !noTasksMessage">
-                      <td colspan="3">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                      <td colspan="3" rowspan="5" us-spinner="{display:block, radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true">
+                         <span ></span>
                       </td>
                     </tr>
                     <tr ng-show="!loadingtasks && noTasksMessage">

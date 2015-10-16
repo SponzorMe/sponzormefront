@@ -97,7 +97,7 @@
                           <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr ng-show="!loadingsponzorshipstasks && !noSponzorshipsTaskMessage"data-ng-repeat="t in tasksSponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadingtodo">
+                      <tr ng-show="!loadingsponzorshipstasks && !noSponzorshipsTaskMessage" data-ng-repeat="t in tasksSponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadingtodo">
                         <td>{{ t.title }}</td>
                         <td>{{ t.description }}</td>
                         <td>

@@ -670,11 +670,8 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
   } else {
     $location.path("/");
   }
-
-  $scope.loadingevents = true;
   $scope.emailuser = $sessionStorage.email;
   $scope.event = {};
-
   eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
     $scope.type = {};
     $scope.type.list = adata.eventTypes;
@@ -686,9 +683,7 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
     }, $scope.typefilter);
 
   });
-
   $scope.categorias = {};
-
   categoryRequest.allCategories($scope.typeuser).success(function(adata) {
 
     $scope.categorias.list = adata.categories;
@@ -699,69 +694,31 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
       }
     }, $scope.categoriasfilter);
   });
-
-  $scope.eventos = {};
-
-  $scope.loadingpeaks = true;
-  $scope.sponzors = {};
-  $scope.sponzors.size = 0;
-
-  $scope.sponzors.balance = 0;
-
-  $scope.users = {};
-  $scope.users.size = 0;
+  $scope.eventos = [];
   $scope.currentPerkId = 0;
   $scope.peaks = [];
-  $scope.getEventsBySponzor = function(userId) {
+  $scope.getEventsByOrganizer = function(userId) {
     userRequest.oneUser(userId).success(function(adata) {
-      $scope.events = [];
-      $scope.eventos = [];
-      $scope.users.size = adata.data.user.comunity_size;
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-      angular.forEach(adata.data.user.events, function(value, key) {
-        if (value.lang == idiomaselect) {
-          this.push(value);
-        }
-      }, $scope.eventos);
+      $scope.eventos=adata.data.user.events;
       $scope.event.current = $scope.eventos[0].id;
-      $scope.loadingevents = false;
-      usSpinnerService.stop('spinner-1');
-
     });
   }
-  $scope.getEventsBySponzor($sessionStorage.id);
-
-  $scope.userfroups = 0;
-
-  $scope.sponzors = [];
-
-  $scope.error_log = '';
-
-  $translate.use(idiomaselect);
-
-  $scope.menuprincipal = 'views/users/menu.html';
-
-  $scope.$watch('event.current', function(newvalue, oldvalue) {
-    if (newvalue != "") { //Some validation to ensure no empty values
-      $scope.updatePerks(newvalue);
-    }
-  });
   $scope.updatePerks = function(idevent) {
-    $scope.loadingpeaks = true;
-    $scope.noPerksMessage = false;
+    $scope.loadingPerks = true;//We need put in load mode the widget
+    $scope.noPerksMessage = false;//We suppose that exists persks
+    $scope.loadingtasks = true;//Because we gonna get perk first and then tasks
     if (idevent) {
       eventRequest.oneEvent(idevent).success(function(adata) {
         $scope.peaks = adata.data.event.perks;
-        $scope.loadingpeaks = false;
         if (!$scope.peaks[0]) {
           $scope.noPerksMessage = true;
+          $scope.loadingPerks = false;
           $scope.currentPerk.Tasks = [];
           $scope.noTasksMessage = true;
           $scope.loadingtasks = false;
         } else {
-          $scope.noPerksMessage = false;
-          $scope.getPerk($scope.peaks[0].id);
+          $scope.loadingPerks = false; //If here is because exists perks
+          $scope.getPerk($scope.peaks[0].id); //We get the perks detail that include tasks
         }
       }).error(function(error) {
         $scope.loadingpeaks = false;
@@ -785,13 +742,13 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
     perkRequest.onePerk(perkId).success(function(adata) {
       $scope.currentPerk = adata.data;
       $scope.currentPerkId = perkId;
-      $scope.loadingtasks = false;
-      if (!$scope.currentPerk.Tasks[0]) {
+      if (!$scope.currentPerk.Tasks[0]) { //If here no tasks in this perk
         $scope.noTasksMessage = true;
-      } else {
+        $scope.loadingtasks = false;
+      } else { //If here there are tasks
         $scope.noTasksMessage = false;
+        $scope.loadingtasks = false;
       }
-
     }).error(function(error) {
       $scope.loadingtasks = false;
       $scope.noPerksMessage = true;
@@ -957,7 +914,6 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
       });
     });
   }
-
   $scope.formEditEvent = function(idevent) {
     $scope.eventData = {};
     eventRequest.oneEvent(idevent).success(function(adata) {
@@ -1054,7 +1010,6 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
     });
 
   }
-
   $scope.saveperks = function() {
     $scope.perkitems = {};
     $scope.perkitems.kind = $scope.perkskind;
@@ -1065,7 +1020,6 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
       this.push(pdata);
     });
   }
-
   $scope.addsponzor = function() {
     $scope.sponzors.push({
       kind: "",
@@ -1074,7 +1028,6 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
       id: -1
     });
   }
-
   $scope.removeSponzor = function(index) {
     $scope.sponzors.splice(index, 1);
   }
@@ -1085,11 +1038,17 @@ sponzorme.controller('UsersEventsController', function($scope, $translate, $sess
       quantity: 1
     });
   }
-
   $scope.removeEditPerk = function(index) {
     $scope.eventData.perks.splice(index, 1);
   }
-
+  $scope.getEventsByOrganizer($sessionStorage.id); //Here start the callback
+  $translate.use(idiomaselect);
+  $scope.$watch('event.current', function(newvalue, oldvalue) {
+    if (newvalue != "") { //Some validation to ensure no empty values
+      $scope.updatePerks(newvalue);
+    }
+  });
+  $scope.menuprincipal = 'views/users/menu.html';
 });
 
 sponzorme.controller('EventPageController', function($scope, $routeParams, $translate, $sessionStorage, eventRequest) {
@@ -1104,21 +1063,16 @@ sponzorme.controller('EventPageController', function($scope, $routeParams, $tran
 });
 
 sponzorme.controller('UsersSponzorsController', function($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog) {
-
   $scope.noSponzorshipsMessage = true;
   $scope.loadingsponzorships = true;
   $scope.loadingsponzorshipstasks = true;
-
   if ($sessionStorage) {
-
     var cookie = $sessionStorage.cookiesponzorme;
-
     if (cookie == undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
-
     var typeini = $sessionStorage.typesponzorme;
     if (typeini != undefined) {
       if (typeini == '1') {
@@ -1127,18 +1081,13 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
         $scope.typeuser = 1;
       }
     }
-
     $scope.userfroups = 0;
   } else {
     $location.path("/");
   }
-
   $scope.emailuser = $sessionStorage.email;
-
   $scope.userfroups = 0;
-
   $translate.use(idiomaselect);
-
   //This function allows get sponzorship info from organizerId
   $scope.getSponzorshipsByOrganizer = function() {
     sponzorshipRequest.oneSponzorshipByOrganizer($sessionStorage.id).success(function(data) {
@@ -1170,6 +1119,8 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
     }
     //This function changes to 1 the sponzorship status
   $scope.acceptSponzorship = function(sponzoshipId) {
+      $scope.loadingsponzorships = true;
+      $scope.loadingsponzorshipstasks = true;
       data = {
         "status": 1
       };
@@ -1181,6 +1132,8 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
     }
     //This function changes to 0 the sponzorship status
   $scope.unacceptSponzorship = function(sponzoshipId) {
+    $scope.loadingsponzorships = true;
+    $scope.loadingsponzorshipstasks = true;
       data = {
         "status": 0
       };
@@ -1203,9 +1156,13 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
         });
       });
     }
+    console.log("fuck");
     //this function gets the tasks sponzorships by sponzorship id
   $scope.getTaskSponzor = function(sponzorshipId) {
-      $scope.sponzorships.current = sponzorshipId;
+    console.log("ntro");
+    $scope.loadingsponzorshipstasks = true;
+    $scope.noSponzorshipsTaskMessage = false;
+
       taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
         $scope.tasksSponzor = [];
         angular.forEach(data.tasks, function(value, key) {
@@ -1225,6 +1182,7 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
         console.log(data);
         $scope.noSponzorshipsTaskMessage = true;
       });
+      $scope.sponzorships.current = sponzorshipId;
     }
     //This function changes to 1 the sponzor task status
   $scope.completeTask = function(taskSponzorId) {
@@ -1256,6 +1214,7 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
     });
   }
   $scope.seeCause = function(sponzorship) {
+    console.log("hola");
     $scope.cause = sponzorship.cause;
     ngDialog.open({
       template: 'sponzorshipCause',
@@ -1263,7 +1222,6 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
     });
   }
   $scope.getSponzorshipsByOrganizer();
-
   $scope.menuprincipal = 'views/users/menu.html';
 });
 
