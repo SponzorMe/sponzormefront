@@ -1,0 +1,218 @@
+<div id="page-wrapper" ng-class="{'active': toggle}" class="active">
+    <div ng-include="menuprincipal"></div>
+      <div id="content-wrapper">
+        <div class="page-content">
+          <div class="row header">
+            <div class="col-xs-12">
+              <div class="user pull-right">
+        
+                <div class="item dropdown" dropdown="" is-open="status.isopen">
+                  <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">  
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+                    <input type="hidden" data-ng-init="viewUserInfoheader()">
+                    <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">{{emailuser}}</li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="#/settings">{{ 'settings' | translate }}</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li class="link">
+                      <a href="#/logout">{{ 'logout' | translate }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="item dropdown" dropdown="" is-open="status.isopens">
+                  <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+                    <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
+                    <i class="fa fa-bell-o"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                    <li class="dropdown-header">{{ 'notification' | translate }}</li>
+                    <li class="divider"></li>
+                    <section ng-show="!viewitem">Sin Notificaciones</section>
+                    <ul class="notifications_list">
+                      <!-- ngRepeat: alertnot in alertsnot -->
+                    </ul>
+                  </ul>
+                </div>
+              </div>
+              <div class="meta">
+                <div class="page" id="step2">{{ 'dashboard' | translate }}</div>
+                <div class="breadcrumb-links">{{ 'home' | translate }} / {{ 'dashboard' | translate }}</div>
+              </div>
+            </div>
+          </div>
+            <!--Template asociado a los sponzors-->
+            <input type="hidden" ng-model="sponzors.current" ng-init="sponzors.current = 1" />  
+              <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                  <div class="widget">
+                    <div class="widget-header">
+                      <i class="fa fa-tasks"></i> {{'yousponzring' | translate }}
+                    </div>
+                    <div class="widget-body medium no-padding">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th class="text-center">{{'name' | translate }}</th>
+                              <th class="text-center">{{'email' | translate }}</th>
+                              <th class="text-center">{{'location' | translate }}</th>
+                              <th class="text-center">{{'eventtitle' | translate }}</th>
+                              <th class="text-center">{{'sponzoring' | translate }} type</th>
+                              <th class="text-center">{{'state' | translate }}</th>
+                              <th class="text-center">{{'options' | translate }}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr ng-show="loadingsponzors">
+                              <td colspan="7">
+                                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                              </td>
+                            </tr>
+                            <tr data-ng-repeat="s in sponzors" ng-show="!loadingsponzors">
+                              <td class="text-center"><%s.name%></td>
+                              <td class="text-center"><%s.email%></td>
+                              <td class="text-center"><%s.eventlocation%></td>
+                              <td class="text-center"><%s.event%></td>
+                              <td class="text-center"><%s.kind%></td>
+                              <td class="text-center"><div ng-if="s.eventstate == 0">{{'eventstate0' | translate }}</div><div ng-if="s.eventstate == 1">{{'eventstate1' | translate }}</div></td>
+                              <td class="text-center">
+                                <!-- <a  href="" ng-if="s.eventstate == 1" ng-click="getTaskSponzorPeakSponzoring(s.idRelSponzoring,s.eventId,s.idpeak | translate "> -->
+                                <a  href="" ng-if="s.eventstate == 1" ng-click="">
+                                <i class="fa fa-tasks"></i></a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- A partir de aca se muestran las notas de acuerdo al peak y al sponzor seleccionado -->
+              <div class="row">
+                <div class="col-lg-5 col-lg-offset-1">
+                  <div class="widget">
+                    <div class="widget-header">
+                      <i class="fa fa-plus"></i>{{'todosList' | translate }}
+                      <div class="clearfix"></div>
+                    </div>
+                  <div class="widget-body medium no-padding">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <th>{{'todoTitle' | translate }}</th>
+                          <th>{{'todoDescription' | translate }}</th>
+                          <th>{{'todoStatus' | translate }}</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-show="loadingtodo">
+                            <td colspan="7">
+                              <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                            </td>
+                          </tr>
+                          <tr data-ng-repeat="t in todo" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="loadingtodo">
+                            <td><% t.title %></td>
+                            <td><% t.description %></td>
+                            <td><div ng-if="t.status == 0">{{'eventstate0' | translate }}</div><div ng-if="t.status == 1">{{'eventstate1' | translate }}</div></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- A partir de aca se muestran las notas de acuerdo al peak y al sponzor seleccionado -->
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="widget">
+                      <div class="widget-header">
+                        <i class="fa fa-plus"></i>{{'todosListSponzor' | translate }}
+                        <button ng-if="todo.currentRelPeak != 0" ng-click="createSponzorTask()" class="pull-right btn btn-primary"><i class="fa fa-plus"></i>{{'addTodosListSponzor' | translate }}</button>
+                        <div class="clearfix"></div>
+                      </div>
+                    <div class="widget-body medium no-padding">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <th>{{'todoTitle' | translate }}</th>
+                            <th>{{'todoDescription' | translate }}</th>
+                            <th>{{'todoStatus' | translate }}</th>
+                            <th>{{'todoActions' | translate }}</th>
+                          </thead>
+                          <tbody>
+                            <tr ng-show="loadinglikesponzors">
+                              <td colspan="4">
+                                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-3" spinner-start-active="true"></span>
+                              </td>
+                            </tr>
+                            <tr data-ng-repeat="t in todoperks" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadinglikesponzors">
+                              <td><% t.title %></td>
+                              <td><% t.description %></td>
+                              <td><div ng-if="t.status == 0">{{'eventstate0' | translate }}</div><div ng-if="t.status == 1">{{'eventstate1' | translate }}</div></td>
+                              <td>
+                                <span class="text-success">
+                                  <a href="" ng-if="t.status == 0" ng-click="updateStatusTaskSponzorPeak(t.idTS,1,t.sponzor_event_id )">
+                                  <i class="fa fa-check"></i></a>
+                                  <a href="" ng-if="t.status == 1" ng-click="updateStatusTaskSponzorPeak(t.idTS,0,t.sponzor_event_id )">
+                                  <i class="fa fa-times"></i></a>
+                                  <a href="" ng-click="removeTaskSponzorPeak(t.id,t.sponzor_event_id)">
+                                  <i class="fa fa-trash-o"></i></a>                      
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            <script type="text/ng-template" id="createSponzorTodo.html">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="widget">
+                    <form class="form-horizontal" role="form" data-ng-controller="sponzoringController">
+                      <div class="form-group" id="name">
+                        <label for="label" class="col-sm-5 control-label">
+                          {{'todoTitle' | translate }}
+                        </label>
+                        <div class="col-sm-7">
+                          <input  type="text" data-ng-model="todo.title" name="title" class="form-control" />
+                        </div>
+                      </div>            
+                      <!--form field-->
+                      <div class="form-group" id="description">
+                        <label for="label" class="col-sm-5 control-label">
+                          {{'todoDescription' | translate }}
+                        </label>
+                        <div class="col-sm-7">
+                          <textarea rows="7" data-ng-model="todo.description" name="message" class="form-control"></textarea>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <hr/>
+                      <!--form field-->
+                      <div class="form-group">
+                        <div class="col-sm-offset-5 col-sm-4 "> 
+                          <button data-ng-click="addTodo()" class="btn btn-info">{{'submitbutton' | translate }}</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
