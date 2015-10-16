@@ -1564,6 +1564,13 @@ sponzorme.controller('SponsorsMainController', function($scope, $translate, $ses
         console.log(eData);
       });
     };
+    $scope.tolsctive = 'active';
+    $scope.toggleSidebar = function() {
+          $scope.tolsctive = !$scope.tolsctive;
+          if($scope.tolsctive == true){
+             $scope.tolsctive = 'active';
+          }
+      };
     $scope.getAllEvents();
 
     $scope.menuprincipal = 'views/sponsors/menu.html';
@@ -1644,6 +1651,13 @@ sponzorme.controller('SponsorsSettingsController', function($scope, $translate, 
       });
     }
   };
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    };
 
   $scope.menuprincipal = 'views/sponsors/menu.html';
 
@@ -1702,6 +1716,14 @@ sponzorme.controller('SponsorsFriendController', function($scope, $translate, $s
   };
 
   $scope.emailuser = $sessionStorage.email;
+
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    };
 
   $scope.menuprincipal = 'views/sponsors/menu.html';
 
@@ -1905,6 +1927,13 @@ sponzorme.controller('SponsorsSponzorsController', function($scope, $translate, 
     });
   };
   $scope.getSponzorshipsBySponzor();
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    };
   $scope.menuprincipal = 'views/sponsors/menu.html';
 });
 
@@ -2025,6 +2054,13 @@ sponzorme.controller('SponsorsFollowingController', function($scope, $translate,
     });
   };
   $scope.loadSponzorships();
+  $scope.tolsctive = 'active';
+  $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if($scope.tolsctive == true){
+           $scope.tolsctive = 'active';
+        }
+    };
 
   $scope.menuprincipal = 'views/sponsors/menu.html';
 
