@@ -23,6 +23,14 @@ angular.module('sponzorshipService', ['ngStorage'])
 			oneSponzorshipBySponzor : function(sponzorId){
 				return $http.get(path + 'sponzorships_sponzor/' + sponzorId);
 			},
+			sendSponzorshipEmail : function(data){
+				return $http({
+					method: 'POST',
+					url: path + 'sponzorship_email',
+					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					data: $.param(data)
+				});
+			},
 			createSponzorship : function(data){
 				return $http({
 					method: 'POST',
