@@ -953,5 +953,10 @@ var translationsEN = {
       waitUnitlOrganizerComplete:"Wait until Organizer complete",
       sponzorshipsListInSponzor: "List of events that you are currently sponzor",
       noSponzorshipsMessageSponzor: "Your are not following any event",
-      calculating: "Calculating..."
+      calculating: "Calculating...",
+      Support: "Support",
+      phone1: "Phone 1 (Chile):",
+      phone2: "Phone 2 (Colombia):",
+      address: "Address (Chile):",
+      email: "E-email"
 };

@@ -59,6 +59,9 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate', 'ngResour
     .when('/about', {
       templateUrl: 'views/about.html'
     })
+    .when('/support', {
+      templateUrl: 'views/support.html'
+    })
     .when('/reset/:tokenReset', {
       templateUrl: 'views/reset.html',
       controller: 'ForgotController'
@@ -1138,13 +1141,22 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
       });
     };
     //This function changes to 1 the sponzorship status
-  $scope.acceptSponzorship = function(sponzoshipId) {
+  $scope.acceptSponzorship = function(sponzoshipId,i) {
       $scope.loadingsponzorships = true;
       $scope.loadingsponzorshipstasks = true;
-      data = {
+      var data = {
         status: 1
       };
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function(data) {
+        //We make the email Request
+        var info = {
+          sponzorEmail: $scope.sponzorships[i].email,
+          sponzorName: $scope.sponzorships[i].name,
+          eventName: $scope.sponzorships[i].title,
+          organizerEmail: $sessionStorage.email,
+          lang: idiomaselect
+        };
+        sponzorshipRequest.sendSponzorshipEmail(info).success(function(Sdata){});
         $scope.getSponzorshipsByOrganizer();
       }).error(function(data) {
         console.log(data);
@@ -1154,7 +1166,7 @@ sponzorme.controller('UsersSponzorsController', function($scope, $translate, $se
   $scope.unacceptSponzorship = function(sponzoshipId) {
     $scope.loadingsponzorships = true;
     $scope.loadingsponzorshipstasks = true;
-      data = {
+      var data = {
         status: 0
       };
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function(data) {
