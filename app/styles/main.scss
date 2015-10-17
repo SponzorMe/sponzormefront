@@ -1416,14 +1416,12 @@ pre {
   max-height: 340px;
   overflow-y: scroll; }
 
-$break-small: 320px;
-$break-large: 1200px;
-
 .container {
   margin-right: auto;
   margin-left: auto;
   padding-left: 65px;
   padding-right: 95px;
+
 }
 
 .container:before, .container:after {
@@ -1433,13 +1431,7 @@ $break-large: 1200px;
     clear: both; }
   @media (min-width: 768px) {
     .container {
-      width: 750px;
-      } }
-  @media (max-width: 768px) {
-    .container {
-      padding-left:0px;
-      padding-right:0px;
-      } }
+      width: 750px; } }
   @media (min-width: 992px) {
     .container {
       width: 970px; } }

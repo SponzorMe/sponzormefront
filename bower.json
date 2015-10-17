@@ -20,8 +20,7 @@
     "ng-file-upload": "~5.0.9",
     "angular-google-places-autocomplete": "~0.2.7",
     "angular-local-storage": "~0.2.2",
-    "ngstorage": "~0.3.7",
-	"angular-base64-upload": "~0.1.13"
+    "ngstorage": "~0.3.7"
   },
   "devDependencies": {
     "chai": "~3.0.0",
