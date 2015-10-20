@@ -5,8 +5,7 @@ var sponzorme = angular.module('sponzorme', ['pascalprecht.translate', 'ngResour
     'angularFileUpload', 'ui.bootstrap', 'eventTypeService',
     'categoryService', 'google.places', 'eventService', 'rssService',
     'perkService', 'taskSponzorService', 'perkTaskService',
-    'sponzorshipService', 'angularSpinner', 'CloudStorage',
-    'allInterestsService', 'userInterestService', "naif.base64", 'imgurService', 'angularUtils.directives.dirPagination'
+    'sponzorshipService', 'angularSpinner', 'allInterestsService', 'userInterestService', "naif.base64", 'imgurService', 'angularUtils.directives.dirPagination'
   ])
   .config(function($translateProvider) {
     $translateProvider.translations('es', translationsES);
@@ -1348,7 +1347,7 @@ sponzorme.controller('UsersFriendController', function($scope, $translate, $sess
 
 });
 
-sponzorme.controller('UsersSettingsController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, CloudStorageService, CloudStorageConfig, imgurRequest) {
+sponzorme.controller('UsersSettingsController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest) {
 
   if ($sessionStorage) {
 
