@@ -12,6 +12,7 @@
   <!-- bower:css -->
   <link rel="stylesheet" href="/bower_components/ngDialog/css/ngDialog.css" />
   <link rel="stylesheet" href="/bower_components/ngDialog/css/ngDialog-theme-default.css" />
+  <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -66,6 +67,7 @@
 
   <!-- build:js scripts/vendor.js -->
   <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-translate/angular-translate.js"></script>
   <script src="/bower_components/angular-animate/angular-animate.js"></script>
@@ -78,7 +80,10 @@
   <script src="/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
   <script src="/bower_components/ngDialog/js/ngDialog.js"></script>
   <script src="/bower_components/ng-file-upload/ng-file-upload.js"></script>
+  <script src="/bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+  <script src="/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
   <script src="/bower_components/ngstorage/ngStorage.js"></script>
+  <script src="/bower_components/angular-base64-upload/src/angular-base64-upload.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -88,10 +93,8 @@
   <script src="/bower_components/modernizr/modernizr.js"></script>
   <script src="/bower_components/ngDialog/js/ngDialog.min.js"></script>
   <script src="/bower_components/angular-base64/angular-base64.js"></script>
-  <script src="scripts/angular-file-upload.min.js"></script>
-  <!--<script src="scripts/ui-bootstrap-0.13.0-csp.css"></script>-->
-  <script src="scripts/ui-bootstrap-0.13.0.min.js"></script>
-  <script src="scripts/ui-bootstrap-tpls-0.13.0.min.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="/bower_components/angular-translate/angular-translate.min.js"></script>
   <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
   <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -101,33 +104,57 @@
   <script src="/bower_components/angular-touch/angular-touch.min.js"></script>
   <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="/bower_components/angular-google-places-autocomplete/src/autocomplete.js"></script>
-
   <script src="/bower_components/spin.js/spin.js"></script>
   <script src="/bower_components/angular-spinner/angular-spinner.js"></script>
   <script src="/bower_components/angular-utils-pagination/dirPagination.js"></script>
   <script type="text/javascript" src="https://cdn.rawgit.com/adonespitogo/angular-base64-upload/master/src/angular-base64-upload.js"></script>
-  <script src="/lang/en.js"></script>
-  <script src="/lang/es.js"></script>
-  <script src="/lang/pt.js"></script>
-  <script src="/services/categoryService.js"></script>
-  <script src="/services/eventService.js"></script>
-  <script src="/services/eventTypesService.js"></script>
-  <script src="/services/interestsCategoryService.js"></script>
-  <script src="/services/loginService.js"></script>
-  <script src="/services/perkService.js"></script>
-  <script src="/services/perkTaskService.js"></script>
-  <script src="/services/sponzorshipService.js"></script>
-  <script src="/services/taskSponzorService.js"></script>
-  <script src="/services/userCategoryService.js"></script>
-  <script src="/services/userInterestService.js"></script>
-  <script src="/services/userService.js"></script>
-  <script src="/services/rssService.js"></script>
-  <script src="/services/imgurService.js"></script>
-
   <!-- endbuild -->
 
   <!-- build:js scripts/main.js -->
-  <script src="scripts/main.js"></script>
+  <!-- Lang files -->
+  <script src="/lang/en.js"></script>
+  <script src="/lang/es.js"></script>
+  <script src="/lang/pt.js"></script>
+  <!--Services-->
+  <script src="scripts/services/categoryService.js"></script>
+  <script src="scripts/services/eventService.js"></script>
+  <script src="scripts/services/eventTypesService.js"></script>
+  <script src="scripts/services/interestsCategoryService.js"></script>
+  <script src="scripts/services/loginService.js"></script>
+  <script src="scripts/services/perkService.js"></script>
+  <script src="scripts/services/perkTaskService.js"></script>
+  <script src="scripts/services/sponzorshipService.js"></script>
+  <script src="scripts/services/taskSponzorService.js"></script>
+  <script src="scripts/services/userCategoryService.js"></script>
+  <script src="scripts/services/userInterestService.js"></script>
+  <script src="scripts/services/userService.js"></script>
+  <script src="scripts/services/rssService.js"></script>
+  <script src="scripts/services/imgurService.js"></script>
+  <!-- main module app -->
+  <script src="scripts/app.js"></script>
+  <!-- controllers -->
+  <script src="scripts/controllers/homeController.js"></script>
+  <script src="scripts/controllers/activationController.js"></script>
+  <script src="scripts/controllers/eventPageController.js"></script>
+  <script src="scripts/controllers/forgotController.js"></script>
+  <script src="scripts/controllers/activationController.js"></script>
+  <script src="scripts/controllers/loginController.js"></script>
+  <script src="scripts/controllers/logoutController.js"></script>
+  <script src="scripts/controllers/resendController.js"></script>
+  <script src="scripts/controllers/sponzorsCreateController.js"></script>
+  <script src="scripts/controllers/sponzorsFollowingController.js"></script>
+  <script src="scripts/controllers/sponzorsFriendController.js"></script>
+  <script src="scripts/controllers/sponzorsMainController.js"></script>
+  <script src="scripts/controllers/sponzorsSettingsController.js"></script>
+  <script src="scripts/controllers/sponzorsSponzorsController.js"></script>
+  <script src="scripts/controllers/usersCreateController.js"></script>
+  <script src="scripts/controllers/usersCustomizationController.js"></script>
+  <script src="scripts/controllers/usersEventsController.js"></script>
+  <script src="scripts/controllers/usersFriendController.js"></script>
+  <script src="scripts/controllers/usersPrincipalController.js"></script>
+  <script src="scripts/controllers/usersSettingsController.js"></script>
+  <script src="scripts/controllers/usersSponzorsController.js"></script>
+
   <!-- endbuild -->
 </body>
 
