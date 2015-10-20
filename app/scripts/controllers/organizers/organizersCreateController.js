@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('UsersCreateController', function($scope, $translate, $sessionStorage, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {
+angular.module('sponzorme')
+.controller('OrganizersCreateController', OrganizersCreateController);
+
+function OrganizersCreateController($scope, $translate, $sessionStorage, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {
 
   if ($sessionStorage) {
 
@@ -85,5 +87,5 @@ angular.module("sponzorme")
       });
     }
   };
-});
+};
 })();

@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('SponsorsFriendController', function($scope, $translate, $sessionStorage, userRequest, ngDialog) {
+angular.module('sponzorme')
+.controller('SponzorsFriendController', SponzorsFriendController);
+
+function SponzorsFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog) {
 
   if ($sessionStorage) {
 
@@ -62,8 +64,8 @@ angular.module("sponzorme")
         }
     };
 
-  $scope.menuprincipal = 'views/sponsors/menu.html';
+  $scope.menuprincipal = 'views/sponzors/menu.html';
 
 
-});
+};
 })();

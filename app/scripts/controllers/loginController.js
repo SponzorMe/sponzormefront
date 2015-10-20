@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('LoginController', function($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
+angular.module('sponzorme')
+.controller('LoginController', LoginController);
+
+function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
 
   delete $sessionStorage.cookiesponzorme;
 
@@ -67,9 +69,9 @@ angular.module("sponzorme")
           }
           $scope.loagind = false;
           if (adata.user.type == 1) {
-            $location.path("/sponsors/dashboard");
+            $location.path("/sponzors/dashboard");
           } else {
-            $location.path("/users/dashboard");
+            $location.path("/organizers/dashboard");
           }
         } else {
           $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.UnactivatedAccount');
@@ -88,5 +90,5 @@ angular.module("sponzorme")
       });
     }
   };
-});
+};
 })();

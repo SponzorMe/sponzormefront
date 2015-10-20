@@ -1,11 +1,33 @@
 'use strict';
-(function () {
 var idiomaselect = "en";
-angular.module('sponzorme', ['pascalprecht.translate', 'ngResource', 'ngRoute', 'userService',
-    'loginService', 'ngDialog', 'base64', 'ngCookies', 'ngStorage', 'ui.bootstrap', 'eventTypeService',
-    'categoryService', 'google.places', 'eventService', 'rssService',
-    'perkService', 'taskSponzorService', 'perkTaskService',
-    'sponzorshipService', 'angularSpinner', 'allInterestsService', 'userInterestService', "naif.base64", 'imgurService', 'angularUtils.directives.dirPagination'
+(function () {
+
+angular.module('sponzorme', [
+    'pascalprecht.translate',
+    'ngResource',
+    'ngRoute',
+    'userService',
+    'loginService',
+    'ngDialog',
+    'base64',
+    'ngCookies',
+    'ngStorage',
+    'ui.bootstrap',
+    'eventTypeService',
+    'categoryService',
+    'google.places',
+    'eventService',
+    'rssService',
+    'perkService',
+    'taskSponzorService',
+    'perkTaskService',
+    'sponzorshipService',
+    'angularSpinner',
+    'allInterestsService',
+    'userInterestService',
+    'naif.base64',
+    'imgurService',
+    'angularUtils.directives.dirPagination'
   ])
   .config(function($translateProvider) {
     $translateProvider.translations('es', translationsES);
@@ -44,7 +66,7 @@ angular.module('sponzorme', ['pascalprecht.translate', 'ngResource', 'ngRoute', 
       controller: 'HomeController'
     })
     .when('/login', {
-      templateUrl: 'views/users/login.html',
+      templateUrl: 'views/login.html',
       controller: 'LoginController'
     })
     .when('/resend', {
@@ -65,69 +87,69 @@ angular.module('sponzorme', ['pascalprecht.translate', 'ngResource', 'ngRoute', 
       templateUrl: 'views/reset.html',
       controller: 'ForgotController'
     })
-    .when('/sponsors/create', {
-      templateUrl: 'views/sponsors/create.html',
+    .when('/sponzors/create', {
+      templateUrl: 'views/sponzors/create.html',
       controller: 'SponzorsCreateController'
     })
-    .when('/users/create', {
-      templateUrl: 'views/users/create.html',
-      controller: 'UsersCreateController'
+    .when('/organizers/create', {
+      templateUrl: 'views/organizers/create.html',
+      controller: 'OrganizersCreateController'
     })
     .when('/logout', {
       templateUrl: 'views/main.html',
-      controller: 'logoutController'
+      controller: 'LogoutController'
     })
-    .when('/users/dashboard', {
-      templateUrl: 'views/users/dashboard/main.html',
-      controller: 'UsersPrincipalController'
+    .when('/organizers/dashboard', {
+      templateUrl: 'views/organizers/dashboard/main.html',
+      controller: 'OrganizersMainController'
     })
-    .when('/users/events', {
-      templateUrl: 'views/users/dashboard/events.html',
-      controller: 'UsersEventsController'
+    .when('/organizers/events', {
+      templateUrl: 'views/organizers/dashboard/events.html',
+      controller: 'OrganizersEventsController'
     })
-    .when('/users/sponzors', {
-      templateUrl: 'views/users/dashboard/sponzors.html',
-      controller: 'UsersSponzorsController'
+    .when('/organizers/sponzors', {
+      templateUrl: 'views/organizers/dashboard/sponzors.html',
+      controller: 'OrganizersSponzorshipsController'
     })
     .when('/customization', {
       templateUrl: 'views/customization/customization.html',
-      controller: 'UsersCustomController'
+      controller: 'OrganizersCustomizationController'
     })
-    .when('/users/friend', {
-      templateUrl: 'views/users/dashboard/friend.html',
-      controller: 'UsersFriendController'
+    .when('/organizers/friend', {
+      templateUrl: 'views/organizers/dashboard/friend.html',
+      controller: 'OrganizersFriendController'
     })
-    .when('/users/settings', {
-      templateUrl: 'views/users/dashboard/settings.html',
-      controller: 'UsersSettingsController'
+    .when('/organizers/settings', {
+      templateUrl: 'views/organizers/dashboard/settings.html',
+      controller: 'OrganizersSettingsController'
     })
-    .when('/sponsors/dashboard', {
-      templateUrl: 'views/sponsors/dashboard/main.html',
-      controller: 'SponsorsMainController'
+    .when('/sponzors/dashboard', {
+      templateUrl: 'views/sponzors/dashboard/main.html',
+      controller: 'SponzorsMainController'
     })
-    .when('/sponsors/settings', {
-      templateUrl: 'views/sponsors/dashboard/settings.html',
-      controller: 'SponsorsSettingsController'
+    .when('/sponzors/settings', {
+      templateUrl: 'views/sponzors/dashboard/settings.html',
+      controller: 'SponzorsSettingsController'
     })
-    .when('/sponsors/friend', {
-      templateUrl: 'views/sponsors/dashboard/friend.html',
-      controller: 'SponsorsFriendController'
+    .when('/sponzors/friend', {
+      templateUrl: 'views/sponzors/dashboard/friend.html',
+      controller: 'SponzorsFriendController'
     })
-    .when('/sponsors/following', {
-      templateUrl: 'views/sponsors/dashboard/events.html',
-      controller: 'SponsorsFollowingController'
+    .when('/sponzors/following', {
+      templateUrl: 'views/sponzors/dashboard/events.html',
+      controller: 'SponzorsFollowingController'
     })
-    .when('/sponsors/sponzoring', {
-      templateUrl: 'views/sponsors/dashboard/sponzors.html',
-      controller: 'SponsorsSponzorsController'
+    .when('/sponzors/sponzoring', {
+      templateUrl: 'views/sponzors/dashboard/sponzors.html',
+      controller: 'SponzorsSponzorshipsController'
     })
     .when('/event/:eventId', {
       templateUrl: 'views/event.html',
       controller: 'EventPageController'
     })
-    .when('/add/event', {
-      templateUrl: 'views/users/dashboard/add_event.html',
-      controller: 'UsersEventsController'
+    .when('/organizers/add/event', {
+      templateUrl: 'views/organizers/dashboard/add_event.html',
+      controller: 'OrganizersEventsController'
     })
     .otherwise({
       redirectTo: '/'

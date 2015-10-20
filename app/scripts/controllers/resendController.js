@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('ResendController', function($scope, $translate, loginRequest, ngDialog) {
+angular.module('sponzorme')
+.controller('ResendController', ResendController);
+
+function ResendController($scope, $translate, loginRequest, ngDialog) {
   $scope.error_log = []; //We storage here all translate error during register process
   $scope.resend = function() {
     $scope.loagind = true;
@@ -23,5 +25,5 @@ angular.module("sponzorme")
     });
   };
 
-});
+};
 })();

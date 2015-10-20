@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('SponzorsCreateController', function($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, usSpinnerService, $localStorage) {
+angular.module('sponzorme')
+.controller('SponzorsCreateController', SponzorsCreateController);
+
+function SponzorsCreateController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, usSpinnerService, $localStorage) {
   if ($sessionStorage) {
 
     var cookie = $sessionStorage.cookiesponzorme;
@@ -83,5 +85,5 @@ angular.module("sponzorme")
     }
   };
 
-});
+};
 })();

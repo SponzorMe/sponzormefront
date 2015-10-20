@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('SponsorsMainController', function($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest) {
+angular.module('sponzorme')
+.controller('SponzorsMainController', SponzorsMainController);
+
+function SponzorsMainController($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest) {
 
   $scope.loadingsearch = true;
   if ($sessionStorage.cookiesponzorme &&
@@ -152,9 +154,9 @@ angular.module("sponzorme")
       };
     $scope.getAllEvents();
 
-    $scope.menuprincipal = 'views/sponsors/menu.html';
+    $scope.menuprincipal = 'views/sponzors/menu.html';
   } else {
     $location.path("/");
   }
-});
+};
 })();

@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('UsersSponzorsController', function($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog) {
+angular.module('sponzorme')
+.controller('OrganizersSponzorshipsController', OrganizersSponzorshipsController);
+
+function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog) {
   $scope.noSponzorshipsMessage = true;
   $scope.loadingsponzorships = true;
   $scope.loadingsponzorshipstasks = true;
@@ -191,6 +193,6 @@ angular.module("sponzorme")
         }
     };
 $scope.getSponzorshipsByOrganizer();
-  $scope.menuprincipal = 'views/users/menu.html';
-});
+  $scope.menuprincipal = 'views/organizers/menu.html';
+};
 })();

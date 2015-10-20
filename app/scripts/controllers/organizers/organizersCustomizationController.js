@@ -1,7 +1,9 @@
 'use strict';
 (function(){
 angular.module("sponzorme")
-.controller('UsersCustomController', function($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest) {
+.controller('OrganizersCustomizationController', OrganizersCustomizationController);
+
+function OrganizersCustomizationController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest) {
 
   $scope.loadinglistsponzors = true;
   $scope.userData = {};
@@ -114,5 +116,5 @@ angular.module("sponzorme")
     $localStorage.$reset();
   };
   $scope.menuprincipal = 'views/sponsors/menu.html';
-});
+};
 })();

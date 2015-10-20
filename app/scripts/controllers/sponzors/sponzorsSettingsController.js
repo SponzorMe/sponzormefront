@@ -1,7 +1,9 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
-.controller('SponsorsSettingsController', function($scope, $translate, $sessionStorage, userRequest, $localStorage,imgurRequest) {
+angular.module('sponzorme')
+.controller('SponzorsSettingsController', SponzorsSettingsController);
+
+function SponzorsSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage,imgurRequest) {
 
   if ($sessionStorage) {
 
@@ -81,8 +83,8 @@ angular.module("sponzorme")
         }
     };
 
-  $scope.menuprincipal = 'views/sponsors/menu.html';
+  $scope.menuprincipal = 'views/sponzors/menu.html';
 
 
-});
+};
 })();

@@ -1,7 +1,9 @@
 'use strict';
 (function(){
 angular.module("sponzorme")
-.controller('UsersEventsController', function($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest) {
+.controller('OrganizersEventsController', OrganizersEventsController);
+
+function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest) {
   if ($sessionStorage) {
 
     var cookie = $sessionStorage.cookiesponzorme;
@@ -83,7 +85,7 @@ angular.module("sponzorme")
         }
     };
 
-  $scope.menuprincipal = 'views/users/menu.html';
+  $scope.menuprincipal = 'views/organizers/menu.html';
 
   $scope.$watch('event.current', function(newvalue, oldvalue) {
     if (newvalue != "") { //Some validation to ensure no empty values
@@ -436,6 +438,6 @@ angular.module("sponzorme")
       $scope.updatePerks(newvalue);
     }
   });
-  $scope.menuprincipal = 'views/users/menu.html';
-});
+  $scope.menuprincipal = 'views/organizers/menu.html';
+};
 })();
