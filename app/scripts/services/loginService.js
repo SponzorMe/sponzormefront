@@ -4,9 +4,12 @@
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('loginService', [])
-	.factory('loginRequest', function($http) {
-		var path = "http://api.sponzor.me/"; //API path
+	.factory('loginRequest', loginRequest);
+
+	function loginRequest($http) {
 		return {
 			/**
 			* Login function return the user info if the credentials match
@@ -15,10 +18,10 @@ angular.module('loginService', [])
 			* @returns success(function(data, status, headers, config)
 			*/
 			login : function(credentials){
-				data={"email":credentials.email,"password":credentials.password};
+				var data={"email":credentials.email,"password":credentials.password};
 				return $http({
 					method: 'POST',
-					url: path + 'auth',
+					url: apiPath + 'auth',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
@@ -27,19 +30,19 @@ angular.module('loginService', [])
 				data = {"email":email};
 				return $http({
 					method: 'POST',
-					url: path + 'send_reset_password',
+					url: apiPath + 'send_reset_password',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
 			},
 			tryActivation: function(token){
-				return $http.get(path + 'verify_activation/' + token);
+				return $http.get(apiPath + 'verify_activation/' + token);
 			},
 			resendActivation: function(email){
 				data={"email":email};
 				return $http({
 					method: 'POST',
-					url: path + 'send_activation',
+					url: apiPath + 'send_activation',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
@@ -48,11 +51,11 @@ angular.module('loginService', [])
 				console.log(token);
 				return $http({
 					method: 'POST',
-					url: path + 'update_password/'+token,
+					url: apiPath + 'update_password/'+token,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
-
 			}
 		}
-	});
+	};
+})();

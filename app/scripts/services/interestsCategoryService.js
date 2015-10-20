@@ -1,26 +1,30 @@
 /**
-* @Servicio de interests_category 
+* @Servicio de interests_category
 *
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('allInterestsService', ['ngCookies'])
-	.factory('allInterestsServiceRequest', function($http,$sessionStorage) {
+	.factory('allInterestsServiceRequest', allInterestsServiceRequest);
+
+	function allInterestsServiceRequest($http,$sessionStorage) {
 		var path = "http://api.sponzor.me/"; //API path
 		var token = $sessionStorage.token;
 		return {
 			allInterestsCategoriesId : function(){
-				return $http.get(path + 'interests_category');
-					
+				return $http.get(apiPath + 'interests_category');
+
 			},
 			oneInterestsCategory : function(interestsCategoryId){
-				return $http.get(path + 'interests_category/' + interestsCategoryId);
-				
+				return $http.get(apiPath + 'interests_category/' + interestsCategoryId);
+
 			},
 			createInterestsCategory : function(data){
 				return $http({
 					method: 'POST',
-					url: path + 'interests_category',
+					url: apiPath + 'interests_category',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -28,14 +32,14 @@ angular.module('allInterestsService', ['ngCookies'])
 			deleteInterestsCategory : function(interestsCategoryId){
 				return $http({
 					method: 'DELETE',
-					url: path + 'interests_category/' + interestsCategoryId,
+					url: apiPath + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
 			editInterestsCategoryPatch : function(interestsCategoryId,data){
 				return $http({
 					method: 'PATCH',
-					url: path + 'interests_category/' + interestsCategoryId,
+					url: apiPath + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -43,10 +47,11 @@ angular.module('allInterestsService', ['ngCookies'])
 			editInterestsCategoryPut : function(interestsCategoryId,data){
 				return $http({
 					method: 'PUT',
-					url: path + 'interests_category/' + interestsCategoryId,
+					url: apiPath + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
 			}
 		}
-	});
+	};
+})();

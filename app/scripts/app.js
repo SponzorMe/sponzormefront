@@ -1,5 +1,7 @@
 'use strict';
-var idiomaselect = "en";
+var idiomaselect = "en"; //Default Language
+var apiPath = "http://api.sponzor.me/"; //API path
+var imgurPath = "https://api.imgur.com/3/image"; //API path
 (function () {
 
 angular.module('sponzorme', [
@@ -108,7 +110,7 @@ angular.module('sponzorme', [
       controller: 'OrganizersEventsController'
     })
     .when('/organizers/sponzors', {
-      templateUrl: 'views/organizers/dashboard/sponzors.html',
+      templateUrl: 'views/organizers/dashboard/sponzorships.html',
       controller: 'OrganizersSponzorshipsController'
     })
     .when('/customization', {
@@ -140,7 +142,7 @@ angular.module('sponzorme', [
       controller: 'SponzorsFollowingController'
     })
     .when('/sponzors/sponzoring', {
-      templateUrl: 'views/sponzors/dashboard/sponzors.html',
+      templateUrl: 'views/sponzors/dashboard/sponzorships.html',
       controller: 'SponzorsSponzorshipsController'
     })
     .when('/event/:eventId', {

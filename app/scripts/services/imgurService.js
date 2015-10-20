@@ -4,15 +4,18 @@
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('imgurService',[])
-	.factory('imgurRequest', function($http) {
-		var path = "https://api.imgur.com/3/image"; //API path
-    var clientId ="bdff09d775f47b9";
+	.factory('imgurRequest', imgurRequest);
+
+	function imgurRequest($http) {
+    var clientId ="bdff09d775f47b9"; //Private API Cliente Id for imgur
 		return {
 			uploadImage : function(data){
 				return $http({
 					method: 'POST',
-					url: path,
+					url: imgurPath,
           headers: {
               "Authorization": "Client-ID " + clientId
           },
@@ -20,4 +23,5 @@ angular.module('imgurService',[])
 				});
 			}
 		}
-	});
+	};
+})();

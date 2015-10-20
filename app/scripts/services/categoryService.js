@@ -1,12 +1,15 @@
 /**
-* @Servicio de Categories 
+* @Servicio de Categories
 *
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('categoryService', ['ngStorage'])
-	.factory('categoryRequest', function($http,$sessionStorage) {
-		var path = "http://api.sponzor.me/"; //API path
+	.factory('categoryRequest', categoryRequest);
+
+	function categoryRequest($http,$sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
 			/**
@@ -14,8 +17,8 @@ angular.module('categoryService', ['ngStorage'])
 			* @returns success(function(data, status, headers, config)
 			*/
 			allCategories : function(){
-				return $http.get(path + 'categories');
-				
+				return $http.get(apiPath + 'categories');
+
 			},
 			/**
 			* Get Category By Id
@@ -23,13 +26,13 @@ angular.module('categoryService', ['ngStorage'])
 			* @returns success(function(data, status, headers, config)
 			*/
 			oneCategory : function(categoryId){
-				return $http.get(path + 'categories/' + categoryId);
-				
+				return $http.get(apiPath + 'categories/' + categoryId);
+
 			},
 			createCategory : function(data){
 				return $http({
 					method: 'POST',
-					url: path + 'categories',
+					url: apiPath + 'categories',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -37,14 +40,14 @@ angular.module('categoryService', ['ngStorage'])
 			deleteCategory : function(categoryId){
 				return $http({
 					method: 'DELETE',
-					url: path + 'categories/' + categoryId,
+					url: apiPath + 'categories/' + categoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
 			editCategoryPatch : function(categoryId,data){
 				return $http({
 					method: 'PATCH',
-					url: path + 'categories/' + categoryId,
+					url: apiPath + 'categories/' + categoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -52,10 +55,11 @@ angular.module('categoryService', ['ngStorage'])
 			editCategoryPut : function(categoryId,data){
 				return $http({
 					method: 'PUT',
-					url: path + 'categories/' + categoryId,
+					url: apiPath + 'categories/' + categoryId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
 			}
 		}
-	});
+	};
+})();

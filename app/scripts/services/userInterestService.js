@@ -1,24 +1,27 @@
 /**
-* @Servicio de TaskSponzor (Tareas de los patrocinadores) 
+* @Servicio de TaskSponzor (Tareas de los patrocinadores)
 *
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('userInterestService', ['ngCookies'])
-	.factory('userInterestRequest', function($http,$sessionStorage) {
-		var path = "http://api.sponzor.me/"; //API path
+	.factory('userInterestRequest', userInterestRequest);
+
+	function userInterestRequest($http,$sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
 			allUserInterests : function(){
-				return $http.get(path + 'user_interests');	
+				return $http.get(apiPath + 'user_interests');
 			},
 			oneUserInterest : function(userInterestId){
-				return $http.get(path + 'user_interests/' + userInterestId);
+				return $http.get(apiPath + 'user_interests/' + userInterestId);
 			},
 			createUserInterest : function(data){
 				return $http({
 					method: 'POST',
-					url: path + 'user_interests',
+					url: apiPath + 'user_interests',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -26,14 +29,14 @@ angular.module('userInterestService', ['ngCookies'])
 			deleteUserInterest : function(userInterestId){
 				return $http({
 					method: 'DELETE',
-					url: path + 'user_interests/' + userInterestId,
+					url: apiPath + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
 			editUserInterestPatch : function(userInterestId,data){
 				return $http({
 					method: 'PATCH',
-					url: path + 'user_interests/' + userInterestId,
+					url: apiPath + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -41,10 +44,11 @@ angular.module('userInterestService', ['ngCookies'])
 			editUserInterestPut : function(userInterestId,data){
 				return $http({
 					method: 'PUT',
-					url: path + 'user_interests/' + userInterestId,
+					url: apiPath + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
 			}
 		}
-	});
+	};
+})();

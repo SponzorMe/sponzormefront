@@ -4,23 +4,26 @@
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('perkTaskService', ['ngStorage'])
-	.factory('perkTaskRequest', function($http,$sessionStorage) {
-		var path = "http://api.sponzor.me/"; //API path
+	.factory('perkTaskRequest', perkTaskRequest);
+
+	function perkTaskRequest($http,$sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
 			allPerkTasks : function(){
-				return $http.get(path + 'perk_tasks');
+				return $http.get(apiPath + 'perk_tasks');
 
 			},
 			onePerkTask : function(perkTaskId){
-				return $http.get(path + 'perk_tasks/' + perkTaskId);
+				return $http.get(apiPath + 'perk_tasks/' + perkTaskId);
 
 			},
 			createPerkTask : function(data){
 				return $http({
 					method: 'POST',
-					url: path + 'perk_tasks',
+					url: apiPath + 'perk_tasks',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -28,14 +31,14 @@ angular.module('perkTaskService', ['ngStorage'])
 			deletePerkTask : function(perkTaskId){
 				return $http({
 					method: 'DELETE',
-					url: path + 'perk_tasks/' + perkTaskId,
+					url: apiPath + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
 			editPerkTaskPatch : function(perkTaskId,data){
 				return $http({
 					method: 'PATCH',
-					url: path + 'perk_tasks/' + perkTaskId,
+					url: apiPath + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -43,10 +46,11 @@ angular.module('perkTaskService', ['ngStorage'])
 			editPerkTaskPut : function(perkTaskId,data){
 				return $http({
 					method: 'PUT',
-					url: path + 'perk_tasks/' + perkTaskId,
+					url: apiPath + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
 			}
 		}
-	});
+	};
+})();

@@ -1,26 +1,29 @@
 /**
-* @Servicio de event_types 
+* @Servicio de event_types
 *
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('eventTypeService', ['ngStorage'])
-	.factory('eventTypeRequest', function($http, $sessionStorage) {
-		var path = "http://api.sponzor.me/"; //API path
+	.factory('eventTypeRequest', eventTypeService);
+
+	function eventTypeService($http, $sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
 			allEventTypes : function(){
-				return $http.get(path + 'event_types');
-					
+				return $http.get(apiPath + 'event_types');
+
 			},
 			oneEventTypes : function(eventTypeId){
-				return $http.get(path + 'event_types/' + categoriesId);
-				
+				return $http.get(apiPath + 'event_types/' + categoriesId);
+
 			},
 			createEventType : function(data){
 				return $http({
 					method: 'POST',
-					url: path + 'event_types',
+					url: apiPath + 'event_types',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -28,14 +31,14 @@ angular.module('eventTypeService', ['ngStorage'])
 			deleteEventType : function(eventTypeId){
 				return $http({
 					method: 'DELETE',
-					url: path + 'event_types/' + eventTypeId,
+					url: apiPath + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
 			editEventTypePatch : function(eventTypeId,data){
 				return $http({
 					method: 'PATCH',
-					url: path + 'event_types/' + eventTypeId,
+					url: apiPath + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -43,10 +46,11 @@ angular.module('eventTypeService', ['ngStorage'])
 			editEventTypePut : function(eventTypeId,data){
 				return $http({
 					method: 'PUT',
-					url: path + 'event_types/' + eventTypeId,
+					url: apiPath + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
 			}
 		}
-	});
+	};
+})();

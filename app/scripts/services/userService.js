@@ -5,27 +5,28 @@
 * @version 0.1
 */
 'use strict';
+(function(){
 angular.module('userService', ['ngStorage'])
-	.factory('userRequest', function($http,$sessionStorage) {
-		var path = "http://api.sponzor.me/"; //API path
+	.factory('userRequest', userRequest);
 
+	function userRequest($http,$sessionStorage) {
 		var token = $sessionStorage.token;
 
 		return {
 			allUsers : function(){
-				return $http.get(path + 'users');
+				return $http.get(apiPath + 'users');
 			},
 			oneUser : function(userId){
 				var token = $sessionStorage.token;
 				$http.defaults.headers.common['Authorization'] = 'Basic ' + token;
-				return $http.get(path + 'users/' + userId);
+				return $http.get(apiPath + 'users/' + userId);
 
 			},
 			createUser : function(data){
 				var token = "b3JnYW5pemVyQHNwb256b3IubWU6c3Bvbnpvcm1l";
 				return $http({
 					method: 'POST',
-					url: path + 'users',
+					url: apiPath + 'users',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -34,7 +35,7 @@ angular.module('userService', ['ngStorage'])
 				var token = $sessionStorage.token;
 				return $http({
 					method: 'DELETE',
-					url: path + 'users/' + userId,
+					url: apiPath + 'users/' + userId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
@@ -42,7 +43,7 @@ angular.module('userService', ['ngStorage'])
 				var token = $sessionStorage.token;
 				return $http({
 					method: 'PATCH',
-					url: path + 'users/' + userId,
+					url: apiPath + 'users/' + userId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -51,7 +52,7 @@ angular.module('userService', ['ngStorage'])
 				var token = $sessionStorage.token;
 				return $http({
 					method: 'PUT',
-					url: path + 'users/' + userId,
+					url: apiPath + 'users/' + userId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -60,11 +61,12 @@ angular.module('userService', ['ngStorage'])
 				var token = $sessionStorage.token;
 				return $http({
 					method: 'POST',
-					url: path + 'invite_friend/',
+					url: apiPath + 'invite_friend/',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
 			}
 
 		}
-	});
+	};
+})();

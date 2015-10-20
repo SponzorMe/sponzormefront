@@ -1,26 +1,29 @@
 /**
-* @Servicio de Eventos 
+* @Servicio de Eventos
 *
 * @author Sebastian
 * @version 0.1
 */
+'use strict';
+(function(){
 angular.module('eventService', ['ngStorage'])
-	.factory('eventRequest', function($http,$sessionStorage) {
-		var path = "http://api.sponzor.me/"; //API path
+	.factory('eventRequest', eventRequest);
+
+	function eventRequest($http,$sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
 			allEvents : function(){
-				return $http.get(path + 'events');
-					
+				return $http.get(apiPath + 'events');
+
 			},
 			oneEvent : function(EventId){
-				return $http.get(path + 'events/' + EventId);
-				
+				return $http.get(apiPath + 'events/' + EventId);
+
 			},
 			createEvent : function(data){
 				return $http({
 					method: 'POST',
-					url: path + 'events',
+					url: apiPath + 'events',
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -28,14 +31,14 @@ angular.module('eventService', ['ngStorage'])
 			deleteEvent : function(EventId){
 				return $http({
 					method: 'DELETE',
-					url: path + 'events/' + EventId,
+					url: apiPath + 'events/' + EventId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
 				});
 			},
 			editEventPatch : function(EventId,data){
 				return $http({
 					method: 'PATCH',
-					url: path + 'events/' + EventId,
+					url: apiPath + 'events/' + EventId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
@@ -43,10 +46,11 @@ angular.module('eventService', ['ngStorage'])
 			editEventPut : function(EventId,data){
 				return $http({
 					method: 'PUT',
-					url: path + 'events/' + EventId,
+					url: apiPath + 'events/' + EventId,
 					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
 					data: $.param(data)
 				});
 			}
 		}
-	});
+	};
+})();
