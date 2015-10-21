@@ -167,10 +167,3 @@ gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
 gulp.task('default', ['clean'], () => {
   gulp.start('build');
 });
-
-gulp.task('carlos', function() {
-  return gulp.src('bower_components/**/*.min.js')
-  .pipe(concat('todo.js'))
-  .pipe($.uglify())
-  .pipe(gulp.dest('dist/'))
-});
