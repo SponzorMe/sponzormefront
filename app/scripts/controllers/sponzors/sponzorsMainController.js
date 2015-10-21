@@ -10,19 +10,19 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
     $sessionStorage.email &&
     $sessionStorage.id &&
     $sessionStorage.token &&
-    $sessionStorage.typesponzorme == 1
+    $sessionStorage.typesponzorme === 1
   ) {
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -70,7 +70,7 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
     $scope.setBestEvents = function() {
       $scope.bestEvents = [];
       for (var i = 0; i < $scope.search.length / 2; i++) { //Choose randomly events
-        if ($scope.bestEvents.indexOf($scope.search[Math.floor(Math.random() * $scope.search.length)]) == -1) {
+        if ($scope.bestEvents.indexOf($scope.search[Math.floor(Math.random() * $scope.search.length)]) === -1) {
           $scope.bestEvents.push($scope.search[Math.floor(Math.random() * $scope.search.length)]);
         }
       }
@@ -91,8 +91,8 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
             template: 'perks',
             scope: $scope
           });
-        }).error(function(data) {
-
+        }).error(function(eData) {
+            console.log(eData);
         });
       };
       //We display the form to get the sponzorship cause
@@ -111,33 +111,33 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
       */
       var data = {
         status: 0,
-        "sponzor_id": $sessionStorage.id,
-        "perk_id": $scope.perkToSponzor.id,
-        "event_id": $scope.perkToSponzor.id_event,
-        "cause": $scope.perkToSponzor.cause,
-        "organizer_id": $scope.currentOrganizer.id
+        'sponzor_id': $sessionStorage.id,
+        'perk_id': $scope.perkToSponzor.id,
+        'event_id': $scope.perkToSponzor.id_event,
+        'cause': $scope.perkToSponzor.cause,
+        'organizer_id': $scope.currentOrganizer.id
       };
       console.log(data);
 
       ngDialog.closeAll();
       sponzorshipRequest.createSponzorship(data).success(function(sData) {
         perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
-          angular.forEach(sPerkData.data.Tasks, function(value, key) {
+          angular.forEach(sPerkData.data.Tasks, function(value) {
             var taskSponzor = {
               status: 0,
-              "sponzor_id": $sessionStorage.id,
-              "perk_id": $scope.perkToSponzor.id,
-              "event_id": $scope.perkToSponzor.id_event,
-              "organizer_id": $scope.currentOrganizer.id,
-              "sponzorship_id": sData.Sponzorship.id,
-              "task_id": value.id
+              'sponzor_id': $sessionStorage.id,
+              'perk_id': $scope.perkToSponzor.id,
+              'event_id': $scope.perkToSponzor.id_event,
+              'organizer_id': $scope.currentOrganizer.id,
+              'sponzorship_id': sData.Sponzorship.id,
+              'task_id': value.id
             };
-            taskSponzorRequest.createTaskSponzor(taskSponzor).success(function(sTaskSponzorData) {});
+            taskSponzorRequest.createTaskSponzor(taskSponzor).success(function(){});
           });
           ngDialog.open({
             template: 'SponzorshipComplete'
           });
-          $location.path("/sponsors/following"); //redirection to Following page
+          $location.path('/sponsors/following'); //redirection to Following page
         }).error(function(eData) {
           console.log(eData);
         });
@@ -148,7 +148,7 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
     $scope.tolsctive = 'active';
     $scope.toggleSidebar = function() {
           $scope.tolsctive = !$scope.tolsctive;
-          if($scope.tolsctive == true){
+          if($scope.tolsctive === true){
              $scope.tolsctive = 'active';
           }
       };
@@ -156,7 +156,7 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
 
     $scope.menuprincipal = 'views/sponzors/menu.html';
   } else {
-    $location.path("/");
+    $location.path('/');
   }
-};
+}
 })();

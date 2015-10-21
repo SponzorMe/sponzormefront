@@ -25,5 +25,5 @@ function ResendController($scope, $translate, loginRequest, ngDialog) {
     });
   };
 
-};
+}
 })();

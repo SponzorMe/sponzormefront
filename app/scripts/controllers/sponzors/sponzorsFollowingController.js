@@ -11,15 +11,15 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
 
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -28,7 +28,7 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
 
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
   $scope.emailuser = $sessionStorage.email;
@@ -57,13 +57,13 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
           $scope.noSponzorshipsTaskMessage = true;
         } else {
           $scope.sponzorships = [];
-          angular.forEach(data.SponzorsEvents, function(value, key) {
-            if (value.status == 0) {
+          angular.forEach(data.SponzorsEvents, function(value) {
+            if (value.status === 0) {
               $scope.sponzorships.push(value);
             }
           });
-          if ($scope.sponzorships[0] && $scope.sponzorships[0].status == 0) {
-            $scope.getTaskSponzor($scope.sponzorships[0].id) //Fit the tasks with the first sponzorships
+          if ($scope.sponzorships[0] && $scope.sponzorships[0].status === 0) {
+            $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
             $scope.sponzorships.current = $scope.sponzorships[0].id;
           } else {
             $scope.noSponzorshipsMessage = true;
@@ -80,13 +80,13 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
     //this function deletes an sponzorship if the status is 0
   $scope.deleteSponzorship = function(sponzorshipId) {
       sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
-        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value, key) {
-          taskSponzorRequest.deleteTaskSponzor(value.id).success(function(data) {});
+        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
+          taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
         });
-        sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function(data) {
+        sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
           $scope.loadSponzorships();
-        }).error(function(data) {
-          console.log(data);
+        }).error(function(eData) {
+          console.log(eData);
         });
       });
     };
@@ -96,8 +96,8 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
     taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
       $scope.loadingsponzorshipstasks = false;
       $scope.tasksSponzor = [];
-      angular.forEach(data.tasks, function(value, key) {
-        if (value.type == 0) {
+      angular.forEach(data.tasks, function(value) {
+        if (value.type === 0) {
           $scope.tasksSponzor.push(value);
         }
       });
@@ -123,7 +123,7 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive == true){
+        if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
@@ -131,5 +131,5 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
   $scope.menuprincipal = 'views/sponzors/menu.html';
 
 
-};
+}
 })();

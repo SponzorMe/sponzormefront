@@ -1,7 +1,7 @@
 'use strict';
-var idiomaselect = "en"; //Default Language
-var apiPath = "http://api.sponzor.me/"; //API path
-var imgurPath = "https://api.imgur.com/3/image"; //API path
+var idiomaselect = 'en'; //Default Language
+var apiPath = 'http://api.sponzor.me/'; //API path
+var imgurPath = 'https://api.imgur.com/3/image'; //API path
 (function () {
 
 angular.module('sponzorme', [
@@ -171,9 +171,9 @@ angular.module('sponzorme', [
     allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata) {
       var interests = adata.InterestCategory;
       var log = [];
-      var a = "";
+      var a = '';
       angular.forEach(interests, function(value, key) {
-        a = a + "</br>" + ($filter('normalize')(value.name) + ":'" + value.name + "',");
+        a = a + '</br>' + ($filter('normalize')(value.name) + ':'' + value.name + '',');
       }, log);
       document.write(a);
     });
@@ -186,11 +186,11 @@ angular.module('sponzorme', [
 .filter('normalize', function() {
   return function(input) {
     if(!input) {
-      return "";
+      return '';
     }
     input = input
       .replace('&', 'AND')
-      .replace(/\W+/g, "");
+      .replace(/\W+/g, '');
     return input;
   };
 });

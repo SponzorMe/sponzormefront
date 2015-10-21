@@ -28,15 +28,15 @@
     $scope.resetPassword = function() {
       $scope.errorActivation = false;
       $scope.successActivation = false;
-      if ($scope.password == $scope.passwordConfirmation) {
+      if ($scope.password === $scope.passwordConfirmation) {
         var formData = {
-          "email": $scope.email,
-          "password": $scope.password,
-          "password_confirmation": $scope.passwordConfirmation
+          'email': $scope.email,
+          'password': $scope.password,
+          'password_confirmation': $scope.passwordConfirmation
         };
         console.log($routeParams.tokenReset);
         loginRequest.updatePassword($routeParams.tokenReset, formData).success(function(data) {
-          if (data.code == 200) {
+          if (data.code === 200) {
             $scope.successActivation = true;
           }
           $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.PasswordChangedSuccesfully');

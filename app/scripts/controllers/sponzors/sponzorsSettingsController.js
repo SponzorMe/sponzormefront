@@ -3,21 +3,21 @@
 angular.module('sponzorme')
 .controller('SponzorsSettingsController', SponzorsSettingsController);
 
-function SponzorsSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage,imgurRequest) {
+function SponzorsSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest) {
 
   if ($sessionStorage) {
 
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -26,7 +26,7 @@ function SponzorsSettingsController($scope, $translate, $sessionStorage, userReq
 
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
   $scope.emailuser = $sessionStorage.email;
@@ -53,7 +53,7 @@ function SponzorsSettingsController($scope, $translate, $sessionStorage, userReq
     if ($scope.file) {
       var params = {
         image: $scope.file.base64,
-        type: "base64"
+        type: 'base64'
       };
       imgurRequest.uploadImage(params).success(function(data) {
         $scope.account.image = data.data.link;
@@ -78,7 +78,7 @@ function SponzorsSettingsController($scope, $translate, $sessionStorage, userReq
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive == true){
+        if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
@@ -86,5 +86,5 @@ function SponzorsSettingsController($scope, $translate, $sessionStorage, userReq
   $scope.menuprincipal = 'views/sponzors/menu.html';
 
 
-};
+}
 })();

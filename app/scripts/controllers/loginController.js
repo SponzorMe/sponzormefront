@@ -23,15 +23,15 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
 
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -40,12 +40,12 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
 
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
   $scope.sendfrom = function() {
 
-    if ($scope.email != undefined || $scope.password != undefined) {
+    if ($scope.email !== undefined || $scope.password !== undefined) {
       $scope.objuser = {};
       $scope.objuser.email = $scope.email;
       $scope.objuser.password = $scope.password;
@@ -64,14 +64,14 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
           $sessionStorage.email = adata.user.email;
           idiomaselect = adata.user.lang;
           var url = $location.host();
-          if (url == 'localhost') {
+          if (url === 'localhost') {
             $sessionStorage.developer = 1;
           }
           $scope.loagind = false;
-          if (adata.user.type == 1) {
-            $location.path("/sponzors/dashboard");
+          if (adata.user.type === 1) {
+            $location.path('/sponzors/dashboard');
           } else {
-            $location.path("/organizers/dashboard");
+            $location.path('/organizers/dashboard');
           }
         } else {
           $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.UnactivatedAccount');

@@ -9,15 +9,15 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
 
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -26,7 +26,7 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
 
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
   $scope.emailuser = $sessionStorage.email;
@@ -53,7 +53,7 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
     if ($scope.file) {
       var params = {
         image: $scope.file.base64,
-        type: "base64"
+        type: 'base64'
       };
       imgurRequest.uploadImage(params).success(function(data) {
         $scope.account.image = data.data.link;
@@ -79,7 +79,7 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive == true){
+        if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
@@ -87,5 +87,5 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
   $scope.menuprincipal = 'views/organizers/menu.html';
 
 
-};
+}
 })();

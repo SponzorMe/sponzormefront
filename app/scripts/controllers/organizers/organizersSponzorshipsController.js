@@ -9,14 +9,14 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
   $scope.loadingsponzorshipstasks = true;
   if ($sessionStorage) {
     var cookie = $sessionStorage.cookiesponzorme;
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -24,7 +24,7 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
     }
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
   $scope.emailuser = $sessionStorage.email;
   $scope.userfroups = 0;
@@ -40,7 +40,7 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
         $scope.noSponzorshipsTaskMessage = true;
       } else {
         $scope.sponzorships = data.SponzorsEvents;
-        if ($scope.sponzorships[0].status != 0) {
+        if ($scope.sponzorships[0].status !== 0) {
           $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
         } else {
           $scope.noSponzorshipsTaskMessage = true;
@@ -59,13 +59,13 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
       });
     };
     //This function changes to 1 the sponzorship status
-  $scope.acceptSponzorship = function(sponzoshipId,i) {
+  $scope.acceptSponzorship = function(sponzoshipId, i) {
       $scope.loadingsponzorships = true;
       $scope.loadingsponzorshipstasks = true;
       var data = {
         status: 1
       };
-      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function(data) {
+      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         //We make the email Request
         var info = {
           sponzorEmail: $scope.sponzorships[i].email,
@@ -74,10 +74,10 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
           organizerEmail: $sessionStorage.email,
           lang: idiomaselect
         };
-        sponzorshipRequest.sendSponzorshipEmail(info).success(function(Sdata){});
+        sponzorshipRequest.sendSponzorshipEmail(info).success(function(){});
         $scope.getSponzorshipsByOrganizer();
-      }).error(function(data) {
-        console.log(data);
+      }).error(function(eData) {
+        console.log(eData);
       });
     };
     //This function changes to 0 the sponzorship status
@@ -87,22 +87,22 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
       var data = {
         status: 0
       };
-      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function(data) {
+      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsByOrganizer();
-      }).error(function(data) {
-        console.log(data);
+      }).error(function(eData) {
+        console.log(eData);
       });
     };
     //this function deletes an sponzorship if the status is 0
   $scope.deleteSponzorship = function(sponzorshipId) {
       sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
-        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value, key) {
-          taskSponzorRequest.deleteTaskSponzor(value.id).success(function(data) {});
+        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
+          taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
         });
-        sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function(data) {
+        sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
           $scope.getSponzorshipsByOrganizer();
-        }).error(function(data) {
-          console.log(data);
+        }).error(function(eData) {
+          console.log(eData);
         });
       });
     };
@@ -113,8 +113,8 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
 
       taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
         $scope.tasksSponzor = [];
-        angular.forEach(data.tasks, function(value, key) {
-          if (value.type == 0) {
+        angular.forEach(data.tasks, function(value) {
+          if (value.type === 0) {
             $scope.tasksSponzor.push(value);
           }
         });
@@ -134,35 +134,35 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
     };
     //This function changes to 1 the sponzor task status
   $scope.completeTask = function(taskSponzorId) {
-      data = {
+      var data = {
         status: 1
       };
-      taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function(data) {
+      taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
         $scope.getTaskSponzor($scope.sponzorships.current);
-      }).error(function(data) {
-        console.log(data);
+      }).error(function(eData) {
+        console.log(eData);
       });
     };
     //This function changes to 0 the sponzor task status
   $scope.uncompleteTask = function(taskSponzorId) {
-    data = {
+    var data = {
       status: 0
     };
-    taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function(data) {
+    taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
       $scope.getTaskSponzor($scope.sponzorships.current);
-    }).error(function(data) {
-      console.log(data);
+    }).error(function(eData) {
+      console.log(eData);
     });
   };
   $scope.deleteTaskSponzor = function(taskSponzorId) {
-    taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function(data) {
+    taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {
       $scope.getTaskSponzor($scope.sponzorships.current);
-    }).error(function(data) {
-      console.log(data);
+    }).error(function(eData) {
+      console.log(eData);
     });
   };
   $scope.seeCause = function(sponzorship) {
-    console.log("hola");
+    console.log('hola');
     $scope.cause = sponzorship.cause;
     ngDialog.open({
       template: 'sponzorshipCause',
@@ -180,7 +180,7 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive == true){
+        if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
@@ -188,11 +188,11 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive == true){
+        if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
 $scope.getSponzorshipsByOrganizer();
   $scope.menuprincipal = 'views/organizers/menu.html';
-};
+}
 })();

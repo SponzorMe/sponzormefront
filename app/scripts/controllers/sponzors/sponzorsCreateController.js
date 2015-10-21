@@ -8,15 +8,15 @@ function SponzorsCreateController($scope, $translate, $sessionStorage, userReque
 
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -25,23 +25,23 @@ function SponzorsCreateController($scope, $translate, $sessionStorage, userReque
 
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
   $scope.sendfrom = function() {
     $scope.error_log = []; //We storage here all translate error during register process
-    if ($scope.passwordone != undefined || $scope.passwordtwo != undefined) { //We verify the passwords not empty.
-      if ($scope.passwordone == $scope.passwordtwo) { //We verify the passwords match atleast.
+    if ($scope.passwordone !== undefined || $scope.passwordtwo !== undefined) { //We verify the passwords not empty.
+      if ($scope.passwordone === $scope.passwordtwo) { //We verify the passwords match atleast.
         $scope.objuser = {};
         $scope.objuser.email = $scope.email; //storage the email
         $scope.objuser.password = $scope.passwordone; //storage the password
         $scope.objuser.password_confirmation = $scope.passwordtwo;
         $scope.objuser.lang = idiomaselect; //storage the current lang
         $scope.objuser.type = 1; //the only difference beetwen the other method is the type.
-        $scope.objuser.name = $scope.name + " " + $scope.lastname;
+        $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
         $scope.loagind = true;
         userRequest.createUser($scope.objuser).success(function(adata) {
-          if (adata.message == "Inserted") {
+          if (adata.message === 'Inserted') {
             var datuser = JSON.stringify(adata.User);
             $localStorage.sponzorme = datuser;
             var expireDate = new Date();
@@ -52,10 +52,10 @@ function SponzorsCreateController($scope, $translate, $sessionStorage, userReque
             $sessionStorage.typesponzorme = adata.User.type;
             $sessionStorage.id = adata.User.id;
             $sessionStorage.email = adata.User.email;
-            $location.path("/customization");
+            $location.path('/customization');
           }
         }).error(function(data) {
-          if (data.message == "Not inserted") {
+          if (data.message === 'Not inserted') {
             if (data.error.email) {
               $scope.error_log.push(eval('translations' + idiomaselect.toUpperCase() + '.errorRegisterEmail'));
             }
@@ -85,5 +85,5 @@ function SponzorsCreateController($scope, $translate, $sessionStorage, userReque
     }
   };
 
-};
+}
 })();

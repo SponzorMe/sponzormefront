@@ -1,6 +1,6 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
+angular.module('sponzorme')
 .controller('OrganizersMainController', OrganizersMainController);
 
 function OrganizersMainController($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
@@ -11,18 +11,18 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $sessionStorage.email &&
     $sessionStorage.id &&
     $sessionStorage.token &&
-    $sessionStorage.typesponzorme == 0
+    $sessionStorage.typesponzorme === 0
   ) {
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -30,7 +30,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     }
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
   $scope.emailuser = $sessionStorage.email;
@@ -51,8 +51,8 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
   sponzorshipRequest.oneSponzorshipByOrganizer($sessionStorage.id).success(function(data) {
     $scope.sponzors.size = 0;
     $scope.sponzors.balance = 0;
-    angular.forEach(data.SponzorsEvents, function(value, key) {
-      if (value.status == 1) {
+    angular.forEach(data.SponzorsEvents, function(value) {
+      if (value.status === 1) {
         $scope.sponzors.balance = parseInt($scope.sponzors.balance) + parseInt(value.usd);
       }
     });
@@ -65,7 +65,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
       $scope.users.size = adata.data.user.comunity_size;
       var datuser = JSON.stringify(adata.data.user);
       $localStorage.sponzorme = datuser;
-      $scope.events=adata.data.user.events;
+      $scope.events = adata.data.user.events;
       $scope.eventos.size = $scope.events.length;
       usSpinnerService.stop('spinner-2');
       $scope.loadingevents = false;
@@ -82,7 +82,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $scope.event.current = $scope.events[0].id;
   }
 
-  $scope.$watch('event.current', function(newvalue, oldvalue) {
+  $scope.$watch('event.current', function(newvalue) {
     $scope.loadingpeaks = true;
     $scope.noPerksMessage = false;
     if ($scope.event.current) {
@@ -94,7 +94,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
         } else {
           $scope.noPerksMessage = false;
         }
-      }).error(function(error) {
+      }).error(function() {
         $scope.loadingpeaks = false;
         $scope.noPerksMessage = true;
       });
@@ -104,7 +104,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
   rssRequest.rss(idiomaselect).success(function(data) {
     $scope.rss = data.responseData.feed.entries;
     $scope.loadingrss = false;
-  }).error(function(data) {
+  }).error(function() {
     $scope.loadingrss = false;
     $scope.noRssMessage = true;
   });
@@ -112,7 +112,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive == true){
+        if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
@@ -120,11 +120,11 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive == true){
+        if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
 
   $scope.menuprincipal = 'views/organizers/menu.html';
-};
+}
 })();

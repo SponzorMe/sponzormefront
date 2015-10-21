@@ -9,15 +9,15 @@ function OrganizersCreateController($scope, $translate, $sessionStorage, userReq
 
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -26,25 +26,25 @@ function OrganizersCreateController($scope, $translate, $sessionStorage, userReq
 
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
   $scope.sendfrom = function() {
     $scope.error_log = [];
-    if ($scope.passwordone != undefined || $scope.passwordtwo != undefined) {
-      if ($scope.passwordone == $scope.passwordtwo) {
+    if ($scope.passwordone !== undefined || $scope.passwordtwo !== undefined) {
+      if ($scope.passwordone === $scope.passwordtwo) {
         $scope.objuser = {};
         $scope.objuser.email = $scope.email;
         $scope.objuser.password = $scope.passwordone;
         $scope.objuser.password_confirmation = $scope.passwordtwo;
         $scope.objuser.lang = idiomaselect;
         $scope.objuser.type = 0;
-        $scope.objuser.name = $scope.name + " " + $scope.lastname;
+        $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
         $scope.loagind = true;
 
         userRequest.createUser($scope.objuser).success(function(adata) {
 
-          if (adata.message == "Inserted") {
+          if (adata.message === 'Inserted') {
             var datuser = JSON.stringify(adata.User);
             $localStorage.sponzorme = datuser;
             var expireDate = new Date();
@@ -55,10 +55,10 @@ function OrganizersCreateController($scope, $translate, $sessionStorage, userReq
             $sessionStorage.typesponzorme = adata.User.type;
             $sessionStorage.id = adata.User.id;
             $sessionStorage.email = adata.User.email;
-            $location.path("/customization");
+            $location.path('/customization');
           }
         }).error(function(data) {
-          if (data.message == "Not inserted") {
+          if (data.message === 'Not inserted') {
             if (data.error.email) {
               $scope.error_log.push(eval('translations' + idiomaselect.toUpperCase() + '.errorRegisterEmail'));
             }
@@ -87,5 +87,5 @@ function OrganizersCreateController($scope, $translate, $sessionStorage, userReq
       });
     }
   };
-};
+}
 })();

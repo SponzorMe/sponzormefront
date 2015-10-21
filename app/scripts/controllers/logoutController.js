@@ -25,6 +25,6 @@ function LogoutController($scope, $translate, $sessionStorage, $location, $local
 
   $scope.userfroups = 0;
 
-  $location.path("/");
+  $location.path('/');
 };
 })();

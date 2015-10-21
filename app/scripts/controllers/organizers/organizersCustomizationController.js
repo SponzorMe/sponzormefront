@@ -1,6 +1,6 @@
 'use strict';
 (function(){
-angular.module("sponzorme")
+angular.module('sponzorme')
 .controller('OrganizersCustomizationController', OrganizersCustomizationController);
 
 function OrganizersCustomizationController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest) {
@@ -16,15 +16,15 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
 
     var cookie = $sessionStorage.cookiesponzorme;
 
-    if (cookie == undefined) {
+    if (cookie === undefined) {
       $scope.vieuser = 1;
     } else {
       $scope.vieuser = 0;
     }
 
     var typeini = $sessionStorage.typesponzorme;
-    if (typeini != undefined) {
-      if (typeini == '1') {
+    if (typeini !== undefined) {
+      if (typeini === '1') {
         $scope.typeuser = 0;
       } else {
         $scope.typeuser = 1;
@@ -33,7 +33,7 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
 
     $scope.userfroups = 0;
   } else {
-    $location.path("/");
+    $location.path('/');
   }
 
 
@@ -57,7 +57,7 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
       var log = [];
       angular.forEach($scope.categories, function(value, key) {
         value.interests = $scope.interests.filter(function(el) {
-          return el.category_id == value.id;
+          return el.category_id === value.id;
         });
       }, log);
 
@@ -74,7 +74,7 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
     $scope.objuser.location = $scope.userData.location.reference;
     $scope.loagind = true;
     userRequest.editUserPatch($sessionStorage.id, $scope.objuser).success(function(adata) {
-      if (adata.message == "Updated") {
+      if (adata.message === 'Updated') {
         var datuser = JSON.stringify(adata.User);
         $localStorage.sponzorme = datuser;
         $scope.loagind = false;
@@ -92,7 +92,7 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
   $scope.interestselect = function(interestselect) {
 
     var searcharray = $scope.interestselectarray.indexOf(interestselect);
-    if (searcharray == -1) {
+    if (searcharray === -1) {
       $scope.interestselectarray.push(interestselect);
     } else {
       $scope.interestselectarray.splice(searcharray, 1);
@@ -116,5 +116,5 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
     $localStorage.$reset();
   };
   $scope.menuprincipal = 'views/sponsors/menu.html';
-};
+}
 })();
