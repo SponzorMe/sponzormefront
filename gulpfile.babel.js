@@ -4,7 +4,6 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
-
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
@@ -167,4 +166,11 @@ gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
 
 gulp.task('default', ['clean'], () => {
   gulp.start('build');
+});
+
+gulp.task('carlos', function() {
+  return gulp.src('bower_components/**/*.min.js')
+  .pipe(concat('todo.js'))
+  .pipe($.uglify())
+  .pipe(gulp.dest('dist/'))
 });
