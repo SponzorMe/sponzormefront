@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('OrganizersFriendController', OrganizersFriendController);
 
-function OrganizersFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog) {
+function OrganizersFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
 
   if ($sessionStorage) {
 
@@ -69,7 +67,9 @@ function OrganizersFriendController($scope, $translate, $sessionStorage, userReq
     };
 
   $scope.menuprincipal = 'views/organizers/menu.html';
-
-
 }
+
+angular.module('sponzorme')
+.controller('OrganizersFriendController', OrganizersFriendController);
+
 })();

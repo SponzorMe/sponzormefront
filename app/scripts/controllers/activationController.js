@@ -1,7 +1,5 @@
 'use strict';
 (function() {
-  angular.module('sponzorme')
-    .controller('ActivationController', ActivationController);
 
   function ActivationController($scope, $routeParams, $translate, $sessionStorage, loginRequest) {
     $scope.errorActivation = false;
@@ -13,5 +11,9 @@
     }).error(function(data) {
       $scope.errorActivation = true;
     });
-  };
+  }
+
+  angular.module('sponzorme')
+    .controller('ActivationController', ActivationController);
+
 })();

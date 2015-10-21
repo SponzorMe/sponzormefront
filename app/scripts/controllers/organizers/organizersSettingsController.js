@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('OrganizersSettingsController', OrganizersSettingsController);
 
-function OrganizersSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest) {
+function OrganizersSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest, $location) {
 
   if ($sessionStorage) {
 
@@ -85,7 +83,9 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
     };
 
   $scope.menuprincipal = 'views/organizers/menu.html';
-
-
 }
+
+angular.module('sponzorme')
+.controller('OrganizersSettingsController', OrganizersSettingsController);
+
 })();

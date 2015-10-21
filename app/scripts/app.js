@@ -1,4 +1,6 @@
 'use strict';
+/*global idiomaselect:true*/
+/*eslint no-undef: 2*/
 var idiomaselect = 'en'; //Default Language
 var apiPath = 'http://api.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
@@ -173,7 +175,7 @@ angular.module('sponzorme', [
       var log = [];
       var a = '';
       angular.forEach(interests, function(value, key) {
-        a = a + '</br>' + ($filter('normalize')(value.name) + ':'' + value.name + '',');
+        a = a + '</br>' + ($filter('normalize')(value.name) + ':' + value.name + ',');
       }, log);
       document.write(a);
     });

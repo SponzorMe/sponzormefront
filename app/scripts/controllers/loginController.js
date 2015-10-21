@@ -1,7 +1,5 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('LoginController', LoginController);
 
 function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
 
@@ -74,7 +72,7 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
             $location.path('/organizers/dashboard');
           }
         } else {
-          $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.UnactivatedAccount');
+          $scope.error_log[0] = 'UnactivatedAccount';
           $scope.loagind = false;
           ngDialog.open({
             template: 'templateId',
@@ -90,5 +88,9 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
       });
     }
   };
-};
+}
+
+angular.module('sponzorme')
+.controller('LoginController', LoginController);
+
 })();

@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": 1
+  },
+
+  "globals": {
+    "angular": 1,
+    "$":1,
+    "jQuery": 1,
+    "idiomaselect": 1,
+    "apiPath": 1,
+    "imgurPath": 1
+  },
+  "rules": {
+    "camelcase": 0
+  },
+  "predef": ["sponzorme"]
+}

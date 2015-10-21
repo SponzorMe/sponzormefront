@@ -1,7 +1,5 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('OrganizersMainController', OrganizersMainController);
 
 function OrganizersMainController($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
   $scope.loadingevents = true;
@@ -40,12 +38,12 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
   $translate.use(idiomaselect);
   $scope.startcounter = 0;
   $scope.eventos = {};
-  $scope.eventos.size = eval('translations' + idiomaselect.toUpperCase() + '.calculating');
+  $scope.eventos.size = 'calculating';
   $scope.event = {};
   $scope.peaks = [];
   $scope.sponzors = {};
-  $scope.sponzors.size = eval('translations' + idiomaselect.toUpperCase() + '.calculating');
-  $scope.sponzors.balance = eval('translations' + idiomaselect.toUpperCase() + '.calculating');
+  $scope.sponzors.size = 'calculating';
+  $scope.sponzors.balance = 'calculating';
   $scope.users = {};
   $scope.users.size = 0;
   sponzorshipRequest.oneSponzorshipByOrganizer($sessionStorage.id).success(function(data) {
@@ -127,4 +125,8 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
 
   $scope.menuprincipal = 'views/organizers/menu.html';
 }
+
+angular.module('sponzorme')
+.controller('OrganizersMainController', OrganizersMainController);
+
 })();

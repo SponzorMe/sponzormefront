@@ -1,7 +1,5 @@
 'use strict';
 (function() {
-  angular.module('sponzorme')
-    .controller('EventPageController', EventPageController);
 
   function EventPageController($scope, $routeParams, $translate, $sessionStorage, eventRequest) {
     $scope.eventLoaded = false;
@@ -12,5 +10,9 @@
     }).error(function(data) {
       $scope.eventLoaded = true;
     });
-  };
+  }
+
+  angular.module('sponzorme')
+    .controller('EventPageController', EventPageController);
+
 })();

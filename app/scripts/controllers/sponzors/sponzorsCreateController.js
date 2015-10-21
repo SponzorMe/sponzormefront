@@ -1,7 +1,5 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('SponzorsCreateController', SponzorsCreateController);
 
 function SponzorsCreateController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, usSpinnerService, $localStorage) {
   if ($sessionStorage) {
@@ -57,16 +55,16 @@ function SponzorsCreateController($scope, $translate, $sessionStorage, userReque
         }).error(function(data) {
           if (data.message === 'Not inserted') {
             if (data.error.email) {
-              $scope.error_log.push(eval('translations' + idiomaselect.toUpperCase() + '.errorRegisterEmail'));
+              $scope.error_log.push('errorRegisterEmail');
             }
             if (data.error.name) {
-              $scope.error_log.push(eval('translations' + idiomaselect.toUpperCase() + '.errorRegisterName'));
+              $scope.error_log.push('errorRegisterName');
             }
             if (data.error.lastname) {
-              $scope.error_log.push(eval('translations' + idiomaselect.toUpperCase() + '.errorRegisterLastname'));
+              $scope.error_log.push('errorRegisterLastname');
             }
             if (data.error.password) {
-              $scope.error_log.push(eval('translations' + idiomaselect.toUpperCase() + '.errorRegisterPassword'));
+              $scope.error_log.push('errorRegisterPassword');
             }
           }
           $scope.loagind = false;
@@ -77,13 +75,14 @@ function SponzorsCreateController($scope, $translate, $sessionStorage, userReque
         });
       }
     } else {
-      $scope.error_log.push(eval('translations' + idiomaselect.toUpperCase() + '.errorRegisterPassword'));
+      $scope.error_log.push('errorRegisterPassword');
       ngDialog.open({
         template: 'templateId',
         scope: $scope
       });
     }
   };
-
 }
+angular.module('sponzorme')
+.controller('SponzorsCreateController', SponzorsCreateController);
 })();

@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('OrganizersEventsController', OrganizersEventsController);
 
-function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest) {
+function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest) {
   if ($sessionStorage) {
 
     var cookie = $sessionStorage.cookiesponzorme;
@@ -355,7 +353,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.removeEvent = function(idevent) {
     eventRequest.oneEvent(idevent).success(function(adata) {
       if (adata.data.event.sponzorship.length === 0) { //If event does not have sponzorhips
-        angular.forEach(adata.data.event.sponzor_tasks, function(value, key) { //First we delete the tasks
+        angular.forEach(adata.data.event.sponzor_tasks, function(value) { //First we delete the tasks
           taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {
             console.log('Deleted task sponzor: ' + value.id);
           }).error(function(eData) {
@@ -370,7 +368,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
             console.log(eData);
           });
         });
-        angular.forEach(adata.data.event.perks, function(value, key) { //Then we delete the perks
+        angular.forEach(adata.data.event.perks, function(value) { //Then we delete the perks
           perkRequest.deletePerk(value.id).success(function() {
             console.log('Deleted perk: ' + value.id);
           }).error(function(eData) {
@@ -436,4 +434,8 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   });
   $scope.menuprincipal = 'views/organizers/menu.html';
 }
+
+angular.module('sponzorme')
+.controller('OrganizersEventsController', OrganizersEventsController);
+
 })();

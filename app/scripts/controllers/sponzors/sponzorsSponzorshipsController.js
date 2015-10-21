@@ -1,7 +1,5 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
 
 function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog) {
 
@@ -209,4 +207,7 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
     };
   $scope.menuprincipal = 'views/sponzors/menu.html';
 }
+
+angular.module('sponzorme')
+.controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
 })();

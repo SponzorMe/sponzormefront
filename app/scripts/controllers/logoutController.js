@@ -1,7 +1,5 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('LogoutController', LogoutController);
 
 function LogoutController($scope, $translate, $sessionStorage, $location, $localStorage) {
 
@@ -26,5 +24,9 @@ function LogoutController($scope, $translate, $sessionStorage, $location, $local
   $scope.userfroups = 0;
 
   $location.path('/');
-};
+}
+
+angular.module('sponzorme')
+.controller('LogoutController', LogoutController);
+
 })();

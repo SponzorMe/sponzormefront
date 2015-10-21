@@ -1,7 +1,5 @@
 'use strict';
 (function() {
-  angular.module('sponzorme')
-    .controller('ForgotController', ForgotController);
 
   function ForgotController($scope, $translate, $routeParams, $sessionStorage, $localStorage, ngDialog, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, loginRequest) {
 
@@ -61,4 +59,8 @@
       }
     };
   };
+
+  angular.module('sponzorme')
+    .controller('ForgotController', ForgotController);
+
 })();

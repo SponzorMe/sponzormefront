@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('SponzorsFriendController', SponzorsFriendController);
 
-function SponzorsFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog) {
+function SponzorsFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
 
   if ($sessionStorage) {
 
@@ -65,7 +63,9 @@ function SponzorsFriendController($scope, $translate, $sessionStorage, userReque
     };
 
   $scope.menuprincipal = 'views/sponzors/menu.html';
-
-
 }
+
+angular.module('sponzorme')
+.controller('SponzorsFriendController', SponzorsFriendController);
+
 })();

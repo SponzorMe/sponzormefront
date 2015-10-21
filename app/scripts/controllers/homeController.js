@@ -1,7 +1,5 @@
 'use strict';
 (function() {
-  angular.module('sponzorme')
-    .controller('HomeController', HomeController);
 
   function HomeController($scope, $translate, $sessionStorage, $location) {
     if ($sessionStorage) {
@@ -23,5 +21,9 @@
     } else {
       $location.path('/');
     }
-  };
+  }
+
+  angular.module('sponzorme')
+    .controller('HomeController', HomeController);
+
 })();

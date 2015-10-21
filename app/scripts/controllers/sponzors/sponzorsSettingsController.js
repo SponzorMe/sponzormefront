@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('SponzorsSettingsController', SponzorsSettingsController);
 
-function SponzorsSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest) {
+function SponzorsSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest, $location) {
 
   if ($sessionStorage) {
 
@@ -82,9 +80,8 @@ function SponzorsSettingsController($scope, $translate, $sessionStorage, userReq
            $scope.tolsctive = 'active';
         }
     };
-
   $scope.menuprincipal = 'views/sponzors/menu.html';
-
-
 }
+angular.module('sponzorme')
+.controller('SponzorsSettingsController', SponzorsSettingsController);
 })();

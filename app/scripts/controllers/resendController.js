@@ -10,13 +10,13 @@ function ResendController($scope, $translate, loginRequest, ngDialog) {
     loginRequest.resendActivation($scope.email).success(function(adata) {
 
       $scope.loagind = false;
-      $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.ActivationLinkResent');
+      $scope.error_log[0] = 'ActivationLinkResent';
       ngDialog.open({
         template: 'templateId',
         scope: $scope
       });
     }).error(function(edata) {
-      $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.InvalidEmail');
+      $scope.error_log[0] = 'InvalidEmail';
       $scope.loagind = false;
       ngDialog.open({
         template: 'templateId',

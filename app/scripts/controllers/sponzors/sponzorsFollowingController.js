@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('SponzorsFollowingController', SponzorsFollowingController);
 
-function SponzorsFollowingController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog) {
+function SponzorsFollowingController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location) {
 
   $scope.loadinglistsponzors = true;
 
@@ -129,7 +127,9 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
     };
 
   $scope.menuprincipal = 'views/sponzors/menu.html';
-
-
 }
+
+angular.module('sponzorme')
+.controller('SponzorsFollowingController', SponzorsFollowingController);
+
 })();

@@ -1,9 +1,7 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('OrganizersCustomizationController', OrganizersCustomizationController);
 
-function OrganizersCustomizationController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest) {
+function OrganizersCustomizationController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
 
   $scope.loadinglistsponzors = true;
   $scope.userData = {};
@@ -46,16 +44,14 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
       $localStorage.sponzorme = datuser;
     });
 
-  } else {
-    var sponzormeObj = JSON.parse($localStorage.sponzorme);
   }
 
   categoryRequest.allCategories().success(function(adata) {
     $scope.categories = adata.categories;
-    allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata) {
-      $scope.interests = adata.InterestCategory;
+    allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
+      $scope.interests = sData.InterestCategory;
       var log = [];
-      angular.forEach($scope.categories, function(value, key) {
+      angular.forEach($scope.categories, function(value) {
         value.interests = $scope.interests.filter(function(el) {
           return el.category_id === value.id;
         });
@@ -67,7 +63,7 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
   $scope.step1 = true;
 
   $scope.sendfrom = function() {
-    $scope.objuser = {}
+    $scope.objuser = {};
     $scope.objuser.age = $scope.userData.age;
     $scope.objuser.sex = $scope.userData.sex;
     $scope.objuser.lang = $scope.userData.lang;
@@ -101,11 +97,11 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
   };
   $scope.submitCategoryInfo = function() {
     $scope.loagind = true;
-    angular.forEach($scope.interestselectarray, function(valuep, key) {
+    angular.forEach($scope.interestselectarray, function(valuep) {
       $scope.itemintere = {};
       $scope.itemintere.interest_id = valuep;
       $scope.itemintere.user_id = $sessionStorage.id;
-      userInterestRequest.createUserInterest($scope.itemintere).success(function(adata) {
+      userInterestRequest.createUserInterest($scope.itemintere).success(function() {
 
       });
     });
@@ -117,4 +113,8 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
   };
   $scope.menuprincipal = 'views/sponsors/menu.html';
 }
+
+angular.module('sponzorme')
+.controller('OrganizersCustomizationController', OrganizersCustomizationController);
+
 })();
