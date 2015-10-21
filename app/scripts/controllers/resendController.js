@@ -1,21 +1,18 @@
 'use strict';
 (function(){
-angular.module('sponzorme')
-.controller('ResendController', ResendController);
 
 function ResendController($scope, $translate, loginRequest, ngDialog) {
   $scope.error_log = []; //We storage here all translate error during register process
   $scope.resend = function() {
     $scope.loagind = true;
-    loginRequest.resendActivation($scope.email).success(function(adata) {
-
+    loginRequest.resendActivation($scope.email).success(function() {
       $scope.loagind = false;
       $scope.error_log[0] = 'ActivationLinkResent';
       ngDialog.open({
         template: 'templateId',
         scope: $scope
       });
-    }).error(function(edata) {
+    }).error(function() {
       $scope.error_log[0] = 'InvalidEmail';
       $scope.loagind = false;
       ngDialog.open({
@@ -24,6 +21,9 @@ function ResendController($scope, $translate, loginRequest, ngDialog) {
       });
     });
   };
-
 }
+
+angular.module('sponzorme')
+.controller('ResendController', ResendController);
+
 })();

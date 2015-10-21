@@ -8,7 +8,7 @@
       if (data.code === 200) {
         $scope.successActivation = true;
       }
-    }).error(function(data) {
+    }).error(function() {
       $scope.errorActivation = true;
     });
   }

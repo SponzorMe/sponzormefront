@@ -6,8 +6,6 @@
 */
 'use strict';
 (function(){
-angular.module('loginService', [])
-	.factory('loginRequest', loginRequest);
 
 	function loginRequest($http) {
 		return {
@@ -17,21 +15,21 @@ angular.module('loginService', [])
 			* @param {JSON} credentials.password
 			* @returns success(function(data, status, headers, config)
 			*/
-			login : function(credentials){
-				var data={"email":credentials.email,"password":credentials.password};
+			login: function(credentials){
+				var data = {'email': credentials.email, 'password': credentials.password};
 				return $http({
 					method: 'POST',
 					url: apiPath + 'auth',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
 			},
-			resetPassword : function(email){
-				data = {"email":email};
+			resetPassword: function(email){
+				var data = {'email': email};
 				return $http({
 					method: 'POST',
 					url: apiPath + 'send_reset_password',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
 			},
@@ -39,23 +37,25 @@ angular.module('loginService', [])
 				return $http.get(apiPath + 'verify_activation/' + token);
 			},
 			resendActivation: function(email){
-				data={"email":email};
+				var data = {'email': email};
 				return $http({
 					method: 'POST',
 					url: apiPath + 'send_activation',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
 			},
-			updatePassword: function(token,data){
+			updatePassword: function(token, data){
 				console.log(token);
 				return $http({
 					method: 'POST',
-					url: apiPath + 'update_password/'+token,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded' },
+					url: apiPath + 'update_password/' + token,
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 					data: $.param(data)
 				});
 			}
-		}
-	};
+		};
+	}
+	angular.module('loginService', [])
+		.factory('loginRequest', loginRequest);
 })();

@@ -1,11 +1,11 @@
 'use strict';
-/*global idiomaselect:true*/
-/*eslint no-undef: 2*/
 var idiomaselect = 'en'; //Default Language
 var apiPath = 'http://api.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
 (function () {
-
+  console.log(idiomaselect);
+  console.log(apiPath);
+  console.log(imgurPath);
 angular.module('sponzorme', [
     'pascalprecht.translate',
     'ngResource',
@@ -36,7 +36,7 @@ angular.module('sponzorme', [
   .config(function($translateProvider) {
     $translateProvider.translations('es', translationsES);
     $translateProvider.translations('en', translationsEN);
-    $translateProvider.translations('pt', translatiosnPT);
+    $translateProvider.translations('pt', translationsPT);
     $translateProvider.preferredLanguage('en');
     $translateProvider.useSanitizeValueStrategy(null);
   })
@@ -174,7 +174,7 @@ angular.module('sponzorme', [
       var interests = adata.InterestCategory;
       var log = [];
       var a = '';
-      angular.forEach(interests, function(value, key) {
+      angular.forEach(interests, function(value) {
         a = a + '</br>' + ($filter('normalize')(value.name) + ':' + value.name + ',');
       }, log);
       document.write(a);

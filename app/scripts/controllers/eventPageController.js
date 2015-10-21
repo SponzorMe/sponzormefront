@@ -7,7 +7,7 @@
     eventRequest.oneEvent($routeParams.eventId).success(function(data) {
       $scope.eventLoaded = true;
       $scope.event = data.data;
-    }).error(function(data) {
+    }).error(function() {
       $scope.eventLoaded = true;
     });
   }

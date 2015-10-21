@@ -1,4 +1,4 @@
-var translatiosnPT = {
+var translationsPT = {
       dashboard           : 'Dashboard',
 
       events            : 'Eventos',

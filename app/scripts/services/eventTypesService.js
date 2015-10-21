@@ -6,51 +6,51 @@
 */
 'use strict';
 (function(){
-angular.module('eventTypeService', ['ngStorage'])
-	.factory('eventTypeRequest', eventTypeService);
 
 	function eventTypeService($http, $sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
-			allEventTypes : function(){
+			allEventTypes: function(){
 				return $http.get(apiPath + 'event_types');
 
 			},
-			oneEventTypes : function(eventTypeId){
-				return $http.get(apiPath + 'event_types/' + categoriesId);
+			oneEventTypes: function(eventTypeId){
+				return $http.get(apiPath + 'event_types/' + eventTypeId);
 
 			},
-			createEventType : function(data){
+			createEventType: function(data){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'event_types',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			deleteEventType : function(eventTypeId){
+			deleteEventType: function(eventTypeId){
 				return $http({
 					method: 'DELETE',
 					url: apiPath + 'event_types/' + eventTypeId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
-			editEventTypePatch : function(eventTypeId,data){
+			editEventTypePatch: function(eventTypeId, data){
 				return $http({
 					method: 'PATCH',
 					url: apiPath + 'event_types/' + eventTypeId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			editEventTypePut : function(eventTypeId,data){
+			editEventTypePut: function(eventTypeId, data){
 				return $http({
 					method: 'PUT',
 					url: apiPath + 'event_types/' + eventTypeId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			}
-		}
-	};
+		};
+	}
+	angular.module('eventTypeService', ['ngStorage'])
+		.factory('eventTypeRequest', eventTypeService);
 })();

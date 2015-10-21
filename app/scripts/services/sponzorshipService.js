@@ -6,65 +6,65 @@
 */
 'use strict';
 (function(){
-angular.module('sponzorshipService', ['ngStorage'])
-	.factory('sponzorshipRequest', sponzorshipRequest);
 
-	function sponzorshipRequest($http,$sessionStorage) {
+	function sponzorshipRequest($http, $sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
-			allSponzorships : function(){
+			allSponzorships: function(){
 				return $http.get(apiPath + 'sponzorships');
 
 			},
-			oneSponzorship : function(sponzorshipId){
+			oneSponzorship: function(sponzorshipId){
 				return $http.get(apiPath + 'sponzorships/' + sponzorshipId);
 
 			},
-			oneSponzorshipByOrganizer : function(organizerId){
+			oneSponzorshipByOrganizer: function(organizerId){
 				return $http.get(apiPath + 'sponzorships_organizer/' + organizerId);
 			},
-			oneSponzorshipBySponzor : function(sponzorId){
+			oneSponzorshipBySponzor: function(sponzorId){
 				return $http.get(apiPath + 'sponzorships_sponzor/' + sponzorId);
 			},
-			sendSponzorshipEmail : function(data){
+			sendSponzorshipEmail: function(data){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'sponzorship_email',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			createSponzorship : function(data){
+			createSponzorship: function(data){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'sponzorships',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			deleteSponzorship : function(sponzorshipId){
+			deleteSponzorship: function(sponzorshipId){
 				return $http({
 					method: 'DELETE',
 					url: apiPath + 'sponzorships/' + sponzorshipId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
-			editSponzorshipPatch : function(sponzorshipId,data){
+			editSponzorshipPatch: function(sponzorshipId, data){
 				return $http({
 					method: 'PATCH',
 					url: apiPath + 'sponzorships/' + sponzorshipId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			editSponzorshipPut : function(sponzorshipId,data){
+			editSponzorshipPut: function(sponzorshipId, data){
 				return $http({
 					method: 'PUT',
 					url: apiPath + 'sponzorships/' + sponzorshipId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			}
-		}
-	};
+		};
+	}
+	angular.module('sponzorshipService', ['ngStorage'])
+		.factory('sponzorshipRequest', sponzorshipRequest);
 })();

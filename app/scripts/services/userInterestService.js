@@ -6,49 +6,49 @@
 */
 'use strict';
 (function(){
-angular.module('userInterestService', ['ngCookies'])
-	.factory('userInterestRequest', userInterestRequest);
 
-	function userInterestRequest($http,$sessionStorage) {
+	function userInterestRequest($http, $sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
-			allUserInterests : function(){
+			allUserInterests: function(){
 				return $http.get(apiPath + 'user_interests');
 			},
-			oneUserInterest : function(userInterestId){
+			oneUserInterest: function(userInterestId){
 				return $http.get(apiPath + 'user_interests/' + userInterestId);
 			},
-			createUserInterest : function(data){
+			createUserInterest: function(data){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'user_interests',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			deleteUserInterest : function(userInterestId){
+			deleteUserInterest: function(userInterestId){
 				return $http({
 					method: 'DELETE',
 					url: apiPath + 'user_interests/' + userInterestId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
-			editUserInterestPatch : function(userInterestId,data){
+			editUserInterestPatch: function(userInterestId, data){
 				return $http({
 					method: 'PATCH',
 					url: apiPath + 'user_interests/' + userInterestId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			editUserInterestPut : function(userInterestId,data){
+			editUserInterestPut: function(userInterestId, data){
 				return $http({
 					method: 'PUT',
 					url: apiPath + 'user_interests/' + userInterestId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			}
-		}
-	};
+		};
+	}
+	angular.module('userInterestService', ['ngCookies'])
+		.factory('userInterestRequest', userInterestRequest);
 })();

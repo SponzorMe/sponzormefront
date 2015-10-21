@@ -80,7 +80,7 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
           });
         }
 
-      }).error(function(edata) {
+      }).error(function() {
         $scope.loagind = false;
         ngDialog.open({
           template: 'errorloging.html'

@@ -9,7 +9,10 @@
     "jQuery": 1,
     "idiomaselect": 1,
     "apiPath": 1,
-    "imgurPath": 1
+    "imgurPath": 1,
+    "translationsES": 1,
+    "translationsEN": 1,
+    "translationsPT": 1
   },
   "rules": {
     "camelcase": 0

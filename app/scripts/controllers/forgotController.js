@@ -9,13 +9,13 @@
       loginRequest.resetPassword($scope.email).success(function(adata) {
         console.log(adata);
         $scope.loagind = false;
-        $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.PasswordResetLinkSent');
+        $scope.error_log[0] = 'PasswordResetLinkSent';
         ngDialog.open({
           template: 'templateId',
           scope: $scope
         });
-      }).error(function(edata) {
-        $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.InvalidEmail');
+      }).error(function() {
+        $scope.error_log[0] = 'InvalidEmail';
         $scope.loagind = false;
         ngDialog.open({
           template: 'templateId',
@@ -37,13 +37,13 @@
           if (data.code === 200) {
             $scope.successActivation = true;
           }
-          $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.PasswordChangedSuccesfully');
+          $scope.error_log[0] = 'PasswordChangedSuccesfully';
           ngDialog.open({
             template: 'templateId',
             scope: $scope
           });
-        }).error(function(edata) {
-          $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.InvalidData');
+        }).error(function() {
+          $scope.error_log[0] = 'InvalidData';
           $scope.loagind = false;
           ngDialog.open({
             template: 'templateId',
@@ -51,14 +51,14 @@
           });
         });
       } else {
-        $scope.error_log[0] = eval('translations' + idiomaselect.toUpperCase() + '.PasswordNoMatch');
+        $scope.error_log[0] = 'PasswordNoMatch';
         ngDialog.open({
           template: 'templateId',
           scope: $scope
         });
       }
     };
-  };
+  }
 
   angular.module('sponzorme')
     .controller('ForgotController', ForgotController);

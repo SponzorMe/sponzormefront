@@ -6,51 +6,51 @@
 */
 'use strict';
 (function(){
-angular.module('perkTaskService', ['ngStorage'])
-	.factory('perkTaskRequest', perkTaskRequest);
 
-	function perkTaskRequest($http,$sessionStorage) {
+	function perkTaskRequest($http, $sessionStorage) {
 		var token = $sessionStorage.token;
 		return {
-			allPerkTasks : function(){
+			allPerkTasks: function(){
 				return $http.get(apiPath + 'perk_tasks');
 
 			},
-			onePerkTask : function(perkTaskId){
+			onePerkTask: function(perkTaskId){
 				return $http.get(apiPath + 'perk_tasks/' + perkTaskId);
 
 			},
-			createPerkTask : function(data){
+			createPerkTask: function(data){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'perk_tasks',
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			deletePerkTask : function(perkTaskId){
+			deletePerkTask: function(perkTaskId){
 				return $http({
 					method: 'DELETE',
 					url: apiPath + 'perk_tasks/' + perkTaskId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token}
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
-			editPerkTaskPatch : function(perkTaskId,data){
+			editPerkTaskPatch: function(perkTaskId, data){
 				return $http({
 					method: 'PATCH',
 					url: apiPath + 'perk_tasks/' + perkTaskId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			},
-			editPerkTaskPut : function(perkTaskId,data){
+			editPerkTaskPut: function(perkTaskId, data){
 				return $http({
 					method: 'PUT',
 					url: apiPath + 'perk_tasks/' + perkTaskId,
-					headers: { 'Content-Type' : 'application/x-www-form-urlencoded', 'Authorization' : 'Basic '+ token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
 			}
-		}
-	};
+		};
+	}
+	angular.module('perkTaskService', ['ngStorage'])
+		.factory('perkTaskRequest', perkTaskRequest);
 })();
