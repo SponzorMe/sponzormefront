@@ -32,14 +32,20 @@ angular.module('sponzorme', [
     'naif.base64',
     'imgurService',
     'angularUtils.directives.dirPagination'
-  ])
-  .config(function($translateProvider) {
-    $translateProvider.translations('es', translationsES);
-    $translateProvider.translations('en', translationsEN);
-    $translateProvider.translations('pt', translationsPT);
-    $translateProvider.preferredLanguage('en');
-    $translateProvider.useSanitizeValueStrategy(null);
-  })
+  ]).config( function($translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+          prefix: 'langs/',
+          suffix: '.json'
+        });
+
+    $translateProvider.useSanitizeValueStrategy('escaped');
+
+    $translateProvider.preferredLanguage("en");
+
+    $translateProvider.fallbackLanguage("en");
+
+    // End Languages
+})
 
 .config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
   usSpinnerConfigProvider.setDefaults({
