@@ -17149,7 +17149,10 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
   height: 50px;
 }
 .padding-top-10{
-  padding: 10px 0;
+  padding-top: 10px;
+}
+.padding-left-10{
+  padding-left: 10px;
 }
 
 .footer a {
