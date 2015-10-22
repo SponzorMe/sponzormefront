@@ -34,7 +34,7 @@ angular.module('sponzorme', [
     'angularUtils.directives.dirPagination'
   ]).config( function($translateProvider) {
     $translateProvider.useStaticFilesLoader({
-          prefix: 'langs/',
+          prefix: 'langs/lang-',
           suffix: '.json'
         });
 
