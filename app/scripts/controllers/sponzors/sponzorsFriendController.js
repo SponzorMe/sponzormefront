@@ -1,31 +1,9 @@
 'use strict';
 (function(){
 
-function SponzorsFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
+function SponzorsFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, $rootScope) {
 
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
+  $rootScope.userValidation("1");
 
   $scope.invitefriend = function() {
     $scope.loadingInvite = true;

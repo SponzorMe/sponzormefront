@@ -1,36 +1,11 @@
 'use strict';
 (function(){
 
-function OrganizersFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location) {
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
-
+function OrganizersFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, $rootScope) {
+  $rootScope.userValidation("0");
   $scope.friend = {};
   $scope.friend.email = '';
   $scope.friend.message = '';
-
   $scope.invitefriend = function() {
     $scope.loadingInvite = true;
     $scope.objuserinv = {};

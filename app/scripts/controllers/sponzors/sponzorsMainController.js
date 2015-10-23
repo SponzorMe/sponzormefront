@@ -1,15 +1,10 @@
 'use strict';
 (function(){
 
-function SponzorsMainController($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest) {
-
+function SponzorsMainController($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope) {
+  $rootScope.userValidation("1");
   $scope.loadingsearch = true;
-  if ($sessionStorage.cookiesponzorme &&
-    $sessionStorage.email &&
-    $sessionStorage.id &&
-    $sessionStorage.token &&
-    $sessionStorage.typesponzorme === 1
-  ) {
+
     var cookie = $sessionStorage.cookiesponzorme;
 
     if (cookie === undefined) {
@@ -151,11 +146,7 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
           }
       };
     $scope.getAllEvents();
-
     $scope.menuprincipal = 'views/sponzors/menu.html';
-  } else {
-    $location.path('/');
-  }
 }
 
 angular.module('sponzorme')

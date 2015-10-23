@@ -1,29 +1,41 @@
-		<div id="page-wrapper">
-
-			<!-- Header -->
-				<header id="header" class="alt">
-					<a class="" href="#/"><h1 height="45px">SponzorMe</h1><div style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -11px;left: 156px;"></div></a>
-					<nav id="nav">
-						<ul>
-							<li class="current"><a href="http://www.sponzor.me/">Home</a></li>
-							<li><a href="http://www.sponzor.me/#/sponsors/create" class="button special">Sign Up</a></li>
-						</ul>
-					</nav>
-				</header>
-
+<div class="container" style="height:50px">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="" href="#/"><img class="padding-left-10" src="/images/logo-white.png" alt="sponzorme" height="50px"/><div style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -25px;left: 156px;"> 
+      </div></a>
+    </div>
+      <ul class="nav navbar-nav navbar-right">
+        <section ng-show="vieuser">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/login">{{ 'login' | translate }}</a></li>
+            <li><a href="#/sponzors/create">{{ 'sponsorreg' | translate }}</a></li>
+            <li><a href="#/organizers/create">{{ 'organizerreg' | translate }}</a></li>
+          </ul>
+        </section>
+        <section ng-show="!vieuser">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/organizers/userId">{{ email.user }}</a></li>
+              <li ng-show="typeuser"><a href="#/organizers/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!typeuser"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
+            <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
+          </ul>
+        </section>
+      </ul>
+    </div>
+</div>
+<link rel="stylesheet" href="styles/event-page.css">
+		<div id="page-wrapper" ng-cloak ng-if="eventLoaded">
 			<!-- Banner -->
-				<section id="banner">
+				<section id="banner" ng-cloak>
 					<div class="inner">
 						<header>
-							<h2>{{event.event.title}</h2>
+							<h2 ng-cloak>{{evento.event.title}}</h2>
 						</header>
-						<p styles="width:25%;">{{event.event.description}</p>
-						<footer>
-							<ul class="buttons vertical">
-								<li><a href="#main" class="button fit scrolly">Quiero más ....</a></li>
-							</ul>
-						</footer>
-
+						<p styles="width:25%;" ng-cloak>{{evento.event.description}}</p>
 					</div>
 
 				</section>
@@ -33,74 +45,26 @@
 					<!-- Two -->
 						<section class="wrapper style1 container special">
 							<header class="major">
-								<h2><strong>Apoyanos</strong> con:</h2>
+								<h2>{{'sponzorshipTypes'|translate}}</h2>
 							</header>
 							<div class="row">
-								<div class="4u 12u(narrower)">
+								<div class="4u 12u(narrower)" ng-repeat="p in evento.event.perks">
 
-									<section>
+									<section >
 										<span class="icon fa-heart"></span>
 										<header>
-											<h3>Cocacola</h3>
+											<h3>{{p.kind}}</h3>
+											<h4>${{p.usd}} USD</h4>
 										</header>
-										<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
-										<select  class="form-control">
-											<option value="1">1</option>
-											<option value="1">2</option>
-											<option value="1">3</option>
-											<option value="1">4</option>
-											<option value="1">5</option>
-											<option value="1">6</option>
-											<option value="1">7</option>
-										</select>
+										<p>
+										{{'perkTasks'|translate}}
+										<ul>
+										<li ng-repeat="t in evento.event.perk_tasks" ng-if="p.id == t.perk_id">{{t.title}}</li>
+										</ul></p>
 										<ul class="buttons vertical">
-											<li><a href="#" class="button fit scrolly">Quiero</a></li>
-										</ul>
-									</section>
-
-								</div>
-								<div class="4u 12u(narrower)">
-
-									<section>
-										<span class="icon fa-heart"></span>
-										<header>
-											<h3>Poster</h3>
-										</header>
-										<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
-										<select  class="form-control">
-											<option value="1">1</option>
-											<option value="1">2</option>
-											<option value="1">3</option>
-											<option value="1">4</option>
-											<option value="1">5</option>
-											<option value="1">6</option>
-											<option value="1">7</option>
-										</select>
-										<ul class="buttons vertical">
-											<li><a href="#" class="button fit scrolly">Quiero</a></li>
-										</ul>
-									</section>
-
-								</div>
-								<div class="4u 12u(narrower)">
-
-									<section>
-										<span class="icon fa-heart"></span>
-										<header>
-											<h3>Bebidas</h3>
-										</header>
-										<p>Sed tristique purus vitae volutpat ultrices. Aliquam eu elit eget arcu commodo suscipit dolor nec nibh. Proin a ullamcorper elit, et sagittis turpis. Integer ut fermentum.</p>
-										<select  class="form-control">
-											<option value="1">1</option>
-											<option value="1">2</option>
-											<option value="1">3</option>
-											<option value="1">4</option>
-											<option value="1">5</option>
-											<option value="1">6</option>
-											<option value="1">7</option>
-										</select>
-										<ul class="buttons vertical">
-											<li><a href="#" class="button fit scrolly">Quiero</a></li>
+											<li><button ng-if="!isNoLogged &&isSponzor" class="button fit scrolly" ng-click="formCreateSponzorship(p)">{{'sponzor'|translate}}</button>
+											<button ng-if="!isNoLogged && !isSponzor" class="button fit scrolly">{{'noSponzor'|translate}}</button>
+											<button ng-if="isNoLogged" class="button fit scrolly">{{'logginToSPonzor'|translate}}</button></li>
 										</ul>
 									</section>
 
@@ -109,35 +73,41 @@
 						</section>
 
 				</article>
-
-			<!-- CTA -->
-				<section id="cta">
-
-					<header>
-						<h2>Unete al <strong>Evento</strong>?</h2>
-						<p>Proin a ullamcorper elit, et sagittis turpis integer ut fermentum.</p>
-					</header>
-					<footer>
-						<ul class="buttons">
-							<li><a href="#" class="button special">QUIERO AYUDAR</a></li>
-							<li><a href="#" class="button">SING UP</a></li>
-						</ul>
-					</footer>
-
-				</section>
-
+			<hr/>
 			<!-- Footer -->
 				<footer id="footer">
 
 					<ul class="icons">
-						<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-						<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
-						<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
-						<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="https://twitter.com/home?status={{eventURL}}" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/sharer/sharer.php?u={{eventURL}}" target="_blank" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="https://plus.google.com/share?url={{eventURL}}" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
 					</ul>
 					<ul class="copyright">
 						<li>&copy; Sponzorme 2015</li>
 					</ul>
 				</footer>
 		</div>
+
+		 <script type="text/ng-template" id="formCreateSponzorship">
+        <div class="text-center">
+            <form class="form-horizontal" role="form" name="causeForm">
+              <label>{{'causeForm'|translate}}</label>
+              <textarea name="cause" ng-model="perkToSponzor.cause" rows="8" cols="40" placeholder="Your event is amazing!" required></textarea>
+            <button class="btn btn-block btn-primary" ng-click="causeForm.$valid && createSponzorship() && closeThisDialog()">{{ 'submitbutton' | translate }}</button>
+            </form>
+        </div>
+      </script>
+      <script type="text/ng-template" id="SponzorshipComplete">
+        <div class="dialog-container">
+          <img class="image-100 image-center" src="images/success.jpg" width="100px" />
+          <p>{{ 'sponzorshipCreatedSuccesfuly' | translate }}</p>
+          <hr/>
+          <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
+        </div>
+      </script>
+      <script type="text/ng-template" id="loading">
+      	<p>{{'loading' | translate}}</p>
+        <div class="dialog-container text-center">
+        	<span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>          
+        </div>
+      </script>

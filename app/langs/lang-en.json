@@ -641,5 +641,10 @@
   "phone1": "Phone 1 (Chile):",
   "phone2": "Phone 2 (Colombia):",
   "address": "Address (Chile):",
-  "email": "E-email"
+  "email": "E-email",
+  "perkTasks":"Perks",
+  "sponzorshipTypes": "Kinds of sponzor this event: ",
+  "loading": "Loading, We are processing your request.",
+  "logginToSPonzor": "Please Log in to Sponzor!",
+  "noSponzor": "You need an Sponzor account."
 }

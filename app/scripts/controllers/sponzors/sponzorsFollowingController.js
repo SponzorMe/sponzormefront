@@ -1,36 +1,10 @@
 'use strict';
 (function(){
 
-function SponzorsFollowingController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location) {
-
+function SponzorsFollowingController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
+  $rootScope.userValidation("1");
   $scope.loadinglistsponzors = true;
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
-
   $scope.emailuser = $sessionStorage.email;
-
   if (!$localStorage.sponzorme) {
     userRequest.oneUser($sessionStorage.id).success(function(adata) {
       var datuser = JSON.stringify(adata.data.user);
@@ -38,7 +12,6 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
       $scope.sponzors = adata.data.user.events;
       $scope.loadinglistsponzors = false;
     });
-
   } else {
     var sponzormeObj = JSON.parse($localStorage.sponzorme);
     $scope.sponzors = sponzormeObj.events;
@@ -56,11 +29,11 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
         } else {
           $scope.sponzorships = [];
           angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status === 0) {
+            if (value.status === "0") {
               $scope.sponzorships.push(value);
             }
           });
-          if ($scope.sponzorships[0] && $scope.sponzorships[0].status === 0) {
+          if ($scope.sponzorships[0] && $scope.sponzorships[0].status === "0") {
             $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
             $scope.sponzorships.current = $scope.sponzorships[0].id;
           } else {
@@ -94,8 +67,9 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
     taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
       $scope.loadingsponzorshipstasks = false;
       $scope.tasksSponzor = [];
+      console.log(data);
       angular.forEach(data.tasks, function(value) {
-        if (value.type === 0) {
+        if (value.type === "0") {
           $scope.tasksSponzor.push(value);
         }
       });

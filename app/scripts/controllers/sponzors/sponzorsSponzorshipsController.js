@@ -1,40 +1,13 @@
 'use strict';
 (function(){
 
-function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog) {
-
+function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+  $rootScope.userValidation("1");
   $scope.noSponzorshipsMessage = true;
   $scope.loadingsponzorships = true;
   $scope.loadingsponzorshipstasks = true;
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
-
   $scope.emailuser = $sessionStorage.email;
-
   $scope.userfroups = 0;
-
   $translate.use(idiomaselect);
   //This function allows get sponzorship info from organizerId
   $scope.getSponzorshipsBySponzor = function() {
@@ -47,17 +20,19 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
         $scope.noSponzorshipsTaskMessage = true;
       } else {
         $scope.sponzorships = [];
+        var flag = false;//used to verify if there is tasks
         angular.forEach(data.SponzorsEvents, function(value) {
-          if (value.status === 1) {
+          if (value.status === "1") {
             $scope.sponzorships.push(value);
+            flag = true;
           }
         });
-        if ($scope.sponzorships[0].status !== 0) {
+        if (flag) {
           $scope.getTaskSponzor($scope.sponzorships[0]); //Fit the tasks with the first sponzorships
+          $scope.sponzorships.current = $scope.sponzorships[0].id;
         } else {
           $scope.noSponzorshipsTaskMessage = true;
-        }
-        $scope.sponzorships.current = $scope.sponzorships[0].id;
+        }        
       }
     }).error(function(data) {
       console.log(data);

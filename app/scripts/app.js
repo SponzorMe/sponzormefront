@@ -170,7 +170,7 @@ angular.module('sponzorme', [
  * This function allows change the language whatever be the route
  * for this reason this is a global function
  */
-.run(function($rootScope, $translate, $location, allInterestsServiceRequest, $filter) {
+.run(function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $sessionStorage) {
   $rootScope.changeLanguage = function(key) {
     $translate.use(key);
     idiomaselect = key;
@@ -185,6 +185,14 @@ angular.module('sponzorme', [
       }, log);
       document.write(a);
     });
+  };
+  $rootScope.userValidation = function(shouldType) {
+    if ($sessionStorage.cookiesponzorme && $sessionStorage.email && $sessionStorage.id > 0 && $sessionStorage.token && $sessionStorage.typesponzorme === shouldType){
+      console.log("Authenticated");      
+    } else {
+      console.log("Not Authenticated");
+      $location.path('/');   
+    }
   };
 })
 /*

@@ -17154,7 +17154,12 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
 .padding-left-10{
   padding-left: 10px;
 }
-
+.padding-left-50{
+  padding-left: 50px;
+}
+.text-center{
+  text-align: center;
+}
 .footer a {
   color: white;
   text-decoration: none;

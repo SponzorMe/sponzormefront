@@ -1,39 +1,8 @@
 'use strict';
 (function(){
 
-function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest) {
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    var developer = $sessionStorage.developer;
-    if (developer !== undefined) {
-      if (developer === '1') {
-        $scope.developer = 1;
-      } else {
-        $scope.developer = 0;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
+function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
+  //$rootScope.userValidation("0");
   $scope.emailuser = $sessionStorage.email;
   $scope.event = {};
   eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
@@ -43,12 +12,12 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   });
   $scope.categorias = {};
   categoryRequest.allCategories($scope.typeuser).success(function(adata) {
-
     $scope.categorias.list = adata.categories;
     $scope.categoriasfilter = adata.categories;
   });
   $scope.eventos = [];
   $scope.currentPerkId = 0;
+  $scope.currentPerk = {};
   $scope.peaks = [];
   $scope.getEventsByOrganizer = function(userId) {
     userRequest.oneUser(userId).success(function(adata) {
@@ -56,8 +25,6 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       $scope.event.current = $scope.eventos[0].id;
     });
   };
-
-  $scope.getEventsByOrganizer($sessionStorage.id);
 
   $scope.userfroups = 0;
 
@@ -74,19 +41,8 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
            $scope.tolsctive = 'active';
         }
     };
-
-  $scope.tolsctive = 'active';
-  $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive === true){
-           $scope.tolsctive = 'active';
-        }
-    };
-
-  $scope.menuprincipal = 'views/organizers/menu.html';
-
   $scope.$watch('event.current', function(newvalue) {
-    if (newvalue !== '') { //Some validation to ensure no empty values
+    if (newvalue !== '' && newvalue!==0) { //Some validation to ensure no empty values
       $scope.updatePerks(newvalue);
     }
   });
@@ -141,73 +97,10 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       $scope.noPerksMessage = true;
     });
   };
-  $scope.file = false; //By default no file to add.
-  $scope.newEvent = function() {
-    if ($scope.file) {
-      var params = {
-        image: $scope.file.base64,
-        type: 'base64'
-      };
-      imgurRequest.uploadImage(params).success(function(imageData) {
-        $scope.newEvent = {};
-        $scope.newEvent.image = imageData.data.link;
-        $scope.newEvent.title = $scope.titleevent;
-        $scope.newEvent.location = $scope.locationevent.name;
-        $scope.newEvent.location_reference = $scope.locationevent.reference;
-        $scope.newEvent.description = $scope.descriptionevent;
-        $scope.newEvent.starts = $scope.dtini;
-        $scope.newEvent.ends = $scope.dtfinal;
-        $scope.newEvent.lang = idiomaselect;
-        $scope.newEvent.type = $scope.typeevent;
-        $scope.newEvent.category = $scope.categoryevent;
-        $scope.newEvent.privacy = $scope.privacyevent;
-        $scope.newEvent.organizer = $sessionStorage.id;
-        eventRequest.createEvent($scope.newEvent).success(function(adata) {
-          angular.forEach($scope.sponzors, function(value) {
-            $scope.perkitems = {};
-            $scope.perkitems.kind = value.kind;
-            $scope.perkitems.total_quantity = value.quantity;
-            $scope.perkitems.usd = value.usd;
-            $scope.perkitems.id_event = adata.event.id;
-            $scope.perkitems.reserved_quantity = 0;
-            perkRequest.createPerk($scope.perkitems).success(function() {
-              /*Empty Code, nothing necessary here*/
-            }).error(function(eData) {
-              console.log('Error creating a perk');
-              console.log(eData);
-            });
-          });
-          eventRequest.oneEvent(adata.event.id).success(function(response) { //we get the new  eventinfo
-            $scope.eventos.push(response.data.event); //add new event to user event list.
-            //if everything is ok, we clean the form
-            $scope.titleevent = '';
-            $scope.locationevent.name = '';
-            $scope.locationevent.reference = '';
-            $scope.locationevent = {};
-            $scope.descriptionevent = '';
-            $scope.dtini = '';
-            $scope.dtfinal = '';
-            $scope.typeevent = '';
-            $scope.categoryevent = '';
-            $scope.privacyevent = '';
-            $scope.sponzors = {};
-            $scope.loadingpeaks = false; // we stop the loading
-            ngDialog.open({
-              template: 'success',
-              scope: $scope
-            }); //finally we show a dialog telling the status of the things
-
-          }).error(function(edata) {
-            console.log('Error creating an event');
-            console.log(edata);
-          });
-        });
-      });
-    } else {
-      $scope.newEvent = {};
+  $scope.createNewEvent = function(){
       $scope.newEvent.title = $scope.titleevent;
-      $scope.newEvent.location = $scope.locationevent.name;
-      $scope.newEvent.location_reference = $scope.locationevent.reference;
+      $scope.newEvent.location = $scope.locationevent.formatted_address;
+      $scope.newEvent.location_reference = $scope.locationevent.place_id;
       $scope.newEvent.description = $scope.descriptionevent;
       $scope.newEvent.starts = $scope.dtini;
       $scope.newEvent.ends = $scope.dtfinal;
@@ -215,7 +108,6 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       $scope.newEvent.type = $scope.typeevent;
       $scope.newEvent.category = $scope.categoryevent;
       $scope.newEvent.privacy = $scope.privacyevent;
-      $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';//If no Image we set here some image
       $scope.newEvent.organizer = $sessionStorage.id;
       eventRequest.createEvent($scope.newEvent).success(function(adata) {
         angular.forEach($scope.sponzors, function(value) {
@@ -226,13 +118,12 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
           $scope.perkitems.id_event = adata.event.id;
           $scope.perkitems.reserved_quantity = 0;
           perkRequest.createPerk($scope.perkitems).success(function() {
-            /*empty Code, nothing necessary here*/
+            /*Empty Code, nothing necessary here*/
           }).error(function(eData) {
             console.log('Error creating a perk');
             console.log(eData);
           });
         });
-
         eventRequest.oneEvent(adata.event.id).success(function(response) { //we get the new  eventinfo
           $scope.eventos.push(response.data.event); //add new event to user event list.
           //if everything is ok, we clean the form
@@ -248,16 +139,43 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
           $scope.privacyevent = '';
           $scope.sponzors = {};
           $scope.loadingpeaks = false; // we stop the loading
+          $scope.loadingNewEvent = false;
+          $scope.errorNewEvent = false;
           ngDialog.open({
             template: 'success',
             scope: $scope
           }); //finally we show a dialog telling the status of the things
 
         }).error(function(edata) {
-          console.log('Error creating an event');
-          console.log(edata);
-        });
+        console.log('Error getting an event');
+        console.log(edata);
+        $scope.loadingNewEvent = false;
+        $scope.errorNewEvent = true;
+      });        
+    }).error(function(edata) {
+        console.log('Error creating an event');
+        console.log(edata);
+        $scope.loadingNewEvent = false;
+        $scope.errorNewEvent = true;
+    });
+  };
+  $scope.file = false; //By default no file to add.
+  $scope.newEvent = function() {
+    $scope.loadingNewEvent = true;
+    $scope.errorNewEvent = false;
+    $scope.newEvent = {};
+    if ($scope.file) {
+      var params = {
+        image: $scope.file.base64,
+        type: 'base64'
+      };      
+      imgurRequest.uploadImage(params).success(function(imageData) {
+        $scope.newEvent.image = imageData.data.link;
+        $scope.createNewEvent();  
       });
+    } else {
+      $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';//If no Image we set here some image
+      $scope.createNewEvent();
     }
   };
   $scope.showTaskForm = function() {
@@ -427,11 +345,6 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   };
   $scope.getEventsByOrganizer($sessionStorage.id); //Here start the callback
   $translate.use(idiomaselect);
-  $scope.$watch('event.current', function(newvalue) {
-    if (newvalue !== '') { //Some validation to ensure no empty values
-      $scope.updatePerks(newvalue);
-    }
-  });
   $scope.menuprincipal = 'views/organizers/menu.html';
 }
 
