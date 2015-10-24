@@ -18,8 +18,14 @@
   "smarttabs": true,
   "white": true,
   "validthis": true,
+  "predef": ["angular"],
   "globals": {
     "angular": false,
+    "jasmine"   : false,
+    "$"         : false,
+    "_"         : false,
+    "module"    : false,
+    "require"   : false
     // Angular Mocks
     "inject": false,
     "module": false,
@@ -30,6 +36,7 @@
     "beforeEach": false,
     "after": false,
     "afterEach": false,
-    "expect": false
+    "expect": false,
+
   }
 }

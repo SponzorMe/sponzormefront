@@ -16,12 +16,12 @@
     <div class="row">
       <h1>{{ 'getting' | translate }}</h1>
       <section ng-show="!vieuser">
-        <a ng-show="typeuser" href="#/users/dashboard" class="btn btn-primary btn-lg" role="button">{{ 'dashboard' | translate }}</a>
-        <a ng-show="!typeuser" href="#/sponsors/dashboard" class="btn btn-primary btn-lg" role="button">{{ 'dashboard' | translate }}</a>
+        <a ng-show="typeuser" href="#/organizers/dashboard" class="btn btn-primary btn-lg" role="button">{{ 'dashboard' | translate }}</a>
+        <a ng-show="!typeuser" href="#/sponzors/dashboard" class="btn btn-primary btn-lg" role="button">{{ 'dashboard' | translate }}</a>
       </section>
       <section ng-show="vieuser">
-        <a href="#/sponsors/create" class="btn btn-primary btn-lg" role="button">{{ 'sponsorreg' | translate }}</a>
-        <a href="#/users/create" class="btn btn-primary btn-lg " role="button">{{ 'organizerreg' | translate }}</a>
+        <a href="#/sponzors/create" class="btn btn-primary btn-lg" role="button">{{ 'sponsorreg' | translate }}</a>
+        <a href="#/organizers/create" class="btn btn-primary btn-lg " role="button">{{ 'organizerreg' | translate }}</a>
       </section>
     </div>
   </div>
