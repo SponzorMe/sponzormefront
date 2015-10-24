@@ -22,7 +22,9 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.getEventsByOrganizer = function(userId) {
     userRequest.oneUser(userId).success(function(adata) {
       $scope.eventos = adata.data.user.events;
-      $scope.event.current = $scope.eventos[0].id;
+      if($scope.eventos[0]){
+        $scope.event.current = $scope.eventos[0].id;
+      }
     });
   };
 

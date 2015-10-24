@@ -27,7 +27,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $scope.sponzors.size = 0;
     $scope.sponzors.balance = 0;
     angular.forEach(data.SponzorsEvents, function(value) {
-      if (value.status === 1) {
+      if (value.status === "1") {
         $scope.sponzors.balance = parseInt($scope.sponzors.balance) + parseInt(value.usd);
       }
     });
@@ -44,7 +44,9 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
       $scope.eventos.size = $scope.events.length;
       usSpinnerService.stop('spinner-2');
       $scope.loadingevents = false;
-      $scope.event.current = $scope.events[0].id;
+      if($scope.events[0]){
+        $scope.event.current = $scope.events[0].id;
+      }      
     });
   } else {
     var sponzormeObj = JSON.parse($localStorage.sponzorme);
@@ -54,7 +56,9 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $scope.eventos.size = $scope.events.length;
     usSpinnerService.stop('spinner-2');
     $scope.loadingevents = false;
-    $scope.event.current = $scope.events[0].id;
+    if($scope.events[0]){
+        $scope.event.current = $scope.events[0].id;
+      }  
   }
 
   $scope.$watch('event.current', function(newvalue) {
