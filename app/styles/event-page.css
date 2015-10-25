@@ -2502,6 +2502,10 @@
 		text-align: center;
 	}
 
+	#footer ul{
+		text-align: center;
+	}
+
 		#footer .copyright {
 			font-size: 0.8em;
 			line-height: 1em;
