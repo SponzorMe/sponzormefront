@@ -20,7 +20,8 @@
 	}
 
 	ol, ul {
-		list-style: none;
+		list-style: disc;
+		text-align: left;
 	}
 
 	blockquote, q {
@@ -2429,6 +2430,7 @@
 				letter-spacing: 0.1em;
 				margin: 0;
 				text-transform: uppercase;
+				text-align: justify;
 			}
 
 				#banner .inner p a {
