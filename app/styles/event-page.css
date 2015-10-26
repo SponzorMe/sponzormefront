@@ -2180,6 +2180,7 @@
 	}
 
 		#header h1 {
+			font-family: "Montserrat";
 			font-weight: 900;
 			margin: 0;
 			color: white;
@@ -2201,6 +2202,10 @@
 			#header nav ul li {
 				display: inline-block;
 				margin-left: 1.5em;
+				font-family: "Montserrat" !important;
+			}
+			.nav, .navbar-nav, .navbar-right{
+				font-family: "Montserrat" !important;
 			}
 
 				#header nav ul li > ul {

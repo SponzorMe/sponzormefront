@@ -1,6 +1,5 @@
 'use strict';
 (function() {
-
   function EventPageController($scope, $routeParams, $translate, $localStorage, $sessionStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest) {
     $scope.eventLoaded = false;
     $scope.event = {};
@@ -14,23 +13,24 @@
     }).error(function() {
       $scope.eventLoaded = true;
     });
-    if($sessionStorage){
-      if($sessionStorage.typesponzorme==1){
+    if($sessionStorage.typesponzorme==="1"){//He is an sponzor
+        console.log("Sponzor")
         $scope.isSponzor = true;
         $scope.isNoLogged = false;
       }
-      else{
-        $scope.isSponzor = true;
+      else if($sessionStorage.typesponzorme==="0"){//He is an organizer
+        console.log("Organizer");
+        $scope.isSponzor = false;
         $scope.isNoLogged = false;
       }
-    }
-    else{
+      else {//He is a guest
+      console.log("Gest");
+      $scope.isSponzor = false;
       $scope.isNoLogged = true;
     }
-      //We display the form to get the sponzorship cause
+    //We display the form to get the sponzorship cause
     $scope.formCreateSponzorship = function(perk) {
       $scope.perkToSponzor = perk;
-      console.log($scope.perkToSponzor);
       ngDialog.open({
         template: 'formCreateSponzorship',
         scope: $scope
@@ -49,8 +49,6 @@
         'cause': $scope.perkToSponzor.cause,
         'organizer_id': $scope.currentOrganizer.id
       };
-      console.log(data);
-
       ngDialog.closeAll();
       ngDialog.open({
         template: 'loading',
@@ -82,8 +80,5 @@
       });
     };
   }
-
-  angular.module('sponzorme')
-    .controller('EventPageController', EventPageController);
-
+  angular.module('sponzorme').controller('EventPageController', EventPageController);
 })();

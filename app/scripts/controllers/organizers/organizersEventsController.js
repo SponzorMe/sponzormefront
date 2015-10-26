@@ -257,7 +257,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     });
     //Next we edit the event information
     eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
-      $scope.getEventsBySponzor($sessionStorage.id);
+      $scope.getEventsByOrganizer($sessionStorage.id);
       ngDialog.closeAll();
       $scope.updatePerks(idevent);
       ngDialog.open({

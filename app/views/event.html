@@ -5,22 +5,22 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="" href="#/"><img class="padding-left-10" src="/images/logo-white.png" alt="sponzorme" height="50px"/><div style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -25px;left: 156px;"> 
+      <a class="" href="#/"><img class="padding-left-10" src="/images/logo-white.png" alt="sponzorme" height="50px"/>
+      <div style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -25px;left: 156px;"> 
       </div></a>
     </div>
       <ul class="nav navbar-nav navbar-right">
-        <section ng-show="vieuser">
+        <section ng-show="isNoLogged">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#/login">{{ 'login' | translate }}</a></li>
             <li><a href="#/sponzors/create">{{ 'sponsorreg' | translate }}</a></li>
             <li><a href="#/organizers/create">{{ 'organizerreg' | translate }}</a></li>
           </ul>
         </section>
-        <section ng-show="!vieuser">
+        <section ng-show="!isNoLogged">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/organizers/userId">{{ email.user }}</a></li>
-              <li ng-show="typeuser"><a href="#/organizers/dashboard">{{ 'dashboard' | translate }}</a></li>
-              <li ng-show="!typeuser"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!isNoLogged && !isSponzor"><a href="#/organizers/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!isNoLogged && isSponzor"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
             <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
           </ul>
         </section>
@@ -62,9 +62,9 @@
 										<li ng-repeat="t in evento.event.perk_tasks" ng-if="p.id == t.perk_id">{{t.title}}</li>
 										</ul></p>
 										<ul class="buttons vertical">
-											<li><button ng-if="!isNoLogged &&isSponzor" class="button fit scrolly" ng-click="formCreateSponzorship(p)">{{'sponzor'|translate}}</button>
+											<li><button ng-if="!isNoLogged && isSponzor" class="button fit scrolly" ng-click="formCreateSponzorship(p)">{{'sponzor'|translate}}</button>
 											<button ng-if="!isNoLogged && !isSponzor" class="button fit scrolly">{{'noSponzor'|translate}}</button>
-											<button ng-if="isNoLogged" class="button fit scrolly">{{'logginToSPonzor'|translate}}</button></li>
+											<a href="#/login" ng-if="isNoLogged && !isSponzor" class="button fit scrolly">{{'logginToSPonzor'|translate}}</a></li>
 										</ul>
 									</section>
 
