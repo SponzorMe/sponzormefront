@@ -31,7 +31,8 @@ angular.module('sponzorme', [
     'userInterestService',
     'naif.base64',
     'imgurService',
-    'angularUtils.directives.dirPagination'
+    'angularUtils.directives.dirPagination',
+    'ui.bootstrap.datetimepicker'
   ]).config( function($translateProvider) {
     $translateProvider.useStaticFilesLoader({
           prefix: 'langs/lang-',
@@ -161,6 +162,10 @@ angular.module('sponzorme', [
       templateUrl: 'views/organizers/dashboard/add_event.html',
       controller: 'OrganizersEventsController'
     })
+    .when('/organizers/edit/event/:id', {
+      templateUrl: 'views/organizers/dashboard/edit_event.html',
+      controller: 'OrganizersEventEditController'
+    })
     .otherwise({
       redirectTo: '/'
     });
@@ -207,6 +212,16 @@ angular.module('sponzorme', [
     input = input
       .replace('&', 'AND')
       .replace(/\W+/g, '');
+    return input;
+  };
+})
+.filter('moment', function() {
+  return function(input) {
+    if(!input) {
+      return '';
+    }
+    var auxDate = new Date(input);
+    input = moment(auxDate).format("MMM DD YYYY, HH:mm");
     return input;
   };
 });

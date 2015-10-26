@@ -25,7 +25,8 @@
     "angular-base64-upload": "~0.1.13",
     "angular-spinner": "~0.7.0",
     "angular-utils-pagination": "~0.9.1",
-    "angular-ui-bootstrap-datetimepicker": "~0.12.0"
+    "angular-ui-bootstrap-datetimepicker": "~0.12.0",
+    "moment": "~2.10.6"
   },
   "devDependencies": {
     "chai": "~3.0.0",

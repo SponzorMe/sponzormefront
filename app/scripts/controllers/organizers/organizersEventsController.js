@@ -111,13 +111,14 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       $scope.newEvent.location = $scope.locationevent.formatted_address;
       $scope.newEvent.location_reference = $scope.locationevent.place_id;
       $scope.newEvent.description = $scope.descriptionevent;
-      $scope.newEvent.starts = $scope.dtini;
-      $scope.newEvent.ends = $scope.dtfinal;
+      $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD hh:mm:ss');
+      $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD hh:mm:ss');
       $scope.newEvent.lang = idiomaselect;
       $scope.newEvent.type = $scope.typeevent;
       $scope.newEvent.category = $scope.categoryevent;
       $scope.newEvent.privacy = $scope.privacyevent;
       $scope.newEvent.organizer = $sessionStorage.id;
+
       eventRequest.createEvent($scope.newEvent).success(function(adata) {
         angular.forEach($scope.sponzors, function(value) {
           $scope.perkitems = {};
@@ -231,10 +232,6 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       $scope.eventData = adata.data.event;
       $scope.eventData.category = adata.data.category[0].id;
       $scope.eventData.type = adata.data.type[0].id;
-      ngDialog.open({
-        template: 'editForm',
-        scope: $scope
-      });
     });
   };
   $scope.doEditEvent = function(idevent) {

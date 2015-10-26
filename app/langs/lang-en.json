@@ -646,5 +646,6 @@
   "sponzorshipTypes": "Kinds of sponzor this event: ",
   "loading": "Loading, We are processing your request.",
   "logginToSPonzor": "Please Log in to Sponzor!",
-  "noSponzor": "You need an Sponzor account"
+  "noSponzor": "You need an Sponzor account",
+  "editEvent":"Edit Event"
 }
