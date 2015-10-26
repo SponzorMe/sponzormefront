@@ -34,7 +34,7 @@
                     <tr data-ng-repeat="e in search | filter:searchevents" data-ng-class="{success : event.current === e.id}" ng-show="!searchLoading">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
-                      <td class="text-center">{{ e.starts }} to {{e.ends}}</td>
+                      <td class="text-center">{{ e.starts| momentFormater}} to {{e.ends| momentFormater}}</td>
                       <td class="text-center" ng-if="e.privacy==0">{{ 'public'| translate }}</td>
                       <td class="text-center" ng-if="e.privacy==1">{{ 'private'| translate }}</td>
                       <td class="text-center"><a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i> {{ 'eventPage'| translate }}</a></td>
@@ -72,7 +72,7 @@
                       </tr>
                       <tr data-ng-repeat="e in upcomingEvents | orderBy:'starts' | limitTo:10" data-ng-class="{success : event.current === e.id}" ng-show="!upcomingLoading">
                         <td class="text-center">{{ e.title }}</td>
-                        <td class="text-center" style="width:20%">{{ e.starts }}</td>
+                        <td class="text-center" style="width:20%">{{ e.starts | momentFormater}}</td>
                         <td class="text-center"><a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i> {{ 'eventPage'| translate }}</a></td>
                         <td class="text-center">
                           <a href="" class="btn btn-primary" ng-click="showPerks(e.id)"><i class="fa fa-bookmark"></i> {{ 'seePerks'| translate }}</a>
