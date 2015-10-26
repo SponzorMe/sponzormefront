@@ -2,8 +2,17 @@
 (function(){
 
 function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
-  //$rootScope.userValidation("0");
+  $rootScope.userValidation("0");//Validation
+  //Vars Initialization
+  $scope.sponzors = [];
+  $scope.error_log = '';
+  $scope.eventos = [];
+  $scope.currentPerkId = 0;
+  $scope.currentPerk = {};
+  $scope.peaks = [];
+  $scope.tolsctive = 'active';
   $scope.emailuser = $sessionStorage.email;
+  $scope.file = false; //By default no file to add.
   $scope.event = {};
   eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
     $scope.type = {};
@@ -15,28 +24,26 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     $scope.categorias.list = adata.categories;
     $scope.categoriasfilter = adata.categories;
   });
-  $scope.eventos = [];
-  $scope.currentPerkId = 0;
-  $scope.currentPerk = {};
-  $scope.peaks = [];
   $scope.getEventsByOrganizer = function(userId) {
+    $scope.loadingEvents = true;
+    $scope.noEventsMessage = false;
+    $scope.loadingtasks = true;
+    $scope.noTasksMessage = false;
+    $scope.loadingPerks = true;
+    $scope.noPerksMessage = false;
     userRequest.oneUser(userId).success(function(adata) {
       $scope.eventos = adata.data.user.events;
+      $scope.loadingEvents = false;      
       if($scope.eventos[0]){
         $scope.event.current = $scope.eventos[0].id;
       }
+      else{
+        $scope.loadingtasks = false;
+        $scope.loadingPerks = false;
+        $scope.noEventsMessage = true;
+      }
     });
-  };
-
-  $scope.userfroups = 0;
-
-  $scope.sponzors = [];
-
-  $scope.error_log = '';
-
-  $translate.use(idiomaselect);
-
-  $scope.tolsctive = 'active';
+  };  
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
         if($scope.tolsctive === true){
@@ -44,7 +51,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         }
     };
   $scope.$watch('event.current', function(newvalue) {
-    if (newvalue !== '' && newvalue!==0) { //Some validation to ensure no empty values
+    if (newvalue !== '' && newvalue !== "0" &&  typeof newvalue !== 'undefined') { //Some validation to ensure no empty values
       $scope.updatePerks(newvalue);
     }
   });
@@ -160,8 +167,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         $scope.loadingNewEvent = false;
         $scope.errorNewEvent = true;
     });
-  };
-  $scope.file = false; //By default no file to add.
+  };  
   $scope.newEvent = function() {
     $scope.loadingNewEvent = true;
     $scope.errorNewEvent = false;
@@ -312,7 +318,6 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         }); //finally we show a dialog telling the status of the things
       }
     });
-
   };
   $scope.saveperks = function() {
     $scope.perkitems = {};

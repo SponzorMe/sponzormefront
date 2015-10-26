@@ -22,7 +22,17 @@
                     <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
                   </thead>
                   <tbody>
-                    <tr data-ng-repeat="e in eventos" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                    <tr ng-show="loadingEvents && !noEventsMessage">
+                      <td colspan="5" class="text-center">
+                            <rd-loading></rd-loading>
+                      </td>
+                    </tr>                    
+                    <tr ng-show="!loadingEvents && noEventsMessage">
+                      <td colspan="3" class="text-center">
+                        <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
+                      </td>
+                    </tr>
+                    <tr ng-show="!loadingEvents && !noEventsMessage" data-ng-repeat="e in eventos" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
                       <td class="text-center">{{ e.starts }}</td>
@@ -64,8 +74,8 @@
                   </thead>
                   <tbody>
                     <tr ng-show="loadingPerks && !noPerksMessage">
-                      <td colspan="3">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                      <td colspan="5" class="text-center">
+                            <rd-loading></rd-loading>
                       </td>
                     </tr>
                     <tr ng-show="!loadingPerks && noPerksMessage">
@@ -105,8 +115,8 @@
                   </thead>
                   <tbody>
                     <tr ng-show="loadingtasks && !noTasksMessage">
-                      <td colspan="3" rowspan="5" us-spinner="{display:block, radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true">
-                         <span ></span>
+                      <td colspan="5" class="text-center">
+                            <rd-loading></rd-loading>
                       </td>
                     </tr>
                     <tr ng-show="!loadingtasks && noTasksMessage">

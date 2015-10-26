@@ -83,8 +83,8 @@
                   </thead>
                     <tbody>
                       <tr ng-show="loadingevents">
-                        <td colspan="3">
-                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+                        <td colspan="4">
+                          <rd-loading></rd-loading>
                         </td>
                       </tr>
                       <tr data-ng-repeat="e in events" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
@@ -123,7 +123,7 @@
                     <tbody>
                       <tr ng-show="loadingpeaks && !noPerksMessage">
                         <td colspan="3">
-                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                          <rd-loading></rd-loading>
                         </td>
                       </tr>
                       <tr ng-show="!loadingpeaks && noPerksMessage">
@@ -151,7 +151,7 @@
               </div>
               <div class="widget-body" style="min-height:200px;">
                 <div ng-show="loadingrss">
-                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-3" spinner-start-active="true"></span>
+                  <rd-loading></rd-loading>
                 </div>
                 <div ng-show="noRssMessage">
                   <h1>{{ 'noRssMessage' | translate }}</h1>

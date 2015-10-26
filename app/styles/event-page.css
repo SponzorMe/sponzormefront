@@ -1578,7 +1578,6 @@
 		transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out !important;
 		color: #3fb1a3 !important;
 		text-decoration: none !important;
-		border-bottom: dotted 1px !important;
 	}
 
 		a:hover {

@@ -3,8 +3,10 @@
 
 function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
   $rootScope.userValidation("0");
-  $scope.noSponzorshipsMessage = true;
+  $scope.noSponzorshipsMessage = false;
   $scope.loadingsponzorships = true;
+  $scope.loadingsponzorshipstasks = true;
+  $scope.noSponzorshipsTaskMessage = false;
   $scope.emailuser = $sessionStorage.email;
   $scope.userfroups = 0;
   $translate.use(idiomaselect);
@@ -164,13 +166,6 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
         }
     };
 
-  $scope.tolsctive = 'active';
-  $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive === true){
-           $scope.tolsctive = 'active';
-        }
-    };
 $scope.getSponzorshipsByOrganizer();
   $scope.menuprincipal = 'views/organizers/menu.html';
 }
