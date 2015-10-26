@@ -20,7 +20,8 @@
 	}
 
 	ol, ul {
-		list-style: none;
+		list-style: disc;
+		text-align: left;
 	}
 
 	blockquote, q {
@@ -2428,7 +2429,7 @@
 			#banner .inner p {
 				letter-spacing: 0.1em;
 				margin: 0;
-				text-transform: uppercase;
+				text-align: justify;
 			}
 
 				#banner .inner p a {
@@ -2498,6 +2499,10 @@
 		background: #E8EEF4 !important;
 		color: #7c8081  !important;
 		padding: 1em 1em 1em 1em;
+		text-align: center;
+	}
+
+	#footer ul{
 		text-align: center;
 	}
 
