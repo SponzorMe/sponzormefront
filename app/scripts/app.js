@@ -146,7 +146,7 @@ angular.module('sponzorme', [
       controller: 'SponzorsFriendController'
     })
     .when('/sponzors/following', {
-      templateUrl: 'views/sponzors/dashboard/events.html',
+      templateUrl: 'views/sponzors/dashboard/following.html',
       controller: 'SponzorsFollowingController'
     })
     .when('/sponzors/sponzoring', {

@@ -66,7 +66,7 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
             $sessionStorage.developer = 1;
           }
           $scope.loagind = false;
-          if (adata.user.type === 1) {
+          if (adata.user.type === "1") {
             $location.path('/sponzors/dashboard');
           } else {
             $location.path('/organizers/dashboard');

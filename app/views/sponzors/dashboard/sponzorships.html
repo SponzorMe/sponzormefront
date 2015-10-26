@@ -26,17 +26,17 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingsponzorships && !noSponzorshipsMessage">
-                      <td colspan="3">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                    <tr ng-show="sponzorshipsLoading && !noSponzorshipsMessage">
+                      <td colspan="6">
+                        <rd-loading></rd-loading>
                       </td>
                     </tr>
-                    <tr ng-show="!loadingsponzorships && noSponzorshipsMessage">
+                    <tr ng-show="!sponzorshipsLoading && noSponzorshipsMessage">
                       <td colspan="3" class="text-center">
                         <h2 class="text-center">{{'noSponzorshipsMessageSponzor'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr ng-show="!loadingsponzorships && !noSponzorshipsMessage" data-ng-repeat="s in sponzorships" data-ng-class="{success : sponzorships.current === s.id}">
+                    <tr ng-show="!sponzorshipsLoading && !noSponzorshipsMessage" data-ng-repeat="s in sponzorships" data-ng-class="{success : sponzorships.current === s.id}">
                       <td class="text-center">{{s.name}}</td>
                       <td class="text-center">{{s.email}}</td>
                       <td class="text-center">{{s.title}}</td>
@@ -64,7 +64,7 @@
             <div class="widget">
               <div class="widget-header">
                 <i class="fa fa-plus"></i>{{ 'todosList' | translate }}
-                <a href="" ng-click="showTaskForm(currentPerkId,event.current)" class="pull-right" ng-if="!loadingpeaks && !noPerksMessage">{{ 'add_task' | translate }}</a>
+                <a href="" ng-click="showTaskForm(currentPerkId,event.current)" class="pull-right" ng-if="!loadingPerks && !noPerksMessage">{{ 'add_task' | translate }}</a>
                 <div class="clearfix"></div>
               </div>
               <div class="widget-body medium no-padding">
@@ -78,17 +78,17 @@
                       <th>{{ 'actions' | translate }}</th>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingsponzorshipstasks && !noSponzorshipsTaskMessage">
-                        <td colspan="3">
-                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                      <tr ng-show="loadingTasks && !noSponzorshipsTaskMessage">
+                        <td colspan="5">
+                          <rd-loading></rd-loading>
                         </td>
                       </tr>
-                      <tr ng-show="!loadingsponzorshipstasks && noSponzorshipsTaskMessage">
-                        <td colspan="3" class="text-center">
+                      <tr ng-show="!loadingTasks && noSponzorshipsTaskMessage">
+                        <td colspan="5" class="text-center">
                           <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr ng-show="!loadingsponzorshipstasks && !noSponzorshipsTaskMessage"data-ng-repeat="t in tasksSponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadingtodo">
+                      <tr ng-show="!loadingTasks && !noSponzorshipsTaskMessage"data-ng-repeat="t in tasksSponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadingtodo">
                         <td>{{ t.title }}</td>
                         <td>{{ t.description }}</td>
                         <td>

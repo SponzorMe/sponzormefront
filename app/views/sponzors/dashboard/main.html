@@ -15,10 +15,6 @@
             </div>
 
             <div class="widget-body large no-padding">
-              <!--fronend arregla-->
-              <div ng-show="loadingsearch">
-                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
-              </div>
               <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
@@ -30,12 +26,12 @@
                     <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingevents && search.lenght == 0">
-                      <td colspan="8">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                    <tr ng-show="searchLoading">
+                      <td colspan="6">
+                        <rd-loading></rd-loading>
                       </td>
                     </tr>
-                    <tr data-ng-repeat="e in search | filter:searchevents" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                    <tr data-ng-repeat="e in search | filter:searchevents" data-ng-class="{success : event.current === e.id}" ng-show="!searchLoading">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
                       <td class="text-center">{{ e.starts }} to {{e.ends}}</td>
@@ -60,10 +56,6 @@
                 <h2 style="color:black; padding-bottom:0px; margin-bottom:0px;">{{'upcomingEvents' | translate}}</h2>
               </div>
               <div class="widget-body large no-padding">
-                <!--fronend arregla-->
-                <div ng-show="loadingsearch">
-                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
-                </div>
                 <div class="table-responsive">
                   <table class="table table-striped">
                     <thead>
@@ -73,12 +65,12 @@
                       <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingevents && search.lenght == 0">
-                        <td colspan="8">
-                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                      <tr ng-show="upcomingLoading">
+                        <td colspan="4">
+                          <rd-loading></rd-loading>
                         </td>
                       </tr>
-                      <tr data-ng-repeat="e in upcomingEvents | orderBy:'starts' | limitTo:10" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                      <tr data-ng-repeat="e in upcomingEvents | orderBy:'starts' | limitTo:10" data-ng-class="{success : event.current === e.id}" ng-show="!upcomingLoading">
                         <td class="text-center">{{ e.title }}</td>
                         <td class="text-center" style="width:20%">{{ e.starts }}</td>
                         <td class="text-center"><a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i> {{ 'eventPage'| translate }}</a></td>
@@ -98,10 +90,6 @@
                 <h2 style="color:black; padding-bottom:0px; margin-bottom:0px;">{{'topRatedEvents' | translate}}</h2>
               </div>
               <div class="widget-body large no-padding">
-                <!--fronend arregla-->
-                <div ng-show="loadingsearch">
-                  <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
-                </div>
                 <div class="table-responsive">
                   <table class="table table-striped">
                     <thead>
@@ -111,12 +99,12 @@
                       <th class="text-center"> {{ 'actionssponzor' | translate }}</th>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingevents && search.lenght == 0">
+                      <tr ng-show="bestLoading">
                         <td colspan="8">
-                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                          <rd-loading></rd-loading>
                         </td>
                       </tr>
-                      <tr data-ng-repeat="e in bestEvents" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                      <tr data-ng-repeat="e in bestEvents" data-ng-class="{success : event.current === e.id}" ng-show="!bestLoading">
                         <td class="text-center">{{ e.title }}</td>
                         <td class="text-center" style="width:20%">{{ e.location }}</td>
                         <td class="text-center"><a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank"><i class="fa fa-arrows-alt"></i> {{ 'eventPage'| translate }}</a></td>
@@ -145,8 +133,8 @@
           </thead>
           <tbody>
             <tr ng-show="loadingpeaks && !noPerksMessage">
-              <td colspan="3">
-                <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+              <td colspan="4">
+                <rd-loading></rd-loading>
               </td>
             </tr>
             <tr ng-show="!loadingpeaks && noPerksMessage">
