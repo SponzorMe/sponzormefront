@@ -17160,6 +17160,9 @@ p.codrops-demos a.current-demo, p.codrops-demos a.current-demo:hover {
 .text-center{
   text-align: center;
 }
+.position-relative{
+  position: relative;
+}
 .footer a {
   color: white;
   text-decoration: none;

@@ -3,19 +3,20 @@
 
 function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
   $rootScope.userValidation("1");
-  $scope.noSponzorshipsMessage = true;
-  $scope.loadingsponzorships = true;
-  $scope.loadingsponzorshipstasks = true;
+  $scope.noSponzorshipsMessage = false;
+  $scope.noSponzorshipsTaskMessage = false;
+  $scope.sponzorshipsLoading = true;
+  $scope.loadingTasks = true;
   $scope.emailuser = $sessionStorage.email;
   $scope.userfroups = 0;
   $translate.use(idiomaselect);
   //This function allows get sponzorship info from organizerId
   $scope.getSponzorshipsBySponzor = function() {
     sponzorshipRequest.oneSponzorshipBySponzor($sessionStorage.id).success(function(data) {
-      $scope.loadingsponzorships = false;
-      $scope.noSponzorshipsMessage = false;
-      $scope.loadingsponzorshipstasks = false;
+      $scope.sponzorshipsLoading = false;
+      $scope.noSponzorshipsMessage = false;      
       if (!data.SponzorsEvents[0]) {
+        $scope.loadingTasks = false;
         $scope.noSponzorshipsMessage = true;
         $scope.noSponzorshipsTaskMessage = true;
       } else {
@@ -28,9 +29,11 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
           }
         });
         if (flag) {
-          $scope.getTaskSponzor($scope.sponzorships[0]); //Fit the tasks with the first sponzorships
           $scope.sponzorships.current = $scope.sponzorships[0].id;
+          $scope.getTaskSponzor($scope.sponzorships[0]); //Fit the tasks with the first sponzorships
+          
         } else {
+          $scope.loadingTasks = false;
           $scope.noSponzorshipsTaskMessage = true;
         }        
       }
@@ -82,18 +85,18 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
     };
     //this function gets the tasks sponzorships by sponzorship id
   $scope.getTaskSponzor = function(sponzorship) {
+      $scope.loadingTasks = true;
+      $scope.noSponzorshipsTaskMessage = false;
       $scope.sponzorships.current = sponzorship.id;
       $scope.currentSponzorship = sponzorship;
       taskSponzorRequest.tasksBySponzorship(sponzorship.id).success(function(data) {
         $scope.tasksSponzor = data.tasks;
-        $scope.loadingsponzorshipstasks = false;
-
+        $scope.loadingTasks = false;
         if (!$scope.tasksSponzor[0]) {
           $scope.noSponzorshipsTaskMessage = true;
         } else {
           $scope.noSponzorshipsTaskMessage = false;
         }
-
       }).error(function(data) {
         console.log(data);
         $scope.noSponzorshipsTaskMessage = true;

@@ -27,12 +27,12 @@
                   </thead>
                   <tbody>
                     <tr ng-show="loadingsponzorships && !noSponzorshipsMessage">
-                      <td colspan="3">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                      <td colspan="6">
+                        <rd-loading></rd-loading>
                       </td>
                     </tr>
                     <tr ng-show="!loadingsponzorships && noSponzorshipsMessage">
-                      <td colspan="3" class="text-center">
+                      <td colspan="6" class="text-center">
                         <h2 class="text-center">{{'noSponzorshipsMessage'| translate}}</h2>
                       </td>
                     </tr>
@@ -88,12 +88,12 @@
                     </thead>
                     <tbody>
                       <tr ng-show="loadingsponzorshipstasks && !noSponzorshipsTaskMessage">
-                        <td colspan="3">
-                          <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
+                        <td colspan="5">
+                          <rd-loading></rd-loading>
                         </td>
                       </tr>
                       <tr ng-show="!loadingsponzorshipstasks && noSponzorshipsTaskMessage">
-                        <td colspan="3" class="text-center">
+                        <td colspan="5" class="text-center">
                           <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
                       </tr>

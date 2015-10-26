@@ -3,49 +3,16 @@
 
 function SponzorsMainController($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope) {
   $rootScope.userValidation("1");
-  $scope.loadingsearch = true;
 
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-    $scope.account = [];
-
-    if (!$localStorage.sponzorme) {
-      userRequest.oneUser($sessionStorage.id).success(function(adata) {
-        var datuser = JSON.stringify(adata.data.user);
-        $localStorage.sponzorme = datuser;
-        $scope.account = adata.data.user;
-      });
-
-    } else {
-      var sponzormeObj = JSON.parse($localStorage.sponzorme);
-      $scope.todo = sponzormeObj.perk_tasks;
-      $scope.sponzors = sponzormeObj.sponzorships;
-      $scope.account = sponzormeObj;
-    }
-
-    $scope.searchloading = true;
+    $scope.searchLoading = true;
+    $scope.upcomingLoading = true;
+    $scope.bestLoading = true;
     $scope.getAllEvents = function() {
       eventRequest.allEvents().success(function(adata) {
         $scope.search = [];
         $scope.search = adata.events;
         $scope.searchloading = 0;
-        $scope.loadingsearch = false;
+        $scope.searchLoading = false;
         $scope.setUpcomingEvents();
         $scope.setBestEvents();
       });
@@ -53,20 +20,20 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
     $scope.setUpcomingEvents = function() {
       $scope.upcomingEvents = [];
       var currentDate = new Date();
-      for (var i = 0; i < $scope.search.length; i++) { //Choose randomly events
+      for (var i = 0; i < $scope.search.length; i++) {
         var eventDate = new Date($scope.search[i].starts);
         if (eventDate > currentDate) {
           $scope.upcomingEvents.push($scope.search[i]);
         }
       }
+      $scope.upcomingLoading = false;
     };
     $scope.setBestEvents = function() {
       $scope.bestEvents = [];
-      for (var i = 0; i < $scope.search.length / 2; i++) { //Choose randomly events
-        if ($scope.bestEvents.indexOf($scope.search[Math.floor(Math.random() * $scope.search.length)]) === -1) {
-          $scope.bestEvents.push($scope.search[Math.floor(Math.random() * $scope.search.length)]);
-        }
+      for (var i = 0; i < 4 ; i++) { //Choose randomly events
+        $scope.bestEvents.push($scope.search[i]);
       }
+      $scope.bestLoading = false;
     };
     $scope.showPerks = function(eventId) {
         $scope.loadingpeaks = true;

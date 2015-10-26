@@ -636,7 +636,7 @@
   "waitUnitlOrganizerComplete": "Wait until Organizer complete",
   "sponzorshipsListInSponzor": "List of events that you are currently sponzor",
   "noSponzorshipsMessageSponzor": "Your are not following any event",
-  "calculating": "Calculating...",
+  "calculating": "...",
   "Support": "Support",
   "phone1": "Phone 1 (Chile):",
   "phone2": "Phone 2 (Colombia):",
@@ -646,5 +646,5 @@
   "sponzorshipTypes": "Kinds of sponzor this event: ",
   "loading": "Loading, We are processing your request.",
   "logginToSPonzor": "Please Log in to Sponzor!",
-  "noSponzor": "You need an Sponzor account."
+  "noSponzor": "You need an Sponzor account"
 }

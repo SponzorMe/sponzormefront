@@ -3,27 +3,15 @@
 
 function SponzorsFollowingController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
   $rootScope.userValidation("1");
-  $scope.loadinglistsponzors = true;
+  $scope.sponzorshipsLoading = true;
+  $scope.noSponzorshipsMessage = false;
+  $scope.tasksLoading = true;
   $scope.emailuser = $sessionStorage.email;
-  if (!$localStorage.sponzorme) {
-    userRequest.oneUser($sessionStorage.id).success(function(adata) {
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-      $scope.sponzors = adata.data.user.events;
-      $scope.loadinglistsponzors = false;
-    });
-  } else {
-    var sponzormeObj = JSON.parse($localStorage.sponzorme);
-    $scope.sponzors = sponzormeObj.events;
-    $scope.loadinglistsponzors = false;
-  }
   $scope.loadSponzorships = function() {
       sponzorshipRequest.oneSponzorshipBySponzor($sessionStorage.id).success(function(data) {
-        console.log(data);
-        $scope.loadingsponzorships = false;
-        $scope.noSponzorshipsMessage = false;
-        $scope.loadingsponzorshipstasks = false;
+        $scope.sponzorshipsLoading = false;
         if (!data.SponzorsEvents[0]) {
+          $scope.tasksLoading = false;
           $scope.noSponzorshipsMessage = true;
           $scope.noSponzorshipsTaskMessage = true;
         } else {
@@ -37,6 +25,7 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
             $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
             $scope.sponzorships.current = $scope.sponzorships[0].id;
           } else {
+            $scope.tasksLoading = false;
             $scope.noSponzorshipsMessage = true;
             $scope.noSponzorshipsTaskMessage = true;
           }
@@ -63,11 +52,12 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
     };
     //this function gets the tasks sponzorships by sponzorship id
   $scope.getTaskSponzor = function(sponzorshipId) {
+    $scope.tasksLoading = true;
+    $scope.noSponzorshipsTaskMessage = false;
     $scope.sponzorships.current = sponzorshipId;
     taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
-      $scope.loadingsponzorshipstasks = false;
+      $scope.tasksLoading = false;
       $scope.tasksSponzor = [];
-      console.log(data);
       angular.forEach(data.tasks, function(value) {
         if (value.type === "0") {
           $scope.tasksSponzor.push(value);
@@ -91,7 +81,7 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
       scope: $scope
     });
   };
-  $scope.loadSponzorships();
+  
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
@@ -99,7 +89,7 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
            $scope.tolsctive = 'active';
         }
     };
-
+  $scope.loadSponzorships();//here starts the callback
   $scope.menuprincipal = 'views/sponzors/menu.html';
 }
 
