@@ -90,7 +90,7 @@
                       <tr data-ng-repeat="e in events" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
                         <td class="text-center">{{ e.title }}</td>
                         <td class="text-center">{{ e.location }}</td>
-                        <td class="text-center">{{ e.starts | moment}}</td>
+                        <td class="text-center">{{ e.starts | momentFormater}}</td>
                         <td class="text-center">
                           <span class="text-success">
                           <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy" ng-show="event.current === e.id"></i></a></span>

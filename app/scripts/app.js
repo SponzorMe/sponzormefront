@@ -215,7 +215,7 @@ angular.module('sponzorme', [
     return input;
   };
 })
-.filter('moment', function() {
+.filter('momentFormater', function() {
   return function(input) {
     if(!input) {
       return '';
