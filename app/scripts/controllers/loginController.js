@@ -60,6 +60,7 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
           $sessionStorage.token = btoa($scope.email + ':' + $scope.password);
           $sessionStorage.id = adata.user.id;
           $sessionStorage.email = adata.user.email;
+          $sessionStorage.demo = adata.user.demo;
           idiomaselect = adata.user.lang;
           var url = $location.host();
           if (url === 'localhost') {
