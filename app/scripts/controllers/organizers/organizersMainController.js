@@ -1,12 +1,7 @@
 'use strict';
 (function(){
-
-function validateUser(){
-
-}
-
 function OrganizersMainController($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
-  $rootScope.userValidation("0");
+  $rootScope.userValidation('0');
   $scope.loadingevents = true;
   $scope.loadingrss = true;
   $scope.tolsctive = 'active';
@@ -27,7 +22,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $scope.sponzors.size = 0;
     $scope.sponzors.balance = 0;
     angular.forEach(data.SponzorsEvents, function(value) {
-      if (value.status === "1") {
+      if (value.status === '1') {
         $scope.sponzors.balance = parseInt($scope.sponzors.balance) + parseInt(value.usd);
       }
     });
@@ -46,7 +41,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
       $scope.loadingevents = false;
       if($scope.events[0]){
         $scope.event.current = $scope.events[0].id;
-      }      
+      }
     });
   } else {
     var sponzormeObj = JSON.parse($localStorage.sponzorme);
@@ -58,9 +53,8 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $scope.loadingevents = false;
     if($scope.events[0]){
         $scope.event.current = $scope.events[0].id;
-      }  
+      }
   }
-
   $scope.$watch('event.current', function(newvalue) {
     $scope.loadingpeaks = true;
     $scope.noPerksMessage = false;

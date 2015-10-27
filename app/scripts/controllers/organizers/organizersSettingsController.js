@@ -3,7 +3,7 @@
 
 function OrganizersSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest, $location, $rootScope) {
 
-  $rootScope.userValidation("0");
+  $rootScope.userValidation('0');
 
   $scope.emailuser = $sessionStorage.email;
 

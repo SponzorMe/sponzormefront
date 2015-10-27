@@ -2,7 +2,7 @@
 (function(){
 
 function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
-  $rootScope.userValidation("1");
+  $rootScope.userValidation('1');
   $scope.noSponzorshipsMessage = false;
   $scope.noSponzorshipsTaskMessage = false;
   $scope.sponzorshipsLoading = true;
@@ -14,7 +14,7 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
   $scope.getSponzorshipsBySponzor = function() {
     sponzorshipRequest.oneSponzorshipBySponzor($sessionStorage.id).success(function(data) {
       $scope.sponzorshipsLoading = false;
-      $scope.noSponzorshipsMessage = false;      
+      $scope.noSponzorshipsMessage = false;
       if (!data.SponzorsEvents[0]) {
         $scope.loadingTasks = false;
         $scope.noSponzorshipsMessage = true;
@@ -23,7 +23,7 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
         $scope.sponzorships = [];
         var flag = false;//used to verify if there is tasks
         angular.forEach(data.SponzorsEvents, function(value) {
-          if (value.status === "1") {
+          if (value.status === '1') {
             $scope.sponzorships.push(value);
             flag = true;
           }
@@ -31,11 +31,10 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
         if (flag) {
           $scope.sponzorships.current = $scope.sponzorships[0].id;
           $scope.getTaskSponzor($scope.sponzorships[0]); //Fit the tasks with the first sponzorships
-          
         } else {
           $scope.loadingTasks = false;
           $scope.noSponzorshipsTaskMessage = true;
-        }        
+        }
       }
     }).error(function(data) {
       console.log(data);

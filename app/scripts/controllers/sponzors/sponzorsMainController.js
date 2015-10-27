@@ -2,7 +2,7 @@
 (function(){
 
 function SponzorsMainController($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope) {
-  $rootScope.userValidation("1");
+  $rootScope.userValidation('1');
 
     $scope.searchLoading = true;
     $scope.upcomingLoading = true;
@@ -30,7 +30,7 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
     };
     $scope.setBestEvents = function() {
       $scope.bestEvents = [];
-      for (var i = 0; i < 4 ; i++) { //Choose randomly events
+      for (var i = 0; i < 4; i++) { //Choose randomly events
         $scope.bestEvents.push($scope.search[i]);
       }
       $scope.bestLoading = false;

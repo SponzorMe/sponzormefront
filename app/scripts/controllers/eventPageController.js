@@ -13,18 +13,13 @@
     }).error(function() {
       $scope.eventLoaded = true;
     });
-    if($sessionStorage.typesponzorme==="1"){//He is an sponzor
-        console.log("Sponzor")
-        $scope.isSponzor = true;
-        $scope.isNoLogged = false;
-      }
-      else if($sessionStorage.typesponzorme==="0"){//He is an organizer
-        console.log("Organizer");
-        $scope.isSponzor = false;
-        $scope.isNoLogged = false;
-      }
-      else {//He is a guest
-      console.log("Gest");
+    if ($sessionStorage.typesponzorme === '1') { //He is an sponzor
+      $scope.isSponzor = true;
+      $scope.isNoLogged = false;
+    } else if ($sessionStorage.typesponzorme === '0') { //He is an organizer
+      $scope.isSponzor = false;
+      $scope.isNoLogged = false;
+    } else { //He is a guest
       $scope.isSponzor = false;
       $scope.isNoLogged = true;
     }
@@ -51,7 +46,7 @@
       };
       ngDialog.closeAll();
       ngDialog.open({
-        template: 'loading',
+        template: 'loading'
       });
       sponzorshipRequest.createSponzorship(data).success(function(sData) {
         perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
@@ -65,7 +60,7 @@
               'sponzorship_id': sData.Sponzorship.id,
               'task_id': value.id
             };
-            taskSponzorRequest.createTaskSponzor(taskSponzor).success(function(){});
+            taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {});
           });
           ngDialog.closeAll();
           ngDialog.open({

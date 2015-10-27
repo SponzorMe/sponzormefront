@@ -2,7 +2,7 @@
 (function(){
 
 function SponzorsSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest, $location, $rootScope) {
-  $rootScope.userValidation("1");
+  $rootScope.userValidation('1');
   $scope.emailuser = $sessionStorage.email;
   $scope.account = [];
   if (!$localStorage.sponzorme) {

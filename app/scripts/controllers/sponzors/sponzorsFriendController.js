@@ -3,7 +3,7 @@
 
 function SponzorsFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, $rootScope) {
 
-  $rootScope.userValidation("1");
+  $rootScope.userValidation('1');
 
   $scope.invitefriend = function() {
     $scope.loadingInvite = true;

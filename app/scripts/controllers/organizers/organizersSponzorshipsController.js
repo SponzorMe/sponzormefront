@@ -2,7 +2,7 @@
 (function(){
 
 function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
-  $rootScope.userValidation("0");
+  $rootScope.userValidation('0');
   $scope.noSponzorshipsMessage = false;
   $scope.loadingsponzorships = true;
   $scope.loadingsponzorshipstasks = true;

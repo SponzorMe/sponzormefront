@@ -2,7 +2,7 @@
 (function(){
 
 function OrganizersFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, $rootScope) {
-  $rootScope.userValidation("0");
+  $rootScope.userValidation('0');
   $scope.friend = {};
   $scope.friend.email = '';
   $scope.friend.message = '';
@@ -16,7 +16,7 @@ function OrganizersFriendController($scope, $translate, $sessionStorage, userReq
       $scope.friend.tempEmail = $scope.friend.email;
       $scope.friend.email = '';
       $scope.friend.message = '';
-      if (adata.code === "200") {
+      if (adata.code === '200') {
         ngDialog.open({
           template: 'emailsend.html',
           scope: $scope

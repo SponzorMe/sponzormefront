@@ -2,7 +2,7 @@
 (function(){
 
 function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
-  $rootScope.userValidation("0");//Validation
+  $rootScope.userValidation('0');//Validation
   //Vars Initialization
   $scope.sponzors = [];
   $scope.error_log = '';
@@ -33,7 +33,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     $scope.noPerksMessage = false;
     userRequest.oneUser(userId).success(function(adata) {
       $scope.eventos = adata.data.user.events;
-      $scope.loadingEvents = false;      
+      $scope.loadingEvents = false;
       if($scope.eventos[0]){
         $scope.event.current = $scope.eventos[0].id;
       }
@@ -43,7 +43,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         $scope.noEventsMessage = true;
       }
     });
-  };  
+  };
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
         if($scope.tolsctive === true){
@@ -51,7 +51,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         }
     };
   $scope.$watch('event.current', function(newvalue) {
-    if (newvalue !== '' && newvalue !== "0" &&  typeof newvalue !== 'undefined') { //Some validation to ensure no empty values
+    if (newvalue !== '' && newvalue !== '0' && typeof newvalue !== 'undefined') { //Some validation to ensure no empty values
       $scope.updatePerks(newvalue);
     }
   });
@@ -161,14 +161,14 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         console.log(edata);
         $scope.loadingNewEvent = false;
         $scope.errorNewEvent = true;
-      });        
+      });
     }).error(function(edata) {
         console.log('Error creating an event');
         console.log(edata);
         $scope.loadingNewEvent = false;
         $scope.errorNewEvent = true;
     });
-  };  
+  };
   $scope.newEvent = function() {
     $scope.loadingNewEvent = true;
     $scope.errorNewEvent = false;
@@ -177,10 +177,10 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       var params = {
         image: $scope.file.base64,
         type: 'base64'
-      };      
+      };
       imgurRequest.uploadImage(params).success(function(imageData) {
         $scope.newEvent.image = imageData.data.link;
-        $scope.createNewEvent();  
+        $scope.createNewEvent();
       });
     } else {
       $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';//If no Image we set here some image
