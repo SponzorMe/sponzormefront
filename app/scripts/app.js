@@ -195,14 +195,23 @@ angular.module('sponzorme', [
     if ($sessionStorage.cookiesponzorme && $sessionStorage.email && $sessionStorage.id > 0 && $sessionStorage.token && $sessionStorage.typesponzorme === shouldType){
       $sessionStorage.demo = "0";//Remove to production
       if($sessionStorage.demo==="0" && $sessionStorage.typesponzorme==="1"){
-        $rootScope.showDemoSponzors();
-        $rootScope.updateUserDemo($sessionStorage.id);//After the presentation, we update the user Demo
-        $sessionStorage.demo = 1;
+        angular.element(document).ready(function () {
+          setTimeout(function(){ 
+            $rootScope.showDemoSponzors();
+            $rootScope.updateUserDemo($sessionStorage.id);//After the presentation, we update the user Demo
+            $sessionStorage.demo = 1;
+          }, 3000);
+        });
       }
-      else if($sessionStorage.demo==="0" && $sessionStorage.typesponzorme==="0"){
-        $rootScope.showDemoOrganizers();
-        $rootScope.updateUserDemo($sessionStorage.id);//After the presentation, we update the user Demo
-        $sessionStorage.demo = 1;
+      else if($sessionStorage.demo==="0" && $sessionStorage.typesponzorme==="0"){        
+        angular.element(document).ready(function () {
+          setTimeout(function(){ 
+            $rootScope.showDemoOrganizers();
+            $rootScope.updateUserDemo($sessionStorage.id);//After the presentation, we update the user Demo
+            $sessionStorage.demo = 1;
+          }, 3000);
+        });
+        
       }
     } else {
       console.log("Not Authenticated");
