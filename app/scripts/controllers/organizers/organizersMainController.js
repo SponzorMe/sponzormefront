@@ -96,14 +96,6 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
         }
     };
 
-  $scope.tolsctive = 'active';
-  $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive === true){
-           $scope.tolsctive = 'active';
-        }
-    };
-
   $scope.menuprincipal = 'views/organizers/menu.html';
 }
 

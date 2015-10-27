@@ -27,7 +27,9 @@
     "angular-utils-pagination": "~0.9.1",
     "angular-ui-bootstrap-datetimepicker": "~0.12.0",
     "moment": "~2.10.6",
-    "intro.js": "~1.1.1"
+    "intro.js": "~1.1.1",
+    "bootstrap": "~3.3.5",
+    "bootstrap-toggle": "~2.2.1"
   },
   "devDependencies": {
     "chai": "~3.0.0",

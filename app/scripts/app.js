@@ -193,6 +193,7 @@ angular.module('sponzorme', [
   };
   $rootScope.userValidation = function(shouldType) {
     if ($sessionStorage.cookiesponzorme && $sessionStorage.email && $sessionStorage.id > 0 && $sessionStorage.token && $sessionStorage.typesponzorme === shouldType){
+      $sessionStorage.demo = "0";//Remove to production
       if($sessionStorage.demo==="0" && $sessionStorage.typesponzorme==="1"){
         $rootScope.showDemoSponzors();
         $rootScope.updateUserDemo($sessionStorage.id);//After the presentation, we update the user Demo
@@ -210,9 +211,7 @@ angular.module('sponzorme', [
   };
   $rootScope.updateUserDemo = function(userId){
     var user = {"demo":"1"};
-    userRequest.editUserPatch(userId, user).success(function(adata) {
-        console.log(adata);
-    });
+    userRequest.editUserPatch(userId, user).success(function() {});
   };
   $rootScope.showDemoSponzors = function(){
     var intro = introJs();
