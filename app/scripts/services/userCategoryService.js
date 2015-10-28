@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function userInterestRequest($http, $cookies) {
+	function userCategoryRequest($http, $cookies) {
 		var token = $cookies.get('token');
 		return {
 			allUserCategories: function(){
@@ -49,6 +49,6 @@
 			}
 		};
 	}
-	angular.module('userInterestService', ['ngCookies'])
-		.factory('userInterestRequest', userInterestRequest);
+	angular.module('userCategoryService', ['ngCookies'])
+		.factory('userCategoryRequest', userCategoryRequest);
 })();

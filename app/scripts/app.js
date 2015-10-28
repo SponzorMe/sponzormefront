@@ -26,6 +26,7 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
     'angularSpinner',
     'allInterestsService',
     'userInterestService',
+    'userCategoryService',
     'naif.base64',
     'imgurService',
     'angularUtils.directives.dirPagination',
