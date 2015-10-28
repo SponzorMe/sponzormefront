@@ -9,8 +9,9 @@ var gulp = require('gulp'),
 	clean = require('gulp-rimraf'),
 	imagemin = require('gulp-imagemin'),
 	serve = require('gulp-serve'),
-	ngAnnotate = require('gulp-ng-annotate');
-var browserSync = require('browser-sync').create();
+	ngAnnotate = require('gulp-ng-annotate'),
+	eslint = require('gulp-eslint')
+	browserSync = require('browser-sync').create();
 
 gulp.task('main', function()
 {
@@ -61,8 +62,12 @@ gulp.task('clean', function() {
 });
 gulp.task('build', ['main','views','imagenes','langs','fonts','extras']);
 
-gulp.task('default', ['clean'], function() {
+gulp.task('success', ['clean'], function() {
   gulp.start('build');
+});
+
+gulp.task('default',['lint'],function(){
+	gulp.start('success');
 });
 
 gulp.task('serve', function (){
@@ -102,4 +107,11 @@ gulp.task('serve:dist', function (){
       baseDir: ['dist']
     }
   });
+});
+
+gulp.task('lint', function () {
+    return gulp.src(['app/scripts/**/*.js','app/scripts/**/**/*.js','app/scripts/*.js'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
 });

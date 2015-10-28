@@ -31,7 +31,7 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
     'imgurService',
     'angularUtils.directives.dirPagination',
     'ui.bootstrap.datetimepicker'
-  ]).config(["$translateProvider", function($translateProvider) {
+  ]).config(['$translateProvider', function($translateProvider) {
     $translateProvider.useStaticFilesLoader({
       prefix: 'langs/lang-',
       suffix: '.json'
@@ -46,13 +46,13 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
     // End Languages
   }])
 
-  .config(["usSpinnerConfigProvider", function(usSpinnerConfigProvider) {
+  .config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
     usSpinnerConfigProvider.setDefaults({
       color: '#042333'
     });
   }])
 
-  .config(["$routeProvider", function($routeProvider) {
+  .config(['$routeProvider', function($routeProvider) {
       $routeProvider
         .when('', {
           templateUrl: 'views/main.html',
@@ -173,7 +173,7 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
      * This function allows change the language whatever be the route
      * for this reason this is a global function
      */
-    .run(["$rootScope", "$translate", "$location", "allInterestsServiceRequest", "$filter", "$sessionStorage", "userRequest", function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $sessionStorage, userRequest) {
+    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$sessionStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $sessionStorage, userRequest) {
       $rootScope.changeLanguage = function(key) {
         $translate.use(key);
         idiomaselect = key;
