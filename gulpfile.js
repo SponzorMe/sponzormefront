@@ -28,7 +28,7 @@ gulp.task('views', function() {
     conditionals: true,
     spare:true
   };
- 
+
   return gulp.src(['app/views/*.html','app/views/**/*.html',,'app/views/**/**/*.html'])
     .pipe(minifyHTML(opts))
     .pipe(gulp.dest('dist/views'));
@@ -43,6 +43,13 @@ gulp.task('imagenes', function () {
 gulp.task('extras', function () {
     return gulp.src(['app/favicon.ico','app/robots.txt'])
         .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('extras1', function(){
+	return gulp.src(['app/styles/event-page.css'])
+			.pipe(minifyCSS())
+			.pipe(gulp.dest('dist/styles/'));
+
 });
 
 gulp.task('langs', function () {
@@ -60,7 +67,7 @@ gulp.task('clean', function() {
     return gulp.src(['dist/**/*.*','dist/**/**/*.*','dist/*.*','dist/*'], { read: false })
            .pipe(clean({ force: true }));
 });
-gulp.task('build', ['main','views','imagenes','langs','fonts','extras']);
+gulp.task('build', ['main','views','imagenes','langs','fonts','extras','extras1']);
 
 gulp.task('success', ['clean'], function() {
   gulp.start('build');
