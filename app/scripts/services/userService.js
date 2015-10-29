@@ -7,14 +7,14 @@
 'use strict';
 (function(){
 
-	function userRequest($http, $sessionStorage) {
+	function userRequest($http, $localStorage) {
 
 		return {
 			allUsers: function(){
 				return $http.get(apiPath + 'users');
 			},
 			oneUser: function(userId){
-				var token = $sessionStorage.token;
+				var token = $localStorage.token;
 				$http.defaults.headers.common.Authorization = 'Basic ' + token;
 				return $http.get(apiPath + 'users/' + userId);
 
@@ -29,7 +29,7 @@
 				});
 			},
 			deleteUser: function(userId){
-				var token = $sessionStorage.token;
+				var token = $localStorage.token;
 				return $http({
 					method: 'DELETE',
 					url: apiPath + 'users/' + userId,
@@ -37,7 +37,7 @@
 				});
 			},
 			editUserPatch: function(userId, data){
-				var token = $sessionStorage.token;
+				var token = $localStorage.token;
 				return $http({
 					method: 'PATCH',
 					url: apiPath + 'users/' + userId,
@@ -46,7 +46,7 @@
 				});
 			},
 			editUserPut: function(userId, data){
-				var token = $sessionStorage.token;
+				var token = $localStorage.token;
 				return $http({
 					method: 'PUT',
 					url: apiPath + 'users/' + userId,
@@ -55,7 +55,7 @@
 				});
 			},
 			invitedUser: function(data){
-				var token = $sessionStorage.token;
+				var token = $localStorage.token;
 				return $http({
 					method: 'POST',
 					url: apiPath + 'invite_friend/',

@@ -1,18 +1,18 @@
 'use strict';
 (function(){
 
-function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
   $rootScope.userValidation('1');
   $scope.noSponzorshipsMessage = false;
   $scope.noSponzorshipsTaskMessage = false;
   $scope.sponzorshipsLoading = true;
   $scope.loadingTasks = true;
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.userfroups = 0;
   $translate.use(idiomaselect);
   //This function allows get sponzorship info from organizerId
   $scope.getSponzorshipsBySponzor = function() {
-    sponzorshipRequest.oneSponzorshipBySponzor($sessionStorage.id).success(function(data) {
+    sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
       $scope.sponzorshipsLoading = false;
       $scope.noSponzorshipsMessage = false;
       if (!data.SponzorsEvents[0]) {
@@ -145,17 +145,16 @@ function SponzorsSponzorshipsController($scope, $translate, $sessionStorage, $lo
     });
   };
   $scope.addTaskSponzor = function() {
-    console.log($scope.currentSponzorship);
     $scope.todo.perk_id = $scope.currentSponzorship.perk_id;
     $scope.todo.event_id = $scope.currentSponzorship.event_id;
     $scope.todo.status = 0; //We put the defaul status
-    $scope.todo.user_id = $sessionStorage.id; //Get the organizer Id
+    $scope.todo.user_id = $localStorage.id; //Get the organizer Id
     $scope.todo.type = 1; //If task is created by sponzor the type is 1
     /** First we crete the perk task, and then we create the task sponzor **/
     perkTaskRequest.createPerkTask($scope.todo).success(function(data) {
       var taskSponzor = {
-        status: 0,
-        'sponzor_id': $sessionStorage.id,
+        'status': 0,
+        'sponzor_id': $localStorage.id,
         'perk_id': $scope.currentSponzorship.perk_id,
         'event_id': $scope.currentSponzorship.event_id,
         'organizer_id': $scope.currentSponzorship.organizer_id,

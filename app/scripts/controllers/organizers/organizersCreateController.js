@@ -1,31 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersCreateController($scope, $translate, $sessionStorage, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
+function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {
 
   $scope.sendfrom = function() {
     $scope.error_log = [];
@@ -47,12 +23,13 @@ function OrganizersCreateController($scope, $translate, $sessionStorage, userReq
             $localStorage.sponzorme = datuser;
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 1);
-            $sessionStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
-            $sessionStorage.token = btoa($scope.email + ':' + $scope.passwordone);
+            $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
+            $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);
             $scope.loagind = false;
-            $sessionStorage.typesponzorme = adata.User.type;
-            $sessionStorage.id = adata.User.id;
-            $sessionStorage.email = adata.User.email;
+            $localStorage.typesponzorme = adata.User.type;
+            $localStorage.id = adata.User.id;
+            $localStorage.email = adata.User.email;
+            $localStorage.demo = adata.User.demo;
             $location.path('/customization');
           }
         }).error(function(data) {

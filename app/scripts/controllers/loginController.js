@@ -3,43 +3,7 @@
 
 function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
 
-  delete $sessionStorage.cookiesponzorme;
-
-  delete $sessionStorage.typesponzorme;
-
-  delete $sessionStorage.token;
-
-  delete $sessionStorage.developer;
-
-  delete $sessionStorage.id;
-
-  delete $sessionStorage.email;
-
   $localStorage.$reset();
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
 
   $scope.sendfrom = function() {
 
@@ -55,17 +19,17 @@ function LoginController($scope, $translate, loginRequest, $base64, $sessionStor
         if (adata.user.activated) {
           var expireDate = new Date();
           expireDate.setDate(expireDate.getDate() + 1);
-          $sessionStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.password);
-          $sessionStorage.typesponzorme = adata.user.type;
-          $sessionStorage.token = btoa($scope.email + ':' + $scope.password);
-          $sessionStorage.id = adata.user.id;
-          $sessionStorage.email = adata.user.email;
-          $sessionStorage.demo = adata.user.demo;
+          $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.password);
+          $localStorage.typesponzorme = adata.user.type;
+          $localStorage.token = btoa($scope.email + ':' + $scope.password);
+          $localStorage.id = adata.user.id;
+          $localStorage.email = adata.user.email;
+          $localStorage.demo = adata.user.demo;
+          $localStorage.startDate = Date.now();
+          $scope.$storage = $localStorage;
+          console.log($scope.$storage);
           idiomaselect = adata.user.lang;
-          var url = $location.host();
-          if (url === 'localhost') {
-            $sessionStorage.developer = 1;
-          }
+          
           $scope.loagind = false;
           if (adata.user.type === '1') {
             $location.path('/sponzors/dashboard');

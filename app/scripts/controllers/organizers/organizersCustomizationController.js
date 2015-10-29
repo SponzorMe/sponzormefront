@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersCustomizationController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
+function OrganizersCustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
 
   $scope.loadinglistsponzors = true;
   $scope.userData = {};
@@ -9,42 +9,6 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
   $scope.interestselectarray = [];
   $scope.step1 = true;
   $scope.step4 = false;
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
-
-
-
-  $scope.emailuser = $sessionStorage.email;
-
-  if (!$localStorage.sponzorme) {
-    userRequest.oneUser($sessionStorage.id).success(function(adata) {
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-    });
-
-  }
 
   categoryRequest.allCategories().success(function(adata) {
     $scope.categories = adata.categories;
@@ -69,7 +33,7 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
     $scope.objuser.lang = $scope.userData.lang;
     $scope.objuser.location = $scope.userData.location.reference;
     $scope.loagind = true;
-    userRequest.editUserPatch($sessionStorage.id, $scope.objuser).success(function(adata) {
+    userRequest.editUserPatch($localStorage.id, $scope.objuser).success(function(adata) {
       if (adata.message === 'Updated') {
         var datuser = JSON.stringify(adata.User);
         $localStorage.sponzorme = datuser;
@@ -100,7 +64,7 @@ function OrganizersCustomizationController($scope, $translate, $sessionStorage, 
     angular.forEach($scope.interestselectarray, function(valuep) {
       $scope.itemintere = {};
       $scope.itemintere.interest_id = valuep;
-      $scope.itemintere.user_id = $sessionStorage.id;
+      $scope.itemintere.user_id = $localStorage.id;
       userInterestRequest.createUserInterest($scope.itemintere).success(function() {
 
       });

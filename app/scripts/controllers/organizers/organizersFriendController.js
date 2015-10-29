@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, $rootScope) {
+function OrganizersFriendController($scope, $translate, $localStorage, userRequest, ngDialog, $location, $rootScope) {
   $rootScope.userValidation('0');
   $scope.friend = {};
   $scope.friend.email = '';
@@ -9,7 +9,7 @@ function OrganizersFriendController($scope, $translate, $sessionStorage, userReq
   $scope.invitefriend = function() {
     $scope.loadingInvite = true;
     $scope.objuserinv = {};
-    $scope.objuserinv.user_id = $sessionStorage.id;
+    $scope.objuserinv.user_id = $localStorage.id;
     $scope.objuserinv.email = $scope.friend.email;
     $scope.objuserinv.message = $scope.friend.message;
     userRequest.invitedUser($scope.objuserinv).success(function(adata) {
@@ -31,7 +31,7 @@ function OrganizersFriendController($scope, $translate, $sessionStorage, userReq
     });
   };
 
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
 
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {

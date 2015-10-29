@@ -647,5 +647,6 @@
   "loading": "Loading, We are processing your request.",
   "logginToSPonzor": "Please Log in to Sponzor!",
   "noSponzor": "You need an Sponzor account",
-  "editEvent":"Edit Event"
+  "editEvent":"Edit Event",
+  "loggedAs": "You are logged as: "
 }

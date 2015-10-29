@@ -1,11 +1,11 @@
 'use strict';
 (function(){
-function OrganizersMainController($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
+function OrganizersMainController($scope, $translate, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
   $rootScope.userValidation('0');
   $scope.loadingevents = true;
   $scope.loadingrss = true;
   $scope.tolsctive = 'active';
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.userfroups = 0;
   $translate.use(idiomaselect);
   $scope.startcounter = 0;
@@ -18,7 +18,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
   $scope.sponzors.balance = 'calculating';
   $scope.users = {};
   $scope.users.size = 0;
-  sponzorshipRequest.oneSponzorshipByOrganizer($sessionStorage.id).success(function(data) {
+  sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
     $scope.sponzors.size = 0;
     $scope.sponzors.balance = 0;
     angular.forEach(data.SponzorsEvents, function(value) {
@@ -29,7 +29,7 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $scope.sponzors.size = data.SponzorsEvents.length;
   });
   if (!$localStorage.sponzorme) {
-    userRequest.oneUser($sessionStorage.id).success(function(adata) {
+    userRequest.oneUser($localStorage.id).success(function(adata) {
       $scope.events = [];
 
       $scope.users.size = adata.data.user.comunity_size;

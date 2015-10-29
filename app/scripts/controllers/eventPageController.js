@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $sessionStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest) {
+  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope) {
     $scope.eventLoaded = false;
     $scope.event = {};
     eventRequest.oneEvent($routeParams.eventId).success(function(data) {
@@ -9,14 +9,13 @@
       $scope.currentEvent = data.data.event.id;
       $scope.currentOrganizer = data.data.organizer[0];
       $scope.eventURL = $location.absUrl();
-      console.log($scope.eventURL);
     }).error(function() {
       $scope.eventLoaded = true;
     });
-    if ($sessionStorage.typesponzorme === '1') { //He is an sponzor
+    if ($localStorage.typesponzorme === '1' && !$rootScope.isExpiredData()) { //He is an sponzor
       $scope.isSponzor = true;
       $scope.isNoLogged = false;
-    } else if ($sessionStorage.typesponzorme === '0') { //He is an organizer
+    } else if ($localStorage.typesponzorme === '0' && !$rootScope.isExpiredData()) { //He is an organizer
       $scope.isSponzor = false;
       $scope.isNoLogged = false;
     } else { //He is a guest
@@ -38,7 +37,7 @@
       */
       var data = {
         status: 0,
-        'sponzor_id': $sessionStorage.id,
+        'sponzor_id': $localStorage.id,
         'perk_id': $scope.perkToSponzor.id,
         'event_id': $scope.perkToSponzor.id_event,
         'cause': $scope.perkToSponzor.cause,
@@ -53,7 +52,7 @@
           angular.forEach(sPerkData.data.Tasks, function(value) {
             var taskSponzor = {
               status: 0,
-              'sponzor_id': $sessionStorage.id,
+              'sponzor_id': $localStorage.id,
               'perk_id': $scope.perkToSponzor.id,
               'event_id': $scope.perkToSponzor.id_event,
               'organizer_id': $scope.currentOrganizer.id,

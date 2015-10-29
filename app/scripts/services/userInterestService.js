@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function userInterestRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function userInterestRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allUserInterests: function(){
 				return $http.get(apiPath + 'user_interests');

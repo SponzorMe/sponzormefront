@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function SponzorsMainController($scope, $translate, $sessionStorage, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope) {
+function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope) {
   $rootScope.userValidation('1');
 
     $scope.searchLoading = true;
@@ -71,7 +71,7 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
       */
       var data = {
         status: 0,
-        'sponzor_id': $sessionStorage.id,
+        'sponzor_id': $localStorage.id,
         'perk_id': $scope.perkToSponzor.id,
         'event_id': $scope.perkToSponzor.id_event,
         'cause': $scope.perkToSponzor.cause,
@@ -85,7 +85,7 @@ function SponzorsMainController($scope, $translate, $sessionStorage, userRequest
           angular.forEach(sPerkData.data.Tasks, function(value) {
             var taskSponzor = {
               status: 0,
-              'sponzor_id': $sessionStorage.id,
+              'sponzor_id': $localStorage.id,
               'perk_id': $scope.perkToSponzor.id,
               'event_id': $scope.perkToSponzor.id_event,
               'organizer_id': $scope.currentOrganizer.id,

@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function eventRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function eventRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allEvents: function(){
 				return $http.get(apiPath + 'events');

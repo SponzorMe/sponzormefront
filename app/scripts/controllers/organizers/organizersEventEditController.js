@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope, $routeParams) {
+  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope, $routeParams) {
     $rootScope.userValidation('0'); //Validation
     $scope.tolsctive = 'active';
     $scope.loading = true;
@@ -21,7 +21,7 @@
       $scope.todo.perk_id = $scope.currentPerkId;
       $scope.todo.event_id = $scope.event.current;
       $scope.todo.status = 0; //We put the defaul status
-      $scope.todo.user_id = $sessionStorage.id; //Get the organizer Id
+      $scope.todo.user_id = $localStorage.id; //Get the organizer Id
       $scope.todo.type = 0; //If task is created by organizer the type is 0
       perkTaskRequest.createPerkTask($scope.todo).success(function() {
         ngDialog.closeAll();

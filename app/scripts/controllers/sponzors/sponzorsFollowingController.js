@@ -1,14 +1,14 @@
 'use strict';
 (function(){
 
-function SponzorsFollowingController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
+function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
   $rootScope.userValidation('1');
   $scope.sponzorshipsLoading = true;
   $scope.noSponzorshipsMessage = false;
   $scope.tasksLoading = true;
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.loadSponzorships = function() {
-      sponzorshipRequest.oneSponzorshipBySponzor($sessionStorage.id).success(function(data) {
+      sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
         $scope.sponzorshipsLoading = false;
         if (!data.SponzorsEvents[0]) {
           $scope.tasksLoading = false;

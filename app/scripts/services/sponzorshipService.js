@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function sponzorshipRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function sponzorshipRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allSponzorships: function(){
 				return $http.get(apiPath + 'sponzorships');

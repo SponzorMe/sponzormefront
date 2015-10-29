@@ -1,27 +1,14 @@
 'use strict';
 (function(){
 
-function OrganizersSettingsController($scope, $translate, $sessionStorage, userRequest, $localStorage, imgurRequest, $location, $rootScope) {
+function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope) {
 
   $rootScope.userValidation('0');
 
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
 
   $scope.account = [];
 
-  if (!$localStorage.sponzorme) {
-    userRequest.oneUser($sessionStorage.id).success(function(adata) {
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-      $scope.account = adata.data.user;
-    });
-
-  } else {
-    var sponzormeObj = JSON.parse($localStorage.sponzorme);
-    $scope.todo = sponzormeObj.perk_tasks;
-    $scope.sponzors = sponzormeObj.sponzorships;
-    $scope.account = sponzormeObj;
-  }
   $scope.file = false; //By default no file to update.
   $scope.editAccount = function() {
     $scope.loadingEditAccount = true;
@@ -33,7 +20,7 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
       };
       imgurRequest.uploadImage(params).success(function(data) {
         $scope.account.image = data.data.link;
-        userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata) {
+        userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
           $scope.account = adata.User;
           $localStorage.$reset();
           $scope.loadingEditAccount = false;
@@ -43,7 +30,7 @@ function OrganizersSettingsController($scope, $translate, $sessionStorage, userR
         });
       });
     } else {
-      userRequest.editUserPatch($sessionStorage.id, $scope.account).success(function(adata) {
+      userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
         $scope.account = adata.User;
         $localStorage.$reset();
         $scope.loadingEditAccount = false;

@@ -2,6 +2,7 @@
 var idiomaselect = 'en'; //Default Language
 var apiPath = 'http://api.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
+var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
     'pascalprecht.translate',
@@ -51,7 +52,10 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
       color: '#042333'
     });
   }])
-
+  .config(['$localStorageProvider',
+    function ($localStorageProvider) {
+        $localStorageProvider.setKeyPrefix('QkeMJxG7-');
+    }])
   .config(['$routeProvider', function($routeProvider) {
       $routeProvider
         .when('', {
@@ -173,7 +177,7 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
      * This function allows change the language whatever be the route
      * for this reason this is a global function
      */
-    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$sessionStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $sessionStorage, userRequest) {
+    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
       $rootScope.changeLanguage = function(key) {
         $translate.use(key);
         idiomaselect = key;
@@ -189,31 +193,46 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
           document.write(a);
         });
       };
-      $rootScope.userValidation = function(shouldType) {
-        if ($sessionStorage.cookiesponzorme && $sessionStorage.email && $sessionStorage.id > 0 && $sessionStorage.token && $sessionStorage.typesponzorme === shouldType) {
-          $sessionStorage.demo = '0'; //Remove to production
-          if ($sessionStorage.demo === '0' && $sessionStorage.typesponzorme === '1') {
-            angular.element(document).ready(function() {
-              setTimeout(function() {
-                $rootScope.showDemoSponzors();
-                $rootScope.updateUserDemo($sessionStorage.id); //After the presentation, we update the user Demo
-                $sessionStorage.demo = 1;
-              }, 3000);
-            });
-          } else if ($sessionStorage.demo === '0' && $sessionStorage.typesponzorme === '0') {
-            angular.element(document).ready(function() {
-              setTimeout(function() {
-                $rootScope.showDemoOrganizers();
-                $rootScope.updateUserDemo($sessionStorage.id); //After the presentation, we update the user Demo
-                $sessionStorage.demo = 1;
-              }, 3000);
-            });
-
+      $rootScope.isExpiredData = function(){
+        if($localStorage.startDate){
+            var dataTime = new Date($localStorage.startDate);
+            var timer = parseInt(expirationTime*24*60*60*1000);
+            var dataExpDate = new Date(dataTime.getTime()+timer);
+            if(Date.now()>dataExpDate.getTime()){
+              $localStorage.$reset();
+              return true;
+            }
+            else{
+              return false;
+            }
           }
-        } else {
-          console.log('Not Authenticated');
-          $location.path('/');
-        }
+      }
+      $rootScope.userValidation = function(shouldType) {   
+          $rootScope.isExpiredData();             
+          if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
+            if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {
+              angular.element(document).ready(function() {
+                setTimeout(function() {
+                  $rootScope.showDemoSponzors();
+                  $rootScope.updateUserDemo($localStorage.id); //After the presentation, we update the user Demo
+                  $localStorage.demo = 1;
+                }, 3000);
+              });
+            } else if ($localStorage.demo === '0' && $localStorage.typesponzorme === '0') {
+              angular.element(document).ready(function() {
+                setTimeout(function() {
+                  $rootScope.showDemoOrganizers();
+                  $rootScope.updateUserDemo($localStorage.id); //After the presentation, we update the user Demo
+                  $localStorage.demo = 1;
+                }, 3000);
+              });
+
+            }
+            $rootScope.$storage = $localStorage;
+          } else {
+            console.log('Not Authenticated');
+            $location.path('/');
+          }
       };
       $rootScope.updateUserDemo = function(userId) {
         var user = {

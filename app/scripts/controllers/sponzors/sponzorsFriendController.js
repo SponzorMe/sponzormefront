@@ -1,14 +1,14 @@
 'use strict';
 (function(){
 
-function SponzorsFriendController($scope, $translate, $sessionStorage, userRequest, ngDialog, $location, $rootScope) {
+function SponzorsFriendController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage) {
 
   $rootScope.userValidation('1');
 
   $scope.invitefriend = function() {
     $scope.loadingInvite = true;
     $scope.objuserinv = {};
-    $scope.objuserinv.user_id = $sessionStorage.id;
+    $scope.objuserinv.user_id = $localStorage.id;
     $scope.objuserinv.email = $scope.friend.email;
     $scope.objuserinv.message = $scope.friend.message;
     userRequest.invitedUser($scope.objuserinv).success(function(adata) {
@@ -30,7 +30,7 @@ function SponzorsFriendController($scope, $translate, $sessionStorage, userReque
     });
   };
 
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
 
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {

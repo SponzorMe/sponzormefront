@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function perkTaskRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function perkTaskRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allPerkTasks: function(){
 				return $http.get(apiPath + 'perk_tasks');

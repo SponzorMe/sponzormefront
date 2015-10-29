@@ -1,28 +1,13 @@
 'use strict';
 (function() {
 
-  function HomeController($scope, $translate, $sessionStorage, $location) {
-    if ($sessionStorage) {
-      var cookie = $sessionStorage.cookiesponzorme;
-      if (cookie === undefined) {
-        $scope.vieuser = 1;
-      } else {
-        $scope.vieuser = 0;
+  function HomeController($scope, $translate, $localStorage, $location) {
+     if ($localStorage.typesponzorme === '1') {
+        $location.path('/sponzors/dashboard');
+      } else if($localStorage.typesponzorme === '0') {
+        $location.path('/organizers/dashboard');
       }
-      var typeini = $sessionStorage.typesponzorme;
-      if (typeini !== undefined) {
-        if (typeini === '1') {
-          $scope.typeuser = 0;
-        } else {
-          $scope.typeuser = 1;
-        }
-      }
-      $scope.userfroups = 0;
-    } else {
-      $location.path('/');
-    }
   }
-
   angular.module('sponzorme')
     .controller('HomeController', HomeController);
 

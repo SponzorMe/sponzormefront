@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function taskSponzorRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function taskSponzorRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allTaskSponzor: function(){
 				return $http.get(apiPath + 'task_sponzor');

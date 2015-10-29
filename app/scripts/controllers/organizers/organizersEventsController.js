@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
+function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
   $rootScope.userValidation('0');//Validation
   //Vars Initialization
   $scope.sponzors = [];
@@ -11,7 +11,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.currentPerk = {};
   $scope.peaks = [];
   $scope.tolsctive = 'active';
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.file = false; //By default no file to add.
   $scope.event = {};
   eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
@@ -117,7 +117,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       $scope.newEvent.type = $scope.typeevent;
       $scope.newEvent.category = $scope.categoryevent;
       $scope.newEvent.privacy = $scope.privacyevent;
-      $scope.newEvent.organizer = $sessionStorage.id;
+      $scope.newEvent.organizer = $localStorage.id;
 
       eventRequest.createEvent($scope.newEvent).success(function(adata) {
         angular.forEach($scope.sponzors, function(value) {
@@ -200,7 +200,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     $scope.todo.perk_id = $scope.currentPerkId;
     $scope.todo.event_id = $scope.event.current;
     $scope.todo.status = 0; //We put the defaul status
-    $scope.todo.user_id = $sessionStorage.id; //Get the organizer Id
+    $scope.todo.user_id = $localStorage.id; //Get the organizer Id
     $scope.todo.type = 0; //If task is created by organizer the type is 0
     perkTaskRequest.createPerkTask($scope.todo).success(function() {
       ngDialog.closeAll();
@@ -260,7 +260,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     });
     //Next we edit the event information
     eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
-      $scope.getEventsByOrganizer($sessionStorage.id);
+      $scope.getEventsByOrganizer($localStorage.id);
       ngDialog.closeAll();
       $scope.updatePerks(idevent);
       ngDialog.open({
@@ -304,7 +304,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
             template: 'successDeletingEvent',
             scope: $scope
           });
-          $scope.getEventsBySponzor($sessionStorage.id);
+          $scope.getEventsBySponzor($localStorage.id);
         }).error(function(eData) {
           console.log(eData);
         });
@@ -347,7 +347,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.removeEditPerk = function(index) {
     $scope.eventData.perks.splice(index, 1);
   };
-  $scope.getEventsByOrganizer($sessionStorage.id); //Here start the callback
+  $scope.getEventsByOrganizer($localStorage.id); //Here start the callback
   $translate.use(idiomaselect);
   $scope.menuprincipal = 'views/organizers/menu.html';
 }
