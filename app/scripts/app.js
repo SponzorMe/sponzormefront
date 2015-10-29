@@ -48,15 +48,16 @@ var expirationTime = 1;
   }])
 
   .config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
-    usSpinnerConfigProvider.setDefaults({
-      color: '#042333'
-    });
-  }])
-  .config(['$localStorageProvider',
-    function ($localStorageProvider) {
-        $localStorageProvider.setKeyPrefix('QkeMJxG7-');
+      usSpinnerConfigProvider.setDefaults({
+        color: '#042333'
+      });
     }])
-  .config(['$routeProvider', function($routeProvider) {
+    .config(['$localStorageProvider',
+      function($localStorageProvider) {
+        $localStorageProvider.setKeyPrefix('QkeMJxG7-');
+      }
+    ])
+    .config(['$routeProvider', function($routeProvider) {
       $routeProvider
         .when('', {
           templateUrl: 'views/main.html',
@@ -193,46 +194,47 @@ var expirationTime = 1;
           document.write(a);
         });
       };
-      $rootScope.isExpiredData = function(){
-        if($localStorage.startDate){
-            var dataTime = new Date($localStorage.startDate);
-            var timer = parseInt(expirationTime*24*60*60*1000);
-            var dataExpDate = new Date(dataTime.getTime()+timer);
-            if(Date.now()>dataExpDate.getTime()){
-              $localStorage.$reset();
-              return true;
-            }
-            else{
-              return false;
-            }
-          }
-      }
-      $rootScope.userValidation = function(shouldType) {   
-          $rootScope.isExpiredData();             
-          if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
-            if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {
-              angular.element(document).ready(function() {
-                setTimeout(function() {
-                  $rootScope.showDemoSponzors();
-                  $rootScope.updateUserDemo($localStorage.id); //After the presentation, we update the user Demo
-                  $localStorage.demo = 1;
-                }, 3000);
-              });
-            } else if ($localStorage.demo === '0' && $localStorage.typesponzorme === '0') {
-              angular.element(document).ready(function() {
-                setTimeout(function() {
-                  $rootScope.showDemoOrganizers();
-                  $rootScope.updateUserDemo($localStorage.id); //After the presentation, we update the user Demo
-                  $localStorage.demo = 1;
-                }, 3000);
-              });
-
-            }
-            $rootScope.$storage = $localStorage;
+      $rootScope.isExpiredData = function() {
+        if ($localStorage.startDate) {
+          var dataTime = new Date($localStorage.startDate);
+          var timer = parseInt(expirationTime * 24 * 60 * 60 * 1000);
+          var dataExpDate = new Date(dataTime.getTime() + timer);
+          if (Date.now() > dataExpDate.getTime()) {
+            $localStorage.$reset();
+            return true;
           } else {
-            console.log('Not Authenticated');
-            $location.path('/');
+            return false;
           }
+        } else {
+          return true;
+        }
+      };
+      $rootScope.userValidation = function(shouldType) {
+        $rootScope.isExpiredData();
+        if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
+          if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {
+            angular.element(document).ready(function() {
+              setTimeout(function() {
+                $rootScope.showDemoSponzors();
+                $rootScope.updateUserDemo($localStorage.id); //After the presentation, we update the user Demo
+                $localStorage.demo = 1;
+              }, 3000);
+            });
+          } else if ($localStorage.demo === '0' && $localStorage.typesponzorme === '0') {
+            angular.element(document).ready(function() {
+              setTimeout(function() {
+                $rootScope.showDemoOrganizers();
+                $rootScope.updateUserDemo($localStorage.id); //After the presentation, we update the user Demo
+                $localStorage.demo = 1;
+              }, 3000);
+            });
+
+          }
+          $rootScope.$storage = $localStorage;
+        } else {
+          console.log('Not Authenticated');
+          $location.path('/');
+        }
       };
       $rootScope.updateUserDemo = function(userId) {
         var user = {

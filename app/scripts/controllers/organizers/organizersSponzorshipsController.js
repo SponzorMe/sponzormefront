@@ -21,7 +21,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
         $scope.noSponzorshipsTaskMessage = true;
       } else {
         $scope.sponzorships = data.SponzorsEvents;
-        if ($scope.sponzorships[0].status !== "0") {
+        if ($scope.sponzorships[0].status !== '0') {
           $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
         } else {
           $scope.noSponzorshipsTaskMessage = true;
@@ -95,7 +95,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
       taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
         $scope.tasksSponzor = [];
         angular.forEach(data.tasks, function(value) {
-          if (value.type === "0") {
+          if (value.type === '0') {
             $scope.tasksSponzor.push(value);
           }
         });
