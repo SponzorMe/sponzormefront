@@ -16,7 +16,7 @@
         $scope.loagind = true;
         $scope.error_log = [];
         loginRequest.login($scope.objuser).success(function(adata) {
-          if (adata.user.activated==='1') {
+          if (adata.user.activated === '1') {
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 1);
             $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.password);
@@ -27,7 +27,7 @@
             $localStorage.demo = adata.user.demo;
             $localStorage.startDate = Date.now();
             $scope.$storage = $localStorage;
-            
+
             idiomaselect = adata.user.lang;
 
             $scope.loagind = false;

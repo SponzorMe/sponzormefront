@@ -26,7 +26,7 @@
 					data: $.param(data)
 				});
 			},
-			createEventToken: function(data,newUserToken){
+			createEventToken: function(data, newUserToken){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'events',
