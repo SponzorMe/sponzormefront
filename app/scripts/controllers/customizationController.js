@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersCustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
+function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
 
   $scope.loadinglistsponzors = true;
   $scope.userData = {};
@@ -77,6 +77,6 @@ function OrganizersCustomizationController($scope, $translate, $localStorage, us
 }
 
 angular.module('sponzorme')
-.controller('OrganizersCustomizationController', OrganizersCustomizationController);
+.controller('CustomizationController', CustomizationController);
 
 })();
