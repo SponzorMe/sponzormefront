@@ -4,8 +4,11 @@
 function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope) {
 
   $rootScope.userValidation('0');
-
-  $scope.emailuser = $localStorage.email;
+  $scope.loadingEditAccount=true;
+  userRequest.oneUser($localStorage.id).success(function(adata) {
+    $scope.account = adata.data.user;
+    $scope.loadingEditAccount=false;
+  });
 
   $scope.account = [];
 

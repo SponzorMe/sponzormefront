@@ -4,6 +4,11 @@
 function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope) {
   $rootScope.userValidation('1');
   $scope.file = false; //By default no file to update.
+  $scope.loadingEditAccount=true;
+  userRequest.oneUser($localStorage.id).success(function(adata) {
+    $scope.account = adata.data.user;
+    $scope.loadingEditAccount=false;
+  });
   $scope.editAccount = function() {
     $scope.loadingEditAccount = true;
     $scope.account.location = $scope.account.location.formatted_address;
