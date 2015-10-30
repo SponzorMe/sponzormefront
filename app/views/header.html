@@ -16,9 +16,8 @@
             <li><a href="#/organizers/create">{{ 'organizerreg' | translate }}</a></li>
           </ul>
         </section>
-        <section ng-show="$storage.email">
-          <ul class="nav navbar-nav navbar-right">
-              <li>{{ 'loggedAs' | translate }}{{ email.user }}</li>
+        <section ng-show="$storage.email && !$storage.newUser">
+          <ul class="nav navbar-nav navbar-right">             
               <li ng-show="$storage.typesponzorme"><a href="#/organizers/dashboard">{{ 'dashboard' | translate }}</a></li>
               <li ng-show="!$storage.typesponzorme"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
             <li><a href="#/logout">{{ 'logout' | translate }}</a></li>

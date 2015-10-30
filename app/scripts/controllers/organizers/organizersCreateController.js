@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage) {
+function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage, eventRequest, perkRequest) {
 
   $scope.sendfrom = function() {
     $scope.error_log = [];
@@ -15,22 +15,75 @@ function OrganizersCreateController($scope, $translate, userRequest, ngDialog, u
         $scope.objuser.type = 0;
         $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
         $scope.loagind = true;
-
         userRequest.createUser($scope.objuser).success(function(adata) {
-
-          if (adata.message === 'Inserted') {
-            var datuser = JSON.stringify(adata.User);
-            $localStorage.sponzorme = datuser;
-            var expireDate = new Date();
-            expireDate.setDate(expireDate.getDate() + 1);
+          if (adata.message === 'Inserted') {            
             $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
-            $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);
-            $scope.loagind = false;
+            $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);            
             $localStorage.typesponzorme = adata.User.type;
             $localStorage.id = adata.User.id;
             $localStorage.email = adata.User.email;
             $localStorage.demo = adata.User.demo;
-            $location.path('/customization');
+            $localStorage.startDate = Date.now();
+            $localStorage.newUser = true;
+            $localStorage.$apply();
+            if(idiomaselect === 'en'){
+              event_en.DEFAULT_EVENT.organizer = adata.User.id;
+              eventRequest.createEventToken(event_en.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(adata) {
+                angular.forEach(event_en.PERKS, function(value) {                  
+                  value.id_event = adata.event.id;
+                  perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
+                    /*Empty Code, nothing necessary here*/
+                  }).error(function(eData) {
+                    console.log('Error creating a perk');
+                    console.log(eData);
+                  });                  
+                });
+                $scope.loagind = false;
+                $location.path('/customization');
+              }).error(function(eData) {
+                    console.log('Error demo event');
+                    console.log(eData);
+              });
+            }
+            else if(idiomaselect === 'es'){
+              event_es.DEFAULT_EVENT.organizer = adata.User.id;
+              eventRequest.createEventToken(event_es.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(adata) {
+                angular.forEach(event_es.PERKS, function(value) {                  
+                  value.id_event = adata.event.id;
+                  perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
+                    /*Empty Code, nothing necessary here*/
+                  }).error(function(eData) {
+                    console.log('Error creating a perk');
+                    console.log(eData);
+                  });
+
+                });
+                $scope.loagind = false;
+                $location.path('/customization');
+              }).error(function(eData) {
+                    console.log('Error demo event');
+                    console.log(eData);
+              });
+            }
+            else if(idiomaselect === 'pt'){
+              event_pt.DEFAULT_EVENT.organizer = adata.User.id;
+              eventRequest.createEventToken(event_pt.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(adata) {
+                angular.forEach(event_pt.PERKS, function(value) {                  
+                  value.id_event = adata.event.id;
+                  perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
+                    /*Empty Code, nothing necessary here*/
+                  }).error(function(eData) {
+                    console.log('Error creating a perk');
+                    console.log(eData);
+                  });
+                });
+                $scope.loagind = false;
+                $location.path('/customization');
+              }).error(function(eData) {
+                    console.log('Error demo event');
+                    console.log(eData);
+              });
+            }            
           }
         }).error(function(data) {
           if (data.message === 'Not inserted') {
@@ -54,8 +107,15 @@ function OrganizersCreateController($scope, $translate, userRequest, ngDialog, u
           });
         });
       }
+      else {
+      $scope.error_log.push('errorRegisterPasswordNoMatch');
+      ngDialog.open({
+        template: 'templateId',
+        scope: $scope
+      });
+    }
     } else {
-      $scope.error_log.push('errorRegisterPassword');
+      $scope.error_log.push('errorRegisterPasswordNoEmpty');
       ngDialog.open({
         template: 'templateId',
         scope: $scope

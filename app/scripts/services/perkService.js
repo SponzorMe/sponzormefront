@@ -26,6 +26,14 @@
 					data: $.param(data)
 				});
 			},
+			createPerkToken: function(data, newUserToken){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'perks',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
+					data: $.param(data)
+				});
+			},
 			deletePerk: function(perkId){
 				return $http({
 					method: 'DELETE',

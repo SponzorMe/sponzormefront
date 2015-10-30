@@ -26,6 +26,14 @@
 					data: $.param(data)
 				});
 			},
+			createEventToken: function(data,newUserToken){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'events',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
+					data: $.param(data)
+				});
+			},
 			deleteEvent: function(EventId){
 				return $http({
 					method: 'DELETE',

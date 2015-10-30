@@ -28,33 +28,21 @@ function OrganizersMainController($scope, $translate, $localStorage, $location, 
     });
     $scope.sponzors.size = data.SponzorsEvents.length;
   });
-  if (!$localStorage.sponzorme) {
-    userRequest.oneUser($localStorage.id).success(function(adata) {
-      $scope.events = [];
-
-      $scope.users.size = adata.data.user.comunity_size;
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-      $scope.events = adata.data.user.events;
-      $scope.eventos.size = $scope.events.length;
-      usSpinnerService.stop('spinner-2');
-      $scope.loadingevents = false;
-      if($scope.events[0]){
-        $scope.event.current = $scope.events[0].id;
-      }
-    });
-  } else {
-    var sponzormeObj = JSON.parse($localStorage.sponzorme);
+  userRequest.oneUser($localStorage.id).success(function(adata) {
     $scope.events = [];
-    $scope.users.size = sponzormeObj.comunity_size;
-    $scope.events = sponzormeObj.events;
+
+    $scope.users.size = adata.data.user.comunity_size;
+    var datuser = JSON.stringify(adata.data.user);
+    $localStorage.sponzorme = datuser;
+    $scope.events = adata.data.user.events;
     $scope.eventos.size = $scope.events.length;
     usSpinnerService.stop('spinner-2');
     $scope.loadingevents = false;
     if($scope.events[0]){
-        $scope.event.current = $scope.events[0].id;
-      }
-  }
+      $scope.event.current = $scope.events[0].id;
+    }
+  });
+
   $scope.$watch('event.current', function(newvalue) {
     $scope.loadingpeaks = true;
     $scope.noPerksMessage = false;

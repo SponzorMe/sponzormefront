@@ -9,7 +9,10 @@ function OrganizersCustomizationController($scope, $translate, $localStorage, us
   $scope.interestselectarray = [];
   $scope.step1 = true;
   $scope.step4 = false;
-
+  $scope.$storage = $localStorage;
+  $scope.email = $localStorage.email;
+  $scope.id = $localStorage.id;
+  $scope.newUser = $localStorage.newUser;
   categoryRequest.allCategories().success(function(adata) {
     $scope.categories = adata.categories;
     allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
@@ -23,9 +26,6 @@ function OrganizersCustomizationController($scope, $translate, $localStorage, us
 
     });
   });
-  $scope.vieuser = 1;
-  $scope.step1 = true;
-
   $scope.sendfrom = function() {
     $scope.objuser = {};
     $scope.objuser.age = $scope.userData.age;
@@ -66,16 +66,14 @@ function OrganizersCustomizationController($scope, $translate, $localStorage, us
       $scope.itemintere.interest_id = valuep;
       $scope.itemintere.user_id = $localStorage.id;
       userInterestRequest.createUserInterest($scope.itemintere).success(function() {
-
+          $localStorage.$reset();
       });
     });
     $scope.loagind = false;
     $scope.step1 = false;
     $scope.step2 = false;
     $scope.step4 = true;
-    $localStorage.$reset();
   };
-  $scope.menuprincipal = 'views/sponsors/menu.html';
 }
 
 angular.module('sponzorme')

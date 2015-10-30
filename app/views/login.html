@@ -43,7 +43,7 @@
 <script type="text/ng-template" id="templateId">
     <div class="dialog-container">
     <img class="image-100 image-center" src="images/warning.png" width="100px"/>
-    <p ng-repeat="e in error_log">{{e}} <a href="#/resend">{{'ResendActivationPage'|translate}}</a></p>
+    <p ng-repeat="e in error_log">{{e|translate}} <a href="#/resend">{{'ResendActivationPage'|translate}}</a></p>
     <hr/>
     <p>{{'StillHavingProblems'|translate}}</p>
     </div>

@@ -39,10 +39,13 @@
 </div>
 
 <div class="footer" ng-include src="'views/footer.html'"></div>
+
 <script type="text/ng-template" id="templateId">
     <div class="dialog-container">
     <img class="image-100 image-center" src="images/warning.png" width="100px"/>
-    <p ng-repeat="e in error_log">{{e}}</p>
+    <p ng-repeat="e in error_log">{{e|translate}}</p>
+    <hr/>
+    <p>{{'StillHavingProblems'|translate}}</p>
     </div>
 </script>
 </section>

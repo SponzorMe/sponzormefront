@@ -127,7 +127,7 @@ var expirationTime = 1;
         })
         .when('/customization', {
           templateUrl: 'views/customization/customization.html',
-          controller: 'OrganizersCustomizationController'
+          controller: 'customizationController'
         })
         .when('/organizers/friend', {
           templateUrl: 'views/organizers/dashboard/friend.html',
