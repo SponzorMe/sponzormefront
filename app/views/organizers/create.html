@@ -17,13 +17,9 @@
                 <div class="form-group">
                     <input type="email" class="form-control" placeholder="{{'editaccountemail' | translate }}" autofocus ng-model="email" required/>
                 </div>
-
                 <div class="form-group">
                     <input type="password" class="form-control" placeholder = "{{'attributes_password' | translate }}" ng-model="passwordone" required/>
                 </div>
-                <div ng-show="loagind">
-                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
-                </div>    
                 <div class="form-group">
                     <input type="password" class="form-control" placeholder = "{{'attributes_confirmpassword' | translate }}" ng-model="passwordtwo" required/>
                 </div>
@@ -37,13 +33,4 @@
 </div>
 
 <div class="footer" ng-include src="'views/footer.html'"></div>
-
-<script type="text/ng-template" id="templateId">
-    <div class="dialog-container">
-    <img class="image-100 image-center" src="images/warning.png" width="100px"/>
-    <p ng-repeat="e in error_log">{{e|translate}}</p>
-    <hr/>
-    <p>{{'StillHavingProblems'|translate}}</p>
-    </div>
-</script>
 </section>

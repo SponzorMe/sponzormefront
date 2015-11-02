@@ -4,9 +4,8 @@
   function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage, eventRequest, perkRequest) {
 
     $scope.sendfrom = function() {
-      $scope.error_log = [];
       if ($scope.passwordone !== undefined || $scope.passwordtwo !== undefined) {
-        if ($scope.passwordone === $scope.passwordtwo) {
+        if ($scope.passwordone === $scope.passwordtwo && $scope.passwordtwo.length > 6) {
           $scope.objuser = {};
           $scope.objuser.email = $scope.email;
           $scope.objuser.password = $scope.passwordone;
@@ -15,6 +14,7 @@
           $scope.objuser.type = 0;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;
+          ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
           userRequest.createUser($scope.objuser).success(function(adata) {
             if (adata.message === 'Inserted') {
               $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
@@ -40,6 +40,7 @@
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
+                  ngDialog.closeAll();
                 }).error(function(eData) {
                   console.log('Error demo event');
                   console.log(eData);
@@ -59,6 +60,7 @@
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
+                  ngDialog.closeAll();
                 }).error(function(eData) {
                   console.log('Error demo event');
                   console.log(eData);
@@ -77,6 +79,7 @@
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
+                  ngDialog.closeAll();
                 }).error(function(eData) {
                   console.log('Error demo event');
                   console.log(eData);
@@ -85,36 +88,52 @@
             }
           }).error(function(data) {
             if (data.message === 'Not inserted') {
+              $scope.errorMessages = [];
               if (data.error.email) {
-                $scope.error_log.push('errorRegisterEmail');
+                $scope.errorMessages.push('errorRegisterEmail');
               }
               if (data.error.name) {
-                $scope.error_log.push('errorRegisterName');
+                $scope.errorMessages.push('errorRegisterName');
               }
               if (data.error.lastname) {
-                $scope.error_log.push('errorRegisterLastname');
+                $scope.errorMessages.push('errorRegisterLastname');
               }
               if (data.error.password) {
-                $scope.error_log.push('errorRegisterPassword');
+                $scope.errorMessages.push('errorRegisterPassword');
               }
             }
             $scope.loagind = false;
+            ngDialog.closeAll();
             ngDialog.open({
-              template: 'templateId',
+              template: 'views/templates/multipleErrorDialog.html',
+              showClose: false,
               scope: $scope
             });
           });
         } else {
-          $scope.error_log.push('errorRegisterPasswordNoMatch');
-          ngDialog.open({
-            template: 'templateId',
-            scope: $scope
-          });
+          if($scope.passwordtwo.length > 6){
+            $scope.message = 'errorRegisterPasswordNoMatch';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }
+          else{
+            $scope.message = 'errorRegisterShortPassword';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }
+
         }
       } else {
-        $scope.error_log.push('errorRegisterPasswordNoEmpty');
+        $scope.message = 'errorRegisterPasswordNoEmpty';
         ngDialog.open({
-          template: 'templateId',
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
           scope: $scope
         });
       }

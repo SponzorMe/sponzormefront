@@ -10,5 +10,4 @@
   }
   angular.module('sponzorme')
     .controller('HomeController', HomeController);
-
 })();
