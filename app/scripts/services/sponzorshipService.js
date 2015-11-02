@@ -40,11 +40,11 @@
 					data: $.param(data)
 				});
 			},
-			createSponzorshipToken: function(data, token){
+			createSponzorshipToken: function(data, userToken){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'sponzorships',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $.param(data)
 				});
 			},

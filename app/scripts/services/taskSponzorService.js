@@ -29,11 +29,11 @@
 					data: $.param(data)
 				});
 			},
-			createTaskSponzorToken: function(data, token){
+			createTaskSponzorToken: function(data, userToken){
 				return $http({
 					method: 'POST',
 					url: apiPath + 'task_sponzor',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $.param(data)
 				});
 			},
