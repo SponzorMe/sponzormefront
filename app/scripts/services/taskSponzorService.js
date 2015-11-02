@@ -29,6 +29,14 @@
 					data: $.param(data)
 				});
 			},
+			createTaskSponzorToken: function(data, token){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'task_sponzor',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+				});
+			},
 			deleteTaskSponzor: function(taskSponzorId){
 				return $http({
 					method: 'DELETE',

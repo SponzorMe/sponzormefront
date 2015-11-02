@@ -47,7 +47,7 @@
       ngDialog.open({
         template: 'loading'
       });
-      sponzorshipRequest.createSponzorship(data).success(function(sData) {
+      sponzorshipRequest.createSponzorship(data, $localStorage.token).success(function(sData) {
         perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
           angular.forEach(sPerkData.data.Tasks, function(value) {
             var taskSponzor = {
@@ -59,7 +59,7 @@
               'sponzorship_id': sData.Sponzorship.id,
               'task_id': value.id
             };
-            taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {});
+            taskSponzorRequest.createTaskSponzor(taskSponzor, $localStorage.token).success(function() {});
           });
           ngDialog.closeAll();
           ngDialog.open({

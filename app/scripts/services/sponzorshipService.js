@@ -40,6 +40,14 @@
 					data: $.param(data)
 				});
 			},
+			createSponzorshipToken: function(data, token){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'sponzorships',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+				});
+			},
 			deleteSponzorship: function(sponzorshipId){
 				return $http({
 					method: 'DELETE',
