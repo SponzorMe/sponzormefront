@@ -9459,6 +9459,13 @@ pre code {
   }
 }
 
+@media (max-width: 768px) {
+  .container {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
 @media (min-width: 992px) {
   .container {
     width: 970px;
