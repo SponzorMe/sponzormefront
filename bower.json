@@ -17,15 +17,6 @@
     "angular-base64": "~2.0.5",
     "angular-google-places-autocomplete": "~0.2.7",
     "ngstorage": "~0.3.7",
-<<<<<<< HEAD
-	  "angular-base64-upload": "~0.1.13",
-    "angular-spinner":"~0.7.0",
-    "angular-utils-pagination": "~0.9.1"
-  },
-  "devDependencies": {
-    "chai": "~3.0.0",
-    "mocha": "~2.2.5"
-=======
     "angular-base64-upload": "~0.1.13",
     "angular-spinner": "~0.7.0",
     "angular-utils-pagination": "~0.9.1",
@@ -35,6 +26,5 @@
     "bootstrap": "~3.3.5",
     "bootstrap-sass": "~3.3.5",
     "bootstrap-toggle": "~2.2.1"
->>>>>>> staging
   }
 }
