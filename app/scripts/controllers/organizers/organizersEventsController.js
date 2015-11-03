@@ -1,8 +1,8 @@
 'use strict';
 (function(){
 
-function OrganizersEventsController($scope, $translate, $sessionStorage, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
-  $rootScope.userValidation("0");//Validation
+function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
+  $rootScope.userValidation('0');//Validation
   //Vars Initialization
   $scope.sponzors = [];
   $scope.error_log = '';
@@ -11,7 +11,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.currentPerk = {};
   $scope.peaks = [];
   $scope.tolsctive = 'active';
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.file = false; //By default no file to add.
   $scope.event = {};
   eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
@@ -33,7 +33,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     $scope.noPerksMessage = false;
     userRequest.oneUser(userId).success(function(adata) {
       $scope.eventos = adata.data.user.events;
-      $scope.loadingEvents = false;      
+      $scope.loadingEvents = false;
       if($scope.eventos[0]){
         $scope.event.current = $scope.eventos[0].id;
       }
@@ -43,18 +43,14 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         $scope.noEventsMessage = true;
       }
     });
-  };  
+  };
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
         if($scope.tolsctive === true){
            $scope.tolsctive = 'active';
         }
     };
-  $scope.$watch('event.current', function(newvalue) {
-    if (newvalue !== '' && newvalue !== "0" &&  typeof newvalue !== 'undefined') { //Some validation to ensure no empty values
-      $scope.updatePerks(newvalue);
-    }
-  });
+
   $scope.updatePerks = function(idevent) {
     $scope.loadingPerks = true;//We need put in load mode the widget
     $scope.noPerksMessage = false;//We suppose that exists persks
@@ -84,16 +80,18 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.imageEvent = function(image) {
     $scope.currentImage = image;
     ngDialog.open({
-      template: 'generalImage.html',
-      scope: $scope
+      template: 'views/templates/eventImage.html',
+      scope: $scope,
+      showClose: false
     });
   };
   $scope.getPerk = function(perkId) {
     $scope.loadingtasks = true;
     $scope.noTasksMessage = false;
+    $scope.currentPerkId = perkId;
     perkRequest.onePerk(perkId).success(function(adata) {
       $scope.currentPerk = adata.data;
-      $scope.currentPerkId = perkId;
+
       if (!$scope.currentPerk.Tasks[0]) { //If here no tasks in this perk
         $scope.noTasksMessage = true;
         $scope.loadingtasks = false;
@@ -117,7 +115,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       $scope.newEvent.type = $scope.typeevent;
       $scope.newEvent.category = $scope.categoryevent;
       $scope.newEvent.privacy = $scope.privacyevent;
-      $scope.newEvent.organizer = $sessionStorage.id;
+      $scope.newEvent.organizer = $localStorage.id;
 
       eventRequest.createEvent($scope.newEvent).success(function(adata) {
         angular.forEach($scope.sponzors, function(value) {
@@ -161,14 +159,14 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
         console.log(edata);
         $scope.loadingNewEvent = false;
         $scope.errorNewEvent = true;
-      });        
+      });
     }).error(function(edata) {
         console.log('Error creating an event');
         console.log(edata);
         $scope.loadingNewEvent = false;
         $scope.errorNewEvent = true;
     });
-  };  
+  };
   $scope.newEvent = function() {
     $scope.loadingNewEvent = true;
     $scope.errorNewEvent = false;
@@ -177,10 +175,10 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
       var params = {
         image: $scope.file.base64,
         type: 'base64'
-      };      
+      };
       imgurRequest.uploadImage(params).success(function(imageData) {
         $scope.newEvent.image = imageData.data.link;
-        $scope.createNewEvent();  
+        $scope.createNewEvent();
       });
     } else {
       $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';//If no Image we set here some image
@@ -190,38 +188,57 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.showTaskForm = function() {
       $scope.todo = {};
       ngDialog.open({
-        template: 'formNewTask',
-        scope: $scope
+        template: 'views/templates/newTaskForm.html',
+        scope: $scope,
+        showClose: false
       });
     };
     /*this function takes the current perk and the current event, and add a task for the
       selected perk.*/
   $scope.addTask = function() {
+    ngDialog.closeAll();
+    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     $scope.todo.perk_id = $scope.currentPerkId;
     $scope.todo.event_id = $scope.event.current;
     $scope.todo.status = 0; //We put the defaul status
-    $scope.todo.user_id = $sessionStorage.id; //Get the organizer Id
+    $scope.todo.user_id = $localStorage.id; //Get the organizer Id
     $scope.todo.type = 0; //If task is created by organizer the type is 0
     perkTaskRequest.createPerkTask($scope.todo).success(function() {
       ngDialog.closeAll();
+      $scope.message = 'taskCreatedSuccesfuly';
       ngDialog.open({
-        template: 'successCreatingTask',
+        template: 'views/templates/successDialog.html',
+        showClose: false,
         scope: $scope
       }); //finally we show a dialog telling the status of the things
       $scope.getPerk($scope.currentPerkId); //Refresh perks data.
     }).error(function(data) {
-      console.log(data);
+      ngDialog.closeAll();
+      $scope.message = 'errorCreatingTask';
+      ngDialog.open({
+        template: 'views/templates/errorDialog.html',
+        showClose: false,
+        scope: $scope
+      });
     });
   };
   $scope.removeTask = function(task_id) {
+    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     perkTaskRequest.deletePerkTask(task_id).success(function(adata) {
-      console.log('Deleted perk task: ' + task_id);
-      console.log(adata);
+      ngDialog.closeAll();
+      $scope.message = 'taskDeletedSuccessfuly';
+      ngDialog.open({
+        template: 'views/templates/successDialog.html',
+        showClose: false,
+        scope: $scope
+      });
       $scope.getPerk($scope.currentPerkId);
     }).error(function() {
       ngDialog.closeAll();
+      $scope.message = 'errorDeletingTask';
       ngDialog.open({
-        template: 'errorDeletingTask',
+        template: 'views/templates/errorDialog.html',
+        showClose: false,
         scope: $scope
       });
     });
@@ -260,7 +277,7 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     });
     //Next we edit the event information
     eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
-      $scope.getEventsByOrganizer($sessionStorage.id);
+      $scope.getEventsByOrganizer($localStorage.id);
       ngDialog.closeAll();
       $scope.updatePerks(idevent);
       ngDialog.open({
@@ -274,43 +291,43 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
     });
   };
   $scope.removeEvent = function(idevent) {
+    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     eventRequest.oneEvent(idevent).success(function(adata) {
       if (adata.data.event.sponzorship.length === 0) { //If event does not have sponzorhips
-        angular.forEach(adata.data.event.sponzor_tasks, function(value) { //First we delete the tasks
-          taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {
-            console.log('Deleted task sponzor: ' + value.id);
-          }).error(function(eData) {
-            console.log(eData);
-          });
+        angular.forEach(adata.data.event.sponzor_tasks, function(value) {
+          taskSponzorRequest.deleteTaskSponzor(value.id).error(function(eData) {});
         });
         angular.forEach(adata.data.event.perk_tasks, function(value) { //First we delete the tasks
-          perkTaskRequest.deletePerkTask(value.id).success(function() {
-            console.log('Deleted perk task: ' + value.id);
-            console.log();
-          }).error(function(eData) {
-            console.log(eData);
-          });
+            perkTaskRequest.deletePerkTask(value.id).error(function(eData) {});
         });
         angular.forEach(adata.data.event.perks, function(value) { //Then we delete the perks
-          perkRequest.deletePerk(value.id).success(function() {
-            console.log('Deleted perk: ' + value.id);
-          }).error(function(eData) {
-            console.log(eData);
-          });
+            perkRequest.deletePerk(value.id).error(function(eData) {});
         });
-        eventRequest.deleteEvent(adata.data.event.id).success(function() {
-          console.log('Deleted event: ');
+        setTimeout(function() {
+          eventRequest.deleteEvent(adata.data.event.id).success(function() {
+            ngDialog.closeAll();
+            $scope.message = 'eventDeleteSuccesfully';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+            $scope.getEventsByOrganizer($localStorage.id);
+        }).error(function(eData) {
+          ngDialog.closeAll();
+          $scope.message = 'errorDeletingEvent';
           ngDialog.open({
-            template: 'successDeletingEvent',
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
             scope: $scope
           });
-          $scope.getEventsBySponzor($sessionStorage.id);
-        }).error(function(eData) {
-          console.log(eData);
-        });
+        }); }, 3000);
       } else { //If event has sponzorhips we can not delete
+        ngDialog.closeAll();
+        $scope.message = 'eventDeletingEventHasSponzorship';
         ngDialog.open({
-          template: 'errorDeletingEvent',
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
           scope: $scope
         }); //finally we show a dialog telling the status of the things
       }
@@ -347,8 +364,13 @@ function OrganizersEventsController($scope, $translate, $sessionStorage, $localS
   $scope.removeEditPerk = function(index) {
     $scope.eventData.perks.splice(index, 1);
   };
-  $scope.getEventsByOrganizer($sessionStorage.id); //Here start the callback
+  $scope.getEventsByOrganizer($localStorage.id); //Here start the callback
   $translate.use(idiomaselect);
+  $scope.$watch('event.current', function(newvalue) {
+    if (newvalue !== '' && newvalue !== '0' && typeof newvalue !== 'undefined') { //Some validation to ensure no empty values
+      $scope.updatePerks(newvalue);
+    }
+  });
   $scope.menuprincipal = 'views/organizers/menu.html';
 }
 

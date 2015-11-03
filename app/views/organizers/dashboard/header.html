@@ -4,10 +4,11 @@
       <input type="hidden" ng-model="event.organizer" class="ng-pristine ng-untouched ng-valid">
       <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
         <input type="hidden" data-ng-init="viewUserInfoheader()">
-        <img data-ng-src="http://www.sponzor.me//images/photo.png" style="border-radius:50%;" src="http://www.sponzor.me//images/photo.png">
+        <img ng-if="$storage.image" data-ng-src="{{$storage.image}}" style="border-radius:50%;" >
+        <img ng-if="!$storage.image" data-ng-src="http://www.sponzor.me/images/photo.png" style="border-radius:50%;" />
       </a>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li class="dropdown-header">{{emailuser}}</li>
+        <li class="dropdown-header">{{$storage.email}}</li>
         <li class="divider"></li>
         <li class="link">
           <a href="#/organizers/settings">{{ 'settings' | translate }}</a>

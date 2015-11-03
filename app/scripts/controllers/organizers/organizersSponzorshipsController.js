@@ -1,18 +1,18 @@
 'use strict';
 (function(){
 
-function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
-  $rootScope.userValidation("0");
+function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+  $rootScope.userValidation('0');
   $scope.noSponzorshipsMessage = false;
   $scope.loadingsponzorships = true;
   $scope.loadingsponzorshipstasks = true;
   $scope.noSponzorshipsTaskMessage = false;
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.userfroups = 0;
   $translate.use(idiomaselect);
   //This function allows get sponzorship info from organizerId
   $scope.getSponzorshipsByOrganizer = function() {
-    sponzorshipRequest.oneSponzorshipByOrganizer($sessionStorage.id).success(function(data) {
+    sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
       $scope.loadingsponzorships = false;
       $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorshipstasks = false;
@@ -21,7 +21,7 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
         $scope.noSponzorshipsTaskMessage = true;
       } else {
         $scope.sponzorships = data.SponzorsEvents;
-        if ($scope.sponzorships[0].status !== 0) {
+        if ($scope.sponzorships[0].status !== '0') {
           $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
         } else {
           $scope.noSponzorshipsTaskMessage = true;
@@ -52,7 +52,7 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
           sponzorEmail: $scope.sponzorships[i].email,
           sponzorName: $scope.sponzorships[i].name,
           eventName: $scope.sponzorships[i].title,
-          organizerEmail: $sessionStorage.email,
+          organizerEmail: $localStorage.email,
           lang: idiomaselect
         };
         sponzorshipRequest.sendSponzorshipEmail(info).success(function(){});
@@ -95,7 +95,7 @@ function OrganizersSponzorshipsController($scope, $translate, $sessionStorage, $
       taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
         $scope.tasksSponzor = [];
         angular.forEach(data.tasks, function(value) {
-          if (value.type === 0) {
+          if (value.type === '0') {
             $scope.tasksSponzor.push(value);
           }
         });

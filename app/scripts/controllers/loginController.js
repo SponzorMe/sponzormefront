@@ -1,96 +1,67 @@
 'use strict';
-(function(){
+(function() {
 
-function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
+  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
 
-  delete $sessionStorage.cookiesponzorme;
+    $localStorage.$reset();
 
-  delete $sessionStorage.typesponzorme;
+    $scope.sendfrom = function() {
+      if ($scope.email !== undefined || $scope.password !== undefined) {
+        $scope.objuser = {};
+        $scope.objuser.email = $scope.email;
+        $scope.objuser.password = $scope.password;
+        $scope.objuser.password_confirmation = $scope.passwordtwo;
+        $scope.objuser.lang = idiomaselect;
+        $scope.loagind = true;
+        ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+        loginRequest.login($scope.objuser).success(function(adata) {
+          if (adata.user.activated === '1') {
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 1);
+            $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.password);
+            $localStorage.typesponzorme = adata.user.type;
+            $localStorage.token = btoa($scope.email + ':' + $scope.password);
+            $localStorage.id = adata.user.id;
+            $localStorage.email = adata.user.email;
+            $localStorage.demo = adata.user.demo;
+            $localStorage.image = adata.user.image;
+            $localStorage.startDate = Date.now();
+            $scope.$storage = $localStorage;
+            idiomaselect = adata.user.lang;
 
-  delete $sessionStorage.token;
-
-  delete $sessionStorage.developer;
-
-  delete $sessionStorage.id;
-
-  delete $sessionStorage.email;
-
-  $localStorage.$reset();
-
-  if ($sessionStorage) {
-
-    var cookie = $sessionStorage.cookiesponzorme;
-
-    if (cookie === undefined) {
-      $scope.vieuser = 1;
-    } else {
-      $scope.vieuser = 0;
-    }
-
-    var typeini = $sessionStorage.typesponzorme;
-    if (typeini !== undefined) {
-      if (typeini === '1') {
-        $scope.typeuser = 0;
-      } else {
-        $scope.typeuser = 1;
-      }
-    }
-
-    $scope.userfroups = 0;
-  } else {
-    $location.path('/');
-  }
-
-  $scope.sendfrom = function() {
-
-    if ($scope.email !== undefined || $scope.password !== undefined) {
-      $scope.objuser = {};
-      $scope.objuser.email = $scope.email;
-      $scope.objuser.password = $scope.password;
-      $scope.objuser.password_confirmation = $scope.passwordtwo;
-      $scope.objuser.lang = idiomaselect;
-      $scope.loagind = true;
-      $scope.error_log = [];
-      loginRequest.login($scope.objuser).success(function(adata) {
-        if (adata.user.activated) {
-          var expireDate = new Date();
-          expireDate.setDate(expireDate.getDate() + 1);
-          $sessionStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.password);
-          $sessionStorage.typesponzorme = adata.user.type;
-          $sessionStorage.token = btoa($scope.email + ':' + $scope.password);
-          $sessionStorage.id = adata.user.id;
-          $sessionStorage.email = adata.user.email;
-          idiomaselect = adata.user.lang;
-          var url = $location.host();
-          if (url === 'localhost') {
-            $sessionStorage.developer = 1;
-          }
-          $scope.loagind = false;
-          if (adata.user.type === "1") {
-            $location.path('/sponzors/dashboard');
+            $scope.loagind = false;
+            if (adata.user.type === '1') {
+              $location.path('/sponzors/dashboard');
+            } else {
+              $location.path('/organizers/dashboard');
+            }
+            ngDialog.closeAll();
           } else {
-            $location.path('/organizers/dashboard');
+            $scope.loagind = false;
+            ngDialog.closeAll();
+            $scope.message = 'unactivatedAccount';
+            ngDialog.open({
+              template: 'views/templates/unactivatedAccountDialog.html',
+              showClose: false,
+              scope: $scope
+            });
           }
-        } else {
-          $scope.error_log[0] = 'UnactivatedAccount';
+
+        }).error(function() {
           $scope.loagind = false;
+          ngDialog.closeAll();
+          $scope.message = 'invalidCredentials';
           ngDialog.open({
-            template: 'templateId',
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
             scope: $scope
           });
-        }
-
-      }).error(function() {
-        $scope.loagind = false;
-        ngDialog.open({
-          template: 'errorloging.html'
         });
-      });
-    }
-  };
-}
+      }
+    };
+  }
 
-angular.module('sponzorme')
-.controller('LoginController', LoginController);
+  angular.module('sponzorme')
+    .controller('LoginController', LoginController);
 
 })();

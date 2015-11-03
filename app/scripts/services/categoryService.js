@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function categoryRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function categoryRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			/**
 			* Get all categories

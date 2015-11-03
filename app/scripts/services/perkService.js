@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function perkRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function perkRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allPerks: function(){
 				return $http.get(apiPath + 'perks');
@@ -23,6 +23,14 @@
 					method: 'POST',
 					url: apiPath + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+				});
+			},
+			createPerkToken: function(data, newUserToken){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'perks',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
 					data: $.param(data)
 				});
 			},

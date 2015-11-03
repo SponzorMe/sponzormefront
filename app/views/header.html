@@ -1,26 +1,28 @@
 <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-control="navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="" href="#/"><img class="padding-left-10" src="/images/logo-white.png" alt="sponzorme" height="50px"/><div style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -25px;left: 156px;"> 
-      </div></a>
+      <a class="" href="#/">
+        <img class="padding-left-10" src="images/logo-white.png" alt="sponzorme" height="50px"/>
+        <div id="demolog" style="background-image: url('./images/beta.png');height: 73px;width: 70px;background-repeat: no-repeat;position: absolute;z-index: 9999;margin-top: -25px;left: 154px;"></div>
+      </a>
     </div>
+    <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;" >
       <ul class="nav navbar-nav navbar-right">
-        <section ng-show="vieuser">
+        <section ng-show="!$storage.email">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#/login">{{ 'login' | translate }}</a></li>
             <li><a href="#/sponzors/create">{{ 'sponsorreg' | translate }}</a></li>
             <li><a href="#/organizers/create">{{ 'organizerreg' | translate }}</a></li>
           </ul>
         </section>
-        <section ng-show="!vieuser">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/organizers/userId">{{ email.user }}</a></li>
-              <li ng-show="typeuser"><a href="#/organizers/dashboard">{{ 'dashboard' | translate }}</a></li>
-              <li ng-show="!typeuser"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
+        <section ng-show="$storage.email && !$storage.newUser">
+          <ul class="nav navbar-nav navbar-right">             
+              <li ng-show="$storage.typesponzorme"><a href="#/organizers/dashboard">{{ 'dashboard' | translate }}</a></li>
+              <li ng-show="!$storage.typesponzorme"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
             <li><a href="#/logout">{{ 'logout' | translate }}</a></li>
           </ul>
         </section>

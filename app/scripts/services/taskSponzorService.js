@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function taskSponzorRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function taskSponzorRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allTaskSponzor: function(){
 				return $http.get(apiPath + 'task_sponzor');
@@ -26,6 +26,14 @@
 					method: 'POST',
 					url: apiPath + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+				});
+			},
+			createTaskSponzorToken: function(data, userToken){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'task_sponzor',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $.param(data)
 				});
 			},

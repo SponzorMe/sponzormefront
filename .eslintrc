@@ -1,8 +1,8 @@
 {
   "env": {
-    "browser": 1
-  },
-
+      "node": true,
+      "browser": true
+    },
   "globals": {
     "angular": 1,
     "$":1,
@@ -15,7 +15,13 @@
     "translationsPT": 1
   },
   "rules": {
-    "camelcase": 0
+    "camelcase": 0,
+    "no-undef":0,
+    "no-unused-vars":0,
+    "quotes": [
+        2,
+        "single"
+      ]
   },
   "predef": ["sponzorme"]
 }

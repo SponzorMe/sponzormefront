@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function eventTypeService($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function eventTypeService($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allEventTypes: function(){
 				return $http.get(apiPath + 'event_types');

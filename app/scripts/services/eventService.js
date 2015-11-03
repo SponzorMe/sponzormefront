@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function eventRequest($http, $sessionStorage) {
-		var token = $sessionStorage.token;
+	function eventRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allEvents: function(){
 				return $http.get(apiPath + 'events');
@@ -23,6 +23,14 @@
 					method: 'POST',
 					url: apiPath + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+				});
+			},
+			createEventToken: function(data, newUserToken){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'events',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
 					data: $.param(data)
 				});
 			},

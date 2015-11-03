@@ -1,17 +1,14 @@
-# sponzormefront
+# Sponzor.Me FrontEnd Project
 
-## Docs
+## Getting Started
 
-* [getting started](docs/README.md) with this generator
-* [recipes](docs/recipes/README.md) for integrating other popular technologies like CoffeeScript
-* [details](docs/bower.md) about our Bower setup
+* Clone The Repository
+* npm install
+* bower install
+* gulp serve
+* gulp serve:dist
 
+## Contributors
 
-## Contribute
-
-See the [contributing docs](contributing.md).
-
-
-## License
-
-[BSD license](http://opensource.org/licenses/bsd-license.php)
+* Sebastian Gomez
+* Luis Johan Venegas

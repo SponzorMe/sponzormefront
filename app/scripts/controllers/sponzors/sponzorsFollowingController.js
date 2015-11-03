@@ -1,14 +1,14 @@
 'use strict';
 (function(){
 
-function SponzorsFollowingController($scope, $translate, $sessionStorage, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
-  $rootScope.userValidation("1");
+function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
+  $rootScope.userValidation('1');
   $scope.sponzorshipsLoading = true;
   $scope.noSponzorshipsMessage = false;
   $scope.tasksLoading = true;
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.loadSponzorships = function() {
-      sponzorshipRequest.oneSponzorshipBySponzor($sessionStorage.id).success(function(data) {
+      sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
         $scope.sponzorshipsLoading = false;
         if (!data.SponzorsEvents[0]) {
           $scope.tasksLoading = false;
@@ -17,11 +17,11 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
         } else {
           $scope.sponzorships = [];
           angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status === "0") {
+            if (value.status === '0') {
               $scope.sponzorships.push(value);
             }
           });
-          if ($scope.sponzorships[0] && $scope.sponzorships[0].status === "0") {
+          if ($scope.sponzorships[0] && $scope.sponzorships[0].status === '0') {
             $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
             $scope.sponzorships.current = $scope.sponzorships[0].id;
           } else {
@@ -59,7 +59,7 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
       $scope.tasksLoading = false;
       $scope.tasksSponzor = [];
       angular.forEach(data.tasks, function(value) {
-        if (value.type === "0") {
+        if (value.type === '0') {
           $scope.tasksSponzor.push(value);
         }
       });
@@ -81,7 +81,6 @@ function SponzorsFollowingController($scope, $translate, $sessionStorage, $local
       scope: $scope
     });
   };
-  
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;

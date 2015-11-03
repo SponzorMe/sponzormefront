@@ -1,16 +1,11 @@
 'use strict';
 (function(){
-
-function validateUser(){
-
-}
-
-function OrganizersMainController($scope, $translate, $sessionStorage, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
-  $rootScope.userValidation("0");
+function OrganizersMainController($scope, $translate, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
+  $rootScope.userValidation('0');
   $scope.loadingevents = true;
   $scope.loadingrss = true;
   $scope.tolsctive = 'active';
-  $scope.emailuser = $sessionStorage.email;
+  $scope.emailuser = $localStorage.email;
   $scope.userfroups = 0;
   $translate.use(idiomaselect);
   $scope.startcounter = 0;
@@ -23,43 +18,30 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
   $scope.sponzors.balance = 'calculating';
   $scope.users = {};
   $scope.users.size = 0;
-  sponzorshipRequest.oneSponzorshipByOrganizer($sessionStorage.id).success(function(data) {
+  sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
     $scope.sponzors.size = 0;
     $scope.sponzors.balance = 0;
     angular.forEach(data.SponzorsEvents, function(value) {
-      if (value.status === "1") {
+      if (value.status === '1') {
         $scope.sponzors.balance = parseInt($scope.sponzors.balance) + parseInt(value.usd);
       }
     });
     $scope.sponzors.size = data.SponzorsEvents.length;
   });
-  if (!$localStorage.sponzorme) {
-    userRequest.oneUser($sessionStorage.id).success(function(adata) {
-      $scope.events = [];
-
-      $scope.users.size = adata.data.user.comunity_size;
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-      $scope.events = adata.data.user.events;
-      $scope.eventos.size = $scope.events.length;
-      usSpinnerService.stop('spinner-2');
-      $scope.loadingevents = false;
-      if($scope.events[0]){
-        $scope.event.current = $scope.events[0].id;
-      }      
-    });
-  } else {
-    var sponzormeObj = JSON.parse($localStorage.sponzorme);
+  userRequest.oneUser($localStorage.id).success(function(adata) {
     $scope.events = [];
-    $scope.users.size = sponzormeObj.comunity_size;
-    $scope.events = sponzormeObj.events;
+
+    $scope.users.size = adata.data.user.comunity_size;
+    var datuser = JSON.stringify(adata.data.user);
+    $localStorage.sponzorme = datuser;
+    $scope.events = adata.data.user.events;
     $scope.eventos.size = $scope.events.length;
     usSpinnerService.stop('spinner-2');
     $scope.loadingevents = false;
     if($scope.events[0]){
-        $scope.event.current = $scope.events[0].id;
-      }  
-  }
+      $scope.event.current = $scope.events[0].id;
+    }
+  });
 
   $scope.$watch('event.current', function(newvalue) {
     $scope.loadingpeaks = true;
@@ -87,14 +69,6 @@ function OrganizersMainController($scope, $translate, $sessionStorage, $localSto
     $scope.loadingrss = false;
     $scope.noRssMessage = true;
   });
-
-  $scope.tolsctive = 'active';
-  $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive === true){
-           $scope.tolsctive = 'active';
-        }
-    };
 
   $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
