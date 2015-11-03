@@ -8,6 +8,7 @@ html {
 body {
   margin: 0;
   overflow: hidden !important;
+  background: #f3f3f3 !important;
 }
 
 article,
@@ -9463,6 +9464,15 @@ pre code {
   .container {
     padding-left: 0px;
     padding-right: 0px;
+  }
+  .navbar-nav li:nth-child(1) {
+    margin-top: 25px;
+  }
+  .navbar-nav li {
+    margin-bottom: 10px;
+  }
+  #demolog{
+    left: 51% !important;
   }
 }
 
