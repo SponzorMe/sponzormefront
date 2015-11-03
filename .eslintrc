@@ -1,0 +1,27 @@
+{
+  "env": {
+      "node": true,
+      "browser": true
+    },
+  "globals": {
+    "angular": 1,
+    "$":1,
+    "jQuery": 1,
+    "idiomaselect": 1,
+    "apiPath": 1,
+    "imgurPath": 1,
+    "translationsES": 1,
+    "translationsEN": 1,
+    "translationsPT": 1
+  },
+  "rules": {
+    "camelcase": 0,
+    "no-undef":0,
+    "no-unused-vars":0,
+    "quotes": [
+        2,
+        "single"
+      ]
+  },
+  "predef": ["sponzorme"]
+}

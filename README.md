@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # sponzormefront
 
 ## Docs
@@ -15,3 +16,19 @@ See the [contributing docs](contributing.md).
 ## License
 
 [BSD license](http://opensource.org/licenses/bsd-license.php)
+=======
+# Sponzor.Me FrontEnd Project
+
+## Getting Started
+
+* Clone The Repository
+* npm install
+* bower install
+* gulp serve
+* gulp serve:dist
+
+## Contributors
+
+* Sebastian Gomez
+* Luis Johan Venegas
+>>>>>>> staging
