@@ -321,7 +321,7 @@ function OrganizersEventsController($scope, $translate, $localStorage, eventType
             showClose: false,
             scope: $scope
           });
-        });}, 3000);
+        }); }, 3000);
       } else { //If event has sponzorhips we can not delete
         ngDialog.closeAll();
         $scope.message = 'eventDeletingEventHasSponzorship';
