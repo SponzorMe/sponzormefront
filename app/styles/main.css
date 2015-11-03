@@ -9474,6 +9474,9 @@ pre code {
   #demolog{
     left: 51% !important;
   }
+  .footer{
+    z-index: 9999 !important;
+  }
 }
 
 @media (min-width: 992px) {
