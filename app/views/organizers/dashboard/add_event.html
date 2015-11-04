@@ -12,7 +12,6 @@
             <i class="fa fa-plus"></i>{{ 'addevent' | translate }}
             <div class="clearfix"></div>
           </div>
-          <span ng-if="loadingNewEvent" us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
           <h2 class="text-center">{{ 'completeInfoNewEvent' | translate }}</h2>
           <form class="form-horizontal" role="form" name="createEvent">
             <!--form field-->
@@ -51,9 +50,9 @@
                 {{ 'neweventstarts' | translate }}
               </label>
               <div class="col-sm-7">
-              <datetimepicker ng-model="dtini" 
-                date-format="yyyy-MM-dd" 
-                date-options="dateOptions" 
+              <datetimepicker ng-model="dtini"
+                date-format="yyyy-MM-dd"
+                date-options="dateOptions"
                 show-meridian="false"
                 date-disabled="isDisabledDate(date, mode)">
               </datetimepicker>
@@ -64,9 +63,9 @@
                 {{ 'neweventends' | translate }}
               </label>
               <div class="col-sm-7">
-              <datetimepicker ng-model="dtfinal" 
-                date-format="yyyy-MM-dd" 
-                date-options="dateOptions" 
+              <datetimepicker ng-model="dtfinal"
+                date-format="yyyy-MM-dd"
+                date-options="dateOptions"
                 show-meridian="false"
                 min-date="dtini"
                 date-disabled="isDisabledDate(date, mode)">
@@ -152,7 +151,7 @@
                         {{ 'actionssponzor' | translate }}
                       </th>
                     </thead>
-                    <tr ng-repeat="s in sponzors" data-ng-show="sponzors.length">
+                    <tr ng-repeat="s in sponzorshipTypes" data-ng-show="sponzorshipTypes.length">
                       <td class="text-center">
                         <input type="text" class="form-control" placeholder="" ng-model="s.kind" />
                       </td>
@@ -163,20 +162,20 @@
                         <input type="text" class="form-control" placeholder="" ng-model="s.usd" />
                       </td>
                       <td class="text-center">
-                        <a href="" ng-click="removeSponzor($index)"><i class="fa fa-trash-o"></i></a>
+                        <a href="" ng-click="removeSponzorshipType($index)"><i class="fa fa-trash-o"></i></a>
                       </td>
                     </tr>
                   </table>
                 </div>
                 <div class="col-sm-3">
-                  <button class="btn btn-block btn-warning" ng-click="addsponzor()"> + Add</button>
+                  <button class="btn btn-block btn-warning" ng-click="addSponzorshipType()"> + Add</button>
                 </div>
                 <div class="clearfix"></div>
                 <hr/>
                 <!--form field-->
                 <div class="form-group">
                   <div class="col-sm-6 col-sm-offset-3">
-                    <button class="btn btn-block btn-primary" ng-click="createEvent.$valid && newEvent()">{{ 'submitbutton' | translate }}</button>
+                    <button class="btn btn-block btn-primary" ng-click="createEvent.$valid && imageVerification()">{{ 'submitbutton' | translate }}</button>
                   </div>
                 </div>
           </form>
@@ -184,11 +183,3 @@
       </div>
     </div>
 </div>
-<script type="text/ng-template" id="success">
-  <div class="dialog-container">
-    <img class="image-100 image-center" src="images/success.jpg" width="100px" />
-    <p>{{ 'eventCreatedSuccesfully' | translate }}</p>
-    <a ng-href="#/organizers/events"  class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</a>
-    <hr/>
-  </div>
-</script>
