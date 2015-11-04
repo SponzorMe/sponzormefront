@@ -35,7 +35,7 @@ gulp.task('views', function() {
 });
 
 gulp.task('imagenes', function () {
-    return gulp.src(['app/images/*.*'])
+    return gulp.src(['app/images/*.*','app/images/**/*.*'])
         .pipe(imagemin())
         .pipe(gulp.dest('dist/images/'));
 });

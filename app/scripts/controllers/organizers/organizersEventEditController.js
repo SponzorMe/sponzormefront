@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location,  $rootScope, $routeParams) {
+  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
     $rootScope.userValidation('0'); //Validation
     $scope.tolsctive = 'active';
     $scope.loading = true;

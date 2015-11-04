@@ -99,7 +99,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
               showClose: false,
               scope: $scope
             });
-          });}, 5000);
+          }); }, 5000);
       });
     };
     //this function gets the tasks sponzorships by sponzorship id
