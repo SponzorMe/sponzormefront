@@ -76,15 +76,30 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
     };
     //this function deletes an sponzorship if the status is 0
   $scope.deleteSponzorship = function(sponzorshipId) {
+      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
       sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
         angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
           taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
         });
-        sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
-          $scope.getSponzorshipsByOrganizer();
-        }).error(function(eData) {
-          console.log(eData);
-        });
+        setTimeout(function() {
+          sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
+            $scope.getSponzorshipsByOrganizer();
+            ngDialog.closeAll();
+            $scope.message = 'successDeletingSponzorship';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function() {
+            ngDialog.closeAll();
+            $scope.message = 'errorDeletingSponzorship';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });}, 5000);
       });
     };
     //this function gets the tasks sponzorships by sponzorship id
@@ -143,10 +158,10 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
     });
   };
   $scope.seeCause = function(sponzorship) {
-    console.log('hola');
     $scope.cause = sponzorship.cause;
     ngDialog.open({
-      template: 'sponzorshipCause',
+      template: 'views/templates/sponzorshipCauseDialog.html',
+      showClose: false,
       scope: $scope
     });
   };

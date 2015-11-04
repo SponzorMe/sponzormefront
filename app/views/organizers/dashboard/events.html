@@ -20,8 +20,7 @@
                     <th class="text-center">{{ 'neweventlocation' | translate }}</th>
                     <th class="text-center">{{ 'neweventstarts' | translate }}</th>
                     <th class="text-center">{{ 'eventprivacy' | translate }}</th>
-                    <th class="text-center">
-                      {{ 'actionssponzor' | translate }}</th>
+                    <th class="text-center">{{ 'actionssponzor' | translate }}</th>
                   </thead>
                   <tbody>
                     <tr ng-show="loadingEvents && !noEventsMessage">
@@ -30,8 +29,8 @@
                       </td>
                     </tr>
                     <tr ng-show="!loadingEvents && noEventsMessage">
-                      <td class="text-center" colspan="3">
-                        <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
+                      <td class="text-center" colspan="5">
+                        <h2 class="text-center">{{'noEventsMessage'| translate}}</h2>
                       </td>
                     </tr>
                     <tr data-ng-class="{success : event.current === e.id}" data-ng-repeat="e in eventos" ng-show="!loadingEvents && !noEventsMessage" ng-show="!loadingevents" data-ng-click="event.current = e.id" class="row-hover">
@@ -118,7 +117,7 @@
                 </thead>
                 <tbody>
                   <tr ng-show="loadingtasks && !noTasksMessage">
-                    <td class="text-center" colspan="5">
+                    <td class="text-center" colspan="3">
                       <rd-loading></rd-loading>
                     </td>
                   </tr>
@@ -145,17 +144,3 @@
     </div>
   </div>
 </div>
-<script id="successDeletingEvent" type="text/ng-template">
-  <div class="dialog-container">
-    <img class="image-100 image-center" src="images/success.jpg" width="100px"/>
-    <p>{{ 'eventDeleteSuccesfully' | translate }}</p>
-    <hr/>
-  </div>
-</script>
-<script id="errorDeletingEvent" type="text/ng-template">
-  <div class="dialog-container">
-    <img class="image-100 image-center" src="images/warning.png" width="100px"/>
-    <p>{{ 'errorDeletingEvent' | translate }}</p>
-    <hr/>
-  </div>
-</script>

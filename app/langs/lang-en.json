@@ -655,5 +655,6 @@
   "errorCreatingTask": "Sorry, We can not process your request.",
   "taskDeletedSuccessfuly": "Task Deleted succesfuly.",
   "errorDeletingTask":"You can not delete a task after an sponzorship has happened.",
-  "eventDeletingEventHasSponzorship": "The event that you are trying to delete has Sponzorships related."
+  "eventDeletingEventHasSponzorship": "The event that you are trying to delete has Sponzorships related.",
+  "noEventsMessage": "You do not have events"
 }

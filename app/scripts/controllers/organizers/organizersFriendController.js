@@ -2,10 +2,14 @@
 (function(){
 
 function OrganizersFriendController($scope, $translate, $localStorage, userRequest, ngDialog, $location, $rootScope) {
-  $rootScope.userValidation('0');
+  $rootScope.userValidation('0');//User validation
+  //Vars initialization
   $scope.friend = {};
   $scope.friend.email = '';
   $scope.friend.message = '';
+  //Vars initialization ends
+
+  //This function invites to a friend to use our platform.
   $scope.invitefriend = function() {
     $scope.loadingInvite = true;
     $scope.objuserinv = {};
