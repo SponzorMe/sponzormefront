@@ -1,20 +1,20 @@
 'use strict';
 (function() {
 
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope) {
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog) {
 
     $rootScope.userValidation('0');
-    $scope.loadingEditAccount = true;
+    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     userRequest.oneUser($localStorage.id).success(function(adata) {
       $scope.account = adata.data.user;
-      $scope.loadingEditAccount = false;
+      ngDialog.closeAll();
     });
 
     $scope.account = [];
 
     $scope.file = false; //By default no file to update.
     $scope.editAccount = function() {
-      $scope.loadingEditAccount = true;
+      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
       $scope.account.location = $scope.account.location.formatted_address;
       if ($scope.file) {
         var params = {
@@ -25,19 +25,35 @@
           $scope.account.image = data.data.link;
           userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
             $scope.account = adata.User;
-            $localStorage.$reset();
-            $scope.loadingEditAccount = false;
             $scope.file = false;
+            ngDialog.closeAll();
+            $scope.message = 'accountInfoEditedSuccessfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
           }).error(function(eData) {
-            console.log(eData);
+            ngDialog.closeAll();
+            $scope.message = 'errorEditingAccountInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
           });
         });
       } else {
         userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
           $scope.account = adata.User;
-          $localStorage.$reset();
-          $scope.loadingEditAccount = false;
           $scope.file = false;
+          ngDialog.closeAll();
+          $scope.message = 'accountInfoEditedSuccessfuly';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
         });
       }
     };

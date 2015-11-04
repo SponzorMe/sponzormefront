@@ -220,7 +220,7 @@
   "city": "City",
   "next": "Next",
   "areyouinterested": "Are you interested in?",
-  "weresendingandemail": "We sent an email to",
+  "inviteFiendEmailSent": "We've sent an E-mail to your friend, thank you!",
   "toactivateyouraccount": "to activate your account",
   "forbidden": "Forbidden",
   "aboutyou": "Tell us about yourself...",
@@ -656,5 +656,7 @@
   "taskDeletedSuccessfuly": "Task Deleted succesfuly.",
   "errorDeletingTask":"You can not delete a task after an sponzorship has happened.",
   "eventDeletingEventHasSponzorship": "The event that you are trying to delete has Sponzorships related.",
-  "noEventsMessage": "You do not have events"
+  "noEventsMessage": "You do not have events",
+  "accountInfoEditedSuccessfuly": "Information updated successfuly, this changes will take effect in the next session login",
+  "errorEditingAccountInfo":"We can not update your information, please try again later"
 }
