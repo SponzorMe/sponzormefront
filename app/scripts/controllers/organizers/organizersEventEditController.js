@@ -1,9 +1,10 @@
 'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope, $routeParams) {
+  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
     $rootScope.userValidation('0'); //Validation
     $scope.tolsctive = 'active';
     $scope.loading = true;
+    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
       $scope.type = {};
       $scope.type.list = adata.eventTypes;
@@ -14,27 +15,7 @@
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
-
-    /*this function takes the current perk and the current event, and add a task for the
-      selected perk.*/
-    $scope.addTask = function() {
-      $scope.todo.perk_id = $scope.currentPerkId;
-      $scope.todo.event_id = $scope.event.current;
-      $scope.todo.status = 0; //We put the defaul status
-      $scope.todo.user_id = $localStorage.id; //Get the organizer Id
-      $scope.todo.type = 0; //If task is created by organizer the type is 0
-      perkTaskRequest.createPerkTask($scope.todo).success(function() {
-        ngDialog.closeAll();
-        ngDialog.open({
-          template: 'successCreatingTask',
-          scope: $scope
-        }); //finally we show a dialog telling the status of the things
-        $scope.getPerk($scope.currentPerkId); //Refresh perks data.
-      }).error(function(data) {
-        console.log(data);
-      });
-    };
-
+    //this function get the event data and put it in the form.
     $scope.formEditEvent = function(idevent) {
       $scope.eventData = {};
       eventRequest.oneEvent(idevent).success(function(adata) {
@@ -44,15 +25,19 @@
         $scope.eventData.starts = new Date($scope.eventData.starts);
         $scope.eventData.ends = new Date($scope.eventData.ends);
         $scope.loading = false;
-      }).error(function(eData) {
-        console.log(eData);
-        $location.path('/');
+        ngDialog.closeAll();
+      }).error(function() {
+        ngDialog.closeAll();
+        $scope.message = 'errorNotEventInfoGot';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
       });
     };
     $scope.doEditEvent = function(idevent) {
-      ngDialog.open({
-        template: 'loading'
-      });
+      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
       angular.forEach($scope.eventData.perks, function(value) {
         if (value.id === -1) { //If new perk was added we insert that
           $scope.perkitems = {};
@@ -80,8 +65,10 @@
       $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD hh:mm:ss');
       eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
         ngDialog.closeAll();
+        $scope.message = 'eventEditedSuccesfully';
         ngDialog.open({
-          template: 'successEditingEvent',
+          template: 'views/templates/successDialog.html',
+          showClose: false,
           scope: $scope
         });
       }).error(function(edata) {
@@ -89,7 +76,6 @@
         console.log(edata);
       });
     };
-
     $scope.saveperks = function() {
       $scope.perkitems = {};
       $scope.perkitems.kind = $scope.perkskind;
@@ -99,17 +85,6 @@
       perkRequest.createPerk($scope.perkitems).success(function(pdata) {
         this.push(pdata);
       });
-    };
-    $scope.addsponzor = function() {
-      $scope.sponzors.push({
-        kind: '',
-        usd: 0,
-        quantity: 1,
-        id: -1
-      });
-    };
-    $scope.removeSponzor = function(index) {
-      $scope.sponzors.splice(index, 1);
     };
     $scope.addEditPerk = function() {
       $scope.eventData.perks.push({

@@ -163,7 +163,7 @@ var expirationTime = 1;
         })
         .when('/organizers/add/event', {
           templateUrl: 'views/organizers/dashboard/add_event.html',
-          controller: 'OrganizersEventsController'
+          controller: 'OrganizersEventCreateController'
         })
         .when('/organizers/edit/event/:id', {
           templateUrl: 'views/organizers/dashboard/edit_event.html',
