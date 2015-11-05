@@ -59,8 +59,8 @@
           showClose: false,
           scope: $scope
         });
-
-      }).error(function(edata) {
+      }).error(function(edata){
+        console.log(edata);
         ngDialog.closeAll();
         $scope.message = 'errorCreatingEvent';
         ngDialog.open({

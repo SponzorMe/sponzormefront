@@ -17,8 +17,10 @@ gulp.task('main', function()
 {
   gulp.src(['app/index.html'])
 	.pipe(usemin({
-			css: [minifyCSS(), 'concat'],
-			js: [ngAnnotate(), 'concat']
+			vendorCss: [minifyCSS()],
+			ownCss: [minifyCSS()],
+			VendorJs: [ngAnnotate(), uglify()],
+			OwnJs: [ngAnnotate(), uglify()]
 	}))
 	.pipe(gulp.dest('dist'));
 });
@@ -29,7 +31,7 @@ gulp.task('views', function() {
     spare:true
   };
 
-  return gulp.src(['app/views/*.html','app/views/**/*.html',,'app/views/**/**/*.html'])
+  return gulp.src(['app/views/*.html','app/views/**/*.html','app/views/**/**/*.html'])
     .pipe(minifyHTML(opts))
     .pipe(gulp.dest('dist/views'));
 });
