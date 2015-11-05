@@ -54,6 +54,12 @@ gulp.task('extras1', function(){
 
 });
 
+gulp.task('extras2', function(){
+	return gulp.src(['app.yaml'])
+			.pipe(gulp.dest('dist/'));
+
+});
+
 gulp.task('langs', function () {
     return gulp.src(['app/langs/*.json'])
         .pipe(gulp.dest('dist/langs/'));
