@@ -617,10 +617,10 @@
   "noSponzorshipsMessage": "You do not have sponzors for your events",
   "noSponzorshipsTaskMessage": "No tasks availables for this sponsorship",
   "seeSponzorshipOpportunities": "There are the available opportunities to sponzor this event!",
-  "seePerks": "See Sponzorship types!",
+  "seePerks": "Sponzorship types!",
   "neweventdate": "Start / End",
   "page": "Page",
-  "eventPage": "Visit Event Page",
+  "eventPage": "Page",
   "upcomingEvents": "Are you looking for the upcoming Events?",
   "topRatedEvents": "Are you looking for the best events to Sponzor?",
   "quantityAvailable": "Quantity Available",
@@ -658,5 +658,8 @@
   "eventDeletingEventHasSponzorship": "The event that you are trying to delete has Sponzorships related.",
   "noEventsMessage": "You do not have events",
   "accountInfoEditedSuccessfuly": "Information updated successfuly, this changes will take effect in the next session login",
-  "errorEditingAccountInfo":"We can not update your information, please try again later"
+  "errorEditingAccountInfo":"We can not update your information, please try again later",
+  "youCanNotSponzorThisEvent":"You can not Sponozot This Event",
+  "typeyourtesthere":"Type your search here!",
+  "sponzorshipCreatedSuccesfuly":"Congratulations, You have sent an Sponzorship Request"
 }
