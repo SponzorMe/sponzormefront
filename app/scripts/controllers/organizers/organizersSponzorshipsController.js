@@ -10,6 +10,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
   $scope.emailuser = $localStorage.email;
   $scope.userfroups = 0;
   $translate.use(idiomaselect);
+  $scope.tolsctive = 'active';
   //This function allows get sponzorship info from organizerId
   $scope.getSponzorshipsByOrganizer = function() {
     sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
@@ -166,14 +167,6 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
     });
   };
 
-
-  $scope.toggleSidebar = function() {
-    console.log($scope.tolsctive);
-        $scope.tolsctive = !$scope.tolsctive;
-        $scope.$apply();
-    };
-
-  $scope.tolsctive = 'active';
   $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
         if($scope.tolsctive === true){

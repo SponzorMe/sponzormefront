@@ -606,9 +606,9 @@
   "taskCreatedSuccesfuly": "The new task has been created and added to the current sponzorship type!",
   "errorDeletingTask": "We sorry, we can not delete this task because this event has Sponsorship",
   "eventstate0": "This sponzor still is waiting your approval",
-  "eventstate1": "Congratulations, you have acccepted this sponzorship",
+  "eventstate1": "Sponzorship Accepted",
   "eventstate0Sponzor": "Waiting organizer approval",
-  "eventstate1Sponzor": "Congratulations, Organizer has acccepted this sponzorship",
+  "eventstate1Sponzor": "Sponzorship Accepted",
   "causeWhy": "Why this sponzor wants sponsor your event?",
   "causeForm": "Why do you want sponzor this event?",
   "cause": "Reason",
@@ -661,5 +661,7 @@
   "errorEditingAccountInfo":"We can not update your information, please try again later",
   "youCanNotSponzorThisEvent":"You can not Sponozot This Event",
   "typeyourtesthere":"Type your search here!",
-  "sponzorshipCreatedSuccesfuly":"Congratulations, You have sent an Sponzorship Request"
+  "sponzorshipCreatedSuccesfuly":"Congratulations, You have sent an Sponzorship Request",
+  "sponzorshipDeleteSuccesfully":"The Sponzorship has been deleted succesfuly",
+  "errorDeletingSponzorship":"The Sponzorship can not be deleted"
 }

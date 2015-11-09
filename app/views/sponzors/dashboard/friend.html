@@ -11,9 +11,7 @@
                     <i class="fa fa-plus"></i>{{'invitefriendstring' | translate}}
                     <div class="clearfix"></div>
                   </div>
-                  <div ng-show="loadingInvite">
-                    <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-1" spinner-start-active="true"></span>
-                  </div>
+                  <br/>
                   <form class="form-horizontal" role="form" name="formInvite">
                   <!--form field-->
                     <div class="form-group" id="name">
@@ -49,11 +47,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/ng-template" id="emailsend.html">
-    {{'weresendingandemail' | translate}} {{friend.tempEmail}}
-</script>
-
-<script type="text/ng-template" id="errorsend.html">
-    {{'problem' | translate}}
-</script>

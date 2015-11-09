@@ -36,7 +36,7 @@
                         <h2 class="text-center">{{'noSponzorshipsMessageSponzor'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr ng-show="!sponzorshipsLoading && !noSponzorshipsMessage" data-ng-repeat="s in sponzorships" data-ng-class="{success : sponzorships.current === s.id}">
+                    <tr ng-show="!sponzorshipsLoading && !noSponzorshipsMessage" data-ng-repeat="s in sponzorships" data-ng-class="{success : sponzorships.current === s.id}" ng-click="getTaskSponzor(s.id)" class="row-hover">
                       <td class="text-center">{{s.name}}</td>
                       <td class="text-center">{{s.email}}</td>
                       <td class="text-center">{{s.title}}</td>
@@ -46,7 +46,6 @@
                       </td>
                       <td class="text-center">
                         <a href="" ng-click="seeCause(s)"><i class="fa fa-question-circle"></i></a>
-                        <a href="" ng-click="getTaskSponzor(s.id)"><i class="fa fa-tasks"></i></a>
                         <a href="" ng-click="deleteSponzorship(s.id)"><i class="fa fa-trash-o"></i></a>
                       </td>
                     </tr>
