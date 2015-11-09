@@ -183,6 +183,9 @@ var expirationTime = 1;
         $translate.use(key);
         idiomaselect = key;
       };
+      $rootScope.currentLanguage = function(key) {
+        return $translate.use();
+      };
       $rootScope.buildInterests = function() {
         allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata) {
           var interests = adata.InterestCategory;

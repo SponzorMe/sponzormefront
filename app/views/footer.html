@@ -5,11 +5,19 @@
         <a class="" href="" ng-click="changeLanguage('pt')"><img height="16px" src="images/pt.png"></a>
     </div>
     <div class="col-md-4 padding-top-10">
-        <a href="#/testimonials">{{ 'testimonialts' | translate }}</a>&nbsp;|&nbsp
-        <a href="#/support" target="_blank">{{ 'support' | translate }}</a>&nbsp;|&nbsp
-        <a href="http://bloges.sponzor.me/" target="_blank">{{ 'blog' | translate }}</a>
+        <a href="http://www.sponzor.me/testimonials-3/?lang=es" ng-if="currentLanguage()=='es'">{{ 'testimonialts' | translate }}</a>
+        <a href="http://www.sponzor.me/testimonials-3/" ng-if="currentLanguage()=='en'">{{ 'testimonialts' | translate }}</a>
+        <a href="http://www.sponzor.me/testimonials-3/?lang=pt" ng-if="currentLanguage()=='pt'">{{ 'testimonialts' | translate }}</a>&nbsp;|&nbsp
+        <a href="http://www.sponzor.me/support-3/" ng-if="currentLanguage()=='en'" target="_blank">{{ 'support' | translate }}</a>
+        <a href="http://www.sponzor.me/support-3/?lang=es" ng-if="currentLanguage()=='es'" target="_blank">{{ 'support' | translate }}</a>
+        <a href="http://www.sponzor.me/support-3/?lang=pt" ng-if="currentLanguage()=='pt'" target="_blank">{{ 'support' | translate }}</a>&nbsp;|&nbsp
+        <a href="http://blogen.sponzor.me/" target="_blank" ng-if="currentLanguage()=='en'">{{ 'blog' | translate }}</a>
+        <a href="http://bloges.sponzor.me/" target="_blank" ng-if="currentLanguage()=='es'">{{ 'blog' | translate }}</a>
+        <a href="http://blogpt.sponzor.me/" target="_blank" ng-if="currentLanguage()=='pt'">{{ 'blog' | translate }}</a>
         &nbsp|&nbsp
-        <a href="#/privacy" target="_blank">{{ 'privacy' | translate }}</a>
+        <a href="http://www.sponzor.me/privacy/?lang=es" target="_blank" ng-if="currentLanguage()=='es'">{{ 'privacy' | translate }}</a>
+        <a href="http://www.sponzor.me/privacy/" target="_blank" ng-if="currentLanguage()=='en'">{{ 'privacy' | translate }}</a>
+        <a href="http://www.sponzor.me/privacy/?lang=pt" target="_blank" ng-if="currentLanguage()=='pt'">{{ 'privacy' | translate }}</a>
     </div>
     <div class="col-md-4" align="right">
         <a class="" href="https://www.facebook.com/SponzorMe"><img height="32px" src="images/facebok.png"></a>&nbsp;

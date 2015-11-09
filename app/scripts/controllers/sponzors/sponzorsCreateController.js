@@ -1,8 +1,11 @@
 'use strict';
 (function() {
 
-  function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, usSpinnerService, $localStorage, eventRequest, perkRequest) {
-
+  function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, usSpinnerService, $localStorage, eventRequest, perkRequest, $routeParams) {
+    if($routeParams.lang==='en' || $routeParams.lang==='es' || $routeParams.lang==='pt'){
+      idiomaselect = $routeParams.lang;
+      $translate.use($routeParams.lang);
+    }
     $scope.sendfrom = function() {
       if ($scope.passwordone !== undefined || $scope.passwordtwo !== undefined) {
         if ($scope.passwordone === $scope.passwordtwo && $scope.passwordtwo.length > 6) {

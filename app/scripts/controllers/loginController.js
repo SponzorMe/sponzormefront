@@ -1,8 +1,11 @@
 'use strict';
 (function() {
 
-  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog) {
-
+  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams) {
+    if($routeParams.lang==='en' || $routeParams.lang==='es' || $routeParams.lang==='pt'){
+      idiomaselect = $routeParams.lang;
+      $translate.use($routeParams.lang);
+    }
     $localStorage.$reset();
 
     $scope.sendfrom = function() {
