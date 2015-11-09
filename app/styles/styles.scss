@@ -1,8 +1,8 @@
-$colourinitial: black;
+$colourinitial: black !important;
 
 header{
     background-color:white !important;
-    color:black !important;
+    color:$colourinitial;
     top: 0px !important;
     position: absolute;
     width: 100%;
