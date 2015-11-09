@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" zoomAndPan="disable"><style><![CDATA[
-		line
-		{
-			stroke: rgba(255,255,255,0.2);
-			stroke-width: 1px;
-		}
-    ]]></style><path d="M0 0l500 500M60 0l440 440M120 0l380 380M180 0l320 320M240 0l260 260M300 0l200 200M360 0l140 140M420 0l80 80"/></svg>
