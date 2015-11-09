@@ -2,7 +2,7 @@
 (function() {
 
   function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams) {
-    if($routeParams.lang==='en' || $routeParams.lang==='es' || $routeParams.lang==='pt'){
+    if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
@@ -16,7 +16,10 @@
         $scope.objuser.password_confirmation = $scope.passwordtwo;
         $scope.objuser.lang = idiomaselect;
         $scope.loagind = true;
-        ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
         loginRequest.login($scope.objuser).success(function(adata) {
           if (adata.user.activated === '1') {
             var expireDate = new Date();

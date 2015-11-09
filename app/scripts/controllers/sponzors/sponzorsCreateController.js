@@ -2,7 +2,7 @@
 (function() {
 
   function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, usSpinnerService, $localStorage, eventRequest, perkRequest, $routeParams) {
-    if($routeParams.lang==='en' || $routeParams.lang==='es' || $routeParams.lang==='pt'){
+    if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
@@ -17,7 +17,10 @@
           $scope.objuser.type = 1;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;
-          ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+          ngDialog.open({
+            template: 'views/templates/loadingDialog.html',
+            showClose: false
+          });
           userRequest.createUser($scope.objuser).success(function(adata) {
             if (adata.message === 'Inserted') {
               $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
@@ -114,15 +117,14 @@
             });
           });
         } else {
-          if($scope.passwordtwo.length > 6){
+          if ($scope.passwordtwo.length > 6) {
             $scope.message = 'errorRegisterPasswordNoMatch';
             ngDialog.open({
               template: 'views/templates/errorDialog.html',
               showClose: false,
               scope: $scope
             });
-          }
-          else{
+          } else {
             $scope.message = 'errorRegisterShortPassword';
             ngDialog.open({
               template: 'views/templates/errorDialog.html',
