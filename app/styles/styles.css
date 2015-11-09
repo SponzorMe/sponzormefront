@@ -1,0 +1,36 @@
+header {
+  background-color: white !important;
+  color: black !important;
+  top: 0px !important;
+  position: absolute;
+  width: 100%; }
+
+.mdl-layout__container {
+  top: 0px !important; }
+
+#fondo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  background: url(polina.jpg) no-repeat;
+  background-size: cover; }
+
+.redes {
+  float: right; }
+
+.mdl-mini-footer {
+  bottom: 0px; }
+
+footer {
+  bottom: 0px !important;
+  position: absolute;
+  width: 100%;
+  background-color: white !important;
+  color: black !important; }

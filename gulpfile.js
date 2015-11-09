@@ -1,3 +1,4 @@
+var sass = require('gulp-sass');
 var gulp = require('gulp'),
 	usemin = require('gulp-usemin'),
 	minifyCSS = require('gulp-minify-css'),
@@ -70,6 +71,17 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest('dist/fonts/'));
 });
 
+gulp.task('styles', function(){
+  gulp.src('app/styles/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('app/styles/'));
+
+  gulp.src(['app/styles/styles.css'])
+      .pipe(minifyCSS())
+      .pipe(gulp.dest('dist/styles/'));
+
+});
+
 
 gulp.task('clean', function() {
     return gulp.src(['dist/**/*.*','dist/**/**/*.*','dist/*.*','dist/*'], { read: false })
@@ -108,7 +120,7 @@ gulp.task('serve', function (){
     'bower_components/*',
   ]).on('change', browserSync.reload);
 
-  gulp.watch('app/styles/**/*.scss', ['styles']);
+  gulp.watch('app/styles/**/*.scss', ['styles']).on('change', browserSync.reload);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json');
 });

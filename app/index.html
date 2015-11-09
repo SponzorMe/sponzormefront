@@ -7,14 +7,14 @@
   <title>Sponzorme</title>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles/material.min.css">
-  <link rel="stylesheet" href="styles/styles.scss">
+  <link rel="stylesheet" href="styles/styles.css">
   <script src="scripts/material.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body>
-  <section class="mdl-layout__container">
+  <section>
     <header class="android-header mdl-layout__header mdl-layout__header--waterfall">
       <section class="mdl-layout__header-row">
           <p>Sponzorme</p>
@@ -34,13 +34,92 @@
           </section>
       </section>
     </header>
-    <footer class="mdl-layout__footer">
-        <p>te</p>
+    <footer class="mdl-mega-footer">
+      <div class="mdl-mega-footer__middle-section">
+    
+        <div class="mdl-mega-footer__drop-down-section">
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">ES</a></li>
+            <li><a href="#">EN</a></li>
+            <li><a href="#">PT</a></li>
+          </ul>
+        </div>
+    
+        <div class="mdl-mega-footer__drop-down-section">
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">Ayuda</a></li>
+            <li><a href="#">Políticas y Condiciones</a></li>
+          </ul>
+        </div>
+    
+      </div>
+    
     </footer>
   </section>
-  <video autoplay loop poster="video/fondo.jpg" id="fondo">
-    <source src="video/video1.mp4" type="video/webm">
-    <source src="video/video2.mp4" type="video/mp4">
-  </video>
+  <figure id="video_player">
+    <video autoplay poster="video/fondo.jpg" id="fondo">
+      <source src="video/video1.mp4" type="video/mp4">
+      <source src="video/video2.mp4" type="video/mp4">
+    </video>
+  </figure>
 </body>
+<script>
+  var video_player = document.getElementById("video_player");
+  video = video_player.getElementsByTagName("video")[0],
+  source = video.getElementsByTagName("source"),
+  console.log(source)
+  link_list = [],
+  vidDir = "video/",
+  currentVid = 0,
+  lnkNum = source.length;
+  video.removeAttribute("controls");
+  video.removeAttribute("poster");
+
+  for (var i=0; i<lnkNum; i++) {
+    var filename = source[i].src;
+    link_list[i] = filename.match(/([^\/]+)(?=\.\w+$)/)[0];
+  }
+
+  (function() {
+    function playVid(index) {
+        source[1].src = vidDir + link_list[index] + ".webm";  
+      source[0].src = vidDir + link_list[index] + ".mp4";
+        currentVid = index;
+        video.load();
+      video.play();
+    }
+
+    video.addEventListener('ended', function () {
+      console.log('fin');
+        // allLnks[currentVid].classList.remove("currentvid");
+        if ((currentVid + 1) >= lnkNum) { nextVid = 0 } else { nextVid = currentVid+1 }
+        playVid(nextVid);
+    })
+
+    // video.addEventListener('mouseenter', function() {
+    //     video.setAttribute("controls","true");
+    // })
+
+    // video.addEventListener('mouseleave', function() {
+    //     video.removeAttribute("controls");
+    // })
+
+    var indexOf = function(needle) {
+        if(typeof Array.prototype.indexOf === 'function') {
+            indexOf = Array.prototype.indexOf;
+        } else {
+            indexOf = function(needle) {
+                var i = -1, index = -1;
+          for(i = 0; i < this.length; i++) {
+                    if(this[i] === needle) {
+                        index = i;
+                        break;
+                    }}
+                return index;
+            };}
+        return indexOf.call(this, needle);
+    };
+
+  })();
+</script>
 </html>
