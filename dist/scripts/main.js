@@ -1413,9 +1413,11 @@ var expirationTime = 1;
       };
       ngDialog.closeAll();
       ngDialog.open({
-        template: 'loading'
+        template: 'views/templates/loadingDialog.html',
+        showClose: false
       });
       sponzorshipRequest.createSponzorship(data, $localStorage.token).success(function(sData) {
+        var cont = 0;
         perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
           angular.forEach(sPerkData.data.Tasks, function(value) {
             var taskSponzor = {
@@ -1427,18 +1429,48 @@ var expirationTime = 1;
               'sponzorship_id': sData.Sponzorship.id,
               'task_id': value.id
             };
-            taskSponzorRequest.createTaskSponzor(taskSponzor, $localStorage.token).success(function() {});
+            taskSponzorRequest.createTaskSponzor(taskSponzor, $localStorage.token)
+              .success(function() {
+                cont++;
+              });
+            if (cont === sPerkData.data.Tasks.length - 1) {
+              $scope.message = 'sponzorshipCreatedSuccesfuly';
+              ngDialog.closeAll();
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            }
           });
+          if (sPerkData.data.Tasks.length === 0) {
+            $scope.message = 'sponzorshipCreatedSuccesfuly';
+            ngDialog.closeAll();
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+
+          }
+        }).error(function() {
+          $scope.message = 'eventPageErrorSponzoringEvent';
           ngDialog.closeAll();
           ngDialog.open({
-            template: 'SponzorshipComplete'
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
           });
-          $location.path('/sponzors/following'); //redirection to Following page
-        }).error(function(eData) {
-          console.log(eData);
         });
-      }).error(function(eData) {
-        console.log(eData);
+
+      }).error(function() {
+        $scope.message = 'eventPageErrorSponzoringEvent';
+        ngDialog.closeAll();
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
       });
     };
   }
