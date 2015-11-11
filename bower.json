@@ -4,7 +4,7 @@
   "description": "We connect Events With Sponzors!",
   "private": true,
   "dependencies": {
-	"angular": "~1.4.3",
+    "angular": "~1.4.3",
     "modernizr": "~2.8.1",
     "angular-translate": "~2.7.2",
     "angular-cookies": "~1.4",
@@ -25,6 +25,7 @@
     "intro.js": "~1.1.1",
     "bootstrap": "~3.3.5",
     "bootstrap-sass": "~3.3.5",
-    "bootstrap-toggle": "~2.2.1"
+    "bootstrap-toggle": "~2.2.1",
+    "angular-mocks": "~1.4.7"
   }
 }
