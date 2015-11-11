@@ -87,7 +87,7 @@ gulp.task('clean', function() {
     return gulp.src(['dist/**/*.*','dist/**/**/*.*','dist/*.*','dist/*'], { read: false })
            .pipe(clean({ force: true }));
 });
-gulp.task('build', ['main','views','imagenes','langs','fonts','extras','extras1','extras2']);
+gulp.task('build', ['main','views','imagenes','langs','fonts','extras','extras1','extras2','styles']);
 
 gulp.task('success', ['clean'], function() {
   gulp.start('build');
