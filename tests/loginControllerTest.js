@@ -1,10 +1,7 @@
 'use strict';
-//Interesting things to test the Auth service for
-
-// Logging in with Facebook
-// Handling callback to server for checkuser
-// Saving user to localstorage after login
-// Logging out (removing user object as well as localstorage)
+//Tests Based on
+//http://jbavari.github.io/blog/2014/06/11/unit-testing-angularjs-services/
+//http://www.benlesh.com/2013/06/angular-js-unit-testing-services.html
 
 describe("Auth Service Unit Tests", function() {
 
