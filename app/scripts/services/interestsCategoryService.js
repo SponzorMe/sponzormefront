@@ -51,6 +51,6 @@
 			}
 		};
 	}
-	angular.module('allInterestsService', ['ngCookies'])
+	angular.module('allInterestsService', ['ngStorage'])
 		.factory('allInterestsServiceRequest', allInterestsServiceRequest);
 })();

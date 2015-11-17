@@ -7,8 +7,8 @@
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $cookies) {
-		var token = $cookies.get('token');
+	function userCategoryRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
 				return $http.get(apiPath + 'user_categories');
@@ -49,6 +49,6 @@
 			}
 		};
 	}
-	angular.module('userCategoryService', ['ngCookies'])
+	angular.module('userCategoryService', ['ngStorage'])
 		.factory('userCategoryRequest', userCategoryRequest);
 })();

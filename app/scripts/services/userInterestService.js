@@ -49,6 +49,6 @@
 			}
 		};
 	}
-	angular.module('userInterestService', ['ngCookies'])
+	angular.module('userInterestService', ['ngStorage'])
 		.factory('userInterestRequest', userInterestRequest);
 })();

@@ -1,12 +1,11 @@
-/**
- * @Servicio de Login
- *
- * @author Sebastian
- * @version 0.1
- */
 'use strict';
 (function() {
-
+  /**
+   * Login Service factory
+   * @autor  Sebastian Gomez
+   * @email  seagomezar@gmail.com
+   * @date   2015-11-16
+   */
   function loginRequest($http) {
     return {
       /**
