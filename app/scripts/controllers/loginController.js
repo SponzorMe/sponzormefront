@@ -9,7 +9,7 @@
     $localStorage.$reset();
 
     $scope.sendfrom = function() {
-      if ($scope.email !== undefined || $scope.password !== undefined) {
+      if ($scope.email && $scope.password) {//Just Check the values are defined
         $scope.objuser = {};
         $scope.objuser.email = $scope.email;
         $scope.objuser.password = $scope.password;
