@@ -1,0 +1,205 @@
+<!doctype html>
+<html class="no-js" lang="" ng-app="sponzorme">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="We connect events with Sponzors">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sponzorme</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles/material.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <script src="scripts/material.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+  <section>
+    <header class="mdl-cell mdl-cell--12-col" >
+      <section class="mdl-layout__header-row">
+          <section class="logo mdl-cell mdl-cell--10-col">
+            <p>Sponzor<strong>Me</strong></p>
+          </section>
+          <section class="redes mdl-cell mdl-cell--2-col">
+            <a href="" id="facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+            <a href="" id="twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a href="" id="google">
+              <i class="fa fa-google-plus"></i>
+            </a>
+            <a href="" id="instagram">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </section>
+      </section>
+    </header>
+    <section class="conteiner mdl-cell--12-col">
+        <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+          <section class="">
+            <div class="mdl-layout__header-row">
+              <!-- Title -->
+              <span class="mdl-layout-title">Patrocinador</span>
+              <!-- Add spacer, to align navigation to the right -->
+              <div class="mdl-layout-spacer"></div>
+              <!-- Navigation -->
+              <nav class="mdl-navigation">
+                <a href="#search-tab" class="mdl-layout__tab is-active">Buscar Eventos</a>
+                <a href="#event-tab-2" class="mdl-layout__tab">Eventos por Venir</a>
+                <a href="#eventdest-tab-3" class="mdl-layout__tab" >Eventos Destacados</a>
+                <a href="#not-tab-4" class="mdl-layout__tab" >Notificaciones</a>
+                
+              </nav>
+            </div>
+          </section>
+          <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">Vista General</a>
+                <a class="mdl-navigation__link" href="">Eventos que patrocino</a>
+                <a class="mdl-navigation__link" href="">Eventos que sigo</a>
+                <a class="mdl-navigation__link" href="">Configuración</a>
+            </nav>
+          </div>
+          <main class="mdl-layout__content">
+            <section id="search-tab" class="mdl-layout__tab-panel is-active">
+                <section>
+                  <p>Añade valor y visibilidad a tu marca </br> patrocinando, es muy facil</p>
+                </section>
+                <section class="log">
+                  <i class="fa fa-rocket fa-4"></i>
+                </section>
+                <section class="bottomreg">
+                  <ul>
+                    <li><a href="">INGRESO</a></li>
+                    <li><a href="">REGISTRO</a></li>
+                  </ul>
+                </section>
+            </section>
+
+            <section id="event-tab-2" class="mdl-layout__tab-panel">
+                <section>
+                  <p>Añade valor y visibilidad a tu marca </br> publica tu evento, es muy facil</p>
+                </section>
+            </section>
+
+            <section id="#eventdest-tab-3" class="mdl-layout__tab-panel is-active">
+                <section>
+                  <p>Añade valor y visibilidad a tu marca </br> patrocinando, es muy facil</p>
+                </section>
+                <section class="log">
+                  <i class="fa fa-rocket fa-4"></i>
+                </section>
+                <section class="bottomreg">
+                  <ul>
+                    <li><a href="">INGRESO</a></li>
+                    <li><a href="">REGISTRO</a></li>
+                  </ul>
+                </section>
+            </section>
+
+            <section id="not-tab-4" class="mdl-layout__tab-panel">
+                <section>
+                  <p>Añade valor y visibilidad a tu marca </br> publica tu evento, es muy facil</p>
+                </section>
+            </section>
+            
+          </main>
+        </div>
+    </section>
+    <footer class="mdl-cell--12-col">
+      <div class="mdl-cell--12-col">
+    
+        <div class="mdl-mega-footer__drop-down-section itemspeek mdl-cell mdl-cell--9-col">
+          <ul class="mdl-mega-footer__link-list">
+            <li class="active"><a href="#">ES</a></li>
+            <li><a href="#">EN</a></li>
+            <li><a href="#">PT</a></li>
+          </ul>
+        </div>
+    
+        <div class="mdl-mega-footer__drop-down-section itemmy mdl-cell mdl-cell--3-col">
+          <ul class="mdl-mega-footer__link-list">
+            <li><a href="#">Ayuda</a></li>
+            <li><a href="#">Políticas y Condiciones</a></li>
+          </ul>
+        </div>
+    
+      </div>
+    
+    </footer>
+    <figure id="video_player" class="mdl-cell mdl-cell--12-col">
+      <video autoplay poster="video/fondo.jpg" id="fondo">
+        <source src="video/video1.mp4" type="video/mp4">
+        <source src="video/video2.mp4" type="video/mp4">
+        <source src="video/video3.mp4" type="video/mp4">
+        <source src="video/video4.mp4" type="video/mp4">
+        <source src="video/video5.mp4" type="video/mp4">
+        <source src="video/video6.mp4" type="video/mp4">
+        <source src="video/video7.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </section>
+</body>
+<script>
+  var video_player = document.getElementById("video_player");
+  video = video_player.getElementsByTagName("video")[0],
+  source = video.getElementsByTagName("source"),
+  console.log(source)
+  link_list = [],
+  vidDir = "video/",
+  currentVid = 0,
+  lnkNum = source.length;
+  video.removeAttribute("controls");
+  video.removeAttribute("poster");
+
+  for (var i=0; i<lnkNum; i++) {
+    var filename = source[i].src;
+    link_list[i] = filename.match(/([^\/]+)(?=\.\w+$)/)[0];
+  }
+
+  (function() {
+    function playVid(index) {
+        source[1].src = vidDir + link_list[index] + ".webm";  
+      source[0].src = vidDir + link_list[index] + ".mp4";
+        currentVid = index;
+        video.load();
+        video.muted = true;
+        video.play();
+    }
+
+    video.addEventListener('ended', function () {
+      console.log('fin');
+        // allLnks[currentVid].classList.remove("currentvid");
+        if ((currentVid + 1) >= lnkNum) { nextVid = 0 } else { nextVid = currentVid+1 }
+        playVid(nextVid);
+    })
+
+    // video.addEventListener('mouseenter', function() {
+    //     video.setAttribute("controls","true");
+    // })
+
+    // video.addEventListener('mouseleave', function() {
+    //     video.removeAttribute("controls");
+    // })
+
+    var indexOf = function(needle) {
+        if(typeof Array.prototype.indexOf === 'function') {
+            indexOf = Array.prototype.indexOf;
+        } else {
+            indexOf = function(needle) {
+                var i = -1, index = -1;
+          for(i = 0; i < this.length; i++) {
+                    if(this[i] === needle) {
+                        index = i;
+                        break;
+                    }}
+                return index;
+            };}
+        return indexOf.call(this, needle);
+    };
+
+  })();
+</script>
+</html>

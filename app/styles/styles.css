@@ -2,11 +2,14 @@ header {
   background-color: white !important;
   color: black !important;
   top: 0px !important;
-  position: absolute;
-  width: 100%; }
+  width: 100% !important;
+  height: 55px; }
 
 .mdl-layout__container {
   top: 0px !important; }
+
+.mdl-cell {
+  margin: 0px !important; }
 
 #fondo {
   position: fixed;
@@ -22,15 +25,92 @@ header {
   background: url(polina.jpg) no-repeat;
   background-size: cover; }
 
+.logo p {
+  font-weight: bold;
+  font-size: 18px;
+  color: black; }
+
+.logo strong {
+  color: #00838d; }
+
 .redes {
-  float: right; }
+  float: right;
+  color: white; }
+
+.redes a {
+  border-radius: 50%;
+  color: white;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin: 3px; }
+
+.redes #facebook {
+  background-color: #6576d1; }
+
+.redes #twitter {
+  background-color: #29c5f6; }
+
+.redes #google {
+  background-color: #fe4445; }
+
+.redes #instagram {
+  background-color: #998b55; }
 
 .mdl-mini-footer {
   bottom: 0px; }
 
+.centertable {
+  display: table-cell;
+  vertical-align: middle;
+  width: 50% !important;
+  text-align: center; }
+
+.itemspeek {
+  padding-top: 15px;
+  padding-left: 5%; }
+
+.itemspeek li a {
+  border: 3px solid #00838d;
+  border-radius: 50%;
+  float: left;
+  margin: 5px;
+  color: #00838d;
+  font-size: 10px;
+  width: 21px;
+  height: 21px;
+  text-align: center;
+  vertical-align: center; }
+
+.itemspeek .active a {
+  background-color: #00838d;
+  color: white; }
+
+.itemspeek li a:hover {
+  background-color: #00838d;
+  color: white; }
+
+.itemmy {
+  text-align: right;
+  padding-top: 22px;
+  padding-right: 2%; }
+
+.itemmy li {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 14px; }
+
+.itemmy li:first-child {
+  margin-right: 15px; }
+
 footer {
   bottom: 0px !important;
   position: absolute;
-  width: 100%;
+  width: 100% !important;
   background-color: white !important;
-  color: black !important; }
+  color: black !important;
+  height: 55px; }

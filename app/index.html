@@ -15,37 +15,71 @@
 
 <body>
   <section>
-    <header class="android-header mdl-layout__header mdl-layout__header--waterfall">
+    <header class="mdl-cell mdl-cell--12-col" >
       <section class="mdl-layout__header-row">
-          <p>Sponzorme</p>
-          <section class="redes">
-            <a href="">
+          <section class="logo mdl-cell mdl-cell--10-col">
+            <p>Sponzor<strong>Me</strong></p>
+          </section>
+          <section class="redes mdl-cell mdl-cell--2-col">
+            <a href="" id="facebook">
               <i class="fa fa-facebook"></i>
             </a>
-            <a href="">
+            <a href="" id="twitter">
               <i class="fa fa-twitter"></i>
             </a>
-            <a href="">
+            <a href="" id="google">
               <i class="fa fa-google-plus"></i>
             </a>
-            <a href="">
+            <a href="" id="instagram">
               <i class="fa fa-instagram"></i>
             </a>
           </section>
       </section>
     </header>
-    <footer class="mdl-mega-footer">
-      <div class="mdl-mega-footer__middle-section">
+    <section class="conteiner mdl-cell--12-col">
+        <section class="mdl-cell mdl-cell--4-col centertable"></section>
+        <section class="mdl-cell mdl-cell--4-col centertable">
+          <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+            <a href="#patro-tab" class="mdl-layout__tab is-active">Patrocinador</a>
+            <a href="#scroll-tab-2" class="mdl-layout__tab">Organizador</a>
+          </div>
+          <main class="mdl-layout__content">
+            <section id="patro-tab" class="mdl-layout__tab-panel is-active">
+                <section>
+                  <p>Añade valor y visibilidad a tu marca </br> patrocinando, es muy facil</p>
+                </section>
+                <section class="log">
+                  <i class="fa fa-rocket fa-4"></i>
+                </section>
+                <section class="bottomreg">
+                  <ul>
+                    <li><a href="">INGRESO</a></li>
+                    <li><a href="">REGISTRO</a></li>
+                  </ul>
+                </section>
+            </section>
+
+            <section id="orga-tab" class="mdl-layout__tab-panel">
+                <section>
+                  <p>Añade valor y visibilidad a tu marca </br> publica tu evento, es muy facil</p>
+                </section>
+            </section>
+          </main>
+        </section>
+        <section class="mdl-cell mdl-cell--4-col centertable"></section>
+    </section>
+    <footer class="mdl-cell--12-col">
+      <div class="mdl-cell--12-col">
     
-        <div class="mdl-mega-footer__drop-down-section">
+        <div class="mdl-mega-footer__drop-down-section itemspeek mdl-cell mdl-cell--9-col">
           <ul class="mdl-mega-footer__link-list">
-            <li><a href="#">ES</a></li>
+            <li class="active"><a href="#">ES</a></li>
             <li><a href="#">EN</a></li>
             <li><a href="#">PT</a></li>
           </ul>
         </div>
     
-        <div class="mdl-mega-footer__drop-down-section">
+        <div class="mdl-mega-footer__drop-down-section itemmy mdl-cell mdl-cell--3-col">
           <ul class="mdl-mega-footer__link-list">
             <li><a href="#">Ayuda</a></li>
             <li><a href="#">Políticas y Condiciones</a></li>
@@ -55,13 +89,18 @@
       </div>
     
     </footer>
+    <figure id="video_player" class="mdl-cell mdl-cell--12-col">
+      <video autoplay poster="video/fondo.jpg" id="fondo">
+        <source src="video/video1.mp4" type="video/mp4">
+        <source src="video/video2.mp4" type="video/mp4">
+        <source src="video/video3.mp4" type="video/mp4">
+        <source src="video/video4.mp4" type="video/mp4">
+        <source src="video/video5.mp4" type="video/mp4">
+        <source src="video/video6.mp4" type="video/mp4">
+        <source src="video/video7.mp4" type="video/mp4">
+      </video>
+    </figure>
   </section>
-  <figure id="video_player">
-    <video autoplay poster="video/fondo.jpg" id="fondo">
-      <source src="video/video1.mp4" type="video/mp4">
-      <source src="video/video2.mp4" type="video/mp4">
-    </video>
-  </figure>
 </body>
 <script>
   var video_player = document.getElementById("video_player");
@@ -86,7 +125,8 @@
       source[0].src = vidDir + link_list[index] + ".mp4";
         currentVid = index;
         video.load();
-      video.play();
+        video.muted = true;
+        video.play();
     }
 
     video.addEventListener('ended', function () {
