@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
+function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $q) {
 
   $scope.steps = [false,false,false];//Number of steps in customization proccess
   $scope.startCustomization =  function(){
@@ -79,10 +79,12 @@ function CustomizationController($scope, $translate, $localStorage, usSpinnerSer
       promises.push(userInterestRequest.createUserInterest($scope.currentInterest));
     });
     promises[$scope.interestselectarray.length-1].success(function(data){
-      console.log(data);
       $scope.showStep(2);
     });
     //We wait for a little to reset the $localStorage
+    $q.all(promises).then(function(){
+
+    })
     setTimeout(function () {$localStorage.$reset();}, 1000);
   };
 
