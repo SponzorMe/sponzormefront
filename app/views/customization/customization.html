@@ -7,8 +7,9 @@
 	<div>
 		<div ng-if="email && newUser && id">
 			<div>
+				{{steps}}
 			<!--Step 1, the user choose the age, sex, and location -->
-				<div class="col-md-8 col-md-offset-2 step1" id="step1" ng-show="step1">
+				<div class="col-md-8 col-md-offset-2 step1" id="step1" ng-show="steps[0]">
 					<form class="form-inline" ng-submit="sendfrom()">
 					<h1 class="form-signin-heading" style='color:black'>{{'aboutyou'  | translate }}</h1>	<br/>
 						<div class="form-group">
@@ -47,18 +48,12 @@
 						<div class="form-group">
 							<input  type="text" class="form-control" ng-autocomplete="results" details="details" options="options" required name="location" g-places-autocomplete class="form-control" ng-model="userData.location" autocomplete="off"/>
 						</div>
-						<div class="">
-							<div ng-show="loagind">
-		                        <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
-		                    </div>
-		                    <div  ng-show="!loagind">
 								<button type="submit" class="btn btn-block">{{'next' | translate }}</button>
-							</div>
 						</div>
 					</form>
 					</div>
 					<!--Step 2, the user choose the categories and the interests -->
-					<div class="col-md-10 col-md-offset-1 step1" id="step2" ng-show="step2">
+					<div class="col-md-10 col-md-offset-1 step1" id="step2" ng-show="steps[1]">
 						<form ng-submit="submitCategoryInfo()">
 							<h1 class="form-signin-heading" style='color:black'>{{'areyouinterested'  | translate }}</h1>
 							<div class="row contenedor-intereses">
@@ -87,7 +82,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="col-md-8 col-md-offset-2 step1" id="step4" ng-show="step4">
+					<div class="col-md-8 col-md-offset-2 step1" id="step3" ng-show="steps[2]">
 						<h1 style="color:black">{{'almostdone'  | translate }}</h1>
 						<p>{{'weresendingandemail' | translate }} {{ scope.emailuser }} {{'toactivateyouraccount' | translate }}.</p>
 					</div>

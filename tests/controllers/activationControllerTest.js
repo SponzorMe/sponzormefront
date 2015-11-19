@@ -1,4 +1,4 @@
-describe("loginController Tests", function(){
+describe("Activation Controller Tests", function(){
   var createController, httpBackend, scope, $location, $localStorage, $routeParams;
   beforeEach(module('sponzorme'));
   beforeEach(inject(function($rootScope, $httpBackend, $controller, _$location_, _$localStorage_, _$routeParams_){
