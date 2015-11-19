@@ -34,7 +34,7 @@ module.exports = function (config) {
             'app/scripts/controllers/LoginController.js',
             'tests/**/*.js'
         ],
-        autoWatch: false,
+        autoWatch: true,
         frameworks: ['jasmine'],
         browsers: ['Chrome'],
         singleRun: true,
