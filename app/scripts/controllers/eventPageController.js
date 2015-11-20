@@ -26,7 +26,7 @@
     $scope.formCreateSponzorship = function(perk) {
       $scope.perkToSponzor = perk;
       ngDialog.open({
-        template: 'formCreateSponzorship',
+        template: 'views/templates/formCreateSponzorship.html',
         scope: $scope
       });
     };
