@@ -7,7 +7,6 @@
     $scope.forgotPassword = function() {
       $scope.loagind = true;
       loginRequest.resetPassword($scope.email).success(function(adata) {
-        console.log(adata);
         $scope.loagind = false;
         $scope.error_log[0] = 'PasswordResetLinkSent';
         ngDialog.open({
@@ -32,7 +31,6 @@
           'password': $scope.password,
           'password_confirmation': $scope.passwordConfirmation
         };
-        console.log($routeParams.tokenReset);
         loginRequest.updatePassword($routeParams.tokenReset, formData).success(function(data) {
           if (data.code === 200) {
             $scope.successActivation = true;
