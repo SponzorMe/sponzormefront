@@ -662,5 +662,6 @@
   "typeyourtesthere":"Type your search here!",
   "sponzorshipCreatedSuccesfuly":"Congratulations, You have sent an Sponzorship Request",
   "sponzorshipDeleteSuccesfully":"The Sponzorship has been deleted succesfuly",
+  "weresendingandemail":"We have sent you an E-mail to activate your account",
   "errorDeletingSponzorship":"The Sponzorship can not be deleted"
 }

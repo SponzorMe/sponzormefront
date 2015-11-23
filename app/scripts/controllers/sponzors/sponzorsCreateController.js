@@ -32,65 +32,9 @@
               $localStorage.startDate = Date.now();
               $localStorage.newUser = true;
               $localStorage.$apply();
-              if (idiomaselect === 'en') {
-                event_en.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_en.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_en.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
-                      /*Empty Code, nothing necessary here*/
-                    }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
-                    });
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  ngDialog.closeAll();
-                }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
-                });
-              } else if (idiomaselect === 'es') {
-                event_es.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_es.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_es.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
-                      /*Empty Code, nothing necessary here*/
-                    }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
-                    });
-
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  ngDialog.closeAll();
-                }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
-                });
-              } else if (idiomaselect === 'pt') {
-                event_pt.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_pt.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_pt.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
-                      /*Empty Code, nothing necessary here*/
-                    }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
-                    });
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  ngDialog.closeAll();
-                }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
-                });
-              }
+              $scope.loagind = false;
+              $location.path('/customization');
+              ngDialog.closeAll();
             }
           }).error(function(data) {
             if (data.message === 'Not inserted') {

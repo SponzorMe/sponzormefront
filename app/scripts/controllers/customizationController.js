@@ -85,7 +85,7 @@ function CustomizationController($scope, $translate, $localStorage, usSpinnerSer
     $q.all(promises).then(function(){
 
     })
-    setTimeout(function () {$localStorage.$reset();}, 1000);
+    //setTimeout(function () {$localStorage.$reset();}, 3000);
   };
 
   //Here start the callback

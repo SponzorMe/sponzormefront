@@ -21,6 +21,7 @@
                       <th class="text-center">{{ 'name' | translate }}</th>
                       <th class="text-center">{{ 'email' | translate }}</th>
                       <th class="text-center">{{ 'eventtitle' | translate }}</th>
+                      <th class="text-center">{{ 'starts' | translate }}</th>
                       <th class="text-center">{{ 'sponzoring' | translate }}
                         type</th>
                       <th class="text-center">{{ 'state' | translate }}</th>
@@ -42,6 +43,7 @@
                       <td class="text-center">{{s.name}}</td>
                       <td class="text-center">{{s.email}}</td>
                       <td class="text-center">{{s.title}}</td>
+                      <td class="text-center">{{s.starts}}</td>
                       <td class="text-center">{{s.kind}}</td>
                       <td class="text-center">
                         <div ng-if="s.status == 0">{{ 'eventstate0Sponzor' | translate }}</div>
