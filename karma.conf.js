@@ -31,7 +31,6 @@ module.exports = function (config) {
             'app/scripts/*.js',
             'app/scripts/**/*.js',
             'app/scripts/**/**/*.js',
-            'app/scripts/controllers/LoginController.js',
             'tests/**/*.js'
         ],
         autoWatch: true,

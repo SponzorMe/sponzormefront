@@ -7,13 +7,13 @@
     $scope.tolsctive = 'active';
     $scope.sponzorshipTypes = [];
     $scope.newEvent = {};
-    eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
+    eventTypeRequest.allEventTypes().success(function(adata) {
       $scope.type = {};
       $scope.type.list = adata.eventTypes;
       $scope.typefilter = adata.eventTypes;
     });
     $scope.categorias = {};
-    categoryRequest.allCategories($scope.typeuser).success(function(adata) {
+    categoryRequest.allCategories().success(function(adata) {
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
@@ -60,7 +60,6 @@
           scope: $scope
         });
       }).error(function(edata){
-        console.log(edata);
         ngDialog.closeAll();
         $scope.message = 'errorCreatingEvent';
         ngDialog.open({
