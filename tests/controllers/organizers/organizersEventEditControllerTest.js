@@ -191,4 +191,5 @@ describe("Organizers Event Edit Controller test", function(){
     httpBackend.flush();
     expect(scope.message).not.toBeDefined;
   });
+
 });
