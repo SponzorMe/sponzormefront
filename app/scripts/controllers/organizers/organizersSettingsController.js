@@ -54,7 +54,15 @@
             showClose: false,
             scope: $scope
           });
-        });
+        }).error(function(eData) {
+          ngDialog.closeAll();
+          $scope.message = 'errorEditingAccountInfo';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });;
       }
     };
 
