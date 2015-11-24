@@ -32,4 +32,15 @@ gulp.task('components', function(){
 
 });
 
-gulp.task('yourFiles', ['cleanup', 'views', 'components']);
+
+gulp.task('assets', function(){
+  gulp.src(['./src/assets/**/*.*'],
+    {
+      base: './src'
+    }
+  )
+  .pipe(gulp.dest('./yourFiles/'))
+
+});
+
+gulp.task('yourFiles', ['cleanup', 'views', 'components', 'assets']);
