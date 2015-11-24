@@ -36,7 +36,6 @@ function OrganizersMainController($scope, $translate, $localStorage, $location, 
     $localStorage.sponzorme = datuser;
     $scope.events = adata.data.user.events;
     $scope.eventos.size = $scope.events.length;
-    usSpinnerService.stop('spinner-2');
     $scope.loadingevents = false;
     if($scope.events[0]){
       $scope.event.current = $scope.events[0].id;
