@@ -235,7 +235,6 @@ var expirationTime = 1;
           }
           $rootScope.$storage = $localStorage;
         } else {
-          console.log('Not Authenticated');
           $location.path('/');
         }
       };
