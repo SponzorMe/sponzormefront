@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
+  function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout) {
     $rootScope.userValidation('1');
     $scope.sponzorshipsLoading = true;
     $scope.noSponzorshipsMessage = false;
@@ -47,7 +47,7 @@
         angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
           taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
         });
-        setTimeout(function() {
+        $timeout(function() {
           sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
             ngDialog.closeAll();
             $scope.message = 'sponzorshipDeleteSuccesfully';
