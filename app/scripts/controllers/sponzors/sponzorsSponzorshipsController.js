@@ -54,7 +54,7 @@
         status: 1
       };
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        $scope.getSponzorshipsByOrganizer();
+        $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
         console.log(eData);
       });
@@ -65,22 +65,9 @@
         status: 0
       };
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        $scope.getSponzorshipsByOrganizer();
+        $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
         console.log(eData);
-      });
-    };
-    //this function deletes an sponzorship if the status is 0
-    $scope.deleteSponzorship = function(sponzorshipId) {
-      sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
-        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
-          taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
-        });
-        sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
-          $scope.getSponzorshipsByOrganizer();
-        }).error(function(eData) {
-          console.log(eData);
-        });
       });
     };
     //this function gets the tasks sponzorships by sponzorship id
@@ -130,22 +117,6 @@
       taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {});
       $scope.tasksSponzor.splice(index, 1);
     };
-    $scope.seeCause = function(sponzorship) {
-      $scope.cause = sponzorship.cause;
-      ngDialog.open({
-        template: 'views/templates/sponzorshipCauseDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-    };
-    $scope.showTaskForm = function() {
-      $scope.todo = {};
-      ngDialog.open({
-        template: 'views/templates/newTaskForm.html',
-        scope: $scope,
-        showClose: false
-      });
-    };
     $scope.addTask = function() {
       ngDialog.closeAll();
       ngDialog.open({
@@ -188,8 +159,23 @@
         });
       });
     };
+    $scope.seeCause = function(sponzorship) {
+      $scope.cause = sponzorship.cause;
+      ngDialog.open({
+        template: 'views/templates/sponzorshipCauseDialog.html',
+        showClose: false,
+        scope: $scope
+      });
+    };
+    $scope.showTaskForm = function() {
+      $scope.todo = {};
+      ngDialog.open({
+        template: 'views/templates/newTaskForm.html',
+        scope: $scope,
+        showClose: false
+      });
+    };
     $scope.getSponzorshipsBySponzor();
-
     $scope.toggleSidebar = function() {
       $scope.tolsctive = !$scope.tolsctive;
       if ($scope.tolsctive === true) {
