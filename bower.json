@@ -4,7 +4,7 @@
   "description": "We connect Events With Sponzors!",
   "private": true,
   "dependencies": {
-    "angular": "~1.4.3",
+    "angular": "1.4.7",
     "modernizr": "~2.8.1",
     "angular-translate": "~2.7.2",
     "angular-cookies": "~1.4",
