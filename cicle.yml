@@ -1,0 +1,6 @@
+deployment:
+  staging:
+    branch: master
+    codedeploy:
+      my-app:
+        deployment_group: staging-instance-group
