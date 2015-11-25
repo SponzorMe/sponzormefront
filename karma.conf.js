@@ -32,7 +32,8 @@ module.exports = function (config) {
         preprocessors:{
           'app/scripts/**/**/*.js': 'coverage'
         },
-        autoWatch: true,
+        singleRun : true,
+        autowatch : false,
         frameworks: ['jasmine'],
         browsers: ['PhantomJS'],
         reporters: ['progress', 'html', 'coverage'],
