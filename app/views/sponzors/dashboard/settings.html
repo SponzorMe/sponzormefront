@@ -1,0 +1,120 @@
+<div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
+  <div ng-include="menuprincipal"></div>
+  <div id="content-wrapper">
+    <div class="page-content">
+      <div class="row header" ng-include src="'views/sponzors/dashboard/header.html'"></div>
+      <!--Template asociado a los settings-->
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="widget">
+            <div class="widget-header">
+              <i class="fa fa-plus"></i>{{'editaccount' | translate }}
+              <div class="clearfix"></div>
+            </div>
+            <br/>
+            <form class="form-horizontal padding-10 text-center" role="form">
+              <!--form field-->
+              <div class="form-group" id="name">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'editaccountname' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <input type="text" data-ng-model="account.name" name="name" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="email">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'editaccountemail' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <input type="text" data-ng-model="account.email" name="email" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="company">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'editaccountcompany' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <input type="text" data-ng-model="account.company" name="company" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="age">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'editaccountage' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <input type="text" data-ng-model="account.age" name="age" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'editaccountsex' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <select class="form-control" ng-init="account.sex=account.sex" ng-model="account.sex" aria-label="ngSelected">
+                    <option value="0" ng-selected="account.sex==0">{{'woman' | translate}}</option>
+                    <option value="1" ng-selected="account.sex">{{'man' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="location">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'editaccountlocation' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="account.location" autocomplete="off"/>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="comunitySize">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'comunitySize' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <input type="text" ng-model="account.comunity_size" name="comunity_size" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="description">
+                <label for="label" class="col-sm-2 control-label">
+                  {{'editaccountdescription' | translate}}
+                </label>
+                <div class="col-sm-5">
+                  <textarea rows="5" data-ng-model="account.description" name="description" class="form-control"></textarea>
+                </div>
+              </div>
+              <div class="form-group">
+
+                <div class="col-sm-12">
+                  <label class="col-sm-2 control-label" for="label">Imagen</label>
+                  <div class="col-sm-5">
+                    <div style="height:120px; wigth:120px;">
+                      <img src="{{account.image}}" style="border-radius:50%; height:120px; wigth:120px;">
+                    </div>
+                    <div style="margin:25px;">
+                      <input type="file" ng-model="file" name="file" maxsize="500" accept="image/*" base-sixty-four-input>
+                      <br/>
+                    </div>
+                  </div>
+                  <div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <hr/>
+                  <!--form field-->
+                  <div class="form-group">
+                    <div class="col-sm-offset-5 col-sm-4 ">
+                      <button data-ng-click="editAccount()" class="btn btn-info">{{'submitbutton' | translate}}</button>
+                    </div>
+                  </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
