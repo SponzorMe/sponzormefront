@@ -32,37 +32,6 @@ describe("CustomizationController Tests", function(){
     httpBackend.when('GET', 'views/templates/unactivatedAccountDialog.html').respond(200, {
       "message": "UNACTIVATED"
     });
-  }));
-  afterEach(function(){
-    httpBackend.verifyNoOutstandingExpectation();
-    httpBackend.verifyNoOutstandingRequest();
-  });
-  it("Should be redirected", function(){
-    var controller = createController();
-    expect(scope.categories).not.toBeDefined;
-    expect($location.path()).toBe('/');
-    $localStorage.id = 8;
-    scope.startCustomization();
-
-    expect(scope.categories).not.toBeDefined;
-    expect($location.path()).toBe('/');
-    scope.startCustomization();
-    $localStorage.email = 'an@email.com';
-    scope.startCustomization();
-
-    expect(scope.categories).not.toBeDefined;
-    expect($location.path()).toBe('/');
-    $localStorage.newUser = false;
-    scope.startCustomization();
-
-    expect(scope.categories).not.toBeDefined;
-    expect($location.path()).toBe('/');
-    $localStorage.newUser = true;
-    scope.startCustomization();
-    expect(scope.categories).toBeDefined;
-    httpBackend.flush();
-  });
-  it("Should be gotten categories and interests", function(){
     httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
       "success": true,
       "categories":[
@@ -85,6 +54,34 @@ describe("CustomizationController Tests", function(){
           "category_id":"1"
         }]
     });
+  }));
+  afterEach(function(){
+    httpBackend.verifyNoOutstandingExpectation();
+    httpBackend.verifyNoOutstandingRequest();
+  });
+  it("Should be redirected", function(){
+    var controller = createController();
+    expect(scope.categories).not.toBeDefined;
+    $localStorage.id = 8;
+    scope.startCustomization();
+
+    expect(scope.categories).not.toBeDefined;
+    scope.startCustomization();
+    $localStorage.email = 'an@email.com';
+    scope.startCustomization();
+
+    expect(scope.categories).not.toBeDefined;
+    $localStorage.newUser = false;
+    scope.startCustomization();
+
+    expect(scope.categories).not.toBeDefined;
+    $localStorage.newUser = true;
+    scope.startCustomization();
+    expect(scope.categories).toBeDefined;
+    httpBackend.flush();
+  });
+  it("Should be gotten categories and interests", function(){
+
     //We set the values to get Answer
     $localStorage.newUser = true;
     $localStorage.email = 'an@email.com';

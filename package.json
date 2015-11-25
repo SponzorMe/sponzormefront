@@ -47,7 +47,6 @@
     "npm": "^3.3.9"
   },
   "scripts": {
-    "bower": "bower install",
     "test": "karma start karma.conf.js"
   }
 }
