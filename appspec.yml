@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /app.yaml
+  - source: /.*
     destination: /var/www/html/
 hooks:
   BeforeInstall:
