@@ -34,7 +34,7 @@ module.exports = function (config) {
         },
         autoWatch: true,
         frameworks: ['jasmine'],
-        browsers: ['Chrome'],
+        browsers: ['phantomjs'],
         reporters: ['progress', 'html', 'coverage'],
         coverageReporter:{
           type : 'html',
