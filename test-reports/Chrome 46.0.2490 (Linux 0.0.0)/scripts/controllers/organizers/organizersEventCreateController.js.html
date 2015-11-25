@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/controllers/organizers/organizersEventCreateController.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">scripts/controllers/organizers/</a> organizersEventCreateController.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">65.79% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>50/76</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">46.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>7/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">65.79% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>50/76</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+(function() {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, imgurRequest, $rootScope, $routeParams) {
+&nbsp;
+    //Use This Zone to Vars Initialization
+    $rootScope.userValidation('0'); //Validation
+    $scope.tolsctive = 'active';
+    $scope.sponzorshipTypes = [];
+    $scope.newEvent = {};
+    eventTypeRequest.allEventTypes().success(function(adata) {
+      $scope.type = {};
+      $scope.type.list = adata.eventTypes;
+      $scope.typefilter = adata.eventTypes;
+    });
+    $scope.categorias = {};
+    categoryRequest.allCategories().success(function(adata) {
+      $scope.categorias.list = adata.categories;
+      $scope.categoriasfilter = adata.categories;
+    });
+    //End vars Initialization
+&nbsp;
+    //This function creates an event
+    $scope.createNewEvent = function() {
+      $scope.newEvent.title = $scope.titleevent;
+      $scope.newEvent.location = $scope.locationevent.formatted_address;
+      $scope.newEvent.location_reference = $scope.locationevent.place_id;
+      $scope.newEvent.description = $scope.descriptionevent;
+      $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD hh:mm:ss');
+      $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD hh:mm:ss');
+      $scope.newEvent.lang = idiomaselect;
+      $scope.newEvent.type = $scope.typeevent;
+      $scope.newEvent.category = $scope.categoryevent;
+      $scope.newEvent.privacy = $scope.privacyevent;
+      $scope.newEvent.organizer = $localStorage.id;
+      eventRequest.createEvent($scope.newEvent).success(function(adata) {
+        angular.forEach($scope.sponzorshipTypes, <span class="fstat-no" title="function not covered" >function(value) {</span>
+<span class="cstat-no" title="statement not covered" >          $scope.perkitems = {};</span>
+<span class="cstat-no" title="statement not covered" >          $scope.perkitems.kind = value.kind;</span>
+<span class="cstat-no" title="statement not covered" >          $scope.perkitems.total_quantity = value.quantity;</span>
+<span class="cstat-no" title="statement not covered" >          $scope.perkitems.usd = value.usd;</span>
+<span class="cstat-no" title="statement not covered" >          $scope.perkitems.id_event = adata.event.id;</span>
+<span class="cstat-no" title="statement not covered" >          $scope.perkitems.reserved_quantity = 0;</span>
+<span class="cstat-no" title="statement not covered" >          perkRequest.createPerk($scope.perkitems).success(<span class="fstat-no" title="function not covered" >function(){</span>});</span>
+        });
+        //Clean the from
+        $scope.titleevent = '';
+        $scope.locationevent = {};
+        $scope.descriptionevent = '';
+        $scope.dtini = '';
+        $scope.dtfinal = '';
+        $scope.typeevent = '';
+        $scope.categoryevent = '';
+        $scope.privacyevent = '';
+        $scope.sponzorshipTypes = [];
+        ngDialog.closeAll();
+        $scope.message = 'eventCreatedSuccesfully';
+        ngDialog.open({
+          template: 'views/templates/successDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      }).error(function(edata){
+        ngDialog.closeAll();
+        $scope.message = 'errorCreatingEvent';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      });
+    };
+&nbsp;
+    //this function upload or create the event Image
+    $scope.imageVerification = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});</span>
+<span class="cstat-no" title="statement not covered" >      $scope.loadingNewEvent = true;</span>
+<span class="cstat-no" title="statement not covered" >      $scope.errorNewEvent = false;</span>
+<span class="cstat-no" title="statement not covered" >      $scope.newEvent = {};</span>
+<span class="cstat-no" title="statement not covered" >      if ($scope.file) {</span>
+<span class="cstat-no" title="statement not covered" >        var params = {</span>
+          image: $scope.file.base64,
+          type: 'base64'
+        };
+<span class="cstat-no" title="statement not covered" >        imgurRequest.uploadImage(params).success(<span class="fstat-no" title="function not covered" >function(imageData) {</span></span>
+<span class="cstat-no" title="statement not covered" >          $scope.newEvent.image = imageData.data.link;</span>
+<span class="cstat-no" title="statement not covered" >          $scope.createNewEvent();</span>
+        }).error(<span class="fstat-no" title="function not covered" >function(){</span>
+<span class="cstat-no" title="statement not covered" >          ngDialog.closeAll();</span>
+<span class="cstat-no" title="statement not covered" >          $scope.message = 'InvalidImage';</span>
+<span class="cstat-no" title="statement not covered" >          ngDialog.open({</span>
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      } else {
+        //If no Image we set here some image
+<span class="cstat-no" title="statement not covered" >        $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';</span>
+<span class="cstat-no" title="statement not covered" >        $scope.createNewEvent();</span>
+      }
+    };
+&nbsp;
+    //this function adds a SponzorshipType to the new event form
+    $scope.addSponzorshipType = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      $scope.sponzorshipTypes.push({</span>
+        kind: '',
+        usd: 0,
+        quantity: 1,
+        id: -1
+      });
+    };
+&nbsp;
+    //this function removes a SponzorshipType to the new event form
+    $scope.removeSponzorshipType = <span class="fstat-no" title="function not covered" >function(index) {</span>
+<span class="cstat-no" title="statement not covered" >      $scope.sponzorshipTypes.splice(index, 1);</span>
+    };
+&nbsp;
+    //this function expand and compress the left menu
+    $scope.toggleSidebar = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >      $scope.tolsctive = !$scope.tolsctive;</span>
+<span class="cstat-no" title="statement not covered" >      if ($scope.tolsctive === true) {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.tolsctive = 'active';</span>
+      }
+    };
+    $translate.use(idiomaselect);
+    $scope.menuprincipal = 'views/organizers/menu.html';
+  }
+&nbsp;
+  angular.module('sponzorme')
+    .controller('OrganizersEventCreateController', OrganizersEventCreateController);
+&nbsp;
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Nov 24 2015 21:27:23 GMT-0300 (CLT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for scripts/controllers/organizers/organizersSponzorshipsController.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">scripts/controllers/organizers/</a> organizersSponzorshipsController.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.68% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>67/99</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">40% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">52.78% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>19/36</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.68% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>67/99</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+(function(){
+&nbsp;
+function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+  $rootScope.userValidation('0');
+  $scope.noSponzorshipsMessage = false;
+  $scope.loadingsponzorships = true;
+  $scope.loadingsponzorshipstasks = true;
+  $scope.noSponzorshipsTaskMessage = false;
+  $scope.emailuser = $localStorage.email;
+  $scope.userfroups = 0;
+  $translate.use(idiomaselect);
+  $scope.tolsctive = 'active';
+  //This function allows get sponzorship info from organizerId
+  $scope.getSponzorshipsByOrganizer = function() {
+    sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
+      $scope.loadingsponzorships = false;
+      $scope.noSponzorshipsMessage = false;
+      $scope.loadingsponzorshipstasks = false;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!data.SponzorsEvents[0]) {
+<span class="cstat-no" title="statement not covered" >        $scope.noSponzorshipsMessage = true;</span>
+<span class="cstat-no" title="statement not covered" >        $scope.noSponzorshipsTaskMessage = true;</span>
+      } else {
+        $scope.sponzorships = data.SponzorsEvents;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if ($scope.sponzorships[0].status !== '0') {
+          $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
+        } else {
+<span class="cstat-no" title="statement not covered" >          $scope.noSponzorshipsTaskMessage = true;</span>
+        }
+        $scope.sponzorships.current = $scope.sponzorships[0].id;
+      }
+    }).error(<span class="fstat-no" title="function not covered" >function(data) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log(data);</span>
+<span class="cstat-no" title="statement not covered" >      $scope.noSponzorshipsMessage = true;</span>
+<span class="cstat-no" title="statement not covered" >      $scope.noSponzorshipsTaskMessage = true;</span>
+    });
+  };
+  $scope.getSponzorship = <span class="fstat-no" title="function not covered" >function(sponzorshipId) {</span>
+<span class="cstat-no" title="statement not covered" >      sponzorshipRequest.oneSponzorship(sponzorshipId).success(<span class="fstat-no" title="function not covered" >function(data) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $scope.currentSponzorship = data;</span>
+      });
+    };
+    //This function changes to 1 the sponzorship status
+  $scope.acceptSponzorship = function(sponzoshipId, i) {
+      $scope.loadingsponzorships = true;
+      $scope.loadingsponzorshipstasks = true;
+      var data = {
+        status: 1
+      };
+      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
+        //We make the email Request
+        var info = {
+          sponzorEmail: $scope.sponzorships[i].email,
+          sponzorName: $scope.sponzorships[i].name,
+          eventName: $scope.sponzorships[i].title,
+          organizerEmail: $localStorage.email,
+          lang: idiomaselect
+        };
+        sponzorshipRequest.sendSponzorshipEmail(info).success(function(){});
+        $scope.getSponzorshipsByOrganizer();
+      }).error(<span class="fstat-no" title="function not covered" >function(eData) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(eData);</span>
+      });
+    };
+    //This function changes to 0 the sponzorship status
+  $scope.unacceptSponzorship = function(sponzoshipId) {
+    $scope.loadingsponzorships = true;
+    $scope.loadingsponzorshipstasks = true;
+      var data = {
+        status: 0
+      };
+      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
+        $scope.getSponzorshipsByOrganizer();
+      }).error(<span class="fstat-no" title="function not covered" >function(eData) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(eData);</span>
+      });
+    };
+    //this function deletes an sponzorship if the status is 0
+  $scope.deleteSponzorship = <span class="fstat-no" title="function not covered" >function(sponzorshipId) {</span>
+<span class="cstat-no" title="statement not covered" >      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});</span>
+<span class="cstat-no" title="statement not covered" >      sponzorshipRequest.oneSponzorship(sponzorshipId).success(<span class="fstat-no" title="function not covered" >function(taskData) {</span></span>
+<span class="cstat-no" title="statement not covered" >        angular.forEach(taskData.data.SponzorEvent.task_sponzor, <span class="fstat-no" title="function not covered" >function(value) {</span></span>
+<span class="cstat-no" title="statement not covered" >          taskSponzorRequest.deleteTaskSponzor(value.id).success(<span class="fstat-no" title="function not covered" >function() {</span>});</span>
+        });
+<span class="cstat-no" title="statement not covered" >        setTimeout(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >          sponzorshipRequest.deleteSponzorship(sponzorshipId).success(<span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >            $scope.getSponzorshipsByOrganizer();</span>
+<span class="cstat-no" title="statement not covered" >            ngDialog.closeAll();</span>
+<span class="cstat-no" title="statement not covered" >            $scope.message = 'successDeletingSponzorship';</span>
+<span class="cstat-no" title="statement not covered" >            ngDialog.open({</span>
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(<span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >            ngDialog.closeAll();</span>
+<span class="cstat-no" title="statement not covered" >            $scope.message = 'errorDeletingSponzorship';</span>
+<span class="cstat-no" title="statement not covered" >            ngDialog.open({</span>
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }); }, 5000);
+      });
+    };
+    //this function gets the tasks sponzorships by sponzorship id
+  $scope.getTaskSponzor = function(sponzorshipId) {
+    $scope.loadingsponzorshipstasks = true;
+    $scope.noSponzorshipsTaskMessage = false;
+&nbsp;
+      taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
+        $scope.tasksSponzor = [];
+        angular.forEach(data.tasks, function(value) {
+          <span class="missing-if-branch" title="else path not taken" >E</span>if (value.type === '0') {
+            $scope.tasksSponzor.push(value);
+          }
+        });
+        $scope.loadingsponzorshipstasks = false;
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!$scope.tasksSponzor[0]) {
+<span class="cstat-no" title="statement not covered" >          $scope.noSponzorshipsTaskMessage = true;</span>
+        } else {
+          $scope.noSponzorshipsTaskMessage = false;
+        }
+&nbsp;
+      }).error(<span class="fstat-no" title="function not covered" >function(data) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(data);</span>
+<span class="cstat-no" title="statement not covered" >        $scope.noSponzorshipsTaskMessage = true;</span>
+      });
+      $scope.sponzorships.current = sponzorshipId;
+    };
+    //This function changes to 1 the sponzor task status
+  $scope.completeTask = function(taskSponzorId) {
+      var data = {
+        status: 1
+      };
+      taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
+        $scope.getTaskSponzor($scope.sponzorships.current);
+      }).error(<span class="fstat-no" title="function not covered" >function(eData) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(eData);</span>
+      });
+    };
+    //This function changes to 0 the sponzor task status
+  $scope.uncompleteTask = function(taskSponzorId) {
+    var data = {
+      status: 0
+    };
+    taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
+      $scope.getTaskSponzor($scope.sponzorships.current);
+    }).error(<span class="fstat-no" title="function not covered" >function(eData) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log(eData);</span>
+    });
+  };
+  $scope.deleteTaskSponzor = function(taskSponzorId) {
+    taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {
+      $scope.getTaskSponzor($scope.sponzorships.current);
+    }).error(<span class="fstat-no" title="function not covered" >function(eData) {</span>
+<span class="cstat-no" title="statement not covered" >      console.log(eData);</span>
+    });
+  };
+  $scope.seeCause = function(sponzorship) {
+    $scope.cause = sponzorship.cause;
+    ngDialog.open({
+      template: 'views/templates/sponzorshipCauseDialog.html',
+      showClose: false,
+      scope: $scope
+    });
+  };
+&nbsp;
+  $scope.toggleSidebar = <span class="fstat-no" title="function not covered" >function() {</span>
+<span class="cstat-no" title="statement not covered" >        $scope.tolsctive = !$scope.tolsctive;</span>
+<span class="cstat-no" title="statement not covered" >        if($scope.tolsctive === true){</span>
+<span class="cstat-no" title="statement not covered" >           $scope.tolsctive = 'active';</span>
+        }
+    };
+&nbsp;
+$scope.getSponzorshipsByOrganizer();
+  $scope.menuprincipal = 'views/organizers/menu.html';
+}
+&nbsp;
+angular.module('sponzorme')
+.controller('OrganizersSponzorshipsController', OrganizersSponzorshipsController);
+&nbsp;
+})();
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Nov 24 2015 21:27:23 GMT-0300 (CLT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

@@ -26,20 +26,26 @@ module.exports = function (config) {
             'bower_components/intro.js/minified/intro.min.js',
             'bower_components/bootstrap/dist/js/bootstrap.min.js',
             'bower_components/angular-mocks/angular-mocks.js',
-            'app/scripts/app.js',
-            'app/scripts/services/*.js',
-            'app/scripts/*.js',
-            'app/scripts/**/*.js',
             'app/scripts/**/**/*.js',
             'tests/**/*.js'
         ],
+        preprocessors:{
+          'app/scripts/**/**/*.js': 'coverage'
+        },
         autoWatch: true,
         frameworks: ['jasmine'],
         browsers: ['Chrome'],
-        singleRun: true,
-        plugins: [
-            'karma-chrome-launcher',
-            'karma-jasmine'
-        ]
+        reporters: ['progress', 'html', 'coverage'],
+        coverageReporter:{
+          type : 'html',
+          dir : 'test-reports/'
+        },
+        htmlReporter: {
+          outputFile: 'test-reports/units.html',
+
+          // Optional
+          pageTitle: 'Unit Tests',
+          subPageTitle: 'A sample project description'
+        }
     });
 };
