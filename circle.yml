@@ -3,6 +3,4 @@ deployment:
     branch: master
     codedeploy:
       DemoApplication:
-        application_root: /
-        region: us-west-2
         deployment_group: DemoFleet
