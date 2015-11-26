@@ -10,12 +10,16 @@
 
 ## Tests
 
-* gulp
-* npm test
+* run gulp to generate the distribution
+* npm test to test dev files and dist files
 
 ## Continuos Integration
 
-* Just commit in Master Branch
+* run gulp to generate the distribution
+* npm test to test dev files and dist files or make sure the tests are done
+* Just commit in Master Branch after tests are passed
+* CircleCI account: https://circleci.com/gh/carlosrojaso/sponzormefront/
+* Amazon AWS DNS:
 
 ## Contributors
 

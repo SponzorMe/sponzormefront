@@ -2,5 +2,5 @@ deployment:
   staging:
     branch: master
     codedeploy:
-      DemoApplication:
-        deployment_group: DemoFleet
+      SponzormeFronMasterDeploy:
+        deployment_group: SponzormeFronMasterDeployGroup
