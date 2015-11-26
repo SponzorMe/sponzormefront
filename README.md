@@ -19,7 +19,7 @@
 * npm test to test dev files and dist files or make sure the tests are done
 * Just commit in Master Branch after tests are passed
 * CircleCI account: https://circleci.com/gh/carlosrojaso/sponzormefront/
-* Amazon AWS DNS: http://ec2-52-34-34-141.us-west-2.compute.amazonaws.com/
+* Amazon AWS DNS: http://ec2-52-25-192-203.us-west-2.compute.amazonaws.com/
 
 ## Contributors
 
