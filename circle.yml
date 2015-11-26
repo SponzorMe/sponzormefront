@@ -2,5 +2,5 @@ deployment:
   staging:
     branch: master
     codedeploy:
-      SponzormeFronMasterDeploy:
-        deployment_group: SponzormeFronMasterDeployGroup
+      SponzormeFrontMaster:
+        deployment_group: SponzormeFrontMasterGroup
