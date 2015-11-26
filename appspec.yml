@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /gulpfile.js
+  - source: /dist
     destination: /var/www/html/
 hooks:
   BeforeInstall:
