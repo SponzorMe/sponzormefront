@@ -62,7 +62,7 @@
             showClose: false,
             scope: $scope
           });
-        });;
+        });
       }
     };
 

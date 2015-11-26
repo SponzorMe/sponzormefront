@@ -100,7 +100,7 @@ var event_es = {
 
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://api.sponzor.me/'; //API path
+var apiPath = 'http://apistaging.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
@@ -335,7 +335,6 @@ var expirationTime = 1;
           }
           $rootScope.$storage = $localStorage;
         } else {
-          console.log('Not Authenticated');
           $location.path('/');
         }
       };
@@ -762,70 +761,83 @@ var expirationTime = 1;
 			}
 		};
 	}
-	angular.module('allInterestsService', ['ngCookies'])
+	angular.module('allInterestsService', ['ngStorage'])
 		.factory('allInterestsServiceRequest', allInterestsServiceRequest);
 })();
 
-/**
-* @Servicio de Login
-*
-* @author Sebastian
-* @version 0.1
-*/
 'use strict';
-(function(){
-
-	function loginRequest($http) {
-		return {
-			/**
-			* Login function return the user info if the credentials match
-			* @param {JSON} credentials.email
-			* @param {JSON} credentials.password
-			* @returns success(function(data, status, headers, config)
-			*/
-			login: function(credentials){
-				var data = {'email': credentials.email, 'password': credentials.password};
-				return $http({
-					method: 'POST',
-					url: apiPath + 'auth',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					data: $.param(data)
-				});
-			},
-			resetPassword: function(email){
-				var data = {'email': email};
-				return $http({
-					method: 'POST',
-					url: apiPath + 'send_reset_password',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					data: $.param(data)
-				});
-			},
-			tryActivation: function(token){
-				return $http.get(apiPath + 'verify_activation/' + token);
-			},
-			resendActivation: function(email){
-				var data = {'email': email};
-				return $http({
-					method: 'POST',
-					url: apiPath + 'send_activation',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					data: $.param(data)
-				});
-			},
-			updatePassword: function(token, data){
-				console.log(token);
-				return $http({
-					method: 'POST',
-					url: apiPath + 'update_password/' + token,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					data: $.param(data)
-				});
-			}
-		};
-	}
-	angular.module('loginService', [])
-		.factory('loginRequest', loginRequest);
+(function() {
+  /**
+   * Login Service factory
+   * @autor  Sebastian Gomez
+   * @email  seagomezar@gmail.com
+   * @date   2015-11-16
+   */
+  function loginRequest($http) {
+    return {
+      /**
+       * Login function return the user info if the credentials match
+       * @param {JSON} credentials.email
+       * @param {JSON} credentials.password
+       * @returns success(function(data, status, headers, config)
+       */
+      login: function(credentials) {
+        var data = {
+          'email': credentials.email,
+          'password': credentials.password
+        };
+        return $http({
+          method: 'POST',
+          url: apiPath + 'auth',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: $.param(data)
+        });
+      },
+      resetPassword: function(email) {
+        var data = {
+          'email': email
+        };
+        return $http({
+          method: 'POST',
+          url: apiPath + 'send_reset_password',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: $.param(data)
+        });
+      },
+      tryActivation: function(token) {
+        return $http.get(apiPath + 'verify_activation/' + token);
+      },
+      resendActivation: function(email) {
+        var data = {
+          'email': email
+        };
+        return $http({
+          method: 'POST',
+          url: apiPath + 'send_activation',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: $.param(data)
+        });
+      },
+      updatePassword: function(token, data) {
+        return $http({
+          method: 'POST',
+          url: apiPath + 'update_password/' + token,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: $.param(data)
+        });
+      }
+    };
+  }
+  angular.module('loginService', [])
+    .factory('loginRequest', loginRequest);
 })();
 
 /**
@@ -1106,8 +1118,8 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $cookies) {
-		var token = $cookies.get('token');
+	function userCategoryRequest($http, $localStorage) {
+		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
 				return $http.get(apiPath + 'user_categories');
@@ -1148,7 +1160,7 @@ var expirationTime = 1;
 			}
 		};
 	}
-	angular.module('userCategoryService', ['ngCookies'])
+	angular.module('userCategoryService', ['ngStorage'])
 		.factory('userCategoryRequest', userCategoryRequest);
 })();
 
@@ -1203,7 +1215,7 @@ var expirationTime = 1;
 			}
 		};
 	}
-	angular.module('userInterestService', ['ngCookies'])
+	angular.module('userInterestService', ['ngStorage'])
 		.factory('userInterestRequest', userInterestRequest);
 })();
 
@@ -1294,16 +1306,10 @@ var expirationTime = 1;
 			rss: function(lang){
 				var path = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=JSON_CALLBACK&q=' + 'http://blog' + lang + '.sponzor.me/feeds/posts/default';
 				return $http.jsonp(path);
-			},
-      rssAjax: function(lang){
-        $.ajax({
-          url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent('http://blog' + lang + '.sponzor.me/feeds/posts/default'),
-          dataType: 'json'
-        });
-      }
+			}
     };
 	}
-	angular.module('rssService', ['ngStorage'])
+	angular.module('rssService', [])
 		.factory('rssRequest', rssRequest);
 })();
 
@@ -1351,7 +1357,6 @@ var expirationTime = 1;
 
 'use strict';
 (function() {
-
   function ActivationController($scope, $routeParams, $translate, loginRequest) {
     $scope.errorActivation = false;
     $scope.successActivation = false;
@@ -1397,7 +1402,7 @@ var expirationTime = 1;
     $scope.formCreateSponzorship = function(perk) {
       $scope.perkToSponzor = perk;
       ngDialog.open({
-        template: 'formCreateSponzorship',
+        template: 'views/templates/formCreateSponzorship.html',
         scope: $scope
       });
     };
@@ -1489,7 +1494,6 @@ var expirationTime = 1;
     $scope.forgotPassword = function() {
       $scope.loagind = true;
       loginRequest.resetPassword($scope.email).success(function(adata) {
-        console.log(adata);
         $scope.loagind = false;
         $scope.error_log[0] = 'PasswordResetLinkSent';
         ngDialog.open({
@@ -1514,7 +1518,6 @@ var expirationTime = 1;
           'password': $scope.password,
           'password_confirmation': $scope.passwordConfirmation
         };
-        console.log($routeParams.tokenReset);
         loginRequest.updatePassword($routeParams.tokenReset, formData).success(function(data) {
           if (data.code === 200) {
             $scope.successActivation = true;
@@ -1549,7 +1552,6 @@ var expirationTime = 1;
 
 'use strict';
 (function() {
-
   function ActivationController($scope, $routeParams, $translate, loginRequest) {
     $scope.errorActivation = false;
     $scope.successActivation = false;
@@ -1578,7 +1580,7 @@ var expirationTime = 1;
     $localStorage.$reset();
 
     $scope.sendfrom = function() {
-      if ($scope.email !== undefined || $scope.password !== undefined) {
+      if ($scope.email && $scope.password) {//Just Check the values are defined
         $scope.objuser = {};
         $scope.objuser.email = $scope.email;
         $scope.objuser.password = $scope.password;
@@ -1687,85 +1689,100 @@ angular.module('sponzorme')
 })();
 
 'use strict';
-(function(){
+(function() {
 
-function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
+  function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $q) {
 
-  $scope.loadinglistsponzors = true;
-  $scope.userData = {};
-  $scope.categories = [];
-  $scope.interestselectarray = [];
-  $scope.step1 = true;
-  $scope.step4 = false;
-  $scope.$storage = $localStorage;
-  $scope.email = $localStorage.email;
-  $scope.id = $localStorage.id;
-  $scope.newUser = $localStorage.newUser;
-  categoryRequest.allCategories().success(function(adata) {
-    $scope.categories = adata.categories;
-    allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
-      $scope.interests = sData.InterestCategory;
-      var log = [];
-      angular.forEach($scope.categories, function(value) {
-        value.interests = $scope.interests.filter(function(el) {
-          return el.category_id === value.id;
+    $scope.steps = [false, false, false]; //Number of steps in customization proccess
+    $scope.startCustomization = function() {
+      //We check if localStorage is seeted.
+      if ($localStorage.email && $localStorage.id && $localStorage.newUser) {
+        //We set some neccesary variables
+        $scope.userData = {};
+        $scope.categories = [];
+        $scope.interestselectarray = [];
+        $scope.email = $localStorage.email;
+        $scope.id = $localStorage.id;
+        $scope.newUser = $localStorage.newUser;
+        //Everything is configure to show the first step
+        $scope.showStep(0);
+        //Get All Categories from Backend
+        categoryRequest.allCategories().success(function(response) {
+          $scope.categories = response.categories;
+          allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
+            $scope.interests = sData.InterestCategory;
+            //Merge the interests into categories
+            angular.forEach($scope.categories, function(value) {
+              value.interests = $scope.interests.filter(function(element) {
+                return element.category_id === value.id;
+              });
+            });
+          });
         });
-      }, log);
-
-    });
-  });
-  $scope.sendfrom = function() {
-    $scope.objuser = {};
-    $scope.objuser.age = $scope.userData.age;
-    $scope.objuser.sex = $scope.userData.sex;
-    $scope.objuser.lang = $scope.userData.lang;
-    $scope.objuser.location = $scope.userData.location.reference;
-    $scope.loagind = true;
-    userRequest.editUserPatch($localStorage.id, $scope.objuser).success(function(adata) {
-      if (adata.message === 'Updated') {
-        var datuser = JSON.stringify(adata.User);
-        $localStorage.sponzorme = datuser;
-        $scope.loagind = false;
-        $scope.step1 = false;
-        $scope.step2 = true;
-        $scope.step4 = false;
+      } else {
+        $localStorage.$reset();
+        $location.path("/");
       }
-    });
-  };
+    };
 
-  $scope.showInterests = function(categoryid) {
-    $scope.idselect = categoryid;
-  };
+    //This function hide all steps and only shows one
+    $scope.showStep = function(stepToShow) {
+      $scope.steps = [false, false, false];
+      $scope.steps[stepToShow] = true;
+    };
 
-  $scope.interestselect = function(interestselect) {
-
-    var searcharray = $scope.interestselectarray.indexOf(interestselect);
-    if (searcharray === -1) {
-      $scope.interestselectarray.push(interestselect);
-    } else {
-      $scope.interestselectarray.splice(searcharray, 1);
-
-    }
-  };
-  $scope.submitCategoryInfo = function() {
-    $scope.loagind = true;
-    angular.forEach($scope.interestselectarray, function(valuep) {
-      $scope.itemintere = {};
-      $scope.itemintere.interest_id = valuep;
-      $scope.itemintere.user_id = $localStorage.id;
-      userInterestRequest.createUserInterest($scope.itemintere).success(function() {
-          $localStorage.$reset();
+    $scope.sendfrom = function() {
+      $scope.objuser = {};
+      $scope.objuser.age = $scope.userData.age;
+      $scope.objuser.sex = $scope.userData.sex;
+      $scope.objuser.lang = $scope.userData.lang;
+      $scope.objuser.location = $scope.userData.location.reference;
+      $scope.loagind = true;
+      userRequest.editUserPatch($localStorage.id, $scope.objuser).success(function(adata) {
+        if (adata.message === 'Updated') {
+          $scope.showStep(1);
+        }
       });
-    });
-    $scope.loagind = false;
-    $scope.step1 = false;
-    $scope.step2 = false;
-    $scope.step4 = true;
-  };
-}
+    };
 
-angular.module('sponzorme')
-.controller('CustomizationController', CustomizationController);
+    $scope.showInterests = function(categoryid) {
+      $scope.idselect = categoryid;
+    };
+
+    $scope.interestselect = function(interestselect) {
+      var searcharray = $scope.interestselectarray.indexOf(interestselect);
+      if (searcharray === -1) {
+        $scope.interestselectarray.push(interestselect);
+      } else {
+        $scope.interestselectarray.splice(searcharray, 1);
+      }
+    };
+
+    $scope.submitCategoryInfo = function() {
+      var promises = [];
+      angular.forEach($scope.interestselectarray, function(valuep) {
+        $scope.currentInterest = {
+          interest_id: valuep,
+          user_id: $localStorage.id
+        };
+        promises.push(userInterestRequest.createUserInterest($scope.currentInterest));
+      });
+      promises[$scope.interestselectarray.length - 1].success(function(data) {
+        $scope.showStep(2);
+      });
+      //We wait for a little to reset the $localStorage
+      $q.all(promises).then(function() {
+
+        })
+        //setTimeout(function () {$localStorage.$reset();}, 3000);
+    };
+
+    //Here start the callback
+    $scope.startCustomization();
+  }
+
+  angular.module('sponzorme')
+    .controller('CustomizationController', CustomizationController);
 
 })();
 
@@ -1803,65 +1820,9 @@ angular.module('sponzorme')
               $localStorage.startDate = Date.now();
               $localStorage.newUser = true;
               $localStorage.$apply();
-              if (idiomaselect === 'en') {
-                event_en.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_en.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_en.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
-                      /*Empty Code, nothing necessary here*/
-                    }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
-                    });
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  ngDialog.closeAll();
-                }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
-                });
-              } else if (idiomaselect === 'es') {
-                event_es.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_es.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_es.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
-                      /*Empty Code, nothing necessary here*/
-                    }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
-                    });
-
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  ngDialog.closeAll();
-                }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
-                });
-              } else if (idiomaselect === 'pt') {
-                event_pt.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_pt.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_pt.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
-                      /*Empty Code, nothing necessary here*/
-                    }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
-                    });
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  ngDialog.closeAll();
-                }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
-                });
-              }
+              $scope.loagind = false;
+              $location.path('/customization');
+              ngDialog.closeAll();
             }
           }).error(function(data) {
             if (data.message === 'Not inserted') {
@@ -1922,7 +1883,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope) {
+  function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout) {
     $rootScope.userValidation('1');
     $scope.sponzorshipsLoading = true;
     $scope.noSponzorshipsMessage = false;
@@ -1968,7 +1929,7 @@ angular.module('sponzorme')
         angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
           taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
         });
-        setTimeout(function() {
+        $timeout(function() {
           sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
             ngDialog.closeAll();
             $scope.message = 'sponzorshipDeleteSuccesfully';
@@ -2304,6 +2265,14 @@ angular.module('sponzorme')
               showClose: false,
               scope: $scope
             });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'errorEditingAccountInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
           });
         }
       };
@@ -2380,7 +2349,7 @@ angular.module('sponzorme')
         status: 1
       };
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        $scope.getSponzorshipsByOrganizer();
+        $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
         console.log(eData);
       });
@@ -2391,22 +2360,9 @@ angular.module('sponzorme')
         status: 0
       };
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        $scope.getSponzorshipsByOrganizer();
+        $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
         console.log(eData);
-      });
-    };
-    //this function deletes an sponzorship if the status is 0
-    $scope.deleteSponzorship = function(sponzorshipId) {
-      sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
-        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
-          taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
-        });
-        sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
-          $scope.getSponzorshipsByOrganizer();
-        }).error(function(eData) {
-          console.log(eData);
-        });
       });
     };
     //this function gets the tasks sponzorships by sponzorship id
@@ -2456,22 +2412,6 @@ angular.module('sponzorme')
       taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {});
       $scope.tasksSponzor.splice(index, 1);
     };
-    $scope.seeCause = function(sponzorship) {
-      $scope.cause = sponzorship.cause;
-      ngDialog.open({
-        template: 'views/templates/sponzorshipCauseDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-    };
-    $scope.showTaskForm = function() {
-      $scope.todo = {};
-      ngDialog.open({
-        template: 'views/templates/newTaskForm.html',
-        scope: $scope,
-        showClose: false
-      });
-    };
     $scope.addTask = function() {
       ngDialog.closeAll();
       ngDialog.open({
@@ -2514,8 +2454,23 @@ angular.module('sponzorme')
         });
       });
     };
+    $scope.seeCause = function(sponzorship) {
+      $scope.cause = sponzorship.cause;
+      ngDialog.open({
+        template: 'views/templates/sponzorshipCauseDialog.html',
+        showClose: false,
+        scope: $scope
+      });
+    };
+    $scope.showTaskForm = function() {
+      $scope.todo = {};
+      ngDialog.open({
+        template: 'views/templates/newTaskForm.html',
+        scope: $scope,
+        showClose: false
+      });
+    };
     $scope.getSponzorshipsBySponzor();
-
     $scope.toggleSidebar = function() {
       $scope.tolsctive = !$scope.tolsctive;
       if ($scope.tolsctive === true) {
@@ -2684,7 +2639,7 @@ angular.module('sponzorme')
 'use strict';
 (function(){
 
-function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope) {
+function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope, $timeout) {
   $rootScope.userValidation('0');//Validation
   //Vars Initialization
   $scope.error_log = '';
@@ -2695,13 +2650,13 @@ function OrganizersEventsController($scope, $translate, $localStorage, eventType
   $scope.emailuser = $localStorage.email;
   $scope.file = false; //By default no file to add.
   $scope.event = {};
-  eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
+  eventTypeRequest.allEventTypes().success(function(adata) {
     $scope.type = {};
     $scope.type.list = adata.eventTypes;
     $scope.typefilter = adata.eventTypes;
   });
   $scope.categorias = {};
-  categoryRequest.allCategories($scope.typeuser).success(function(adata) {
+  categoryRequest.allCategories().success(function(adata) {
     $scope.categorias.list = adata.categories;
     $scope.categoriasfilter = adata.categories;
   });
@@ -2791,33 +2746,37 @@ function OrganizersEventsController($scope, $translate, $localStorage, eventType
     eventRequest.oneEvent(idevent).success(function(adata) {
       if (adata.data.event.sponzorship.length === 0) { //If event does not have sponzorhips
         angular.forEach(adata.data.event.sponzor_tasks, function(value) {
-          taskSponzorRequest.deleteTaskSponzor(value.id).error(function(eData) {});
+          taskSponzorRequest.deleteTaskSponzor(value.id)
+          .error(function(eData) {});
         });
         angular.forEach(adata.data.event.perk_tasks, function(value) { //First we delete the tasks
-            perkTaskRequest.deletePerkTask(value.id).error(function(eData) {});
+            perkTaskRequest.deletePerkTask(value.id)
+            .error(function(eData) {});
         });
-        angular.forEach(adata.data.event.perks, function(value) { //Then we delete the perks
-            perkRequest.deletePerk(value.id).error(function(eData) {});
+        angular.forEach(adata.data.event.perks, function(value) {       //Then we delete the perks
+            perkRequest.deletePerk(value.id)
+            .error(function(eData) {});
         });
-        setTimeout(function() {
-          eventRequest.deleteEvent(adata.data.event.id).success(function() {
+        $timeout(function() {
+            eventRequest.deleteEvent(adata.data.event.id).success(function() {
+              ngDialog.closeAll();
+              $scope.message = 'eventDeleteSuccesfully';
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+              $scope.getEventsByOrganizer($localStorage.id);
+          }).error(function(eData) {
             ngDialog.closeAll();
-            $scope.message = 'eventDeleteSuccesfully';
+            $scope.message = 'errorDeletingEvent';
             ngDialog.open({
-              template: 'views/templates/successDialog.html',
+              template: 'views/templates/errorDialog.html',
               showClose: false,
               scope: $scope
             });
-            $scope.getEventsByOrganizer($localStorage.id);
-        }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'errorDeletingEvent';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
           });
-        }); }, 5000);
+        }, 5000);
       } else { //If event has sponzorhips we can not delete
         ngDialog.closeAll();
         $scope.message = 'eventDeletingEventHasSponzorship';
@@ -2839,6 +2798,7 @@ function OrganizersEventsController($scope, $translate, $localStorage, eventType
     };
     /*this function takes the current perk and the current event, and add a task for the
       selected perk.*/
+
   $scope.addTask = function() {
     ngDialog.closeAll();
     ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
@@ -2866,6 +2826,7 @@ function OrganizersEventsController($scope, $translate, $localStorage, eventType
       });
     });
   };
+
   $scope.removeTask = function(task_id) {
     ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     perkTaskRequest.deletePerkTask(task_id).success(function(adata) {
@@ -3003,7 +2964,6 @@ function OrganizersMainController($scope, $translate, $localStorage, $location, 
     $localStorage.sponzorme = datuser;
     $scope.events = adata.data.user.events;
     $scope.eventos.size = $scope.events.length;
-    usSpinnerService.stop('spinner-2');
     $scope.loadingevents = false;
     if($scope.events[0]){
       $scope.event.current = $scope.events[0].id;
@@ -3109,7 +3069,15 @@ angular.module('sponzorme')
             showClose: false,
             scope: $scope
           });
-        });
+        }).error(function(eData) {
+          ngDialog.closeAll();
+          $scope.message = 'errorEditingAccountInfo';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });;
       }
     };
 
@@ -3321,13 +3289,13 @@ angular.module('sponzorme')
     $scope.tolsctive = 'active';
     $scope.loading = true;
     ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
-    eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
+    eventTypeRequest.allEventTypes().success(function(adata) {
       $scope.type = {};
       $scope.type.list = adata.eventTypes;
       $scope.typefilter = adata.eventTypes;
     });
     $scope.categorias = {};
-    categoryRequest.allCategories($scope.typeuser).success(function(adata) {
+    categoryRequest.allCategories().success(function(adata) {
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
@@ -3437,13 +3405,13 @@ angular.module('sponzorme')
     $scope.tolsctive = 'active';
     $scope.sponzorshipTypes = [];
     $scope.newEvent = {};
-    eventTypeRequest.allEventTypes($scope.typeuser).success(function(adata) {
+    eventTypeRequest.allEventTypes().success(function(adata) {
       $scope.type = {};
       $scope.type.list = adata.eventTypes;
       $scope.typefilter = adata.eventTypes;
     });
     $scope.categorias = {};
-    categoryRequest.allCategories($scope.typeuser).success(function(adata) {
+    categoryRequest.allCategories().success(function(adata) {
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
@@ -3490,7 +3458,6 @@ angular.module('sponzorme')
           scope: $scope
         });
       }).error(function(edata){
-        console.log(edata);
         ngDialog.closeAll();
         $scope.message = 'errorCreatingEvent';
         ngDialog.open({

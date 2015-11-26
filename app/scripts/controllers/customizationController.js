@@ -1,12 +1,12 @@
 'use strict';
-(function(){
+(function() {
 
-function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $q) {
+  function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $q) {
 
-  $scope.steps = [false,false,false];//Number of steps in customization proccess
-  $scope.startCustomization =  function(){
-    //We check if localStorage is seeted.
-    if($localStorage.email && $localStorage.id && $localStorage.newUser){
+    $scope.steps = [false, false, false]; //Number of steps in customization proccess
+    $scope.startCustomization = function() {
+      //We check if localStorage is seeted.
+      if ($localStorage.email && $localStorage.id && $localStorage.newUser) {
         //We set some neccesary variables
         $scope.userData = {};
         $scope.categories = [];
@@ -29,70 +29,66 @@ function CustomizationController($scope, $translate, $localStorage, usSpinnerSer
             });
           });
         });
-    }
-    else{
-      $localStorage.$reset();
-      $location.path("/");
-    }
-  };
-
-  //This function hide all steps and only shows one
-  $scope.showStep = function(stepToShow){
-    $scope.steps = [false,false,false];
-    $scope.steps[stepToShow]=true;
-  };
-
-  $scope.sendfrom = function() {
-    $scope.objuser = {};
-    $scope.objuser.age = $scope.userData.age;
-    $scope.objuser.sex = $scope.userData.sex;
-    $scope.objuser.lang = $scope.userData.lang;
-    $scope.objuser.location = $scope.userData.location.reference;
-    $scope.loagind = true;
-    userRequest.editUserPatch($localStorage.id, $scope.objuser).success(function(adata) {
-      if (adata.message === 'Updated') {
-        $scope.showStep(1);
+      } else {
+        $localStorage.$reset();
+        $location.path('/');
       }
-    });
-  };
+    };
 
-  $scope.showInterests = function(categoryid) {
-    $scope.idselect = categoryid;
-  };
+    //This function hide all steps and only shows one
+    $scope.showStep = function(stepToShow) {
+      $scope.steps = [false, false, false];
+      $scope.steps[stepToShow] = true;
+    };
 
-  $scope.interestselect = function(interestselect) {
-    var searcharray = $scope.interestselectarray.indexOf(interestselect);
-    if (searcharray === -1) {
-      $scope.interestselectarray.push(interestselect);
-    } else {
-      $scope.interestselectarray.splice(searcharray, 1);
-    }
-  };
+    $scope.sendfrom = function() {
+      $scope.objuser = {};
+      $scope.objuser.age = $scope.userData.age;
+      $scope.objuser.sex = $scope.userData.sex;
+      $scope.objuser.lang = $scope.userData.lang;
+      $scope.objuser.location = $scope.userData.location.reference;
+      $scope.loagind = true;
+      userRequest.editUserPatch($localStorage.id, $scope.objuser).success(function(adata) {
+        if (adata.message === 'Updated') {
+          $scope.showStep(1);
+        }
+      });
+    };
 
-  $scope.submitCategoryInfo = function() {
-    var promises = [];
-    angular.forEach($scope.interestselectarray, function(valuep) {
-      $scope.currentInterest = {
-        interest_id: valuep,
-        user_id: $localStorage.id
-      };
-      promises.push(userInterestRequest.createUserInterest($scope.currentInterest));
-    });
-    promises[$scope.interestselectarray.length-1].success(function(data){
-      $scope.showStep(2);
-    });
-    //We wait for a little to reset the $localStorage
-    $q.all(promises).then(function(){
+    $scope.showInterests = function(categoryid) {
+      $scope.idselect = categoryid;
+    };
 
-    })
-    //setTimeout(function () {$localStorage.$reset();}, 3000);
-  };
+    $scope.interestselect = function(interestselect) {
+      var searcharray = $scope.interestselectarray.indexOf(interestselect);
+      if (searcharray === -1) {
+        $scope.interestselectarray.push(interestselect);
+      } else {
+        $scope.interestselectarray.splice(searcharray, 1);
+      }
+    };
 
-  //Here start the callback
-  $scope.startCustomization();
-}
+    $scope.submitCategoryInfo = function() {
+      var promises = [];
+      angular.forEach($scope.interestselectarray, function(valuep) {
+        $scope.currentInterest = {
+          interest_id: valuep,
+          user_id: $localStorage.id
+        };
+        promises.push(userInterestRequest.createUserInterest($scope.currentInterest));
+      });
+      promises[$scope.interestselectarray.length - 1].success(function(data) {
+        $scope.showStep(2);
+      });
 
-angular.module('sponzorme')
-.controller('CustomizationController', CustomizationController);
+        //setTimeout(function () {$localStorage.$reset();}, 3000);
+    };
+
+    //Here start the callback
+    $scope.startCustomization();
+  }
+
+  angular.module('sponzorme')
+    .controller('CustomizationController', CustomizationController);
 
 })();

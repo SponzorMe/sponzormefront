@@ -1,5 +1,6 @@
 node_modules/
 bower_components/
 test-reports/
+dist/
 test-reports/*
 test-reports
