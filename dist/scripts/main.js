@@ -1721,7 +1721,7 @@ angular.module('sponzorme')
         });
       } else {
         $localStorage.$reset();
-        $location.path("/");
+        $location.path('/');
       }
     };
 
@@ -1770,10 +1770,7 @@ angular.module('sponzorme')
       promises[$scope.interestselectarray.length - 1].success(function(data) {
         $scope.showStep(2);
       });
-      //We wait for a little to reset the $localStorage
-      $q.all(promises).then(function() {
 
-        })
         //setTimeout(function () {$localStorage.$reset();}, 3000);
     };
 
@@ -3077,7 +3074,7 @@ angular.module('sponzorme')
             showClose: false,
             scope: $scope
           });
-        });;
+        });
       }
     };
 

@@ -1,13 +1,13 @@
 {
   "name": "Sponzorme",
   "description": "We connect Events With Sponzors",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "homepage": "https://github.com/carlosrojaso/sponzormefront",
   "repository": "git@github.com:carlosrojaso/sponzormefront.git",
   "author": "Sponzorme Team (http://www.sponzor.me/)",
-  "main": "./index.js",
+  "main": "app/index.html",
   "private": true,
-  "license": "BSD",
+  "license": "Propietary Software",
   "engines": {
     "node": ">=0.12.0"
   },
@@ -47,6 +47,6 @@
     "npm": "^3.3.9"
   },
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.dev.js && karma start karma.conf.dist.js"
   }
 }

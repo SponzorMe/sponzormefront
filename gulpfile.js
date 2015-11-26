@@ -10,7 +10,7 @@ var gulp = require('gulp'),
 	imagemin = require('gulp-imagemin'),
 	serve = require('gulp-serve'),
 	ngAnnotate = require('gulp-ng-annotate'),
-	eslint = require('gulp-eslint')
+	eslint = require('gulp-eslint'),
 	browserSync = require('browser-sync').create();
 
 gulp.task('main', function()
@@ -36,7 +36,7 @@ gulp.task('views', function() {
     .pipe(gulp.dest('dist/views'));
 });
 
-gulp.task('imagenes', function () {
+gulp.task('images', function () {
     return gulp.src(['app/images/*.*','app/images/**/*.*'])
         .pipe(imagemin())
         .pipe(gulp.dest('dist/images/'));
@@ -70,12 +70,12 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest('dist/fonts/'));
 });
 
-
 gulp.task('clean', function() {
     return gulp.src(['dist/**/*.*','dist/**/**/*.*','dist/*.*','dist/*'], { read: false })
            .pipe(clean({ force: true }));
 });
-gulp.task('build', ['main','views','imagenes','langs','fonts','extras','extras1','extras2']);
+
+gulp.task('build', ['main','views','images','langs','fonts','extras','extras1','extras2']);
 
 gulp.task('success', ['clean'], function() {
   gulp.start('build');
@@ -113,18 +113,20 @@ gulp.task('serve', function (){
   gulp.watch('bower.json');
 });
 
-gulp.task('serve:dist', function (){
-  gulp.start('default');
-  browserSync.init({
-    notify: false,
-    port: 3000,
-    server: {
-      baseDir: ['dist']
-    }
-  });
+gulp.task('serve:dist',['default'], function (){
+	setTimeout(function() {
+		browserSync.init({
+	    notify: false,
+	    port: 3000,
+	    server: {
+	      baseDir: ['dist']
+	    }
+	  });
+  }, 20000);
 });
 
 gulp.task('lint', function () {
+		notify("hols");
     return gulp.src(['app/scripts/**/*.js','app/scripts/**/**/*.js','app/scripts/*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
