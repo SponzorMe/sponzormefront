@@ -4,7 +4,10 @@
     $rootScope.userValidation('0'); //Validation
     $scope.tolsctive = 'active';
     $scope.loading = true;
-    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+    ngDialog.open({
+      template: 'views/templates/loadingDialog.html',
+      showClose: false
+    });
     eventTypeRequest.allEventTypes().success(function(adata) {
       $scope.type = {};
       $scope.type.list = adata.eventTypes;
@@ -15,8 +18,8 @@
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
-    $scope.verifyPerkLimit = function(s){
-      if(s.usd>200 || typeof s.usd === "undefined"){
+    $scope.verifyPerkLimit = function(s) {
+      if (s.usd > 200 || typeof s.usd === 'undefined') {
         s.usd = 200;
         $scope.message = 'maxLimitPerk';
         ngDialog.open({
@@ -48,7 +51,10 @@
       });
     };
     $scope.doEditEvent = function(idevent) {
-      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+      ngDialog.open({
+        template: 'views/templates/loadingDialog.html',
+        showClose: false
+      });
       angular.forEach($scope.eventData.perks, function(value) {
         if (value.id === -1) { //If new perk was added we insert that
           $scope.perkitems = {};

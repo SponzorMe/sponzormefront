@@ -5,47 +5,47 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
-    'pascalprecht.translate',
-    'ngResource',
-    'ngRoute',
-    'userService',
-    'loginService',
-    'ngDialog',
-    'base64',
-    'ngCookies',
-    'ngStorage',
-    'ui.bootstrap',
-    'eventTypeService',
-    'categoryService',
-    'google.places',
-    'eventService',
-    'rssService',
-    'perkService',
-    'taskSponzorService',
-    'perkTaskService',
-    'sponzorshipService',
-    'angularSpinner',
-    'allInterestsService',
-    'userInterestService',
-    'userCategoryService',
-    'naif.base64',
-    'imgurService',
-    'angularUtils.directives.dirPagination',
-    'ui.bootstrap.datetimepicker'
-  ]).config(['$translateProvider', function($translateProvider) {
-    $translateProvider.useStaticFilesLoader({
-      prefix: 'langs/lang-',
-      suffix: '.json'
-    });
+      'pascalprecht.translate',
+      'ngResource',
+      'ngRoute',
+      'userService',
+      'loginService',
+      'ngDialog',
+      'base64',
+      'ngCookies',
+      'ngStorage',
+      'ui.bootstrap',
+      'eventTypeService',
+      'categoryService',
+      'google.places',
+      'eventService',
+      'rssService',
+      'perkService',
+      'taskSponzorService',
+      'perkTaskService',
+      'sponzorshipService',
+      'angularSpinner',
+      'allInterestsService',
+      'userInterestService',
+      'userCategoryService',
+      'naif.base64',
+      'imgurService',
+      'angularUtils.directives.dirPagination',
+      'ui.bootstrap.datetimepicker'
+    ]).config(['$translateProvider', function($translateProvider) {
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'langs/lang-',
+        suffix: '.json'
+      });
 
-    $translateProvider.useSanitizeValueStrategy('escaped');
+      $translateProvider.useSanitizeValueStrategy('escaped');
 
-    $translateProvider.preferredLanguage('en');
+      $translateProvider.preferredLanguage('en');
 
-    $translateProvider.fallbackLanguage('en');
+      $translateProvider.fallbackLanguage('en');
 
-    // End Languages
-  }])
+      // End Languages
+    }])
     .config(['$localStorageProvider',
       function($localStorageProvider) {
         $localStorageProvider.setKeyPrefix('QkeMJxG7-');
@@ -389,7 +389,7 @@ var expirationTime = 1;
         if (!input) {
           return '';
         }
-        var input2 = input.trim().replace(" ","T");
+        var input2 = input.trim().replace(' ', 'T');
         var auxDate = Date.parse(input2);
         input = moment(auxDate).format('MMM DD YYYY, HH:mmA');
         return input;

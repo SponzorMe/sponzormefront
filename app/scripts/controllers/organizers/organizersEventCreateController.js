@@ -19,8 +19,8 @@
     });
     //End vars Initialization
 
-    $scope.verifyPerkLimit = function(s){
-      if(s.usd>200 || typeof s.usd === "undefined"){
+    $scope.verifyPerkLimit = function(s) {
+      if (s.usd > 200 || typeof s.usd === 'undefined') {
         s.usd = 200;
         $scope.message = 'maxLimitPerk';
         ngDialog.open({
@@ -52,7 +52,7 @@
           $scope.perkitems.usd = value.usd;
           $scope.perkitems.id_event = adata.event.id;
           $scope.perkitems.reserved_quantity = 0;
-          perkRequest.createPerk($scope.perkitems).success(function(){});
+          perkRequest.createPerk($scope.perkitems).success(function() {});
         });
         //Clean the from
         $scope.titleevent = '';
@@ -71,7 +71,7 @@
           showClose: false,
           scope: $scope
         });
-      }).error(function(edata){
+      }).error(function(edata) {
         ngDialog.closeAll();
         $scope.message = 'errorCreatingEvent';
         ngDialog.open({
@@ -84,7 +84,10 @@
 
     //this function upload or create the event Image
     $scope.imageVerification = function() {
-      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+      ngDialog.open({
+        template: 'views/templates/loadingDialog.html',
+        showClose: false
+      });
       $scope.loadingNewEvent = true;
       $scope.errorNewEvent = false;
       $scope.newEvent = {};
@@ -96,7 +99,7 @@
         imgurRequest.uploadImage(params).success(function(imageData) {
           $scope.newEvent.image = imageData.data.link;
           $scope.createNewEvent();
-        }).error(function(){
+        }).error(function() {
           ngDialog.closeAll();
           $scope.message = 'InvalidImage';
           ngDialog.open({
