@@ -37,15 +37,15 @@ describe("Organizers Events Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/event_types').respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/event_types').respond(200, {
       "success": true,
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/users/'+1).respond(200, {
       "data": {
         "user": {
           "id": "3",
@@ -57,7 +57,7 @@ describe("Organizers Events Controller test", function(){
       }
     });
 
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/perks/'+1).respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/perks/'+1).respond(200, {
       "data": {
         "perk": {
           "id": "3",
@@ -74,7 +74,7 @@ describe("Organizers Events Controller test", function(){
     httpBackend.verifyNoOutstandingRequest();
   });
   it("Should be vars Initialization", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
       "data": {
         "event": {
           "id": "1",
@@ -93,7 +93,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.type.list.length).toBe(4);
   });
   it("Should be gotten events", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
       "data": {
         "event": {
           "id": "1",
@@ -113,7 +113,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.eventos.length).toBe(4);
   });
   it("Should be success callback", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
       "data": {
         "event": {
           "id": "1",
@@ -139,7 +139,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.currentPerk.Tasks[3].id).toBe('4');
   });
   it("Should be an event delete without sponzorships", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
       "data": {
         "event": {
           "id": "1",
@@ -151,10 +151,10 @@ describe("Organizers Events Controller test", function(){
         }
       }
     });
-    httpBackend.when('DELETE', 'http://apistaging.sponzor.me/perks/'+1).respond(200, {
+    httpBackend.when('DELETE', 'http://api.sponzor.me/perks/'+1).respond(200, {
       "message": "Deleted"
     });
-    httpBackend.when('DELETE', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('DELETE', 'http://api.sponzor.me/events/'+1).respond(200, {
       "message": "Deleted"
     });
     $localStorage.id = 1;
@@ -170,7 +170,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.message).toBe('eventDeleteSuccesfully');
   });
   it("Should be an event delete with sponzorships", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
       "data": {
         "event": {
           "id": "1",
@@ -182,10 +182,10 @@ describe("Organizers Events Controller test", function(){
         }
       }
     });
-    httpBackend.when('DELETE', 'http://apistaging.sponzor.me/perks/'+1).respond(200, {
+    httpBackend.when('DELETE', 'http://api.sponzor.me/perks/'+1).respond(200, {
       "message": "Deleted"
     });
-    httpBackend.when('DELETE', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('DELETE', 'http://api.sponzor.me/events/'+1).respond(200, {
       "message": "Deleted"
     });
     $localStorage.id = 1;

@@ -36,11 +36,11 @@ describe("Organizers Create Event Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/event_types').respond(200, {
+    httpBackend.when('GET', 'http://api.sponzor.me/event_types').respond(200, {
       "success": true,
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
@@ -57,7 +57,7 @@ describe("Organizers Create Event Controller test", function(){
   });
   it("Should be error creating new event", function(){
 
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/events').respond(400, {
+    httpBackend.when('POST', 'http://api.sponzor.me/events').respond(400, {
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -73,7 +73,7 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.message).toEqual('errorCreatingEvent');
   });
   it("should be success creating new event", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/events').respond(200, {
+    httpBackend.when('POST', 'http://api.sponzor.me/events').respond(200, {
       "message": "Inserted",
       "event": {
         "title": "Test",

@@ -40,7 +40,7 @@ describe("Activation Controller Tests", function(){
     httpBackend.verifyNoOutstandingRequest();
   });
   it("Should be invalid token", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/verify_activation/miBadToken123').respond(404, {
+    httpBackend.when('GET', 'http://api.sponzor.me/verify_activation/miBadToken123').respond(404, {
       "message": "User does not exist",
       "code": "404"
     });
@@ -53,7 +53,7 @@ describe("Activation Controller Tests", function(){
     expect(scope.errorActivation).toEqual(true);
   });
   it("Should be a valid token", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/verify_activation/myTrueToken').respond(200,{
+    httpBackend.when('GET', 'http://api.sponzor.me/verify_activation/myTrueToken').respond(200,{
       'message': "Account activated",
       'code': "200"
     });

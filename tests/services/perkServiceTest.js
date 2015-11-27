@@ -20,7 +20,7 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/perks').respond(200, {
+      $httpBackend.when('GET', 'http://api.sponzor.me/perks').respond(200, {
         "success": true
       });
     }));
@@ -49,7 +49,7 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/perks/'+perkId).respond(200, {
+      $httpBackend.when('GET', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
       "data": {
         "perk": {
           "id": "3",
@@ -96,7 +96,7 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/perks').respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/perks').respond(200, {
         "message": "Inserted",
         "perk": {
           "title": "Test",
@@ -136,7 +136,7 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('DELETE', 'http://apistaging.sponzor.me/perks/'+perkId).respond(200, {
+      $httpBackend.when('DELETE', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
         "message": "Deleted"
       })
     }));
@@ -166,7 +166,7 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PATCH', 'http://apistaging.sponzor.me/perks/'+perkId).respond(200, {
+      $httpBackend.when('PATCH', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "perk": {
@@ -212,7 +212,7 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PUT', 'http://apistaging.sponzor.me/perks/'+perkId).respond(200, {
+      $httpBackend.when('PUT', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "perk": {

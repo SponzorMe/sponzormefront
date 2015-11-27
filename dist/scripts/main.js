@@ -100,7 +100,7 @@ var event_es = {
 
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://apistaging.sponzor.me/'; //API path
+var apiPath = 'http://api.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
