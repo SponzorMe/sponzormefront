@@ -1,12 +1,17 @@
 'use strict';
 (function() {
 
-  function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout) {
+  function SponzorsFollowingController($scope, $translate, $localStorage, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout) {
     $rootScope.userValidation('1');
     $scope.sponzorshipsLoading = true;
     $scope.noSponzorshipsMessage = false;
     $scope.tasksLoading = true;
     $scope.emailuser = $localStorage.email;
+    $scope.downloadCalendar = function(sponzorship){
+      var cal = ics();
+      cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
+      console.log(cal.download());
+    };
     $scope.loadSponzorships = function() {
       sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
         $scope.sponzorshipsLoading = false;
@@ -93,6 +98,7 @@
     };
     $scope.seeCause = function(sponzorship) {
       $scope.cause = sponzorship.cause;
+      $scope.status = sponzorship.status;
       ngDialog.open({
         template: 'views/templates/sponzorshipCauseDialog.html',
         showClose: false,

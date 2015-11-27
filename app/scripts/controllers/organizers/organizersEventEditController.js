@@ -15,6 +15,17 @@
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
+    $scope.verifyPerkLimit = function(s){
+      if(s.usd>200 || typeof s.usd === "undefined"){
+        s.usd = 200;
+        $scope.message = 'maxLimitPerk';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      }
+    };
     //this function get the event data and put it in the form.
     $scope.formEditEvent = function(idevent) {
       $scope.eventData = {};

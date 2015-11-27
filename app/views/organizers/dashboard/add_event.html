@@ -159,7 +159,7 @@
                         <input type="text" class="form-control" placeholder="" ng-model="s.quantity" />
                       </td>
                       <td class="text-center">
-                        <input type="text" class="form-control" placeholder="" ng-model="s.usd" />
+                        <input type="number" min="0" max="200" class="form-control" placeholder="Max 200" ng-model="s.usd" ng-keyup="verifyPerkLimit(s)"/>
                       </td>
                       <td class="text-center">
                         <a href="" ng-click="removeSponzorshipType($index)"><i class="fa fa-trash-o"></i></a>

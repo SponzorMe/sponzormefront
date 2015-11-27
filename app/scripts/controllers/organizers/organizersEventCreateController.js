@@ -19,6 +19,18 @@
     });
     //End vars Initialization
 
+    $scope.verifyPerkLimit = function(s){
+      if(s.usd>200 || typeof s.usd === "undefined"){
+        s.usd = 200;
+        $scope.message = 'maxLimitPerk';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      }
+    };
+
     //This function creates an event
     $scope.createNewEvent = function() {
       $scope.newEvent.title = $scope.titleevent;

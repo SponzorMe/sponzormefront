@@ -11,6 +11,11 @@
     $scope.userfroups = 0;
     $scope.tolsctive = 'active';
     $translate.use(idiomaselect);
+    $scope.downloadCalendar = function(sponzorship){
+      var cal = ics();
+      cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
+      console.log(cal.download());
+    };
     //This function allows get sponzorship info from organizerId
     $scope.getSponzorshipsBySponzor = function() {
       sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
@@ -24,7 +29,7 @@
           $scope.sponzorships = [];
           var flag = false; //used to verify if there is tasks
           angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status === '1') {
+            if (value.status === '0') {
               $scope.sponzorships.push(value);
               flag = true;
             }

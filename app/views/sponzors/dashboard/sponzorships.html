@@ -24,7 +24,6 @@
                       <th class="text-center">{{ 'starts' | translate }}</th>
                       <th class="text-center">{{ 'sponzoring' | translate }}
                         type</th>
-                      <th class="text-center">{{ 'state' | translate }}</th>
                       <th class="text-center">{{ 'actions' | translate }}</th>
                     </tr>
                   </thead>
@@ -46,10 +45,7 @@
                       <td class="text-center">{{s.starts}}</td>
                       <td class="text-center">{{s.kind}}</td>
                       <td class="text-center">
-                        <div ng-if="s.status == 0">{{ 'eventstate0Sponzor' | translate }}</div>
-                        <div ng-if="s.status == 1">{{ 'eventstate1Sponzor' | translate }}</div>
-                      </td>
-                      <td class="text-center">
+                        <a href="" ng-click="downloadCalendar(s)"><i class="fa fa-calendar"></i></a>
                         <a href="" ng-click="seeCause(s)">
                           <i class="fa fa-question-circle"></i>
                         </a>

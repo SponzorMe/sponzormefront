@@ -20,9 +20,8 @@
                       <th class="text-center">{{ 'name' | translate }}</th>
                       <th class="text-center">{{ 'email' | translate }}</th>
                       <th class="text-center">{{ 'eventtitle' | translate }}</th>
-                      <th class="text-center">{{ 'starts' | translate }}</th>
                       <th class="text-center">{{ 'sponzoring' | translate }} type</th>
-                      <th class="text-center">{{ 'state' | translate }}</th>
+                      <th class="text-center">{{ 'starts' | translate }}</th>
                       <th class="text-center">{{ 'actions' | translate }}</th>
                     </tr>
                   </thead>
@@ -41,12 +40,12 @@
                       <td class="text-center">{{s.name}}</td>
                       <td class="text-center">{{s.email}}</td>
                       <td class="text-center">{{s.title}}</td>
-                      <td class="text-center">{{s.starts}}</td>
                       <td class="text-center">{{s.kind}}</td>
                       <td class="text-center">
-                        <div ng-if="s.status == 0">{{ 'eventSponzorState0' | translate }}</div>
+                        {{s.starts| momentFormater}}
                       </td>
                       <td class="text-center">
+                        <a href="" ng-click="downloadCalendar(s)"><i class="fa fa-calendar"></i></a>
                         <a href="" ng-click="seeCause(s)"><i class="fa fa-question-circle"></i></a>
                         <a href="" ng-click="deleteSponzorship(s.id)"><i class="fa fa-trash-o"></i></a>
                       </td>

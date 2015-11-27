@@ -46,12 +46,6 @@ var expirationTime = 1;
 
     // End Languages
   }])
-
-  .config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
-      usSpinnerConfigProvider.setDefaults({
-        color: '#042333'
-      });
-    }])
     .config(['$localStorageProvider',
       function($localStorageProvider) {
         $localStorageProvider.setKeyPrefix('QkeMJxG7-');
@@ -395,14 +389,10 @@ var expirationTime = 1;
         if (!input) {
           return '';
         }
-        var auxDate = new Date(input);
-        input = moment(auxDate).format('MMM DD YYYY, HH:mm');
+        var input2 = input.trim().replace(" ","T");
+        var auxDate = Date.parse(input2);
+        input = moment(auxDate).format('MMM DD YYYY, HH:mmA');
         return input;
       };
     });
-
-
-
-
-
 })();
