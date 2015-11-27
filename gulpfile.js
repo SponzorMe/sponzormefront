@@ -75,7 +75,19 @@ gulp.task('clean', function() {
            .pipe(clean({ force: true }));
 });
 
+gulp.task('clean:staging', function(){
+	return gulp.src(['app','app/**/*.*','server_scripts','tests'], { read: false })
+				 .pipe(clean({ force: true }));
+});
+
 gulp.task('build', ['main','views','images','langs','fonts','extras','extras1','extras2']);
+
+gulp.task('move', ['clean:staging'],function(){
+  gulp.src(['dist/**/**/*.*'])
+  .pipe(gulp.dest(''));
+});
+
+gulp.task('build:staging', ['move'], function() {});
 
 gulp.task('success', ['clean'], function() {
   gulp.start('build');
@@ -124,6 +136,8 @@ gulp.task('serve:dist',['default'], function (){
 	  });
   }, 20000);
 });
+
+
 
 gulp.task('lint', function () {
 		notify("hols");
