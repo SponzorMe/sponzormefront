@@ -146,12 +146,6 @@ var expirationTime = 1;
 
     // End Languages
   }])
-
-  .config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
-      usSpinnerConfigProvider.setDefaults({
-        color: '#042333'
-      });
-    }])
     .config(['$localStorageProvider',
       function($localStorageProvider) {
         $localStorageProvider.setKeyPrefix('QkeMJxG7-');
@@ -495,16 +489,12 @@ var expirationTime = 1;
         if (!input) {
           return '';
         }
-        var auxDate = new Date(input);
-        input = moment(auxDate).format('MMM DD YYYY, HH:mm');
+        var input2 = input.trim().replace(" ","T");
+        var auxDate = Date.parse(input2);
+        input = moment(auxDate).format('MMM DD YYYY, HH:mmA');
         return input;
       };
     });
-
-
-
-
-
 })();
 
 'use strict';
@@ -1880,12 +1870,17 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsFollowingController($scope, $translate, $localStorage, usSpinnerService, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout) {
+  function SponzorsFollowingController($scope, $translate, $localStorage, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout) {
     $rootScope.userValidation('1');
     $scope.sponzorshipsLoading = true;
     $scope.noSponzorshipsMessage = false;
     $scope.tasksLoading = true;
     $scope.emailuser = $localStorage.email;
+    $scope.downloadCalendar = function(sponzorship){
+      var cal = ics();
+      cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
+      console.log(cal.download());
+    };
     $scope.loadSponzorships = function() {
       sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
         $scope.sponzorshipsLoading = false;
@@ -1972,6 +1967,7 @@ angular.module('sponzorme')
     };
     $scope.seeCause = function(sponzorship) {
       $scope.cause = sponzorship.cause;
+      $scope.status = sponzorship.status;
       ngDialog.open({
         template: 'views/templates/sponzorshipCauseDialog.html',
         showClose: false,
@@ -2303,6 +2299,11 @@ angular.module('sponzorme')
     $scope.userfroups = 0;
     $scope.tolsctive = 'active';
     $translate.use(idiomaselect);
+    $scope.downloadCalendar = function(sponzorship){
+      var cal = ics();
+      cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
+      console.log(cal.download());
+    };
     //This function allows get sponzorship info from organizerId
     $scope.getSponzorshipsBySponzor = function() {
       sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
@@ -3296,6 +3297,17 @@ angular.module('sponzorme')
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
+    $scope.verifyPerkLimit = function(s){
+      if(s.usd>200 || typeof s.usd === "undefined"){
+        s.usd = 200;
+        $scope.message = 'maxLimitPerk';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      }
+    };
     //this function get the event data and put it in the form.
     $scope.formEditEvent = function(idevent) {
       $scope.eventData = {};
@@ -3413,6 +3425,18 @@ angular.module('sponzorme')
       $scope.categoriasfilter = adata.categories;
     });
     //End vars Initialization
+
+    $scope.verifyPerkLimit = function(s){
+      if(s.usd>200 || typeof s.usd === "undefined"){
+        s.usd = 200;
+        $scope.message = 'maxLimitPerk';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      }
+    };
 
     //This function creates an event
     $scope.createNewEvent = function() {

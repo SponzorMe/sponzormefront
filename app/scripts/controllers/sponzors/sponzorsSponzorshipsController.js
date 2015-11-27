@@ -29,7 +29,7 @@
           $scope.sponzorships = [];
           var flag = false; //used to verify if there is tasks
           angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status === '0') {
+            if (value.status === '1') {
               $scope.sponzorships.push(value);
               flag = true;
             }

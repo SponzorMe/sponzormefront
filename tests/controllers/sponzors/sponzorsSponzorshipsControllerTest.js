@@ -1,4 +1,4 @@
-describe("Organizers Events Controller test", function(){
+describe("Sponzorships Controller test", function(){
   var createController, httpBackend, scope, $location, $localStorage, $routeParams, $timeout;
   beforeEach(module('sponzorme'));
   beforeEach(inject(function($rootScope, $httpBackend, $controller, _$location_, _$localStorage_, _$routeParams_, _$timeout_){
