@@ -105,47 +105,47 @@ var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
-    'pascalprecht.translate',
-    'ngResource',
-    'ngRoute',
-    'userService',
-    'loginService',
-    'ngDialog',
-    'base64',
-    'ngCookies',
-    'ngStorage',
-    'ui.bootstrap',
-    'eventTypeService',
-    'categoryService',
-    'google.places',
-    'eventService',
-    'rssService',
-    'perkService',
-    'taskSponzorService',
-    'perkTaskService',
-    'sponzorshipService',
-    'angularSpinner',
-    'allInterestsService',
-    'userInterestService',
-    'userCategoryService',
-    'naif.base64',
-    'imgurService',
-    'angularUtils.directives.dirPagination',
-    'ui.bootstrap.datetimepicker'
-  ]).config(['$translateProvider', function($translateProvider) {
-    $translateProvider.useStaticFilesLoader({
-      prefix: 'langs/lang-',
-      suffix: '.json'
-    });
+      'pascalprecht.translate',
+      'ngResource',
+      'ngRoute',
+      'userService',
+      'loginService',
+      'ngDialog',
+      'base64',
+      'ngCookies',
+      'ngStorage',
+      'ui.bootstrap',
+      'eventTypeService',
+      'categoryService',
+      'google.places',
+      'eventService',
+      'rssService',
+      'perkService',
+      'taskSponzorService',
+      'perkTaskService',
+      'sponzorshipService',
+      'angularSpinner',
+      'allInterestsService',
+      'userInterestService',
+      'userCategoryService',
+      'naif.base64',
+      'imgurService',
+      'angularUtils.directives.dirPagination',
+      'ui.bootstrap.datetimepicker'
+    ]).config(['$translateProvider', function($translateProvider) {
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'langs/lang-',
+        suffix: '.json'
+      });
 
-    $translateProvider.useSanitizeValueStrategy('escaped');
+      $translateProvider.useSanitizeValueStrategy('escaped');
 
-    $translateProvider.preferredLanguage('en');
+      $translateProvider.preferredLanguage('en');
 
-    $translateProvider.fallbackLanguage('en');
+      $translateProvider.fallbackLanguage('en');
 
-    // End Languages
-  }])
+      // End Languages
+    }])
     .config(['$localStorageProvider',
       function($localStorageProvider) {
         $localStorageProvider.setKeyPrefix('QkeMJxG7-');
@@ -489,7 +489,7 @@ var expirationTime = 1;
         if (!input) {
           return '';
         }
-        var input2 = input.trim().replace(" ","T");
+        var input2 = input.trim().replace(' ', 'T');
         var auxDate = Date.parse(input2);
         input = moment(auxDate).format('MMM DD YYYY, HH:mmA');
         return input;
@@ -3286,7 +3286,10 @@ angular.module('sponzorme')
     $rootScope.userValidation('0'); //Validation
     $scope.tolsctive = 'active';
     $scope.loading = true;
-    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+    ngDialog.open({
+      template: 'views/templates/loadingDialog.html',
+      showClose: false
+    });
     eventTypeRequest.allEventTypes().success(function(adata) {
       $scope.type = {};
       $scope.type.list = adata.eventTypes;
@@ -3297,8 +3300,8 @@ angular.module('sponzorme')
       $scope.categorias.list = adata.categories;
       $scope.categoriasfilter = adata.categories;
     });
-    $scope.verifyPerkLimit = function(s){
-      if(s.usd>200 || typeof s.usd === "undefined"){
+    $scope.verifyPerkLimit = function(s) {
+      if (s.usd > 200 || typeof s.usd === 'undefined') {
         s.usd = 200;
         $scope.message = 'maxLimitPerk';
         ngDialog.open({
@@ -3330,7 +3333,10 @@ angular.module('sponzorme')
       });
     };
     $scope.doEditEvent = function(idevent) {
-      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+      ngDialog.open({
+        template: 'views/templates/loadingDialog.html',
+        showClose: false
+      });
       angular.forEach($scope.eventData.perks, function(value) {
         if (value.id === -1) { //If new perk was added we insert that
           $scope.perkitems = {};
@@ -3426,8 +3432,8 @@ angular.module('sponzorme')
     });
     //End vars Initialization
 
-    $scope.verifyPerkLimit = function(s){
-      if(s.usd>200 || typeof s.usd === "undefined"){
+    $scope.verifyPerkLimit = function(s) {
+      if (s.usd > 200 || typeof s.usd === 'undefined') {
         s.usd = 200;
         $scope.message = 'maxLimitPerk';
         ngDialog.open({
@@ -3459,7 +3465,7 @@ angular.module('sponzorme')
           $scope.perkitems.usd = value.usd;
           $scope.perkitems.id_event = adata.event.id;
           $scope.perkitems.reserved_quantity = 0;
-          perkRequest.createPerk($scope.perkitems).success(function(){});
+          perkRequest.createPerk($scope.perkitems).success(function() {});
         });
         //Clean the from
         $scope.titleevent = '';
@@ -3478,7 +3484,7 @@ angular.module('sponzorme')
           showClose: false,
           scope: $scope
         });
-      }).error(function(edata){
+      }).error(function(edata) {
         ngDialog.closeAll();
         $scope.message = 'errorCreatingEvent';
         ngDialog.open({
@@ -3491,7 +3497,10 @@ angular.module('sponzorme')
 
     //this function upload or create the event Image
     $scope.imageVerification = function() {
-      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+      ngDialog.open({
+        template: 'views/templates/loadingDialog.html',
+        showClose: false
+      });
       $scope.loadingNewEvent = true;
       $scope.errorNewEvent = false;
       $scope.newEvent = {};
@@ -3503,7 +3512,7 @@ angular.module('sponzorme')
         imgurRequest.uploadImage(params).success(function(imageData) {
           $scope.newEvent.image = imageData.data.link;
           $scope.createNewEvent();
-        }).error(function(){
+        }).error(function() {
           ngDialog.closeAll();
           $scope.message = 'InvalidImage';
           ngDialog.open({

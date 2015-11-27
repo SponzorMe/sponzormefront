@@ -52312,203 +52312,479 @@ d.parent(".dropdown-menu").length&&(d=d.closest("li.dropdown").addClass("active"
 
 /*! @source http://purl.eligrey.com/github/Blob.js/blob/master/Blob.js */
 
-(function (view) {
-	"use strict";
+(function(view) {
+  "use strict";
 
-	view.URL = view.URL || view.webkitURL;
+  view.URL = view.URL || view.webkitURL;
 
-	if (view.Blob && view.URL) {
-		try {
-			new Blob;
-			return;
-		} catch (e) {}
-	}
+  if (view.Blob && view.URL) {
+    try {
+      new Blob;
+      return;
+    } catch (e) {}
+  }
 
-	// Internally we use a BlobBuilder implementation to base Blob off of
-	// in order to support older browsers that only have BlobBuilder
-	var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function(view) {
-		var
-			  get_class = function(object) {
-				return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
-			}
-			, FakeBlobBuilder = function BlobBuilder() {
-				this.data = [];
-			}
-			, FakeBlob = function Blob(data, type, encoding) {
-				this.data = data;
-				this.size = data.length;
-				this.type = type;
-				this.encoding = encoding;
-			}
-			, FBB_proto = FakeBlobBuilder.prototype
-			, FB_proto = FakeBlob.prototype
-			, FileReaderSync = view.FileReaderSync
-			, FileException = function(type) {
-				this.code = this[this.name = type];
-			}
-			, file_ex_codes = (
-				  "NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR "
-				+ "NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR"
-			).split(" ")
-			, file_ex_code = file_ex_codes.length
-			, real_URL = view.URL || view.webkitURL || view
-			, real_create_object_URL = real_URL.createObjectURL
-			, real_revoke_object_URL = real_URL.revokeObjectURL
-			, URL = real_URL
-			, btoa = view.btoa
-			, atob = view.atob
+  // Internally we use a BlobBuilder implementation to base Blob off of
+  // in order to support older browsers that only have BlobBuilder
+  var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function(view) {
+    var
+      get_class = function(object) {
+        return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
+      },
+      FakeBlobBuilder = function BlobBuilder() {
+        this.data = [];
+      },
+      FakeBlob = function Blob(data, type, encoding) {
+        this.data = data;
+        this.size = data.length;
+        this.type = type;
+        this.encoding = encoding;
+      },
+      FBB_proto = FakeBlobBuilder.prototype,
+      FB_proto = FakeBlob.prototype,
+      FileReaderSync = view.FileReaderSync,
+      FileException = function(type) {
+        this.code = this[this.name = type];
+      },
+      file_ex_codes = (
+        "NOT_FOUND_ERR SECURITY_ERR ABORT_ERR NOT_READABLE_ERR ENCODING_ERR " + "NO_MODIFICATION_ALLOWED_ERR INVALID_STATE_ERR SYNTAX_ERR"
+      ).split(" "),
+      file_ex_code = file_ex_codes.length,
+      real_URL = view.URL || view.webkitURL || view,
+      real_create_object_URL = real_URL.createObjectURL,
+      real_revoke_object_URL = real_URL.revokeObjectURL,
+      URL = real_URL,
+      btoa = view.btoa,
+      atob = view.atob
 
-			, ArrayBuffer = view.ArrayBuffer
-			, Uint8Array = view.Uint8Array
+    , ArrayBuffer = view.ArrayBuffer, Uint8Array = view.Uint8Array
 
-			, origin = /^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/
-		;
-		FakeBlob.fake = FB_proto.fake = true;
-		while (file_ex_code--) {
-			FileException.prototype[file_ex_codes[file_ex_code]] = file_ex_code + 1;
-		}
-		// Polyfill URL
-		if (!real_URL.createObjectURL) {
-			URL = view.URL = function(uri) {
-				var
-					  uri_info = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
-					, uri_origin
-				;
-				uri_info.href = uri;
-				if (!("origin" in uri_info)) {
-					if (uri_info.protocol.toLowerCase() === "data:") {
-						uri_info.origin = null;
-					} else {
-						uri_origin = uri.match(origin);
-						uri_info.origin = uri_origin && uri_origin[1];
-					}
-				}
-				return uri_info;
-			};
-		}
-		URL.createObjectURL = function(blob) {
-			var
-				  type = blob.type
-				, data_URI_header
-			;
-			if (type === null) {
-				type = "application/octet-stream";
-			}
-			if (blob instanceof FakeBlob) {
-				data_URI_header = "data:" + type;
-				if (blob.encoding === "base64") {
-					return data_URI_header + ";base64," + blob.data;
-				} else if (blob.encoding === "URI") {
-					return data_URI_header + "," + decodeURIComponent(blob.data);
-				} if (btoa) {
-					return data_URI_header + ";base64," + btoa(blob.data);
-				} else {
-					return data_URI_header + "," + encodeURIComponent(blob.data);
-				}
-			} else if (real_create_object_URL) {
-				return real_create_object_URL.call(real_URL, blob);
-			}
-		};
-		URL.revokeObjectURL = function(object_URL) {
-			if (object_URL.substring(0, 5) !== "data:" && real_revoke_object_URL) {
-				real_revoke_object_URL.call(real_URL, object_URL);
-			}
-		};
-		FBB_proto.append = function(data/*, endings*/) {
-			var bb = this.data;
-			// decode data to a binary string
-			if (Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) {
-				var
-					  str = ""
-					, buf = new Uint8Array(data)
-					, i = 0
-					, buf_len = buf.length
-				;
-				for (; i < buf_len; i++) {
-					str += String.fromCharCode(buf[i]);
-				}
-				bb.push(str);
-			} else if (get_class(data) === "Blob" || get_class(data) === "File") {
-				if (FileReaderSync) {
-					var fr = new FileReaderSync;
-					bb.push(fr.readAsBinaryString(data));
-				} else {
-					// async FileReader won't work as BlobBuilder is sync
-					throw new FileException("NOT_READABLE_ERR");
-				}
-			} else if (data instanceof FakeBlob) {
-				if (data.encoding === "base64" && atob) {
-					bb.push(atob(data.data));
-				} else if (data.encoding === "URI") {
-					bb.push(decodeURIComponent(data.data));
-				} else if (data.encoding === "raw") {
-					bb.push(data.data);
-				}
-			} else {
-				if (typeof data !== "string") {
-					data += ""; // convert unsupported types to strings
-				}
-				// decode UTF-16 to binary string
-				bb.push(unescape(encodeURIComponent(data)));
-			}
-		};
-		FBB_proto.getBlob = function(type) {
-			if (!arguments.length) {
-				type = null;
-			}
-			return new FakeBlob(this.data.join(""), type, "raw");
-		};
-		FBB_proto.toString = function() {
-			return "[object BlobBuilder]";
-		};
-		FB_proto.slice = function(start, end, type) {
-			var args = arguments.length;
-			if (args < 3) {
-				type = null;
-			}
-			return new FakeBlob(
-				  this.data.slice(start, args > 1 ? end : this.data.length)
-				, type
-				, this.encoding
-			);
-		};
-		FB_proto.toString = function() {
-			return "[object Blob]";
-		};
-		FB_proto.close = function() {
-			this.size = 0;
-			delete this.data;
-		};
-		return FakeBlobBuilder;
-	}(view));
+    , origin = /^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/;
+    FakeBlob.fake = FB_proto.fake = true;
+    while (file_ex_code--) {
+      FileException.prototype[file_ex_codes[file_ex_code]] = file_ex_code + 1;
+    }
+    // Polyfill URL
+    if (!real_URL.createObjectURL) {
+      URL = view.URL = function(uri) {
+        var
+          uri_info = document.createElementNS("http://www.w3.org/1999/xhtml", "a"),
+          uri_origin;
+        uri_info.href = uri;
+        if (!("origin" in uri_info)) {
+          if (uri_info.protocol.toLowerCase() === "data:") {
+            uri_info.origin = null;
+          } else {
+            uri_origin = uri.match(origin);
+            uri_info.origin = uri_origin && uri_origin[1];
+          }
+        }
+        return uri_info;
+      };
+    }
+    URL.createObjectURL = function(blob) {
+      var
+        type = blob.type,
+        data_URI_header;
+      if (type === null) {
+        type = "application/octet-stream";
+      }
+      if (blob instanceof FakeBlob) {
+        data_URI_header = "data:" + type;
+        if (blob.encoding === "base64") {
+          return data_URI_header + ";base64," + blob.data;
+        } else if (blob.encoding === "URI") {
+          return data_URI_header + "," + decodeURIComponent(blob.data);
+        }
+        if (btoa) {
+          return data_URI_header + ";base64," + btoa(blob.data);
+        } else {
+          return data_URI_header + "," + encodeURIComponent(blob.data);
+        }
+      } else if (real_create_object_URL) {
+        return real_create_object_URL.call(real_URL, blob);
+      }
+    };
+    URL.revokeObjectURL = function(object_URL) {
+      if (object_URL.substring(0, 5) !== "data:" && real_revoke_object_URL) {
+        real_revoke_object_URL.call(real_URL, object_URL);
+      }
+    };
+    FBB_proto.append = function(data /*, endings*/ ) {
+      var bb = this.data;
+      // decode data to a binary string
+      if (Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) {
+        var
+          str = "",
+          buf = new Uint8Array(data),
+          i = 0,
+          buf_len = buf.length;
+        for (; i < buf_len; i++) {
+          str += String.fromCharCode(buf[i]);
+        }
+        bb.push(str);
+      } else if (get_class(data) === "Blob" || get_class(data) === "File") {
+        if (FileReaderSync) {
+          var fr = new FileReaderSync;
+          bb.push(fr.readAsBinaryString(data));
+        } else {
+          // async FileReader won't work as BlobBuilder is sync
+          throw new FileException("NOT_READABLE_ERR");
+        }
+      } else if (data instanceof FakeBlob) {
+        if (data.encoding === "base64" && atob) {
+          bb.push(atob(data.data));
+        } else if (data.encoding === "URI") {
+          bb.push(decodeURIComponent(data.data));
+        } else if (data.encoding === "raw") {
+          bb.push(data.data);
+        }
+      } else {
+        if (typeof data !== "string") {
+          data += ""; // convert unsupported types to strings
+        }
+        // decode UTF-16 to binary string
+        bb.push(unescape(encodeURIComponent(data)));
+      }
+    };
+    FBB_proto.getBlob = function(type) {
+      if (!arguments.length) {
+        type = null;
+      }
+      return new FakeBlob(this.data.join(""), type, "raw");
+    };
+    FBB_proto.toString = function() {
+      return "[object BlobBuilder]";
+    };
+    FB_proto.slice = function(start, end, type) {
+      var args = arguments.length;
+      if (args < 3) {
+        type = null;
+      }
+      return new FakeBlob(
+        this.data.slice(start, args > 1 ? end : this.data.length), type, this.encoding
+      );
+    };
+    FB_proto.toString = function() {
+      return "[object Blob]";
+    };
+    FB_proto.close = function() {
+      this.size = 0;
+      delete this.data;
+    };
+    return FakeBlobBuilder;
+  }(view));
 
-	view.Blob = function(blobParts, options) {
-		var type = options ? (options.type || "") : "";
-		var builder = new BlobBuilder();
-		if (blobParts) {
-			for (var i = 0, len = blobParts.length; i < len; i++) {
-				if (Uint8Array && blobParts[i] instanceof Uint8Array) {
-					builder.append(blobParts[i].buffer);
-				}
-				else {
-					builder.append(blobParts[i]);
-				}
-			}
-		}
-		var blob = builder.getBlob(type);
-		if (!blob.slice && blob.webkitSlice) {
-			blob.slice = blob.webkitSlice;
-		}
-		return blob;
-	};
+  view.Blob = function(blobParts, options) {
+    var type = options ? (options.type || "") : "";
+    var builder = new BlobBuilder();
+    if (blobParts) {
+      for (var i = 0, len = blobParts.length; i < len; i++) {
+        if (Uint8Array && blobParts[i] instanceof Uint8Array) {
+          builder.append(blobParts[i].buffer);
+        } else {
+          builder.append(blobParts[i]);
+        }
+      }
+    }
+    var blob = builder.getBlob(type);
+    if (!blob.slice && blob.webkitSlice) {
+      blob.slice = blob.webkitSlice;
+    }
+    return blob;
+  };
 
-	var getPrototypeOf = Object.getPrototypeOf || function(object) {
-		return object.__proto__;
-	};
-	view.Blob.prototype = getPrototypeOf(new view.Blob());
+  var getPrototypeOf = Object.getPrototypeOf || function(object) {
+    return object.__proto__;
+  };
+  view.Blob.prototype = getPrototypeOf(new view.Blob());
 }(typeof self !== "undefined" && self || typeof window !== "undefined" && window || this.content || this));
 
 /*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-var saveAs=saveAs||function(e){"use strict";if(typeof navigator!=="undefined"&&/MSIE [1-9]\./.test(navigator.userAgent)){return}var t=e.document,n=function(){return e.URL||e.webkitURL||e},r=t.createElementNS("http://www.w3.org/1999/xhtml","a"),i="download"in r,o=function(e){var t=new MouseEvent("click");e.dispatchEvent(t)},a=/Version\/[\d\.]+.*Safari/.test(navigator.userAgent),f=e.webkitRequestFileSystem,u=e.requestFileSystem||f||e.mozRequestFileSystem,s=function(t){(e.setImmediate||e.setTimeout)(function(){throw t},0)},c="application/octet-stream",d=0,l=500,w=function(t){var r=function(){if(typeof t==="string"){n().revokeObjectURL(t)}else{t.remove()}};if(e.chrome){r()}else{setTimeout(r,l)}},p=function(e,t,n){t=[].concat(t);var r=t.length;while(r--){var i=e["on"+t[r]];if(typeof i==="function"){try{i.call(e,n||e)}catch(o){s(o)}}}},v=function(e){if(/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(e.type)){return new Blob(["\ufeff",e],{type:e.type})}return e},y=function(t,s,l){if(!l){t=v(t)}var y=this,m=t.type,S=false,h,R,O=function(){p(y,"writestart progress write writeend".split(" "))},g=function(){if(R&&a&&typeof FileReader!=="undefined"){var r=new FileReader;r.onloadend=function(){var e=r.result;R.location.href="data:attachment/file"+e.slice(e.search(/[,;]/));y.readyState=y.DONE;O()};r.readAsDataURL(t);y.readyState=y.INIT;return}if(S||!h){h=n().createObjectURL(t)}if(R){R.location.href=h}else{var i=e.open(h,"_blank");if(i==undefined&&a){e.location.href=h}}y.readyState=y.DONE;O();w(h)},b=function(e){return function(){if(y.readyState!==y.DONE){return e.apply(this,arguments)}}},E={create:true,exclusive:false},N;y.readyState=y.INIT;if(!s){s="download"}if(i){h=n().createObjectURL(t);r.href=h;r.download=s;setTimeout(function(){o(r);O();w(h);y.readyState=y.DONE});return}if(e.chrome&&m&&m!==c){N=t.slice||t.webkitSlice;t=N.call(t,0,t.size,c);S=true}if(f&&s!=="download"){s+=".download"}if(m===c||f){R=e}if(!u){g();return}d+=t.size;u(e.TEMPORARY,d,b(function(e){e.root.getDirectory("saved",E,b(function(e){var n=function(){e.getFile(s,E,b(function(e){e.createWriter(b(function(n){n.onwriteend=function(t){R.location.href=e.toURL();y.readyState=y.DONE;p(y,"writeend",t);w(e)};n.onerror=function(){var e=n.error;if(e.code!==e.ABORT_ERR){g()}};"writestart progress write abort".split(" ").forEach(function(e){n["on"+e]=y["on"+e]});n.write(t);y.abort=function(){n.abort();y.readyState=y.DONE};y.readyState=y.WRITING}),g)}),g)};e.getFile(s,{create:false},b(function(e){e.remove();n()}),b(function(e){if(e.code===e.NOT_FOUND_ERR){n()}else{g()}}))}),g)}),g)},m=y.prototype,S=function(e,t,n){return new y(e,t,n)};if(typeof navigator!=="undefined"&&navigator.msSaveOrOpenBlob){return function(e,t,n){if(!n){e=v(e)}return navigator.msSaveOrOpenBlob(e,t||"download")}}m.abort=function(){var e=this;e.readyState=e.DONE;p(e,"abort")};m.readyState=m.INIT=0;m.WRITING=1;m.DONE=2;m.error=m.onwritestart=m.onprogress=m.onwrite=m.onabort=m.onerror=m.onwriteend=null;return S}(typeof self!=="undefined"&&self||typeof window!=="undefined"&&window||this.content);if(typeof module!=="undefined"&&module.exports){module.exports.saveAs=saveAs}else if(typeof define!=="undefined"&&define!==null&&define.amd!=null){define([],function(){return saveAs})}
+var saveAs = saveAs || function(e) {
+  "use strict";
+  if (typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+    return
+  }
+  var t = e.document,
+    n = function() {
+      return e.URL || e.webkitURL || e
+    },
+    r = t.createElementNS("http://www.w3.org/1999/xhtml", "a"),
+    i = "download" in r,
+    o = function(e) {
+      var t = new MouseEvent("click");
+      e.dispatchEvent(t)
+    },
+    a = /Version\/[\d\.]+.*Safari/.test(navigator.userAgent),
+    f = e.webkitRequestFileSystem,
+    u = e.requestFileSystem || f || e.mozRequestFileSystem,
+    s = function(t) {
+      (e.setImmediate || e.setTimeout)(function() {
+        throw t
+      }, 0)
+    },
+    c = "application/octet-stream",
+    d = 0,
+    l = 500,
+    w = function(t) {
+      var r = function() {
+        if (typeof t === "string") {
+          n().revokeObjectURL(t)
+        } else {
+          t.remove()
+        }
+      };
+      if (e.chrome) {
+        r()
+      } else {
+        setTimeout(r, l)
+      }
+    },
+    p = function(e, t, n) {
+      t = [].concat(t);
+      var r = t.length;
+      while (r--) {
+        var i = e["on" + t[r]];
+        if (typeof i === "function") {
+          try {
+            i.call(e, n || e)
+          } catch (o) {
+            s(o)
+          }
+        }
+      }
+    },
+    v = function(e) {
+      if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(e.type)) {
+        return new Blob(["\ufeff", e], {
+          type: e.type
+        })
+      }
+      return e
+    },
+    y = function(t, s, l) {
+      if (!l) {
+        t = v(t)
+      }
+      var y = this,
+        m = t.type,
+        S = false,
+        h, R, O = function() {
+          p(y, "writestart progress write writeend".split(" "))
+        },
+        g = function() {
+          if (R && a && typeof FileReader !== "undefined") {
+            var r = new FileReader;
+            r.onloadend = function() {
+              var e = r.result;
+              R.location.href = "data:attachment/file" + e.slice(e.search(/[,;]/));
+              y.readyState = y.DONE;
+              O()
+            };
+            r.readAsDataURL(t);
+            y.readyState = y.INIT;
+            return
+          }
+          if (S || !h) {
+            h = n().createObjectURL(t)
+          }
+          if (R) {
+            R.location.href = h
+          } else {
+            var i = e.open(h, "_blank");
+            if (i == undefined && a) {
+              e.location.href = h
+            }
+          }
+          y.readyState = y.DONE;
+          O();
+          w(h)
+        },
+        b = function(e) {
+          return function() {
+            if (y.readyState !== y.DONE) {
+              return e.apply(this, arguments)
+            }
+          }
+        },
+        E = {
+          create: true,
+          exclusive: false
+        },
+        N;
+      y.readyState = y.INIT;
+      if (!s) {
+        s = "download"
+      }
+      if (i) {
+        h = n().createObjectURL(t);
+        r.href = h;
+        r.download = s;
+        setTimeout(function() {
+          o(r);
+          O();
+          w(h);
+          y.readyState = y.DONE
+        });
+        return
+      }
+      if (e.chrome && m && m !== c) {
+        N = t.slice || t.webkitSlice;
+        t = N.call(t, 0, t.size, c);
+        S = true
+      }
+      if (f && s !== "download") {
+        s += ".download"
+      }
+      if (m === c || f) {
+        R = e
+      }
+      if (!u) {
+        g();
+        return
+      }
+      d += t.size;
+      u(e.TEMPORARY, d, b(function(e) {
+        e.root.getDirectory("saved", E, b(function(e) {
+          var n = function() {
+            e.getFile(s, E, b(function(e) {
+              e.createWriter(b(function(n) {
+                n.onwriteend = function(t) {
+                  R.location.href = e.toURL();
+                  y.readyState = y.DONE;
+                  p(y, "writeend", t);
+                  w(e)
+                };
+                n.onerror = function() {
+                  var e = n.error;
+                  if (e.code !== e.ABORT_ERR) {
+                    g()
+                  }
+                };
+                "writestart progress write abort".split(" ").forEach(function(e) {
+                  n["on" + e] = y["on" + e]
+                });
+                n.write(t);
+                y.abort = function() {
+                  n.abort();
+                  y.readyState = y.DONE
+                };
+                y.readyState = y.WRITING
+              }), g)
+            }), g)
+          };
+          e.getFile(s, {
+            create: false
+          }, b(function(e) {
+            e.remove();
+            n()
+          }), b(function(e) {
+            if (e.code === e.NOT_FOUND_ERR) {
+              n()
+            } else {
+              g()
+            }
+          }))
+        }), g)
+      }), g)
+    },
+    m = y.prototype,
+    S = function(e, t, n) {
+      return new y(e, t, n)
+    };
+  if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+    return function(e, t, n) {
+      if (!n) {
+        e = v(e)
+      }
+      return navigator.msSaveOrOpenBlob(e, t || "download")
+    }
+  }
+  m.abort = function() {
+    var e = this;
+    e.readyState = e.DONE;
+    p(e, "abort")
+  };
+  m.readyState = m.INIT = 0;
+  m.WRITING = 1;
+  m.DONE = 2;
+  m.error = m.onwritestart = m.onprogress = m.onwrite = m.onabort = m.onerror = m.onwriteend = null;
+  return S
+}(typeof self !== "undefined" && self || typeof window !== "undefined" && window || this.content);
+if (typeof module !== "undefined" && module.exports) {
+  module.exports.saveAs = saveAs
+} else if (typeof define !== "undefined" && define !== null && define.amd != null) {
+  define([], function() {
+    return saveAs
+  })
+}
+
 /*! ics.js March 11, 2014 */
-var ics=function(){"use strict";if(navigator.userAgent.indexOf("MSIE")>-1&&navigator.userAgent.indexOf("MSIE 10")==-1){console.log("Unsupported Browser");return}var e=navigator.appVersion.indexOf("Win")!==-1?"\r\n":"\n";var t=[];var n=["BEGIN:VCALENDAR","VERSION:2.0"].join(e);var r=e+"END:VCALENDAR";return{events:function(){return t},calendar:function(){return n+e+t.join(e)+r},addEvent:function(n,r,i,s,o){if(typeof n==="undefined"||typeof r==="undefined"||typeof i==="undefined"||typeof s==="undefined"||typeof o==="undefined"){return false}var u=new Date(s);var a=new Date(o);var f=("0000"+u.getFullYear().toString()).slice(-4);var l=("00"+(u.getMonth()+1).toString()).slice(-2);var c=("00"+u.getDate().toString()).slice(-2);var h=("00"+u.getHours().toString()).slice(-2);var p=("00"+u.getMinutes().toString()).slice(-2);var d=("00"+u.getMinutes().toString()).slice(-2);var v=("0000"+a.getFullYear().toString()).slice(-4);var m=("00"+(a.getMonth()+1).toString()).slice(-2);var g=("00"+a.getDate().toString()).slice(-2);var y=("00"+a.getHours().toString()).slice(-2);var b=("00"+a.getMinutes().toString()).slice(-2);var w=("00"+a.getMinutes().toString()).slice(-2);var E="";var S="";if(p+d+b+w!=0){E="T"+h+p+d;S="T"+y+b+w}var x=f+l+c+E;var T=v+m+g+S;var N=["BEGIN:VEVENT","CLASS:PUBLIC","DESCRIPTION:"+r,"DTSTART;VALUE=DATE:"+x,"DTEND;VALUE=DATE:"+T,"LOCATION:"+i,"SUMMARY;LANGUAGE=en-us:"+n,"TRANSP:TRANSPARENT","END:VEVENT"].join(e);t.push(N);return N},download:function(i,s){if(t.length<1){return false}s=typeof s!=="undefined"?s:".ics";i=typeof i!=="undefined"?i:"calendar";var o=n+e+t.join(e)+r;var u;if(navigator.userAgent.indexOf("MSIE 10")===-1){u=new Blob([o])}else{var a=new BlobBuilder;a.append(o);u=a.getBlob("text/x-vCalendar;charset="+document.characterSet)}saveAs(u,i+s);return o}}}
+var ics = function() {
+  "use strict";
+  if (navigator.userAgent.indexOf("MSIE") > -1 && navigator.userAgent.indexOf("MSIE 10") == -1) {
+    console.log("Unsupported Browser");
+    return
+  }
+  var e = navigator.appVersion.indexOf("Win") !== -1 ? "\r\n" : "\n";
+  var t = [];
+  var n = ["BEGIN:VCALENDAR", "VERSION:2.0"].join(e);
+  var r = e + "END:VCALENDAR";
+  return {
+    events: function() {
+      return t
+    },
+    calendar: function() {
+      return n + e + t.join(e) + r
+    },
+    addEvent: function(n, r, i, s, o) {
+      if (typeof n === "undefined" || typeof r === "undefined" || typeof i === "undefined" || typeof s === "undefined" || typeof o === "undefined") {
+        return false
+      }
+      var u = new Date(s);
+      var a = new Date(o);
+      var f = ("0000" + u.getFullYear().toString()).slice(-4);
+      var l = ("00" + (u.getMonth() + 1).toString()).slice(-2);
+      var c = ("00" + u.getDate().toString()).slice(-2);
+      var h = ("00" + u.getHours().toString()).slice(-2);
+      var p = ("00" + u.getMinutes().toString()).slice(-2);
+      var d = ("00" + u.getMinutes().toString()).slice(-2);
+      var v = ("0000" + a.getFullYear().toString()).slice(-4);
+      var m = ("00" + (a.getMonth() + 1).toString()).slice(-2);
+      var g = ("00" + a.getDate().toString()).slice(-2);
+      var y = ("00" + a.getHours().toString()).slice(-2);
+      var b = ("00" + a.getMinutes().toString()).slice(-2);
+      var w = ("00" + a.getMinutes().toString()).slice(-2);
+      var E = "";
+      var S = "";
+      if (p + d + b + w != 0) {
+        E = "T" + h + p + d;
+        S = "T" + y + b + w
+      }
+      var x = f + l + c + E;
+      var T = v + m + g + S;
+      var N = ["BEGIN:VEVENT", "CLASS:PUBLIC", "DESCRIPTION:" + r, "DTSTART;VALUE=DATE:" + x, "DTEND;VALUE=DATE:" + T, "LOCATION:" + i, "SUMMARY;LANGUAGE=en-us:" + n, "TRANSP:TRANSPARENT", "END:VEVENT"].join(e);
+      t.push(N);
+      return N
+    },
+    download: function(i, s) {
+      if (t.length < 1) {
+        return false
+      }
+      s = typeof s !== "undefined" ? s : ".ics";
+      i = typeof i !== "undefined" ? i : "calendar";
+      var o = n + e + t.join(e) + r;
+      var u;
+      if (navigator.userAgent.indexOf("MSIE 10") === -1) {
+        u = new Blob([o])
+      } else {
+        var a = new BlobBuilder;
+        a.append(o);
+        u = a.getBlob("text/x-vCalendar;charset=" + document.characterSet)
+      }
+      saveAs(u, i + s);
+      return o
+    }
+  }
+}
