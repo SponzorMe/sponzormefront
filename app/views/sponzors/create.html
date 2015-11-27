@@ -1,11 +1,11 @@
 <section>
-<div class="navbar navbar-inverse navbar-fixed-top" ng-include src="'views/header.html'"></div>
+<div class="navbar white-background navbar-fixed-top" ng-include src="'views/header.html'"></div>
 <div class="container">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
           <form class="form-createsponzor" name="createSponzor" role="form" ng-submit="createSponzor.$valid && sendfrom()">
             <div class="account-wall">
-            <img class="profile-img" src="images/register.png?cop_1212" alt="">
+            <img class="profile-img" src="images/sponzor.png" alt="">
             <h2 class="form-signin-heading">{{'register' | translate }} {{ 'asSponzor' | translate }}</h2>
 
             <div class="form-group">
@@ -35,5 +35,5 @@
     </div>
 </div>
 
-<div class="footer" ng-include src="'views/footer.html'"></div>
+<div class="white-background footer" ng-include src="'views/footer.html'"></div>
 </section>

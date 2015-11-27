@@ -164,7 +164,7 @@ var expirationTime = 1;
           controller: 'OrganizersEventEditController'
         })
         .otherwise({
-          redirectTo: '/'
+          redirectTo: '/login'
         });
     }])
     /*
@@ -229,7 +229,7 @@ var expirationTime = 1;
           }
           $rootScope.$storage = $localStorage;
         } else {
-          $location.path('/');
+          $location.path('/login');
         }
       };
       $rootScope.updateUserDemo = function(userId) {

@@ -5,7 +5,7 @@ function LogoutController($scope, $translate, $sessionStorage, $location, $local
 
   $localStorage.$reset();
 
-  $location.path('/');
+  $location.path('/login');
 }
 
 angular.module('sponzorme')
