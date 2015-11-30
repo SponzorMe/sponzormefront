@@ -35,7 +35,7 @@ describe("EventPageController Tests", function(){
       "message": "UNACTIVATED"
     });
     var eventId = '1';
-    httpBackend.when('GET', 'http://api.sponzor.me/events/'+eventId).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+eventId).respond(200, {
       "data": {
         "event": {
           "id": "1",
@@ -110,7 +110,7 @@ describe("EventPageController Tests", function(){
     expect(scope.perkToSponzor).toEqual(perk);
   });
   it("Should Be a Succesfuly Sponzorship", function(){
-    httpBackend.when('POST', 'http://api.sponzor.me/sponzorships').respond(200, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/sponzorships').respond(200, {
       "message": "Inserted",
       "sponzorship": {
         "title": "Test",
@@ -120,7 +120,7 @@ describe("EventPageController Tests", function(){
       }
     });
     var perkId = 1;
-    httpBackend.when('GET', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/perks/'+perkId).respond(200, {
     "data": {
       "perk": {
         "id": "3",
@@ -149,7 +149,7 @@ describe("EventPageController Tests", function(){
     expect(scope.message).toEqual('sponzorshipCreatedSuccesfuly');
   });
   it("Should Be No Succesfuly Sponzorship", function(){
-    httpBackend.when('POST', 'http://api.sponzor.me/sponzorships').respond(400, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/sponzorships').respond(400, {
       "message": "Inserted",
       "sponzorship": {
         "title": "Test",
@@ -159,7 +159,7 @@ describe("EventPageController Tests", function(){
       }
     });
     var perkId = 1;
-    httpBackend.when('GET', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/perks/'+perkId).respond(200, {
     "data": {
       "perk": {
         "id": "3",
@@ -188,7 +188,7 @@ describe("EventPageController Tests", function(){
     expect(scope.message).toEqual('eventPageErrorSponzoringEvent');
   });
   it("Should Be No Succesfuly Sponzorship", function(){
-    httpBackend.when('POST', 'http://api.sponzor.me/sponzorships').respond(200, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/sponzorships').respond(200, {
       "message": "Inserted",
       "sponzorship": {
         "title": "Test",
@@ -198,7 +198,7 @@ describe("EventPageController Tests", function(){
       }
     });
     var perkId = 1;
-    httpBackend.when('GET', 'http://api.sponzor.me/perks/'+perkId).respond(400, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/perks/'+perkId).respond(400, {
     "data": {
       "perk": {
         "id": "3",

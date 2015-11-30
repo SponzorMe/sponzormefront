@@ -1,6 +1,6 @@
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://api.sponzor.me/'; //API path
+var apiPath = 'http://apistaging.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
@@ -32,7 +32,14 @@ var expirationTime = 1;
       'imgurService',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker'
-    ]).config(['$translateProvider', function($translateProvider) {
+    ])
+    .constant('URL', 'http://apistaging.sponzor.me/')
+    .constant('XOOMRATE', parseFloat(4.99))
+    .constant('FEE', parseFloat(0.1))
+    .constant('PAYPALCOMPLETERETURNURL', 'http://localhost:9000/#/sponzors/sponzoring')
+    .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
+    .constant('PAYPALEMAIL', 'seagomezar-facilitator@unal.edu.co')
+    .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',
         suffix: '.json'
@@ -162,6 +169,10 @@ var expirationTime = 1;
         .when('/organizers/edit/event/:id', {
           templateUrl: 'views/organizers/dashboard/edit_event.html',
           controller: 'OrganizersEventEditController'
+        })
+        .when('/sponzors/payment_complete/:sponzorship_id/:sponzor_id', {
+          templateUrl: 'views/sponzors/dashboard/sponzorships.html',
+          controller: 'SponzorsSponzorshipsController'
         })
         .otherwise({
           redirectTo: '/login'

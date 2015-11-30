@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, FEE, XOOMRATE, PAYPALCOMPLETERETURNURL, PAYPALIPNRETURNURL, PAYPALEMAIL) {
     $rootScope.userValidation('1');
     $scope.noSponzorshipsMessage = false;
     $scope.noSponzorshipsTaskMessage = false;
@@ -11,6 +11,20 @@
     $scope.userfroups = 0;
     $scope.tolsctive = 'active';
     $translate.use(idiomaselect);
+    $scope.paymentInformation =  function(sponzorship){
+      $scope.PAYPALCOMPLETERETURNURL = PAYPALCOMPLETERETURNURL;
+      $scope.PAYPALIPNRETURNURL = PAYPALIPNRETURNURL;
+      $scope.PAYPALEMAIL = PAYPALEMAIL;
+      $scope.sponzorship = sponzorship;
+      $scope.paymentValue = sponzorship.usd;
+      $scope.fee = parseFloat((sponzorship.usd*FEE)+XOOMRATE);
+      $scope.paymentTotal = parseFloat(sponzorship.usd)+parseFloat($scope.fee);
+      ngDialog.open({
+        scope: $scope,
+        template: 'views/templates/prePaymentInfo.html',
+        showClose: true
+      });
+    }
     $scope.downloadCalendar = function(sponzorship){
       var cal = ics();
       cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
@@ -29,7 +43,7 @@
           $scope.sponzorships = [];
           var flag = false; //used to verify if there is tasks
           angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status === '1') {
+            if (value.status >= '1') {
               $scope.sponzorships.push(value);
               flag = true;
             }

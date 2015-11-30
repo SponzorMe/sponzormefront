@@ -45,6 +45,8 @@
                       <td class="text-center">{{s.starts}}</td>
                       <td class="text-center">{{s.kind}}</td>
                       <td class="text-center">
+                        <a ng-if="s.status==1" href="" ng-click="paymentInformation(s)"><i class="fa fa-credit-card"></i></a>
+                        <a ng-if="s.status==3" href=""><i class="fa fa-check"></i></a>
                         <a href="" ng-click="downloadCalendar(s)"><i class="fa fa-calendar"></i></a>
                         <a href="" ng-click="seeCause(s)">
                           <i class="fa fa-question-circle"></i>

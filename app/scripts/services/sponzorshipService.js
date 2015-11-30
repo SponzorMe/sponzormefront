@@ -32,6 +32,14 @@
 					data: $.param(data)
 				});
 			},
+			sendSponzorshipEmailOrganizer: function(data){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'sponzorship_email_organizer',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+				});
+			},
 			createSponzorship: function(data){
 				return $http({
 					method: 'POST',

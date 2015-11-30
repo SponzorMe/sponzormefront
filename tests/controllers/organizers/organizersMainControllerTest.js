@@ -43,11 +43,11 @@ describe("Organizers Create Controller test", function(){
   });
   it("Should be vars uploaded", function(){
     var lang = 'en';
-    httpBackend.when('GET', 'http://api.sponzor.me/sponzorships_organizer/'+1).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/sponzorships_organizer/'+1).respond(200, {
       "SponzorsEvents": [{id:"1"},{id:"1"},{id:"1"},{id:"1"}]
       }
     );
-    httpBackend.when('GET', 'http://api.sponzor.me/users/'+1).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
       "data": {
         "user": {
           "id": "3",
@@ -61,7 +61,7 @@ describe("Organizers Create Controller test", function(){
     httpBackend.when('JSONP', '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=JSON_CALLBACK&q=' + 'http://blog' + lang + '.sponzor.me/feeds/posts/default').respond(200, {
       responseData: {feed:{entries:[{id:'1'}]}}, responseDetails: null, responseStatus: 200
     });
-    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+1).respond(200, {
       "data": {
         "event": {
           "id": "1",

@@ -101,6 +101,12 @@
             };
             taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {});
           });
+          var info = {
+            organizerId: $scope.currentOrganizer.id,
+            eventName: $scope.currentEvent.title,
+            lang: idiomaselect
+          };
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function(){});
           ngDialog.closeAll();
           $scope.message = 'sponzorshipCreatedSuccesfuly';
           ngDialog.open({
