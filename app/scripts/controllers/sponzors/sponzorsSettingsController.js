@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-    function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog) {
+    function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, loginRequest) {
 
       $rootScope.userValidation('1');
       ngDialog.open({
@@ -68,6 +68,42 @@
               showClose: false,
               scope: $scope
             });
+          });
+        }
+      };
+      $scope.resetPassword = function() {
+        ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+        if ($scope.password === $scope.passwordConfirmation) {
+          var formData = {
+            'email': $localStorage.email,
+            'password': $scope.password,
+            'password_confirmation': $scope.passwordConfirmation
+          };
+          loginRequest.changePassword(formData,$localStorage.token).success(function(data) {
+            ngDialog.closeAll();
+            $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
+            $scope.message = 'PasswordChangedSuccesfully';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function() {
+            ngDialog.closeAll();
+            $scope.message = 'InvalidNewPassword';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        } else {
+          ngDialog.closeAll();
+          $scope.message = 'PasswordNoMatch';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
           });
         }
       };

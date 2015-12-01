@@ -147,4 +147,45 @@ describe("Organizers Create Controller test", function(){
     httpBackend.flush();
     expect(scope.message).toBe('errorEditingAccountInfo');
   });
+  it("should be a changed password ok", function(){
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/change_password').respond(200, {
+      "message": "password changed",
+      "code": "200"
+    });
+    var controller = createController();
+    httpBackend.flush();
+    $localStorage.token = "testToken123";
+    scope.email='test@test.com'
+    scope.password = '123456';
+    scope.passwordConfirmation = '123456';
+    scope.resetPassword();
+    httpBackend.flush();
+    expect(scope.message).toBe('PasswordChangedSuccesfully');
+  });
+  it("should be a changed password fail", function(){
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/change_password').respond(400, {
+      "message": "password changed",
+      "code": "200"
+    });
+    var controller = createController();
+    httpBackend.flush();
+    $localStorage.token = "testToken123";
+    scope.email='test@test.com'
+    scope.password = '123456';
+    scope.passwordConfirmation = '123456';
+    scope.resetPassword();
+    httpBackend.flush();
+    expect(scope.message).toBe('InvalidNewPassword');
+  });
+  it("should be a changed password not match", function(){
+    var controller = createController();
+    httpBackend.flush();
+    $localStorage.token = "testToken123";
+    scope.email='test@test.com'
+    scope.password = '123456';
+    scope.passwordConfirmation = '12345';
+    scope.resetPassword();
+    httpBackend.flush();
+    expect(scope.message).toBe('PasswordNoMatch');
+  });
 });

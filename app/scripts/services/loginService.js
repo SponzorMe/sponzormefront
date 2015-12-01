@@ -66,6 +66,14 @@
           },
           data: $.param(data)
         });
+      },
+      changePassword: function(data, token) {
+        return $http({
+          method: 'POST',
+          url: apiPath + 'change_password',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+        });
       }
     };
   }

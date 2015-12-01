@@ -100,7 +100,7 @@ var event_es = {
 
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://api.sponzor.me/'; //API path
+var apiPath = 'http://apistaging.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
@@ -131,8 +131,17 @@ var expirationTime = 1;
       'naif.base64',
       'imgurService',
       'angularUtils.directives.dirPagination',
-      'ui.bootstrap.datetimepicker'
-    ]).config(['$translateProvider', function($translateProvider) {
+      'ui.bootstrap.datetimepicker',
+      'firebase'
+    ])
+    .constant('URL', 'http://apistaging.sponzor.me/')
+    .constant('XOOMRATE', parseFloat(4.99))
+    .constant('FEE', parseFloat(0.1))
+    .constant('PAYPALCOMPLETERETURNURL', 'http://localhost:9000/#/sponzors/sponzoring')
+    .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
+    .constant('PAYPALEMAIL', 'seagomezar-facilitator@unal.edu.co')
+    .constant('FURL', 'https://sponzorme.firebaseio.com/')
+    .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',
         suffix: '.json'
@@ -262,6 +271,10 @@ var expirationTime = 1;
         .when('/organizers/edit/event/:id', {
           templateUrl: 'views/organizers/dashboard/edit_event.html',
           controller: 'OrganizersEventEditController'
+        })
+        .when('/sponzors/payment_complete/:sponzorship_id/:sponzor_id', {
+          templateUrl: 'views/sponzors/dashboard/sponzorships.html',
+          controller: 'SponzorsSponzorshipsController'
         })
         .otherwise({
           redirectTo: '/login'
@@ -823,6 +836,14 @@ var expirationTime = 1;
           },
           data: $.param(data)
         });
+      },
+      changePassword: function(data, token) {
+        return $http({
+          method: 'POST',
+          url: apiPath + 'change_password',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+        });
       }
     };
   }
@@ -982,6 +1003,14 @@ var expirationTime = 1;
 				return $http({
 					method: 'POST',
 					url: apiPath + 'sponzorship_email',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
+					data: $.param(data)
+				});
+			},
+			sendSponzorshipEmailOrganizer: function(data){
+				return $http({
+					method: 'POST',
+					url: apiPath + 'sponzorship_email_organizer',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $.param(data)
 				});
@@ -1449,8 +1478,13 @@ var expirationTime = 1;
               showClose: false,
               scope: $scope
             });
-
           }
+          var info = {
+            organizerId: $scope.currentOrganizer.id,
+            eventName: $scope.evento.event.title,
+            lang: idiomaselect
+          };
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function(){});
         }).error(function() {
           $scope.message = 'eventPageErrorSponzoringEvent';
           ngDialog.closeAll();
@@ -2056,7 +2090,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope) {
+  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray, FURL) {
     $rootScope.userValidation('1');
 
     $scope.searchLoading = true;
@@ -2156,6 +2190,20 @@ angular.module('sponzorme')
             };
             taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {});
           });
+          var info = {
+            organizerId: $scope.currentOrganizer.id,
+            eventName: $scope.currentEvent.title,
+            lang: idiomaselect
+          };
+          var notificationsRef = new Firebase(FURL+"notifications");
+          var notifications = $firebaseArray(notificationsRef);
+          var notification = {
+            to: $scope.currentOrganizer.id,
+            text: "Hurray!!! Someone wants to sponsor your event "+$scope.currentEvent.title+" =)",
+            link:"#/organizers/sponzorships"
+          };
+          notifications.$add(notification);
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function(){});
           ngDialog.closeAll();
           $scope.message = 'sponzorshipCreatedSuccesfuly';
           ngDialog.open({
@@ -2199,7 +2247,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-    function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog) {
+    function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, loginRequest) {
 
       $rootScope.userValidation('1');
       ngDialog.open({
@@ -2269,6 +2317,42 @@ angular.module('sponzorme')
           });
         }
       };
+      $scope.resetPassword = function() {
+        ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+        if ($scope.password === $scope.passwordConfirmation) {
+          var formData = {
+            'email': $localStorage.email,
+            'password': $scope.password,
+            'password_confirmation': $scope.passwordConfirmation
+          };
+          loginRequest.changePassword(formData,$localStorage.token).success(function(data) {
+            ngDialog.closeAll();
+            $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
+            $scope.message = 'PasswordChangedSuccesfully';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function() {
+            ngDialog.closeAll();
+            $scope.message = 'InvalidNewPassword';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        } else {
+          ngDialog.closeAll();
+          $scope.message = 'PasswordNoMatch';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        }
+      };
 
       $scope.tolsctive = 'active';
       $scope.toggleSidebar = function() {
@@ -2289,7 +2373,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, FEE, XOOMRATE, PAYPALCOMPLETERETURNURL, PAYPALIPNRETURNURL, PAYPALEMAIL) {
     $rootScope.userValidation('1');
     $scope.noSponzorshipsMessage = false;
     $scope.noSponzorshipsTaskMessage = false;
@@ -2299,6 +2383,20 @@ angular.module('sponzorme')
     $scope.userfroups = 0;
     $scope.tolsctive = 'active';
     $translate.use(idiomaselect);
+    $scope.paymentInformation =  function(sponzorship){
+      $scope.PAYPALCOMPLETERETURNURL = PAYPALCOMPLETERETURNURL;
+      $scope.PAYPALIPNRETURNURL = PAYPALIPNRETURNURL;
+      $scope.PAYPALEMAIL = PAYPALEMAIL;
+      $scope.sponzorship = sponzorship;
+      $scope.paymentValue = sponzorship.usd;
+      $scope.fee = parseFloat((sponzorship.usd*FEE)+XOOMRATE);
+      $scope.paymentTotal = parseFloat(sponzorship.usd)+parseFloat($scope.fee);
+      ngDialog.open({
+        scope: $scope,
+        template: 'views/templates/prePaymentInfo.html',
+        showClose: true
+      });
+    }
     $scope.downloadCalendar = function(sponzorship){
       var cal = ics();
       cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
@@ -2317,7 +2415,7 @@ angular.module('sponzorme')
           $scope.sponzorships = [];
           var flag = false; //used to verify if there is tasks
           angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status === '1') {
+            if (value.status >= '1') {
               $scope.sponzorships.push(value);
               flag = true;
             }
@@ -3014,17 +3112,15 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog) {
-
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest) {
     $rootScope.userValidation('0');
     ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     userRequest.oneUser($localStorage.id).success(function(adata) {
       $scope.account = adata.data.user;
+      $scope.userInterests=adata.data.user.interests;
       ngDialog.closeAll();
     });
-
     $scope.account = [];
-
     $scope.file = false; //By default no file to update.
     $scope.editAccount = function() {
       ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
@@ -3078,6 +3174,42 @@ angular.module('sponzorme')
         });
       }
     };
+    $scope.resetPassword = function() {
+      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+      if ($scope.password === $scope.passwordConfirmation) {
+        var formData = {
+          'email': $localStorage.email,
+          'password': $scope.password,
+          'password_confirmation': $scope.passwordConfirmation
+        };
+        loginRequest.changePassword(formData,$localStorage.token).success(function(data) {
+          ngDialog.closeAll();
+          $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
+          $scope.message = 'PasswordChangedSuccesfully';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        }).error(function() {
+          ngDialog.closeAll();
+          $scope.message = 'InvalidNewPassword';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      } else {
+        ngDialog.closeAll();
+        $scope.message = 'PasswordNoMatch';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      }
+    };
 
     $scope.tolsctive = 'active';
     $scope.toggleSidebar = function() {
@@ -3098,7 +3230,7 @@ angular.module('sponzorme')
 'use strict';
 (function(){
 
-function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, FURL) {
   $rootScope.userValidation('0');
   $scope.noSponzorshipsMessage = false;
   $scope.loadingsponzorships = true;
@@ -3153,6 +3285,14 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
           organizerEmail: $localStorage.email,
           lang: idiomaselect
         };
+        var notificationsRef = new Firebase(FURL+"notifications");
+        var notifications = $firebaseArray(notificationsRef);
+        var notification = {
+          to: $scope.sponzorships[i].sponzor_id,
+          text: "Your sponzorship by the event "+$scope.sponzorships[i].title+" has been approved.",
+          link:"#/sponzors/sponzorships"
+        };
+        notifications.$add(notification);
         sponzorshipRequest.sendSponzorshipEmail(info).success(function(){});
         $scope.getSponzorshipsByOrganizer();
       }).error(function(eData) {
@@ -3557,4 +3697,30 @@ angular.module('sponzorme')
   angular.module('sponzorme')
     .controller('OrganizersEventCreateController', OrganizersEventCreateController);
 
+})();
+
+'use strict';
+(function() {
+
+  function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, FURL) {
+    console.log($localStorage);
+    $scope.help = 0;
+    var notificationsRef = new Firebase(FURL+"notifications");
+    var query = notificationsRef.orderByChild("to").equalTo($localStorage.id).limitToLast(25);
+    $scope.notifications = $firebaseArray(query);
+    $scope.notifications.$loaded().then(function() {
+      $scope.help = $scope.notifications.length;
+    });
+    notificationsRef.orderByChild("to").equalTo($localStorage.id).on("child_added", function() {
+        $scope.help++;
+    });
+    notificationsRef.orderByChild("to").equalTo($localStorage.id).on("child_removed", function() {
+        $scope.help--;
+    });
+    //$firebaseArray, FURL
+    //var notificationsRef = new Firebase(FURL+"notifications");
+    //var notifications = $firebaseArray(notificationsRef);
+};
+angular.module('sponzorme')
+    .controller('NotificationController', NotificationController);
 })();

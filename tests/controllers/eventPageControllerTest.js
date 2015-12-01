@@ -34,6 +34,16 @@ describe("EventPageController Tests", function(){
     httpBackend.when('GET', 'views/templates/unactivatedAccountDialog.html').respond(200, {
       "message": "UNACTIVATED"
     });
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/sponzorship_email_organizer').respond(200, {
+      "message": "Updated",
+      "warnings": [],
+      "sponzorship": {
+        "id": "15",
+        "title": "Test",
+        "body": "test",
+        "lang": "123"
+      }
+    });
     var eventId = '1';
     httpBackend.when('GET', 'http://apistaging.sponzor.me/events/'+eventId).respond(200, {
       "data": {

@@ -1,17 +1,15 @@
 'use strict';
 (function() {
 
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog) {
-
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest) {
     $rootScope.userValidation('0');
     ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
     userRequest.oneUser($localStorage.id).success(function(adata) {
       $scope.account = adata.data.user;
+      $scope.userInterests=adata.data.user.interests;
       ngDialog.closeAll();
     });
-
     $scope.account = [];
-
     $scope.file = false; //By default no file to update.
     $scope.editAccount = function() {
       ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
@@ -62,6 +60,42 @@
             showClose: false,
             scope: $scope
           });
+        });
+      }
+    };
+    $scope.resetPassword = function() {
+      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+      if ($scope.password === $scope.passwordConfirmation) {
+        var formData = {
+          'email': $localStorage.email,
+          'password': $scope.password,
+          'password_confirmation': $scope.passwordConfirmation
+        };
+        loginRequest.changePassword(formData,$localStorage.token).success(function(data) {
+          ngDialog.closeAll();
+          $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
+          $scope.message = 'PasswordChangedSuccesfully';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        }).error(function() {
+          ngDialog.closeAll();
+          $scope.message = 'InvalidNewPassword';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      } else {
+        ngDialog.closeAll();
+        $scope.message = 'PasswordNoMatch';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
         });
       }
     };

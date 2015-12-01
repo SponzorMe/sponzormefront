@@ -130,6 +130,45 @@ describe("Login Service Unit Tests", function() {
     });
   });
 
+  describe('Change Password Ok', function() {
+    var $httpBackend;
+    var email;
+    var password;
+    var token;
+
+    beforeEach(inject(function($injector) {
+      // Set up the mock http service responses
+      $httpBackend = $injector.get('$httpBackend');
+      $httpBackend.when('POST', 'http://apistaging.sponzor.me/change_password').respond(200, {
+        "message": "password changed",
+        "code": "200"
+      });
+    }));
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+    it('Reset password with email', function() {
+      var data = {
+        email:'Valid@valid.com',
+        password:'Valid@valid.com',
+        passwordConfirmation:'Valid@valid.com'
+      };
+      token = "testToken";
+      var returnData = {
+        "message": "password changed"
+      };
+      var returnedPromise = loginRequest.changePassword(data,token);
+      var result;
+      returnedPromise.then(function(response) {
+        result = response;
+      });
+      $httpBackend.flush();
+      expect(result.data.message).toEqual(returnData.message);
+    });
+  });
+
   describe('Reset password without email', function() {
     var $httpBackend;
     beforeEach(inject(function($injector) {

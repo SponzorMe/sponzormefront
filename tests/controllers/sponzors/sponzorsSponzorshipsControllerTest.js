@@ -62,6 +62,16 @@ describe("Sponzorships Controller test", function(){
         }
       }
     });
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/sponzorship_email_organizer').respond(200, {
+      "message": "Updated",
+      "warnings": [],
+      "sponzorship": {
+        "id": "15",
+        "title": "Test",
+        "body": "test",
+        "lang": "123"
+      }
+    });
 
     httpBackend.when('GET', 'http://apistaging.sponzor.me/perks/'+1).respond(200, {
       "data": {
