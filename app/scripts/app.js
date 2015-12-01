@@ -31,7 +31,8 @@ var expirationTime = 1;
       'naif.base64',
       'imgurService',
       'angularUtils.directives.dirPagination',
-      'ui.bootstrap.datetimepicker'
+      'ui.bootstrap.datetimepicker',
+      'firebase'
     ])
     .constant('URL', 'http://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
@@ -39,6 +40,7 @@ var expirationTime = 1;
     .constant('PAYPALCOMPLETERETURNURL', 'http://localhost:9000/#/sponzors/sponzoring')
     .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
     .constant('PAYPALEMAIL', 'seagomezar-facilitator@unal.edu.co')
+    .constant('FURL', 'https://sponzorme.firebaseio.com/')
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',

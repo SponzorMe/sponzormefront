@@ -19,18 +19,17 @@
         </li>
       </ul>
     </div>
-    <div class="item dropdown" dropdown="" is-open="status.isopens">
+    <div ng-controller="NotificationController" class="item dropdown" dropdown="" is-open="status.isopens">
       <a href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-        <section class="numalert ng-binding ng-hide" ng-show="viewitem">0</section>
+        <section class="numalert" ng-if="help">{{help}}</section>
         <i class="fa fa-bell-o"></i>
       </a>
-      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li class="dropdown-header">{{ 'notification' | translate }}</li>
-        <li class="divider"></li>
-        <section ng-show="!viewitem">Sin Notificaciones</section>
-        <ul class="notifications_list">
-          <!-- ngRepeat: alertnot in alertsnot -->
-        </ul>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu" >
+        <div ng-repeat="n in notifications">
+          <li class="" style="padding:0 0.5em 0 0.5em;">
+            <p style="text-align:justify">{{n.text}} <a style="display: inline-block !important; color:red !important;" href="" ng-click="notifications.$remove(n)">x</a> </p></li>
+          <li class="divider"></li>
+        </div>
       </ul>
     </div>
   </div>

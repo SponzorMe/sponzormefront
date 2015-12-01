@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
+function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, FURL) {
   $rootScope.userValidation('0');
   $scope.noSponzorshipsMessage = false;
   $scope.loadingsponzorships = true;
@@ -56,6 +56,14 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
           organizerEmail: $localStorage.email,
           lang: idiomaselect
         };
+        var notificationsRef = new Firebase(FURL+"notifications");
+        var notifications = $firebaseArray(notificationsRef);
+        var notification = {
+          to: $scope.sponzorships[i].sponzor_id,
+          text: "Your sponzorship by the event "+$scope.sponzorships[i].title+" has been approved.",
+          link:"#/sponzors/sponzorships"
+        };
+        notifications.$add(notification);
         sponzorshipRequest.sendSponzorshipEmail(info).success(function(){});
         $scope.getSponzorshipsByOrganizer();
       }).error(function(eData) {
