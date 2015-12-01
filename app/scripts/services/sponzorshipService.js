@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function sponzorshipRequest($http, $localStorage) {
+	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allSponzorships: function(){
@@ -29,7 +29,7 @@
 					method: 'POST',
 					url: apiPath + 'sponzorship_email',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			sendSponzorshipEmailOrganizer: function(data){
@@ -37,7 +37,7 @@
 					method: 'POST',
 					url: apiPath + 'sponzorship_email_organizer',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createSponzorship: function(data){
@@ -45,7 +45,7 @@
 					method: 'POST',
 					url: apiPath + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createSponzorshipToken: function(data, userToken){
@@ -53,7 +53,7 @@
 					method: 'POST',
 					url: apiPath + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteSponzorship: function(sponzorshipId){
@@ -68,7 +68,7 @@
 					method: 'PATCH',
 					url: apiPath + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editSponzorshipPut: function(sponzorshipId, data){
@@ -76,7 +76,7 @@
 					method: 'PUT',
 					url: apiPath + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

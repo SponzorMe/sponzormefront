@@ -532,7 +532,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function categoryRequest($http, $localStorage) {
+	function categoryRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			/**
@@ -557,7 +557,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteCategory: function(categoryId){
@@ -572,7 +572,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editCategoryPut: function(categoryId, data){
@@ -580,7 +580,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -598,7 +598,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function eventRequest($http, $localStorage) {
+	function eventRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allEvents: function(){
@@ -614,7 +614,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createEventToken: function(data, newUserToken){
@@ -622,7 +622,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteEvent: function(EventId){
@@ -637,7 +637,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editEventPut: function(EventId, data){
@@ -645,7 +645,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -663,7 +663,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function eventTypeService($http, $localStorage) {
+	function eventTypeService($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allEventTypes: function(){
@@ -679,7 +679,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'event_types',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteEventType: function(eventTypeId){
@@ -694,7 +694,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editEventTypePut: function(eventTypeId, data){
@@ -702,7 +702,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -720,7 +720,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function allInterestsServiceRequest($http, $localStorage) {
+	function allInterestsServiceRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allInterestsCategoriesId: function(){
@@ -736,7 +736,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'interests_category',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteInterestsCategory: function(interestsCategoryId){
@@ -751,7 +751,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editInterestsCategoryPut: function(interestsCategoryId, data){
@@ -759,7 +759,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -776,7 +776,7 @@ var expirationTime = 1;
    * @email  seagomezar@gmail.com
    * @date   2015-11-16
    */
-  function loginRequest($http) {
+  function loginRequest($http, $httpParamSerializerJQLike) {
     return {
       /**
        * Login function return the user info if the credentials match
@@ -795,7 +795,7 @@ var expirationTime = 1;
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       resetPassword: function(email) {
@@ -808,7 +808,7 @@ var expirationTime = 1;
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       tryActivation: function(token) {
@@ -824,7 +824,7 @@ var expirationTime = 1;
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       updatePassword: function(token, data) {
@@ -834,7 +834,7 @@ var expirationTime = 1;
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       changePassword: function(data, token) {
@@ -842,7 +842,7 @@ var expirationTime = 1;
           method: 'POST',
           url: apiPath + 'change_password',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
         });
       }
     };
@@ -860,7 +860,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function perkRequest($http, $localStorage) {
+	function perkRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allPerks: function(){
@@ -876,7 +876,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createPerkToken: function(data, newUserToken){
@@ -884,7 +884,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deletePerk: function(perkId){
@@ -899,7 +899,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editPerkPut: function(perkId, data){
@@ -907,7 +907,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -925,7 +925,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function perkTaskRequest($http, $localStorage) {
+	function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allPerkTasks: function(){
@@ -941,7 +941,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'perk_tasks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deletePerkTask: function(perkTaskId){
@@ -956,7 +956,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editPerkTaskPut: function(perkTaskId, data){
@@ -964,7 +964,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -982,7 +982,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function sponzorshipRequest($http, $localStorage) {
+	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allSponzorships: function(){
@@ -1004,7 +1004,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'sponzorship_email',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			sendSponzorshipEmailOrganizer: function(data){
@@ -1012,7 +1012,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'sponzorship_email_organizer',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createSponzorship: function(data){
@@ -1020,7 +1020,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createSponzorshipToken: function(data, userToken){
@@ -1028,7 +1028,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteSponzorship: function(sponzorshipId){
@@ -1043,7 +1043,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editSponzorshipPut: function(sponzorshipId, data){
@@ -1051,7 +1051,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -1069,7 +1069,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function taskSponzorRequest($http, $localStorage) {
+	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allTaskSponzor: function(){
@@ -1088,7 +1088,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createTaskSponzorToken: function(data, userToken){
@@ -1096,7 +1096,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteTaskSponzor: function(taskSponzorId){
@@ -1111,7 +1111,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editTaskSponzorPut: function(taskSponzorId, data){
@@ -1119,7 +1119,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -1137,7 +1137,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $localStorage) {
+	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
@@ -1151,7 +1151,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'user_categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteUserCategory: function(userCategoryId){
@@ -1166,7 +1166,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editUserCategoryPut: function(userCategoryId, data){
@@ -1174,7 +1174,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -1192,7 +1192,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userInterestRequest($http, $localStorage) {
+	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allUserInterests: function(){
@@ -1206,7 +1206,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'user_interests',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteUserInterest: function(userInterestId){
@@ -1221,7 +1221,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editUserInterestPut: function(userInterestId, data){
@@ -1229,7 +1229,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
@@ -1247,7 +1247,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userRequest($http, $localStorage) {
+	function userRequest($http, $localStorage, $httpParamSerializerJQLike) {
 
 		return {
 			allUsers: function(){
@@ -1265,7 +1265,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'users',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteUser: function(userId){
@@ -1282,7 +1282,7 @@ var expirationTime = 1;
 					method: 'PATCH',
 					url: apiPath + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editUserPut: function(userId, data){
@@ -1291,7 +1291,7 @@ var expirationTime = 1;
 					method: 'PUT',
 					url: apiPath + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			invitedUser: function(data){
@@ -1300,7 +1300,7 @@ var expirationTime = 1;
 					method: 'POST',
 					url: apiPath + 'invite_friend/',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

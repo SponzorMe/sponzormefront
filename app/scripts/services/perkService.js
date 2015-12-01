@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function perkRequest($http, $localStorage) {
+	function perkRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allPerks: function(){
@@ -23,7 +23,7 @@
 					method: 'POST',
 					url: apiPath + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createPerkToken: function(data, newUserToken){
@@ -31,7 +31,7 @@
 					method: 'POST',
 					url: apiPath + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deletePerk: function(perkId){
@@ -46,7 +46,7 @@
 					method: 'PATCH',
 					url: apiPath + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editPerkPut: function(perkId, data){
@@ -54,7 +54,7 @@
 					method: 'PUT',
 					url: apiPath + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

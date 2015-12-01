@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function perkTaskRequest($http, $localStorage) {
+	function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allPerkTasks: function(){
@@ -23,7 +23,7 @@
 					method: 'POST',
 					url: apiPath + 'perk_tasks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deletePerkTask: function(perkTaskId){
@@ -38,7 +38,7 @@
 					method: 'PATCH',
 					url: apiPath + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editPerkTaskPut: function(perkTaskId, data){
@@ -46,7 +46,7 @@
 					method: 'PUT',
 					url: apiPath + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $localStorage) {
+	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
@@ -21,7 +21,7 @@
 					method: 'POST',
 					url: apiPath + 'user_categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteUserCategory: function(userCategoryId){
@@ -36,7 +36,7 @@
 					method: 'PATCH',
 					url: apiPath + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editUserCategoryPut: function(userCategoryId, data){
@@ -44,7 +44,7 @@
 					method: 'PUT',
 					url: apiPath + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

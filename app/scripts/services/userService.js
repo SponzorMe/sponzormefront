@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function userRequest($http, $localStorage) {
+	function userRequest($http, $localStorage, $httpParamSerializerJQLike) {
 
 		return {
 			allUsers: function(){
@@ -25,7 +25,7 @@
 					method: 'POST',
 					url: apiPath + 'users',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteUser: function(userId){
@@ -42,7 +42,7 @@
 					method: 'PATCH',
 					url: apiPath + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editUserPut: function(userId, data){
@@ -51,7 +51,7 @@
 					method: 'PUT',
 					url: apiPath + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			invitedUser: function(data){
@@ -60,7 +60,7 @@
 					method: 'POST',
 					url: apiPath + 'invite_friend/',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

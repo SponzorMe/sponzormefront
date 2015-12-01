@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function allInterestsServiceRequest($http, $localStorage) {
+	function allInterestsServiceRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allInterestsCategoriesId: function(){
@@ -23,7 +23,7 @@
 					method: 'POST',
 					url: apiPath + 'interests_category',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteInterestsCategory: function(interestsCategoryId){
@@ -38,7 +38,7 @@
 					method: 'PATCH',
 					url: apiPath + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editInterestsCategoryPut: function(interestsCategoryId, data){
@@ -46,7 +46,7 @@
 					method: 'PUT',
 					url: apiPath + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

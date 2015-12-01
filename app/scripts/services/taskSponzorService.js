@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function taskSponzorRequest($http, $localStorage) {
+	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allTaskSponzor: function(){
@@ -26,7 +26,7 @@
 					method: 'POST',
 					url: apiPath + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createTaskSponzorToken: function(data, userToken){
@@ -34,7 +34,7 @@
 					method: 'POST',
 					url: apiPath + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteTaskSponzor: function(taskSponzorId){
@@ -49,7 +49,7 @@
 					method: 'PATCH',
 					url: apiPath + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editTaskSponzorPut: function(taskSponzorId, data){
@@ -57,7 +57,7 @@
 					method: 'PUT',
 					url: apiPath + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

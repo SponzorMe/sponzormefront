@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function eventRequest($http, $localStorage) {
+	function eventRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allEvents: function(){
@@ -23,7 +23,7 @@
 					method: 'POST',
 					url: apiPath + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			createEventToken: function(data, newUserToken){
@@ -31,7 +31,7 @@
 					method: 'POST',
 					url: apiPath + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteEvent: function(EventId){
@@ -46,7 +46,7 @@
 					method: 'PATCH',
 					url: apiPath + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editEventPut: function(EventId, data){
@@ -54,7 +54,7 @@
 					method: 'PUT',
 					url: apiPath + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

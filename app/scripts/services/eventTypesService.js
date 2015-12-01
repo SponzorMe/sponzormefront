@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function eventTypeService($http, $localStorage) {
+	function eventTypeService($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allEventTypes: function(){
@@ -23,7 +23,7 @@
 					method: 'POST',
 					url: apiPath + 'event_types',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteEventType: function(eventTypeId){
@@ -38,7 +38,7 @@
 					method: 'PATCH',
 					url: apiPath + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editEventTypePut: function(eventTypeId, data){
@@ -46,7 +46,7 @@
 					method: 'PUT',
 					url: apiPath + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

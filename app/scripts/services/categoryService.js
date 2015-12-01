@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function categoryRequest($http, $localStorage) {
+	function categoryRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			/**
@@ -32,7 +32,7 @@
 					method: 'POST',
 					url: apiPath + 'categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteCategory: function(categoryId){
@@ -47,7 +47,7 @@
 					method: 'PATCH',
 					url: apiPath + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editCategoryPut: function(categoryId, data){
@@ -55,7 +55,7 @@
 					method: 'PUT',
 					url: apiPath + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

@@ -7,7 +7,7 @@
 'use strict';
 (function(){
 
-	function userInterestRequest($http, $localStorage) {
+	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike) {
 		var token = $localStorage.token;
 		return {
 			allUserInterests: function(){
@@ -21,7 +21,7 @@
 					method: 'POST',
 					url: apiPath + 'user_interests',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			deleteUserInterest: function(userInterestId){
@@ -36,7 +36,7 @@
 					method: 'PATCH',
 					url: apiPath + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			},
 			editUserInterestPut: function(userInterestId, data){
@@ -44,7 +44,7 @@
 					method: 'PUT',
 					url: apiPath + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};

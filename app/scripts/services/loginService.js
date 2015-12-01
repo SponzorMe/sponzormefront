@@ -6,7 +6,7 @@
    * @email  seagomezar@gmail.com
    * @date   2015-11-16
    */
-  function loginRequest($http) {
+  function loginRequest($http, $httpParamSerializerJQLike) {
     return {
       /**
        * Login function return the user info if the credentials match
@@ -25,7 +25,7 @@
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       resetPassword: function(email) {
@@ -38,7 +38,7 @@
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       tryActivation: function(token) {
@@ -54,7 +54,7 @@
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       updatePassword: function(token, data) {
@@ -64,7 +64,7 @@
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $.param(data)
+          data: $httpParamSerializerJQLike(data)
         });
       },
       changePassword: function(data, token) {
@@ -72,7 +72,7 @@
           method: 'POST',
           url: apiPath + 'change_password',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $.param(data)
+					data: $httpParamSerializerJQLike(data)
         });
       }
     };
