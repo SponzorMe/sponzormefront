@@ -670,5 +670,8 @@
   "currentPassword": "Current Password",
   "changePassword": "Change Password",
   "InvalidNewPassword": "Invalid New Password",
-  "updateAccountButton": "Update Account!"
+  "updateAccountButton": "Update Account!",
+  "add_interest":"Add Interest",
+  "invalidInterestSelection": "Invalid interest please select one of the list",
+  "YourPreferedInterests":"Your Current Preferences"
 }

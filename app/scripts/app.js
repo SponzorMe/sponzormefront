@@ -39,7 +39,7 @@ var expirationTime = 1;
     .constant('FEE', parseFloat(0.1))
     .constant('PAYPALCOMPLETERETURNURL', 'http://localhost:9000/#/sponzors/sponzoring')
     .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
-    .constant('PAYPALEMAIL', 'seagomezar-facilitator@unal.edu.co')
+    .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
     .constant('FURL', 'https://sponzorme.firebaseio.com/')
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({

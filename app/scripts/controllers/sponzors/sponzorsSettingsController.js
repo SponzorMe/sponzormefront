@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-    function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, loginRequest) {
+    function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
 
       $rootScope.userValidation('1');
       ngDialog.open({
@@ -10,9 +10,48 @@
       });
       userRequest.oneUser($localStorage.id).success(function(adata) {
         $scope.account = adata.data.user;
+        $scope.userInterests=adata.data.interests;
         ngDialog.closeAll();
       });
+      allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
+        $scope.interests = sData.InterestCategory;
+      });
+      $scope.removeUserInterest = function(index, id){
+        $scope.userInterests.splice(index, 1);
+        userInterestRequest.deleteUserInterest(id).success(function(){});
+      };
+      $scope.addUserInterests = function(interest){
+        if(interest.name){
+          var flag = false;
+          for(var i = 0; i<$scope.userInterests.length;i++){
+            if($scope.userInterests[i].id_interest == interest.id_interest){
+              flag = true;
+              $scope.selected = '';
+              break;
+            }
+          }
+          if(!flag){
+            var data = {
+              user_id: $localStorage.id,
+              interest_id: interest.id_interest
+            };
+            userInterestRequest.createUserInterest(data).success(function(data){
+                $scope.userInterests.push({'name':interest.name,'id':data.UserInterest.id, 'id_interest':interest.id_interest});
+                $scope.selected = '';
+            });
+          }
+        }
+        else{
+          $scope.message = 'invalidInterestSelection';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $scope.selected = '';
+        }
 
+      };
       $scope.account = [];
 
       $scope.file = false; //By default no file to update.

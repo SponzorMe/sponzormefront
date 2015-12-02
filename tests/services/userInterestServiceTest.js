@@ -110,7 +110,7 @@ describe("User Category Service Unit Tests", function() {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
     });
-    it('Create Category.', function() {
+    it('Create User Interest.', function() {
       var returnData = {
         "message": "Inserted",
         "category": {
@@ -144,7 +144,7 @@ describe("User Category Service Unit Tests", function() {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
     });
-    it('Delete Category.', function() {
+    it('Delete User Interest.', function() {
       var returnData = {"message": "Deleted"};
       var returnedPromise = userInterestRequest.deleteUserInterest(userInterestId);
       var result;

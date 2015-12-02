@@ -45,12 +45,29 @@ describe("Organizers Create Controller test", function(){
           "lang": "en",
           "email":'test@test.com',
           "events": [{id:"1"},{id:"1"},{id:"1"},{id:"1"}]
-        }
+        },
+        "interests":
+          [
+            {name:"test1"},{name:"test2"}
+          ]
       }
     });
     httpBackend.when('POST', 'https://api.imgur.com/3/image').respond(200, {
       data:{
         link:'http://myImage.com/hi.png'
+      }
+    });
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/interests_category').respond(200, {
+      "success": true
+    });
+    httpBackend.when('DELETE', 'http://apistaging.sponzor.me/user_interests/1').respond(200, {
+      "message": "Deleted"
+    });
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/user_interests').respond(200, {
+      "message": "Inserted",
+      "UserInterest": {
+        "name": "Test",
+        "id": 15
       }
     });
   }));
@@ -188,4 +205,33 @@ describe("Organizers Create Controller test", function(){
     httpBackend.flush();
     expect(scope.message).toBe('PasswordNoMatch');
   });
+  it("Should be user interests loaded", function(){
+    $localStorage.id = 1;
+    var controller = createController();
+    httpBackend.flush();
+    expect(scope.userInterests[0].name).toBe('test1');
+  });
+  it("Should be user interests inserted", function(){
+    $localStorage.id = 1;
+    var interest = {'name':'test3','id':'1', 'id_interest':'1'};
+    var controller = createController();
+    httpBackend.flush();
+    expect(scope.userInterests[0].name).toBe('test1');
+    scope.addUserInterests(interest);
+    httpBackend.flush();
+    expect(scope.userInterests[2].name).toBe('test3');
+  });
+ it("Should be user interest remove", function(){
+   $localStorage.id = 1;
+   var interest = {'name':'test3','id':'1', 'id_interest':'1'};
+   var controller = createController();
+   httpBackend.flush();
+   expect(scope.userInterests[0].name).toBe('test1');
+   scope.addUserInterests(interest);
+   httpBackend.flush();
+   expect(scope.userInterests[2].name).toBe('test3');
+   scope.removeUserInterest(1,1);
+   httpBackend.flush();
+   expect(scope.userInterests[1].name).toBe('test3');
+ });
 });
