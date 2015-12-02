@@ -144,6 +144,19 @@
               </div>
             </div>
           </form>
+          <hr/>
+          <div class="widget-body">
+            {{'YourPreferedInterests' | translate}}:
+            <div ng-repeat="i in userInterests" class="interest_tag">
+              <span>{{i.name}}</span>
+              <a href="" ng-click="removeUserInterest($index, i.id)">X</a>
+            </div>
+            <br/><br/>
+            Add an interest: <input type="text" ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
+            <button class="btn btn-success" ng-click="addUserInterests(selected)">
+              {{'add_interest' | translate}}
+            </button>
+          </div>
           </div>
         </div>
       </div>
