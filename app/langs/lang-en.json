@@ -671,5 +671,6 @@
   "changePassword": "Change Password",
   "InvalidNewPassword": "Invalid New Password",
   "updateAccountButton": "Update Account!",
-  "add_interest":"Add Interest"
+  "add_interest":"Add Interest",
+  "invalidInterestSelection": "Invalid interest please select one of the list"
 }

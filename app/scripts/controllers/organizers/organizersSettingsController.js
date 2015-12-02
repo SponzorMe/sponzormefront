@@ -17,24 +17,36 @@
       userInterestRequest.deleteUserInterest(id).success(function(){});
     }
     $scope.addUserInterests = function(interest){
-      var flag = false;
-      for(var i = 0; i<$scope.userInterests.length;i++){
-        if($scope.userInterests[i].id_interest == interest.id_interest){
-          flag = true;
-          $scope.selected = '';
-          break;
+      if(interest.name){
+        var flag = false;
+        for(var i = 0; i<$scope.userInterests.length;i++){
+          if($scope.userInterests[i].id_interest == interest.id_interest){
+            flag = true;
+            $scope.selected = '';
+            break;
+          }
+        }
+        if(!flag){
+          var data = {
+            user_id: $localStorage.id,
+            interest_id: interest.id_interest
+          };
+          userInterestRequest.createUserInterest(data).success(function(data){
+              $scope.userInterests.push({'name':interest.name,'id':data.UserInterest.id, 'id_interest':interest.id_interest});
+              $scope.selected = '';
+          });
         }
       }
-      if(!flag){
-        var data = {
-          user_id: $localStorage.id,
-          interest_id: interest.id_interest
-        };
-        userInterestRequest.createUserInterest(data).success(function(data){
-            $scope.userInterests.push({'name':interest.name,'id':data.UserInterest.id, 'id_interest':interest.id_interest});
-            $scope.selected = '';
+      else{
+        $scope.message = 'invalidInterestSelection';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
         });
+        $scope.selected = '';
       }
+
     }
     $scope.account = [];
     $scope.file = false; //By default no file to update.

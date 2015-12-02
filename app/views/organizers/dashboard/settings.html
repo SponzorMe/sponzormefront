@@ -153,7 +153,7 @@
             </div>
             <br/><br/>
             Add an interest: <input type="text" ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
-            <button class="btn btn-success" ng-click="selected.name && addUserInterests(selected)">
+            <button class="btn btn-success" ng-click="addUserInterests(selected)">
               {{'add_interest' | translate}}
             </button>
           </div>
