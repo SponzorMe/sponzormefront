@@ -673,5 +673,6 @@
   "updateAccountButton": "Update Account!",
   "add_interest":"Add Interest",
   "invalidInterestSelection": "Invalid interest please select one of the list",
-  "YourPreferedInterests":"Your Current Preferences"
+  "YourPreferedInterests":"Your Current Preferences",
+  "noNewNotifications": "You do not have new notifications !"
 }
