@@ -32,7 +32,8 @@ var expirationTime = 1;
       'imgurService',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
-      'firebase'
+      'firebase',
+      'textAngular'
     ])
     .constant('URL', 'http://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))

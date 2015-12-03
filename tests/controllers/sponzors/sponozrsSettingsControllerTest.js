@@ -234,4 +234,5 @@ describe("Organizers Create Controller test", function(){
    httpBackend.flush();
    expect(scope.userInterests[1].name).toBe('test3');
  });
+ 
 });

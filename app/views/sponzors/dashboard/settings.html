@@ -79,6 +79,18 @@
                   <input type="text" ng-model="account.comunity_size" name="comunity_size" class="form-control" />
                 </div>
               </div>
+              <div class="form-group">
+                <div class="col-sm-12 text-centered">
+                  <div style="height:120px; wigth:120px;">
+                    <img src="{{account.image}}" style="border-radius:50%; height:120px; wigth:120px;">
+                  </div>
+                  <div class="fileUpload btn btn-danger">
+                    <span><i class="fa fa-image"></i>{{'changeProfileImage'|translate}}</span>
+                    <input class="upload" type="file" ng-model="file" name="file" maxsize="500" accept="image/*" base-sixty-four-input>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
               <!--form field-->
               <div class="form-group" id="description">
                 <label for="label" class="col-sm-4 control-label">
@@ -88,24 +100,38 @@
                   <textarea rows="5" data-ng-model="account.description" name="description" class="form-control"></textarea>
                 </div>
               </div>
-
-              <div class="form-group">
-                <div class="col-sm-12 text-centered">
-                  <div style="height:120px; wigth:120px;">
-                    <img src="{{account.image}}" style="border-radius:50%; height:120px; wigth:120px;">
-                  </div>
-                  <div class="fileUpload btn btn-danger">
-                    <span><i class="fa fa-image"></i> Change Image</span>
-                    <input class="upload" type="file" ng-model="file" name="file" maxsize="500" accept="image/*" base-sixty-four-input>
-                  </div>
-                  <div class="clearfix"></div>
-                </div>
-              </div>
-              <hr/>
               <!--form field-->
               <div class="form-group">
                 <div class="col-sm-12 text-centered">
                   <button data-ng-click="editAccount()" class="btn btn-info">{{'updateAccountButton' | translate}}</button>
+                </div>
+              </div>
+            </form>
+            <hr/>
+            <br/>
+            <form class="form-horizontal padding-10 text-center" role="form">
+              <!--form field-->
+              <div class="form-group" id="password">
+                <label for="label" class="col-sm-4 control-label">
+                  {{'newPassword' | translate}}
+                </label>
+                <div class="col-sm-7">
+                  <input type="password" ng-model="password" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="password">
+                <label for="label" class="col-sm-4 control-label">
+                  {{'newPasswordConfirm' | translate}}
+                </label>
+                <div class="col-sm-7">
+                  <input type="password" ng-model="passwordConfirmation" class="form-control" />
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group">
+                <div class="col-sm-12 text-centered">
+                  <button data-ng-click="resetPassword()" class="btn btn-warning">{{'changePassword' | translate}}</button>
                 </div>
               </div>
             </form>
@@ -117,46 +143,78 @@
               <i class="fa fa-plus"></i>{{'accountPreferences' | translate }}
               <div class="clearfix"></div>
             </div>
-            <br/>
-            <form class="form-horizontal padding-10 text-center" role="form">
-            <!--form field-->
-            <div class="form-group" id="password">
-              <label for="label" class="col-sm-4 control-label">
-                {{'newPassword' | translate}}
-              </label>
-              <div class="col-sm-7">
-                <input type="password" ng-model="password" class="form-control" />
+            <div class="widget-body">
+              {{'YourPreferedInterests' | translate}}:
+              <div ng-repeat="i in userInterests" class="interest_tag">
+                <span>{{i.name}}</span>
+                <a href="" ng-click="removeUserInterest($index, i.id)">X</a>
               </div>
+              <br/>
+              <br/> Add an interest:
+              <input type="text" ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
+              <button class="btn btn-success" ng-click="addUserInterests(selected)">
+                {{'add_interest' | translate}}
+              </button>
             </div>
-            <!--form field-->
-            <div class="form-group" id="password">
-              <label for="label" class="col-sm-4 control-label">
-                {{'newPasswordConfirm' | translate}}
-              </label>
-              <div class="col-sm-7">
-                <input type="password" ng-model="passwordConfirmation" class="form-control" />
+            <hr/>
+            <form class="form-horizontal text-center" role="form">
+              <h3>{{'companyDetails'|translate}}</h3>
+              <!--form field-->
+              <div class="form-group padding-10" id="password">
+                <label for="label" class="col-sm-4 control-label">
+                  {{'companyPhone' | translate}}
+                </label>
+                <div class="col-sm-7">
+                  <input type="text" ng-model="account.phone" class="form-control" />
+                </div>
               </div>
-            </div>
-            <!--form field-->
-            <div class="form-group">
-              <div class="col-sm-12 text-centered">
-                <button data-ng-click="resetPassword()" class="btn btn-warning">{{'changePassword' | translate}}</button>
+              <!--form field-->
+              <div class="form-group padding-10" id="password">
+                <label for="label" class="col-sm-4 control-label">
+                  {{'companyWebsite' | translate}}
+                </label>
+                <div class="col-sm-7">
+                  <input type="text" ng-model="account.website" class="form-control" />
+                </div>
               </div>
-            </div>
-          </form>
-          <hr/>
-          <div class="widget-body">
-            {{'YourPreferedInterests' | translate}}:
-            <div ng-repeat="i in userInterests" class="interest_tag">
-              <span>{{i.name}}</span>
-              <a href="" ng-click="removeUserInterest($index, i.id)">X</a>
-            </div>
-            <br/><br/>
-            Add an interest: <input type="text" ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
-            <button class="btn btn-success" ng-click="addUserInterests(selected)">
-              {{'add_interest' | translate}}
-            </button>
-          </div>
+              <!--form field-->
+              <div class="form-group">
+                <div class="col-sm-12 text-centered">
+                  <div style="height:120px; wigth:120px;">
+                    <img src="{{account.logo}}" style="border-radius:50%; height:120px; wigth:120px;">
+                  </div>
+                  <div class="fileUpload btn btn-danger">
+                    <span><i class="fa fa-image"></i> Change Company Logo</span>
+                    <input class="upload" type="file" ng-model="logo" name="logo" maxsize="500" accept="image/*" base-sixty-four-input>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="description">
+                <label for="label" class="col-sm-12 text-centered">
+                  {{'companyPitch' | translate}}
+                </label>
+                <div class="col-sm-10 col-sm-offset-1">
+                  <textarea rows="5" data-ng-model="account.pitch" name="description" class="form-control"></textarea>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="description">
+                <label for="label" class="col-sm-12  text-centered">
+                  {{'companyNewsletter' | translate}}
+                </label>
+                <div class="col-sm-10 col-sm-offset-1">
+                  <div text-angular ng-model="account.newsletter"></div>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group">
+                <div class="col-sm-12 text-centered">
+                  <button data-ng-click="updateDetails()" class="btn btn-warning">{{'updateCompanyDetails' | translate}}</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

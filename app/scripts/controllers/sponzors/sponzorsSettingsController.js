@@ -110,6 +110,62 @@
           });
         }
       };
+      $scope.logo = false; //By default no file to update.
+
+      $scope.updateDetails = function() {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        if ($scope.logo) {
+          var params = {
+            image: $scope.logo.base64,
+            type: 'base64'
+          };
+          imgurRequest.uploadImage(params).success(function(data) {
+            $scope.account.logo = data.data.link;
+            userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+              $scope.account = adata.User;
+              $scope.logo = false;
+              ngDialog.closeAll();
+              $scope.message = 'accountInfoEditedSuccessfuly';
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            }).error(function(eData) {
+              ngDialog.closeAll();
+              $scope.message = 'errorEditingAccountInfo';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            });
+          });
+        } else {
+          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+            $scope.account = adata.User;
+            $scope.logo = false;
+            ngDialog.closeAll();
+            $scope.message = 'accountInfoEditedSuccessfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'errorEditingAccountInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        }
+      };
       $scope.resetPassword = function() {
         ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
         if ($scope.password === $scope.passwordConfirmation) {
