@@ -397,16 +397,5 @@ var expirationTime = 1;
           .replace(/\W+/g, '');
         return input;
       };
-    })
-    .filter('momentFormater', function() {
-      return function(input) {
-        if (!input) {
-          return '';
-        }
-        var input2 = input.trim().replace(' ', 'T');
-        var auxDate = Date.parse(input2);
-        input = moment(auxDate).format('MMM DD YYYY, HH:mmA');
-        return input;
-      };
     });
 })();

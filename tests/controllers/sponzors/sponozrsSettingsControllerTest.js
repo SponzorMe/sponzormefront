@@ -234,5 +234,85 @@ describe("Organizers Create Controller test", function(){
    httpBackend.flush();
    expect(scope.userInterests[1].name).toBe('test3');
  });
- 
+
+ it("Should be an company info edited", function(){
+   httpBackend.when('PATCH', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
+     "message": "Updated",
+     "warnings": [],
+     "user": {
+       "id": "15",
+       "title": "Test",
+       "body": "test",
+       "lang": "123"
+     }
+   });
+   $localStorage.id = 1;
+   var controller = createController();
+   httpBackend.flush();
+   scope.account = {"id": "15",
+     "title": "Test",
+     "body": "test",
+     "lang": "123",
+     "location":{
+       "formatted_address":'test'
+     }
+   };
+   scope.updateDetails();
+   httpBackend.flush();
+   expect(scope.message).toBe('accountInfoEditedSuccessfuly');
+ });
+ it("Should be an account edited with image", function(){
+   httpBackend.when('PATCH', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
+     "message": "Updated",
+     "warnings": [],
+     "user": {
+       "id": "15",
+       "title": "Test",
+       "body": "test",
+       "lang": "123"
+     }
+   });
+   $localStorage.id = 1;
+   var controller = createController();
+   httpBackend.flush();
+   scope.account = {"id": "15",
+     "title": "Test",
+     "body": "test",
+     "lang": "123",
+     "image": 'test.png',
+     "location":{
+       "formatted_address":'test'
+     }
+   };
+   scope.file = true;
+   scope.updateDetails();
+   httpBackend.flush();
+   expect(scope.message).toBe('accountInfoEditedSuccessfuly');
+ });
+ it("Should be an account no edited", function(){
+   httpBackend.when('PATCH', 'http://apistaging.sponzor.me/users/'+1).respond(400, {
+     "message": "Updated",
+     "warnings": [],
+     "user": {
+       "id": "15",
+       "title": "Test",
+       "body": "test",
+       "lang": "123"
+     }
+   });
+   $localStorage.id = 1;
+   var controller = createController();
+   httpBackend.flush();
+   scope.account = {"id": "15",
+     "title": "Test",
+     "body": "test",
+     "lang": "123",
+     "location":{
+       "formatted_address":'test'
+     }
+   };
+   scope.updateDetails();
+   httpBackend.flush();
+   expect(scope.message).toBe('errorEditingAccountInfo');
+ });
 });

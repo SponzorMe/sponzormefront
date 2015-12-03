@@ -57,7 +57,7 @@
                   {{ 'neweventends' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <datetimepicker date-disabled="isDisabledDate(date, mode)" date-options="dateOptions" min-date="dtini" ng-model="eventData.ends" show-meridian="false"></datetimepicker>
+                  <datetimepicker date-options="dateOptions" min-date="dtini" ng-model="eventData.ends" show-meridian="false"></datetimepicker>
                   <input data-ng-model="eventData.organizer" name="organizer" type="hidden"/>
                 </div>
               </div>

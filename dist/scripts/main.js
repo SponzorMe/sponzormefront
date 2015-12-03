@@ -132,7 +132,8 @@ var expirationTime = 1;
       'imgurService',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
-      'firebase'
+      'firebase',
+      'textAngular'
     ])
     .constant('URL', 'http://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
@@ -494,17 +495,6 @@ var expirationTime = 1;
         input = input
           .replace('&', 'AND')
           .replace(/\W+/g, '');
-        return input;
-      };
-    })
-    .filter('momentFormater', function() {
-      return function(input) {
-        if (!input) {
-          return '';
-        }
-        var input2 = input.trim().replace(' ', 'T');
-        var auxDate = Date.parse(input2);
-        input = moment(auxDate).format('MMM DD YYYY, HH:mmA');
         return input;
       };
     });
@@ -2356,6 +2346,62 @@ angular.module('sponzorme')
           });
         }
       };
+      $scope.logo = false; //By default no file to update.
+
+      $scope.updateDetails = function() {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        if ($scope.logo) {
+          var params = {
+            image: $scope.logo.base64,
+            type: 'base64'
+          };
+          imgurRequest.uploadImage(params).success(function(data) {
+            $scope.account.logo = data.data.link;
+            userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+              $scope.account = adata.User;
+              $scope.logo = false;
+              ngDialog.closeAll();
+              $scope.message = 'accountInfoEditedSuccessfuly';
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            }).error(function(eData) {
+              ngDialog.closeAll();
+              $scope.message = 'errorEditingAccountInfo';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            });
+          });
+        } else {
+          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+            $scope.account = adata.User;
+            $scope.logo = false;
+            ngDialog.closeAll();
+            $scope.message = 'accountInfoEditedSuccessfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'errorEditingAccountInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        }
+      };
       $scope.resetPassword = function() {
         ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
         if ($scope.password === $scope.passwordConfirmation) {
@@ -3125,6 +3171,7 @@ function OrganizersMainController($scope, $translate, $localStorage, $location, 
   });
   $scope.rss = [];
   rssRequest.rss(idiomaselect).success(function(data) {
+    console.log(data);
     $scope.rss = data.responseData.feed.entries;
     $scope.loadingrss = false;
   }).error(function() {
@@ -3578,8 +3625,8 @@ angular.module('sponzorme')
         }
       });
       //Next we edit the event information
-      $scope.eventData.starts = moment($scope.eventData.starts).format('YYYY-MM-DD hh:mm:ss');
-      $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD hh:mm:ss');
+      $scope.eventData.starts = moment($scope.eventData.starts).format('YYYY-MM-DD HH:mm:ss');
+      $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD HH:mm:ss');
       eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
         ngDialog.closeAll();
         $scope.message = 'eventEditedSuccesfully';

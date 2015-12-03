@@ -27,6 +27,9 @@ module.exports = function (config) {
             'bower_components/bootstrap/dist/js/bootstrap.min.js',
             'bower_components/firebase/firebase.js',
             'bower_components/angularfire/dist/angularfire.min.js',
+            'bower_components/textAngular/dist/textAngular-rangy.min.js',
+            'bower_components/textAngular/dist/textAngular-sanitize.min.js',
+            'bower_components/textAngular/dist/textAngular.min.js',
             'bower_components/angular-mocks/angular-mocks.js',
             'app/scripts/**/**/*.js',
             'tests/**/*.js'

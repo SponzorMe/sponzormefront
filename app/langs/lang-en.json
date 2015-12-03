@@ -682,5 +682,7 @@
   "companyPitch": "Company Pitch",
   "companyNewsletter": "Company Newsletter",
   "updateCompanyDetails": "Update Company Details",
-  "changeProfileImage": "Change Profile Image"
+  "changeProfileImage": "Change Profile Image",
+  "status": "Status",
+  "eventstate3": "Paid"
 }

@@ -673,5 +673,16 @@
   "updateAccountButton": "Update Account!",
   "add_interest":"Add Interest",
   "invalidInterestSelection": "Invalid interest please select one of the list",
-  "YourPreferedInterests":"Your Current Preferences"
+  "YourPreferedInterests":"Your Current Preferences",
+  "noNewNotifications": "You do not have new notifications !",
+  "companyDetails": "Company Details",
+  "companyPhone": "Company Phone",
+  "companyWebsite": "Company Website",
+  "companyLogo": "Company Logo",
+  "companyPitch": "Company Pitch",
+  "companyNewsletter": "Company Newsletter",
+  "updateCompanyDetails": "Update Company Details",
+  "changeProfileImage": "Change Profile Image",
+  "status": "Status",
+  "eventstate3": "Paid"
 }

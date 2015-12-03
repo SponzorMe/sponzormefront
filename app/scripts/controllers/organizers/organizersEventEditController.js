@@ -78,8 +78,8 @@
         }
       });
       //Next we edit the event information
-      $scope.eventData.starts = moment($scope.eventData.starts).format('YYYY-MM-DD hh:mm:ss');
-      $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD hh:mm:ss');
+      $scope.eventData.starts = moment($scope.eventData.starts).format('YYYY-MM-DD HH:mm:ss');
+      $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD HH:mm:ss');
       eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
         ngDialog.closeAll();
         $scope.message = 'eventEditedSuccesfully';

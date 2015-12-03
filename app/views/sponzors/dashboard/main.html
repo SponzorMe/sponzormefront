@@ -35,7 +35,7 @@
                     <tr data-ng-class="{success : event.current === e.id}" data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
-                      <td class="text-center">{{ e.starts| momentFormater}}</td>
+                      <td class="text-center">{{ e.starts| date}}</td>
                       <td class="text-center" ng-if="e.privacy==0">{{ 'public'| translate }}</td>
                       <td class="text-center" ng-if="e.privacy==1">{{ 'private'| translate }}</td>
                       <td class="text-center">
@@ -81,7 +81,7 @@
                       </tr>
                       <tr data-ng-class="{success : event.current === e.id}" data-ng-repeat="e in upcomingEvents | orderBy:'starts'" ng-show="!upcomingLoading">
                         <td class="text-center">{{ e.title }}</td>
-                        <td class="text-center" style="width:20%">{{ e.starts | momentFormater}}</td>
+                        <td class="text-center" style="width:20%">{{ e.starts | date}}</td>
                         <td class="text-center">
                           <a class="btn btn-success" href="#/event/{{ e.id }}" target="_blank">
                             <i class="fa fa-arrows-alt"></i>
