@@ -10,7 +10,7 @@
     $scope.downloadCalendar = function(sponzorship){
       var cal = ics();
       cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
-      console.log(cal.download());
+      
     };
     $scope.loadSponzorships = function() {
       sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
@@ -37,7 +37,7 @@
 
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsMessage = true;
         $scope.noSponzorshipsTaskMessage = true;
       });
@@ -92,7 +92,7 @@
           $scope.noSponzorshipsTaskMessage = false;
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsTaskMessage = true;
       });
     };

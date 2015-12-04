@@ -40,16 +40,16 @@
                     perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
                       /*Empty Code, nothing necessary here*/
                     }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
+                      
+                      
                     });
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
                   ngDialog.closeAll();
                 }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
+                  
+                  
                 });
               } else if (idiomaselect === 'es') {
                 event_es.DEFAULT_EVENT.organizer = adata.User.id;
@@ -59,8 +59,8 @@
                     perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
                       /*Empty Code, nothing necessary here*/
                     }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
+                      
+                      
                     });
 
                   });
@@ -68,8 +68,8 @@
                   $location.path('/customization');
                   ngDialog.closeAll();
                 }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
+                  
+                  
                 });
               } else if (idiomaselect === 'pt') {
                 event_pt.DEFAULT_EVENT.organizer = adata.User.id;
@@ -79,16 +79,16 @@
                     perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
                       /*Empty Code, nothing necessary here*/
                     }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
+                      
+                      
                     });
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
                   ngDialog.closeAll();
                 }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
+                  
+                  
                 });
               }
             }

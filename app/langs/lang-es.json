@@ -638,5 +638,6 @@
  "companyNewsletter": "Company Newsletter",
  "updateCompanyDetails": "Update Company Details",
  "changeProfileImage": "Change Profile Image",
- "status": "Estado"
+ "status": "Estado",
+ "eventstate3": "Paid"
 }

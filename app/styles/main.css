@@ -18840,7 +18840,7 @@ ul.sidebar .sidebar-list a:hover {
   background-color: #00838d;
   margin: 5px 5px 0 0;
 }
-.interest_tag a, span{
+.interest_tag a, .interest_tag span{
   color: white;
 }
 .interest_tag a:hover{

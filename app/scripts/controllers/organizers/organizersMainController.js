@@ -62,7 +62,7 @@ function OrganizersMainController($scope, $translate, $localStorage, $location, 
   });
   $scope.rss = [];
   rssRequest.rss(idiomaselect).success(function(data) {
-    console.log(data);
+    
     $scope.rss = data.responseData.feed.entries;
     $scope.loadingrss = false;
   }).error(function() {

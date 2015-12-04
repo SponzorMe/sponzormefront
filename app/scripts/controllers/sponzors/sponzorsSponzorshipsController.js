@@ -28,7 +28,7 @@
     $scope.downloadCalendar = function(sponzorship){
       var cal = ics();
       cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
-      console.log(cal.download());
+      
     };
     //This function allows get sponzorship info from organizerId
     $scope.getSponzorshipsBySponzor = function() {
@@ -57,7 +57,7 @@
           }
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsMessage = true;
         $scope.noSponzorshipsTaskMessage = true;
       });
@@ -75,7 +75,7 @@
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
-        console.log(eData);
+        
       });
     };
     //This function changes to 0 the sponzorship status
@@ -86,7 +86,7 @@
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
-        console.log(eData);
+        
       });
     };
     //this function gets the tasks sponzorships by sponzorship id
@@ -108,7 +108,7 @@
           $scope.noSponzorshipsTaskMessage = false;
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsTaskMessage = true;
       });
     };
