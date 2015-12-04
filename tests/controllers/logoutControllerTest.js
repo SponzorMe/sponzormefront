@@ -50,7 +50,7 @@ describe("loginController Tests", function(){
   });
   it("Should be loged then unloged", function(){
     var loginController = createLoginController();
-    httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(200, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(200, {
       "success": true,
       "user": {
         "id": "1003",

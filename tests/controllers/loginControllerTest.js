@@ -45,7 +45,7 @@ describe("loginController Tests", function(){
   });
   it("Should be setted user values", function(){
     var controller = createController();
-    httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(404, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(404, {
       "message": "It does not matter"
     });
     scope.email="Invlaid email", scope.password="Invalid Password";
@@ -88,7 +88,7 @@ describe("loginController Tests", function(){
   });
   it("Should be invalid credentials", function(){
     var controller = createController();
-    httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(404, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(404, {
       "message": "Invalid credentials"
     });
     scope.email="Invlaid email", scope.password="Invalid Password";
@@ -99,7 +99,7 @@ describe("loginController Tests", function(){
   });
   it("Should be unactivated account", function(){
     var controller = createController();
-    httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(200, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(200, {
       "message": "unactivatedAccount",
       user:{
         activated: 0
@@ -113,7 +113,7 @@ describe("loginController Tests", function(){
   });
   it("Finally it should be logged in sponzors Dashboard", function(){
     var controller = createController();
-    httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(200, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(200, {
       "success": true,
       "user": {
         "id": "1003",
@@ -134,7 +134,7 @@ describe("loginController Tests", function(){
   });
   it("Finally it should be logged in organizers Dashboard", function(){
     var controller = createController();
-    httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(200, {
+    httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(200, {
       "success": true,
       "user": {
         "id": "1003",

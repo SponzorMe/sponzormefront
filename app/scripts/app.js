@@ -1,6 +1,6 @@
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://api.sponzor.me/'; //API path
+var apiPath = 'http://apistaging.sponzor.me/'; //API path
 var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
@@ -35,11 +35,11 @@ var expirationTime = 1;
       'firebase',
       'textAngular'
     ])
-    .constant('URL', 'http://api.sponzor.me/')
+    .constant('URL', 'http://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
     .constant('FEE', parseFloat(0.1))
     .constant('PAYPALCOMPLETERETURNURL', 'http://www.sponzor.me/thank-you/')
-    .constant('PAYPALIPNRETURNURL', 'http://api.sponzor.me/ipn')
+    .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
     .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
     .constant('FURL', 'https://sponzorme.firebaseio.com/')
     .config(['$translateProvider', function($translateProvider) {
