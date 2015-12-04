@@ -65,7 +65,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toEqual('errorRegisterPasswordNoMatch');
   });
   it("Should be succes registration", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/events').respond(200, {
+    httpBackend.when('POST', 'http://api.sponzor.me/events').respond(200, {
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -74,7 +74,7 @@ describe("Organizers Create Controller test", function(){
         "id": 15
       }
     });
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/users').respond(200, {
+    httpBackend.when('POST', 'http://api.sponzor.me/users').respond(200, {
       "message": "Inserted",
       "User": {
         "title": "Test",
@@ -84,7 +84,7 @@ describe("Organizers Create Controller test", function(){
         "type": 0
       }
     });
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/perks').respond(200, {
+    httpBackend.when('POST', 'http://api.sponzor.me/perks').respond(200, {
       "message": "Inserted",
       "perk": {
         "title": "Test",
