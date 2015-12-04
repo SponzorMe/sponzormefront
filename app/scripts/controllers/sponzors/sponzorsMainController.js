@@ -106,15 +106,15 @@
             eventName: $scope.currentEvent.title,
             lang: idiomaselect
           };
-          var notificationsRef = new Firebase(FURL+"notifications");
+          var notificationsRef = new Firebase(FURL + 'notifications');
           var notifications = $firebaseArray(notificationsRef);
           var notification = {
             to: $scope.currentOrganizer.id,
-            text: "Hurray!!! Someone wants to sponsor your event "+$scope.currentEvent.title+" =)",
-            link:"#/organizers/sponzorships"
+            text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.currentEvent.title + ' =)',
+            link: '#/organizers/sponzorships'
           };
           notifications.$add(notification);
-          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function(){});
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
           ngDialog.closeAll();
           $scope.message = 'sponzorshipCreatedSuccesfuly';
           ngDialog.open({

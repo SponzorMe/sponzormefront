@@ -11,24 +11,24 @@
     $scope.userfroups = 0;
     $scope.tolsctive = 'active';
     $translate.use(idiomaselect);
-    $scope.paymentInformation =  function(sponzorship){
+    $scope.paymentInformation = function(sponzorship) {
       $scope.PAYPALCOMPLETERETURNURL = PAYPALCOMPLETERETURNURL;
       $scope.PAYPALIPNRETURNURL = PAYPALIPNRETURNURL;
       $scope.PAYPALEMAIL = PAYPALEMAIL;
       $scope.sponzorship = sponzorship;
       $scope.paymentValue = sponzorship.usd;
-      $scope.fee = parseFloat((sponzorship.usd*FEE)+XOOMRATE);
-      $scope.paymentTotal = parseFloat(sponzorship.usd)+parseFloat($scope.fee);
+      $scope.fee = parseFloat((sponzorship.usd * FEE) + XOOMRATE);
+      $scope.paymentTotal = parseFloat(sponzorship.usd) + parseFloat($scope.fee);
       ngDialog.open({
         scope: $scope,
         template: 'views/templates/prePaymentInfo.html',
         showClose: true
       });
-    }
-    $scope.downloadCalendar = function(sponzorship){
+    };
+    $scope.downloadCalendar = function(sponzorship) {
       var cal = ics();
       cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
-      
+
     };
     //This function allows get sponzorship info from organizerId
     $scope.getSponzorshipsBySponzor = function() {
@@ -57,7 +57,7 @@
           }
         }
       }).error(function(data) {
-        
+
         $scope.noSponzorshipsMessage = true;
         $scope.noSponzorshipsTaskMessage = true;
       });
@@ -75,7 +75,7 @@
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
-        
+
       });
     };
     //This function changes to 0 the sponzorship status
@@ -86,7 +86,7 @@
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
-        
+
       });
     };
     //this function gets the tasks sponzorships by sponzorship id
@@ -108,7 +108,7 @@
           $scope.noSponzorshipsTaskMessage = false;
         }
       }).error(function(data) {
-        
+
         $scope.noSponzorshipsTaskMessage = true;
       });
     };

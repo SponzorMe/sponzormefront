@@ -64,16 +64,16 @@
           $scope.perkitems.usd = value.usd;
           $scope.perkitems.id_event = idevent;
           perkRequest.createPerk($scope.perkitems).success(function() {}).error(function(edata) {
-            
-            
+
+
           });
         } else { //If no perk was added just we edit the fields
           $scope.perkitems = value;
           perkRequest.editPerkPatch(value.id, $scope.perkitems).success(function() {
             /*empty Code, nothing necessary here*/
           }).error(function(eData) {
-            
-            
+
+
           });
         }
       });
@@ -89,8 +89,8 @@
           scope: $scope
         });
       }).error(function(edata) {
-        
-        
+
+
       });
     };
     $scope.saveperks = function() {
