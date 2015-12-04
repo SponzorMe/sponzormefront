@@ -38,7 +38,7 @@ var expirationTime = 1;
     .constant('URL', 'http://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
     .constant('FEE', parseFloat(0.1))
-    .constant('PAYPALCOMPLETERETURNURL', 'http://localhost:9000/#/sponzors/sponzoring')
+    .constant('PAYPALCOMPLETERETURNURL', 'http://www.sponzor.me/thank-you/')
     .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
     .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
     .constant('FURL', 'https://sponzorme.firebaseio.com/')
