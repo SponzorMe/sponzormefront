@@ -1903,7 +1903,7 @@ angular.module('sponzorme')
     $scope.downloadCalendar = function(sponzorship){
       var cal = ics();
       cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
-      console.log(cal.download());
+      
     };
     $scope.loadSponzorships = function() {
       sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
@@ -1930,7 +1930,7 @@ angular.module('sponzorme')
 
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsMessage = true;
         $scope.noSponzorshipsTaskMessage = true;
       });
@@ -1985,7 +1985,7 @@ angular.module('sponzorme')
           $scope.noSponzorshipsTaskMessage = false;
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsTaskMessage = true;
       });
     };
@@ -2485,7 +2485,7 @@ angular.module('sponzorme')
     $scope.downloadCalendar = function(sponzorship){
       var cal = ics();
       cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
-      console.log(cal.download());
+      
     };
     //This function allows get sponzorship info from organizerId
     $scope.getSponzorshipsBySponzor = function() {
@@ -2514,7 +2514,7 @@ angular.module('sponzorme')
           }
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsMessage = true;
         $scope.noSponzorshipsTaskMessage = true;
       });
@@ -2532,7 +2532,7 @@ angular.module('sponzorme')
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
-        console.log(eData);
+        
       });
     };
     //This function changes to 0 the sponzorship status
@@ -2543,7 +2543,7 @@ angular.module('sponzorme')
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsBySponzor();
       }).error(function(eData) {
-        console.log(eData);
+        
       });
     };
     //this function gets the tasks sponzorships by sponzorship id
@@ -2565,7 +2565,7 @@ angular.module('sponzorme')
           $scope.noSponzorshipsTaskMessage = false;
         }
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsTaskMessage = true;
       });
     };
@@ -2707,16 +2707,16 @@ angular.module('sponzorme')
                     perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
                       /*Empty Code, nothing necessary here*/
                     }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
+                      
+                      
                     });
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
                   ngDialog.closeAll();
                 }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
+                  
+                  
                 });
               } else if (idiomaselect === 'es') {
                 event_es.DEFAULT_EVENT.organizer = adata.User.id;
@@ -2726,8 +2726,8 @@ angular.module('sponzorme')
                     perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
                       /*Empty Code, nothing necessary here*/
                     }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
+                      
+                      
                     });
 
                   });
@@ -2735,8 +2735,8 @@ angular.module('sponzorme')
                   $location.path('/customization');
                   ngDialog.closeAll();
                 }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
+                  
+                  
                 });
               } else if (idiomaselect === 'pt') {
                 event_pt.DEFAULT_EVENT.organizer = adata.User.id;
@@ -2746,16 +2746,16 @@ angular.module('sponzorme')
                     perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {
                       /*Empty Code, nothing necessary here*/
                     }).error(function(eData) {
-                      console.log('Error creating a perk');
-                      console.log(eData);
+                      
+                      
                     });
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
                   ngDialog.closeAll();
                 }).error(function(eData) {
-                  console.log('Error demo event');
-                  console.log(eData);
+                  
+                  
                 });
               }
             }
@@ -3171,7 +3171,7 @@ function OrganizersMainController($scope, $translate, $localStorage, $location, 
   });
   $scope.rss = [];
   rssRequest.rss(idiomaselect).success(function(data) {
-    console.log(data);
+    
     $scope.rss = data.responseData.feed.entries;
     $scope.loadingrss = false;
   }).error(function() {
@@ -3384,7 +3384,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
         $scope.sponzorships.current = $scope.sponzorships[0].id;
       }
     }).error(function(data) {
-      console.log(data);
+      
       $scope.noSponzorshipsMessage = true;
       $scope.noSponzorshipsTaskMessage = true;
     });
@@ -3421,7 +3421,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
         sponzorshipRequest.sendSponzorshipEmail(info).success(function(){});
         $scope.getSponzorshipsByOrganizer();
       }).error(function(eData) {
-        console.log(eData);
+        
       });
     };
     //This function changes to 0 the sponzorship status
@@ -3434,7 +3434,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
       sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
         $scope.getSponzorshipsByOrganizer();
       }).error(function(eData) {
-        console.log(eData);
+        
       });
     };
     //this function deletes an sponzorship if the status is 0
@@ -3486,7 +3486,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
         }
 
       }).error(function(data) {
-        console.log(data);
+        
         $scope.noSponzorshipsTaskMessage = true;
       });
       $scope.sponzorships.current = sponzorshipId;
@@ -3499,7 +3499,7 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
       taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
         $scope.getTaskSponzor($scope.sponzorships.current);
       }).error(function(eData) {
-        console.log(eData);
+        
       });
     };
     //This function changes to 0 the sponzor task status
@@ -3510,14 +3510,14 @@ function OrganizersSponzorshipsController($scope, $translate, $location, taskSpo
     taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
       $scope.getTaskSponzor($scope.sponzorships.current);
     }).error(function(eData) {
-      console.log(eData);
+      
     });
   };
   $scope.deleteTaskSponzor = function(taskSponzorId) {
     taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {
       $scope.getTaskSponzor($scope.sponzorships.current);
     }).error(function(eData) {
-      console.log(eData);
+      
     });
   };
   $scope.seeCause = function(sponzorship) {
@@ -3611,16 +3611,16 @@ angular.module('sponzorme')
           $scope.perkitems.usd = value.usd;
           $scope.perkitems.id_event = idevent;
           perkRequest.createPerk($scope.perkitems).success(function() {}).error(function(edata) {
-            console.log('Error creating a perk');
-            console.log(edata);
+            
+            
           });
         } else { //If no perk was added just we edit the fields
           $scope.perkitems = value;
           perkRequest.editPerkPatch(value.id, $scope.perkitems).success(function() {
             /*empty Code, nothing necessary here*/
           }).error(function(eData) {
-            console.log('Error editing a perk');
-            console.log(eData);
+            
+            
           });
         }
       });
@@ -3636,8 +3636,8 @@ angular.module('sponzorme')
           scope: $scope
         });
       }).error(function(edata) {
-        console.log('Error editing an event');
-        console.log(edata);
+        
+        
       });
     };
     $scope.saveperks = function() {
@@ -3828,7 +3828,7 @@ angular.module('sponzorme')
 (function() {
 
   function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, FURL) {
-    console.log($localStorage);
+
     $scope.help = 0;
     var notificationsRef = new Firebase(FURL+"notifications");
     var query = notificationsRef.orderByChild("to").equalTo($localStorage.id).limitToLast(25);
@@ -3842,9 +3842,6 @@ angular.module('sponzorme')
     notificationsRef.orderByChild("to").equalTo($localStorage.id).on("child_removed", function() {
         $scope.help--;
     });
-    //$firebaseArray, FURL
-    //var notificationsRef = new Firebase(FURL+"notifications");
-    //var notifications = $firebaseArray(notificationsRef);
 };
 angular.module('sponzorme')
     .controller('NotificationController', NotificationController);
