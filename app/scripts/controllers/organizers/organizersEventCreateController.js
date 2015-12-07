@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, imgurRequest, $rootScope, $routeParams) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, imgurRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET) {
 
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
@@ -92,23 +92,44 @@
       $scope.errorNewEvent = false;
       $scope.newEvent = {};
       if ($scope.file) {
-        var params = {
-          image: $scope.file.base64,
-          type: 'base64'
+        $scope.creds = {
+          bucket: AMAZONBUCKET,
+          access_key: AMAZONKEY,
+          secret_key: AMAZONSECRET
         };
-        imgurRequest.uploadImage(params).success(function(imageData) {
-          $scope.newEvent.image = imageData.data.link;
-          $scope.createNewEvent();
-        }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'InvalidImage';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+        AWS.config.update({
+          accessKeyId: $scope.creds.access_key,
+          secretAccessKey: $scope.creds.secret_key
         });
-      } else {
+        AWS.config.region = 'us-west-2';
+        var bucket = new AWS.S3({
+          params: {
+            Bucket: $scope.creds.bucket
+          }
+        });
+        // Prepend Unique String To Prevent Overwrites
+        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace("=", $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+        var params = {
+          Key: uniqueFileName,
+          ContentType: $scope.file.type,
+          Body: $scope.file,
+          ServerSideEncryption: 'AES256'
+        };
+        bucket.putObject(params, function(err, data) {
+          if (!err){
+            var params = {
+              Bucket: AMAZONBUCKET,
+              Key: uniqueFileName
+            };
+            bucket.getSignedUrl('getObject', params, function(err, url) {
+              $scope.newEvent.image = url;
+              $scope.$digest();
+              $scope.createNewEvent();
+            });
+          }
+        });
+      }
+      else {
         //If no Image we set here some image
         $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';
         $scope.createNewEvent();

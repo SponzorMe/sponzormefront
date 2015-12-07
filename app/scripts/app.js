@@ -42,6 +42,10 @@ var expirationTime = 1;
     .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
     .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
     .constant('FURL', 'https://sponzorme.firebaseio.com/')
+    .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
+    .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
+    .constant('AMAZONBUCKET', 'sponzormewebappimages')
+
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',
@@ -177,6 +181,10 @@ var expirationTime = 1;
           templateUrl: 'views/sponzors/dashboard/sponzorships.html',
           controller: 'SponzorsSponzorshipsController'
         })
+        .when('/test', {
+          templateUrl: 'views/test.html',
+          controller: 'UploadController'
+        })
         .otherwise({
           redirectTo: '/login'
         });
@@ -220,6 +228,18 @@ var expirationTime = 1;
           return true;
         }
       };
+      $rootScope.getExtension = function(filename) {
+        return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
+      };
+      $rootScope.uniqueString = function() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for (var i = 0; i < 8; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+      };
+
       $rootScope.userValidation = function(shouldType) {
         $rootScope.isExpiredData();
         if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
@@ -396,6 +416,38 @@ var expirationTime = 1;
           .replace('&', 'AND')
           .replace(/\W+/g, '');
         return input;
+      };
+    }).directive('file', function() {
+      return {
+        restrict: 'AE',
+        scope: {
+          file: '@'
+        },
+        link: function(scope, el, attrs){
+          el.bind('change', function(event){
+            var files = event.target.files;
+            var file = files[0];
+            scope.file = file;
+            scope.$parent.file = file;
+            scope.$apply();
+          });
+        }
+      };
+    }).directive('logo', function() {
+      return {
+        restrict: 'AE',
+        scope: {
+          file: '@'
+        },
+        link: function(scope, el, attrs){
+          el.bind('change', function(event){
+            var files = event.target.files;
+            var logo = files[0];
+            scope.logo = logo;
+            scope.$parent.logo = logo;
+            scope.$apply();
+          });
+        }
       };
     });
 })();
