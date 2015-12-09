@@ -35,7 +35,7 @@
       <header>
         <h2 ng-cloak>{{evento.event.title}}</h2>
       </header>
-      <p styles="width:25%;" ng-cloak>{{evento.event.description}}</p>
+      <p styles="width:25%;" ng-bind-html="evento.event.description"></p>
     </div>
 
   </section>
