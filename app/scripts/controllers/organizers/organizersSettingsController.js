@@ -77,7 +77,7 @@
           }
         });
         // Prepend Unique String To Prevent Overwrites
-        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace("=", $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
         var params = {
           Key: uniqueFileName,
           ContentType: $scope.file.type,
@@ -85,7 +85,7 @@
           ServerSideEncryption: 'AES256'
         };
         bucket.putObject(params, function(err, data) {
-          if (err) {} else {
+          if (!err) {
             $localStorage.image = AMAZONBUCKETURL + uniqueFileName;
             $scope.account.image = AMAZONBUCKETURL + uniqueFileName;
             userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {

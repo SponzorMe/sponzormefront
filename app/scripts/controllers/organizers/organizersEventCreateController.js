@@ -108,7 +108,7 @@
           }
         });
         // Prepend Unique String To Prevent Overwrites
-        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace("=", $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
         var params = {
           Key: uniqueFileName,
           ContentType: $scope.file.type,
@@ -116,13 +116,12 @@
           ServerSideEncryption: 'AES256'
         };
         bucket.putObject(params, function(err, data) {
-          if (!err){
-            $scope.newEvent.image = AMAZONBUCKETURL+uniqueFileName;
+          if (!err) {
+            $scope.newEvent.image = AMAZONBUCKETURL + uniqueFileName;
             $scope.createNewEvent();
           }
         });
-      }
-      else {
+      } else {
         //If no Image we set here some image
         $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';
         $scope.createNewEvent();

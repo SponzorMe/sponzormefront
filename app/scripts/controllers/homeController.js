@@ -8,7 +8,7 @@
         $location.path('/organizers/dashboard');
       }
       else{
-        window.location.href = "http://www.sponzor.me";
+        window.location.href = 'http://www.sponzor.me';
       }
   }
   angular.module('sponzorme')
