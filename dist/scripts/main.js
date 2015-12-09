@@ -100,8 +100,7 @@ var event_es = {
 
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://api.sponzor.me/'; //API path
-var imgurPath = 'https://api.imgur.com/3/image'; //API path
+var apiPath = 'http://apistaging.sponzor.me/'; //API path
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
@@ -129,19 +128,24 @@ var expirationTime = 1;
       'userInterestService',
       'userCategoryService',
       'naif.base64',
-      'imgurService',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
       'textAngular'
     ])
-    .constant('URL', 'http://api.sponzor.me/')
+    .constant('URL', 'http://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
     .constant('FEE', parseFloat(0.1))
     .constant('PAYPALCOMPLETERETURNURL', 'http://www.sponzor.me/thank-you/')
-    .constant('PAYPALIPNRETURNURL', 'http://api.sponzor.me/ipn')
+    .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
     .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
     .constant('FURL', 'https://sponzorme.firebaseio.com/')
+    .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
+    .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
+    .constant('AMAZONBUCKET', 'sponzormewebappimages')
+    .constant('AMAZONBUCKETREGION', 'us-west-2')
+    .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
+
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',
@@ -175,14 +179,6 @@ var expirationTime = 1;
           templateUrl: 'views/activation.html',
           controller: 'ActivationController'
         })
-        .when('/testimonials', {
-          templateUrl: 'views/testimonials.html',
-          controller: 'HomeController'
-        })
-        .when('/privacy', {
-          templateUrl: 'views/privacy.html',
-          controller: 'HomeController'
-        })
         .when('/login', {
           templateUrl: 'views/login.html',
           controller: 'LoginController'
@@ -194,12 +190,6 @@ var expirationTime = 1;
         .when('/forgot', {
           templateUrl: 'views/forgot.html',
           controller: 'ForgotController'
-        })
-        .when('/about', {
-          templateUrl: 'views/about.html'
-        })
-        .when('/support', {
-          templateUrl: 'views/support.html'
         })
         .when('/reset/:tokenReset', {
           templateUrl: 'views/reset.html',
@@ -320,6 +310,18 @@ var expirationTime = 1;
           return true;
         }
       };
+      $rootScope.getExtension = function(filename) {
+        return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined;
+      };
+      $rootScope.uniqueString = function() {
+        var text = '';
+        var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (var i = 0; i < 8; i++) {
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return text;
+      };
+
       $rootScope.userValidation = function(shouldType) {
         $rootScope.isExpiredData();
         if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
@@ -496,6 +498,38 @@ var expirationTime = 1;
           .replace('&', 'AND')
           .replace(/\W+/g, '');
         return input;
+      };
+    }).directive('file', function() {
+      return {
+        restrict: 'AE',
+        scope: {
+          file: '@'
+        },
+        link: function(scope, el, attrs){
+          el.bind('change', function(event){
+            var files = event.target.files;
+            var file = files[0];
+            scope.file = file;
+            scope.$parent.file = file;
+            scope.$apply();
+          });
+        }
+      };
+    }).directive('logo', function() {
+      return {
+        restrict: 'AE',
+        scope: {
+          file: '@'
+        },
+        link: function(scope, el, attrs){
+          el.bind('change', function(event){
+            var files = event.target.files;
+            var logo = files[0];
+            scope.logo = logo;
+            scope.$parent.logo = logo;
+            scope.$apply();
+          });
+        }
       };
     });
 })();
@@ -1322,34 +1356,6 @@ var expirationTime = 1;
 		.factory('rssRequest', rssRequest);
 })();
 
-/**
-* @Servicio de Perks (Beneficios)
-*
-* @author Sebastian
-* @version 0.1
-*/
-'use strict';
-(function(){
-
-	function imgurRequest($http) {
-    var clientId = 'bdff09d775f47b9'; //Private API Cliente Id for imgur
-		return {
-			uploadImage: function(data){
-				return $http({
-					method: 'POST',
-					url: imgurPath,
-          headers: {
-              'Authorization': 'Client-ID ' + clientId
-          },
-					data: data
-				});
-			}
-		};
-	}
-	angular.module('imgurService', [])
-		.factory('imgurRequest', imgurRequest);
-})();
-
 'use strict';
 (function() {
 
@@ -1358,6 +1364,9 @@ var expirationTime = 1;
         $location.path('/sponzors/dashboard');
       } else if($localStorage.typesponzorme === '0') {
         $location.path('/organizers/dashboard');
+      }
+      else{
+        window.location.href = 'http://www.sponzor.me';
       }
   }
   angular.module('sponzorme')
@@ -2095,7 +2104,7 @@ angular.module('sponzorme')
       eventRequest.allEvents().success(function(adata) {
         $scope.search = [];
         $scope.search = adata.events.filter(function(e) {
-          if (e.location_reference !== 'ljsadljf3289uojklfhasd') {
+          if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
             return e;
           }
         });
@@ -2240,229 +2249,276 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
+    function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
 
-    $rootScope.userValidation('1');
-    ngDialog.open({
-      template: 'views/templates/loadingDialog.html',
-      showClose: false
-    });
-    userRequest.oneUser($localStorage.id).success(function(adata) {
-      $scope.account = adata.data.user;
-      $scope.userInterests = adata.data.interests;
-      ngDialog.closeAll();
-    });
-    allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
-      $scope.interests = sData.InterestCategory;
-    });
-    $scope.removeUserInterest = function(index, id) {
-      $scope.userInterests.splice(index, 1);
-      userInterestRequest.deleteUserInterest(id).success(function() {});
-    };
-    $scope.addUserInterests = function(interest) {
-      if (interest.name) {
-        var flag = false;
-        for (var i = 0; i < $scope.userInterests.length; i++) {
-          if ($scope.userInterests[i].id_interest === interest.id_interest) {
-            flag = true;
-            $scope.selected = '';
-            break;
-          }
-        }
-        if (!flag) {
-          var interestData = {
-            user_id: $localStorage.id,
-            interest_id: interest.id_interest
-          };
-          userInterestRequest.createUserInterest(interestData).success(function(data) {
-            $scope.userInterests.push({
-              'name': interest.name,
-              'id': data.UserInterest.id,
-              'id_interest': interest.id_interest
-            });
-            $scope.selected = '';
-          });
-        }
-      } else {
-        $scope.message = 'invalidInterestSelection';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-        $scope.selected = '';
-      }
-
-    };
-    $scope.account = [];
-
-    $scope.file = false; //By default no file to update.
-    $scope.editAccount = function() {
+      $rootScope.userValidation('1');
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
       });
-      $scope.account.location = $scope.account.location.formatted_address;
-      if ($scope.file) {
-        var params = {
-          image: $scope.file.base64,
-          type: 'base64'
-        };
-        imgurRequest.uploadImage(params).success(function(data) {
-          $scope.account.image = data.data.link;
-          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-            $scope.account = adata.User;
-            $scope.file = false;
-            ngDialog.closeAll();
-            $scope.message = 'accountInfoEditedSuccessfuly';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          }).error(function(eData) {
-            ngDialog.closeAll();
-            $scope.message = 'errorEditingAccountInfo';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          });
-        });
-      } else {
-        userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-          $scope.account = adata.User;
-          $scope.file = false;
-          ngDialog.closeAll();
-          $scope.message = 'accountInfoEditedSuccessfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'errorEditingAccountInfo';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      }
-    };
-    $scope.logo = false; //By default no file to update.
-
-    $scope.updateDetails = function() {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      if ($scope.logo) {
-        var params = {
-          image: $scope.logo.base64,
-          type: 'base64'
-        };
-        imgurRequest.uploadImage(params).success(function(data) {
-          $scope.account.logo = data.data.link;
-          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-            $scope.account = adata.User;
-            $scope.logo = false;
-            ngDialog.closeAll();
-            $scope.message = 'accountInfoEditedSuccessfuly';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          }).error(function(eData) {
-            ngDialog.closeAll();
-            $scope.message = 'errorEditingAccountInfo';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          });
-        });
-      } else {
-        userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-          $scope.account = adata.User;
-          $scope.logo = false;
-          ngDialog.closeAll();
-          $scope.message = 'accountInfoEditedSuccessfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'errorEditingAccountInfo';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      }
-    };
-    $scope.resetPassword = function() {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      if ($scope.password === $scope.passwordConfirmation) {
-        var formData = {
-          'email': $localStorage.email,
-          'password': $scope.password,
-          'password_confirmation': $scope.passwordConfirmation
-        };
-        loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
-          ngDialog.closeAll();
-          $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
-          $scope.message = 'PasswordChangedSuccesfully';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'InvalidNewPassword';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      } else {
+      userRequest.oneUser($localStorage.id).success(function(adata) {
+        $scope.account = adata.data.user;
+        $scope.userInterests = adata.data.interests;
         ngDialog.closeAll();
-        $scope.message = 'PasswordNoMatch';
+      });
+      allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
+        $scope.interests = sData.InterestCategory;
+      });
+      $scope.removeUserInterest = function(index, id) {
+        $scope.userInterests.splice(index, 1);
+        userInterestRequest.deleteUserInterest(id).success(function() {});
+      };
+      $scope.addUserInterests = function(interest) {
+        if (interest.name) {
+          var flag = false;
+          for (var i = 0; i < $scope.userInterests.length; i++) {
+            if ($scope.userInterests[i].id_interest === interest.id_interest) {
+              flag = true;
+              $scope.selected = '';
+              break;
+            }
+          }
+          if (!flag) {
+            var interestData = {
+              user_id: $localStorage.id,
+              interest_id: interest.id_interest
+            };
+            userInterestRequest.createUserInterest(interestData).success(function(data) {
+              $scope.userInterests.push({
+                'name': interest.name,
+                'id': data.UserInterest.id,
+                'id_interest': interest.id_interest
+              });
+              $scope.selected = '';
+            });
+          }
+        } else {
+          $scope.message = 'invalidInterestSelection';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $scope.selected = '';
+        }
+
+      };
+      $scope.account = [];
+
+      $scope.file = false; //By default no file to update.
+      $scope.editAccount = function() {
         ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
         });
-      }
-    };
+        $scope.account.location = $scope.account.location.formatted_address;
+        if ($scope.file) {
+          $scope.creds = {
+            bucket: AMAZONBUCKET,
+            access_key: AMAZONKEY,
+            secret_key: AMAZONSECRET
+          };
+          AWS.config.update({
+            accessKeyId: $scope.creds.access_key,
+            secretAccessKey: $scope.creds.secret_key
+          });
+          AWS.config.region = AMAZONBUCKETREGION;
+          var bucket = new AWS.S3({
+            params: {
+              Bucket: $scope.creds.bucket
+            }
+          });
+          // Prepend Unique String To Prevent Overwrites
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+          var params = {
+            Key: uniqueFileName,
+            ContentType: $scope.file.type,
+            Body: $scope.file,
+            ServerSideEncryption: 'AES256'
+          };
+          bucket.putObject(params, function(err, data) {
+              if (!err) {
+                $localStorage.image = AMAZONBUCKETURL + uniqueFileName;
+                $scope.account.image = AMAZONBUCKETURL + uniqueFileName;
+                userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+                  $scope.account = adata.User;
+                  $scope.file = false;
+                  ngDialog.closeAll();
+                  $scope.message = 'accountInfoEditedSuccessfuly';
+                  ngDialog.open({
+                    template: 'views/templates/successDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                }).error(function(eData) {
+                  ngDialog.closeAll();
+                  $scope.message = 'errorEditingAccountInfo';
+                  ngDialog.open({
+                    template: 'views/templates/errorDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                });
+              }
+            });
+              } else {
+                userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+                  $scope.account = adata.User;
+                  $scope.file = false;
+                  ngDialog.closeAll();
+                  $scope.message = 'accountInfoEditedSuccessfuly';
+                  ngDialog.open({
+                    template: 'views/templates/successDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                }).error(function(eData) {
+                  ngDialog.closeAll();
+                  $scope.message = 'errorEditingAccountInfo';
+                  ngDialog.open({
+                    template: 'views/templates/errorDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                });
+              }
+            };
 
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
+            $scope.logo = false; //By default no file to update.
 
-    $scope.menuprincipal = 'views/sponzors/menu.html';
-  }
+            $scope.updateDetails = function() {
+              console.log($scope.logo);
+              ngDialog.open({
+                template: 'views/templates/loadingDialog.html',
+                showClose: false
+              });
 
-  angular.module('sponzorme')
-    .controller('SponzorsSettingsController', SponzorsSettingsController);
+              if ($scope.logo) {
+                $scope.creds = {
+                  bucket: AMAZONBUCKET,
+                  access_key: AMAZONKEY,
+                  secret_key: AMAZONSECRET
+                };
+                AWS.config.update({
+                  accessKeyId: $scope.creds.access_key,
+                  secretAccessKey: $scope.creds.secret_key
+                });
+                AWS.config.region = AMAZONBUCKETREGION;
+                var bucket = new AWS.S3({
+                  params: {
+                    Bucket: $scope.creds.bucket
+                  }
+                });
+                // Prepend Unique String To Prevent Overwrites
+                var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.logo.name);
+                var params = {
+                  Key: uniqueFileName,
+                  ContentType: $scope.logo.type,
+                  Body: $scope.logo,
+                  ServerSideEncryption: 'AES256'
+                };
+                bucket.putObject(params, function(err, data) {
+                  if (!err) {
+                    $scope.account.logo = AMAZONBUCKETURL + uniqueFileName;
+                    $scope.$digest();
+                    userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+                      $scope.account = adata.User;
+                      $scope.logo = false;
+                      ngDialog.closeAll();
+                      $scope.message = 'accountInfoEditedSuccessfuly';
+                      ngDialog.open({
+                        template: 'views/templates/successDialog.html',
+                        showClose: false,
+                        scope: $scope
+                      });
+                    }).error(function(eData) {
+                      ngDialog.closeAll();
+                      $scope.message = 'errorEditingAccountInfo';
+                      ngDialog.open({
+                        template: 'views/templates/errorDialog.html',
+                        showClose: false,
+                        scope: $scope
+                      });
+                    });
+                  }
+                });
+              } else {
+                userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+                  $scope.account = adata.User;
+                  $scope.logo = false;
+                  ngDialog.closeAll();
+                  $scope.message = 'accountInfoEditedSuccessfuly';
+                  ngDialog.open({
+                    template: 'views/templates/successDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                }).error(function(eData) {
+                  ngDialog.closeAll();
+                  $scope.message = 'errorEditingAccountInfo';
+                  ngDialog.open({
+                    template: 'views/templates/errorDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                });
+              }
+            };
 
-})();
+            $scope.resetPassword = function() {
+              ngDialog.open({
+                template: 'views/templates/loadingDialog.html',
+                showClose: false
+              });
+              if ($scope.password === $scope.passwordConfirmation) {
+                var formData = {
+                  'email': $localStorage.email,
+                  'password': $scope.password,
+                  'password_confirmation': $scope.passwordConfirmation
+                };
+                loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
+                  ngDialog.closeAll();
+                  $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
+                  $scope.message = 'PasswordChangedSuccesfully';
+                  ngDialog.open({
+                    template: 'views/templates/successDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                }).error(function() {
+                  ngDialog.closeAll();
+                  $scope.message = 'InvalidNewPassword';
+                  ngDialog.open({
+                    template: 'views/templates/errorDialog.html',
+                    showClose: false,
+                    scope: $scope
+                  });
+                });
+              } else {
+                ngDialog.closeAll();
+                $scope.message = 'PasswordNoMatch';
+                ngDialog.open({
+                  template: 'views/templates/errorDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+              }
+            };
+
+            $scope.tolsctive = 'active'; $scope.toggleSidebar = function() {
+              $scope.tolsctive = !$scope.tolsctive;
+              if ($scope.tolsctive === true) {
+                $scope.tolsctive = 'active';
+              }
+            };
+
+            $scope.menuprincipal = 'views/sponzors/menu.html';
+          }
+
+          angular.module('sponzorme')
+            .controller('SponzorsSettingsController', SponzorsSettingsController);
+
+        })();
 
 'use strict';
 (function() {
@@ -2802,7 +2858,7 @@ angular.module('sponzorme')
 'use strict';
 (function(){
 
-function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, imgurRequest, taskSponzorRequest, $rootScope, $timeout) {
+function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, taskSponzorRequest, $rootScope, $timeout) {
   $rootScope.userValidation('0');//Validation
   //Vars Initialization
   $scope.error_log = '';
@@ -3179,7 +3235,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
     $rootScope.userValidation('0');
     ngDialog.open({
       template: 'views/templates/loadingDialog.html',
@@ -3240,31 +3296,53 @@ angular.module('sponzorme')
       });
       $scope.account.location = $scope.account.location.formatted_address;
       if ($scope.file) {
-        var params = {
-          image: $scope.file.base64,
-          type: 'base64'
+        $scope.creds = {
+          bucket: AMAZONBUCKET,
+          access_key: AMAZONKEY,
+          secret_key: AMAZONSECRET
         };
-        imgurRequest.uploadImage(params).success(function(data) {
-          $scope.account.image = data.data.link;
-          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-            $scope.account = adata.User;
-            $scope.file = false;
-            ngDialog.closeAll();
-            $scope.message = 'accountInfoEditedSuccessfuly';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
+        AWS.config.update({
+          accessKeyId: $scope.creds.access_key,
+          secretAccessKey: $scope.creds.secret_key
+        });
+        AWS.config.region = AMAZONBUCKETREGION;
+        var bucket = new AWS.S3({
+          params: {
+            Bucket: $scope.creds.bucket
+          }
+        });
+        // Prepend Unique String To Prevent Overwrites
+        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+        var params = {
+          Key: uniqueFileName,
+          ContentType: $scope.file.type,
+          Body: $scope.file,
+          ServerSideEncryption: 'AES256'
+        };
+        bucket.putObject(params, function(err, data) {
+          if (!err) {
+            $localStorage.image = AMAZONBUCKETURL + uniqueFileName;
+            $scope.account.image = AMAZONBUCKETURL + uniqueFileName;
+            userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+              $scope.account = adata.User;
+              $scope.file = false;
+              ngDialog.closeAll();
+              $scope.message = 'accountInfoEditedSuccessfuly';
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            }).error(function(eData) {
+              ngDialog.closeAll();
+              $scope.message = 'errorEditingAccountInfo';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
             });
-          }).error(function(eData) {
-            ngDialog.closeAll();
-            $scope.message = 'errorEditingAccountInfo';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          });
+          }
         });
       } else {
         userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
@@ -3288,6 +3366,7 @@ angular.module('sponzorme')
         });
       }
     };
+
     $scope.resetPassword = function() {
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
@@ -3334,7 +3413,6 @@ angular.module('sponzorme')
         $scope.tolsctive = 'active';
       }
     };
-
     $scope.menuprincipal = 'views/organizers/menu.html';
   }
   angular.module('sponzorme')
@@ -3668,7 +3746,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, imgurRequest, $rootScope, $routeParams) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
 
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
@@ -3760,21 +3838,34 @@ angular.module('sponzorme')
       $scope.errorNewEvent = false;
       $scope.newEvent = {};
       if ($scope.file) {
-        var params = {
-          image: $scope.file.base64,
-          type: 'base64'
+        $scope.creds = {
+          bucket: AMAZONBUCKET,
+          access_key: AMAZONKEY,
+          secret_key: AMAZONSECRET
         };
-        imgurRequest.uploadImage(params).success(function(imageData) {
-          $scope.newEvent.image = imageData.data.link;
-          $scope.createNewEvent();
-        }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'InvalidImage';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+        AWS.config.update({
+          accessKeyId: $scope.creds.access_key,
+          secretAccessKey: $scope.creds.secret_key
+        });
+        AWS.config.region = AMAZONBUCKETREGION;
+        var bucket = new AWS.S3({
+          params: {
+            Bucket: $scope.creds.bucket
+          }
+        });
+        // Prepend Unique String To Prevent Overwrites
+        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+        var params = {
+          Key: uniqueFileName,
+          ContentType: $scope.file.type,
+          Body: $scope.file,
+          ServerSideEncryption: 'AES256'
+        };
+        bucket.putObject(params, function(err, data) {
+          if (!err) {
+            $scope.newEvent.image = AMAZONBUCKETURL + uniqueFileName;
+            $scope.createNewEvent();
+          }
         });
       } else {
         //If no Image we set here some image
