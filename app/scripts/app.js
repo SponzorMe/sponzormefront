@@ -79,14 +79,6 @@ var expirationTime = 1;
           templateUrl: 'views/activation.html',
           controller: 'ActivationController'
         })
-        .when('/testimonials', {
-          templateUrl: 'views/testimonials.html',
-          controller: 'HomeController'
-        })
-        .when('/privacy', {
-          templateUrl: 'views/privacy.html',
-          controller: 'HomeController'
-        })
         .when('/login', {
           templateUrl: 'views/login.html',
           controller: 'LoginController'
@@ -98,12 +90,6 @@ var expirationTime = 1;
         .when('/forgot', {
           templateUrl: 'views/forgot.html',
           controller: 'ForgotController'
-        })
-        .when('/about', {
-          templateUrl: 'views/about.html'
-        })
-        .when('/support', {
-          templateUrl: 'views/support.html'
         })
         .when('/reset/:tokenReset', {
           templateUrl: 'views/reset.html',
@@ -180,10 +166,6 @@ var expirationTime = 1;
         .when('/sponzors/payment_complete/:sponzorship_id/:sponzor_id', {
           templateUrl: 'views/sponzors/dashboard/sponzorships.html',
           controller: 'SponzorsSponzorshipsController'
-        })
-        .when('/test', {
-          templateUrl: 'views/test.html',
-          controller: 'UploadController'
         })
         .otherwise({
           redirectTo: '/login'

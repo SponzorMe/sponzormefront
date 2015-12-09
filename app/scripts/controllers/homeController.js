@@ -7,6 +7,9 @@
       } else if($localStorage.typesponzorme === '0') {
         $location.path('/organizers/dashboard');
       }
+      else{
+        window.location.href = "http://www.sponzor.me";
+      }
   }
   angular.module('sponzorme')
     .controller('HomeController', HomeController);
