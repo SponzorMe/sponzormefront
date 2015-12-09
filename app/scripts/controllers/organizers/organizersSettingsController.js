@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, imgurRequest, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET) {
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
     $rootScope.userValidation('0');
     ngDialog.open({
       template: 'views/templates/loadingDialog.html',
@@ -70,7 +70,7 @@
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = 'us-west-2';
+        AWS.config.region = AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -85,34 +85,26 @@
           ServerSideEncryption: 'AES256'
         };
         bucket.putObject(params, function(err, data) {
-          if (err) {
-          } else {
-            var params = {
-              Bucket: AMAZONBUCKET,
-              Key: uniqueFileName
-            };
-            bucket.getSignedUrl('getObject', params, function(err, url) {
-              $localStorage.image = url;
-              $scope.account.image = url;
-              $scope.$digest();
-              userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-                $scope.account = adata.User;
-                $scope.file = false;
-                ngDialog.closeAll();
-                $scope.message = 'accountInfoEditedSuccessfuly';
-                ngDialog.open({
-                  template: 'views/templates/successDialog.html',
-                  showClose: false,
-                  scope: $scope
-                });
-              }).error(function(eData) {
-                ngDialog.closeAll();
-                $scope.message = 'errorEditingAccountInfo';
-                ngDialog.open({
-                  template: 'views/templates/errorDialog.html',
-                  showClose: false,
-                  scope: $scope
-                });
+          if (err) {} else {
+            $localStorage.image = AMAZONBUCKETURL + uniqueFileName;
+            $scope.account.image = AMAZONBUCKETURL + uniqueFileName;
+            userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+              $scope.account = adata.User;
+              $scope.file = false;
+              ngDialog.closeAll();
+              $scope.message = 'accountInfoEditedSuccessfuly';
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            }).error(function(eData) {
+              ngDialog.closeAll();
+              $scope.message = 'errorEditingAccountInfo';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
               });
             });
           }

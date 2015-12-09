@@ -1,7 +1,6 @@
 'use strict';
 var idiomaselect = 'en'; //Default Language
 var apiPath = 'http://apistaging.sponzor.me/'; //API path
-var imgurPath = 'https://api.imgur.com/3/image'; //API path
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
@@ -29,7 +28,6 @@ var expirationTime = 1;
       'userInterestService',
       'userCategoryService',
       'naif.base64',
-      'imgurService',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
@@ -45,6 +43,8 @@ var expirationTime = 1;
     .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
     .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
+    .constant('AMAZONBUCKETREGION', 'us-west-2')
+    .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({

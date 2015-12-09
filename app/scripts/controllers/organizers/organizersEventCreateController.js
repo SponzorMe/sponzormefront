@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, imgurRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
 
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
@@ -101,7 +101,7 @@
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = 'us-west-2';
+        AWS.config.region = AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -117,15 +117,8 @@
         };
         bucket.putObject(params, function(err, data) {
           if (!err){
-            var params = {
-              Bucket: AMAZONBUCKET,
-              Key: uniqueFileName
-            };
-            bucket.getSignedUrl('getObject', params, function(err, url) {
-              $scope.newEvent.image = url;
-              $scope.$digest();
-              $scope.createNewEvent();
-            });
+            $scope.newEvent.image = AMAZONBUCKETURL+uniqueFileName;
+            $scope.createNewEvent();
           }
         });
       }
