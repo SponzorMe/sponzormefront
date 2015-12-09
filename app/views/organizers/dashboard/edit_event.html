@@ -40,7 +40,7 @@
                   {{ 'neweventdescription' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <textarea class="form-control" name="description" ng-model="eventData.description" placeholder="{{'neweventdescriptiondescription'| translate}}" required rows="5"></textarea>
+                  <div text-angular ng-model="eventData.description"></div>
                 </div>
               </div>
               <!--form field-->
