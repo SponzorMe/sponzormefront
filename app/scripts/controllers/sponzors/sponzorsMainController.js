@@ -13,7 +13,7 @@
       eventRequest.allEvents().success(function(adata) {
         $scope.search = [];
         $scope.search = adata.events.filter(function(e) {
-          if (e.location_reference !== 'ljsadljf3289uojklfhasd') {
+          if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() >= new Date().getTime()) {
             return e;
           }
         });
