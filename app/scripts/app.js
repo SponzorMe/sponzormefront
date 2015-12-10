@@ -9,6 +9,7 @@ var expirationTime = 1;
       'ngRoute',
       'userService',
       'loginService',
+      'eventbriteService',
       'ngDialog',
       'base64',
       'ngCookies',
@@ -43,6 +44,8 @@ var expirationTime = 1;
     .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
     .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
+    .constant('EVENTBRITECLIENTSECRET', 'IEPASK4CMUONNNBXA6DQ34O3VGIPFDGAGROF7HPR3LWRS6HREK')
+    .constant('EVENTBRITEAPYKEY', 'UIIEUBJUVOI5JDEZND')
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
@@ -166,6 +169,10 @@ var expirationTime = 1;
         .when('/sponzors/payment_complete/:sponzorship_id/:sponzor_id', {
           templateUrl: 'views/sponzors/dashboard/sponzorships.html',
           controller: 'SponzorsSponzorshipsController'
+        })
+        .when('/eventbrite/:code', {
+          templateUrl: 'views/organizers/dashboard/eventbrite.html',
+          controller: 'OrganizersEventbriteController'
         })
         .otherwise({
           redirectTo: '/login'

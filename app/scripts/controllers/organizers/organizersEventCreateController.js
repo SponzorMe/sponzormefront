@@ -18,6 +18,15 @@
       $scope.categoriasfilter = adata.categories;
     });
     //End vars Initialization
+    //
+    $scope.importEventbrite = function() {
+        $scope.titleevent = "fdadsfsfasdfs";
+        ngDialog.open({
+          template: 'views/templates/importEventbriteDialog.html',
+          showClose: false,
+          controller: 'OrganizersEventbriteController'
+        });
+    };
 
     $scope.verifyPerkLimit = function(s) {
       if (s.usd > 200 || typeof s.usd === 'undefined') {
