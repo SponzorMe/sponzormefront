@@ -44,8 +44,8 @@ var expirationTime = 1;
     .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
     .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
-    .constant('EVENTBRITECLIENTSECRET', 'IEPASK4CMUONNNBXA6DQ34O3VGIPFDGAGROF7HPR3LWRS6HREK')
-    .constant('EVENTBRITEAPYKEY', 'UIIEUBJUVOI5JDEZND')
+    .constant('EVENTBRITECLIENTSECRET', 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5')
+    .constant('EVENTBRITEAPYKEY', 'MI3YNPLR3R73AD36YS')
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 

@@ -138,11 +138,7 @@
         showClose: false
       });
       if ($scope.password === $scope.passwordConfirmation) {
-        var formData = {
-          'email': $localStorage.email,
-          'password': $scope.password,
-          'password_confirmation': $scope.passwordConfirmation
-        };
+        var formData = {'email': $localStorage.email, 'password': $scope.password, 'password_confirmation': $scope.passwordConfirmation};
         loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
           ngDialog.closeAll();
           $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
