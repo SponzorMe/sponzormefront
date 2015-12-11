@@ -1,7 +1,17 @@
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
-
+  function JSONize(str) {
+    return str
+      // wrap keys without quote with valid double quote
+      .replace(/([\$\w]+)\s*:/g, function(_, $1) {
+        return '"' + $1 + '":'
+      })
+      // replacing single quote wrapped ones to double quote
+      .replace(/'([^']+)'/g, function(_, $1) {
+        return '"' + $1 + '"'
+      })
+  };
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest) {
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
     $scope.tolsctive = 'active';
@@ -18,15 +28,7 @@
       $scope.categoriasfilter = adata.categories;
     });
     //End vars Initialization
-    //
-    $scope.importEventbrite = function() {
-        $scope.titleevent = "fdadsfsfasdfs";
-        ngDialog.open({
-          template: 'views/templates/importEventbriteDialog.html',
-          showClose: false,
-          controller: 'OrganizersEventbriteController'
-        });
-    };
+
 
     $scope.verifyPerkLimit = function(s) {
       if (s.usd > 200 || typeof s.usd === 'undefined') {
@@ -132,7 +134,7 @@
         });
       } else {
         //If no Image we set here some image
-        $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';
+        $scope.newEvent.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
         $scope.createNewEvent();
       }
     };
@@ -160,6 +162,78 @@
       }
     };
     $translate.use(idiomaselect);
+    $scope.getEventbriteEvents = function(accessToken) {
+      eventbriteRequest.getEventbriteEvents(accessToken)
+        .success(function(data, head) {
+          $scope.loadingGetEvents = false;
+          $scope.evenbriteEvents = data.events;
+        }).error(function(data){
+          $scope.loadingGetEvents = false;
+          $scope.errorGettingEvents =  true;
+          $scope.evenbriteEvents = false;
+        });
+    };
+    if($routeParams.code){
+      eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data){
+        var response = JSON.parse(JSONize(data.response));
+        if (response.error) {
+          $scope.loadingGetToken = false;
+          $scope.reconnectEventbrite = true;
+          $scope.conectionDone = false;
+        }
+        else{
+          $localStorage.eventBriteBeared = response.access_token;
+          $scope.connectEventbrite();
+        }
+      });
+
+    }
+    $scope.connectEventbrite = function() {
+      $scope.loadingGetToken = true;
+      $scope.loadingGetEvents = false;
+      ngDialog.open({
+        template: 'views/templates/importEventbriteDialog.html',
+        showClose: false,
+        scope: $scope
+      });
+      if ($localStorage.eventBriteBeared) {
+        $scope.loadingGetToken = false;
+        $scope.loadingGetEvents = true;
+        $scope.conectionDone = true;
+        $scope.getEventbriteEvents($localStorage.eventBriteBeared);
+      } else {
+        eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
+          var response = JSON.parse(JSONize(data.response));
+          if (response.error) {
+            $scope.loadingGetToken = false;
+            $scope.reconnectEventbrite = true;
+            $scope.conectionDone = false;
+          } else {
+            $localStorage.eventBriteBeared = response.access_token;
+            console.log(response);
+            $scope.loadingGetToken = false;
+            $scope.loadingGetEvents = true;
+            $scope.conectionDone = true;
+            $scope.getEventbriteEvents(response.access_token);
+          }
+        });
+      }
+    };
+    $scope.prefilEventForm = function(url) {
+      eventbriteRequest.getEventbriteEvent(url, $localStorage.eventBriteBeared)
+        .success(function(data) {
+          //Prefill the form
+          $scope.titleevent = data.name.text;
+          $scope.descriptionevent = data.description.html;
+          $scope.dtini = data.start.local;
+          $scope.dtfinal = data.end.local;
+          if(data.logo){
+            $file = false;
+            $scope.newEvent.image = logo;
+          }
+          ngDialog.closeAll();
+        });
+    };
     $scope.menuprincipal = 'views/organizers/menu.html';
   }
 

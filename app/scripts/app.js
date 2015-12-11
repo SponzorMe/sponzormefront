@@ -171,8 +171,8 @@ var expirationTime = 1;
           controller: 'SponzorsSponzorshipsController'
         })
         .when('/eventbrite/:code', {
-          templateUrl: 'views/organizers/dashboard/eventbrite.html',
-          controller: 'OrganizersEventbriteController'
+          templateUrl: 'views/organizers/dashboard/add_event.html',
+          controller: 'OrganizersEventCreateController'
         })
         .otherwise({
           redirectTo: '/login'
