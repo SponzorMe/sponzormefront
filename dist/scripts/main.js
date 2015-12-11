@@ -109,6 +109,7 @@ var expirationTime = 1;
       'ngRoute',
       'userService',
       'loginService',
+      'eventbriteService',
       'ngDialog',
       'base64',
       'ngCookies',
@@ -143,6 +144,8 @@ var expirationTime = 1;
     .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
     .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
+    .constant('EVENTBRITECLIENTSECRET', 'IEPASK4CMUONNNBXA6DQ34O3VGIPFDGAGROF7HPR3LWRS6HREK')
+    .constant('EVENTBRITEAPYKEY', 'UIIEUBJUVOI5JDEZND')
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
@@ -266,6 +269,10 @@ var expirationTime = 1;
         .when('/sponzors/payment_complete/:sponzorship_id/:sponzor_id', {
           templateUrl: 'views/sponzors/dashboard/sponzorships.html',
           controller: 'SponzorsSponzorshipsController'
+        })
+        .when('/eventbrite/:code', {
+          templateUrl: 'views/organizers/dashboard/add_event.html',
+          controller: 'OrganizersEventCreateController'
         })
         .otherwise({
           redirectTo: '/login'
@@ -1354,6 +1361,33 @@ var expirationTime = 1;
 	}
 	angular.module('rssService', [])
 		.factory('rssRequest', rssRequest);
+})();
+
+/**
+* @Servicio de Eventos
+*
+* @author Sebastian
+* @version 0.1
+*/
+'use strict';
+(function(){
+
+	function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike) {
+		var token = $localStorage.token;
+		return {
+			getEventbriteAuth: function(code){
+					return $http.get(apiPath + 'token/eventbrite/' + code);
+			},
+			getEventbriteEvents: function(token){
+					return $http.get('https://www.eventbriteapi.com/v3/users/me/owned_events/?token='+token);
+			},
+			getEventbriteEvent: function(url, token){
+					return $http.get(url+'?token='+token);
+			}
+		};
+	}
+	angular.module('eventbriteService', ['ngStorage'])
+		.factory('eventbriteRequest', eventbriteRequest);
 })();
 
 'use strict';
@@ -3746,7 +3780,18 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
+  function JSONize(str) {
+    return str
+      // wrap keys without quote with valid double quote
+      .replace(/([\$\w]+)\s*:/g, function(_, $1) {
+        return '"' + $1 + '":'
+      })
+      // replacing single quote wrapped ones to double quote
+      .replace(/'([^']+)'/g, function(_, $1) {
+        return '"' + $1 + '"'
+      })
+  };
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY) {
 
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
@@ -3764,6 +3809,7 @@ angular.module('sponzorme')
       $scope.categoriasfilter = adata.categories;
     });
     //End vars Initialization
+
 
     $scope.verifyPerkLimit = function(s) {
       if (s.usd > 200 || typeof s.usd === 'undefined') {
@@ -3869,7 +3915,7 @@ angular.module('sponzorme')
         });
       } else {
         //If no Image we set here some image
-        $scope.newEvent.image = 'https://lh6.googleusercontent.com/-tPiuqhhZ5YM/UwpwKcmnmHI/AAAAAAAABuA/NB2UukRdRg0/w500-h375-no/nohayfoto.png';
+        $scope.newEvent.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
         $scope.createNewEvent();
       }
     };
@@ -3897,6 +3943,87 @@ angular.module('sponzorme')
       }
     };
     $translate.use(idiomaselect);
+    $scope.getEventbriteEvents = function(accessToken) {
+      eventbriteRequest.getEventbriteEvents(accessToken)
+        .success(function(data, head) {
+          $scope.loadingGetEvents = false;
+          $scope.evenbriteEvents = data.events;
+        }).error(function(data){
+          $scope.loadingGetEvents = false;
+          $scope.errorGettingEvents =  true;
+          $scope.evenbriteEvents = false;
+        });
+    };
+    if($routeParams.code){
+      eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data){
+        var response = JSON.parse(JSONize(data.response));
+        if (response.error) {
+          $scope.loadingGetToken = false;
+          $scope.reconnectEventbrite = true;
+          $scope.conectionDone = false;
+        }
+        else{
+          $localStorage.eventBriteBeared = response.access_token;
+          $scope.connectEventbrite();
+        }
+      });
+
+    };
+    $scope.connectMeetup = function() {
+      $scope.message = 'ComingSoonMeetup';
+      ngDialog.open({
+        template: 'views/templates/infoDialog.html',
+        showClose: false,
+        scope: $scope
+      });
+    };
+    $scope.EVENTBRITEAPYKEY=EVENTBRITEAPYKEY;
+    $scope.connectEventbrite = function() {
+      $scope.loadingGetToken = true;
+      $scope.loadingGetEvents = false;
+      ngDialog.open({
+        template: 'views/templates/importEventbriteDialog.html',
+        showClose: false,
+        scope: $scope
+      });
+      if ($localStorage.eventBriteBeared) {
+        $scope.loadingGetToken = false;
+        $scope.loadingGetEvents = true;
+        $scope.conectionDone = true;
+        $scope.getEventbriteEvents($localStorage.eventBriteBeared);
+      } else {
+        $scope.loadingGetToken = false;
+        $scope.loadingGetEvents = false;
+        $scope.conectionDone = false;
+        eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
+          var response = JSON.parse(JSONize(data.response));
+          if (response.error) {
+            $scope.loadingGetToken = false;
+            $scope.reconnectEventbrite = true;
+            $scope.conectionDone = false;
+          } else {
+            $localStorage.eventBriteBeared = response.access_token;
+            console.log(response);
+            $scope.loadingGetToken = false;
+            $scope.loadingGetEvents = true;
+            $scope.conectionDone = true;
+            $scope.getEventbriteEvents(response.access_token);
+          }
+        });
+      }
+    };
+    $scope.prefilEventForm = function(url) {
+      eventbriteRequest.getEventbriteEvent(url, $localStorage.eventBriteBeared)
+        .success(function(data) {
+          //Prefill the form
+          $scope.titleevent = data.name.text;
+          $scope.descriptionevent = data.description.html;
+          $scope.dtini = data.start.local;
+          $scope.dtfinal = data.end.local;
+          $scope.privacyevent=0;
+          ngDialog.closeAll();
+        });
+    };
     $scope.menuprincipal = 'views/organizers/menu.html';
   }
 

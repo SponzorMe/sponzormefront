@@ -684,5 +684,11 @@
   "updateCompanyDetails": "Update Company Details",
   "changeProfileImage": "Change Profile Image",
   "status": "Status",
-  "eventstate3": "Paid"
+  "eventstate3": "Paid",
+  "ConnectingToEventbrite":"Connecting to Eventbrite...",
+  "RetryEventbriteConection":"Click Here to Retry",
+  "GettingYourEventbriteEvents":"Getting your Eventbrite events...",
+  "RetryGetEvents":"Click here to Get your events",
+  "ChooseEventToImport":"Please click an Event to import",
+  "ComingSoonMeetup":"This functionality is not available yet, Coming soon..."
 }

@@ -11,7 +11,8 @@
         return '"' + $1 + '"'
       })
   };
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY) {
+
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
     $scope.tolsctive = 'active';
@@ -187,7 +188,16 @@
         }
       });
 
-    }
+    };
+    $scope.connectMeetup = function() {
+      $scope.message = 'ComingSoonMeetup';
+      ngDialog.open({
+        template: 'views/templates/infoDialog.html',
+        showClose: false,
+        scope: $scope
+      });
+    };
+    $scope.EVENTBRITEAPYKEY=EVENTBRITEAPYKEY;
     $scope.connectEventbrite = function() {
       $scope.loadingGetToken = true;
       $scope.loadingGetEvents = false;
@@ -202,6 +212,9 @@
         $scope.conectionDone = true;
         $scope.getEventbriteEvents($localStorage.eventBriteBeared);
       } else {
+        $scope.loadingGetToken = false;
+        $scope.loadingGetEvents = false;
+        $scope.conectionDone = false;
         eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
           var response = JSON.parse(JSONize(data.response));
           if (response.error) {
@@ -227,10 +240,7 @@
           $scope.descriptionevent = data.description.html;
           $scope.dtini = data.start.local;
           $scope.dtfinal = data.end.local;
-          if(data.logo){
-            $file = false;
-            $scope.newEvent.image = logo;
-          }
+          $scope.privacyevent=0;
           ngDialog.closeAll();
         });
     };

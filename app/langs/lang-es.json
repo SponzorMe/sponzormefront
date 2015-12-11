@@ -536,7 +536,7 @@
  "email": "Email",
  "newPassword": "Nueva contraseña",
  "newPasswordConfirm": "Confirma nueva contraseña",
- "ResetPasswordText": "Para reiniciar tu contraseña porfavor completa la informació abajo: ",
+ "ResetPasswordText": "Para reiniciar tu contraseña porfavor completa la información abajo: ",
  "send": "Enviar",
  "PasswordChangedSuccesfully": "La contraseña ha sido actualizado exitosamente, Por favor intenta de nuevo ",
  "InvalidData": "La combinación Token/Email es Invalida, Por favor intenta de nuevo.",
@@ -639,5 +639,11 @@
  "updateCompanyDetails": "Update Company Details",
  "changeProfileImage": "Change Profile Image",
  "status": "Estado",
- "eventstate3": "Paid"
+ "eventstate3": "Paid",
+ "ConnectingToEventbrite":"Conectando con Eventbrite...",
+ "RetryEventbriteConection":"Click aquí para intentar de nuevo",
+ "GettingYourEventbriteEvents":"Obteniendo tus eventos de Eventbrite...",
+ "RetryGetEvents":"Click aquí para obtener tus eventos",
+ "ChooseEventToImport":"Haga click en el evento a importar",
+ "ComingSoonMeetup":"Esta funcionalidad no esta disponible aún... Proximamente"
 }

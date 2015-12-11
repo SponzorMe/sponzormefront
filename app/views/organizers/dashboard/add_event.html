@@ -3,14 +3,14 @@
   <div id="content-wrapper">
     <div class="page-content">
       <div class="row header" ng-include src="'views/organizers/dashboard/header.html'"></div>
-      <!-- -->
       <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
           <div class="widget">
           <div class="widget-header">
-
             <i class="fa fa-plus"></i>{{ 'addevent' | translate }}
-              <a class="pull-right" href="" ng-click="connectEventbrite()" >{{ 'import from Eventbrite' | translate }}</a>
+            <a class="pull-right" href="" ng-click="connectMeetup()" ><img width="24px" src="images/meetup.png"/></a>
+            <a class="pull-right" href="" ng-click="connectEventbrite()" ><img width="24px" src="images/eventbrite.png"/></a>
+              <span class="pull-right">{{ 'Import from' | translate }}: </span>
             <div class="clearfix"></div>
           </div>
           <h2 class="text-center">{{ 'completeInfoNewEvent' | translate }}</h2>
@@ -35,7 +35,6 @@
                 <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="locationevent" autocomplete="off" required/>
               </div>
             </div>
-
             <!--form field-->
             <div class="form-group" id="description">
               <label for="label" class="col-sm-4 control-label">

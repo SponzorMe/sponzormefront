@@ -1,19 +1,19 @@
 <div>
-  <div ><i class="material-icons md-48 md-light">info</i>
+  <div class="dialog-top top-info"><i class="material-icons md-48 md-light">info</i><div>
     <div>
       <div class="content">
-        <h3>{{'Connecting to eventbrite' | translate}}
+        <h3>{{'ConnectingToEventbrite' | translate}}
           <i ng-if="!loadingGetToken && conectionDone" class="fa fa-check"></i>
           <i ng-if="!loadingGetToken && !conectionDone" class="fa fa-times"></i>
-            <a ng-if="!loadingGetToken && !conectionDone"  href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=UIIEUBJUVOI5JDEZND"> {{'Retry' | translate}}</a>
+            <a ng-if="!loadingGetToken && !conectionDone"  href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id={{EVENTBRITEAPYKEY}}"> {{'RetryEventbriteConection' | translate}}</a>
         </h3>
         <rd-loading ng-if="loadingGetToken"></rd-loading>
-        <h3 ng-if="!loadingGetToken && conectionDone">{{'Getting your events' | translate}}
+        <h3 ng-if="!loadingGetToken && conectionDone">{{'GettingYourEventbriteEvents' | translate}}
           <i ng-if="!loadingGetEvents && evenbriteEvents.length" class="fa fa-check"></i>
-          <i class="fa fa-times" ng-if="!loadingGetEvents && !evenbriteEvents.length"></i><a ng-if="!loadingGetEvents && !evenbriteEvents.length"  href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=UIIEUBJUVOI5JDEZND">{{'Retry' | translate}}</a>
+          <i class="fa fa-times" ng-if="!loadingGetEvents && !evenbriteEvents.length"></i><a ng-if="!loadingGetEvents && !evenbriteEvents.length"  href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id={{EVENTBRITEAPYKEY}}">{{'RetryGetEvents' | translate}}</a>
         </h3>
         <rd-loading ng-if="loadingGetEvents"></rd-loading>
-        <h3 ng-if="!loadingGetEvents && evenbriteEvents.length">{{'Choose event to import' | translate}}</h3>
+        <h3 ng-if="!loadingGetEvents && evenbriteEvents.length">{{'ChooseEventToImport' | translate}}</h3>
         <div class="table-responsive" ng-if="!loadingGetEvents && evenbriteEvents.length">
           <table class="table table-striped">
             <thead>
