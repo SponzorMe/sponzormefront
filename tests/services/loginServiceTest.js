@@ -28,7 +28,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(200, {
         "message": "Invalid credentials"
       });
     }));
@@ -62,7 +62,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/auth').respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(200, {
         "success": true,
         "user": {
           "id": "1003",
@@ -104,7 +104,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/send_reset_password').respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/send_reset_password').respond(200, {
         "message": "Reset password Link sent",
         "resetLink": "http://app.sponzor.me/#/reset/30952b62d1ddf5987812c6af663213c5",
         "code": "200"
@@ -139,7 +139,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/change_password').respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/change_password').respond(200, {
         "message": "password changed",
         "code": "200"
       });
@@ -174,7 +174,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/send_reset_password').respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/send_reset_password').respond(200, {
         "message": "User Not Found",
         "error": {
           "email": [
@@ -206,7 +206,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/verify_activation/miBadToken123').respond(200, {
+      $httpBackend.when('GET', 'http://api.sponzor.me/verify_activation/miBadToken123').respond(200, {
         "message": "User does not exist",
         "code": "404"
       });
@@ -234,7 +234,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/verify_activation/miGoodToken123').respond(200, {
+      $httpBackend.when('GET', 'http://api.sponzor.me/verify_activation/miGoodToken123').respond(200, {
         'message': "Account activated"
       });
     }));
@@ -261,7 +261,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/verify_activation/miBadToken123').respond(200, {
+      $httpBackend.when('GET', 'http://api.sponzor.me/verify_activation/miBadToken123').respond(200, {
         "message": "User does not exist",
         "code": "404"
       });
@@ -290,7 +290,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/send_activation').respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/send_activation').respond(200, {
         "message": "Activation Link sent",
         "code": "200"
       });
@@ -319,7 +319,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/send_activation').respond(201, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/send_activation').respond(201, {
         "message": "Email Cannot be sent",
         "code": "201"
       });
@@ -349,7 +349,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/update_password/'+token).respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/update_password/'+token).respond(200, {
         "message": "Password Reseted",
         "code": "200"
       });
@@ -379,7 +379,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/update_password/'+token).respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/update_password/'+token).respond(200, {
         "message": "User does not exist",
         "code": "404"
       });
@@ -409,7 +409,7 @@ describe("Login Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/update_password/'+token).respond(200, {
+      $httpBackend.when('POST', 'http://api.sponzor.me/update_password/'+token).respond(200, {
         "message": "The token does not match",
         "code": "400"
       });

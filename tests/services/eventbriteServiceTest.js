@@ -56,7 +56,7 @@ describe("rssService Tests", function() {
       inject(function($injector) {
         // Set up the mock http service responses
         $httpBackend = $injector.get('$httpBackend');
-        $httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+        $httpBackend.when('GET', 'http://api.sponzor.me/token/eventbrite/' + code).respond(200, {
           "success": true
         });
       })
