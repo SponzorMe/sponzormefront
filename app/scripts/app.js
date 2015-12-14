@@ -46,6 +46,8 @@ var expirationTime = 1;
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
     .constant('EVENTBRITECLIENTSECRET', 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5')
     .constant('EVENTBRITEAPYKEY', 'MI3YNPLR3R73AD36YS')
+    .constant('MEETUPAPIKEY', 'sc88mha7rapt4pmhfuo52i68uv')
+    .constant('MEETUPREDIRECTURL', 'http://apistaging.sponzor.me/accept/meetup')
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
@@ -170,7 +172,11 @@ var expirationTime = 1;
           templateUrl: 'views/sponzors/dashboard/sponzorships.html',
           controller: 'SponzorsSponzorshipsController'
         })
-        .when('/eventbrite/:code', {
+        .when('/eventbrite/:eventBriteCode', {
+          templateUrl: 'views/organizers/dashboard/add_event.html',
+          controller: 'OrganizersEventCreateController'
+        })
+        .when('/meetup/:meetupCode', {
           templateUrl: 'views/organizers/dashboard/add_event.html',
           controller: 'OrganizersEventCreateController'
         })

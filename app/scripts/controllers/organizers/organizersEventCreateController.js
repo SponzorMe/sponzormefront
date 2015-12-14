@@ -1,7 +1,8 @@
 'use strict';
 (function() {
 
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY, MEETUPAPIKEY, MEETUPREDIRECTURL) {
+    //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
         return '"' + $1 + '":';
@@ -12,6 +13,7 @@
 
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
+    $translate.use(idiomaselect);
     $scope.tolsctive = 'active';
     $scope.sponzorshipTypes = [];
     $scope.newEvent = {};
@@ -27,7 +29,7 @@
     });
     //End vars Initialization
 
-
+    //This function very no perks over 200USD
     $scope.verifyPerkLimit = function(s) {
       if (s.usd > 200 || typeof s.usd === 'undefined') {
         s.usd = 200;
@@ -159,10 +161,9 @@
         $scope.tolsctive = 'active';
       }
     };
-    $translate.use(idiomaselect);
-    if ($routeParams.code) {
-      eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
 
+    if ($routeParams.eventBriteCode) {
+      eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
         var response = JSON.parse(jsonize(data.response));
         if (response.error) {
           $scope.loadingGetToken = false;
@@ -174,13 +175,57 @@
         }
       });
     }
+    else if($routeParams.meetupCode){
+      console.log('Meetup', $routeParams.meetupCode);
+      eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data){
+        var response = JSON.parse(jsonize(data.response));
+        if(response.error){
+          console.log('Hubo error', response);
+          $scope.meetupLoadingGetToken = false;
+          $scope.reconnectMeetup = true;
+          $scope.meetupConectionDone = false;
+        }else{
+          $localStorage.meetupBeared = response.access_token;
+          console.log('No error, access token', $localStorage.meetupBeared);
+          $scope.connectMeetup();
+        }
+      });
+    }
     $scope.connectMeetup = function() {
-      $scope.message = 'ComingSoonMeetup';
+      console.log('conectando a meetup');
+      $scope.meetupLoadingGetToken = true;
+      $scope.loadingGetMeetupEvents = false;
       ngDialog.open({
-        template: 'views/templates/infoDialog.html',
+        template: 'views/templates/importMeetupDialog.html',
         showClose: false,
         scope: $scope
       });
+      if ($localStorage.meetupBeared) {
+        console.log('el token esta guardado');
+        $scope.meetupLoadingGetToken = false;
+        $scope.loadingGetMeetupEvents = true;
+        $scope.meetupConectionDone = true;
+        $scope.getMeetupGroups($localStorage.meetupBeared);
+      } else {
+        console.log('el token no esta guardado')
+        $scope.meetupLoadingGetToken = false;
+        $scope.loadingGetMeetupEvents = false;
+        $scope.meetupConectionDone = false;
+        eventbriteRequest.getMeetupAuth($routeParams.meetupBeared).success(function(data) {
+          var response = JSON.parse(jsonize(data.response));
+          if (response.error) {
+            $scope.meetupLoadingGetToken = false;
+            $scope.reconnectMeetup = true;
+            $scope.meetupConectionDone = false;
+          } else {
+            $localStorage.meetupBeared = response.access_token;
+            $scope.meetupLoadingGetToken = false;
+            $scope.loadingGetMeetupEvents = true;
+            $scope.meetupConectionDone = true;
+            $scope.getMeetupGroups(response.access_token);
+          }
+        });
+      }
     };
     $scope.EVENTBRITEAPYKEY = EVENTBRITEAPYKEY;
     $scope.getEventbriteEvents = function(accessToken) {
@@ -192,6 +237,22 @@
           $scope.loadingGetEvents = false;
           $scope.errorGettingEvents = true;
           $scope.evenbriteEvents = false;
+        });
+    };
+    $scope.MEETUPAPIKEY = MEETUPAPIKEY;
+    $scope.MEETUPREDIRECTURL = MEETUPREDIRECTURL;
+    $scope.getMeetupGroups = function(accessToken) {
+      console.log('tratando de recuperar los grupos', accessToken);
+      eventbriteRequest.getMeetupGroups(accessToken)
+        .success(function(data) {
+          $scope.loadingGetMeetupEvents = false;
+          $scope.meetupEvents = JSON.parse(data.response);
+          console.log(JSON.parse(data.response));
+        }).error(function(data) {
+          console.log('Error trayendo los grupos info',data);
+          $scope.loadingGetMeetupEvents = false;
+          $scope.errorGettingGroups = true;
+          $scope.meetupEvents = false;
         });
     };
     $scope.connectEventbrite = function() {
@@ -211,7 +272,7 @@
         $scope.loadingGetToken = false;
         $scope.loadingGetEvents = false;
         $scope.conectionDone = false;
-        eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
+        eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));
           if (response.error) {
             $scope.loadingGetToken = false;
@@ -239,6 +300,14 @@
           $scope.privacyevent = 0;
           ngDialog.closeAll();
         });
+    };
+    $scope.prefilEventFormMeetup = function(e) {
+          $scope.titleevent = e.name;
+          $scope.descriptionevent = e.description;
+          $scope.dtini = e.time;
+          $scope.dtfinal = new Date(e.time + (e.utc_offset*-1));
+          $scope.privacyevent = 0;
+          ngDialog.closeAll();
     };
     $scope.menuprincipal = 'views/organizers/menu.html';
   }
