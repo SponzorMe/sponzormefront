@@ -48,8 +48,10 @@
       $scope.newEvent.location = $scope.locationevent.formatted_address;
       $scope.newEvent.location_reference = $scope.locationevent.place_id;
       $scope.newEvent.description = $scope.descriptionevent;
-      $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD hh:mm:ss');
-      $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD hh:mm:ss');
+      $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD HH:mm:ss');
+      $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD HH:mm:ss');
+      //$scope.newEvent.starts = new Date($scope.dtini);
+      //$scope.newEvent.ends = new Date($scope.dtfinal);
       $scope.newEvent.lang = idiomaselect;
       $scope.newEvent.type = $scope.typeevent;
       $scope.newEvent.category = $scope.categoryevent;
