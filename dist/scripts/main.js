@@ -146,6 +146,8 @@ var expirationTime = 1;
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
     .constant('EVENTBRITECLIENTSECRET', 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5')
     .constant('EVENTBRITEAPYKEY', 'MI3YNPLR3R73AD36YS')
+    .constant('MEETUPAPIKEY', 'sc88mha7rapt4pmhfuo52i68uv')
+    .constant('MEETUPREDIRECTURL', 'http://apistaging.sponzor.me/accept/meetup')
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
@@ -270,7 +272,11 @@ var expirationTime = 1;
           templateUrl: 'views/sponzors/dashboard/sponzorships.html',
           controller: 'SponzorsSponzorshipsController'
         })
-        .when('/eventbrite/:code', {
+        .when('/eventbrite/:eventBriteCode', {
+          templateUrl: 'views/organizers/dashboard/add_event.html',
+          controller: 'OrganizersEventCreateController'
+        })
+        .when('/meetup/:meetupCode', {
           templateUrl: 'views/organizers/dashboard/add_event.html',
           controller: 'OrganizersEventCreateController'
         })
@@ -1377,6 +1383,9 @@ var expirationTime = 1;
       getEventbriteAuth: function(code) {
         return $http.get(apiPath + 'token/eventbrite/' + code);
       },
+      getMeetupAuth: function(code) {
+        return $http.get(apiPath + 'token/meetup/' + code);
+      },
       getEventbriteEvents: function(token) {
         var config = {
           headers: {
@@ -1385,6 +1394,9 @@ var expirationTime = 1;
           }
         };
         return $http.get('https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token, config);
+      },
+      getMeetupGroups: function(token) {
+        return $http.get(apiPath + 'groups/meetup/' + token);
       },
       getEventbriteEvent: function(url, token) {
         var config = { headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + token}
@@ -3785,7 +3797,8 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY, MEETUPAPIKEY, MEETUPREDIRECTURL) {
+    //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
         return '"' + $1 + '":';
@@ -3796,6 +3809,7 @@ angular.module('sponzorme')
 
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
+    $translate.use(idiomaselect);
     $scope.tolsctive = 'active';
     $scope.sponzorshipTypes = [];
     $scope.newEvent = {};
@@ -3811,7 +3825,7 @@ angular.module('sponzorme')
     });
     //End vars Initialization
 
-
+    //This function very no perks over 200USD
     $scope.verifyPerkLimit = function(s) {
       if (s.usd > 200 || typeof s.usd === 'undefined') {
         s.usd = 200;
@@ -3943,10 +3957,9 @@ angular.module('sponzorme')
         $scope.tolsctive = 'active';
       }
     };
-    $translate.use(idiomaselect);
-    if ($routeParams.code) {
-      eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
 
+    if ($routeParams.eventBriteCode) {
+      eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
         var response = JSON.parse(jsonize(data.response));
         if (response.error) {
           $scope.loadingGetToken = false;
@@ -3957,14 +3970,56 @@ angular.module('sponzorme')
           $scope.connectEventbrite();
         }
       });
+    } else if ($routeParams.meetupCode) {
+
+      eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
+        var response = JSON.parse(jsonize(data.response));
+        if (response.error) {
+
+          $scope.meetupLoadingGetToken = false;
+          $scope.reconnectMeetup = true;
+          $scope.meetupConectionDone = false;
+        } else {
+          $localStorage.meetupBeared = response.access_token;
+
+          $scope.connectMeetup();
+        }
+      });
     }
     $scope.connectMeetup = function() {
-      $scope.message = 'ComingSoonMeetup';
+
+      $scope.meetupLoadingGetToken = true;
+      $scope.loadingGetMeetupEvents = false;
       ngDialog.open({
-        template: 'views/templates/infoDialog.html',
+        template: 'views/templates/importMeetupDialog.html',
         showClose: false,
         scope: $scope
       });
+      if ($localStorage.meetupBeared) {
+
+        $scope.meetupLoadingGetToken = false;
+        $scope.loadingGetMeetupEvents = true;
+        $scope.meetupConectionDone = true;
+        $scope.getMeetupGroups($localStorage.meetupBeared);
+      } else {
+        $scope.meetupLoadingGetToken = false;
+        $scope.loadingGetMeetupEvents = false;
+        $scope.meetupConectionDone = false;
+        eventbriteRequest.getMeetupAuth($routeParams.meetupBeared).success(function(data) {
+          var response = JSON.parse(jsonize(data.response));
+          if (response.error) {
+            $scope.meetupLoadingGetToken = false;
+            $scope.reconnectMeetup = true;
+            $scope.meetupConectionDone = false;
+          } else {
+            $localStorage.meetupBeared = response.access_token;
+            $scope.meetupLoadingGetToken = false;
+            $scope.loadingGetMeetupEvents = true;
+            $scope.meetupConectionDone = true;
+            $scope.getMeetupGroups(response.access_token);
+          }
+        });
+      }
     };
     $scope.EVENTBRITEAPYKEY = EVENTBRITEAPYKEY;
     $scope.getEventbriteEvents = function(accessToken) {
@@ -3976,6 +4031,23 @@ angular.module('sponzorme')
           $scope.loadingGetEvents = false;
           $scope.errorGettingEvents = true;
           $scope.evenbriteEvents = false;
+        });
+    };
+    $scope.MEETUPAPIKEY = MEETUPAPIKEY;
+    $scope.MEETUPREDIRECTURL = MEETUPREDIRECTURL;
+    $scope.getMeetupGroups = function(accessToken) {
+
+      eventbriteRequest.getMeetupGroups(accessToken)
+        .success(function(data) {
+          $scope.loadingGetMeetupEvents = false;
+
+          $scope.meetupEvents = JSON.parse(data.response);
+
+        }).error(function(data) {
+
+          $scope.loadingGetMeetupEvents = false;
+          $scope.errorGettingGroups = true;
+          $scope.meetupEvents = false;
         });
     };
     $scope.connectEventbrite = function() {
@@ -3995,7 +4067,7 @@ angular.module('sponzorme')
         $scope.loadingGetToken = false;
         $scope.loadingGetEvents = false;
         $scope.conectionDone = false;
-        eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
+        eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));
           if (response.error) {
             $scope.loadingGetToken = false;
@@ -4023,6 +4095,14 @@ angular.module('sponzorme')
           $scope.privacyevent = 0;
           ngDialog.closeAll();
         });
+    };
+    $scope.prefilEventFormMeetup = function(e) {
+      $scope.titleevent = e.name;
+      $scope.descriptionevent = e.description;
+      $scope.dtini = e.time;
+      $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
+      $scope.privacyevent = 0;
+      ngDialog.closeAll();
     };
     $scope.menuprincipal = 'views/organizers/menu.html';
   }

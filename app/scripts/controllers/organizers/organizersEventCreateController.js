@@ -174,25 +174,24 @@
           $scope.connectEventbrite();
         }
       });
-    }
-    else if($routeParams.meetupCode){
-      console.log('Meetup', $routeParams.meetupCode);
-      eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data){
+    } else if ($routeParams.meetupCode) {
+
+      eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
         var response = JSON.parse(jsonize(data.response));
-        if(response.error){
-          console.log('Hubo error', response);
+        if (response.error) {
+
           $scope.meetupLoadingGetToken = false;
           $scope.reconnectMeetup = true;
           $scope.meetupConectionDone = false;
-        }else{
+        } else {
           $localStorage.meetupBeared = response.access_token;
-          console.log('No error, access token', $localStorage.meetupBeared);
+
           $scope.connectMeetup();
         }
       });
     }
     $scope.connectMeetup = function() {
-      console.log('conectando a meetup');
+
       $scope.meetupLoadingGetToken = true;
       $scope.loadingGetMeetupEvents = false;
       ngDialog.open({
@@ -201,13 +200,12 @@
         scope: $scope
       });
       if ($localStorage.meetupBeared) {
-        console.log('el token esta guardado');
+
         $scope.meetupLoadingGetToken = false;
         $scope.loadingGetMeetupEvents = true;
         $scope.meetupConectionDone = true;
         $scope.getMeetupGroups($localStorage.meetupBeared);
       } else {
-        console.log('el token no esta guardado')
         $scope.meetupLoadingGetToken = false;
         $scope.loadingGetMeetupEvents = false;
         $scope.meetupConectionDone = false;
@@ -242,14 +240,15 @@
     $scope.MEETUPAPIKEY = MEETUPAPIKEY;
     $scope.MEETUPREDIRECTURL = MEETUPREDIRECTURL;
     $scope.getMeetupGroups = function(accessToken) {
-      console.log('tratando de recuperar los grupos', accessToken);
+
       eventbriteRequest.getMeetupGroups(accessToken)
         .success(function(data) {
           $scope.loadingGetMeetupEvents = false;
+
           $scope.meetupEvents = JSON.parse(data.response);
-          console.log(JSON.parse(data.response));
+
         }).error(function(data) {
-          console.log('Error trayendo los grupos info',data);
+
           $scope.loadingGetMeetupEvents = false;
           $scope.errorGettingGroups = true;
           $scope.meetupEvents = false;
@@ -302,12 +301,12 @@
         });
     };
     $scope.prefilEventFormMeetup = function(e) {
-          $scope.titleevent = e.name;
-          $scope.descriptionevent = e.description;
-          $scope.dtini = e.time;
-          $scope.dtfinal = new Date(e.time + (e.utc_offset*-1));
-          $scope.privacyevent = 0;
-          ngDialog.closeAll();
+      $scope.titleevent = e.name;
+      $scope.descriptionevent = e.description;
+      $scope.dtini = e.time;
+      $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
+      $scope.privacyevent = 0;
+      ngDialog.closeAll();
     };
     $scope.menuprincipal = 'views/organizers/menu.html';
   }
