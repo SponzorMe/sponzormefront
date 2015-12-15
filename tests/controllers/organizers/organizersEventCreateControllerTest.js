@@ -92,19 +92,19 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.message).toEqual('eventCreatedSuccesfully');
   });
   it("Should be a conection invalid with eventbrite", function(){
-    var code = "12343241";
+    var eventBriteCode = "12343241";
     $localStorage.eventBriteBeared = "";
     /*httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
       responseData: Object, responseDetails: null, responseStatus: 200
     });*/
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
       "success": true,
       "response": '{"error_description":"code is invalid or expired","error":"invalid_grant"}'
     });
     /*httpBackend.when('GET', url+'?token='+token).respond(200, {
       "success": true
     });*/
-    $routeParams.code = code;
+    $routeParams.eventBriteCode = eventBriteCode;
     var controller = createController();
     httpBackend.flush();
     expect(scope.loadingGetToken).toEqual(false);
@@ -112,46 +112,68 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.conectionDone).toEqual(false);
   });
   it("Should be a conection valid with eventbrite", function(){
-    var code = "12343241";
+    var eventBriteCode = "12343241";
     var token = "12343241";
     $localStorage.eventBriteBeared = "";
     httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
       responseData: Object, responseDetails: null, responseStatus: 200
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
       "success": true,
       "response": '{"access_token":"12343241"}'
     });
     /*httpBackend.when('GET', url+'?token='+token).respond(200, {
       "success": true
     });*/
-    $routeParams.code = code;
+    $routeParams.eventBriteCode = eventBriteCode;
     var controller = createController();
     httpBackend.flush();
-    expect($localStorage.eventBriteBeared).toEqual($routeParams.code);
+    expect($localStorage.eventBriteBeared).toEqual($routeParams.eventBriteCode);
   });
 
   it("Should be a conection valid and conection eventbrite", function(){
-    var code = "12343241";
+    var eventBriteCode = "12343241";
     var token = "12343241";
     $localStorage.eventBriteBeared = "";
     httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
       events:[{"title":"1234"},{"title":"12345"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
       "success": true,
       "response": '{"access_token":"12343241"}'
     });
     /*httpBackend.when('GET', url+'?token='+token).respond(200, {
       "success": true
     });*/
-    $routeParams.code = code;
+    $routeParams.eventBriteCode = eventBriteCode;
     var controller = createController();
     httpBackend.flush();
-    expect($localStorage.eventBriteBeared).toEqual($routeParams.code);
+    expect($localStorage.eventBriteBeared).toEqual($routeParams.eventBriteCode);
     expect(scope.loadingGetEvents).toEqual(false);
     expect(scope.evenbriteEvents.length).toEqual(2);
-
   });
+
+  it("Should be a conection invalid with eventbrite", function(){
+    var eventBriteCode = "12343241";
+    $localStorage.eventBriteBeared = "";
+    /*httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
+      responseData: Object, responseDetails: null, responseStatus: 200
+    });*/
+    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
+      "success": true,
+      "response": '{"error_description":"code is invalid or expired","error":"invalid_grant"}'
+    });
+    /*httpBackend.when('GET', url+'?token='+token).respond(200, {
+      "success": true
+    });*/
+    $routeParams.eventBriteCode = eventBriteCode;
+    var controller = createController();
+    httpBackend.flush();
+    expect(scope.loadingGetToken).toEqual(false);
+    expect(scope.reconnectEventbrite).toEqual(true);
+    expect(scope.conectionDone).toEqual(false);
+  });
+
+
 
 });
