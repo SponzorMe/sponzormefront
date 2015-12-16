@@ -100,45 +100,30 @@ var event_es = {
 
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://apistaging.sponzor.me/'; //API path
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
       'pascalprecht.translate',
       'ngResource',
       'ngRoute',
-      'userService',
-      'loginService',
-      'eventbriteService',
       'ngDialog',
       'base64',
       'ngCookies',
       'ngStorage',
       'ui.bootstrap',
-      'eventTypeService',
-      'categoryService',
       'google.places',
-      'eventService',
-      'rssService',
-      'perkService',
-      'taskSponzorService',
-      'perkTaskService',
-      'sponzorshipService',
       'angularSpinner',
-      'allInterestsService',
-      'userInterestService',
-      'userCategoryService',
       'naif.base64',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
       'textAngular'
     ])
-    .constant('URL', 'http://apistaging.sponzor.me/')
+    .constant('URL', 'https://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
     .constant('FEE', parseFloat(0.1))
     .constant('PAYPALCOMPLETERETURNURL', 'http://www.sponzor.me/thank-you/')
-    .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
+    .constant('PAYPALIPNRETURNURL', 'https://apistaging.sponzor.me/ipn')
     .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
     .constant('FURL', 'https://sponzorme.firebaseio.com/')
     .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
@@ -146,8 +131,8 @@ var expirationTime = 1;
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
     .constant('EVENTBRITECLIENTSECRET', 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5')
     .constant('EVENTBRITEAPYKEY', 'MI3YNPLR3R73AD36YS')
-    .constant('MEETUPAPIKEY', 'sc88mha7rapt4pmhfuo52i68uv')
-    .constant('MEETUPREDIRECTURL', 'http://apistaging.sponzor.me/accept/meetup')
+    .constant('MEETUPAPIKEY', 'scqnorvk4o3utc3k19qfj45vng')
+    .constant('MEETUPREDIRECTURL', 'https://apistaging.sponzor.me/accept/meetup')
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
@@ -569,7 +554,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function categoryRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function categoryRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			/**
@@ -577,7 +562,7 @@ var expirationTime = 1;
 			* @returns success(function(data, status, headers, config)
 			*/
 			allCategories: function(){
-				return $http.get(apiPath + 'categories');
+				return $http.get(URL + 'categories');
 
 			},
 			/**
@@ -586,13 +571,13 @@ var expirationTime = 1;
 			* @returns success(function(data, status, headers, config)
 			*/
 			oneCategory: function(categoryId){
-				return $http.get(apiPath + 'categories/' + categoryId);
+				return $http.get(URL + 'categories/' + categoryId);
 
 			},
 			createCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'categories',
+					url: URL + 'categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -600,14 +585,14 @@ var expirationTime = 1;
 			deleteCategory: function(categoryId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'categories/' + categoryId,
+					url: URL + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editCategoryPatch: function(categoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'categories/' + categoryId,
+					url: URL + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -615,14 +600,14 @@ var expirationTime = 1;
 			editCategoryPut: function(categoryId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'categories/' + categoryId,
+					url: URL + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('categoryService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('categoryRequest', categoryRequest);
 })();
 
@@ -635,21 +620,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function eventRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function eventRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allEvents: function(){
-				return $http.get(apiPath + 'events');
+				return $http.get(URL + 'events');
 
 			},
 			oneEvent: function(EventId){
-				return $http.get(apiPath + 'events/' + EventId);
+				return $http.get(URL + 'events/' + EventId);
 
 			},
 			createEvent: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'events',
+					url: URL + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -657,7 +642,7 @@ var expirationTime = 1;
 			createEventToken: function(data, newUserToken){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'events',
+					url: URL + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -665,14 +650,14 @@ var expirationTime = 1;
 			deleteEvent: function(EventId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'events/' + EventId,
+					url: URL + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editEventPatch: function(EventId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'events/' + EventId,
+					url: URL + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -680,14 +665,14 @@ var expirationTime = 1;
 			editEventPut: function(EventId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'events/' + EventId,
+					url: URL + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('eventService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('eventRequest', eventRequest);
 })();
 
@@ -700,21 +685,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function eventTypeService($http, $localStorage, $httpParamSerializerJQLike) {
+	function eventTypeService($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allEventTypes: function(){
-				return $http.get(apiPath + 'event_types');
+				return $http.get(URL + 'event_types');
 
 			},
 			oneEventTypes: function(eventTypeId){
-				return $http.get(apiPath + 'event_types/' + eventTypeId);
+				return $http.get(URL + 'event_types/' + eventTypeId);
 
 			},
 			createEventType: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'event_types',
+					url: URL + 'event_types',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -722,14 +707,14 @@ var expirationTime = 1;
 			deleteEventType: function(eventTypeId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'event_types/' + eventTypeId,
+					url: URL + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editEventTypePatch: function(eventTypeId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'event_types/' + eventTypeId,
+					url: URL + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -737,14 +722,14 @@ var expirationTime = 1;
 			editEventTypePut: function(eventTypeId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'event_types/' + eventTypeId,
+					url: URL + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('eventTypeService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('eventTypeRequest', eventTypeService);
 })();
 
@@ -757,21 +742,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function allInterestsServiceRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function allInterestsServiceRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allInterestsCategoriesId: function(){
-				return $http.get(apiPath + 'interests_category');
+				return $http.get(URL + 'interests_category');
 
 			},
 			oneInterestsCategory: function(interestsCategoryId){
-				return $http.get(apiPath + 'interests_category/' + interestsCategoryId);
+				return $http.get(URL + 'interests_category/' + interestsCategoryId);
 
 			},
 			createInterestsCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'interests_category',
+					url: URL + 'interests_category',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -779,14 +764,14 @@ var expirationTime = 1;
 			deleteInterestsCategory: function(interestsCategoryId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'interests_category/' + interestsCategoryId,
+					url: URL + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editInterestsCategoryPatch: function(interestsCategoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'interests_category/' + interestsCategoryId,
+					url: URL + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -794,14 +779,14 @@ var expirationTime = 1;
 			editInterestsCategoryPut: function(interestsCategoryId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'interests_category/' + interestsCategoryId,
+					url: URL + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('allInterestsService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('allInterestsServiceRequest', allInterestsServiceRequest);
 })();
 
@@ -813,7 +798,7 @@ var expirationTime = 1;
    * @email  seagomezar@gmail.com
    * @date   2015-11-16
    */
-  function loginRequest($http, $httpParamSerializerJQLike) {
+  function loginRequest($http, $httpParamSerializerJQLike, URL) {
     return {
       /**
        * Login function return the user info if the credentials match
@@ -828,7 +813,7 @@ var expirationTime = 1;
         };
         return $http({
           method: 'POST',
-          url: apiPath + 'auth',
+          url: URL + 'auth',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -841,7 +826,7 @@ var expirationTime = 1;
         };
         return $http({
           method: 'POST',
-          url: apiPath + 'send_reset_password',
+          url: URL + 'send_reset_password',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -849,7 +834,7 @@ var expirationTime = 1;
         });
       },
       tryActivation: function(token) {
-        return $http.get(apiPath + 'verify_activation/' + token);
+        return $http.get(URL + 'verify_activation/' + token);
       },
       resendActivation: function(email) {
         var data = {
@@ -857,7 +842,7 @@ var expirationTime = 1;
         };
         return $http({
           method: 'POST',
-          url: apiPath + 'send_activation',
+          url: URL + 'send_activation',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -867,7 +852,7 @@ var expirationTime = 1;
       updatePassword: function(token, data) {
         return $http({
           method: 'POST',
-          url: apiPath + 'update_password/' + token,
+          url: URL + 'update_password/' + token,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -877,14 +862,14 @@ var expirationTime = 1;
       changePassword: function(data, token) {
         return $http({
           method: 'POST',
-          url: apiPath + 'change_password',
+          url: URL + 'change_password',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
         });
       }
     };
   }
-  angular.module('loginService', [])
+  angular.module('sponzorme')
     .factory('loginRequest', loginRequest);
 })();
 
@@ -897,21 +882,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function perkRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function perkRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allPerks: function(){
-				return $http.get(apiPath + 'perks');
+				return $http.get(URL + 'perks');
 
 			},
 			onePerk: function(perkId){
-				return $http.get(apiPath + 'perks/' + perkId);
+				return $http.get(URL + 'perks/' + perkId);
 
 			},
 			createPerk: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'perks',
+					url: URL + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -919,7 +904,7 @@ var expirationTime = 1;
 			createPerkToken: function(data, newUserToken){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'perks',
+					url: URL + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -927,14 +912,14 @@ var expirationTime = 1;
 			deletePerk: function(perkId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'perks/' + perkId,
+					url: URL + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editPerkPatch: function(perkId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'perks/' + perkId,
+					url: URL + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -942,14 +927,14 @@ var expirationTime = 1;
 			editPerkPut: function(perkId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'perks/' + perkId,
+					url: URL + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('perkService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('perkRequest', perkRequest);
 })();
 
@@ -962,21 +947,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allPerkTasks: function(){
-				return $http.get(apiPath + 'perk_tasks');
+				return $http.get(URL + 'perk_tasks');
 
 			},
 			onePerkTask: function(perkTaskId){
-				return $http.get(apiPath + 'perk_tasks/' + perkTaskId);
+				return $http.get(URL + 'perk_tasks/' + perkTaskId);
 
 			},
 			createPerkTask: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'perk_tasks',
+					url: URL + 'perk_tasks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -984,14 +969,14 @@ var expirationTime = 1;
 			deletePerkTask: function(perkTaskId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'perk_tasks/' + perkTaskId,
+					url: URL + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editPerkTaskPatch: function(perkTaskId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'perk_tasks/' + perkTaskId,
+					url: URL + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -999,14 +984,14 @@ var expirationTime = 1;
 			editPerkTaskPut: function(perkTaskId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'perk_tasks/' + perkTaskId,
+					url: URL + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('perkTaskService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('perkTaskRequest', perkTaskRequest);
 })();
 
@@ -1019,27 +1004,27 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allSponzorships: function(){
-				return $http.get(apiPath + 'sponzorships');
+				return $http.get(URL + 'sponzorships');
 
 			},
 			oneSponzorship: function(sponzorshipId){
-				return $http.get(apiPath + 'sponzorships/' + sponzorshipId);
+				return $http.get(URL + 'sponzorships/' + sponzorshipId);
 
 			},
 			oneSponzorshipByOrganizer: function(organizerId){
-				return $http.get(apiPath + 'sponzorships_organizer/' + organizerId);
+				return $http.get(URL + 'sponzorships_organizer/' + organizerId);
 			},
 			oneSponzorshipBySponzor: function(sponzorId){
-				return $http.get(apiPath + 'sponzorships_sponzor/' + sponzorId);
+				return $http.get(URL + 'sponzorships_sponzor/' + sponzorId);
 			},
 			sendSponzorshipEmail: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'sponzorship_email',
+					url: URL + 'sponzorship_email',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1047,7 +1032,7 @@ var expirationTime = 1;
 			sendSponzorshipEmailOrganizer: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'sponzorship_email_organizer',
+					url: URL + 'sponzorship_email_organizer',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1055,7 +1040,7 @@ var expirationTime = 1;
 			createSponzorship: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'sponzorships',
+					url: URL + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1063,7 +1048,7 @@ var expirationTime = 1;
 			createSponzorshipToken: function(data, userToken){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'sponzorships',
+					url: URL + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1071,14 +1056,14 @@ var expirationTime = 1;
 			deleteSponzorship: function(sponzorshipId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'sponzorships/' + sponzorshipId,
+					url: URL + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editSponzorshipPatch: function(sponzorshipId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'sponzorships/' + sponzorshipId,
+					url: URL + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1086,14 +1071,14 @@ var expirationTime = 1;
 			editSponzorshipPut: function(sponzorshipId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'sponzorships/' + sponzorshipId,
+					url: URL + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('sponzorshipService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('sponzorshipRequest', sponzorshipRequest);
 })();
 
@@ -1106,24 +1091,24 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allTaskSponzor: function(){
-				return $http.get(apiPath + 'task_sponzor');
+				return $http.get(URL + 'task_sponzor');
 
 			},
 			oneTaskSponzor: function(taskSponzorId){
-				return $http.get(apiPath + 'task_sponzor/' + taskSponzorId);
+				return $http.get(URL + 'task_sponzor/' + taskSponzorId);
 
 			},
 			tasksBySponzorship: function(sponzorshipId){
-				return $http.get(apiPath + 'perk_tasks_sponzorship/' + sponzorshipId);
+				return $http.get(URL + 'perk_tasks_sponzorship/' + sponzorshipId);
 			},
 			createTaskSponzor: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'task_sponzor',
+					url: URL + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1131,7 +1116,7 @@ var expirationTime = 1;
 			createTaskSponzorToken: function(data, userToken){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'task_sponzor',
+					url: URL + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1139,14 +1124,14 @@ var expirationTime = 1;
 			deleteTaskSponzor: function(taskSponzorId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'task_sponzor/' + taskSponzorId,
+					url: URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editTaskSponzorPatch: function(taskSponzorId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'task_sponzor/' + taskSponzorId,
+					url: URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1154,14 +1139,14 @@ var expirationTime = 1;
 			editTaskSponzorPut: function(taskSponzorId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'task_sponzor/' + taskSponzorId,
+					url: URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('taskSponzorService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('taskSponzorRequest', taskSponzorRequest);
 })();
 
@@ -1174,19 +1159,19 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
-				return $http.get(apiPath + 'user_categories');
+				return $http.get(URL + 'user_categories');
 			},
 			oneUserCategory: function(userCategoryId){
-				return $http.get(apiPath + 'user_categories/' + userCategoryId);
+				return $http.get(URL + 'user_categories/' + userCategoryId);
 			},
 			createUserCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'user_categories',
+					url: URL + 'user_categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1194,14 +1179,14 @@ var expirationTime = 1;
 			deleteUserCategory: function(userCategoryId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'user_categories/' + userCategoryId,
+					url: URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editUserCategoryPatch: function(userCategoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'user_categories/' + userCategoryId,
+					url: URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1209,14 +1194,14 @@ var expirationTime = 1;
 			editUserCategoryPut: function(userCategoryId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'user_categories/' + userCategoryId,
+					url: URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('userCategoryService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('userCategoryRequest', userCategoryRequest);
 })();
 
@@ -1229,19 +1214,19 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allUserInterests: function(){
-				return $http.get(apiPath + 'user_interests');
+				return $http.get(URL + 'user_interests');
 			},
 			oneUserInterest: function(userInterestId){
-				return $http.get(apiPath + 'user_interests/' + userInterestId);
+				return $http.get(URL + 'user_interests/' + userInterestId);
 			},
 			createUserInterest: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'user_interests',
+					url: URL + 'user_interests',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1249,14 +1234,14 @@ var expirationTime = 1;
 			deleteUserInterest: function(userInterestId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'user_interests/' + userInterestId,
+					url: URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editUserInterestPatch: function(userInterestId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'user_interests/' + userInterestId,
+					url: URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1264,14 +1249,14 @@ var expirationTime = 1;
 			editUserInterestPut: function(userInterestId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'user_interests/' + userInterestId,
+					url: URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('userInterestService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('userInterestRequest', userInterestRequest);
 })();
 
@@ -1284,23 +1269,23 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function userRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 
 		return {
 			allUsers: function(){
-				return $http.get(apiPath + 'users');
+				return $http.get(URL + 'users');
 			},
 			oneUser: function(userId){
 				var token = $localStorage.token;
 				$http.defaults.headers.common.Authorization = 'Basic ' + token;
-				return $http.get(apiPath + 'users/' + userId);
+				return $http.get(URL + 'users/' + userId);
 
 			},
 			createUser: function(data){
 				var token = 'b3JnYW5pemVyQHNwb256b3IubWU6c3Bvbnpvcm1l';
 				return $http({
 					method: 'POST',
-					url: apiPath + 'users',
+					url: URL + 'users',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1309,7 +1294,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'users/' + userId,
+					url: URL + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
@@ -1317,7 +1302,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'users/' + userId,
+					url: URL + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1326,7 +1311,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'users/' + userId,
+					url: URL + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1335,7 +1320,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'POST',
-					url: apiPath + 'invite_friend/',
+					url: URL + 'invite_friend/',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1343,7 +1328,7 @@ var expirationTime = 1;
 		};
 	}
 
-	angular.module('userService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('userRequest', userRequest);
 
 })();
@@ -1365,7 +1350,7 @@ var expirationTime = 1;
 			}
     };
 	}
-	angular.module('rssService', [])
+	angular.module('sponzorme')
 		.factory('rssRequest', rssRequest);
 })();
 
@@ -1378,13 +1363,13 @@ var expirationTime = 1;
 'use strict';
 (function() {
 
-  function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike) {
+  function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
     return {
       getEventbriteAuth: function(code) {
-        return $http.get(apiPath + 'token/eventbrite/' + code);
+        return $http.get(URL + 'token/eventbrite/' + code);
       },
       getMeetupAuth: function(code) {
-        return $http.get(apiPath + 'token/meetup/' + code);
+        return $http.get(URL + 'token/meetup/' + code);
       },
       getEventbriteEvents: function(token) {
         var config = {
@@ -1396,7 +1381,7 @@ var expirationTime = 1;
         return $http.get('https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token, config);
       },
       getMeetupGroups: function(token) {
-        return $http.get(apiPath + 'groups/meetup/' + token);
+        return $http.get(URL + 'events/meetup/' + token);
       },
       getEventbriteEvent: function(url, token) {
         var config = { headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + token}
@@ -1405,7 +1390,7 @@ var expirationTime = 1;
       }
     };
   }
-  angular.module('eventbriteService', ['ngStorage'])
+  angular.module('sponzorme')
     .factory('eventbriteRequest', eventbriteRequest);
 })();
 
