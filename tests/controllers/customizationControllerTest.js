@@ -32,7 +32,7 @@ describe("CustomizationController Tests", function(){
     httpBackend.when('GET', 'views/templates/unactivatedAccountDialog.html').respond(200, {
       "message": "UNACTIVATED"
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/categories').respond(200, {
       "success": true,
       "categories":[
         {
@@ -42,7 +42,7 @@ describe("CustomizationController Tests", function(){
           "id":"2"
         }]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/interests_category').respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/interests_category').respond(200, {
       "success": true,
       "InterestCategory":[
         {
@@ -99,7 +99,7 @@ describe("CustomizationController Tests", function(){
     expect(scope.steps[2]).toEqual(true);
   });
   it("Should be all complete after submit the form", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/categories').respond(200, {
       "success": true,
       "categories":[
         {
@@ -109,7 +109,7 @@ describe("CustomizationController Tests", function(){
           "id":"2"
         }]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/interests_category').respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/interests_category').respond(200, {
       "success": true,
       "InterestCategory":[
         {
@@ -121,7 +121,7 @@ describe("CustomizationController Tests", function(){
           "category_id":"1"
         }]
     });
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/user_interests').respond(200, {
+    httpBackend.when('POST', 'https://apistaging.sponzor.me/user_interests').respond(200, {
       "message": "Inserted",
       "category": {
         "title": "Test",

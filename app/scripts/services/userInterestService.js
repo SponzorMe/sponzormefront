@@ -7,19 +7,19 @@
 'use strict';
 (function(){
 
-	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allUserInterests: function(){
-				return $http.get(apiPath + 'user_interests');
+				return $http.get(URL + 'user_interests');
 			},
 			oneUserInterest: function(userInterestId){
-				return $http.get(apiPath + 'user_interests/' + userInterestId);
+				return $http.get(URL + 'user_interests/' + userInterestId);
 			},
 			createUserInterest: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'user_interests',
+					url: URL + 'user_interests',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -27,14 +27,14 @@
 			deleteUserInterest: function(userInterestId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'user_interests/' + userInterestId,
+					url: URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editUserInterestPatch: function(userInterestId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'user_interests/' + userInterestId,
+					url: URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -42,13 +42,13 @@
 			editUserInterestPut: function(userInterestId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'user_interests/' + userInterestId,
+					url: URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('userInterestService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('userInterestRequest', userInterestRequest);
 })();

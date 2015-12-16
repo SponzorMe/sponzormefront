@@ -1,7 +1,7 @@
 describe("rssService Tests", function() {
 
   beforeEach(function() {
-    module('rssService');
+    module('sponzorme');
   });
 
   var rssRequest;
@@ -27,6 +27,15 @@ describe("rssService Tests", function() {
         $httpBackend = $injector.get('$httpBackend');
         $httpBackend.when('JSONP', '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=JSON_CALLBACK&q=' + 'http://blog' + lang + '.sponzor.me/feeds/posts/default').respond(200, {
           responseData: Object, responseDetails: null, responseStatus: 200
+        });
+        $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+          "title": 'Sponzorme EN'
+        });
+        $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+          "title": 'Sponzorme PT'
+        });
+        $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+          "title": 'Sponzorme ES'
         });
       })
       var returnData = {

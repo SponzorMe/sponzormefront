@@ -48,7 +48,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.emailuser).toEqual('test@test.com');
   });
   it("Should be email sent", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/invite_friend/').respond(200, {
+    httpBackend.when('POST', 'https://apistaging.sponzor.me/invite_friend/').respond(200, {
       "message": "Invalid credentials",
       'code':'200'
     });
@@ -62,7 +62,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toEqual('inviteFiendEmailSent');
   });
   it("Should be email not sent", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/invite_friend/').respond(200, {
+    httpBackend.when('POST', 'https://apistaging.sponzor.me/invite_friend/').respond(200, {
       "message": "Invalid credentials",
       'code':'400ss'
     });

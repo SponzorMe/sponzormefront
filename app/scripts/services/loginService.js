@@ -6,7 +6,7 @@
    * @email  seagomezar@gmail.com
    * @date   2015-11-16
    */
-  function loginRequest($http, $httpParamSerializerJQLike) {
+  function loginRequest($http, $httpParamSerializerJQLike, URL) {
     return {
       /**
        * Login function return the user info if the credentials match
@@ -21,7 +21,7 @@
         };
         return $http({
           method: 'POST',
-          url: apiPath + 'auth',
+          url: URL + 'auth',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -34,7 +34,7 @@
         };
         return $http({
           method: 'POST',
-          url: apiPath + 'send_reset_password',
+          url: URL + 'send_reset_password',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -42,7 +42,7 @@
         });
       },
       tryActivation: function(token) {
-        return $http.get(apiPath + 'verify_activation/' + token);
+        return $http.get(URL + 'verify_activation/' + token);
       },
       resendActivation: function(email) {
         var data = {
@@ -50,7 +50,7 @@
         };
         return $http({
           method: 'POST',
-          url: apiPath + 'send_activation',
+          url: URL + 'send_activation',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -60,7 +60,7 @@
       updatePassword: function(token, data) {
         return $http({
           method: 'POST',
-          url: apiPath + 'update_password/' + token,
+          url: URL + 'update_password/' + token,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -70,13 +70,13 @@
       changePassword: function(data, token) {
         return $http({
           method: 'POST',
-          url: apiPath + 'change_password',
+          url: URL + 'change_password',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
         });
       }
     };
   }
-  angular.module('loginService', [])
+  angular.module('sponzorme')
     .factory('loginRequest', loginRequest);
 })();

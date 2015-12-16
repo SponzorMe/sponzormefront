@@ -7,19 +7,19 @@
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
 		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
-				return $http.get(apiPath + 'user_categories');
+				return $http.get(URL + 'user_categories');
 			},
 			oneUserCategory: function(userCategoryId){
-				return $http.get(apiPath + 'user_categories/' + userCategoryId);
+				return $http.get(URL + 'user_categories/' + userCategoryId);
 			},
 			createUserCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'user_categories',
+					url: URL + 'user_categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -27,14 +27,14 @@
 			deleteUserCategory: function(userCategoryId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'user_categories/' + userCategoryId,
+					url: URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editUserCategoryPatch: function(userCategoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'user_categories/' + userCategoryId,
+					url: URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -42,13 +42,13 @@
 			editUserCategoryPut: function(userCategoryId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'user_categories/' + userCategoryId,
+					url: URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('userCategoryService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('userCategoryRequest', userCategoryRequest);
 })();

@@ -1,7 +1,7 @@
 describe("User Category Service Unit Tests", function() {
 
   beforeEach(function() {
-    module('userCategoryService');
+    module('sponzorme');
   });
 
   var userCategoryRequest;
@@ -20,8 +20,16 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/user_categories').respond(200, {
+      $httpBackend.when('GET', 'https://apistaging.sponzor.me/user_categories').respond(200, {
         "success": true
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
 
@@ -49,7 +57,7 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+      $httpBackend.when('GET', 'https://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
       "data": {
         "category": {
           "id": "3",
@@ -59,6 +67,14 @@ describe("User Category Service Unit Tests", function() {
           "events": []
         }
       }
+    });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+      "title": 'Sponzorme EN'
+    });
+    $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+      "title": 'Sponzorme PT'
+    });
+    $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+      "title": 'Sponzorme ES'
     });
     }));
     afterEach(function() {
@@ -96,7 +112,7 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/user_categories').respond(200, {
+      $httpBackend.when('POST', 'https://apistaging.sponzor.me/user_categories').respond(200, {
         "message": "Inserted",
         "category": {
           "title": "Test",
@@ -104,6 +120,14 @@ describe("User Category Service Unit Tests", function() {
           "lang": "123",
           "id": 15
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -136,9 +160,18 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('DELETE', 'http://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+      $httpBackend.when('DELETE', 'https://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
         "message": "Deleted"
-      })
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
+      });
     }));
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
@@ -166,7 +199,7 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PATCH', 'http://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+      $httpBackend.when('PATCH', 'https://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "category": {
@@ -175,6 +208,14 @@ describe("User Category Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -212,7 +253,7 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PUT', 'http://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+      $httpBackend.when('PUT', 'https://apistaging.sponzor.me/user_categories/'+userCategoryId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "category": {
@@ -221,6 +262,14 @@ describe("User Category Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {

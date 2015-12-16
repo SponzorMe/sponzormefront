@@ -36,11 +36,11 @@ describe("Organizers Create Event Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/event_types').respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/event_types').respond(200, {
       "success": true,
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
@@ -63,7 +63,7 @@ describe("Organizers Create Event Controller test", function(){
   });
   it("Should be error creating new event", function(){
 
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/events').respond(400, {
+    httpBackend.when('POST', 'https://apistaging.sponzor.me/events').respond(400, {
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -79,7 +79,7 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.message).toEqual('errorCreatingEvent');
   });
   it("should be success creating new event", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/events').respond(200, {
+    httpBackend.when('POST', 'https://apistaging.sponzor.me/events').respond(200, {
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -97,7 +97,7 @@ describe("Organizers Create Event Controller test", function(){
   it("Should be a conection invalid with eventbrite", function(){
     var eventBriteCode = "12343241";
     $localStorage.eventBriteBeared = "";
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
       "success": true,
       "response": '{"error_description":"code is invalid or expired","error":"invalid_grant"}'
     });
@@ -115,7 +115,7 @@ describe("Organizers Create Event Controller test", function(){
     httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
       responseData: Object, responseDetails: null, responseStatus: 200
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/token/eventbrite/' + eventBriteCode).respond(200, {
       "success": true,
       "response": '{"access_token":"12343241"}'
     });
@@ -128,7 +128,7 @@ describe("Organizers Create Event Controller test", function(){
   it("Should be a conection invalid with meetup", function(){
     var meetupCode = "12343241";
     $localStorage.meetupBeared = "";
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/meetup/' + meetupCode).respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/token/meetup/' + meetupCode).respond(200, {
       "success": true,
       "response": '{"error_description":"code is invalid or expired","error":"invalid_grant"}'
     });
@@ -144,10 +144,10 @@ describe("Organizers Create Event Controller test", function(){
     var meetupCode = "12343241";
     var token = "12343241";
     $localStorage.meetupBeared = "";
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/groups/meetup/' + token).respond(200, {
-      response:'[{"created":1427845537000,"duration":7200000,"group":{"created":1427845317000,"name":"GDG Medellin (Google Developer Group)"}, "visivility":true}]' 
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/events/meetup/' + token).respond(200, {
+      response:'[{"created":1427845537000,"duration":7200000,"group":{"created":1427845317000,"name":"GDG Medellin (Google Developer Group)"}, "visivility":true}]'
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/meetup/' + meetupCode).respond(200, {
+    httpBackend.when('GET', 'https://apistaging.sponzor.me/token/meetup/' + meetupCode).respond(200, {
       "success": true,
       "response": '{"access_token":"12343241"}'
     });

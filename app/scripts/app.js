@@ -1,44 +1,29 @@
 'use strict';
 var idiomaselect = 'en'; //Default Language
-var apiPath = 'http://apistaging.sponzor.me/'; //API path
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
       'pascalprecht.translate',
       'ngResource',
       'ngRoute',
-      'userService',
-      'loginService',
-      'eventbriteService',
       'ngDialog',
       'base64',
       'ngCookies',
       'ngStorage',
       'ui.bootstrap',
-      'eventTypeService',
-      'categoryService',
       'google.places',
-      'eventService',
-      'rssService',
-      'perkService',
-      'taskSponzorService',
-      'perkTaskService',
-      'sponzorshipService',
       'angularSpinner',
-      'allInterestsService',
-      'userInterestService',
-      'userCategoryService',
       'naif.base64',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
       'textAngular'
     ])
-    .constant('URL', 'http://apistaging.sponzor.me/')
+    .constant('URL', 'https://apistaging.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
     .constant('FEE', parseFloat(0.1))
     .constant('PAYPALCOMPLETERETURNURL', 'http://www.sponzor.me/thank-you/')
-    .constant('PAYPALIPNRETURNURL', 'http://apistaging.sponzor.me/ipn')
+    .constant('PAYPALIPNRETURNURL', 'https://apistaging.sponzor.me/ipn')
     .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
     .constant('FURL', 'https://sponzorme.firebaseio.com/')
     .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
@@ -46,8 +31,8 @@ var expirationTime = 1;
     .constant('AMAZONBUCKET', 'sponzormewebappimages')
     .constant('EVENTBRITECLIENTSECRET', 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5')
     .constant('EVENTBRITEAPYKEY', 'MI3YNPLR3R73AD36YS')
-    .constant('MEETUPAPIKEY', 'sc88mha7rapt4pmhfuo52i68uv')
-    .constant('MEETUPREDIRECTURL', 'http://apistaging.sponzor.me/accept/meetup')
+    .constant('MEETUPAPIKEY', 'scqnorvk4o3utc3k19qfj45vng')
+    .constant('MEETUPREDIRECTURL', 'https://apistaging.sponzor.me/accept/meetup')
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
