@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY, MEETUPAPIKEY, MEETUPREDIRECTURL) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, eventbriteRequest) {
     //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
@@ -106,15 +106,15 @@
       $scope.newEvent = {};
       if ($scope.file) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -130,7 +130,7 @@
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $scope.newEvent.image = AMAZONBUCKETURL + uniqueFileName;
+            $scope.newEvent.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             $scope.createNewEvent();
           }
         });
@@ -202,7 +202,6 @@
         scope: $scope
       });
       if ($localStorage.meetupBeared) {
-
         $scope.meetupLoadingGetToken = false;
         $scope.loadingGetMeetupEvents = true;
         $scope.meetupConectionDone = true;
@@ -227,7 +226,7 @@
         });
       }
     };
-    $scope.EVENTBRITEAPYKEY = EVENTBRITEAPYKEY;
+    $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
     $scope.getEventbriteEvents = function(accessToken) {
       eventbriteRequest.getEventbriteEvents(accessToken)
         .success(function(data, head) {
@@ -239,8 +238,8 @@
           $scope.evenbriteEvents = false;
         });
     };
-    $scope.MEETUPAPIKEY = MEETUPAPIKEY;
-    $scope.MEETUPREDIRECTURL = MEETUPREDIRECTURL;
+    $scope.MEETUPAPIKEY = $rootScope.getConstants().MEETUPAPIKEY;
+    $scope.MEETUPREDIRECTURL = $rootScope.getConstants().MEETUPREDIRECTURL;
     $scope.getMeetupGroups = function(accessToken) {
 
       eventbriteRequest.getMeetupGroups(accessToken)

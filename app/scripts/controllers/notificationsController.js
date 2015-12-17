@@ -1,8 +1,8 @@
 'use strict';
 (function() {
-  function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, FURL) {
+  function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, $rootScope) {
     $scope.help = 0;
-    var notificationsRef = new Firebase(FURL + 'notifications');
+    var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
     var query = notificationsRef.orderByChild('to').equalTo($localStorage.id).limitToLast(25);
     $scope.notifications = $firebaseArray(query);
     $scope.notifications.$loaded().then(function() {

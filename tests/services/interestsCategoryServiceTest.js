@@ -20,7 +20,7 @@ describe("InterestCategory Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'https://apistaging.sponzor.me/interests_category').respond(200, {
+      $httpBackend.when('GET', apiUrl+'interests_category').respond(200, {
         "success": true
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -58,7 +58,7 @@ describe("InterestCategory Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'https://apistaging.sponzor.me/interests_category/'+interestCategoryId).respond(200, {
+      $httpBackend.when('GET', apiUrl+'interests_category/'+interestCategoryId).respond(200, {
       "data": {
         "interestCategory": {
           "id": "3",
@@ -114,7 +114,7 @@ describe("InterestCategory Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'https://apistaging.sponzor.me/interests_category').respond(200, {
+      $httpBackend.when('POST', apiUrl+'interests_category').respond(200, {
         "message": "Inserted",
         "interestCategory": {
           "title": "Test",
@@ -163,7 +163,7 @@ describe("InterestCategory Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('DELETE', 'https://apistaging.sponzor.me/interests_category/'+interestCategoryId).respond(200, {
+      $httpBackend.when('DELETE', apiUrl+'interests_category/'+interestCategoryId).respond(200, {
         "message": "Deleted"
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -202,7 +202,7 @@ describe("InterestCategory Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PATCH', 'https://apistaging.sponzor.me/interests_category/'+interestCategoryId).respond(200, {
+      $httpBackend.when('PATCH', apiUrl+'interests_category/'+interestCategoryId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "interestCategory": {
@@ -256,7 +256,7 @@ describe("InterestCategory Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PUT', 'https://apistaging.sponzor.me/interests_category/'+interestCategoryId).respond(200, {
+      $httpBackend.when('PUT', apiUrl+'interests_category/'+interestCategoryId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "interestCategory": {

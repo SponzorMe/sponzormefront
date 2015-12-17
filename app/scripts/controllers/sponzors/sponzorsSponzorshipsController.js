@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, FEE, XOOMRATE, PAYPALCOMPLETERETURNURL, PAYPALIPNRETURNURL, PAYPALEMAIL) {
+  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
     $rootScope.userValidation('1');
     $scope.noSponzorshipsMessage = false;
     $scope.noSponzorshipsTaskMessage = false;
@@ -12,12 +12,12 @@
     $scope.tolsctive = 'active';
     $translate.use(idiomaselect);
     $scope.paymentInformation = function(sponzorship) {
-      $scope.PAYPALCOMPLETERETURNURL = PAYPALCOMPLETERETURNURL;
-      $scope.PAYPALIPNRETURNURL = PAYPALIPNRETURNURL;
-      $scope.PAYPALEMAIL = PAYPALEMAIL;
+      $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
+      $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
+      $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
       $scope.sponzorship = sponzorship;
       $scope.paymentValue = sponzorship.usd;
-      $scope.fee = parseFloat((sponzorship.usd * FEE) + XOOMRATE);
+      $scope.fee = parseFloat((sponzorship.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
       $scope.paymentTotal = parseFloat(sponzorship.usd) + parseFloat($scope.fee);
       ngDialog.open({
         scope: $scope,

@@ -119,23 +119,6 @@ var expirationTime = 1;
       'firebase',
       'textAngular'
     ])
-    .constant('URL', 'https://apistaging.sponzor.me/')
-    .constant('XOOMRATE', parseFloat(4.99))
-    .constant('FEE', parseFloat(0.1))
-    .constant('PAYPALCOMPLETERETURNURL', 'http://www.sponzor.me/thank-you/')
-    .constant('PAYPALIPNRETURNURL', 'https://apistaging.sponzor.me/ipn')
-    .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
-    .constant('FURL', 'https://sponzorme.firebaseio.com/')
-    .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
-    .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
-    .constant('AMAZONBUCKET', 'sponzormewebappimages')
-    .constant('EVENTBRITECLIENTSECRET', 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5')
-    .constant('EVENTBRITEAPYKEY', 'MI3YNPLR3R73AD36YS')
-    .constant('MEETUPAPIKEY', 'scqnorvk4o3utc3k19qfj45vng')
-    .constant('MEETUPREDIRECTURL', 'https://apistaging.sponzor.me/accept/meetup')
-    .constant('AMAZONBUCKETREGION', 'us-west-2')
-    .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
-
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',
@@ -292,6 +275,67 @@ var expirationTime = 1;
           }, log);
           document.write(a);
         });
+      };
+      $rootScope.getConstants = function() {
+        var host = window.location.hostname;
+        if (host.indexOf('localhost') > -1) {
+          return {
+            'URL': 'https://apilocal.sponzor.me/',
+            'XOOMRATE': parseFloat(4.99),
+            'FEE': parseFloat(0.1),
+            'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
+            'PAYPALIPNRETURNURL': 'https://apilocal.sponzor.me/ipn',
+            'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+            'FURL': 'https://sponzorme.firebaseio.com/',
+            'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
+            'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
+            'AMAZONBUCKET': 'sponzormewebappimages',
+            'EVENTBRITECLIENTSECRET': 'QNC7CUESEQ67AA3WST4UWHFRAFNQ5J6RELHQVHBIPY2QCHY5DZ',
+            'EVENTBRITEAPYKEY': 'BI5D6XQVDCIPGOKY4U',
+            'MEETUPAPIKEY': '9pfi8r66lr4da194pc1lvhclq7',
+            'MEETUPREDIRECTURL': 'https://apilocal.sponzor.me/accept/meetup',
+            'AMAZONBUCKETREGION': 'us-west-2',
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+          };
+        } else if (host.indexOf('staging') > -1) {
+          return {
+            'URL': 'https://apistaging.sponzor.me/',
+            'XOOMRATE': parseFloat(4.99),
+            'FEE': parseFloat(0.1),
+            'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
+            'PAYPALIPNRETURNURL': 'https://apistaging.sponzor.me/ipn',
+            'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+            'FURL': 'https://sponzorme.firebaseio.com/',
+            'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
+            'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
+            'AMAZONBUCKET': 'sponzormewebappimages',
+            'EVENTBRITECLIENTSECRET': 'REYYYTW7MW4ABJUI275V3JESPWRR55E5OLKTVC63VNXWFL4WLB',
+            'EVENTBRITEAPYKEY': '6WILTRRV7HVLBSRSGP',
+            'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
+            'MEETUPREDIRECTURL': 'https://apistaging.sponzor.me/accept/meetup',
+            'AMAZONBUCKETREGION': 'us-west-2',
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+          };
+        } else if (host.indexOf('app') > -1) {
+          return {
+            'URL': 'https://api.sponzor.me/',
+            'XOOMRATE': parseFloat(4.99),
+            'FEE': parseFloat(0.1),
+            'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
+            'PAYPALIPNRETURNURL': 'https://api.sponzor.me/ipn',
+            'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+            'FURL': 'https://sponzorme.firebaseio.com/',
+            'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
+            'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
+            'AMAZONBUCKET': 'sponzormewebappimages',
+            'EVENTBRITECLIENTSECRET': 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5',
+            'EVENTBRITEAPYKEY': 'MI3YNPLR3R73AD36YS',
+            'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
+            'MEETUPREDIRECTURL': 'https://api.sponzor.me/accept/meetup',
+            'AMAZONBUCKETREGION': 'us-west-2',
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+          };
+        }
       };
       $rootScope.isExpiredData = function() {
         if ($localStorage.startDate) {
@@ -503,8 +547,8 @@ var expirationTime = 1;
         scope: {
           file: '@'
         },
-        link: function(scope, el, attrs){
-          el.bind('change', function(event){
+        link: function(scope, el, attrs) {
+          el.bind('change', function(event) {
             var files = event.target.files;
             var file = files[0];
             scope.file = file;
@@ -519,8 +563,8 @@ var expirationTime = 1;
         scope: {
           file: '@'
         },
-        link: function(scope, el, attrs){
-          el.bind('change', function(event){
+        link: function(scope, el, attrs) {
+          el.bind('change', function(event) {
             var files = event.target.files;
             var logo = files[0];
             scope.logo = logo;
@@ -554,7 +598,7 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function categoryRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function categoryRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			/**
@@ -562,7 +606,7 @@ var expirationTime = 1;
 			* @returns success(function(data, status, headers, config)
 			*/
 			allCategories: function(){
-				return $http.get(URL + 'categories');
+				return $http.get($rootScope.getConstants().URL + 'categories');
 
 			},
 			/**
@@ -571,13 +615,13 @@ var expirationTime = 1;
 			* @returns success(function(data, status, headers, config)
 			*/
 			oneCategory: function(categoryId){
-				return $http.get(URL + 'categories/' + categoryId);
+				return $http.get($rootScope.getConstants().URL + 'categories/' + categoryId);
 
 			},
 			createCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'categories',
+					url: $rootScope.getConstants().URL + 'categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -585,14 +629,14 @@ var expirationTime = 1;
 			deleteCategory: function(categoryId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'categories/' + categoryId,
+					url: $rootScope.getConstants().URL + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editCategoryPatch: function(categoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'categories/' + categoryId,
+					url: $rootScope.getConstants().URL + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -600,7 +644,7 @@ var expirationTime = 1;
 			editCategoryPut: function(categoryId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'categories/' + categoryId,
+					url: $rootScope.getConstants().URL + 'categories/' + categoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -620,21 +664,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function eventRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function eventRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allEvents: function(){
-				return $http.get(URL + 'events');
+				return $http.get($rootScope.getConstants().URL + 'events');
 
 			},
 			oneEvent: function(EventId){
-				return $http.get(URL + 'events/' + EventId);
+				return $http.get($rootScope.getConstants().URL + 'events/' + EventId);
 
 			},
 			createEvent: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'events',
+					url: $rootScope.getConstants().URL + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -642,7 +686,7 @@ var expirationTime = 1;
 			createEventToken: function(data, newUserToken){
 				return $http({
 					method: 'POST',
-					url: URL + 'events',
+					url: $rootScope.getConstants().URL + 'events',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -650,14 +694,14 @@ var expirationTime = 1;
 			deleteEvent: function(EventId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'events/' + EventId,
+					url: $rootScope.getConstants().URL + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editEventPatch: function(EventId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'events/' + EventId,
+					url: $rootScope.getConstants().URL + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -665,7 +709,7 @@ var expirationTime = 1;
 			editEventPut: function(EventId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'events/' + EventId,
+					url: $rootScope.getConstants().URL + 'events/' + EventId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -685,21 +729,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function eventTypeService($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function eventTypeService($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allEventTypes: function(){
-				return $http.get(URL + 'event_types');
+				return $http.get($rootScope.getConstants().URL + 'event_types');
 
 			},
 			oneEventTypes: function(eventTypeId){
-				return $http.get(URL + 'event_types/' + eventTypeId);
+				return $http.get($rootScope.getConstants().URL + 'event_types/' + eventTypeId);
 
 			},
 			createEventType: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'event_types',
+					url: $rootScope.getConstants().URL + 'event_types',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -707,14 +751,14 @@ var expirationTime = 1;
 			deleteEventType: function(eventTypeId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'event_types/' + eventTypeId,
+					url: $rootScope.getConstants().URL + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editEventTypePatch: function(eventTypeId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'event_types/' + eventTypeId,
+					url: $rootScope.getConstants().URL + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -722,7 +766,7 @@ var expirationTime = 1;
 			editEventTypePut: function(eventTypeId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'event_types/' + eventTypeId,
+					url: $rootScope.getConstants().URL + 'event_types/' + eventTypeId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -742,21 +786,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function allInterestsServiceRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function allInterestsServiceRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allInterestsCategoriesId: function(){
-				return $http.get(URL + 'interests_category');
+				return $http.get($rootScope.getConstants().URL + 'interests_category');
 
 			},
 			oneInterestsCategory: function(interestsCategoryId){
-				return $http.get(URL + 'interests_category/' + interestsCategoryId);
+				return $http.get($rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId);
 
 			},
 			createInterestsCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'interests_category',
+					url: $rootScope.getConstants().URL + 'interests_category',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -764,14 +808,14 @@ var expirationTime = 1;
 			deleteInterestsCategory: function(interestsCategoryId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'interests_category/' + interestsCategoryId,
+					url: $rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editInterestsCategoryPatch: function(interestsCategoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'interests_category/' + interestsCategoryId,
+					url: $rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -779,7 +823,7 @@ var expirationTime = 1;
 			editInterestsCategoryPut: function(interestsCategoryId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'interests_category/' + interestsCategoryId,
+					url: $rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -798,7 +842,7 @@ var expirationTime = 1;
    * @email  seagomezar@gmail.com
    * @date   2015-11-16
    */
-  function loginRequest($http, $httpParamSerializerJQLike, URL) {
+  function loginRequest($http, $httpParamSerializerJQLike, $rootScope) {
     return {
       /**
        * Login function return the user info if the credentials match
@@ -813,7 +857,7 @@ var expirationTime = 1;
         };
         return $http({
           method: 'POST',
-          url: URL + 'auth',
+          url: $rootScope.getConstants().URL + 'auth',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -826,7 +870,7 @@ var expirationTime = 1;
         };
         return $http({
           method: 'POST',
-          url: URL + 'send_reset_password',
+          url: $rootScope.getConstants().URL + 'send_reset_password',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -834,7 +878,7 @@ var expirationTime = 1;
         });
       },
       tryActivation: function(token) {
-        return $http.get(URL + 'verify_activation/' + token);
+        return $http.get($rootScope.getConstants().URL + 'verify_activation/' + token);
       },
       resendActivation: function(email) {
         var data = {
@@ -842,7 +886,7 @@ var expirationTime = 1;
         };
         return $http({
           method: 'POST',
-          url: URL + 'send_activation',
+          url: $rootScope.getConstants().URL + 'send_activation',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -852,7 +896,7 @@ var expirationTime = 1;
       updatePassword: function(token, data) {
         return $http({
           method: 'POST',
-          url: URL + 'update_password/' + token,
+          url: $rootScope.getConstants().URL + 'update_password/' + token,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
@@ -862,7 +906,7 @@ var expirationTime = 1;
       changePassword: function(data, token) {
         return $http({
           method: 'POST',
-          url: URL + 'change_password',
+          url: $rootScope.getConstants().URL + 'change_password',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
         });
@@ -882,21 +926,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function perkRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function perkRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allPerks: function(){
-				return $http.get(URL + 'perks');
+				return $http.get($rootScope.getConstants().URL + 'perks');
 
 			},
 			onePerk: function(perkId){
-				return $http.get(URL + 'perks/' + perkId);
+				return $http.get($rootScope.getConstants().URL + 'perks/' + perkId);
 
 			},
 			createPerk: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'perks',
+					url: $rootScope.getConstants().URL + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -904,7 +948,7 @@ var expirationTime = 1;
 			createPerkToken: function(data, newUserToken){
 				return $http({
 					method: 'POST',
-					url: URL + 'perks',
+					url: $rootScope.getConstants().URL + 'perks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -912,14 +956,14 @@ var expirationTime = 1;
 			deletePerk: function(perkId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'perks/' + perkId,
+					url: $rootScope.getConstants().URL + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editPerkPatch: function(perkId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'perks/' + perkId,
+					url: $rootScope.getConstants().URL + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -927,7 +971,7 @@ var expirationTime = 1;
 			editPerkPut: function(perkId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'perks/' + perkId,
+					url: $rootScope.getConstants().URL + 'perks/' + perkId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -947,21 +991,21 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allPerkTasks: function(){
-				return $http.get(URL + 'perk_tasks');
+				return $http.get($rootScope.getConstants().URL + 'perk_tasks');
 
 			},
 			onePerkTask: function(perkTaskId){
-				return $http.get(URL + 'perk_tasks/' + perkTaskId);
+				return $http.get($rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId);
 
 			},
 			createPerkTask: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'perk_tasks',
+					url: $rootScope.getConstants().URL + 'perk_tasks',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -969,14 +1013,14 @@ var expirationTime = 1;
 			deletePerkTask: function(perkTaskId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'perk_tasks/' + perkTaskId,
+					url: $rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editPerkTaskPatch: function(perkTaskId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'perk_tasks/' + perkTaskId,
+					url: $rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -984,7 +1028,7 @@ var expirationTime = 1;
 			editPerkTaskPut: function(perkTaskId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'perk_tasks/' + perkTaskId,
+					url: $rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1004,27 +1048,27 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allSponzorships: function(){
-				return $http.get(URL + 'sponzorships');
+				return $http.get($rootScope.getConstants().URL + 'sponzorships');
 
 			},
 			oneSponzorship: function(sponzorshipId){
-				return $http.get(URL + 'sponzorships/' + sponzorshipId);
+				return $http.get($rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId);
 
 			},
 			oneSponzorshipByOrganizer: function(organizerId){
-				return $http.get(URL + 'sponzorships_organizer/' + organizerId);
+				return $http.get($rootScope.getConstants().URL + 'sponzorships_organizer/' + organizerId);
 			},
 			oneSponzorshipBySponzor: function(sponzorId){
-				return $http.get(URL + 'sponzorships_sponzor/' + sponzorId);
+				return $http.get($rootScope.getConstants().URL + 'sponzorships_sponzor/' + sponzorId);
 			},
 			sendSponzorshipEmail: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'sponzorship_email',
+					url: $rootScope.getConstants().URL + 'sponzorship_email',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1032,7 +1076,7 @@ var expirationTime = 1;
 			sendSponzorshipEmailOrganizer: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'sponzorship_email_organizer',
+					url: $rootScope.getConstants().URL + 'sponzorship_email_organizer',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1040,7 +1084,7 @@ var expirationTime = 1;
 			createSponzorship: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'sponzorships',
+					url: $rootScope.getConstants().URL + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1048,7 +1092,7 @@ var expirationTime = 1;
 			createSponzorshipToken: function(data, userToken){
 				return $http({
 					method: 'POST',
-					url: URL + 'sponzorships',
+					url: $rootScope.getConstants().URL + 'sponzorships',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1056,14 +1100,14 @@ var expirationTime = 1;
 			deleteSponzorship: function(sponzorshipId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'sponzorships/' + sponzorshipId,
+					url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editSponzorshipPatch: function(sponzorshipId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'sponzorships/' + sponzorshipId,
+					url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1071,7 +1115,7 @@ var expirationTime = 1;
 			editSponzorshipPut: function(sponzorshipId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'sponzorships/' + sponzorshipId,
+					url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1091,24 +1135,24 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allTaskSponzor: function(){
-				return $http.get(URL + 'task_sponzor');
+				return $http.get($rootScope.getConstants().URL + 'task_sponzor');
 
 			},
 			oneTaskSponzor: function(taskSponzorId){
-				return $http.get(URL + 'task_sponzor/' + taskSponzorId);
+				return $http.get($rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId);
 
 			},
 			tasksBySponzorship: function(sponzorshipId){
-				return $http.get(URL + 'perk_tasks_sponzorship/' + sponzorshipId);
+				return $http.get($rootScope.getConstants().URL + 'perk_tasks_sponzorship/' + sponzorshipId);
 			},
 			createTaskSponzor: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'task_sponzor',
+					url: $rootScope.getConstants().URL + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1116,7 +1160,7 @@ var expirationTime = 1;
 			createTaskSponzorToken: function(data, userToken){
 				return $http({
 					method: 'POST',
-					url: URL + 'task_sponzor',
+					url: $rootScope.getConstants().URL + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1124,14 +1168,14 @@ var expirationTime = 1;
 			deleteTaskSponzor: function(taskSponzorId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'task_sponzor/' + taskSponzorId,
+					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editTaskSponzorPatch: function(taskSponzorId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'task_sponzor/' + taskSponzorId,
+					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1139,7 +1183,7 @@ var expirationTime = 1;
 			editTaskSponzorPut: function(taskSponzorId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'task_sponzor/' + taskSponzorId,
+					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1159,19 +1203,19 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
-				return $http.get(URL + 'user_categories');
+				return $http.get($rootScope.getConstants().URL + 'user_categories');
 			},
 			oneUserCategory: function(userCategoryId){
-				return $http.get(URL + 'user_categories/' + userCategoryId);
+				return $http.get($rootScope.getConstants().URL + 'user_categories/' + userCategoryId);
 			},
 			createUserCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'user_categories',
+					url: $rootScope.getConstants().URL + 'user_categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1179,14 +1223,14 @@ var expirationTime = 1;
 			deleteUserCategory: function(userCategoryId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'user_categories/' + userCategoryId,
+					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editUserCategoryPatch: function(userCategoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'user_categories/' + userCategoryId,
+					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1194,7 +1238,7 @@ var expirationTime = 1;
 			editUserCategoryPut: function(userCategoryId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'user_categories/' + userCategoryId,
+					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1214,19 +1258,19 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allUserInterests: function(){
-				return $http.get(URL + 'user_interests');
+				return $http.get($rootScope.getConstants().URL + 'user_interests');
 			},
 			oneUserInterest: function(userInterestId){
-				return $http.get(URL + 'user_interests/' + userInterestId);
+				return $http.get($rootScope.getConstants().URL + 'user_interests/' + userInterestId);
 			},
 			createUserInterest: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'user_interests',
+					url: $rootScope.getConstants().URL + 'user_interests',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1234,14 +1278,14 @@ var expirationTime = 1;
 			deleteUserInterest: function(userInterestId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'user_interests/' + userInterestId,
+					url: $rootScope.getConstants().URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editUserInterestPatch: function(userInterestId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'user_interests/' + userInterestId,
+					url: $rootScope.getConstants().URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1249,7 +1293,7 @@ var expirationTime = 1;
 			editUserInterestPut: function(userInterestId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'user_interests/' + userInterestId,
+					url: $rootScope.getConstants().URL + 'user_interests/' + userInterestId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1269,23 +1313,23 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-	function userRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function userRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 
 		return {
 			allUsers: function(){
-				return $http.get(URL + 'users');
+				return $http.get($rootScope.getConstants().URL + 'users');
 			},
 			oneUser: function(userId){
 				var token = $localStorage.token;
 				$http.defaults.headers.common.Authorization = 'Basic ' + token;
-				return $http.get(URL + 'users/' + userId);
+				return $http.get($rootScope.getConstants().URL + 'users/' + userId);
 
 			},
 			createUser: function(data){
 				var token = 'b3JnYW5pemVyQHNwb256b3IubWU6c3Bvbnpvcm1l';
 				return $http({
 					method: 'POST',
-					url: URL + 'users',
+					url: $rootScope.getConstants().URL + 'users',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1294,7 +1338,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'DELETE',
-					url: URL + 'users/' + userId,
+					url: $rootScope.getConstants().URL + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
@@ -1302,7 +1346,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'PATCH',
-					url: URL + 'users/' + userId,
+					url: $rootScope.getConstants().URL + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1311,7 +1355,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'PUT',
-					url: URL + 'users/' + userId,
+					url: $rootScope.getConstants().URL + 'users/' + userId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1320,7 +1364,7 @@ var expirationTime = 1;
 				var token = $localStorage.token;
 				return $http({
 					method: 'POST',
-					url: URL + 'invite_friend/',
+					url: $rootScope.getConstants().URL + 'invite_friend/',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -1363,13 +1407,13 @@ var expirationTime = 1;
 'use strict';
 (function() {
 
-  function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+  function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     return {
       getEventbriteAuth: function(code) {
-        return $http.get(URL + 'token/eventbrite/' + code);
+        return $http.get($rootScope.getConstants().URL + 'token/eventbrite/' + code);
       },
       getMeetupAuth: function(code) {
-        return $http.get(URL + 'token/meetup/' + code);
+        return $http.get($rootScope.getConstants().URL + 'token/meetup/' + code);
       },
       getEventbriteEvents: function(token) {
         var config = {
@@ -1381,7 +1425,7 @@ var expirationTime = 1;
         return $http.get('https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token, config);
       },
       getMeetupGroups: function(token) {
-        return $http.get(URL + 'events/meetup/' + token);
+        return $http.get($rootScope.getConstants().URL + 'events/meetup/' + token);
       },
       getEventbriteEvent: function(url, token) {
         var config = { headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + token}
@@ -2119,7 +2163,7 @@ angular.module('sponzorme')
       }
     };
 
-    $scope.menuprincipal = 'views/organizers/menu.html';
+    $scope.menuprincipal = 'views/sponzors/menu.html';
   }
 
   angular.module('sponzorme')
@@ -2130,7 +2174,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray, FURL) {
+  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
     $rootScope.userValidation('1');
 
     $scope.searchLoading = true;
@@ -2235,7 +2279,7 @@ angular.module('sponzorme')
             eventName: $scope.currentEvent.title,
             lang: idiomaselect
           };
-          var notificationsRef = new Firebase(FURL + 'notifications');
+          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
           var notifications = $firebaseArray(notificationsRef);
           var notification = {
             to: $scope.currentOrganizer.id,
@@ -2287,7 +2331,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
+  function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
 
     $rootScope.userValidation('1');
     ngDialog.open({
@@ -2352,15 +2396,15 @@ angular.module('sponzorme')
       $scope.account.location = $scope.account.location.formatted_address;
       if ($scope.file) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -2376,8 +2420,8 @@ angular.module('sponzorme')
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $localStorage.image = AMAZONBUCKETURL + uniqueFileName;
-            $scope.account.image = AMAZONBUCKETURL + uniqueFileName;
+            $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+            $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
               $scope.account = adata.User;
               $scope.file = false;
@@ -2433,15 +2477,15 @@ angular.module('sponzorme')
 
       if ($scope.logo) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -2457,7 +2501,7 @@ angular.module('sponzorme')
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $scope.account.logo = AMAZONBUCKETURL + uniqueFileName;
+            $scope.account.logo = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             $scope.$digest();
             userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
               $scope.account = adata.User;
@@ -2562,7 +2606,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, FEE, XOOMRATE, PAYPALCOMPLETERETURNURL, PAYPALIPNRETURNURL, PAYPALEMAIL) {
+  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
     $rootScope.userValidation('1');
     $scope.noSponzorshipsMessage = false;
     $scope.noSponzorshipsTaskMessage = false;
@@ -2573,12 +2617,12 @@ angular.module('sponzorme')
     $scope.tolsctive = 'active';
     $translate.use(idiomaselect);
     $scope.paymentInformation = function(sponzorship) {
-      $scope.PAYPALCOMPLETERETURNURL = PAYPALCOMPLETERETURNURL;
-      $scope.PAYPALIPNRETURNURL = PAYPALIPNRETURNURL;
-      $scope.PAYPALEMAIL = PAYPALEMAIL;
+      $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
+      $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
+      $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
       $scope.sponzorship = sponzorship;
       $scope.paymentValue = sponzorship.usd;
-      $scope.fee = parseFloat((sponzorship.usd * FEE) + XOOMRATE);
+      $scope.fee = parseFloat((sponzorship.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
       $scope.paymentTotal = parseFloat(sponzorship.usd) + parseFloat($scope.fee);
       ngDialog.open({
         scope: $scope,
@@ -3274,7 +3318,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     $rootScope.userValidation('0');
     ngDialog.open({
       template: 'views/templates/loadingDialog.html',
@@ -3336,15 +3380,15 @@ angular.module('sponzorme')
       $scope.account.location = $scope.account.location.formatted_address;
       if ($scope.file) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -3360,8 +3404,8 @@ angular.module('sponzorme')
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $localStorage.image = AMAZONBUCKETURL + uniqueFileName;
-            $scope.account.image = AMAZONBUCKETURL + uniqueFileName;
+            $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+            $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
               $scope.account = adata.User;
               $scope.file = false;
@@ -3456,7 +3500,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, FURL) {
+  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray) {
     $rootScope.userValidation('0');
     $scope.noSponzorshipsMessage = false;
     $scope.loadingsponzorships = true;
@@ -3511,7 +3555,7 @@ angular.module('sponzorme')
           organizerEmail: $localStorage.email,
           lang: idiomaselect
         };
-        var notificationsRef = new Firebase(FURL + 'notifications');
+        var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
         var notifications = $firebaseArray(notificationsRef);
         var notification = {
           to: $scope.sponzorships[i].sponzor_id,
@@ -3782,7 +3826,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY, MEETUPAPIKEY, MEETUPREDIRECTURL) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, eventbriteRequest) {
     //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
@@ -3887,15 +3931,15 @@ angular.module('sponzorme')
       $scope.newEvent = {};
       if ($scope.file) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -3911,7 +3955,7 @@ angular.module('sponzorme')
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $scope.newEvent.image = AMAZONBUCKETURL + uniqueFileName;
+            $scope.newEvent.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             $scope.createNewEvent();
           }
         });
@@ -3983,7 +4027,6 @@ angular.module('sponzorme')
         scope: $scope
       });
       if ($localStorage.meetupBeared) {
-
         $scope.meetupLoadingGetToken = false;
         $scope.loadingGetMeetupEvents = true;
         $scope.meetupConectionDone = true;
@@ -4008,7 +4051,7 @@ angular.module('sponzorme')
         });
       }
     };
-    $scope.EVENTBRITEAPYKEY = EVENTBRITEAPYKEY;
+    $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
     $scope.getEventbriteEvents = function(accessToken) {
       eventbriteRequest.getEventbriteEvents(accessToken)
         .success(function(data, head) {
@@ -4020,8 +4063,8 @@ angular.module('sponzorme')
           $scope.evenbriteEvents = false;
         });
     };
-    $scope.MEETUPAPIKEY = MEETUPAPIKEY;
-    $scope.MEETUPREDIRECTURL = MEETUPREDIRECTURL;
+    $scope.MEETUPAPIKEY = $rootScope.getConstants().MEETUPAPIKEY;
+    $scope.MEETUPREDIRECTURL = $rootScope.getConstants().MEETUPREDIRECTURL;
     $scope.getMeetupGroups = function(accessToken) {
 
       eventbriteRequest.getMeetupGroups(accessToken)
@@ -4101,9 +4144,9 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, FURL) {
+  function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, $rootScope) {
     $scope.help = 0;
-    var notificationsRef = new Firebase(FURL + 'notifications');
+    var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
     var query = notificationsRef.orderByChild('to').equalTo($localStorage.id).limitToLast(25);
     $scope.notifications = $firebaseArray(query);
     $scope.notifications.$loaded().then(function() {

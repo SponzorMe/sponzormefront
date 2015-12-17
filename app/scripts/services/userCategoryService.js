@@ -7,19 +7,19 @@
 'use strict';
 (function(){
 
-	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike, URL) {
+	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allUserCategories: function(){
-				return $http.get(URL + 'user_categories');
+				return $http.get($rootScope.getConstants().URL + 'user_categories');
 			},
 			oneUserCategory: function(userCategoryId){
-				return $http.get(URL + 'user_categories/' + userCategoryId);
+				return $http.get($rootScope.getConstants().URL + 'user_categories/' + userCategoryId);
 			},
 			createUserCategory: function(data){
 				return $http({
 					method: 'POST',
-					url: URL + 'user_categories',
+					url: $rootScope.getConstants().URL + 'user_categories',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -27,14 +27,14 @@
 			deleteUserCategory: function(userCategoryId){
 				return $http({
 					method: 'DELETE',
-					url: URL + 'user_categories/' + userCategoryId,
+					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editUserCategoryPatch: function(userCategoryId, data){
 				return $http({
 					method: 'PATCH',
-					url: URL + 'user_categories/' + userCategoryId,
+					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -42,7 +42,7 @@
 			editUserCategoryPut: function(userCategoryId, data){
 				return $http({
 					method: 'PUT',
-					url: URL + 'user_categories/' + userCategoryId,
+					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});

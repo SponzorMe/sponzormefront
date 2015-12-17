@@ -42,7 +42,7 @@ describe("Resend Controller test", function(){
     httpBackend.verifyNoOutstandingRequest();
   });
   it("Should be send", function(){
-    httpBackend.when('POST', 'https://apistaging.sponzor.me/send_activation')
+    httpBackend.when('POST', apiUrl+'send_activation')
     .respond(200, {
       "message": "Ok",
       "code": "200"
@@ -54,7 +54,7 @@ describe("Resend Controller test", function(){
     expect(scope.error_log[0]).toEqual('ActivationLinkResent');
   });
   it("Should be send", function(){
-    httpBackend.when('POST', 'https://apistaging.sponzor.me/send_activation')
+    httpBackend.when('POST', apiUrl+'send_activation')
     .respond(400, {
       "message": "Ok",
       "code": "400"

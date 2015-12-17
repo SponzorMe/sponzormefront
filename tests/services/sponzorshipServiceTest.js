@@ -20,7 +20,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'https://apistaging.sponzor.me/sponzorships').respond(200, {
+      $httpBackend.when('GET', apiUrl+'sponzorships').respond(200, {
         "success": true
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -58,7 +58,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'https://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('GET', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
       "data": {
         "sponzorship": {
           "id": "3",
@@ -114,7 +114,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'https://apistaging.sponzor.me/sponzorships').respond(200, {
+      $httpBackend.when('POST', apiUrl+'sponzorships').respond(200, {
         "message": "Inserted",
         "sponzorship": {
           "title": "Test",
@@ -163,7 +163,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('DELETE', 'https://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('DELETE', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
         "message": "Deleted"
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -202,7 +202,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PATCH', 'https://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('PATCH', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "sponzorship": {
@@ -257,7 +257,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PUT', 'https://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('PUT', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "sponzorship": {

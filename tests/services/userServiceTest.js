@@ -20,7 +20,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'https://apistaging.sponzor.me/users').respond(200, {
+      $httpBackend.when('GET', apiUrl+'users').respond(200, {
         "success": true
       });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
         "title": 'Sponzorme EN'
@@ -57,7 +57,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'https://apistaging.sponzor.me/users/'+userId).respond(200, {
+      $httpBackend.when('GET', apiUrl+'users/'+userId).respond(200, {
       "data": {
         "user": {
           "id": "3",
@@ -112,7 +112,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'https://apistaging.sponzor.me/users').respond(200, {
+      $httpBackend.when('POST', apiUrl+'users').respond(200, {
         "message": "Inserted",
         "user": {
           "title": "Test",
@@ -160,7 +160,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('DELETE', 'https://apistaging.sponzor.me/users/'+userId).respond(200, {
+      $httpBackend.when('DELETE', apiUrl+'users/'+userId).respond(200, {
         "message": "Deleted"
       });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
         "title": 'Sponzorme EN'
@@ -198,7 +198,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PATCH', 'https://apistaging.sponzor.me/users/'+userId).respond(200, {
+      $httpBackend.when('PATCH', apiUrl+'users/'+userId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "user": {
@@ -252,7 +252,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PUT', 'https://apistaging.sponzor.me/users/'+userId).respond(200, {
+      $httpBackend.when('PUT', apiUrl+'users/'+userId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "user": {
