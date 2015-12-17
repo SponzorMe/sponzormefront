@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, FURL) {
+  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray) {
     $rootScope.userValidation('0');
     $scope.noSponzorshipsMessage = false;
     $scope.loadingsponzorships = true;
@@ -55,7 +55,7 @@
           organizerEmail: $localStorage.email,
           lang: idiomaselect
         };
-        var notificationsRef = new Firebase(FURL + 'notifications');
+        var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
         var notifications = $firebaseArray(notificationsRef);
         var notification = {
           to: $scope.sponzorships[i].sponzor_id,

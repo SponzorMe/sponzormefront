@@ -1,7 +1,7 @@
 describe("Perk Service Unit Tests", function() {
 
   beforeEach(function() {
-    module('perkService');
+    module('sponzorme');
   });
 
   var perkRequest;
@@ -10,6 +10,7 @@ describe("Perk Service Unit Tests", function() {
 
   beforeEach(inject(function(_perkRequest_) {
     perkRequest = _perkRequest_;
+
   }));
   //allPerks
   describe('All Perks', function() {
@@ -20,8 +21,21 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('GET', 'http://api.sponzor.me/perks').respond(200, {
+=======
+      $httpBackend.when('GET', apiUrl+'perks').respond(200, {
+>>>>>>> gh-pages
         "success": true
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
 
@@ -49,7 +63,11 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('GET', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
+=======
+      $httpBackend.when('GET', apiUrl+'perks/'+perkId).respond(200, {
+>>>>>>> gh-pages
       "data": {
         "perk": {
           "id": "3",
@@ -59,6 +77,15 @@ describe("Perk Service Unit Tests", function() {
           "events": []
         }
       }
+    });
+    $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+      "title": 'Sponzorme EN'
+    });
+    $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+      "title": 'Sponzorme PT'
+    });
+    $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+      "title": 'Sponzorme ES'
     });
     }));
     afterEach(function() {
@@ -96,7 +123,11 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('POST', 'http://api.sponzor.me/perks').respond(200, {
+=======
+      $httpBackend.when('POST', apiUrl+'perks').respond(200, {
+>>>>>>> gh-pages
         "message": "Inserted",
         "perk": {
           "title": "Test",
@@ -104,6 +135,15 @@ describe("Perk Service Unit Tests", function() {
           "lang": "123",
           "id": 15
         }
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -136,9 +176,22 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('DELETE', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
+=======
+      $httpBackend.when('DELETE', apiUrl+'perks/'+perkId).respond(200, {
+>>>>>>> gh-pages
         "message": "Deleted"
-      })
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
+      });
     }));
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
@@ -166,7 +219,11 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('PATCH', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
+=======
+      $httpBackend.when('PATCH', apiUrl+'perks/'+perkId).respond(200, {
+>>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "perk": {
@@ -175,6 +232,15 @@ describe("Perk Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -212,7 +278,11 @@ describe("Perk Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('PUT', 'http://api.sponzor.me/perks/'+perkId).respond(200, {
+=======
+      $httpBackend.when('PUT', apiUrl+'perks/'+perkId).respond(200, {
+>>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "perk": {
@@ -221,6 +291,15 @@ describe("Perk Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {

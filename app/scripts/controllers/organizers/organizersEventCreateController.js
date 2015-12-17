@@ -1,7 +1,8 @@
 'use strict';
 (function() {
 
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION, eventbriteRequest, EVENTBRITEAPYKEY) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, eventbriteRequest) {
+    //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
         return '"' + $1 + '":';
@@ -12,6 +13,7 @@
 
     //Use This Zone to Vars Initialization
     $rootScope.userValidation('0'); //Validation
+    $translate.use(idiomaselect);
     $scope.tolsctive = 'active';
     $scope.sponzorshipTypes = [];
     $scope.newEvent = {};
@@ -27,7 +29,7 @@
     });
     //End vars Initialization
 
-
+    //This function very no perks over 200USD
     $scope.verifyPerkLimit = function(s) {
       if (s.usd > 200 || typeof s.usd === 'undefined') {
         s.usd = 200;
@@ -46,8 +48,10 @@
       $scope.newEvent.location = $scope.locationevent.formatted_address;
       $scope.newEvent.location_reference = $scope.locationevent.place_id;
       $scope.newEvent.description = $scope.descriptionevent;
-      $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD hh:mm:ss');
-      $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD hh:mm:ss');
+      $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD HH:mm:ss');
+      $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD HH:mm:ss');
+      //$scope.newEvent.starts = new Date($scope.dtini);
+      //$scope.newEvent.ends = new Date($scope.dtfinal);
       $scope.newEvent.lang = idiomaselect;
       $scope.newEvent.type = $scope.typeevent;
       $scope.newEvent.category = $scope.categoryevent;
@@ -102,15 +106,15 @@
       $scope.newEvent = {};
       if ($scope.file) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -126,7 +130,7 @@
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $scope.newEvent.image = AMAZONBUCKETURL + uniqueFileName;
+            $scope.newEvent.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             $scope.createNewEvent();
           }
         });
@@ -159,10 +163,9 @@
         $scope.tolsctive = 'active';
       }
     };
-    $translate.use(idiomaselect);
-    if ($routeParams.code) {
-      eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
 
+    if ($routeParams.eventBriteCode) {
+      eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
         var response = JSON.parse(jsonize(data.response));
         if (response.error) {
           $scope.loadingGetToken = false;
@@ -173,16 +176,57 @@
           $scope.connectEventbrite();
         }
       });
+    } else if ($routeParams.meetupCode) {
+
+      eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
+        var response = JSON.parse(jsonize(data.response));
+        if (response.error) {
+
+          $scope.meetupLoadingGetToken = false;
+          $scope.reconnectMeetup = true;
+          $scope.meetupConectionDone = false;
+        } else {
+          $localStorage.meetupBeared = response.access_token;
+
+          $scope.connectMeetup();
+        }
+      });
     }
     $scope.connectMeetup = function() {
-      $scope.message = 'ComingSoonMeetup';
+
+      $scope.meetupLoadingGetToken = true;
+      $scope.loadingGetMeetupEvents = false;
       ngDialog.open({
-        template: 'views/templates/infoDialog.html',
+        template: 'views/templates/importMeetupDialog.html',
         showClose: false,
         scope: $scope
       });
+      if ($localStorage.meetupBeared) {
+        $scope.meetupLoadingGetToken = false;
+        $scope.loadingGetMeetupEvents = true;
+        $scope.meetupConectionDone = true;
+        $scope.getMeetupGroups($localStorage.meetupBeared);
+      } else {
+        $scope.meetupLoadingGetToken = false;
+        $scope.loadingGetMeetupEvents = false;
+        $scope.meetupConectionDone = false;
+        eventbriteRequest.getMeetupAuth($routeParams.meetupBeared).success(function(data) {
+          var response = JSON.parse(jsonize(data.response));
+          if (response.error) {
+            $scope.meetupLoadingGetToken = false;
+            $scope.reconnectMeetup = true;
+            $scope.meetupConectionDone = false;
+          } else {
+            $localStorage.meetupBeared = response.access_token;
+            $scope.meetupLoadingGetToken = false;
+            $scope.loadingGetMeetupEvents = true;
+            $scope.meetupConectionDone = true;
+            $scope.getMeetupGroups(response.access_token);
+          }
+        });
+      }
     };
-    $scope.EVENTBRITEAPYKEY = EVENTBRITEAPYKEY;
+    $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
     $scope.getEventbriteEvents = function(accessToken) {
       eventbriteRequest.getEventbriteEvents(accessToken)
         .success(function(data, head) {
@@ -192,6 +236,23 @@
           $scope.loadingGetEvents = false;
           $scope.errorGettingEvents = true;
           $scope.evenbriteEvents = false;
+        });
+    };
+    $scope.MEETUPAPIKEY = $rootScope.getConstants().MEETUPAPIKEY;
+    $scope.MEETUPREDIRECTURL = $rootScope.getConstants().MEETUPREDIRECTURL;
+    $scope.getMeetupGroups = function(accessToken) {
+
+      eventbriteRequest.getMeetupGroups(accessToken)
+        .success(function(data) {
+          $scope.loadingGetMeetupEvents = false;
+
+          $scope.meetupEvents = JSON.parse(data.response);
+
+        }).error(function(data) {
+
+          $scope.loadingGetMeetupEvents = false;
+          $scope.errorGettingGroups = true;
+          $scope.meetupEvents = false;
         });
     };
     $scope.connectEventbrite = function() {
@@ -211,7 +272,7 @@
         $scope.loadingGetToken = false;
         $scope.loadingGetEvents = false;
         $scope.conectionDone = false;
-        eventbriteRequest.getEventbriteAuth($routeParams.code).success(function(data) {
+        eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));
           if (response.error) {
             $scope.loadingGetToken = false;
@@ -239,6 +300,14 @@
           $scope.privacyevent = 0;
           ngDialog.closeAll();
         });
+    };
+    $scope.prefilEventFormMeetup = function(e) {
+      $scope.titleevent = e.name;
+      $scope.descriptionevent = e.description;
+      $scope.dtini = e.time;
+      $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
+      $scope.privacyevent = 0;
+      ngDialog.closeAll();
     };
     $scope.menuprincipal = 'views/organizers/menu.html';
   }

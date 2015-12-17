@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest, AMAZONSECRET, AMAZONKEY, AMAZONBUCKET, AMAZONBUCKETURL, AMAZONBUCKETREGION) {
+  function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
 
     $rootScope.userValidation('1');
     ngDialog.open({
@@ -66,15 +66,15 @@
       $scope.account.location = $scope.account.location.formatted_address;
       if ($scope.file) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -90,8 +90,8 @@
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $localStorage.image = AMAZONBUCKETURL + uniqueFileName;
-            $scope.account.image = AMAZONBUCKETURL + uniqueFileName;
+            $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+            $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
               $scope.account = adata.User;
               $scope.file = false;
@@ -147,15 +147,15 @@
 
       if ($scope.logo) {
         $scope.creds = {
-          bucket: AMAZONBUCKET,
-          access_key: AMAZONKEY,
-          secret_key: AMAZONSECRET
+          bucket: $rootScope.getConstants().AMAZONBUCKET,
+          access_key: $rootScope.getConstants().AMAZONKEY,
+          secret_key: $rootScope.getConstants().AMAZONSECRET
         };
         AWS.config.update({
           accessKeyId: $scope.creds.access_key,
           secretAccessKey: $scope.creds.secret_key
         });
-        AWS.config.region = AMAZONBUCKETREGION;
+        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
         var bucket = new AWS.S3({
           params: {
             Bucket: $scope.creds.bucket
@@ -171,7 +171,7 @@
         };
         bucket.putObject(params, function(err, data) {
           if (!err) {
-            $scope.account.logo = AMAZONBUCKETURL + uniqueFileName;
+            $scope.account.logo = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             $scope.$digest();
             userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
               $scope.account = adata.User;

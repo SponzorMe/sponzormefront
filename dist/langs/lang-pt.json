@@ -507,5 +507,10 @@
  "GettingYourEventbriteEvents":"Obtendo seus eventos Eventbrite...",
  "RetryGetEvents":"Clique aqui para obter seus eventos",
  "ChooseEventToImport":"Clique no evento para importar",
- "ComingSoonMeetup":"Esta funcionalidade ainda não está disponível... Em breve"
+ "ComingSoonMeetup":"Esta funcionalidade ainda não está disponível... Em breve",
+ 
+ "RetryMeetupConection":"Click here to retry",
+ "GettingYourMeetupEvents":"Getting your Meetup events",
+ "ConnectingToMeetup":"Connecting to Meetup...",
+ "group":"Event Group"
 }

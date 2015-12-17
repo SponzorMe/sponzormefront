@@ -56,7 +56,7 @@
       }
     };
 
-    $scope.menuprincipal = 'views/organizers/menu.html';
+    $scope.menuprincipal = 'views/sponzors/menu.html';
   }
 
   angular.module('sponzorme')

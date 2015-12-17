@@ -7,24 +7,24 @@
 'use strict';
 (function(){
 
-	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike) {
+	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 		var token = $localStorage.token;
 		return {
 			allTaskSponzor: function(){
-				return $http.get(apiPath + 'task_sponzor');
+				return $http.get($rootScope.getConstants().URL + 'task_sponzor');
 
 			},
 			oneTaskSponzor: function(taskSponzorId){
-				return $http.get(apiPath + 'task_sponzor/' + taskSponzorId);
+				return $http.get($rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId);
 
 			},
 			tasksBySponzorship: function(sponzorshipId){
-				return $http.get(apiPath + 'perk_tasks_sponzorship/' + sponzorshipId);
+				return $http.get($rootScope.getConstants().URL + 'perk_tasks_sponzorship/' + sponzorshipId);
 			},
 			createTaskSponzor: function(data){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'task_sponzor',
+					url: $rootScope.getConstants().URL + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -32,7 +32,7 @@
 			createTaskSponzorToken: function(data, userToken){
 				return $http({
 					method: 'POST',
-					url: apiPath + 'task_sponzor',
+					url: $rootScope.getConstants().URL + 'task_sponzor',
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -40,14 +40,14 @@
 			deleteTaskSponzor: function(taskSponzorId){
 				return $http({
 					method: 'DELETE',
-					url: apiPath + 'task_sponzor/' + taskSponzorId,
+					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
 				});
 			},
 			editTaskSponzorPatch: function(taskSponzorId, data){
 				return $http({
 					method: 'PATCH',
-					url: apiPath + 'task_sponzor/' + taskSponzorId,
+					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
@@ -55,13 +55,13 @@
 			editTaskSponzorPut: function(taskSponzorId, data){
 				return $http({
 					method: 'PUT',
-					url: apiPath + 'task_sponzor/' + taskSponzorId,
+					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
 					data: $httpParamSerializerJQLike(data)
 				});
 			}
 		};
 	}
-	angular.module('taskSponzorService', ['ngStorage'])
+	angular.module('sponzorme')
 		.factory('taskSponzorRequest', taskSponzorRequest);
 })();

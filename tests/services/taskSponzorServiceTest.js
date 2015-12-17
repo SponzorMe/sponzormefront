@@ -1,7 +1,7 @@
 describe("TaskSponzor Service Unit Tests", function() {
 
   beforeEach(function() {
-    module('taskSponzorService');
+    module('sponzorme');
   });
 
   var taskSponzorRequest;
@@ -20,8 +20,20 @@ describe("TaskSponzor Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('GET', 'http://api.sponzor.me/task_sponzor').respond(200, {
+=======
+      $httpBackend.when('GET', apiUrl+'task_sponzor').respond(200, {
+>>>>>>> gh-pages
         "success": true
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
 
@@ -49,7 +61,11 @@ describe("TaskSponzor Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('GET', 'http://api.sponzor.me/task_sponzor/'+taskSponzorId).respond(200, {
+=======
+      $httpBackend.when('GET', apiUrl+'task_sponzor/'+taskSponzorId).respond(200, {
+>>>>>>> gh-pages
       "data": {
         "taskSponzor": {
           "id": "3",
@@ -59,6 +75,14 @@ describe("TaskSponzor Service Unit Tests", function() {
           "events": []
         }
       }
+    });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+      "title": 'Sponzorme EN'
+    });
+    $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+      "title": 'Sponzorme PT'
+    });
+    $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+      "title": 'Sponzorme ES'
     });
     }));
     afterEach(function() {
@@ -96,7 +120,11 @@ describe("TaskSponzor Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('POST', 'http://api.sponzor.me/task_sponzor').respond(200, {
+=======
+      $httpBackend.when('POST', apiUrl+'task_sponzor').respond(200, {
+>>>>>>> gh-pages
         "message": "Inserted",
         "taskSponzor": {
           "title": "Test",
@@ -104,6 +132,14 @@ describe("TaskSponzor Service Unit Tests", function() {
           "lang": "123",
           "id": 15
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -136,9 +172,21 @@ describe("TaskSponzor Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('DELETE', 'http://api.sponzor.me/task_sponzor/'+taskSponzorId).respond(200, {
+=======
+      $httpBackend.when('DELETE', apiUrl+'task_sponzor/'+taskSponzorId).respond(200, {
+>>>>>>> gh-pages
         "message": "Deleted"
-      })
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
+      });
     }));
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
@@ -166,7 +214,11 @@ describe("TaskSponzor Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('PATCH', 'http://api.sponzor.me/task_sponzor/'+taskSponzorId).respond(200, {
+=======
+      $httpBackend.when('PATCH', apiUrl+'task_sponzor/'+taskSponzorId).respond(200, {
+>>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "taskSponzor": {
@@ -175,6 +227,14 @@ describe("TaskSponzor Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -212,7 +272,11 @@ describe("TaskSponzor Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('PUT', 'http://api.sponzor.me/task_sponzor/'+taskSponzorId).respond(200, {
+=======
+      $httpBackend.when('PUT', apiUrl+'task_sponzor/'+taskSponzorId).respond(200, {
+>>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "taskSponzor": {
@@ -221,6 +285,14 @@ describe("TaskSponzor Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {

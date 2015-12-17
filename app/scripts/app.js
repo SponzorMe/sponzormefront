@@ -1,39 +1,29 @@
 'use strict';
 var idiomaselect = 'en'; //Default Language
+<<<<<<< HEAD
 var apiPath = 'http://api.sponzor.me/'; //API path
+=======
+>>>>>>> gh-pages
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
       'pascalprecht.translate',
       'ngResource',
       'ngRoute',
-      'userService',
-      'loginService',
-      'eventbriteService',
       'ngDialog',
       'base64',
       'ngCookies',
       'ngStorage',
       'ui.bootstrap',
-      'eventTypeService',
-      'categoryService',
       'google.places',
-      'eventService',
-      'rssService',
-      'perkService',
-      'taskSponzorService',
-      'perkTaskService',
-      'sponzorshipService',
       'angularSpinner',
-      'allInterestsService',
-      'userInterestService',
-      'userCategoryService',
       'naif.base64',
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
       'textAngular'
     ])
+<<<<<<< HEAD
     .constant('URL', 'http://api.sponzor.me/')
     .constant('XOOMRATE', parseFloat(4.99))
     .constant('FEE', parseFloat(0.1))
@@ -49,6 +39,8 @@ var expirationTime = 1;
     .constant('AMAZONBUCKETREGION', 'us-west-2')
     .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
 
+=======
+>>>>>>> gh-pages
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',
@@ -170,7 +162,11 @@ var expirationTime = 1;
           templateUrl: 'views/sponzors/dashboard/sponzorships.html',
           controller: 'SponzorsSponzorshipsController'
         })
-        .when('/eventbrite/:code', {
+        .when('/eventbrite/:eventBriteCode', {
+          templateUrl: 'views/organizers/dashboard/add_event.html',
+          controller: 'OrganizersEventCreateController'
+        })
+        .when('/meetup/:meetupCode', {
           templateUrl: 'views/organizers/dashboard/add_event.html',
           controller: 'OrganizersEventCreateController'
         })
@@ -183,7 +179,15 @@ var expirationTime = 1;
      * This function allows change the language whatever be the route
      * for this reason this is a global function
      */
+    .run(['$rootScope', function($rootScope) {
+      var host = window.location.href;
+      if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
+        var aux = host.replace('http:', 'https:');
+        window.location.href = aux;
+      }
+    }])
     .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
+
       $rootScope.changeLanguage = function(key) {
         $translate.use(key);
         idiomaselect = key;
@@ -201,6 +205,67 @@ var expirationTime = 1;
           }, log);
           document.write(a);
         });
+      };
+      $rootScope.getConstants = function() {
+        var host = window.location.hostname;
+        if (host.indexOf('localhost') > -1) {
+          return {
+            'URL': 'https://apilocal.sponzor.me/',
+            'XOOMRATE': parseFloat(4.99),
+            'FEE': parseFloat(0.1),
+            'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
+            'PAYPALIPNRETURNURL': 'https://apilocal.sponzor.me/ipn',
+            'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+            'FURL': 'https://sponzorme.firebaseio.com/',
+            'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
+            'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
+            'AMAZONBUCKET': 'sponzormewebappimages',
+            'EVENTBRITECLIENTSECRET': 'QNC7CUESEQ67AA3WST4UWHFRAFNQ5J6RELHQVHBIPY2QCHY5DZ',
+            'EVENTBRITEAPYKEY': 'BI5D6XQVDCIPGOKY4U',
+            'MEETUPAPIKEY': '9pfi8r66lr4da194pc1lvhclq7',
+            'MEETUPREDIRECTURL': 'https://apilocal.sponzor.me/accept/meetup',
+            'AMAZONBUCKETREGION': 'us-west-2',
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+          };
+        } else if (host.indexOf('staging') > -1) {
+          return {
+            'URL': 'https://apistaging.sponzor.me/',
+            'XOOMRATE': parseFloat(4.99),
+            'FEE': parseFloat(0.1),
+            'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
+            'PAYPALIPNRETURNURL': 'https://apistaging.sponzor.me/ipn',
+            'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+            'FURL': 'https://sponzorme.firebaseio.com/',
+            'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
+            'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
+            'AMAZONBUCKET': 'sponzormewebappimages',
+            'EVENTBRITECLIENTSECRET': 'REYYYTW7MW4ABJUI275V3JESPWRR55E5OLKTVC63VNXWFL4WLB',
+            'EVENTBRITEAPYKEY': '6WILTRRV7HVLBSRSGP',
+            'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
+            'MEETUPREDIRECTURL': 'https://apistaging.sponzor.me/accept/meetup',
+            'AMAZONBUCKETREGION': 'us-west-2',
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+          };
+        } else if (host.indexOf('app') > -1) {
+          return {
+            'URL': 'https://api.sponzor.me/',
+            'XOOMRATE': parseFloat(4.99),
+            'FEE': parseFloat(0.1),
+            'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
+            'PAYPALIPNRETURNURL': 'https://api.sponzor.me/ipn',
+            'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+            'FURL': 'https://sponzorme.firebaseio.com/',
+            'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
+            'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
+            'AMAZONBUCKET': 'sponzormewebappimages',
+            'EVENTBRITECLIENTSECRET': 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5',
+            'EVENTBRITEAPYKEY': 'MI3YNPLR3R73AD36YS',
+            'MEETUPAPIKEY': 'lc876qakj5itnsnebm3dijus12',
+            'MEETUPREDIRECTURL': 'https://api.sponzor.me/accept/meetup',
+            'AMAZONBUCKETREGION': 'us-west-2',
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+          };
+        }
       };
       $rootScope.isExpiredData = function() {
         if ($localStorage.startDate) {
@@ -412,8 +477,8 @@ var expirationTime = 1;
         scope: {
           file: '@'
         },
-        link: function(scope, el, attrs){
-          el.bind('change', function(event){
+        link: function(scope, el, attrs) {
+          el.bind('change', function(event) {
             var files = event.target.files;
             var file = files[0];
             scope.file = file;
@@ -428,8 +493,8 @@ var expirationTime = 1;
         scope: {
           file: '@'
         },
-        link: function(scope, el, attrs){
-          el.bind('change', function(event){
+        link: function(scope, el, attrs) {
+          el.bind('change', function(event) {
             var files = event.target.files;
             var logo = files[0];
             scope.logo = logo;

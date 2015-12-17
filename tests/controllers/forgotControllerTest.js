@@ -42,7 +42,11 @@ describe("Forgot Controller test", function(){
     httpBackend.verifyNoOutstandingRequest();
   });
   it("Should be send", function(){
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/send_reset_password').respond(200, {
+=======
+    httpBackend.when('POST', apiUrl+'send_reset_password').respond(200, {
+>>>>>>> gh-pages
       "message": "Reset password Link sent",
       "resetLink": "http://app.sponzor.me/#/reset/30952b62d1ddf5987812c6af663213c5",
       "code": "200"
@@ -54,7 +58,11 @@ describe("Forgot Controller test", function(){
     expect(scope.error_log[0]).toEqual('PasswordResetLinkSent');
   });
   it("Should be unsend", function(){
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/send_reset_password')
+=======
+    httpBackend.when('POST', apiUrl+'send_reset_password')
+>>>>>>> gh-pages
       .respond(400, {
         "message": "Error",
         "code": "400"
@@ -67,7 +75,11 @@ describe("Forgot Controller test", function(){
   });
   it("Should be password reseted", function(){
     var token = 'MyTestToken';
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/update_password/'+token)
+=======
+    httpBackend.when('POST', apiUrl+'update_password/'+token)
+>>>>>>> gh-pages
       .respond(200, {
         "message": "Password Reseted",
         "code": "200"
@@ -92,7 +104,11 @@ describe("Forgot Controller test", function(){
   });
   it("Should be invalid data", function(){
     var token = 'MyTestToken';
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/update_password/'+token)
+=======
+    httpBackend.when('POST', apiUrl+'update_password/'+token)
+>>>>>>> gh-pages
       .respond(400, {
         "message": "Password Reseted",
         "code": "200"

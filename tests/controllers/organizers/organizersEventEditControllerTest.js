@@ -36,11 +36,19 @@ describe("Organizers Event Edit Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
     httpBackend.when('GET', 'http://api.sponzor.me/event_types').respond(200, {
+=======
+    httpBackend.when('GET', apiUrl+'categories').respond(200, {
+      "success": true,
+      "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
+    });
+    httpBackend.when('GET', apiUrl+'event_types').respond(200, {
+>>>>>>> gh-pages
       "success": true,
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
@@ -50,7 +58,11 @@ describe("Organizers Event Edit Controller test", function(){
     httpBackend.verifyNoOutstandingRequest();
   });
   it("Should be vars Initialization", function(){
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(400, {
+=======
+    httpBackend.when('GET', apiUrl+'events/'+1).respond(400, {
+>>>>>>> gh-pages
     "data": {
       "event": {
         "id": "3",
@@ -68,7 +80,11 @@ describe("Organizers Event Edit Controller test", function(){
     expect(scope.type.list.length).toBe(4);
   });
   it("Should be error displaying the edit form", function(){
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(400, {
+=======
+    httpBackend.when('GET', apiUrl+'events/'+1).respond(400, {
+>>>>>>> gh-pages
     "data": {
       "event": {
         "id": "3",
@@ -88,7 +104,11 @@ describe("Organizers Event Edit Controller test", function(){
     expect(scope.message).toEqual('errorNotEventInfoGot');
   });
   it("Should be ok displaying the edit form", function(){
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
+=======
+    httpBackend.when('GET', apiUrl+'events/'+1).respond(200, {
+>>>>>>> gh-pages
     "data": {
       "event": {
         "id": "1",
@@ -107,7 +127,11 @@ describe("Organizers Event Edit Controller test", function(){
     expect(scope.eventData.id).toEqual('1');
   });
   it("Should be ok editing an event", function(){
+<<<<<<< HEAD
     httpBackend.when('PATCH', 'http://api.sponzor.me/perks').respond(200, {
+=======
+    httpBackend.when('PATCH', apiUrl+'perks').respond(200, {
+>>>>>>> gh-pages
       "message": "Updated",
       "perk": {
         "title": "Test",
@@ -116,7 +140,11 @@ describe("Organizers Event Edit Controller test", function(){
         "id": 15
       }
     });
+<<<<<<< HEAD
     httpBackend.when('PATCH', 'http://api.sponzor.me/events/'+1).respond(200, {
+=======
+    httpBackend.when('PATCH', apiUrl+'events/'+1).respond(200, {
+>>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "event": {
@@ -126,7 +154,11 @@ describe("Organizers Event Edit Controller test", function(){
         "lang": "123"
       }
     });
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(400, {
+=======
+    httpBackend.when('GET', apiUrl+'events/'+1).respond(400, {
+>>>>>>> gh-pages
     "data": {
       "event": {
         "id": "3",
@@ -150,7 +182,11 @@ describe("Organizers Event Edit Controller test", function(){
 
   });
   it("Should be not event info found", function(){
+<<<<<<< HEAD
     httpBackend.when('PATCH', 'http://api.sponzor.me/perks').respond(200, {
+=======
+    httpBackend.when('PATCH', apiUrl+'perks').respond(200, {
+>>>>>>> gh-pages
       "message": "Updated",
       "perk": {
         "title": "Test",
@@ -159,7 +195,11 @@ describe("Organizers Event Edit Controller test", function(){
         "id": 15
       }
     });
+<<<<<<< HEAD
     httpBackend.when('PATCH', 'http://api.sponzor.me/events/'+1).respond(400, {
+=======
+    httpBackend.when('PATCH', apiUrl+'events/'+1).respond(400, {
+>>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "event": {
@@ -169,7 +209,11 @@ describe("Organizers Event Edit Controller test", function(){
         "lang": "123"
       }
     });
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
+=======
+    httpBackend.when('GET', apiUrl+'events/'+1).respond(200, {
+>>>>>>> gh-pages
     "data": {
       "event": {
         "id": "1",

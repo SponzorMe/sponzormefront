@@ -1,7 +1,7 @@
 describe("User Category Service Unit Tests", function() {
 
   beforeEach(function() {
-    module('userCategoryService');
+    module('sponzorme');
   });
 
   var userCategoryRequest;
@@ -20,8 +20,20 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('GET', 'http://api.sponzor.me/user_categories').respond(200, {
+=======
+      $httpBackend.when('GET', apiUrl+'user_categories').respond(200, {
+>>>>>>> gh-pages
         "success": true
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
 
@@ -49,7 +61,11 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('GET', 'http://api.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+=======
+      $httpBackend.when('GET', apiUrl+'user_categories/'+userCategoryId).respond(200, {
+>>>>>>> gh-pages
       "data": {
         "category": {
           "id": "3",
@@ -59,6 +75,14 @@ describe("User Category Service Unit Tests", function() {
           "events": []
         }
       }
+    });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+      "title": 'Sponzorme EN'
+    });
+    $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+      "title": 'Sponzorme PT'
+    });
+    $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+      "title": 'Sponzorme ES'
     });
     }));
     afterEach(function() {
@@ -96,7 +120,11 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('POST', 'http://api.sponzor.me/user_categories').respond(200, {
+=======
+      $httpBackend.when('POST', apiUrl+'user_categories').respond(200, {
+>>>>>>> gh-pages
         "message": "Inserted",
         "category": {
           "title": "Test",
@@ -104,6 +132,14 @@ describe("User Category Service Unit Tests", function() {
           "lang": "123",
           "id": 15
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -136,9 +172,22 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('DELETE', 'http://api.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+=======
+      $httpBackend.when('DELETE', apiUrl+'user_categories/'+userCategoryId).respond(200, {
+>>>>>>> gh-pages
         "message": "Deleted"
-      })
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
+      });
     }));
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
@@ -166,7 +215,11 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('PATCH', 'http://api.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+=======
+      $httpBackend.when('PATCH', apiUrl+'user_categories/'+userCategoryId).respond(200, {
+>>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "category": {
@@ -175,6 +228,14 @@ describe("User Category Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -212,7 +273,11 @@ describe("User Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
+<<<<<<< HEAD
       $httpBackend.when('PUT', 'http://api.sponzor.me/user_categories/'+userCategoryId).respond(200, {
+=======
+      $httpBackend.when('PUT', apiUrl+'user_categories/'+userCategoryId).respond(200, {
+>>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "category": {
@@ -221,6 +286,14 @@ describe("User Category Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {

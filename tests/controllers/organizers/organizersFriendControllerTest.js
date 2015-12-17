@@ -48,7 +48,11 @@ describe("Organizers Create Controller test", function(){
     expect(scope.emailuser).toEqual('test@test.com');
   });
   it("Should be email sent", function(){
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/invite_friend/').respond(200, {
+=======
+    httpBackend.when('POST', apiUrl+'invite_friend/').respond(200, {
+>>>>>>> gh-pages
       "message": "Invalid credentials",
       'code':'200'
     });
@@ -62,7 +66,11 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toEqual('inviteFiendEmailSent');
   });
   it("Should be email not sent", function(){
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/invite_friend/').respond(200, {
+=======
+    httpBackend.when('POST', apiUrl+'invite_friend/').respond(200, {
+>>>>>>> gh-pages
       "message": "Invalid credentials",
       'code':'400ss'
     });

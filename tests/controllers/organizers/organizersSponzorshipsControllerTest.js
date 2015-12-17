@@ -40,6 +40,7 @@ describe("Organizers Events Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
@@ -49,6 +50,17 @@ describe("Organizers Events Controller test", function(){
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
     httpBackend.when('GET', 'http://api.sponzor.me/users/'+1).respond(200, {
+=======
+    httpBackend.when('GET', apiUrl+'categories').respond(200, {
+      "success": true,
+      "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
+    });
+    httpBackend.when('GET', apiUrl+'event_types').respond(200, {
+      "success": true,
+      "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
+    });
+    httpBackend.when('GET', apiUrl+'users/'+1).respond(200, {
+>>>>>>> gh-pages
       "data": {
         "user": {
           "id": "3",
@@ -59,15 +71,26 @@ describe("Organizers Events Controller test", function(){
         }
       }
     });
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/sponzorships_organizer/'+1).respond(200, {
       "SponzorsEvents": [{id:"1"},{id:"2"},{id:"3"},{id:"4"}]
     });
     httpBackend.when('GET', 'http://api.sponzor.me/perk_tasks_sponzorship/'+1).respond(200, {
+=======
+    httpBackend.when('GET', apiUrl+'sponzorships_organizer/'+1).respond(200, {
+      "SponzorsEvents": [{id:"1"},{id:"2"},{id:"3"},{id:"4"}]
+    });
+    httpBackend.when('GET', apiUrl+'perk_tasks_sponzorship/'+1).respond(200, {
+>>>>>>> gh-pages
       "tasks": [{'id':1,'type':'0'},{'id':2,'type':'0'},{'id':3,'type':'0'},{'id':4,'type':'0'}]
       }
     );
 
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/perks/'+1).respond(200, {
+=======
+    httpBackend.when('GET', apiUrl+'perks/'+1).respond(200, {
+>>>>>>> gh-pages
       "data": {
         "perk": {
           "id": "3",
@@ -95,6 +118,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.tasksSponzor[0].id).toEqual(1);
   });
   it("Should be change sponzorship status", function(){
+<<<<<<< HEAD
     httpBackend.when('GET', 'http://api.sponzor.me/perk_tasks_sponzorship/'+1).respond(200, {
       "tasks": [{'id':1,'type':'0'},{'id':2,'type':'0'},{'id':3,'type':'0'},{'id':4,'type':'0'}]
       }
@@ -103,6 +127,16 @@ describe("Organizers Events Controller test", function(){
       "SponzorsEvents": [{id:"1"},{id:"2"},{id:"3"},{id:"4"}]
     });
     httpBackend.when('PATCH', 'http://api.sponzor.me/sponzorships/'+1).respond(200, {
+=======
+    httpBackend.when('GET', apiUrl+'perk_tasks_sponzorship/'+1).respond(200, {
+      "tasks": [{'id':1,'type':'0'},{'id':2,'type':'0'},{'id':3,'type':'0'},{'id':4,'type':'0'}]
+      }
+    );
+    httpBackend.when('GET', apiUrl+'sponzorships_organizer/'+1).respond(200, {
+      "SponzorsEvents": [{id:"1"},{id:"2"},{id:"3"},{id:"4"}]
+    });
+    httpBackend.when('PATCH', apiUrl+'sponzorships/'+1).respond(200, {
+>>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "sponzorship": {
@@ -112,7 +146,11 @@ describe("Organizers Events Controller test", function(){
         "lang": "123"
       }
     });
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/sponzorship_email').respond(200, {
+=======
+    httpBackend.when('POST', apiUrl+'sponzorship_email').respond(200, {
+>>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "sponzorship": {
@@ -122,7 +160,11 @@ describe("Organizers Events Controller test", function(){
         "lang": "123"
       }
     });
+<<<<<<< HEAD
     httpBackend.when('PATCH', 'http://api.sponzor.me/task_sponzor/'+1).respond(200, {
+=======
+    httpBackend.when('PATCH', apiUrl+'task_sponzor/'+1).respond(200, {
+>>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "taskSponzor": {
@@ -132,7 +174,11 @@ describe("Organizers Events Controller test", function(){
         "lang": "123"
       }
     });
+<<<<<<< HEAD
     httpBackend.when('DELETE', 'http://api.sponzor.me/task_sponzor/'+1).respond(200, {
+=======
+    httpBackend.when('DELETE', apiUrl+'task_sponzor/'+1).respond(200, {
+>>>>>>> gh-pages
       "message": "Deleted"
     });
     $localStorage.id = 1;
@@ -172,5 +218,5 @@ describe("Organizers Events Controller test", function(){
     scope.seeCause(sponzorship);
     httpBackend.flush();
     expect(scope.cause).toEqual(sponzorship.cause);
-  });  
+  });
 });

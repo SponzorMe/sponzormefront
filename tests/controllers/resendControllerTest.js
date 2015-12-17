@@ -42,7 +42,11 @@ describe("Resend Controller test", function(){
     httpBackend.verifyNoOutstandingRequest();
   });
   it("Should be send", function(){
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/send_activation')
+=======
+    httpBackend.when('POST', apiUrl+'send_activation')
+>>>>>>> gh-pages
     .respond(200, {
       "message": "Ok",
       "code": "200"
@@ -54,7 +58,11 @@ describe("Resend Controller test", function(){
     expect(scope.error_log[0]).toEqual('ActivationLinkResent');
   });
   it("Should be send", function(){
+<<<<<<< HEAD
     httpBackend.when('POST', 'http://api.sponzor.me/send_activation')
+=======
+    httpBackend.when('POST', apiUrl+'send_activation')
+>>>>>>> gh-pages
     .respond(400, {
       "message": "Ok",
       "code": "400"
