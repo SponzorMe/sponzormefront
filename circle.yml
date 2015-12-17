@@ -15,7 +15,7 @@ deployment:
   staging:
     branch: gh-pages
     codedeploy:
-      SponzormeFrontStaging:        
+      SponzormeFrontStaging:
         deployment_group: SponzormeFrontStaging
         application_root: /
         revision_location:

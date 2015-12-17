@@ -230,7 +230,7 @@ var expirationTime = 1;
             'AMAZONBUCKET': 'sponzormewebappimages',
             'EVENTBRITECLIENTSECRET': 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5',
             'EVENTBRITEAPYKEY': 'MI3YNPLR3R73AD36YS',
-            'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
+            'MEETUPAPIKEY': 'lc876qakj5itnsnebm3dijus12',
             'MEETUPREDIRECTURL': 'https://api.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
             'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
