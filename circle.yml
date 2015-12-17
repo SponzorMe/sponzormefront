@@ -8,4 +8,4 @@ deployment:
     branch: gh-pages
     codedeploy:
       SponzormeFrontStaging:
-        deployment_group: SponzormeFrontStagingGroup
+        deployment_group: SponzormeFrontStaging
