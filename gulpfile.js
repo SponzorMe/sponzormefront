@@ -90,6 +90,7 @@ gulp.task('default',['lint'],function(){
 gulp.task('serve', function (){
   browserSync.init({
     notify: false,
+		https: true,
     port: 9000,
     server: {
       baseDir: ['app'],

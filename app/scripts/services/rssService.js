@@ -15,6 +15,6 @@
 			}
     };
 	}
-	angular.module('rssService', [])
+	angular.module('sponzorme')
 		.factory('rssRequest', rssRequest);
 })();

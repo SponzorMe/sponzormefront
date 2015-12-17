@@ -1,7 +1,7 @@
-describe("rssService Tests", function() {
+describe("Evenbtbrite Tests", function() {
 
   beforeEach(function() {
-    module('eventbriteService');
+    module('sponzorme');
   });
 
   var eventbriteRequest;
@@ -27,6 +27,15 @@ describe("rssService Tests", function() {
         $httpBackend = $injector.get('$httpBackend');
         $httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
           responseData: Object, responseDetails: null, responseStatus: 200
+        });
+        $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+          "title": 'Sponzorme EN'
+        });
+        $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+          "title": 'Sponzorme PT'
+        });
+        $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+          "title": 'Sponzorme ES'
         });
       })
       var returnData = {
@@ -56,8 +65,17 @@ describe("rssService Tests", function() {
       inject(function($injector) {
         // Set up the mock http service responses
         $httpBackend = $injector.get('$httpBackend');
-        $httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+        $httpBackend.when('GET', apiUrl+'token/eventbrite/' + code).respond(200, {
           "success": true
+        });
+        $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+          "title": 'Sponzorme EN'
+        });
+        $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+          "title": 'Sponzorme PT'
+        });
+        $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+          "title": 'Sponzorme ES'
         });
       })
       var returnData = {
@@ -90,6 +108,15 @@ describe("rssService Tests", function() {
         $httpBackend = $injector.get('$httpBackend');
         $httpBackend.when('GET', url+'?token='+token).respond(200, {
           "success": true
+        });
+        $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+          "title": 'Sponzorme EN'
+        });
+        $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+          "title": 'Sponzorme PT'
+        });
+        $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+          "title": 'Sponzorme ES'
         });
       })
       var returnData = {

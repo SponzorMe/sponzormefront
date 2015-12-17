@@ -40,15 +40,15 @@ describe("Organizers Events Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
+    httpBackend.when('GET', apiUrl+'categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/event_types').respond(200, {
+    httpBackend.when('GET', apiUrl+'event_types').respond(200, {
       "success": true,
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
+    httpBackend.when('GET', apiUrl+'users/'+1).respond(200, {
       "data": {
         "user": {
           "id": "3",
@@ -60,7 +60,7 @@ describe("Organizers Events Controller test", function(){
       }
     });
 
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/perks/'+1).respond(200, {
+    httpBackend.when('GET', apiUrl+'perks/'+1).respond(200, {
       "data": {
         "perk": {
           "id": "3",
@@ -78,14 +78,14 @@ describe("Organizers Events Controller test", function(){
   });
 
   it("Should sponzorships loaded", function(){
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/sponzorships_sponzor/'+1).respond(200, {
+    httpBackend.when('GET', apiUrl+'sponzorships_sponzor/'+1).respond(200, {
       "SponzorsEvents": [{id:"1", status:'0'},{id:"2", status:'0'},{id:"3", status:'1'},{id:"4", status:'0'}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/perk_tasks_sponzorship/'+1).respond(200, {
+    httpBackend.when('GET', apiUrl+'perk_tasks_sponzorship/'+1).respond(200, {
       "tasks": [{'id':1,'type':'1','sponzor_id':1},{'id':2,'type':'0','sponzor_id':1},{'id':3,'type':'0','sponzor_id':1},{'id':4,'type':'0','sponzor_id':1}]
       }
     );
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/sponzorships/'+1).respond(200, {
+    httpBackend.when('GET', apiUrl+'sponzorships/'+1).respond(200, {
     "data": {
       "SponzorEvent": {
         "id": "1",
@@ -96,10 +96,10 @@ describe("Organizers Events Controller test", function(){
         "task_sponzor":[{id:'1'},{id:'1'},{id:'1'}]
       }
   }});
-  httpBackend.when('DELETE', 'http://apistaging.sponzor.me/task_sponzor/'+1).respond(200, {
+  httpBackend.when('DELETE', apiUrl+'task_sponzor/'+1).respond(200, {
     "message": "Deleted"
   });
-  httpBackend.when('DELETE', 'http://apistaging.sponzor.me/sponzorships/'+1).respond(200, {
+  httpBackend.when('DELETE', apiUrl+'sponzorships/'+1).respond(200, {
     "message": "Deleted"
   }
 );

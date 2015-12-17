@@ -1,7 +1,7 @@
 describe("Sponzorship Service Unit Tests", function() {
 
   beforeEach(function() {
-    module('sponzorshipService');
+    module('sponzorme');
   });
 
   var sponzorshipRequest;
@@ -20,8 +20,17 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/sponzorships').respond(200, {
+      $httpBackend.when('GET', apiUrl+'sponzorships').respond(200, {
         "success": true
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
 
@@ -49,7 +58,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('GET', 'http://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('GET', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
       "data": {
         "sponzorship": {
           "id": "3",
@@ -59,6 +68,15 @@ describe("Sponzorship Service Unit Tests", function() {
           "events": []
         }
       }
+    });
+    $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+      "title": 'Sponzorme EN'
+    });
+    $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+      "title": 'Sponzorme PT'
+    });
+    $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+      "title": 'Sponzorme ES'
     });
     }));
     afterEach(function() {
@@ -96,7 +114,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('POST', 'http://apistaging.sponzor.me/sponzorships').respond(200, {
+      $httpBackend.when('POST', apiUrl+'sponzorships').respond(200, {
         "message": "Inserted",
         "sponzorship": {
           "title": "Test",
@@ -104,6 +122,15 @@ describe("Sponzorship Service Unit Tests", function() {
           "lang": "123",
           "id": 15
         }
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -136,9 +163,18 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('DELETE', 'http://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('DELETE', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
         "message": "Deleted"
-      })
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
+      });
     }));
     afterEach(function() {
       $httpBackend.verifyNoOutstandingExpectation();
@@ -166,7 +202,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PATCH', 'http://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('PATCH', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "sponzorship": {
@@ -175,6 +211,15 @@ describe("Sponzorship Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {
@@ -212,7 +257,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-      $httpBackend.when('PUT', 'http://apistaging.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
+      $httpBackend.when('PUT', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
         "message": "Updated",
         "warnings": [],
         "sponzorship": {
@@ -221,6 +266,15 @@ describe("Sponzorship Service Unit Tests", function() {
           "body": "test",
           "lang": "123"
         }
+      });
+      $httpBackend.whenGET('langs/lang-en.json').respond(200, {
+        "title": 'Sponzorme EN'
+      });
+      $httpBackend.whenGET('langs/lang-pt.json').respond(200, {
+        "title": 'Sponzorme PT'
+      });
+      $httpBackend.whenGET('langs/lang-es.json').respond(200, {
+        "title": 'Sponzorme ES'
       });
     }));
     afterEach(function() {

@@ -36,15 +36,18 @@ describe("Organizers Create Event Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/categories').respond(200, {
+    httpBackend.when('GET', apiUrl+'categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/event_types').respond(200, {
+    httpBackend.when('GET', apiUrl+'event_types').respond(200, {
       "success": true,
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
     httpBackend.when('GET', 'views/templates/importEventbriteDialog.html').respond(200, {
+      "message": "SUCCESS"
+    });
+    httpBackend.when('GET', 'views/templates/importMeetupDialog.html').respond(200, {
       "message": "SUCCESS"
     });
   }));
@@ -60,7 +63,7 @@ describe("Organizers Create Event Controller test", function(){
   });
   it("Should be error creating new event", function(){
 
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/events').respond(400, {
+    httpBackend.when('POST', apiUrl+'events').respond(400, {
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -76,7 +79,7 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.message).toEqual('errorCreatingEvent');
   });
   it("should be success creating new event", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/events').respond(200, {
+    httpBackend.when('POST', apiUrl+'events').respond(200, {
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -92,19 +95,13 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.message).toEqual('eventCreatedSuccesfully');
   });
   it("Should be a conection invalid with eventbrite", function(){
-    var code = "12343241";
+    var eventBriteCode = "12343241";
     $localStorage.eventBriteBeared = "";
-    /*httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
-      responseData: Object, responseDetails: null, responseStatus: 200
-    });*/
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+    httpBackend.when('GET', apiUrl+'token/eventbrite/' + eventBriteCode).respond(200, {
       "success": true,
       "response": '{"error_description":"code is invalid or expired","error":"invalid_grant"}'
     });
-    /*httpBackend.when('GET', url+'?token='+token).respond(200, {
-      "success": true
-    });*/
-    $routeParams.code = code;
+    $routeParams.eventBriteCode = eventBriteCode;
     var controller = createController();
     httpBackend.flush();
     expect(scope.loadingGetToken).toEqual(false);
@@ -112,46 +109,52 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.conectionDone).toEqual(false);
   });
   it("Should be a conection valid with eventbrite", function(){
-    var code = "12343241";
+    var eventBriteCode = "12343241";
     var token = "12343241";
     $localStorage.eventBriteBeared = "";
     httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
       responseData: Object, responseDetails: null, responseStatus: 200
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+    httpBackend.when('GET', apiUrl+'token/eventbrite/' + eventBriteCode).respond(200, {
       "success": true,
       "response": '{"access_token":"12343241"}'
     });
-    /*httpBackend.when('GET', url+'?token='+token).respond(200, {
-      "success": true
-    });*/
-    $routeParams.code = code;
+    $routeParams.eventBriteCode = eventBriteCode;
     var controller = createController();
     httpBackend.flush();
-    expect($localStorage.eventBriteBeared).toEqual($routeParams.code);
+    expect($localStorage.eventBriteBeared).toEqual($routeParams.eventBriteCode);
   });
 
-  it("Should be a conection valid and conection eventbrite", function(){
-    var code = "12343241";
-    var token = "12343241";
-    $localStorage.eventBriteBeared = "";
-    httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
-      events:[{"title":"1234"},{"title":"12345"}]
+  it("Should be a conection invalid with meetup", function(){
+    var meetupCode = "12343241";
+    $localStorage.meetupBeared = "";
+    httpBackend.when('GET', apiUrl+'token/meetup/' + meetupCode).respond(200, {
+      "success": true,
+      "response": '{"error_description":"code is invalid or expired","error":"invalid_grant"}'
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/token/eventbrite/' + code).respond(200, {
+    $routeParams.meetupCode = meetupCode;
+    var controller = createController();
+    httpBackend.flush();
+    expect(scope.meetupLoadingGetToken).toEqual(false);
+    expect(scope.reconnectMeetup).toEqual(true);
+    expect(scope.meetupConectionDone).toEqual(false);
+  });
+
+  it("Should be a conection valid with meetup", function(){
+    var meetupCode = "12343241";
+    var token = "12343241";
+    $localStorage.meetupBeared = "";
+    httpBackend.when('GET', apiUrl+'events/meetup/' + token).respond(200, {
+      response:'[{"created":1427845537000,"duration":7200000,"group":{"created":1427845317000,"name":"GDG Medellin (Google Developer Group)"}, "visivility":true}]'
+    });
+    httpBackend.when('GET', apiUrl+'token/meetup/' + meetupCode).respond(200, {
       "success": true,
       "response": '{"access_token":"12343241"}'
     });
-    /*httpBackend.when('GET', url+'?token='+token).respond(200, {
-      "success": true
-    });*/
-    $routeParams.code = code;
+    $routeParams.meetupCode = meetupCode;
     var controller = createController();
     httpBackend.flush();
-    expect($localStorage.eventBriteBeared).toEqual($routeParams.code);
-    expect(scope.loadingGetEvents).toEqual(false);
-    expect(scope.evenbriteEvents.length).toEqual(2);
-
+    expect($localStorage.meetupBeared).toEqual($routeParams.meetupCode);
   });
 
 });

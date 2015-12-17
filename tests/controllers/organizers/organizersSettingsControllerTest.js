@@ -36,7 +36,7 @@ describe("Organizers Create Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
+    httpBackend.when('GET', apiUrl+'users/'+1).respond(200, {
       "data": {
         "user": {
           "id": "1",
@@ -52,13 +52,13 @@ describe("Organizers Create Controller test", function(){
           ]
       }
     });
-    httpBackend.when('GET', 'http://apistaging.sponzor.me/interests_category').respond(200, {
+    httpBackend.when('GET', apiUrl+'interests_category').respond(200, {
       "success": true
     });
-    httpBackend.when('DELETE', 'http://apistaging.sponzor.me/user_interests/1').respond(200, {
+    httpBackend.when('DELETE', apiUrl+'user_interests/1').respond(200, {
       "message": "Deleted"
     });
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/user_interests').respond(200, {
+    httpBackend.when('POST', apiUrl+'user_interests').respond(200, {
       "message": "Inserted",
       "UserInterest": {
         "name": "Test",
@@ -80,7 +80,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.account.email).toBe('test@test.com');
   });
   it("Should be an account edited", function(){
-    httpBackend.when('PATCH', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
+    httpBackend.when('PATCH', apiUrl+'users/'+1).respond(200, {
       "message": "Updated",
       "warnings": [],
       "user": {
@@ -106,7 +106,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toBe('accountInfoEditedSuccessfuly');
   });
   it("Should be an account edited with image", function(){
-    httpBackend.when('PATCH', 'http://apistaging.sponzor.me/users/'+1).respond(200, {
+    httpBackend.when('PATCH', apiUrl+'users/'+1).respond(200, {
       "message": "Updated",
       "warnings": [],
       "user": {
@@ -134,7 +134,7 @@ describe("Organizers Create Controller test", function(){
     //expect(scope.message).toBe('accountInfoEditedSuccessfuly');
   });
   it("Should be an account no edited", function(){
-    httpBackend.when('PATCH', 'http://apistaging.sponzor.me/users/'+1).respond(400, {
+    httpBackend.when('PATCH', apiUrl+'users/'+1).respond(400, {
       "message": "Updated",
       "warnings": [],
       "user": {
@@ -160,7 +160,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toBe('errorEditingAccountInfo');
   });
   it("should be a changed password ok", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/change_password').respond(200, {
+    httpBackend.when('POST', apiUrl+'change_password').respond(200, {
       "message": "password changed",
       "code": "200"
     });
@@ -175,7 +175,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toBe('PasswordChangedSuccesfully');
   });
   it("should be a changed password fail", function(){
-    httpBackend.when('POST', 'http://apistaging.sponzor.me/change_password').respond(400, {
+    httpBackend.when('POST', apiUrl+'change_password').respond(400, {
       "message": "password changed",
       "code": "200"
     });
