@@ -1,6 +1,11 @@
 deployment:
-  staging:
+  production:
     branch: master
     codedeploy:
       SponzormeFrontMaster:
         deployment_group: SponzormeFrontMasterGroup
+  staging:
+    branch: gh-pages
+    codedeploy:
+      SponzormeFrontStaging:
+        deployment_group: SponzormeFrontStagingGroup
