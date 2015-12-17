@@ -257,7 +257,15 @@ var expirationTime = 1;
      * This function allows change the language whatever be the route
      * for this reason this is a global function
      */
+    .run(['$rootScope', function($rootScope) {
+      var host = window.location.href;
+      if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
+        var aux = host.replace('http:', 'https:');
+        window.location.href = aux;
+      }
+    }])
     .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
+
       $rootScope.changeLanguage = function(key) {
         $translate.use(key);
         idiomaselect = key;
