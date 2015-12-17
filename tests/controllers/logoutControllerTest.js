@@ -50,11 +50,7 @@ describe("loginController Tests", function(){
   });
   it("Should be loged then unloged", function(){
     var loginController = createLoginController();
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/auth').respond(200, {
-=======
     httpBackend.when('POST', apiUrl+'auth').respond(200, {
->>>>>>> gh-pages
       "success": true,
       "user": {
         "id": "1003",

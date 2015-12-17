@@ -36,11 +36,7 @@ describe("Organizers Create Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/users/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'users/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "user": {
           "id": "1",
@@ -56,15 +52,6 @@ describe("Organizers Create Controller test", function(){
           ]
       }
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/interests_category').respond(200, {
-      "success": true
-    });
-    httpBackend.when('DELETE', 'http://api.sponzor.me/user_interests/1').respond(200, {
-      "message": "Deleted"
-    });
-    httpBackend.when('POST', 'http://api.sponzor.me/user_interests').respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'interests_category').respond(200, {
       "success": true
     });
@@ -72,7 +59,6 @@ describe("Organizers Create Controller test", function(){
       "message": "Deleted"
     });
     httpBackend.when('POST', apiUrl+'user_interests').respond(200, {
->>>>>>> gh-pages
       "message": "Inserted",
       "UserInterest": {
         "name": "Test",
@@ -94,11 +80,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.account.email).toBe('test@test.com');
   });
   it("Should be an account edited", function(){
-<<<<<<< HEAD
-    httpBackend.when('PATCH', 'http://api.sponzor.me/users/'+1).respond(200, {
-=======
     httpBackend.when('PATCH', apiUrl+'users/'+1).respond(200, {
->>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "user": {
@@ -124,11 +106,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toBe('accountInfoEditedSuccessfuly');
   });
   it("Should be an account edited with image", function(){
-<<<<<<< HEAD
-    httpBackend.when('PATCH', 'http://api.sponzor.me/users/'+1).respond(200, {
-=======
     httpBackend.when('PATCH', apiUrl+'users/'+1).respond(200, {
->>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "user": {
@@ -156,11 +134,7 @@ describe("Organizers Create Controller test", function(){
     //expect(scope.message).toBe('accountInfoEditedSuccessfuly');
   });
   it("Should be an account no edited", function(){
-<<<<<<< HEAD
-    httpBackend.when('PATCH', 'http://api.sponzor.me/users/'+1).respond(400, {
-=======
     httpBackend.when('PATCH', apiUrl+'users/'+1).respond(400, {
->>>>>>> gh-pages
       "message": "Updated",
       "warnings": [],
       "user": {
@@ -186,11 +160,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toBe('errorEditingAccountInfo');
   });
   it("should be a changed password ok", function(){
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/change_password').respond(200, {
-=======
     httpBackend.when('POST', apiUrl+'change_password').respond(200, {
->>>>>>> gh-pages
       "message": "password changed",
       "code": "200"
     });
@@ -205,11 +175,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toBe('PasswordChangedSuccesfully');
   });
   it("should be a changed password fail", function(){
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/change_password').respond(400, {
-=======
     httpBackend.when('POST', apiUrl+'change_password').respond(400, {
->>>>>>> gh-pages
       "message": "password changed",
       "code": "200"
     });

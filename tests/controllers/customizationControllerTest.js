@@ -32,11 +32,7 @@ describe("CustomizationController Tests", function(){
     httpBackend.when('GET', 'views/templates/unactivatedAccountDialog.html').respond(200, {
       "message": "UNACTIVATED"
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'categories').respond(200, {
->>>>>>> gh-pages
       "success": true,
       "categories":[
         {
@@ -46,11 +42,7 @@ describe("CustomizationController Tests", function(){
           "id":"2"
         }]
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/interests_category').respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'interests_category').respond(200, {
->>>>>>> gh-pages
       "success": true,
       "InterestCategory":[
         {
@@ -107,11 +99,7 @@ describe("CustomizationController Tests", function(){
     expect(scope.steps[2]).toEqual(true);
   });
   it("Should be all complete after submit the form", function(){
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'categories').respond(200, {
->>>>>>> gh-pages
       "success": true,
       "categories":[
         {
@@ -121,11 +109,7 @@ describe("CustomizationController Tests", function(){
           "id":"2"
         }]
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/interests_category').respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'interests_category').respond(200, {
->>>>>>> gh-pages
       "success": true,
       "InterestCategory":[
         {
@@ -137,11 +121,7 @@ describe("CustomizationController Tests", function(){
           "category_id":"1"
         }]
     });
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/user_interests').respond(200, {
-=======
     httpBackend.when('POST', apiUrl+'user_interests').respond(200, {
->>>>>>> gh-pages
       "message": "Inserted",
       "category": {
         "title": "Test",

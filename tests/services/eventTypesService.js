@@ -20,11 +20,7 @@ describe("EventType Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/event_types').respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'event_types').respond(200, {
->>>>>>> gh-pages
         "success": true
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -62,11 +58,7 @@ describe("EventType Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/event_types/'+eventTypeId).respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'event_types/'+eventTypeId).respond(200, {
->>>>>>> gh-pages
       "data": {
         "eventType": {
           "id": "3",
@@ -122,11 +114,7 @@ describe("EventType Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('POST', 'http://api.sponzor.me/event_types').respond(200, {
-=======
       $httpBackend.when('POST', apiUrl+'event_types').respond(200, {
->>>>>>> gh-pages
         "message": "Inserted",
         "eventType": {
           "title": "Test",
@@ -175,11 +163,7 @@ describe("EventType Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('DELETE', 'http://api.sponzor.me/event_types/'+eventTypeId).respond(200, {
-=======
       $httpBackend.when('DELETE', apiUrl+'event_types/'+eventTypeId).respond(200, {
->>>>>>> gh-pages
         "message": "Deleted"
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -218,11 +202,7 @@ describe("EventType Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PATCH', 'http://api.sponzor.me/event_types/'+eventTypeId).respond(200, {
-=======
       $httpBackend.when('PATCH', apiUrl+'event_types/'+eventTypeId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "eventType": {
@@ -277,11 +257,7 @@ describe("EventType Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PUT', 'http://api.sponzor.me/event_types/'+eventTypeId).respond(200, {
-=======
       $httpBackend.when('PUT', apiUrl+'event_types/'+eventTypeId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "eventType": {

@@ -20,11 +20,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/sponzorships').respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'sponzorships').respond(200, {
->>>>>>> gh-pages
         "success": true
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -62,11 +58,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
->>>>>>> gh-pages
       "data": {
         "sponzorship": {
           "id": "3",
@@ -122,11 +114,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('POST', 'http://api.sponzor.me/sponzorships').respond(200, {
-=======
       $httpBackend.when('POST', apiUrl+'sponzorships').respond(200, {
->>>>>>> gh-pages
         "message": "Inserted",
         "sponzorship": {
           "title": "Test",
@@ -175,11 +163,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('DELETE', 'http://api.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
-=======
       $httpBackend.when('DELETE', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
->>>>>>> gh-pages
         "message": "Deleted"
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -218,11 +202,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PATCH', 'http://api.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
-=======
       $httpBackend.when('PATCH', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "sponzorship": {
@@ -277,11 +257,7 @@ describe("Sponzorship Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PUT', 'http://api.sponzor.me/sponzorships/'+sponzorshipId).respond(200, {
-=======
       $httpBackend.when('PUT', apiUrl+'sponzorships/'+sponzorshipId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "sponzorship": {

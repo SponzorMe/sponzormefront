@@ -19,11 +19,7 @@ describe("Category Service Unit Tests", function() {
 
     beforeEach(inject(function($injector) {
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'categories').respond(200, {
->>>>>>> gh-pages
         "success": true
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -61,11 +57,7 @@ describe("Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/categories/'+categoryId).respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'categories/'+categoryId).respond(200, {
->>>>>>> gh-pages
       "data": {
         "category": {
           "id": "3",
@@ -121,11 +113,7 @@ describe("Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('POST', 'http://api.sponzor.me/categories').respond(200, {
-=======
       $httpBackend.when('POST', apiUrl+'categories').respond(200, {
->>>>>>> gh-pages
         "message": "Inserted",
         "category": {
           "title": "Test",
@@ -174,11 +162,7 @@ describe("Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('DELETE', 'http://api.sponzor.me/categories/'+categoryId).respond(200, {
-=======
       $httpBackend.when('DELETE', apiUrl+'categories/'+categoryId).respond(200, {
->>>>>>> gh-pages
         "message": "Deleted"
       });
       $httpBackend.whenGET('langs/lang-en.json').respond(200, {
@@ -217,11 +201,7 @@ describe("Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PATCH', 'http://api.sponzor.me/categories/'+categoryId).respond(200, {
-=======
       $httpBackend.when('PATCH', apiUrl+'categories/'+categoryId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "category": {
@@ -276,11 +256,7 @@ describe("Category Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PUT', 'http://api.sponzor.me/categories/'+categoryId).respond(200, {
-=======
       $httpBackend.when('PUT', apiUrl+'categories/'+categoryId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "category": {

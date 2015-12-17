@@ -65,11 +65,7 @@ describe("Evenbtbrite Tests", function() {
       inject(function($injector) {
         // Set up the mock http service responses
         $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-        $httpBackend.when('GET', 'http://api.sponzor.me/token/eventbrite/' + code).respond(200, {
-=======
         $httpBackend.when('GET', apiUrl+'token/eventbrite/' + code).respond(200, {
->>>>>>> gh-pages
           "success": true
         });
         $httpBackend.whenGET('langs/lang-en.json').respond(200, {

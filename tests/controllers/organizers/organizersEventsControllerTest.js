@@ -37,17 +37,6 @@ describe("Organizers Events Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
-      "success": true,
-      "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
-    });
-    httpBackend.when('GET', 'http://api.sponzor.me/event_types').respond(200, {
-      "success": true,
-      "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
-    });
-    httpBackend.when('GET', 'http://api.sponzor.me/users/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
@@ -57,7 +46,6 @@ describe("Organizers Events Controller test", function(){
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
     httpBackend.when('GET', apiUrl+'users/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "user": {
           "id": "3",
@@ -69,11 +57,7 @@ describe("Organizers Events Controller test", function(){
       }
     });
 
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/perks/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'perks/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "perk": {
           "id": "3",
@@ -90,11 +74,7 @@ describe("Organizers Events Controller test", function(){
     httpBackend.verifyNoOutstandingRequest();
   });
   it("Should be vars Initialization", function(){
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'events/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "event": {
           "id": "1",
@@ -113,11 +93,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.type.list.length).toBe(4);
   });
   it("Should be gotten events", function(){
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'events/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "event": {
           "id": "1",
@@ -137,11 +113,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.eventos.length).toBe(4);
   });
   it("Should be success callback", function(){
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'events/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "event": {
           "id": "1",
@@ -167,11 +139,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.currentPerk.Tasks[3].id).toBe('4');
   });
   it("Should be an event delete without sponzorships", function(){
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'events/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "event": {
           "id": "1",
@@ -183,17 +151,10 @@ describe("Organizers Events Controller test", function(){
         }
       }
     });
-<<<<<<< HEAD
-    httpBackend.when('DELETE', 'http://api.sponzor.me/perks/'+1).respond(200, {
-      "message": "Deleted"
-    });
-    httpBackend.when('DELETE', 'http://api.sponzor.me/events/'+1).respond(200, {
-=======
     httpBackend.when('DELETE', apiUrl+'perks/'+1).respond(200, {
       "message": "Deleted"
     });
     httpBackend.when('DELETE', apiUrl+'events/'+1).respond(200, {
->>>>>>> gh-pages
       "message": "Deleted"
     });
     $localStorage.id = 1;
@@ -209,11 +170,7 @@ describe("Organizers Events Controller test", function(){
     expect(scope.message).toBe('eventDeleteSuccesfully');
   });
   it("Should be an event delete with sponzorships", function(){
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/events/'+1).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'events/'+1).respond(200, {
->>>>>>> gh-pages
       "data": {
         "event": {
           "id": "1",
@@ -225,17 +182,10 @@ describe("Organizers Events Controller test", function(){
         }
       }
     });
-<<<<<<< HEAD
-    httpBackend.when('DELETE', 'http://api.sponzor.me/perks/'+1).respond(200, {
-      "message": "Deleted"
-    });
-    httpBackend.when('DELETE', 'http://api.sponzor.me/events/'+1).respond(200, {
-=======
     httpBackend.when('DELETE', apiUrl+'perks/'+1).respond(200, {
       "message": "Deleted"
     });
     httpBackend.when('DELETE', apiUrl+'events/'+1).respond(200, {
->>>>>>> gh-pages
       "message": "Deleted"
     });
     $localStorage.id = 1;

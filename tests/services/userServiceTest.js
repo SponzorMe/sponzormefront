@@ -20,11 +20,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/users').respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'users').respond(200, {
->>>>>>> gh-pages
         "success": true
       });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
         "title": 'Sponzorme EN'
@@ -61,11 +57,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('GET', 'http://api.sponzor.me/users/'+userId).respond(200, {
-=======
       $httpBackend.when('GET', apiUrl+'users/'+userId).respond(200, {
->>>>>>> gh-pages
       "data": {
         "user": {
           "id": "3",
@@ -120,11 +112,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('POST', 'http://api.sponzor.me/users').respond(200, {
-=======
       $httpBackend.when('POST', apiUrl+'users').respond(200, {
->>>>>>> gh-pages
         "message": "Inserted",
         "user": {
           "title": "Test",
@@ -172,11 +160,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('DELETE', 'http://api.sponzor.me/users/'+userId).respond(200, {
-=======
       $httpBackend.when('DELETE', apiUrl+'users/'+userId).respond(200, {
->>>>>>> gh-pages
         "message": "Deleted"
       });$httpBackend.whenGET('langs/lang-en.json').respond(200, {
         "title": 'Sponzorme EN'
@@ -214,11 +198,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PATCH', 'http://api.sponzor.me/users/'+userId).respond(200, {
-=======
       $httpBackend.when('PATCH', apiUrl+'users/'+userId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "user": {
@@ -272,11 +252,7 @@ describe("User Service Unit Tests", function() {
     beforeEach(inject(function($injector) {
       // Set up the mock http service responses
       $httpBackend = $injector.get('$httpBackend');
-<<<<<<< HEAD
-      $httpBackend.when('PUT', 'http://api.sponzor.me/users/'+userId).respond(200, {
-=======
       $httpBackend.when('PUT', apiUrl+'users/'+userId).respond(200, {
->>>>>>> gh-pages
         "message": "Updated",
         "warnings": [],
         "user": {

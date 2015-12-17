@@ -65,11 +65,7 @@ describe("Organizers Create Controller test", function(){
     expect(scope.message).toEqual('errorRegisterPasswordNoMatch');
   });
   it("Should be succes registration", function(){
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/events').respond(200, {
-=======
     httpBackend.when('POST', apiUrl+'events').respond(200, {
->>>>>>> gh-pages
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -78,11 +74,7 @@ describe("Organizers Create Controller test", function(){
         "id": 15
       }
     });
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/users').respond(200, {
-=======
     httpBackend.when('POST', apiUrl+'users').respond(200, {
->>>>>>> gh-pages
       "message": "Inserted",
       "User": {
         "title": "Test",
@@ -92,11 +84,7 @@ describe("Organizers Create Controller test", function(){
         "type": 1
       }
     });
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/perks').respond(200, {
-=======
     httpBackend.when('POST', apiUrl+'perks').respond(200, {
->>>>>>> gh-pages
       "message": "Inserted",
       "perk": {
         "title": "Test",

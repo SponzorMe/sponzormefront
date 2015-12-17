@@ -36,19 +36,11 @@ describe("Organizers Create Event Controller test", function(){
     httpBackend.when('GET', 'templateId').respond(200, {
       "message": "Test"
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/categories').respond(200, {
-      "success": true,
-      "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
-    });
-    httpBackend.when('GET', 'http://api.sponzor.me/event_types').respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'categories').respond(200, {
       "success": true,
       "categories": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
     httpBackend.when('GET', apiUrl+'event_types').respond(200, {
->>>>>>> gh-pages
       "success": true,
       "eventTypes": [{a:"a"},{a:"a"},{a:"a"},{a:"a"}]
     });
@@ -71,11 +63,7 @@ describe("Organizers Create Event Controller test", function(){
   });
   it("Should be error creating new event", function(){
 
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/events').respond(400, {
-=======
     httpBackend.when('POST', apiUrl+'events').respond(400, {
->>>>>>> gh-pages
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -91,11 +79,7 @@ describe("Organizers Create Event Controller test", function(){
     expect(scope.message).toEqual('errorCreatingEvent');
   });
   it("should be success creating new event", function(){
-<<<<<<< HEAD
-    httpBackend.when('POST', 'http://api.sponzor.me/events').respond(200, {
-=======
     httpBackend.when('POST', apiUrl+'events').respond(200, {
->>>>>>> gh-pages
       "message": "Inserted",
       "event": {
         "title": "Test",
@@ -113,14 +97,7 @@ describe("Organizers Create Event Controller test", function(){
   it("Should be a conection invalid with eventbrite", function(){
     var eventBriteCode = "12343241";
     $localStorage.eventBriteBeared = "";
-<<<<<<< HEAD
-    /*httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
-      responseData: Object, responseDetails: null, responseStatus: 200
-    });*/
-    httpBackend.when('GET', 'http://api.sponzor.me/token/eventbrite/' + code).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'token/eventbrite/' + eventBriteCode).respond(200, {
->>>>>>> gh-pages
       "success": true,
       "response": '{"error_description":"code is invalid or expired","error":"invalid_grant"}'
     });
@@ -138,11 +115,7 @@ describe("Organizers Create Event Controller test", function(){
     httpBackend.when('GET', 'https://www.eventbriteapi.com/v3/users/me/owned_events/?token=' + token).respond(200, {
       responseData: Object, responseDetails: null, responseStatus: 200
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/token/eventbrite/' + code).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'token/eventbrite/' + eventBriteCode).respond(200, {
->>>>>>> gh-pages
       "success": true,
       "response": '{"access_token":"12343241"}'
     });
@@ -174,11 +147,7 @@ describe("Organizers Create Event Controller test", function(){
     httpBackend.when('GET', apiUrl+'events/meetup/' + token).respond(200, {
       response:'[{"created":1427845537000,"duration":7200000,"group":{"created":1427845317000,"name":"GDG Medellin (Google Developer Group)"}, "visivility":true}]'
     });
-<<<<<<< HEAD
-    httpBackend.when('GET', 'http://api.sponzor.me/token/eventbrite/' + code).respond(200, {
-=======
     httpBackend.when('GET', apiUrl+'token/meetup/' + meetupCode).respond(200, {
->>>>>>> gh-pages
       "success": true,
       "response": '{"access_token":"12343241"}'
     });

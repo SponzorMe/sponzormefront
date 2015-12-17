@@ -100,10 +100,6 @@ var event_es = {
 
 'use strict';
 var idiomaselect = 'en'; //Default Language
-<<<<<<< HEAD
-var apiPath = 'http://api.sponzor.me/'; //API path
-=======
->>>>>>> gh-pages
 var expirationTime = 1;
 (function() {
   angular.module('sponzorme', [
@@ -123,24 +119,6 @@ var expirationTime = 1;
       'firebase',
       'textAngular'
     ])
-<<<<<<< HEAD
-    .constant('URL', 'http://api.sponzor.me/')
-    .constant('XOOMRATE', parseFloat(4.99))
-    .constant('FEE', parseFloat(0.1))
-    .constant('PAYPALCOMPLETERETURNURL', 'http://www.sponzor.me/thank-you/')
-    .constant('PAYPALIPNRETURNURL', 'http://api.sponzor.me/ipn')
-    .constant('PAYPALEMAIL', 'ing.carlosandresrojas@gmail.com')
-    .constant('FURL', 'https://sponzorme.firebaseio.com/')
-    .constant('AMAZONSECRET', 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6')
-    .constant('AMAZONKEY', 'AKIAJDGUKWK3H7SJZKSQ')
-    .constant('AMAZONBUCKET', 'sponzormewebappimages')
-    .constant('EVENTBRITECLIENTSECRET', 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5')
-    .constant('EVENTBRITEAPYKEY', 'MI3YNPLR3R73AD36YS')
-    .constant('AMAZONBUCKETREGION', 'us-west-2')
-    .constant('AMAZONBUCKETURL', 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/')
-
-=======
->>>>>>> gh-pages
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
         prefix: 'langs/lang-',
