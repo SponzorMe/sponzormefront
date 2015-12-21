@@ -56,6 +56,10 @@ var expirationTime = 1;
           templateUrl: 'views/login.html',
           controller: 'LoginController'
         })
+        .when('/login/:returnUrl', {
+          templateUrl: 'views/login.html',
+          controller: 'LoginController'
+        })
         .when('/resend', {
           templateUrl: 'views/resend.html',
           controller: 'ResendController'
@@ -273,6 +277,7 @@ var expirationTime = 1;
       };
 
       $rootScope.userValidation = function(shouldType) {
+        var host = window.location.href;
         $rootScope.isExpiredData();
         if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
           if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {
@@ -295,6 +300,7 @@ var expirationTime = 1;
           }
           $rootScope.$storage = $localStorage;
         } else {
+          $localStorage.redirectTo = host;
           $location.path('/login');
         }
       };

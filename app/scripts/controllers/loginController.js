@@ -6,6 +6,7 @@
       idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
+    var redirectTo = $localStorage.redirectTo;
     $localStorage.$reset();
 
     $scope.sendfrom = function() {
@@ -37,9 +38,19 @@
 
             $scope.loagind = false;
             if (adata.user.type === '1') {
-              $location.path('/sponzors/dashboard');
+              if(redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1){
+                window.location.href = redirectTo;
+              }
+              else{
+                $location.path('/sponzors/dashboard');
+              }
             } else {
-              $location.path('/organizers/dashboard');
+              if(redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1){
+                window.location.href = redirectTo;
+              }
+              else{
+                $location.path('/organizers/dashboard');
+              }
             }
             ngDialog.closeAll();
           } else {
