@@ -56,10 +56,6 @@ var expirationTime = 1;
           templateUrl: 'views/login.html',
           controller: 'LoginController'
         })
-        .when('/login/:returnUrl', {
-          templateUrl: 'views/login.html',
-          controller: 'LoginController'
-        })
         .when('/resend', {
           templateUrl: 'views/resend.html',
           controller: 'ResendController'
@@ -152,14 +148,21 @@ var expirationTime = 1;
           templateUrl: 'views/organizers/dashboard/add_event.html',
           controller: 'OrganizersEventCreateController'
         })
+        .when('/sponzors/rating/:sponzorshipId', {
+          templateUrl: 'views/sponzors/dashboard/rateSponzorship.html',
+          controller: 'SponzorsRatingController'
+        })
+        .when('/organizers/rating/:sponzorshipId', {
+          templateUrl: 'views/organizers/dashboard/rateSponzorship.html',
+          controller: 'OrganizersRatingController'
+        })
         .otherwise({
           redirectTo: '/login'
         });
     }])
     /*
      * Author: Sebastian Gomez
-     * This function allows change the language whatever be the route
-     * for this reason this is a global function
+     * This function redirect to https urls
      */
     .run(['$rootScope', function($rootScope) {
       var host = window.location.href;
@@ -169,11 +172,19 @@ var expirationTime = 1;
       }
     }])
     .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
-
+      /*
+       * Author: Sebastian Gomez
+       * This function allows change the language whatever be the route
+       * for this reason this is a global function
+       */
       $rootScope.changeLanguage = function(key) {
         $translate.use(key);
         idiomaselect = key;
       };
+      /*
+       * Author: Sebastian Gomez
+       * This function return the current languaje used in the application
+       */
       $rootScope.currentLanguage = function(key) {
         return $translate.use();
       };
@@ -188,9 +199,13 @@ var expirationTime = 1;
           document.write(a);
         });
       };
+      /*
+       * Author: Sebastian Gomez
+       * This functions detect the enviroment and set the configuration
+       */
       $rootScope.getConstants = function() {
-        var host = window.location.hostname;
-        if (host.indexOf('localhost') > -1) {
+        var host = window.location.hostname; // Get the host
+        if (host.indexOf('localhost') > -1) { //Localhost
           return {
             'URL': 'https://apilocal.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -209,7 +224,7 @@ var expirationTime = 1;
             'AMAZONBUCKETREGION': 'us-west-2',
             'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
           };
-        } else if (host.indexOf('staging') > -1) {
+        } else if (host.indexOf('staging') > -1) { //Staging
           return {
             'URL': 'https://apistaging.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -228,7 +243,7 @@ var expirationTime = 1;
             'AMAZONBUCKETREGION': 'us-west-2',
             'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
           };
-        } else if (host.indexOf('app') > -1) {
+        } else if (host.indexOf('app') > -1) { //Production
           return {
             'URL': 'https://api.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -277,7 +292,7 @@ var expirationTime = 1;
       };
 
       $rootScope.userValidation = function(shouldType) {
-        
+
         var host = window.location.href;
         $rootScope.isExpiredData();
         if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {

@@ -694,5 +694,21 @@
   "RetryMeetupConection":"Click here to retry",
   "GettingYourMeetupEvents":"Getting your Meetup events",
   "ConnectingToMeetup":"Connecting to Meetup...",
-  "group":"Event Group"
+  "group":"Event Group",
+
+  "requestedSponzorshipNoExist":"The requested sponzorship does not exist",
+  "ratingSponzor":{
+    "question1":"Overall, how was your experience with us?*",
+    "question2":"How did you find out about our events?",
+    "question3":"How do you perceive the way organizers handled your brand? *",
+    "question4":"Did you got what was promised? *",
+    "question5":"How much would you invest in sponsoring in the future? *",
+    "question6":"Did you feel accomplished? *",
+    "question7":"Would you sponsor us in the future? *",
+    "question8":"Which is the audience you're looking for?",
+    "question9":"Events on targeted to which developers would you like to sponsor? *",
+    "question10":"Write whatever"
+  },
+  "chooseOneOption":"--Choose an option--",
+  "howwasyoursponzorship": "Please tell us how was your sponzorship in: "
 }
