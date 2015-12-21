@@ -277,6 +277,7 @@ var expirationTime = 1;
       };
 
       $rootScope.userValidation = function(shouldType) {
+        
         var host = window.location.href;
         $rootScope.isExpiredData();
         if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
@@ -296,12 +297,13 @@ var expirationTime = 1;
                 $localStorage.demo = 1;
               }, 3000);
             });
-
           }
           $rootScope.$storage = $localStorage;
+          return true;
         } else {
           $localStorage.redirectTo = host;
           $location.path('/login');
+          return false;
         }
       };
       $rootScope.updateUserDemo = function(userId) {

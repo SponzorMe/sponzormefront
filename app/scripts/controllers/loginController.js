@@ -35,8 +35,8 @@
             $localStorage.startDate = Date.now();
             $scope.$storage = $localStorage;
             idiomaselect = adata.user.lang;
-
             $scope.loagind = false;
+            
             if (adata.user.type === '1') {
               if(redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1){
                 window.location.href = redirectTo;
@@ -46,9 +46,11 @@
               }
             } else {
               if(redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1){
+                
                 window.location.href = redirectTo;
               }
               else{
+                
                 $location.path('/organizers/dashboard');
               }
             }
