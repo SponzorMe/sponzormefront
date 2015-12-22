@@ -15,7 +15,9 @@
 			},
 			oneRating: function(ratingsId){
 				return $http.get($rootScope.getConstants().URL + 'ratings/' + ratingsId);
-
+			},
+			ratingBySponzorship: function(sponzorshipId,type){
+				return $http.get($rootScope.getConstants().URL + 'ratings/sponzorship/' + sponzorshipId+'/'+type);
 			},
 			createRating: function(data){
 				return $http({

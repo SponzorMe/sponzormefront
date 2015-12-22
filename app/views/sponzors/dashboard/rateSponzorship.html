@@ -121,7 +121,8 @@
                         {{ 'ratingSponzor.question9' | translate}}
                       </label>
                       <div class="col-sm-5">
-                        <select ng-model="rating.question9" multiple ng-multiple="true">
+                        <select ng-model="rating.question9">
+                          <option value="">{{'chooseOneOption'|translate}}</option>
                           <option value="PHP">PHP</option>
                           <option value="IOS">IOS</option>
                           <option value="Android">Android</option>

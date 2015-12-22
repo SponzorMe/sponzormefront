@@ -695,7 +695,6 @@
   "GettingYourMeetupEvents":"Getting your Meetup events",
   "ConnectingToMeetup":"Connecting to Meetup...",
   "group":"Event Group",
-
   "requestedSponzorshipNoExist":"The requested sponzorship does not exist",
   "ratingSponzor":{
     "question1":"Overall, how was your experience with us?*",
@@ -709,6 +708,24 @@
     "question9":"Events on targeted to which developers would you like to sponsor? *",
     "question10":"Write whatever"
   },
-  "chooseOneOption":"--Choose an option--",
-  "howwasyoursponzorship": "Please tell us how was your sponzorship in: "
+  "ratingOrganizer":{
+    "question1":"Who manages sponsoring in your Group?*",
+    "question2":"Overall, how was your experience with your sponsor?",
+    "question3":"How do you perceive the Sponsor's commitment to you ? *",
+    "question4":"Did you got what was promised?*",
+    "question5":"Do you going to use us again in the future?*",
+    "question6":"Which is your audience? *",
+    "question7":"Write whatever"
+  },
+  "chooseOneOption":"--Choose an Option--",
+  "howwasyoursponzorship": "Please tell us how was your sponzorship in: ",
+  "ratingAlreadyRated": "You already rate this sponzorship.",
+  "ratingOrganizerSuccess": "Thank you for your feedback.",
+  "invalidRateInfo": "The provided info is invalid",
+  "ratingSponzorSuccess": "Thank you for your feedback.",
+  "yes": "Yes",
+  "no": "No",
+  "developers":"Developers",
+  "designers":"Designers",
+  "entrepeneurs":"Entrepeneurs"
 }
