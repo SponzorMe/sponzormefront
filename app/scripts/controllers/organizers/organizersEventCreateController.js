@@ -1,15 +1,16 @@
 'use strict';
 (function() {
   function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, eventbriteRequest) {
+    //Function to parse JSON strings in JSON objects
+    function jsonize(str) {
+      return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
+        return '"' + $1 + '":';
+      }).replace(/'([^']+)'/g, function(_, $1) {
+        return '"' + $1 + '"';
+      });
+    }
     if($rootScope.userValidation('0')){
-      //Function to parse JSON strings in JSON objects
-      function jsonize(str) {
-        return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
-          return '"' + $1 + '":';
-        }).replace(/'([^']+)'/g, function(_, $1) {
-          return '"' + $1 + '"';
-        });
-      }
+
       //Use This Zone to Vars Initialization
       $translate.use(idiomaselect);
       $scope.tolsctive = 'active';
