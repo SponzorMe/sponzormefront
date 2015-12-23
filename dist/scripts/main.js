@@ -117,7 +117,8 @@ var expirationTime = 1;
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
-      'textAngular'
+      'textAngular',
+      'angular-input-stars'
     ])
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
@@ -248,14 +249,21 @@ var expirationTime = 1;
           templateUrl: 'views/organizers/dashboard/add_event.html',
           controller: 'OrganizersEventCreateController'
         })
+        .when('/sponzors/rating/:sponzorshipId', {
+          templateUrl: 'views/sponzors/dashboard/rateSponzorship.html',
+          controller: 'SponzorsRatingController'
+        })
+        .when('/organizers/rating/:sponzorshipId', {
+          templateUrl: 'views/organizers/dashboard/rateSponzorship.html',
+          controller: 'OrganizersRatingController'
+        })
         .otherwise({
           redirectTo: '/login'
         });
     }])
     /*
      * Author: Sebastian Gomez
-     * This function allows change the language whatever be the route
-     * for this reason this is a global function
+     * This function redirect to https urls
      */
     .run(['$rootScope', function($rootScope) {
       var host = window.location.href;
@@ -265,11 +273,19 @@ var expirationTime = 1;
       }
     }])
     .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
-
+      /*
+       * Author: Sebastian Gomez
+       * This function allows change the language whatever be the route
+       * for this reason this is a global function
+       */
       $rootScope.changeLanguage = function(key) {
         $translate.use(key);
         idiomaselect = key;
       };
+      /*
+       * Author: Sebastian Gomez
+       * This function return the current languaje used in the application
+       */
       $rootScope.currentLanguage = function(key) {
         return $translate.use();
       };
@@ -284,9 +300,13 @@ var expirationTime = 1;
           document.write(a);
         });
       };
+      /*
+       * Author: Sebastian Gomez
+       * This functions detect the enviroment and set the configuration
+       */
       $rootScope.getConstants = function() {
-        var host = window.location.hostname;
-        if (host.indexOf('localhost') > -1) {
+        var host = window.location.hostname; // Get the host
+        if (host.indexOf('localhost') > -1) { //Localhost
           return {
             'URL': 'https://apilocal.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -303,9 +323,10 @@ var expirationTime = 1;
             'MEETUPAPIKEY': '9pfi8r66lr4da194pc1lvhclq7',
             'MEETUPREDIRECTURL': 'https://apilocal.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
-        } else if (host.indexOf('staging') > -1) {
+        } else if (host.indexOf('staging') > -1) { //Staging
           return {
             'URL': 'https://apistaging.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -322,9 +343,10 @@ var expirationTime = 1;
             'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
             'MEETUPREDIRECTURL': 'https://apistaging.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
-        } else if (host.indexOf('app') > -1) {
+        } else if (host.indexOf('app') > -1) { //Production
           return {
             'URL': 'https://api.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -341,7 +363,8 @@ var expirationTime = 1;
             'MEETUPAPIKEY': 'lc876qakj5itnsnebm3dijus12',
             'MEETUPREDIRECTURL': 'https://api.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
         }
       };
@@ -373,6 +396,8 @@ var expirationTime = 1;
       };
 
       $rootScope.userValidation = function(shouldType) {
+
+        var host = window.location.href;
         $rootScope.isExpiredData();
         if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
           if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {
@@ -391,11 +416,13 @@ var expirationTime = 1;
                 $localStorage.demo = 1;
               }, 3000);
             });
-
           }
           $rootScope.$storage = $localStorage;
+          return true;
         } else {
+          $localStorage.redirectTo = host;
           $location.path('/login');
+          return false;
         }
       };
       $rootScope.updateUserDemo = function(userId) {
@@ -565,7 +592,8 @@ var expirationTime = 1;
           });
         }
       };
-    }).directive('logo', function() {
+    })
+    .directive('logo', function() {
       return {
         restrict: 'AE',
         scope: {
@@ -1407,6 +1435,87 @@ var expirationTime = 1;
 })();
 
 /**
+ * @Servicio de Rating (Beneficios)
+ * @author Sebastian
+ * @version 0.1
+ */
+'use strict';
+(function() {
+
+  function ratingRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+    var token = $localStorage.token;
+    return {
+      allRatings: function() {
+        return $http.get($rootScope.getConstants().URL + 'ratings');
+
+      },
+      oneRating: function(ratingsId) {
+        return $http.get($rootScope.getConstants().URL + 'ratings/' + ratingsId);
+      },
+      ratingBySponzorship: function(sponzorshipId, type) {
+        return $http.get($rootScope.getConstants().URL + 'ratings/sponzorship/' + sponzorshipId + '/' + type);
+      },
+      createRating: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'ratings',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      createRatingToken: function(data, newUserToken) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'ratings',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + newUserToken
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      deleteRating: function(ratingId) {
+        return $http({
+          method: 'DELETE',
+          url: $rootScope.getConstants().URL + 'ratings/' + ratingsId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          }
+        });
+      },
+      editRatingsPatch: function(ratingId, data) {
+        return $http({
+          method: 'PATCH',
+          url: $rootScope.getConstants().URL + 'ratings/' + ratingsId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      editRatingPut: function(ratingId, data) {
+        return $http({
+          method: 'PUT',
+          url: $rootScope.getConstants().URL + 'ratings/' + ratingsId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      }
+    };
+  }
+  angular.module('sponzorme')
+    .factory('ratingRequest', ratingRequest);
+})();
+
+/**
  * @Servicio de Eventos
  *
  * @author Sebastian
@@ -1690,10 +1799,11 @@ var expirationTime = 1;
       idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
+    var redirectTo = $localStorage.redirectTo;
     $localStorage.$reset();
 
     $scope.sendfrom = function() {
-      if ($scope.email && $scope.password) {//Just Check the values are defined
+      if ($scope.email && $scope.password) { //Just Check the values are defined
         $scope.objuser = {};
         $scope.objuser.email = $scope.email;
         $scope.objuser.password = $scope.password;
@@ -1718,12 +1828,22 @@ var expirationTime = 1;
             $localStorage.startDate = Date.now();
             $scope.$storage = $localStorage;
             idiomaselect = adata.user.lang;
-
             $scope.loagind = false;
+
             if (adata.user.type === '1') {
-              $location.path('/sponzors/dashboard');
+              if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) {
+                window.location.href = redirectTo;
+              } else {
+                $location.path('/sponzors/dashboard');
+              }
             } else {
-              $location.path('/organizers/dashboard');
+              if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
+
+                window.location.href = redirectTo;
+              } else {
+
+                $location.path('/organizers/dashboard');
+              }
             }
             ngDialog.closeAll();
           } else {
@@ -1994,120 +2114,120 @@ angular.module('sponzorme')
 (function() {
 
   function SponzorsFollowingController($scope, $translate, $localStorage, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout) {
-    $rootScope.userValidation('1');
-    $scope.sponzorshipsLoading = true;
-    $scope.noSponzorshipsMessage = false;
-    $scope.tasksLoading = true;
-    $scope.emailuser = $localStorage.email;
-    $scope.downloadCalendar = function(sponzorship) {
-      var cal = ics();
-      cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
+    if($rootScope.userValidation('1')){
+      $scope.sponzorshipsLoading = true;
+      $scope.noSponzorshipsMessage = false;
+      $scope.tasksLoading = true;
+      $scope.emailuser = $localStorage.email;
+      $scope.downloadCalendar = function(sponzorship) {
+        var cal = ics();
+        cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
 
-    };
-    $scope.loadSponzorships = function() {
-      sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
-        $scope.sponzorshipsLoading = false;
-        if (!data.SponzorsEvents[0]) {
-          $scope.tasksLoading = false;
-          $scope.noSponzorshipsMessage = true;
-          $scope.noSponzorshipsTaskMessage = true;
-        } else {
-          $scope.sponzorships = [];
-          angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status === '0') {
-              $scope.sponzorships.push(value);
-            }
-          });
-          if ($scope.sponzorships[0] && $scope.sponzorships[0].status === '0') {
-            $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
-            $scope.sponzorships.current = $scope.sponzorships[0].id;
-          } else {
+      };
+      $scope.loadSponzorships = function() {
+        sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
+          $scope.sponzorshipsLoading = false;
+          if (!data.SponzorsEvents[0]) {
             $scope.tasksLoading = false;
             $scope.noSponzorshipsMessage = true;
             $scope.noSponzorshipsTaskMessage = true;
-          }
-
-        }
-      }).error(function(data) {
-
-        $scope.noSponzorshipsMessage = true;
-        $scope.noSponzorshipsTaskMessage = true;
-      });
-    };
-    //this function deletes an sponzorship if the status is 0
-    $scope.deleteSponzorship = function(sponzorshipId) {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
-        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
-          taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
-        });
-        $timeout(function() {
-          sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
-            ngDialog.closeAll();
-            $scope.message = 'sponzorshipDeleteSuccesfully';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
+          } else {
+            $scope.sponzorships = [];
+            angular.forEach(data.SponzorsEvents, function(value) {
+              if (value.status === '0') {
+                $scope.sponzorships.push(value);
+              }
             });
-            $scope.loadSponzorships();
-          }).error(function() {
-            ngDialog.closeAll();
-            $scope.message = 'errorDeletingSponzorship';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          });
-        }, 5000);
-      });
-    };
-    //this function gets the tasks sponzorships by sponzorship id
-    $scope.getTaskSponzor = function(sponzorshipId) {
-      $scope.tasksLoading = true;
-      $scope.noSponzorshipsTaskMessage = false;
-      $scope.sponzorships.current = sponzorshipId;
-      taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
-        $scope.tasksLoading = false;
-        $scope.tasksSponzor = data.tasks.filter(function(element) {
-          if (element.type === '0' && element.sponzor_id === $localStorage.id) {
-            return element;
+            if ($scope.sponzorships[0] && $scope.sponzorships[0].status === '0') {
+              $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
+              $scope.sponzorships.current = $scope.sponzorships[0].id;
+            } else {
+              $scope.tasksLoading = false;
+              $scope.noSponzorshipsMessage = true;
+              $scope.noSponzorshipsTaskMessage = true;
+            }
+
           }
-        });
-        if (!$scope.tasksSponzor[0]) {
+        }).error(function(data) {
+
+          $scope.noSponzorshipsMessage = true;
           $scope.noSponzorshipsTaskMessage = true;
-        } else {
-          $scope.noSponzorshipsTaskMessage = false;
+        });
+      };
+      //this function deletes an sponzorship if the status is 0
+      $scope.deleteSponzorship = function(sponzorshipId) {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
+          angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
+            taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
+          });
+          $timeout(function() {
+            sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
+              ngDialog.closeAll();
+              $scope.message = 'sponzorshipDeleteSuccesfully';
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+              $scope.loadSponzorships();
+            }).error(function() {
+              ngDialog.closeAll();
+              $scope.message = 'errorDeletingSponzorship';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            });
+          }, 5000);
+        });
+      };
+      //this function gets the tasks sponzorships by sponzorship id
+      $scope.getTaskSponzor = function(sponzorshipId) {
+        $scope.tasksLoading = true;
+        $scope.noSponzorshipsTaskMessage = false;
+        $scope.sponzorships.current = sponzorshipId;
+        taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
+          $scope.tasksLoading = false;
+          $scope.tasksSponzor = data.tasks.filter(function(element) {
+            if (element.type === '0' && element.sponzor_id === $localStorage.id) {
+              return element;
+            }
+          });
+          if (!$scope.tasksSponzor[0]) {
+            $scope.noSponzorshipsTaskMessage = true;
+          } else {
+            $scope.noSponzorshipsTaskMessage = false;
+          }
+        }).error(function(data) {
+
+          $scope.noSponzorshipsTaskMessage = true;
+        });
+      };
+      $scope.seeCause = function(sponzorship) {
+        $scope.cause = sponzorship.cause;
+        $scope.status = sponzorship.status;
+        ngDialog.open({
+          template: 'views/templates/sponzorshipCauseDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      };
+      $scope.tolsctive = 'active';
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
         }
-      }).error(function(data) {
-
-        $scope.noSponzorshipsTaskMessage = true;
-      });
-    };
-    $scope.seeCause = function(sponzorship) {
-      $scope.cause = sponzorship.cause;
-      $scope.status = sponzorship.status;
-      ngDialog.open({
-        template: 'views/templates/sponzorshipCauseDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-    };
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-    $scope.loadSponzorships(); //here starts the callback
-    $scope.menuprincipal = 'views/sponzors/menu.html';
+      };
+      $scope.loadSponzorships(); //here starts the callback
+      $scope.menuprincipal = 'views/sponzors/menu.html';
+    }
   }
-
   angular.module('sponzorme')
     .controller('SponzorsFollowingController', SponzorsFollowingController);
 
@@ -2117,61 +2237,61 @@ angular.module('sponzorme')
 (function() {
 
   function SponzorsFriendController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage) {
+    if($rootScope.userValidation('1')){
+      //Vars initialization
+      $scope.friend = {};
+      $scope.friend.email = '';
+      $scope.friend.message = '';
+      $scope.emailuser = $localStorage.email;
+      //Vars initialization ends
 
-    $rootScope.userValidation('1');
-    //Vars initialization
-    $scope.friend = {};
-    $scope.friend.email = '';
-    $scope.friend.message = '';
-    $scope.emailuser = $localStorage.email;
-    //Vars initialization ends
+      //This function invites to a friend to use our platform.
+      $scope.invitefriend = function() {
+        $scope.loadingInvite = true;
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        $scope.objuserinv = {};
+        $scope.objuserinv.user_id = $localStorage.id;
+        $scope.objuserinv.email = $scope.friend.email;
+        $scope.objuserinv.message = $scope.friend.message;
+        userRequest.invitedUser($scope.objuserinv).success(function(adata) {
+          $scope.friend.tempEmail = $scope.friend.email;
+          $scope.friend.email = '';
+          $scope.friend.message = '';
+          if (adata.code === '200') {
+            ngDialog.closeAll();
+            $scope.message = 'inviteFiendEmailSent';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
 
-    //This function invites to a friend to use our platform.
-    $scope.invitefriend = function() {
-      $scope.loadingInvite = true;
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      $scope.objuserinv = {};
-      $scope.objuserinv.user_id = $localStorage.id;
-      $scope.objuserinv.email = $scope.friend.email;
-      $scope.objuserinv.message = $scope.friend.message;
-      userRequest.invitedUser($scope.objuserinv).success(function(adata) {
-        $scope.friend.tempEmail = $scope.friend.email;
-        $scope.friend.email = '';
-        $scope.friend.message = '';
-        if (adata.code === '200') {
-          ngDialog.closeAll();
-          $scope.message = 'inviteFiendEmailSent';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          } else {
+            ngDialog.closeAll();
+            $scope.message = 'problem';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }
+          $scope.loadingInvite = false;
+        });
+      };
 
-        } else {
-          ngDialog.closeAll();
-          $scope.message = 'problem';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+      $scope.tolsctive = 'active';
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
         }
-        $scope.loadingInvite = false;
-      });
-    };
+      };
 
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-
-    $scope.menuprincipal = 'views/sponzors/menu.html';
+      $scope.menuprincipal = 'views/sponzors/menu.html';
+    }
   }
 
   angular.module('sponzorme')
@@ -2183,127 +2303,58 @@ angular.module('sponzorme')
 (function() {
 
   function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
-    $rootScope.userValidation('1');
+    if($rootScope.userValidation('1')){
+      $scope.searchLoading = true;
+      $scope.upcomingLoading = true;
+      $scope.bestLoading = true;
+      $scope.tolsctive = 'active';
 
-    $scope.searchLoading = true;
-    $scope.upcomingLoading = true;
-    $scope.bestLoading = true;
-    $scope.tolsctive = 'active';
-
-    $scope.getAllEvents = function() {
-      eventRequest.allEvents().success(function(adata) {
-        $scope.search = [];
-        $scope.search = adata.events.filter(function(e) {
-          if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
-            return e;
+      $scope.getAllEvents = function() {
+        eventRequest.allEvents().success(function(adata) {
+          $scope.search = [];
+          $scope.search = adata.events.filter(function(e) {
+            if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
+              return e;
+            }
+          });
+          $scope.upcomingEvents = [];
+          var currentDate = new Date();
+          var count = 0; //to count 10 events
+          for (var i = 0; i < $scope.search.length; i++) {
+            var eventDate = new Date($scope.search[i].starts);
+            if (eventDate > currentDate) {
+              $scope.upcomingEvents.push($scope.search[i]);
+              count++;
+            }
+            if (count > 10) {
+              break;
+            }
           }
+          $scope.upcomingLoading = false;
+          $scope.searchLoading = false;
         });
-        $scope.upcomingEvents = [];
-        var currentDate = new Date();
-        var count = 0; //to count 10 events
-        for (var i = 0; i < $scope.search.length; i++) {
-          var eventDate = new Date($scope.search[i].starts);
-          if (eventDate > currentDate) {
-            $scope.upcomingEvents.push($scope.search[i]);
-            count++;
-          }
-          if (count > 10) {
-            break;
-          }
-        }
-        $scope.upcomingLoading = false;
-        $scope.searchLoading = false;
-      });
-    };
-    $scope.showPerks = function(eventId) {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      $scope.noPerksMessage = true;
-      eventRequest.oneEvent(eventId).success(function(data) {
-        $scope.currentEvent = data.data.event;
-        $scope.currentOrganizer = data.data.organizer[0];
-        $scope.loadingpeaks = false;
-        if ($scope.currentEvent.perks[0]) {
-          $scope.noPerksMessage = false;
-        } else {
-          $scope.noPerksMessage = true;
-        }
-        ngDialog.closeAll();
+      };
+      $scope.showPerks = function(eventId) {
         ngDialog.open({
-          template: 'views/templates/eventPerksDialog.html',
-          scope: $scope
-        });
-      }).error(function(eData) {
-        ngDialog.closeAll();
-        $scope.message = 'youCanNotSponzorThisEvent';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          scope: $scope,
+          template: 'views/templates/loadingDialog.html',
           showClose: false
         });
-      });
-    };
-    //We display the form to get the sponzorship cause
-    $scope.formCreateSponzorship = function(perk) {
-      $scope.perkToSponzor = perk;
-      ngDialog.open({
-        template: 'views/templates/insertCauseForm.html',
-        scope: $scope
-      });
-    };
-    //this function have two steps, first, create the sponzorhip second create the sponzor tasks
-    $scope.createSponzorship = function() {
-      ngDialog.closeAll();
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      var data = { //Set Sponzorship data
-        status: 0,
-        'sponzor_id': $localStorage.id,
-        'perk_id': $scope.perkToSponzor.id,
-        'event_id': $scope.perkToSponzor.id_event,
-        'cause': $scope.perkToSponzor.cause,
-        'organizer_id': $scope.currentOrganizer.id
-      };
-      sponzorshipRequest.createSponzorship(data).success(function(sData) {
-        perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
-          angular.forEach(sPerkData.data.Tasks, function(value) {
-            var taskSponzor = {
-              status: 0,
-              'sponzor_id': $localStorage.id,
-              'perk_id': $scope.perkToSponzor.id,
-              'event_id': $scope.perkToSponzor.id_event,
-              'organizer_id': $scope.currentOrganizer.id,
-              'sponzorship_id': sData.Sponzorship.id,
-              'task_id': value.id
-            };
-            taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {});
-          });
-          var info = {
-            organizerId: $scope.currentOrganizer.id,
-            eventName: $scope.currentEvent.title,
-            lang: idiomaselect
-          };
-          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-          var notifications = $firebaseArray(notificationsRef);
-          var notification = {
-            to: $scope.currentOrganizer.id,
-            text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.currentEvent.title + ' =)',
-            link: '#/organizers/sponzorships'
-          };
-          notifications.$add(notification);
-          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
+        $scope.noPerksMessage = true;
+        eventRequest.oneEvent(eventId).success(function(data) {
+          $scope.currentEvent = data.data.event;
+          $scope.currentOrganizer = data.data.organizer[0];
+          $scope.loadingpeaks = false;
+          if ($scope.currentEvent.perks[0]) {
+            $scope.noPerksMessage = false;
+          } else {
+            $scope.noPerksMessage = true;
+          }
           ngDialog.closeAll();
-          $scope.message = 'sponzorshipCreatedSuccesfuly';
           ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            scope: $scope,
-            showClose: false
+            template: 'views/templates/eventPerksDialog.html',
+            scope: $scope
           });
-        }).error(function() {
+        }).error(function(eData) {
           ngDialog.closeAll();
           $scope.message = 'youCanNotSponzorThisEvent';
           ngDialog.open({
@@ -2312,25 +2363,93 @@ angular.module('sponzorme')
             showClose: false
           });
         });
-      }).error(function() {
-        $scope.message = 'youCanNotSponzorThisEvent';
+      };
+      //We display the form to get the sponzorship cause
+      $scope.formCreateSponzorship = function(perk) {
+        $scope.perkToSponzor = perk;
         ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          scope: $scope,
+          template: 'views/templates/insertCauseForm.html',
+          scope: $scope
+        });
+      };
+      //this function have two steps, first, create the sponzorhip second create the sponzor tasks
+      $scope.createSponzorship = function() {
+        ngDialog.closeAll();
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
           showClose: false
         });
-      });
-    };
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-    $scope.getAllEvents();
-    $scope.menuprincipal = 'views/sponzors/menu.html';
+        var data = { //Set Sponzorship data
+          status: 0,
+          'sponzor_id': $localStorage.id,
+          'perk_id': $scope.perkToSponzor.id,
+          'event_id': $scope.perkToSponzor.id_event,
+          'cause': $scope.perkToSponzor.cause,
+          'organizer_id': $scope.currentOrganizer.id
+        };
+        sponzorshipRequest.createSponzorship(data).success(function(sData) {
+          perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
+            angular.forEach(sPerkData.data.Tasks, function(value) {
+              var taskSponzor = {
+                status: 0,
+                'sponzor_id': $localStorage.id,
+                'perk_id': $scope.perkToSponzor.id,
+                'event_id': $scope.perkToSponzor.id_event,
+                'organizer_id': $scope.currentOrganizer.id,
+                'sponzorship_id': sData.Sponzorship.id,
+                'task_id': value.id
+              };
+              taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {});
+            });
+            var info = {
+              organizerId: $scope.currentOrganizer.id,
+              eventName: $scope.currentEvent.title,
+              lang: idiomaselect
+            };
+            var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+            var notifications = $firebaseArray(notificationsRef);
+            var notification = {
+              to: $scope.currentOrganizer.id,
+              text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.currentEvent.title + ' =)',
+              link: '#/organizers/sponzorships'
+            };
+            notifications.$add(notification);
+            sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
+            ngDialog.closeAll();
+            $scope.message = 'sponzorshipCreatedSuccesfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              scope: $scope,
+              showClose: false
+            });
+          }).error(function() {
+            ngDialog.closeAll();
+            $scope.message = 'youCanNotSponzorThisEvent';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              scope: $scope,
+              showClose: false
+            });
+          });
+        }).error(function() {
+          $scope.message = 'youCanNotSponzorThisEvent';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            scope: $scope,
+            showClose: false
+          });
+        });
+      };
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
+      $scope.getAllEvents();
+      $scope.menuprincipal = 'views/sponzors/menu.html';
+    }
   }
-
   angular.module('sponzorme')
     .controller('SponzorsMainController', SponzorsMainController);
 
@@ -2340,270 +2459,269 @@ angular.module('sponzorme')
 (function() {
 
   function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
-
-    $rootScope.userValidation('1');
-    ngDialog.open({
-      template: 'views/templates/loadingDialog.html',
-      showClose: false
-    });
-    userRequest.oneUser($localStorage.id).success(function(adata) {
-      $scope.account = adata.data.user;
-      $scope.userInterests = adata.data.interests;
-      ngDialog.closeAll();
-    });
-    allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
-      $scope.interests = sData.InterestCategory;
-    });
-    $scope.removeUserInterest = function(index, id) {
-      $scope.userInterests.splice(index, 1);
-      userInterestRequest.deleteUserInterest(id).success(function() {});
-    };
-    $scope.addUserInterests = function(interest) {
-      if (interest.name) {
-        var flag = false;
-        for (var i = 0; i < $scope.userInterests.length; i++) {
-          if ($scope.userInterests[i].id_interest === interest.id_interest) {
-            flag = true;
-            $scope.selected = '';
-            break;
-          }
-        }
-        if (!flag) {
-          var interestData = {
-            user_id: $localStorage.id,
-            interest_id: interest.id_interest
-          };
-          userInterestRequest.createUserInterest(interestData).success(function(data) {
-            $scope.userInterests.push({
-              'name': interest.name,
-              'id': data.UserInterest.id,
-              'id_interest': interest.id_interest
-            });
-            $scope.selected = '';
-          });
-        }
-      } else {
-        $scope.message = 'invalidInterestSelection';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-        $scope.selected = '';
-      }
-
-    };
-    $scope.account = [];
-
-    $scope.file = false; //By default no file to update.
-    $scope.editAccount = function() {
+    if($rootScope.userValidation('1')){
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
       });
-      $scope.account.location = $scope.account.location.formatted_address;
-      if ($scope.file) {
-        $scope.creds = {
-          bucket: $rootScope.getConstants().AMAZONBUCKET,
-          access_key: $rootScope.getConstants().AMAZONKEY,
-          secret_key: $rootScope.getConstants().AMAZONSECRET
-        };
-        AWS.config.update({
-          accessKeyId: $scope.creds.access_key,
-          secretAccessKey: $scope.creds.secret_key
-        });
-        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
-        var bucket = new AWS.S3({
-          params: {
-            Bucket: $scope.creds.bucket
-          }
-        });
-        // Prepend Unique String To Prevent Overwrites
-        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
-        var params = {
-          Key: uniqueFileName,
-          ContentType: $scope.file.type,
-          Body: $scope.file,
-          ServerSideEncryption: 'AES256'
-        };
-        bucket.putObject(params, function(err, data) {
-          if (!err) {
-            $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-            $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-            userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-              $scope.account = adata.User;
-              $scope.file = false;
-              ngDialog.closeAll();
-              $scope.message = 'accountInfoEditedSuccessfuly';
-              ngDialog.open({
-                template: 'views/templates/successDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            }).error(function(eData) {
-              ngDialog.closeAll();
-              $scope.message = 'errorEditingAccountInfo';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            });
-          }
-        });
-      } else {
-        userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-          $scope.account = adata.User;
-          $scope.file = false;
-          ngDialog.closeAll();
-          $scope.message = 'accountInfoEditedSuccessfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'errorEditingAccountInfo';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      }
-    };
-
-    $scope.logo = false; //By default no file to update.
-
-    $scope.updateDetails = function() {
-
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-
-      if ($scope.logo) {
-        $scope.creds = {
-          bucket: $rootScope.getConstants().AMAZONBUCKET,
-          access_key: $rootScope.getConstants().AMAZONKEY,
-          secret_key: $rootScope.getConstants().AMAZONSECRET
-        };
-        AWS.config.update({
-          accessKeyId: $scope.creds.access_key,
-          secretAccessKey: $scope.creds.secret_key
-        });
-        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
-        var bucket = new AWS.S3({
-          params: {
-            Bucket: $scope.creds.bucket
-          }
-        });
-        // Prepend Unique String To Prevent Overwrites
-        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.logo.name);
-        var params = {
-          Key: uniqueFileName,
-          ContentType: $scope.logo.type,
-          Body: $scope.logo,
-          ServerSideEncryption: 'AES256'
-        };
-        bucket.putObject(params, function(err, data) {
-          if (!err) {
-            $scope.account.logo = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-            $scope.$digest();
-            userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-              $scope.account = adata.User;
-              $scope.logo = false;
-              ngDialog.closeAll();
-              $scope.message = 'accountInfoEditedSuccessfuly';
-              ngDialog.open({
-                template: 'views/templates/successDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            }).error(function(eData) {
-              ngDialog.closeAll();
-              $scope.message = 'errorEditingAccountInfo';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            });
-          }
-        });
-      } else {
-        userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-          $scope.account = adata.User;
-          $scope.logo = false;
-          ngDialog.closeAll();
-          $scope.message = 'accountInfoEditedSuccessfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'errorEditingAccountInfo';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      }
-    };
-
-    $scope.resetPassword = function() {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      if ($scope.password === $scope.passwordConfirmation) {
-        var formData = {
-          'email': $localStorage.email,
-          'password': $scope.password,
-          'password_confirmation': $scope.passwordConfirmation
-        };
-        loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
-          ngDialog.closeAll();
-          $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
-          $scope.message = 'PasswordChangedSuccesfully';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'InvalidNewPassword';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      } else {
+      userRequest.oneUser($localStorage.id).success(function(adata) {
+        $scope.account = adata.data.user;
+        $scope.userInterests = adata.data.interests;
         ngDialog.closeAll();
-        $scope.message = 'PasswordNoMatch';
+      });
+      allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
+        $scope.interests = sData.InterestCategory;
+      });
+      $scope.removeUserInterest = function(index, id) {
+        $scope.userInterests.splice(index, 1);
+        userInterestRequest.deleteUserInterest(id).success(function() {});
+      };
+      $scope.addUserInterests = function(interest) {
+        if (interest.name) {
+          var flag = false;
+          for (var i = 0; i < $scope.userInterests.length; i++) {
+            if ($scope.userInterests[i].id_interest === interest.id_interest) {
+              flag = true;
+              $scope.selected = '';
+              break;
+            }
+          }
+          if (!flag) {
+            var interestData = {
+              user_id: $localStorage.id,
+              interest_id: interest.id_interest
+            };
+            userInterestRequest.createUserInterest(interestData).success(function(data) {
+              $scope.userInterests.push({
+                'name': interest.name,
+                'id': data.UserInterest.id,
+                'id_interest': interest.id_interest
+              });
+              $scope.selected = '';
+            });
+          }
+        } else {
+          $scope.message = 'invalidInterestSelection';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $scope.selected = '';
+        }
+
+      };
+      $scope.account = [];
+
+      $scope.file = false; //By default no file to update.
+      $scope.editAccount = function() {
         ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
         });
-      }
-    };
+        $scope.account.location = $scope.account.location.formatted_address;
+        if ($scope.file) {
+          $scope.creds = {
+            bucket: $rootScope.getConstants().AMAZONBUCKET,
+            access_key: $rootScope.getConstants().AMAZONKEY,
+            secret_key: $rootScope.getConstants().AMAZONSECRET
+          };
+          AWS.config.update({
+            accessKeyId: $scope.creds.access_key,
+            secretAccessKey: $scope.creds.secret_key
+          });
+          AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
+          var bucket = new AWS.S3({
+            params: {
+              Bucket: $scope.creds.bucket
+            }
+          });
+          // Prepend Unique String To Prevent Overwrites
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+          var params = {
+            Key: uniqueFileName,
+            ContentType: $scope.file.type,
+            Body: $scope.file,
+            ServerSideEncryption: 'AES256'
+          };
+          bucket.putObject(params, function(err, data) {
+            if (!err) {
+              $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+                $scope.account = adata.User;
+                $scope.file = false;
+                ngDialog.closeAll();
+                $scope.message = 'accountInfoEditedSuccessfuly';
+                ngDialog.open({
+                  template: 'views/templates/successDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+              }).error(function(eData) {
+                ngDialog.closeAll();
+                $scope.message = 'errorEditingAccountInfo';
+                ngDialog.open({
+                  template: 'views/templates/errorDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+              });
+            }
+          });
+        } else {
+          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+            $scope.account = adata.User;
+            $scope.file = false;
+            ngDialog.closeAll();
+            $scope.message = 'accountInfoEditedSuccessfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'errorEditingAccountInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        }
+      };
 
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
+      $scope.logo = false; //By default no file to update.
 
-    $scope.menuprincipal = 'views/sponzors/menu.html';
+      $scope.updateDetails = function() {
+
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+
+        if ($scope.logo) {
+          $scope.creds = {
+            bucket: $rootScope.getConstants().AMAZONBUCKET,
+            access_key: $rootScope.getConstants().AMAZONKEY,
+            secret_key: $rootScope.getConstants().AMAZONSECRET
+          };
+          AWS.config.update({
+            accessKeyId: $scope.creds.access_key,
+            secretAccessKey: $scope.creds.secret_key
+          });
+          AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
+          var bucket = new AWS.S3({
+            params: {
+              Bucket: $scope.creds.bucket
+            }
+          });
+          // Prepend Unique String To Prevent Overwrites
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.logo.name);
+          var params = {
+            Key: uniqueFileName,
+            ContentType: $scope.logo.type,
+            Body: $scope.logo,
+            ServerSideEncryption: 'AES256'
+          };
+          bucket.putObject(params, function(err, data) {
+            if (!err) {
+              $scope.account.logo = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              $scope.$digest();
+              userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+                $scope.account = adata.User;
+                $scope.logo = false;
+                ngDialog.closeAll();
+                $scope.message = 'accountInfoEditedSuccessfuly';
+                ngDialog.open({
+                  template: 'views/templates/successDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+              }).error(function(eData) {
+                ngDialog.closeAll();
+                $scope.message = 'errorEditingAccountInfo';
+                ngDialog.open({
+                  template: 'views/templates/errorDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+              });
+            }
+          });
+        } else {
+          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+            $scope.account = adata.User;
+            $scope.logo = false;
+            ngDialog.closeAll();
+            $scope.message = 'accountInfoEditedSuccessfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'errorEditingAccountInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        }
+      };
+
+      $scope.resetPassword = function() {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        if ($scope.password === $scope.passwordConfirmation) {
+          var formData = {
+            'email': $localStorage.email,
+            'password': $scope.password,
+            'password_confirmation': $scope.passwordConfirmation
+          };
+          loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
+            ngDialog.closeAll();
+            $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
+            $scope.message = 'PasswordChangedSuccesfully';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function() {
+            ngDialog.closeAll();
+            $scope.message = 'InvalidNewPassword';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        } else {
+          ngDialog.closeAll();
+          $scope.message = 'PasswordNoMatch';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        }
+      };
+
+      $scope.tolsctive = 'active';
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
+      $scope.menuprincipal = 'views/sponzors/menu.html';
+    }
   }
 
   angular.module('sponzorme')
@@ -2615,210 +2733,304 @@ angular.module('sponzorme')
 (function() {
 
   function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
-    $rootScope.userValidation('1');
-    $scope.noSponzorshipsMessage = false;
-    $scope.noSponzorshipsTaskMessage = false;
-    $scope.sponzorshipsLoading = true;
-    $scope.loadingTasks = true;
-    $scope.emailuser = $localStorage.email;
-    $scope.userfroups = 0;
-    $scope.tolsctive = 'active';
-    $translate.use(idiomaselect);
-    $scope.paymentInformation = function(sponzorship) {
-      $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
-      $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
-      $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
-      $scope.sponzorship = sponzorship;
-      $scope.paymentValue = sponzorship.usd;
-      $scope.fee = parseFloat((sponzorship.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
-      $scope.paymentTotal = parseFloat(sponzorship.usd) + parseFloat($scope.fee);
-      ngDialog.open({
-        scope: $scope,
-        template: 'views/templates/prePaymentInfo.html',
-        showClose: true
-      });
-    };
-    $scope.downloadCalendar = function(sponzorship) {
-      var cal = ics();
-      cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
+    if($rootScope.userValidation('1')){
+      $scope.noSponzorshipsMessage = false;
+      $scope.noSponzorshipsTaskMessage = false;
+      $scope.sponzorshipsLoading = true;
+      $scope.loadingTasks = true;
+      $scope.emailuser = $localStorage.email;
+      $scope.userfroups = 0;
+      $scope.tolsctive = 'active';
+      $translate.use(idiomaselect);
+      $scope.paymentInformation = function(sponzorship) {
+        $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
+        $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
+        $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
+        $scope.sponzorship = sponzorship;
+        $scope.paymentValue = sponzorship.usd;
+        $scope.fee = parseFloat((sponzorship.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
+        $scope.paymentTotal = parseFloat(sponzorship.usd) + parseFloat($scope.fee);
+        ngDialog.open({
+          scope: $scope,
+          template: 'views/templates/prePaymentInfo.html',
+          showClose: true
+        });
+      };
+      $scope.downloadCalendar = function(sponzorship) {
+        var cal = ics();
+        cal.addEvent(sponzorship.title, sponzorship.title, sponzorship.location, sponzorship.starts, sponzorship.ends);
 
-    };
-    //This function allows get sponzorship info from organizerId
-    $scope.getSponzorshipsBySponzor = function() {
-      sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
-        $scope.sponzorshipsLoading = false;
-        $scope.noSponzorshipsMessage = false;
-        if (!data.SponzorsEvents[0]) {
-          $scope.loadingTasks = false;
+      };
+      //This function allows get sponzorship info from organizerId
+      $scope.getSponzorshipsBySponzor = function() {
+        $scope.todayDate = new Date().getTime();
+        sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
+          $scope.sponzorshipsLoading = false;
+          $scope.noSponzorshipsMessage = false;
+          if (!data.SponzorsEvents[0]) {
+            $scope.loadingTasks = false;
+            $scope.noSponzorshipsMessage = true;
+            $scope.noSponzorshipsTaskMessage = true;
+          } else {
+            $scope.sponzorships = [];
+            var flag = false; //used to verify if there is tasks
+            angular.forEach(data.SponzorsEvents, function(value) {
+              if (value.status >= '1') {
+                var timer = parseInt(parseInt($rootScope.getConstants().EVENTEXPIRATIONDAYS) * 24 * 60 * 60 * 1000);
+                  value.ends = new Date(new Date(value.ends).getTime() + timer);
+                $scope.sponzorships.push(value);
+                flag = true;
+              }
+            });
+            if (flag) {
+              $scope.sponzorships.current = $scope.sponzorships[0].id;
+              $scope.getTaskSponzor($scope.sponzorships[0]); //Fit the tasks with the first sponzorships
+            } else {
+              $scope.loadingTasks = false;
+              $scope.noSponzorshipsTaskMessage = true;
+            }
+          }
+        }).error(function(data) {
+
           $scope.noSponzorshipsMessage = true;
           $scope.noSponzorshipsTaskMessage = true;
-        } else {
-          $scope.sponzorships = [];
-          var flag = false; //used to verify if there is tasks
-          angular.forEach(data.SponzorsEvents, function(value) {
-            if (value.status >= '1') {
-              $scope.sponzorships.push(value);
-              flag = true;
+        });
+      };
+      $scope.getSponzorship = function(sponzorshipId) {
+        sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(data) {
+          $scope.currentSponzorship = data;
+        });
+      };
+      //This function changes to 1 the sponzorship status
+      $scope.acceptSponzorship = function(sponzoshipId) {
+        var data = {
+          status: 1
+        };
+        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
+          $scope.getSponzorshipsBySponzor();
+        }).error(function(eData) {
+
+        });
+      };
+      //This function changes to 0 the sponzorship status
+      $scope.unacceptSponzorship = function(sponzoshipId) {
+        var data = {
+          status: 0
+        };
+        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
+          $scope.getSponzorshipsBySponzor();
+        }).error(function(eData) {
+
+        });
+      };
+      //this function gets the tasks sponzorships by sponzorship id
+      $scope.getTaskSponzor = function(sponzorship) {
+        $scope.loadingTasks = true;
+        $scope.noSponzorshipsTaskMessage = false;
+        $scope.sponzorships.current = sponzorship.id;
+        $scope.currentSponzorship = sponzorship;
+        taskSponzorRequest.tasksBySponzorship(sponzorship.id).success(function(data) {
+          $scope.tasksSponzor = data.tasks.filter(function(element) {
+            if (element.sponzor_id === $localStorage.id) {
+              return element;
             }
           });
-          if (flag) {
-            $scope.sponzorships.current = $scope.sponzorships[0].id;
-            $scope.getTaskSponzor($scope.sponzorships[0]); //Fit the tasks with the first sponzorships
-          } else {
-            $scope.loadingTasks = false;
+          $scope.loadingTasks = false;
+          if (!$scope.tasksSponzor[0]) {
             $scope.noSponzorshipsTaskMessage = true;
+          } else {
+            $scope.noSponzorshipsTaskMessage = false;
           }
-        }
-      }).error(function(data) {
+        }).error(function(data) {
 
-        $scope.noSponzorshipsMessage = true;
-        $scope.noSponzorshipsTaskMessage = true;
-      });
-    };
-    $scope.getSponzorship = function(sponzorshipId) {
-      sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(data) {
-        $scope.currentSponzorship = data;
-      });
-    };
-    //This function changes to 1 the sponzorship status
-    $scope.acceptSponzorship = function(sponzoshipId) {
-      var data = {
-        status: 1
-      };
-      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        $scope.getSponzorshipsBySponzor();
-      }).error(function(eData) {
-
-      });
-    };
-    //This function changes to 0 the sponzorship status
-    $scope.unacceptSponzorship = function(sponzoshipId) {
-      var data = {
-        status: 0
-      };
-      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        $scope.getSponzorshipsBySponzor();
-      }).error(function(eData) {
-
-      });
-    };
-    //this function gets the tasks sponzorships by sponzorship id
-    $scope.getTaskSponzor = function(sponzorship) {
-      $scope.loadingTasks = true;
-      $scope.noSponzorshipsTaskMessage = false;
-      $scope.sponzorships.current = sponzorship.id;
-      $scope.currentSponzorship = sponzorship;
-      taskSponzorRequest.tasksBySponzorship(sponzorship.id).success(function(data) {
-        $scope.tasksSponzor = data.tasks.filter(function(element) {
-          if (element.sponzor_id === $localStorage.id) {
-            return element;
-          }
-        });
-        $scope.loadingTasks = false;
-        if (!$scope.tasksSponzor[0]) {
           $scope.noSponzorshipsTaskMessage = true;
-        } else {
-          $scope.noSponzorshipsTaskMessage = false;
+        });
+      };
+      //This function changes to 1 the sponzor task status
+      $scope.completeTask = function(index) {
+        $scope.tasksSponzor[index].status = 1;
+        var taskSponzorId = $scope.tasksSponzor[index].id;
+        var data = {
+          status: 1
+        };
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {});
+
+      };
+      //This function changes to 0 the sponzor task status
+      $scope.uncompleteTask = function(index) {
+        $scope.tasksSponzor[index].status = 0;
+        var taskSponzorId = $scope.tasksSponzor[index].id;
+        var data = {
+          status: 0
+        };
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {});
+      };
+      $scope.deleteTaskSponzor = function(index) {
+        var taskSponzorId = $scope.tasksSponzor[index].id;
+        taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {});
+        $scope.tasksSponzor.splice(index, 1);
+      };
+      $scope.addTask = function() {
+        ngDialog.closeAll();
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        $scope.todo.perk_id = $scope.currentSponzorship.perk_id;
+        $scope.todo.event_id = $scope.currentSponzorship.event_id;
+        $scope.todo.status = 0; //We put the defaul status
+        $scope.todo.user_id = $localStorage.id; //Get the organizer Id
+        $scope.todo.type = 1; //If task is created by sponzor the type is 1
+        /** First we crete the perk task, and then we create the task sponzor **/
+        perkTaskRequest.createPerkTask($scope.todo).success(function(data) {
+          var taskSponzor = {
+            'status': 0,
+            'sponzor_id': $localStorage.id,
+            'perk_id': $scope.currentSponzorship.perk_id,
+            'event_id': $scope.currentSponzorship.event_id,
+            'organizer_id': $scope.currentSponzorship.organizer_id,
+            'sponzorship_id': $scope.currentSponzorship.id,
+            'task_id': data.PerkTask.id
+          };
+          taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {
+            $scope.getTaskSponzor($scope.currentSponzorship); //Refresh perks data.
+            ngDialog.closeAll();
+            $scope.message = 'taskCreatedSuccesfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            }); //finally we show a dialog telling the status of the things
+          });
+        }).error(function() {
+          ngDialog.closeAll();
+          $scope.message = 'errorCreatingTask';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
+      $scope.seeCause = function(sponzorship) {
+        $scope.cause = sponzorship.cause;
+        ngDialog.open({
+          template: 'views/templates/sponzorshipCauseDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      };
+      $scope.showTaskForm = function() {
+        $scope.todo = {};
+        ngDialog.open({
+          template: 'views/templates/newTaskForm.html',
+          scope: $scope,
+          showClose: false
+        });
+      };
+      $scope.getSponzorshipsBySponzor();
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
         }
-      }).error(function(data) {
-
-        $scope.noSponzorshipsTaskMessage = true;
-      });
-    };
-    //This function changes to 1 the sponzor task status
-    $scope.completeTask = function(index) {
-      $scope.tasksSponzor[index].status = 1;
-      var taskSponzorId = $scope.tasksSponzor[index].id;
-      var data = {
-        status: 1
       };
-      taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {});
+      $scope.menuprincipal = 'views/sponzors/menu.html';
+    }
+  }
+  angular.module('sponzorme')
+    .controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
+})();
 
-    };
-    //This function changes to 0 the sponzor task status
-    $scope.uncompleteTask = function(index) {
-      $scope.tasksSponzor[index].status = 0;
-      var taskSponzorId = $scope.tasksSponzor[index].id;
-      var data = {
-        status: 0
-      };
-      taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {});
-    };
-    $scope.deleteTaskSponzor = function(index) {
-      var taskSponzorId = $scope.tasksSponzor[index].id;
-      taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {});
-      $scope.tasksSponzor.splice(index, 1);
-    };
-    $scope.addTask = function() {
-      ngDialog.closeAll();
+'use strict';
+(function() {
+
+  function SponzorsRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
+    if ($rootScope.userValidation('1') && $routeParams.sponzorshipId) {
+      $scope.loadingForm = true; //Loading
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
-      });
-      $scope.todo.perk_id = $scope.currentSponzorship.perk_id;
-      $scope.todo.event_id = $scope.currentSponzorship.event_id;
-      $scope.todo.status = 0; //We put the defaul status
-      $scope.todo.user_id = $localStorage.id; //Get the organizer Id
-      $scope.todo.type = 1; //If task is created by sponzor the type is 1
-      /** First we crete the perk task, and then we create the task sponzor **/
-      perkTaskRequest.createPerkTask($scope.todo).success(function(data) {
-        var taskSponzor = {
-          'status': 0,
-          'sponzor_id': $localStorage.id,
-          'perk_id': $scope.currentSponzorship.perk_id,
-          'event_id': $scope.currentSponzorship.event_id,
-          'organizer_id': $scope.currentSponzorship.organizer_id,
-          'sponzorship_id': $scope.currentSponzorship.id,
-          'task_id': data.PerkTask.id
-        };
-        taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {
-          $scope.getTaskSponzor($scope.currentSponzorship); //Refresh perks data.
-          ngDialog.closeAll();
-          $scope.message = 'taskCreatedSuccesfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          }); //finally we show a dialog telling the status of the things
+      }); //Loading box
+      //First we validate this sponzorship does not have rating from this sponzor
+      //
+      //Then we get the sponzorship information
+      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(sData) {
+        ratingRequest.ratingBySponzorship($routeParams.sponzorshipId, 1).success(function(s2Data) {
+          $scope.loadingForm = false; //Loading
+          ngDialog.closeAll(); //Close Loading
+          if (s2Data.data.Rating[0] && s2Data.data.Rating[0].sponzor_id === $localStorage.id) {
+            $scope.message = 'ratingAlreadyRated';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+            $timeout(function() {
+              $location.path('/sponzors/dashboard');
+            }, 300);
+          } else {
+            $scope.sponzorship = sData.data;
+            $scope.rating = {
+              'sponzorship_id': sData.data.SponzorEvent.id,
+              'type': 1,
+              'sponzor_id': sData.data.Sponzor.id,
+              'organizer_id': sData.data.Organizer.id
+            };
+          }
         });
-      }).error(function() {
-        ngDialog.closeAll();
-        $scope.message = 'errorCreatingTask';
+      }).error(function(eData) {
+        $scope.loadingForm = false; //Loading
+        ngDialog.closeAll(); //Close Loading
+        $scope.message = 'requestedSponzorshipNoExist';
         ngDialog.open({
           template: 'views/templates/errorDialog.html',
           showClose: false,
           scope: $scope
         });
       });
-    };
-    $scope.seeCause = function(sponzorship) {
-      $scope.cause = sponzorship.cause;
-      ngDialog.open({
-        template: 'views/templates/sponzorshipCauseDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-    };
-    $scope.showTaskForm = function() {
-      $scope.todo = {};
-      ngDialog.open({
-        template: 'views/templates/newTaskForm.html',
-        scope: $scope,
-        showClose: false
-      });
-    };
-    $scope.getSponzorshipsBySponzor();
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-    $scope.menuprincipal = 'views/sponzors/menu.html';
+      $scope.saveRating = function() { //Finally we save the rating information
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        }); //Loading box
+        ratingRequest.createRating($scope.rating).success(function(sData) {
+          $scope.message = 'ratingSponzorSuccess';
+          ngDialog.closeAll(); //Close Loading
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $scope.rating = {};
+          $timeout(function() {
+            $location.path('/sponzors/dashboard');
+          }, 300);
+        }).error(function(eData) {
+          $scope.loadingForm = false; //Loading
+          ngDialog.closeAll(); //Close Loading
+          $scope.message = 'invalidRateInfo';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
+      $scope.tolsctive = 'active';
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
+      $scope.menuprincipal = 'views/sponzors/menu.html';
+    }
   }
 
   angular.module('sponzorme')
-    .controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
+    .controller('SponzorsRatingController', SponzorsRatingController);
+
 })();
 
 'use strict';
@@ -2947,230 +3159,239 @@ angular.module('sponzorme')
 })();
 
 'use strict';
-(function(){
+(function() {
 
-function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, taskSponzorRequest, $rootScope, $timeout) {
-  $rootScope.userValidation('0');//Validation
-  //Vars Initialization
-  $scope.error_log = '';
-  $scope.eventos = [];
-  $scope.currentPerkId = 0;
-  $scope.currentPerk = {};
-  $scope.tolsctive = 'active';
-  $scope.emailuser = $localStorage.email;
-  $scope.file = false; //By default no file to add.
-  $scope.event = {};
-  eventTypeRequest.allEventTypes().success(function(adata) {
-    $scope.type = {};
-    $scope.type.list = adata.eventTypes;
-    $scope.typefilter = adata.eventTypes;
-  });
-  $scope.categorias = {};
-  categoryRequest.allCategories().success(function(adata) {
-    $scope.categorias.list = adata.categories;
-    $scope.categoriasfilter = adata.categories;
-  });
-  $scope.getEventsByOrganizer = function(userId) {
-    $scope.loadingEvents = true;
-    $scope.noEventsMessage = false;
-    $scope.loadingtasks = true;
-    $scope.noTasksMessage = false;
-    $scope.loadingPerks = true;
-    $scope.noPerksMessage = false;
-    userRequest.oneUser(userId).success(function(adata) {
-      $scope.eventos = adata.data.user.events;
-      $scope.loadingEvents = false;
-      if($scope.eventos[0]){
-        $scope.event.current = $scope.eventos[0].id;
-      }
-      else{
-        $scope.loadingtasks = false;
-        $scope.loadingPerks = false;
-        $scope.noEventsMessage = true;
-      }
-    });
-  };
-  $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive === true){
-           $scope.tolsctive = 'active';
-        }
-    };
-
-  $scope.updatePerks = function(idevent) {
-    $scope.loadingPerks = true;//We need put in load mode the widget
-    $scope.noPerksMessage = false;//We suppose that exists persks
-    $scope.loadingtasks = true;//Because we gonna get perk first and then tasks
-    if (idevent) {
-      eventRequest.oneEvent(idevent).success(function(adata) {
-        $scope.peaks = adata.data.event.perks;
-        if (!$scope.peaks[0]) {
-          $scope.noPerksMessage = true;
-          $scope.loadingPerks = false;
-          $scope.currentPerk.Tasks = [];
-          $scope.noTasksMessage = true;
-          $scope.loadingtasks = false;
-        } else {
-          $scope.loadingPerks = false; //If here is because exists perks
-          $scope.getPerk($scope.peaks[0].id); //We get the perks detail that include tasks
-        }
-      }).error(function() {
-        $scope.loadingpeaks = false;
-        $scope.noPerksMessage = true;
-        $scope.currentPerk.Tasks = [];
-        $scope.noTasksMessage = true;
-        $scope.loadingtasks = false;
+  function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, taskSponzorRequest, $rootScope, $timeout) {
+    if ($rootScope.userValidation('0')) {
+      //Vars Initialization
+      $scope.error_log = '';
+      $scope.eventos = [];
+      $scope.currentPerkId = 0;
+      $scope.currentPerk = {};
+      $scope.tolsctive = 'active';
+      $scope.emailuser = $localStorage.email;
+      $scope.file = false; //By default no file to add.
+      $scope.event = {};
+      eventTypeRequest.allEventTypes().success(function(adata) {
+        $scope.type = {};
+        $scope.type.list = adata.eventTypes;
+        $scope.typefilter = adata.eventTypes;
       });
-    }
-  };
-  $scope.imageEvent = function(image) {
-    $scope.currentImage = image;
-    ngDialog.open({
-      template: 'views/templates/eventImage.html',
-      scope: $scope,
-      showClose: false
-    });
-  };
-  $scope.getPerk = function(perkId) {
-    $scope.loadingtasks = true;
-    $scope.noTasksMessage = false;
-    $scope.currentPerkId = perkId;
-    perkRequest.onePerk(perkId).success(function(adata) {
-      $scope.currentPerk = adata.data;
-
-      if (!$scope.currentPerk.Tasks[0]) { //If here no tasks in this perk
-        $scope.noTasksMessage = true;
-        $scope.loadingtasks = false;
-      } else { //If here there are tasks
+      $scope.categorias = {};
+      categoryRequest.allCategories().success(function(adata) {
+        $scope.categorias.list = adata.categories;
+        $scope.categoriasfilter = adata.categories;
+      });
+      $scope.getEventsByOrganizer = function(userId) {
+        $scope.loadingEvents = true;
+        $scope.noEventsMessage = false;
+        $scope.loadingtasks = true;
         $scope.noTasksMessage = false;
-        $scope.loadingtasks = false;
-      }
-    }).error(function() {
-      $scope.loadingtasks = false;
-      $scope.noPerksMessage = true;
-    });
-  };
+        $scope.loadingPerks = true;
+        $scope.noPerksMessage = false;
+        userRequest.oneUser(userId).success(function(adata) {
+          $scope.eventos = adata.data.user.events;
+          $scope.loadingEvents = false;
+          if ($scope.eventos[0]) {
+            $scope.event.current = $scope.eventos[0].id;
+          } else {
+            $scope.loadingtasks = false;
+            $scope.loadingPerks = false;
+            $scope.noEventsMessage = true;
+          }
+        });
+      };
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
 
-  $scope.removeEvent = function(idevent) {
-    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
-    eventRequest.oneEvent(idevent).success(function(adata) {
-      if (adata.data.event.sponzorship.length === 0) { //If event does not have sponzorhips
-        angular.forEach(adata.data.event.sponzor_tasks, function(value) {
-          taskSponzorRequest.deleteTaskSponzor(value.id)
-          .error(function(eData) {});
+      $scope.updatePerks = function(idevent) {
+        $scope.loadingPerks = true; //We need put in load mode the widget
+        $scope.noPerksMessage = false; //We suppose that exists persks
+        $scope.loadingtasks = true; //Because we gonna get perk first and then tasks
+        if (idevent) {
+          eventRequest.oneEvent(idevent).success(function(adata) {
+            $scope.peaks = adata.data.event.perks;
+            if (!$scope.peaks[0]) {
+              $scope.noPerksMessage = true;
+              $scope.loadingPerks = false;
+              $scope.currentPerk.Tasks = [];
+              $scope.noTasksMessage = true;
+              $scope.loadingtasks = false;
+            } else {
+              $scope.loadingPerks = false; //If here is because exists perks
+              $scope.getPerk($scope.peaks[0].id); //We get the perks detail that include tasks
+            }
+          }).error(function() {
+            $scope.loadingpeaks = false;
+            $scope.noPerksMessage = true;
+            $scope.currentPerk.Tasks = [];
+            $scope.noTasksMessage = true;
+            $scope.loadingtasks = false;
+          });
+        }
+      };
+      $scope.imageEvent = function(image) {
+        $scope.currentImage = image;
+        ngDialog.open({
+          template: 'views/templates/eventImage.html',
+          scope: $scope,
+          showClose: false
         });
-        angular.forEach(adata.data.event.perk_tasks, function(value) { //First we delete the tasks
-            perkTaskRequest.deletePerkTask(value.id)
-            .error(function(eData) {});
+      };
+      $scope.getPerk = function(perkId) {
+        $scope.loadingtasks = true;
+        $scope.noTasksMessage = false;
+        $scope.currentPerkId = perkId;
+        perkRequest.onePerk(perkId).success(function(adata) {
+          $scope.currentPerk = adata.data;
+
+          if (!$scope.currentPerk.Tasks[0]) { //If here no tasks in this perk
+            $scope.noTasksMessage = true;
+            $scope.loadingtasks = false;
+          } else { //If here there are tasks
+            $scope.noTasksMessage = false;
+            $scope.loadingtasks = false;
+          }
+        }).error(function() {
+          $scope.loadingtasks = false;
+          $scope.noPerksMessage = true;
         });
-        angular.forEach(adata.data.event.perks, function(value) {       //Then we delete the perks
-            perkRequest.deletePerk(value.id)
-            .error(function(eData) {});
+      };
+
+      $scope.removeEvent = function(idevent) {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
         });
-        $timeout(function() {
-            eventRequest.deleteEvent(adata.data.event.id).success(function() {
-              ngDialog.closeAll();
-              $scope.message = 'eventDeleteSuccesfully';
-              ngDialog.open({
-                template: 'views/templates/successDialog.html',
-                showClose: false,
-                scope: $scope
+        eventRequest.oneEvent(idevent).success(function(adata) {
+          if (adata.data.event.sponzorship.length === 0) { //If event does not have sponzorhips
+            angular.forEach(adata.data.event.sponzor_tasks, function(value) {
+              taskSponzorRequest.deleteTaskSponzor(value.id)
+                .error(function(eData) {});
+            });
+            angular.forEach(adata.data.event.perk_tasks, function(value) { //First we delete the tasks
+              perkTaskRequest.deletePerkTask(value.id)
+                .error(function(eData) {});
+            });
+            angular.forEach(adata.data.event.perks, function(value) { //Then we delete the perks
+              perkRequest.deletePerk(value.id)
+                .error(function(eData) {});
+            });
+            $timeout(function() {
+              eventRequest.deleteEvent(adata.data.event.id).success(function() {
+                ngDialog.closeAll();
+                $scope.message = 'eventDeleteSuccesfully';
+                ngDialog.open({
+                  template: 'views/templates/successDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+                $scope.getEventsByOrganizer($localStorage.id);
+              }).error(function(eData) {
+                ngDialog.closeAll();
+                $scope.message = 'errorDeletingEvent';
+                ngDialog.open({
+                  template: 'views/templates/errorDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
               });
-              $scope.getEventsByOrganizer($localStorage.id);
-          }).error(function(eData) {
+            }, 5000);
+          } else { //If event has sponzorhips we can not delete
             ngDialog.closeAll();
-            $scope.message = 'errorDeletingEvent';
+            $scope.message = 'eventDeletingEventHasSponzorship';
             ngDialog.open({
               template: 'views/templates/errorDialog.html',
               showClose: false,
               scope: $scope
-            });
-          });
-        }, 5000);
-      } else { //If event has sponzorhips we can not delete
-        ngDialog.closeAll();
-        $scope.message = 'eventDeletingEventHasSponzorship';
+            }); //finally we show a dialog telling the status of the things
+          }
+        });
+      };
+      $scope.showTaskForm = function() {
+        $scope.todo = {};
         ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        }); //finally we show a dialog telling the status of the things
-      }
-    });
-  };
-  $scope.showTaskForm = function() {
-      $scope.todo = {};
-      ngDialog.open({
-        template: 'views/templates/newTaskForm.html',
-        scope: $scope,
-        showClose: false
-      });
-    };
-    /*this function takes the current perk and the current event, and add a task for the
-      selected perk.*/
+          template: 'views/templates/newTaskForm.html',
+          scope: $scope,
+          showClose: false
+        });
+      };
+      /*this function takes the current perk and the current event, and add a task for the
+        selected perk.*/
 
-  $scope.addTask = function() {
-    ngDialog.closeAll();
-    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
-    $scope.todo.perk_id = $scope.currentPerkId;
-    $scope.todo.event_id = $scope.event.current;
-    $scope.todo.status = 0; //We put the defaul status
-    $scope.todo.user_id = $localStorage.id; //Get the organizer Id
-    $scope.todo.type = 0; //If task is created by organizer the type is 0
-    perkTaskRequest.createPerkTask($scope.todo).success(function() {
-      ngDialog.closeAll();
-      $scope.message = 'taskCreatedSuccesfuly';
-      ngDialog.open({
-        template: 'views/templates/successDialog.html',
-        showClose: false,
-        scope: $scope
-      }); //finally we show a dialog telling the status of the things
-      $scope.getPerk($scope.currentPerkId); //Refresh perks data.
-    }).error(function(data) {
-      ngDialog.closeAll();
-      $scope.message = 'errorCreatingTask';
-      ngDialog.open({
-        template: 'views/templates/errorDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-    });
-  };
+      $scope.addTask = function() {
+        ngDialog.closeAll();
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        $scope.todo.perk_id = $scope.currentPerkId;
+        $scope.todo.event_id = $scope.event.current;
+        $scope.todo.status = 0; //We put the defaul status
+        $scope.todo.user_id = $localStorage.id; //Get the organizer Id
+        $scope.todo.type = 0; //If task is created by organizer the type is 0
+        perkTaskRequest.createPerkTask($scope.todo).success(function() {
+          ngDialog.closeAll();
+          $scope.message = 'taskCreatedSuccesfuly';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          }); //finally we show a dialog telling the status of the things
+          $scope.getPerk($scope.currentPerkId); //Refresh perks data.
+        }).error(function(data) {
+          ngDialog.closeAll();
+          $scope.message = 'errorCreatingTask';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
 
-  $scope.removeTask = function(task_id) {
-    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
-    perkTaskRequest.deletePerkTask(task_id).success(function(adata) {
-      ngDialog.closeAll();
-      $scope.message = 'taskDeletedSuccessfuly';
-      ngDialog.open({
-        template: 'views/templates/successDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-      $scope.getPerk($scope.currentPerkId);
-    }).error(function() {
-      ngDialog.closeAll();
-      $scope.message = 'errorDeletingTask';
-      ngDialog.open({
-        template: 'views/templates/errorDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-    });
-  };
+      $scope.removeTask = function(task_id) {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        perkTaskRequest.deletePerkTask(task_id).success(function(adata) {
+          ngDialog.closeAll();
+          $scope.message = 'taskDeletedSuccessfuly';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $scope.getPerk($scope.currentPerkId);
+        }).error(function() {
+          ngDialog.closeAll();
+          $scope.message = 'errorDeletingTask';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
 
-  $scope.getEventsByOrganizer($localStorage.id); //Here start the callback
-  $translate.use(idiomaselect);
-  $scope.$watch('event.current', function(newvalue) {
-    if (newvalue !== '' && newvalue !== '0' && typeof newvalue !== 'undefined') { //Some validation to ensure no empty values
-      $scope.updatePerks(newvalue);
+      $scope.getEventsByOrganizer($localStorage.id); //Here start the callback
+      $translate.use(idiomaselect);
+      $scope.$watch('event.current', function(newvalue) {
+        if (newvalue !== '' && newvalue !== '0' && typeof newvalue !== 'undefined') { //Some validation to ensure no empty values
+          $scope.updatePerks(newvalue);
+        }
+      });
+      $scope.menuprincipal = 'views/organizers/menu.html';
     }
-  });
-  $scope.menuprincipal = 'views/organizers/menu.html';
-}
+  }
 
-angular.module('sponzorme')
-.controller('OrganizersEventsController', OrganizersEventsController);
+  angular.module('sponzorme')
+    .controller('OrganizersEventsController', OrganizersEventsController);
 
 })();
 
@@ -3178,59 +3399,59 @@ angular.module('sponzorme')
 (function(){
 
 function OrganizersFriendController($scope, $translate, $localStorage, userRequest, ngDialog, $location, $rootScope) {
-  $rootScope.userValidation('0');//User validation
-  //Vars initialization
-  $scope.friend = {};
-  $scope.friend.email = '';
-  $scope.friend.message = '';
-  $scope.emailuser = $localStorage.email;
-  //Vars initialization ends
+  if($rootScope.userValidation('0')){
+    //Vars initialization
+    $scope.friend = {};
+    $scope.friend.email = '';
+    $scope.friend.message = '';
+    $scope.emailuser = $localStorage.email;
+    //Vars initialization ends
 
-  //This function invites to a friend to use our platform.
-  $scope.invitefriend = function() {
-    $scope.loadingInvite = true;
-    ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
-    $scope.objuserinv = {};
-    $scope.objuserinv.user_id = $localStorage.id;
-    $scope.objuserinv.email = $scope.friend.email;
-    $scope.objuserinv.message = $scope.friend.message;
-    userRequest.invitedUser($scope.objuserinv).success(function(adata) {
-      $scope.friend.tempEmail = $scope.friend.email;
-      $scope.friend.email = '';
-      $scope.friend.message = '';
-      if (adata.code === '200') {
-        ngDialog.closeAll();
-        $scope.message = 'inviteFiendEmailSent';
-        ngDialog.open({
-          template: 'views/templates/successDialog.html',
-          showClose: false,
-          scope: $scope
-        });
+    //This function invites to a friend to use our platform.
+    $scope.invitefriend = function() {
+      $scope.loadingInvite = true;
+      ngDialog.open({template: 'views/templates/loadingDialog.html', showClose: false});
+      $scope.objuserinv = {};
+      $scope.objuserinv.user_id = $localStorage.id;
+      $scope.objuserinv.email = $scope.friend.email;
+      $scope.objuserinv.message = $scope.friend.message;
+      userRequest.invitedUser($scope.objuserinv).success(function(adata) {
+        $scope.friend.tempEmail = $scope.friend.email;
+        $scope.friend.email = '';
+        $scope.friend.message = '';
+        if (adata.code === '200') {
+          ngDialog.closeAll();
+          $scope.message = 'inviteFiendEmailSent';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
 
-      } else {
-        ngDialog.closeAll();
-        $scope.message = 'problem';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-      }
-      $scope.loadingInvite = false;
-    });
-  };
-
-  $scope.tolsctive = 'active';
-  $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if($scope.tolsctive === true){
-           $scope.tolsctive = 'active';
+        } else {
+          ngDialog.closeAll();
+          $scope.message = 'problem';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
         }
+        $scope.loadingInvite = false;
+      });
     };
 
-  $scope.menuprincipal = 'views/organizers/menu.html';
-}
+    $scope.tolsctive = 'active';
+    $scope.toggleSidebar = function() {
+          $scope.tolsctive = !$scope.tolsctive;
+          if($scope.tolsctive === true){
+             $scope.tolsctive = 'active';
+          }
+      };
 
+    $scope.menuprincipal = 'views/organizers/menu.html';
+  }
+}
 angular.module('sponzorme')
 .controller('OrganizersFriendController', OrganizersFriendController);
 
@@ -3239,86 +3460,83 @@ angular.module('sponzorme')
 'use strict';
 (function() {
   function OrganizersMainController($scope, $translate, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
-    $rootScope.userValidation('0');
-    $scope.loadingevents = true;
-    $scope.loadingrss = true;
-    $scope.tolsctive = 'active';
-    $scope.emailuser = $localStorage.email;
-    $scope.userfroups = 0;
-    $translate.use(idiomaselect);
-    $scope.startcounter = 0;
-    $scope.eventos = {};
-    $scope.eventos.size = 'calculating';
-    $scope.event = {};
-    $scope.peaks = [];
-    $scope.sponzors = {};
-    $scope.sponzors.size = 'calculating';
-    $scope.sponzors.balance = 'calculating';
-    $scope.users = {};
-    $scope.users.size = 0;
-    sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
-      $scope.sponzors.size = 0;
-      $scope.sponzors.balance = 0;
-      angular.forEach(data.SponzorsEvents, function(value) {
-        if (value.status === '1') {
-          $scope.sponzors.balance = parseInt($scope.sponzors.balance) + parseInt(value.usd);
+    if($rootScope.userValidation('0')){
+
+
+      $scope.loadingevents = true;
+      $scope.loadingrss = true;
+      $scope.tolsctive = 'active';
+      $scope.emailuser = $localStorage.email;
+      $scope.userfroups = 0;
+      $translate.use(idiomaselect);
+      $scope.startcounter = 0;
+      $scope.eventos = {};
+      $scope.eventos.size = 'calculating';
+      $scope.event = {};
+      $scope.peaks = [];
+      $scope.sponzors = {};
+      $scope.sponzors.size = 'calculating';
+      $scope.sponzors.balance = 'calculating';
+      $scope.users = {};
+      $scope.users.size = 0;
+      sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
+        $scope.sponzors.size = 0;
+        $scope.sponzors.balance = 0;
+        angular.forEach(data.SponzorsEvents, function(value) {
+          if (value.status === '1') {
+            $scope.sponzors.balance = parseInt($scope.sponzors.balance) + parseInt(value.usd);
+          }
+        });
+        $scope.sponzors.size = data.SponzorsEvents.length;
+      });
+      userRequest.oneUser($localStorage.id).success(function(adata) {
+        $scope.events = [];
+        $scope.users.size = adata.data.user.comunity_size;
+        var datuser = JSON.stringify(adata.data.user);
+        $localStorage.sponzorme = datuser;
+        $scope.events = adata.data.user.events;
+        $scope.eventos.size = $scope.events.length;
+        $scope.loadingevents = false;
+        if ($scope.events[0]) {
+          $scope.event.current = $scope.events[0].id;
         }
       });
-      $scope.sponzors.size = data.SponzorsEvents.length;
-    });
-    userRequest.oneUser($localStorage.id).success(function(adata) {
-      $scope.events = [];
-
-      $scope.users.size = adata.data.user.comunity_size;
-      var datuser = JSON.stringify(adata.data.user);
-      $localStorage.sponzorme = datuser;
-      $scope.events = adata.data.user.events;
-      $scope.eventos.size = $scope.events.length;
-      $scope.loadingevents = false;
-      if ($scope.events[0]) {
-        $scope.event.current = $scope.events[0].id;
-      }
-    });
-
-    $scope.$watch('event.current', function(newvalue) {
-      $scope.loadingpeaks = true;
-      $scope.noPerksMessage = false;
-      if ($scope.event.current) {
-        eventRequest.oneEvent(newvalue).success(function(adata) {
-          $scope.peaks = adata.data.event.perks;
-          $scope.loadingpeaks = false;
-          if (!$scope.peaks[0]) {
+      $scope.$watch('event.current', function(newvalue) {
+        $scope.loadingpeaks = true;
+        $scope.noPerksMessage = false;
+        if ($scope.event.current) {
+          eventRequest.oneEvent(newvalue).success(function(adata) {
+            $scope.peaks = adata.data.event.perks;
+            $scope.loadingpeaks = false;
+            if (!$scope.peaks[0]) {
+              $scope.noPerksMessage = true;
+            } else {
+              $scope.noPerksMessage = false;
+            }
+          }).error(function() {
+            $scope.loadingpeaks = false;
             $scope.noPerksMessage = true;
-          } else {
-            $scope.noPerksMessage = false;
-          }
-        }).error(function() {
-          $scope.loadingpeaks = false;
-          $scope.noPerksMessage = true;
-        });
-      }
-    });
-    $scope.rss = [];
-    rssRequest.rss(idiomaselect).success(function(data) {
-
-      $scope.rss = data.responseData.feed.entries;
-      $scope.loadingrss = false;
-    }).error(function() {
-      $scope.loadingrss = false;
-      $scope.noRssMessage = true;
-    });
-
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-
-    $scope.menuprincipal = 'views/organizers/menu.html';
+          });
+        }
+      });
+      $scope.rss = [];
+      rssRequest.rss(idiomaselect).success(function(data) {
+        $scope.rss = data.responseData.feed.entries;
+        $scope.loadingrss = false;
+      }).error(function() {
+        $scope.loadingrss = false;
+        $scope.noRssMessage = true;
+      });
+      $scope.tolsctive = 'active';
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
+      $scope.menuprincipal = 'views/organizers/menu.html';
+    }
   }
-
   angular.module('sponzorme')
     .controller('OrganizersMainController', OrganizersMainController);
 
@@ -3327,180 +3545,185 @@ angular.module('sponzorme')
 'use strict';
 (function() {
   function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
-    $rootScope.userValidation('0');
-    ngDialog.open({
-      template: 'views/templates/loadingDialog.html',
-      showClose: false
-    });
-    userRequest.oneUser($localStorage.id).success(function(adata) {
-      $scope.account = adata.data.user;
-      $scope.userInterests = adata.data.interests;
-      ngDialog.closeAll();
-    });
-    allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
-      $scope.interests = sData.InterestCategory;
-    });
-    $scope.removeUserInterest = function(index, id) {
-      $scope.userInterests.splice(index, 1);
-      userInterestRequest.deleteUserInterest(id).success(function() {});
-    };
-    $scope.addUserInterests = function(interest) {
-      if (interest.name) {
-        var flag = false;
-        for (var i = 0; i < $scope.userInterests.length; i++) {
-          if ($scope.userInterests[i].id_interest === interest.id_interest) {
-            flag = true;
-            $scope.selected = '';
-            break;
-          }
-        }
-        if (!flag) {
-          var dataInterest = {
-            user_id: $localStorage.id,
-            interest_id: interest.id_interest
-          };
-          userInterestRequest.createUserInterest(dataInterest).success(function(data) {
-            $scope.userInterests.push({
-              'name': interest.name,
-              'id': data.UserInterest.id,
-              'id_interest': interest.id_interest
-            });
-            $scope.selected = '';
-          });
-        }
-      } else {
-        $scope.message = 'invalidInterestSelection';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-        $scope.selected = '';
-      }
-    };
-    $scope.account = [];
-    $scope.file = false; //By default no file to update.
-    $scope.editAccount = function() {
+    if ($rootScope.userValidation('0')) {
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
       });
-      $scope.account.location = $scope.account.location.formatted_address;
-      if ($scope.file) {
-        $scope.creds = {
-          bucket: $rootScope.getConstants().AMAZONBUCKET,
-          access_key: $rootScope.getConstants().AMAZONKEY,
-          secret_key: $rootScope.getConstants().AMAZONSECRET
-        };
-        AWS.config.update({
-          accessKeyId: $scope.creds.access_key,
-          secretAccessKey: $scope.creds.secret_key
-        });
-        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
-        var bucket = new AWS.S3({
-          params: {
-            Bucket: $scope.creds.bucket
-          }
-        });
-        // Prepend Unique String To Prevent Overwrites
-        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
-        var params = {
-          Key: uniqueFileName,
-          ContentType: $scope.file.type,
-          Body: $scope.file,
-          ServerSideEncryption: 'AES256'
-        };
-        bucket.putObject(params, function(err, data) {
-          if (!err) {
-            $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-            $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-            userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-              $scope.account = adata.User;
-              $scope.file = false;
-              ngDialog.closeAll();
-              $scope.message = 'accountInfoEditedSuccessfuly';
-              ngDialog.open({
-                template: 'views/templates/successDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            }).error(function(eData) {
-              ngDialog.closeAll();
-              $scope.message = 'errorEditingAccountInfo';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            });
-          }
-        });
-      } else {
-        userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-          $scope.account = adata.User;
-          $scope.file = false;
-          ngDialog.closeAll();
-          $scope.message = 'accountInfoEditedSuccessfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'errorEditingAccountInfo';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      }
-    };
-
-    $scope.resetPassword = function() {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      if ($scope.password === $scope.passwordConfirmation) {
-        var formData = {'email': $localStorage.email, 'password': $scope.password, 'password_confirmation': $scope.passwordConfirmation};
-        loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
-          ngDialog.closeAll();
-          $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
-          $scope.message = 'PasswordChangedSuccesfully';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'InvalidNewPassword';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
-      } else {
+      userRequest.oneUser($localStorage.id).success(function(adata) {
+        $scope.account = adata.data.user;
+        $scope.userInterests = adata.data.interests;
         ngDialog.closeAll();
-        $scope.message = 'PasswordNoMatch';
+      });
+      allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
+        $scope.interests = sData.InterestCategory;
+      });
+      $scope.removeUserInterest = function(index, id) {
+        $scope.userInterests.splice(index, 1);
+        userInterestRequest.deleteUserInterest(id).success(function() {});
+      };
+      $scope.addUserInterests = function(interest) {
+        if (interest.name) {
+          var flag = false;
+          for (var i = 0; i < $scope.userInterests.length; i++) {
+            if ($scope.userInterests[i].id_interest === interest.id_interest) {
+              flag = true;
+              $scope.selected = '';
+              break;
+            }
+          }
+          if (!flag) {
+            var dataInterest = {
+              user_id: $localStorage.id,
+              interest_id: interest.id_interest
+            };
+            userInterestRequest.createUserInterest(dataInterest).success(function(data) {
+              $scope.userInterests.push({
+                'name': interest.name,
+                'id': data.UserInterest.id,
+                'id_interest': interest.id_interest
+              });
+              $scope.selected = '';
+            });
+          }
+        } else {
+          $scope.message = 'invalidInterestSelection';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $scope.selected = '';
+        }
+      };
+      $scope.account = [];
+      $scope.file = false; //By default no file to update.
+      $scope.editAccount = function() {
         ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
         });
-      }
-    };
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-    $scope.menuprincipal = 'views/organizers/menu.html';
+        $scope.account.location = $scope.account.location.formatted_address;
+        if ($scope.file) {
+          $scope.creds = {
+            bucket: $rootScope.getConstants().AMAZONBUCKET,
+            access_key: $rootScope.getConstants().AMAZONKEY,
+            secret_key: $rootScope.getConstants().AMAZONSECRET
+          };
+          AWS.config.update({
+            accessKeyId: $scope.creds.access_key,
+            secretAccessKey: $scope.creds.secret_key
+          });
+          AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
+          var bucket = new AWS.S3({
+            params: {
+              Bucket: $scope.creds.bucket
+            }
+          });
+          // Prepend Unique String To Prevent Overwrites
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+          var params = {
+            Key: uniqueFileName,
+            ContentType: $scope.file.type,
+            Body: $scope.file,
+            ServerSideEncryption: 'AES256'
+          };
+          bucket.putObject(params, function(err, data) {
+            if (!err) {
+              $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+                $scope.account = adata.User;
+                $scope.file = false;
+                ngDialog.closeAll();
+                $scope.message = 'accountInfoEditedSuccessfuly';
+                ngDialog.open({
+                  template: 'views/templates/successDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+              }).error(function(eData) {
+                ngDialog.closeAll();
+                $scope.message = 'errorEditingAccountInfo';
+                ngDialog.open({
+                  template: 'views/templates/errorDialog.html',
+                  showClose: false,
+                  scope: $scope
+                });
+              });
+            }
+          });
+        } else {
+          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
+            $scope.account = adata.User;
+            $scope.file = false;
+            ngDialog.closeAll();
+            $scope.message = 'accountInfoEditedSuccessfuly';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'errorEditingAccountInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        }
+      };
+
+      $scope.resetPassword = function() {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        if ($scope.password === $scope.passwordConfirmation) {
+          var formData = {
+            'email': $localStorage.email,
+            'password': $scope.password,
+            'password_confirmation': $scope.passwordConfirmation
+          };
+          loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
+            ngDialog.closeAll();
+            $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
+            $scope.message = 'PasswordChangedSuccesfully';
+            ngDialog.open({
+              template: 'views/templates/successDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function() {
+            ngDialog.closeAll();
+            $scope.message = 'InvalidNewPassword';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        } else {
+          ngDialog.closeAll();
+          $scope.message = 'PasswordNoMatch';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        }
+      };
+      $scope.tolsctive = 'active';
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
+      $scope.menuprincipal = 'views/organizers/menu.html';
+    }
   }
   angular.module('sponzorme')
     .controller('OrganizersSettingsController', OrganizersSettingsController);
@@ -3509,192 +3732,199 @@ angular.module('sponzorme')
 'use strict';
 (function() {
   function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray) {
-    $rootScope.userValidation('0');
-    $scope.noSponzorshipsMessage = false;
-    $scope.loadingsponzorships = true;
-    $scope.loadingsponzorshipstasks = true;
-    $scope.noSponzorshipsTaskMessage = false;
-    $scope.emailuser = $localStorage.email;
-    $scope.userfroups = 0;
-    $translate.use(idiomaselect);
-    $scope.tolsctive = 'active';
-    //This function allows get sponzorship info from organizerId
-    $scope.getSponzorshipsByOrganizer = function() {
-      sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
-        $scope.loadingsponzorships = false;
-        $scope.noSponzorshipsMessage = false;
-        $scope.loadingsponzorshipstasks = false;
-        if (!data.SponzorsEvents[0]) {
-          $scope.noSponzorshipsMessage = true;
-          $scope.noSponzorshipsTaskMessage = true;
-        } else {
-          $scope.sponzorships = data.SponzorsEvents;
-          if ($scope.sponzorships[0].status !== '0') {
-            $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
-          } else {
-            $scope.noSponzorshipsTaskMessage = true;
-          }
-          $scope.sponzorships.current = $scope.sponzorships[0].id;
-        }
-      }).error(function(data) {
-
-        $scope.noSponzorshipsMessage = true;
-        $scope.noSponzorshipsTaskMessage = true;
-      });
-    };
-    $scope.getSponzorship = function(sponzorshipId) {
-      sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(data) {
-        $scope.currentSponzorship = data;
-      });
-    };
-    //This function changes to 1 the sponzorship status
-    $scope.acceptSponzorship = function(sponzoshipId, i) {
+    if($rootScope.userValidation('0')){
+      $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorships = true;
-      $scope.loadingsponzorshipstasks = true;
-      var data = {
-        status: 1
-      };
-      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        //We make the email Request
-        var info = {
-          sponzorEmail: $scope.sponzorships[i].email,
-          sponzorName: $scope.sponzorships[i].name,
-          eventName: $scope.sponzorships[i].title,
-          organizerEmail: $localStorage.email,
-          lang: idiomaselect
-        };
-        var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-        var notifications = $firebaseArray(notificationsRef);
-        var notification = {
-          to: $scope.sponzorships[i].sponzor_id,
-          text: 'Your sponzorship by the event ' + $scope.sponzorships[i].title + ' has been approved.',
-          link: '#/sponzors/sponzorships'
-        };
-        notifications.$add(notification);
-        sponzorshipRequest.sendSponzorshipEmail(info).success(function() {});
-        $scope.getSponzorshipsByOrganizer();
-      }).error(function(){});
-    };
-    //This function changes to 0 the sponzorship status
-    $scope.unacceptSponzorship = function(sponzoshipId) {
-      $scope.loadingsponzorships = true;
-      $scope.loadingsponzorshipstasks = true;
-      var data = {
-        status: 0
-      };
-      sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
-        $scope.getSponzorshipsByOrganizer();
-      }).error(function(eData) {
-
-      });
-    };
-    //this function deletes an sponzorship if the status is 0
-    $scope.deleteSponzorship = function(sponzorshipId) {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
-        angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
-          taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
-        });
-        setTimeout(function() {
-          sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
-            $scope.getSponzorshipsByOrganizer();
-            ngDialog.closeAll();
-            $scope.message = 'successDeletingSponzorship';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          }).error(function() {
-            ngDialog.closeAll();
-            $scope.message = 'errorDeletingSponzorship';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          });
-        }, 5000);
-      });
-    };
-    //this function gets the tasks sponzorships by sponzorship id
-    $scope.getTaskSponzor = function(sponzorshipId) {
       $scope.loadingsponzorshipstasks = true;
       $scope.noSponzorshipsTaskMessage = false;
-
-      taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
-        $scope.tasksSponzor = [];
-        angular.forEach(data.tasks, function(value) {
-          if (value.type === '0') {
-            $scope.tasksSponzor.push(value);
+      $scope.emailuser = $localStorage.email;
+      $scope.userfroups = 0;
+      $translate.use(idiomaselect);
+      $scope.tolsctive = 'active';
+      //This function allows get sponzorship info from organizerId
+      $scope.getSponzorshipsByOrganizer = function() {
+        $scope.todayDate = new Date().getTime();
+        sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
+          $scope.loadingsponzorships = false;
+          $scope.noSponzorshipsMessage = false;
+          $scope.loadingsponzorshipstasks = false;
+          if (!data.SponzorsEvents[0]) {
+            $scope.noSponzorshipsMessage = true;
+            $scope.noSponzorshipsTaskMessage = true;
+          } else {
+            $scope.sponzorships = data.SponzorsEvents;
+            if ($scope.sponzorships[0].status !== '0') {
+              var timer = parseInt(parseInt($rootScope.getConstants().EVENTEXPIRATIONDAYS) * 24 * 60 * 60 * 1000);
+              var aux = $scope.sponzorships.map(function(s) {
+                s.ends = new Date(new Date(s.ends).getTime() + timer);
+                return s;
+              });
+              $scope.sponzorships = aux;
+              $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
+            } else {
+              $scope.noSponzorshipsTaskMessage = true;
+            }
+            $scope.sponzorships.current = $scope.sponzorships[0].id;
           }
-        });
-        $scope.loadingsponzorshipstasks = false;
+        }).error(function(data) {
 
-        if (!$scope.tasksSponzor[0]) {
+          $scope.noSponzorshipsMessage = true;
           $scope.noSponzorshipsTaskMessage = true;
-        } else {
-          $scope.noSponzorshipsTaskMessage = false;
+        });
+      };
+      $scope.getSponzorship = function(sponzorshipId) {
+        sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(data) {
+          $scope.currentSponzorship = data;
+        });
+      };
+      //This function changes to 1 the sponzorship status
+      $scope.acceptSponzorship = function(sponzoshipId, i) {
+        $scope.loadingsponzorships = true;
+        $scope.loadingsponzorshipstasks = true;
+        var data = {
+          status: 1
+        };
+        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
+          //We make the email Request
+          var info = {
+            sponzorEmail: $scope.sponzorships[i].email,
+            sponzorName: $scope.sponzorships[i].name,
+            eventName: $scope.sponzorships[i].title,
+            organizerEmail: $localStorage.email,
+            lang: idiomaselect
+          };
+          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+          var notifications = $firebaseArray(notificationsRef);
+          var notification = {
+            to: $scope.sponzorships[i].sponzor_id,
+            text: 'Your sponzorship by the event ' + $scope.sponzorships[i].title + ' has been approved.',
+            link: '#/sponzors/sponzorships'
+          };
+          notifications.$add(notification);
+          sponzorshipRequest.sendSponzorshipEmail(info).success(function() {});
+          $scope.getSponzorshipsByOrganizer();
+        }).error(function(){});
+      };
+      //This function changes to 0 the sponzorship status
+      $scope.unacceptSponzorship = function(sponzoshipId) {
+        $scope.loadingsponzorships = true;
+        $scope.loadingsponzorshipstasks = true;
+        var data = {
+          status: 0
+        };
+        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
+          $scope.getSponzorshipsByOrganizer();
+        }).error(function(eData) {
+
+        });
+      };
+      //this function deletes an sponzorship if the status is 0
+      $scope.deleteSponzorship = function(sponzorshipId) {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
+          angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
+            taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
+          });
+          setTimeout(function() {
+            sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
+              $scope.getSponzorshipsByOrganizer();
+              ngDialog.closeAll();
+              $scope.message = 'successDeletingSponzorship';
+              ngDialog.open({
+                template: 'views/templates/successDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            }).error(function() {
+              ngDialog.closeAll();
+              $scope.message = 'errorDeletingSponzorship';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            });
+          }, 5000);
+        });
+      };
+      //this function gets the tasks sponzorships by sponzorship id
+      $scope.getTaskSponzor = function(sponzorshipId) {
+        $scope.loadingsponzorshipstasks = true;
+        $scope.noSponzorshipsTaskMessage = false;
+
+        taskSponzorRequest.tasksBySponzorship(sponzorshipId).success(function(data) {
+          $scope.tasksSponzor = [];
+          angular.forEach(data.tasks, function(value) {
+            if (value.type === '0') {
+              $scope.tasksSponzor.push(value);
+            }
+          });
+          $scope.loadingsponzorshipstasks = false;
+
+          if (!$scope.tasksSponzor[0]) {
+            $scope.noSponzorshipsTaskMessage = true;
+          } else {
+            $scope.noSponzorshipsTaskMessage = false;
+          }
+
+        }).error(function(data) {
+
+          $scope.noSponzorshipsTaskMessage = true;
+        });
+        $scope.sponzorships.current = sponzorshipId;
+      };
+      //This function changes to 1 the sponzor task status
+      $scope.completeTask = function(taskSponzorId) {
+        var data = {
+          status: 1
+        };
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
+          $scope.getTaskSponzor($scope.sponzorships.current);
+        }).error(function(eData) {
+
+        });
+      };
+      //This function changes to 0 the sponzor task status
+      $scope.uncompleteTask = function(taskSponzorId) {
+        var data = {
+          status: 0
+        };
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
+          $scope.getTaskSponzor($scope.sponzorships.current);
+        }).error(function(eData) {
+
+        });
+      };
+      $scope.deleteTaskSponzor = function(taskSponzorId) {
+        taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {
+          $scope.getTaskSponzor($scope.sponzorships.current);
+        }).error(function(eData) {
+
+        });
+      };
+      $scope.seeCause = function(sponzorship) {
+        $scope.cause = sponzorship.cause;
+        ngDialog.open({
+          template: 'views/templates/sponzorshipCauseDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      };
+
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
         }
-
-      }).error(function(data) {
-
-        $scope.noSponzorshipsTaskMessage = true;
-      });
-      $scope.sponzorships.current = sponzorshipId;
-    };
-    //This function changes to 1 the sponzor task status
-    $scope.completeTask = function(taskSponzorId) {
-      var data = {
-        status: 1
       };
-      taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
-        $scope.getTaskSponzor($scope.sponzorships.current);
-      }).error(function(eData) {
 
-      });
-    };
-    //This function changes to 0 the sponzor task status
-    $scope.uncompleteTask = function(taskSponzorId) {
-      var data = {
-        status: 0
-      };
-      taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
-        $scope.getTaskSponzor($scope.sponzorships.current);
-      }).error(function(eData) {
-
-      });
-    };
-    $scope.deleteTaskSponzor = function(taskSponzorId) {
-      taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {
-        $scope.getTaskSponzor($scope.sponzorships.current);
-      }).error(function(eData) {
-
-      });
-    };
-    $scope.seeCause = function(sponzorship) {
-      $scope.cause = sponzorship.cause;
-      ngDialog.open({
-        template: 'views/templates/sponzorshipCauseDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-    };
-
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-
-    $scope.getSponzorshipsByOrganizer();
-    $scope.menuprincipal = 'views/organizers/menu.html';
+      $scope.getSponzorshipsByOrganizer();
+      $scope.menuprincipal = 'views/organizers/menu.html';
+    }
   }
-
   angular.module('sponzorme')
     .controller('OrganizersSponzorshipsController', OrganizersSponzorshipsController);
 
@@ -3703,129 +3933,129 @@ angular.module('sponzorme')
 'use strict';
 (function() {
   function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
-    $rootScope.userValidation('0'); //Validation
-    $scope.tolsctive = 'active';
-    $scope.loading = true;
-    ngDialog.open({
-      template: 'views/templates/loadingDialog.html',
-      showClose: false
-    });
-    eventTypeRequest.allEventTypes().success(function(adata) {
-      $scope.type = {};
-      $scope.type.list = adata.eventTypes;
-      $scope.typefilter = adata.eventTypes;
-    });
-    $scope.categorias = {};
-    categoryRequest.allCategories().success(function(adata) {
-      $scope.categorias.list = adata.categories;
-      $scope.categoriasfilter = adata.categories;
-    });
-    $scope.verifyPerkLimit = function(s) {
-      if (s.usd > 200 || typeof s.usd === 'undefined') {
-        s.usd = 200;
-        $scope.message = 'maxLimitPerk';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-      }
-    };
-    //this function get the event data and put it in the form.
-    $scope.formEditEvent = function(idevent) {
-      $scope.eventData = {};
-      eventRequest.oneEvent(idevent).success(function(adata) {
-        $scope.eventData = adata.data.event;
-        $scope.eventData.category = adata.data.category[0].id;
-        $scope.eventData.type = adata.data.type[0].id;
-        $scope.eventData.starts = new Date($scope.eventData.starts);
-        $scope.eventData.ends = new Date($scope.eventData.ends);
-        $scope.loading = false;
-        ngDialog.closeAll();
-      }).error(function() {
-        ngDialog.closeAll();
-        $scope.message = 'errorNotEventInfoGot';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-      });
-    };
-    $scope.doEditEvent = function(idevent) {
+    if($rootScope.userValidation('0')){
+      $scope.tolsctive = 'active';
+      $scope.loading = true;
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
       });
-      angular.forEach($scope.eventData.perks, function(value) {
-        if (value.id === -1) { //If new perk was added we insert that
-          $scope.perkitems = {};
-          $scope.perkitems.kind = value.kind;
-          $scope.perkitems.total_quantity = value.total_quantity;
-          $scope.perkitems.reserved_quantity = 0;
-          $scope.perkitems.usd = value.usd;
-          $scope.perkitems.id_event = idevent;
-          perkRequest.createPerk($scope.perkitems).success(function() {}).error(function(edata) {
-
-
-          });
-        } else { //If no perk was added just we edit the fields
-          $scope.perkitems = value;
-          perkRequest.editPerkPatch(value.id, $scope.perkitems).success(function() {
-            /*empty Code, nothing necessary here*/
-          }).error(function(eData) {
-
-
+      eventTypeRequest.allEventTypes().success(function(adata) {
+        $scope.type = {};
+        $scope.type.list = adata.eventTypes;
+        $scope.typefilter = adata.eventTypes;
+      });
+      $scope.categorias = {};
+      categoryRequest.allCategories().success(function(adata) {
+        $scope.categorias.list = adata.categories;
+        $scope.categoriasfilter = adata.categories;
+      });
+      $scope.verifyPerkLimit = function(s) {
+        if (s.usd > 200 || typeof s.usd === 'undefined') {
+          s.usd = 200;
+          $scope.message = 'maxLimitPerk';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
           });
         }
-      });
-      //Next we edit the event information
-      $scope.eventData.starts = moment($scope.eventData.starts).format('YYYY-MM-DD HH:mm:ss');
-      $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD HH:mm:ss');
-      eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
-        ngDialog.closeAll();
-        $scope.message = 'eventEditedSuccesfully';
-        ngDialog.open({
-          template: 'views/templates/successDialog.html',
-          showClose: false,
-          scope: $scope
+      };
+      //this function get the event data and put it in the form.
+      $scope.formEditEvent = function(idevent) {
+        $scope.eventData = {};
+        eventRequest.oneEvent(idevent).success(function(adata) {
+          $scope.eventData = adata.data.event;
+          $scope.eventData.category = adata.data.category[0].id;
+          $scope.eventData.type = adata.data.type[0].id;
+          $scope.eventData.starts = new Date($scope.eventData.starts);
+          $scope.eventData.ends = new Date($scope.eventData.ends);
+          $scope.loading = false;
+          ngDialog.closeAll();
+        }).error(function() {
+          ngDialog.closeAll();
+          $scope.message = 'errorNotEventInfoGot';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
         });
-      }).error(function(edata) {
+      };
+      $scope.doEditEvent = function(idevent) {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        angular.forEach($scope.eventData.perks, function(value) {
+          if (value.id === -1) { //If new perk was added we insert that
+            $scope.perkitems = {};
+            $scope.perkitems.kind = value.kind;
+            $scope.perkitems.total_quantity = value.total_quantity;
+            $scope.perkitems.reserved_quantity = 0;
+            $scope.perkitems.usd = value.usd;
+            $scope.perkitems.id_event = idevent;
+            perkRequest.createPerk($scope.perkitems).success(function() {}).error(function(edata) {
 
 
-      });
-    };
-    $scope.saveperks = function() {
-      $scope.perkitems = {};
-      $scope.perkitems.kind = $scope.perkskind;
-      $scope.perkitems.total_quantity = $scope.perksquantity;
-      $scope.perkitems.usd = $scope.perksusd;
-      $scope.perkitems.id_event = $scope.perksevents;
-      perkRequest.createPerk($scope.perkitems).success(function(pdata) {
-        this.push(pdata);
-      });
-    };
-    $scope.addEditPerk = function() {
-      $scope.eventData.perks.push({
-        kind: '',
-        usd: 0,
-        quantity: 1
-      });
-    };
-    $scope.removeEditPerk = function(index) {
-      $scope.eventData.perks.splice(index, 1);
-    };
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-    $scope.formEditEvent($routeParams.id); //Here start the callback
-    $translate.use(idiomaselect);
-    $scope.menuprincipal = 'views/organizers/menu.html';
+            });
+          } else { //If no perk was added just we edit the fields
+            $scope.perkitems = value;
+            perkRequest.editPerkPatch(value.id, $scope.perkitems).success(function() {
+              /*empty Code, nothing necessary here*/
+            }).error(function(eData) {
+
+
+            });
+          }
+        });
+        //Next we edit the event information
+        $scope.eventData.starts = moment($scope.eventData.starts).format('YYYY-MM-DD HH:mm:ss');
+        $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD HH:mm:ss');
+        eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
+          ngDialog.closeAll();
+          $scope.message = 'eventEditedSuccesfully';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        }).error(function(edata) {
+
+
+        });
+      };
+      $scope.saveperks = function() {
+        $scope.perkitems = {};
+        $scope.perkitems.kind = $scope.perkskind;
+        $scope.perkitems.total_quantity = $scope.perksquantity;
+        $scope.perkitems.usd = $scope.perksusd;
+        $scope.perkitems.id_event = $scope.perksevents;
+        perkRequest.createPerk($scope.perkitems).success(function(pdata) {
+          this.push(pdata);
+        });
+      };
+      $scope.addEditPerk = function() {
+        $scope.eventData.perks.push({
+          kind: '',
+          usd: 0,
+          quantity: 1
+        });
+      };
+      $scope.removeEditPerk = function(index) {
+        $scope.eventData.perks.splice(index, 1);
+      };
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
+      $scope.formEditEvent($routeParams.id); //Here start the callback
+      $translate.use(idiomaselect);
+      $scope.menuprincipal = 'views/organizers/menu.html';
+    }
   }
-
   angular.module('sponzorme')
     .controller('OrganizersEventEditController', OrganizersEventEditController);
 
@@ -3833,7 +4063,6 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-
   function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, eventbriteRequest) {
     //Function to parse JSON strings in JSON objects
     function jsonize(str) {
@@ -3843,268 +4072,161 @@ angular.module('sponzorme')
         return '"' + $1 + '"';
       });
     }
+    if($rootScope.userValidation('0')){
 
-    //Use This Zone to Vars Initialization
-    $rootScope.userValidation('0'); //Validation
-    $translate.use(idiomaselect);
-    $scope.tolsctive = 'active';
-    $scope.sponzorshipTypes = [];
-    $scope.newEvent = {};
-    eventTypeRequest.allEventTypes().success(function(adata) {
-      $scope.type = {};
-      $scope.type.list = adata.eventTypes;
-      $scope.typefilter = adata.eventTypes;
-    });
-    $scope.categorias = {};
-    categoryRequest.allCategories().success(function(adata) {
-      $scope.categorias.list = adata.categories;
-      $scope.categoriasfilter = adata.categories;
-    });
-    //End vars Initialization
-
-    //This function very no perks over 200USD
-    $scope.verifyPerkLimit = function(s) {
-      if (s.usd > 200 || typeof s.usd === 'undefined') {
-        s.usd = 200;
-        $scope.message = 'maxLimitPerk';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-      }
-    };
-
-    //This function creates an event
-    $scope.createNewEvent = function() {
-      $scope.newEvent.title = $scope.titleevent;
-      $scope.newEvent.location = $scope.locationevent.formatted_address;
-      $scope.newEvent.location_reference = $scope.locationevent.place_id;
-      $scope.newEvent.description = $scope.descriptionevent;
-      $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD HH:mm:ss');
-      $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD HH:mm:ss');
-      //$scope.newEvent.starts = new Date($scope.dtini);
-      //$scope.newEvent.ends = new Date($scope.dtfinal);
-      $scope.newEvent.lang = idiomaselect;
-      $scope.newEvent.type = $scope.typeevent;
-      $scope.newEvent.category = $scope.categoryevent;
-      $scope.newEvent.privacy = $scope.privacyevent;
-      $scope.newEvent.organizer = $localStorage.id;
-      eventRequest.createEvent($scope.newEvent).success(function(adata) {
-        angular.forEach($scope.sponzorshipTypes, function(value) {
-          $scope.perkitems = {};
-          $scope.perkitems.kind = value.kind;
-          $scope.perkitems.total_quantity = value.quantity;
-          $scope.perkitems.usd = value.usd;
-          $scope.perkitems.id_event = adata.event.id;
-          $scope.perkitems.reserved_quantity = 0;
-          perkRequest.createPerk($scope.perkitems).success(function() {});
-        });
-        //Clean the from
-        $scope.titleevent = '';
-        $scope.locationevent = {};
-        $scope.descriptionevent = '';
-        $scope.dtini = '';
-        $scope.dtfinal = '';
-        $scope.typeevent = '';
-        $scope.categoryevent = '';
-        $scope.privacyevent = '';
-        $scope.sponzorshipTypes = [];
-        ngDialog.closeAll();
-        $scope.message = 'eventCreatedSuccesfully';
-        ngDialog.open({
-          template: 'views/templates/successDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-      }).error(function(edata) {
-        ngDialog.closeAll();
-        $scope.message = 'errorCreatingEvent';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-      });
-    };
-
-    //this function upload or create the event Image
-    $scope.imageVerification = function() {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
-      $scope.loadingNewEvent = true;
-      $scope.errorNewEvent = false;
+      //Use This Zone to Vars Initialization
+      $translate.use(idiomaselect);
+      $scope.tolsctive = 'active';
+      $scope.sponzorshipTypes = [];
       $scope.newEvent = {};
-      if ($scope.file) {
-        $scope.creds = {
-          bucket: $rootScope.getConstants().AMAZONBUCKET,
-          access_key: $rootScope.getConstants().AMAZONKEY,
-          secret_key: $rootScope.getConstants().AMAZONSECRET
-        };
-        AWS.config.update({
-          accessKeyId: $scope.creds.access_key,
-          secretAccessKey: $scope.creds.secret_key
-        });
-        AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
-        var bucket = new AWS.S3({
-          params: {
-            Bucket: $scope.creds.bucket
-          }
-        });
-        // Prepend Unique String To Prevent Overwrites
-        var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
-        var params = {
-          Key: uniqueFileName,
-          ContentType: $scope.file.type,
-          Body: $scope.file,
-          ServerSideEncryption: 'AES256'
-        };
-        bucket.putObject(params, function(err, data) {
-          if (!err) {
-            $scope.newEvent.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-            $scope.createNewEvent();
-          }
-        });
-      } else {
-        //If no Image we set here some image
-        $scope.newEvent.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
-        $scope.createNewEvent();
-      }
-    };
-
-    //this function adds a SponzorshipType to the new event form
-    $scope.addSponzorshipType = function() {
-      $scope.sponzorshipTypes.push({
-        kind: '',
-        usd: 0,
-        quantity: 1,
-        id: -1
+      eventTypeRequest.allEventTypes().success(function(adata) {
+        $scope.type = {};
+        $scope.type.list = adata.eventTypes;
+        $scope.typefilter = adata.eventTypes;
       });
-    };
+      $scope.categorias = {};
+      categoryRequest.allCategories().success(function(adata) {
+        $scope.categorias.list = adata.categories;
+        $scope.categoriasfilter = adata.categories;
+      });
+      //End vars Initialization
 
-    //this function removes a SponzorshipType to the new event form
-    $scope.removeSponzorshipType = function(index) {
-      $scope.sponzorshipTypes.splice(index, 1);
-    };
-
-    //this function expand and compress the left menu
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
-
-    if ($routeParams.eventBriteCode) {
-      eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
-        var response = JSON.parse(jsonize(data.response));
-        if (response.error) {
-          $scope.loadingGetToken = false;
-          $scope.reconnectEventbrite = true;
-          $scope.conectionDone = false;
-        } else {
-          $localStorage.eventBriteBeared = response.access_token;
-          $scope.connectEventbrite();
+      //This function very no perks over 200USD
+      $scope.verifyPerkLimit = function(s) {
+        if (s.usd > 200 || typeof s.usd === 'undefined') {
+          s.usd = 200;
+          $scope.message = 'maxLimitPerk';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
         }
-      });
-    } else if ($routeParams.meetupCode) {
+      };
 
-      eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
-        var response = JSON.parse(jsonize(data.response));
-        if (response.error) {
+      //This function creates an event
+      $scope.createNewEvent = function() {
+        $scope.newEvent.title = $scope.titleevent;
+        $scope.newEvent.location = $scope.locationevent.formatted_address;
+        $scope.newEvent.location_reference = $scope.locationevent.place_id;
+        $scope.newEvent.description = $scope.descriptionevent;
+        $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD HH:mm:ss');
+        $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD HH:mm:ss');
+        //$scope.newEvent.starts = new Date($scope.dtini);
+        //$scope.newEvent.ends = new Date($scope.dtfinal);
+        $scope.newEvent.lang = idiomaselect;
+        $scope.newEvent.type = $scope.typeevent;
+        $scope.newEvent.category = $scope.categoryevent;
+        $scope.newEvent.privacy = $scope.privacyevent;
+        $scope.newEvent.organizer = $localStorage.id;
+        eventRequest.createEvent($scope.newEvent).success(function(adata) {
+          angular.forEach($scope.sponzorshipTypes, function(value) {
+            $scope.perkitems = {};
+            $scope.perkitems.kind = value.kind;
+            $scope.perkitems.total_quantity = value.quantity;
+            $scope.perkitems.usd = value.usd;
+            $scope.perkitems.id_event = adata.event.id;
+            $scope.perkitems.reserved_quantity = 0;
+            perkRequest.createPerk($scope.perkitems).success(function() {});
+          });
+          //Clean the from
+          $scope.titleevent = '';
+          $scope.locationevent = {};
+          $scope.descriptionevent = '';
+          $scope.dtini = '';
+          $scope.dtfinal = '';
+          $scope.typeevent = '';
+          $scope.categoryevent = '';
+          $scope.privacyevent = '';
+          $scope.sponzorshipTypes = [];
+          ngDialog.closeAll();
+          $scope.message = 'eventCreatedSuccesfully';
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        }).error(function(edata) {
+          ngDialog.closeAll();
+          $scope.message = 'errorCreatingEvent';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
 
-          $scope.meetupLoadingGetToken = false;
-          $scope.reconnectMeetup = true;
-          $scope.meetupConectionDone = false;
+      //this function upload or create the event Image
+      $scope.imageVerification = function() {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        $scope.loadingNewEvent = true;
+        $scope.errorNewEvent = false;
+        $scope.newEvent = {};
+        if ($scope.file) {
+          $scope.creds = {
+            bucket: $rootScope.getConstants().AMAZONBUCKET,
+            access_key: $rootScope.getConstants().AMAZONKEY,
+            secret_key: $rootScope.getConstants().AMAZONSECRET
+          };
+          AWS.config.update({
+            accessKeyId: $scope.creds.access_key,
+            secretAccessKey: $scope.creds.secret_key
+          });
+          AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
+          var bucket = new AWS.S3({
+            params: {
+              Bucket: $scope.creds.bucket
+            }
+          });
+          // Prepend Unique String To Prevent Overwrites
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
+          var params = {
+            Key: uniqueFileName,
+            ContentType: $scope.file.type,
+            Body: $scope.file,
+            ServerSideEncryption: 'AES256'
+          };
+          bucket.putObject(params, function(err, data) {
+            if (!err) {
+              $scope.newEvent.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              $scope.createNewEvent();
+            }
+          });
         } else {
-          $localStorage.meetupBeared = response.access_token;
-
-          $scope.connectMeetup();
+          //If no Image we set here some image
+          $scope.newEvent.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
+          $scope.createNewEvent();
         }
-      });
-    }
-    $scope.connectMeetup = function() {
+      };
 
-      $scope.meetupLoadingGetToken = true;
-      $scope.loadingGetMeetupEvents = false;
-      ngDialog.open({
-        template: 'views/templates/importMeetupDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-      if ($localStorage.meetupBeared) {
-        $scope.meetupLoadingGetToken = false;
-        $scope.loadingGetMeetupEvents = true;
-        $scope.meetupConectionDone = true;
-        $scope.getMeetupGroups($localStorage.meetupBeared);
-      } else {
-        $scope.meetupLoadingGetToken = false;
-        $scope.loadingGetMeetupEvents = false;
-        $scope.meetupConectionDone = false;
-        eventbriteRequest.getMeetupAuth($routeParams.meetupBeared).success(function(data) {
-          var response = JSON.parse(jsonize(data.response));
-          if (response.error) {
-            $scope.meetupLoadingGetToken = false;
-            $scope.reconnectMeetup = true;
-            $scope.meetupConectionDone = false;
-          } else {
-            $localStorage.meetupBeared = response.access_token;
-            $scope.meetupLoadingGetToken = false;
-            $scope.loadingGetMeetupEvents = true;
-            $scope.meetupConectionDone = true;
-            $scope.getMeetupGroups(response.access_token);
-          }
+      //this function adds a SponzorshipType to the new event form
+      $scope.addSponzorshipType = function() {
+        $scope.sponzorshipTypes.push({
+          kind: '',
+          usd: 0,
+          quantity: 1,
+          id: -1
         });
-      }
-    };
-    $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
-    $scope.getEventbriteEvents = function(accessToken) {
-      eventbriteRequest.getEventbriteEvents(accessToken)
-        .success(function(data, head) {
-          $scope.loadingGetEvents = false;
-          $scope.evenbriteEvents = data.events;
-        }).error(function(data) {
-          $scope.loadingGetEvents = false;
-          $scope.errorGettingEvents = true;
-          $scope.evenbriteEvents = false;
-        });
-    };
-    $scope.MEETUPAPIKEY = $rootScope.getConstants().MEETUPAPIKEY;
-    $scope.MEETUPREDIRECTURL = $rootScope.getConstants().MEETUPREDIRECTURL;
-    $scope.getMeetupGroups = function(accessToken) {
+      };
 
-      eventbriteRequest.getMeetupGroups(accessToken)
-        .success(function(data) {
-          $scope.loadingGetMeetupEvents = false;
+      //this function removes a SponzorshipType to the new event form
+      $scope.removeSponzorshipType = function(index) {
+        $scope.sponzorshipTypes.splice(index, 1);
+      };
 
-          $scope.meetupEvents = JSON.parse(data.response);
+      //this function expand and compress the left menu
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
 
-        }).error(function(data) {
-
-          $scope.loadingGetMeetupEvents = false;
-          $scope.errorGettingGroups = true;
-          $scope.meetupEvents = false;
-        });
-    };
-    $scope.connectEventbrite = function() {
-      $scope.loadingGetToken = true;
-      $scope.loadingGetEvents = false;
-      ngDialog.open({
-        template: 'views/templates/importEventbriteDialog.html',
-        showClose: false,
-        scope: $scope
-      });
-      if ($localStorage.eventBriteBeared) {
-        $scope.loadingGetToken = false;
-        $scope.loadingGetEvents = true;
-        $scope.conectionDone = true;
-        $scope.getEventbriteEvents($localStorage.eventBriteBeared);
-      } else {
-        $scope.loadingGetToken = false;
-        $scope.loadingGetEvents = false;
-        $scope.conectionDone = false;
+      if ($routeParams.eventBriteCode) {
         eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));
           if (response.error) {
@@ -4113,38 +4235,145 @@ angular.module('sponzorme')
             $scope.conectionDone = false;
           } else {
             $localStorage.eventBriteBeared = response.access_token;
+            $scope.connectEventbrite();
+          }
+        });
+      } else if ($routeParams.meetupCode) {
 
-            $scope.loadingGetToken = false;
-            $scope.loadingGetEvents = true;
-            $scope.conectionDone = true;
-            $scope.getEventbriteEvents(response.access_token);
+        eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
+          var response = JSON.parse(jsonize(data.response));
+          if (response.error) {
+
+            $scope.meetupLoadingGetToken = false;
+            $scope.reconnectMeetup = true;
+            $scope.meetupConectionDone = false;
+          } else {
+            $localStorage.meetupBeared = response.access_token;
+
+            $scope.connectMeetup();
           }
         });
       }
-    };
-    $scope.prefilEventForm = function(url) {
-      eventbriteRequest.getEventbriteEvent(url, $localStorage.eventBriteBeared)
-        .success(function(data) {
-          //Prefill the form
-          $scope.titleevent = data.name.text;
-          $scope.descriptionevent = data.description.html;
-          $scope.dtini = data.start.local;
-          $scope.dtfinal = data.end.local;
-          $scope.privacyevent = 0;
-          ngDialog.closeAll();
-        });
-    };
-    $scope.prefilEventFormMeetup = function(e) {
-      $scope.titleevent = e.name;
-      $scope.descriptionevent = e.description;
-      $scope.dtini = e.time;
-      $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
-      $scope.privacyevent = 0;
-      ngDialog.closeAll();
-    };
-    $scope.menuprincipal = 'views/organizers/menu.html';
-  }
+      $scope.connectMeetup = function() {
 
+        $scope.meetupLoadingGetToken = true;
+        $scope.loadingGetMeetupEvents = false;
+        ngDialog.open({
+          template: 'views/templates/importMeetupDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+        if ($localStorage.meetupBeared) {
+          $scope.meetupLoadingGetToken = false;
+          $scope.loadingGetMeetupEvents = true;
+          $scope.meetupConectionDone = true;
+          $scope.getMeetupGroups($localStorage.meetupBeared);
+        } else {
+          $scope.meetupLoadingGetToken = false;
+          $scope.loadingGetMeetupEvents = false;
+          $scope.meetupConectionDone = false;
+          eventbriteRequest.getMeetupAuth($routeParams.meetupBeared).success(function(data) {
+            var response = JSON.parse(jsonize(data.response));
+            if (response.error) {
+              $scope.meetupLoadingGetToken = false;
+              $scope.reconnectMeetup = true;
+              $scope.meetupConectionDone = false;
+            } else {
+              $localStorage.meetupBeared = response.access_token;
+              $scope.meetupLoadingGetToken = false;
+              $scope.loadingGetMeetupEvents = true;
+              $scope.meetupConectionDone = true;
+              $scope.getMeetupGroups(response.access_token);
+            }
+          });
+        }
+      };
+      $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
+      $scope.getEventbriteEvents = function(accessToken) {
+        eventbriteRequest.getEventbriteEvents(accessToken)
+          .success(function(data, head) {
+            $scope.loadingGetEvents = false;
+            $scope.evenbriteEvents = data.events;
+          }).error(function(data) {
+            $scope.loadingGetEvents = false;
+            $scope.errorGettingEvents = true;
+            $scope.evenbriteEvents = false;
+          });
+      };
+      $scope.MEETUPAPIKEY = $rootScope.getConstants().MEETUPAPIKEY;
+      $scope.MEETUPREDIRECTURL = $rootScope.getConstants().MEETUPREDIRECTURL;
+      $scope.getMeetupGroups = function(accessToken) {
+
+        eventbriteRequest.getMeetupGroups(accessToken)
+          .success(function(data) {
+            $scope.loadingGetMeetupEvents = false;
+
+            $scope.meetupEvents = JSON.parse(data.response);
+
+          }).error(function(data) {
+
+            $scope.loadingGetMeetupEvents = false;
+            $scope.errorGettingGroups = true;
+            $scope.meetupEvents = false;
+          });
+      };
+      $scope.connectEventbrite = function() {
+        $scope.loadingGetToken = true;
+        $scope.loadingGetEvents = false;
+        ngDialog.open({
+          template: 'views/templates/importEventbriteDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+        if ($localStorage.eventBriteBeared) {
+          $scope.loadingGetToken = false;
+          $scope.loadingGetEvents = true;
+          $scope.conectionDone = true;
+          $scope.getEventbriteEvents($localStorage.eventBriteBeared);
+        } else {
+          $scope.loadingGetToken = false;
+          $scope.loadingGetEvents = false;
+          $scope.conectionDone = false;
+          eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
+            var response = JSON.parse(jsonize(data.response));
+            if (response.error) {
+              $scope.loadingGetToken = false;
+              $scope.reconnectEventbrite = true;
+              $scope.conectionDone = false;
+            } else {
+              $localStorage.eventBriteBeared = response.access_token;
+
+              $scope.loadingGetToken = false;
+              $scope.loadingGetEvents = true;
+              $scope.conectionDone = true;
+              $scope.getEventbriteEvents(response.access_token);
+            }
+          });
+        }
+      };
+      $scope.prefilEventForm = function(url) {
+        eventbriteRequest.getEventbriteEvent(url, $localStorage.eventBriteBeared)
+          .success(function(data) {
+            //Prefill the form
+            $scope.titleevent = data.name.text;
+            $scope.descriptionevent = data.description.html;
+            $scope.dtini = data.start.local;
+            $scope.dtfinal = data.end.local;
+            $scope.privacyevent = 0;
+            ngDialog.closeAll();
+          });
+      };
+      $scope.prefilEventFormMeetup = function(e) {
+        $scope.titleevent = e.name;
+        $scope.descriptionevent = e.description;
+        $scope.dtini = e.time;
+        $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
+        $scope.privacyevent = 0;
+        ngDialog.closeAll();
+      };
+      $scope.menuprincipal = 'views/organizers/menu.html';
+    }
+  }
   angular.module('sponzorme')
     .controller('OrganizersEventCreateController', OrganizersEventCreateController);
 
@@ -4152,20 +4381,113 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
+
+  function OrganizersRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
+    if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
+      $scope.loadingForm = true; //Loading
+      ngDialog.open({
+        template: 'views/templates/loadingDialog.html',
+        showClose: false
+      }); //Loading box
+      //First we validate this sponzorship does not have rating from this sponzor
+      //
+      //Then we get the sponzorship information
+      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(sData) {
+        ratingRequest.ratingBySponzorship($routeParams.sponzorshipId, 0).success(function(s2Data) {
+          $scope.loadingForm = false; //Loading
+          ngDialog.closeAll(); //Close Loading
+          if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {
+            $scope.message = 'ratingAlreadyRated';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+            $timeout(function() {
+              $location.path('/organizers/dashboard');
+            }, 300);
+          } else {
+            $scope.sponzorship = sData.data;
+            $scope.rating = {
+              'sponzorship_id': sData.data.SponzorEvent.id,
+              'type': 0,
+              'sponzor_id': sData.data.Sponzor.id,
+              'organizer_id': sData.data.Organizer.id
+            };
+          }
+        });
+      }).error(function(eData) {
+        $scope.loadingForm = false; //Loading
+        ngDialog.closeAll(); //Close Loading
+        $scope.message = 'requestedSponzorshipNoExist';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      });
+      $scope.saveRating = function() { //Finally we save the rating information
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        }); //Loading box
+        ratingRequest.createRating($scope.rating).success(function(sData) {
+          $scope.message = 'ratingOrganizerSuccess';
+          ngDialog.closeAll(); //Close Loading
+          ngDialog.open({
+            template: 'views/templates/successDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $scope.rating = {};
+          $timeout(function() {
+            $location.path('/organizers/dashboard');
+          }, 300);
+        }).error(function(eData) {
+          $scope.loadingForm = false; //Loading
+          ngDialog.closeAll(); //Close Loading
+          $scope.message = 'invalidRateInfo';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
+      $scope.tolsctive = 'active';
+      $scope.toggleSidebar = function() {
+        $scope.tolsctive = !$scope.tolsctive;
+        if ($scope.tolsctive === true) {
+          $scope.tolsctive = 'active';
+        }
+      };
+      $scope.menuprincipal = 'views/organizers/menu.html';
+    }
+  }
+
+  angular.module('sponzorme')
+    .controller('OrganizersRatingController', OrganizersRatingController);
+
+})();
+
+'use strict';
+(function() {
   function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, $rootScope) {
-    $scope.help = 0;
-    var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-    var query = notificationsRef.orderByChild('to').equalTo($localStorage.id).limitToLast(25);
-    $scope.notifications = $firebaseArray(query);
-    $scope.notifications.$loaded().then(function() {
-      $scope.help = $scope.notifications.length;
-    });
-    notificationsRef.orderByChild('to').equalTo($localStorage.id).on('child_added', function() {
-      $scope.help++;
-    });
-    notificationsRef.orderByChild('to').equalTo($localStorage.id).on('child_removed', function() {
-      $scope.help--;
-    });
+    if($localStorage.id){
+      $scope.help = 0;
+      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+      var query = notificationsRef.orderByChild('to').equalTo($localStorage.id).limitToLast(25);
+      $scope.notifications = $firebaseArray(query);
+      $scope.notifications.$loaded().then(function() {
+        $scope.help = $scope.notifications.length;
+      });
+      notificationsRef.orderByChild('to').equalTo($localStorage.id).on('child_added', function() {
+        $scope.help++;
+      });
+      notificationsRef.orderByChild('to').equalTo($localStorage.id).on('child_removed', function() {
+        $scope.help--;
+      });
+    }
   }
   angular.module('sponzorme')
     .controller('NotificationController', NotificationController);

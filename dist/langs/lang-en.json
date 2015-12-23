@@ -694,5 +694,41 @@
   "RetryMeetupConection":"Click here to retry",
   "GettingYourMeetupEvents":"Getting your Meetup events",
   "ConnectingToMeetup":"Connecting to Meetup...",
-  "group":"Event Group"
+  "group":"Event Group",
+  "requestedSponzorshipNoExist":"The requested sponzorship does not exist",
+  "Good":"Good",
+  "Bad":"Bad",
+  "ratingSponzor":{
+    "question0":"In general, What is your score for this Organizer?",
+    "question1":"Overall, how was your experience with us?*",
+    "question2":"How did you find out about our events?",
+    "question3":"How do you perceive the way organizers handled your brand? *",
+    "question4":"Did you got what was promised? *",
+    "question5":"How much would you invest in sponsoring in the future? *",
+    "question6":"Did you feel accomplished? *",
+    "question7":"Would you sponsor us in the future? *",
+    "question8":"Which is the audience you're looking for?",
+    "question9":"Events on targeted to which developers would you like to sponsor? *",
+    "question10":"Write whatever"
+  },
+  "ratingOrganizer":{
+    "question0":"Overall, how was your experience with your sponsor?",
+    "question1":"Who manages sponsoring in your Group?*",
+    "question2":"How do you perceive the Sponsor's commitment to you ? *",
+    "question3":"Did you got what was promised?*",
+    "question4":"Do you going to use us again in the future?*",
+    "question5":"Which is your audience? *",
+    "question6":"Write whatever"
+  },
+  "chooseOneOption":"--Choose an Option--",
+  "howwasyoursponzorship": "Please tell us how was your sponzorship in: ",
+  "ratingAlreadyRated": "You already rate this sponzorship.",
+  "ratingOrganizerSuccess": "Thank you for your feedback.",
+  "invalidRateInfo": "The provided info is invalid",
+  "ratingSponzorSuccess": "Thank you for your feedback.",
+  "yes": "Yes",
+  "no": "No",
+  "developers":"Developers",
+  "designers":"Designers",
+  "entrepeneurs":"Entrepeneurs"
 }

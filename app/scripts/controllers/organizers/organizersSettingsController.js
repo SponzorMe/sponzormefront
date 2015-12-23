@@ -1,7 +1,7 @@
 'use strict';
 (function() {
   function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
@@ -138,7 +138,11 @@
           showClose: false
         });
         if ($scope.password === $scope.passwordConfirmation) {
-          var formData = {'email': $localStorage.email, 'password': $scope.password, 'password_confirmation': $scope.passwordConfirmation};
+          var formData = {
+            'email': $localStorage.email,
+            'password': $scope.password,
+            'password_confirmation': $scope.passwordConfirmation
+          };
           loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
             ngDialog.closeAll();
             $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
@@ -175,7 +179,7 @@
         }
       };
       $scope.menuprincipal = 'views/organizers/menu.html';
-    }    
+    }
   }
   angular.module('sponzorme')
     .controller('OrganizersSettingsController', OrganizersSettingsController);
