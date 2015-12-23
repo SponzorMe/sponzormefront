@@ -12,6 +12,7 @@
       $scope.tolsctive = 'active';
       //This function allows get sponzorship info from organizerId
       $scope.getSponzorshipsByOrganizer = function() {
+        $scope.todayDate = new Date().getTime();
         sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
           $scope.loadingsponzorships = false;
           $scope.noSponzorshipsMessage = false;
@@ -22,6 +23,12 @@
           } else {
             $scope.sponzorships = data.SponzorsEvents;
             if ($scope.sponzorships[0].status !== '0') {
+              var timer = parseInt(parseInt($rootScope.getConstants().EVENTEXPIRATIONDAYS) * 24 * 60 * 60 * 1000);
+              var aux = $scope.sponzorships.map(function(s) {
+                s.ends = new Date(new Date(s.ends).getTime() + timer);
+                return s;
+              });
+              $scope.sponzorships = aux;
               $scope.getTaskSponzor($scope.sponzorships[0].id); //Fit the tasks with the first sponzorships
             } else {
               $scope.noSponzorshipsTaskMessage = true;

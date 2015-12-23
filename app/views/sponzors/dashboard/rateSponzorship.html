@@ -14,20 +14,21 @@
                   </div>
                   <br/>
                   <form class="form-horizontal" role="form" name="formRating">
+                    <div class="form-group">
+                      <label for="label" class="col-sm-7 control-label">
+                        {{ 'ratingSponzor.question0' | translate}}
+                      </label>
+                      <div class="col-sm-5">
+                        <input-stars max="5" ng-model="rating.question0"></input-stars>
+                      </div>
+                    </div>
                   <!--form field-->
                     <div class="form-group">
                       <label for="label" class="col-sm-7 control-label">
                         {{ 'ratingSponzor.question1' | translate}}
                       </label>
                       <div class="col-sm-5">
-                        <select ng-model="rating.question1" required>
-                          <option value="">{{'chooseOneOption'|translate}}</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
+                        <input-stars max="5" ng-model="rating.question1"></input-stars>
                       </div>
                     </div>
                     <div class="form-group">
@@ -43,14 +44,7 @@
                         {{ 'ratingSponzor.question3' | translate}}
                       </label>
                       <div class="col-sm-5">
-                        <select ng-model="rating.question3" required>
-                          <option value="">{{'chooseOneOption'|translate}}</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
+                        <input-stars max="5" ng-model="rating.question3"></input-stars>
                       </div>
                     </div>
                     <div class="form-group">

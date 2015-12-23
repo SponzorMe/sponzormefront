@@ -30,7 +30,8 @@
     "firebase": "~2.3.2",
     "textAngular": "~1.4.6",
     "moment": "~2.10.6",
-    "aws-sdk": "aws-sdk-js#~2.2.21"
+    "aws-sdk": "aws-sdk-js#~2.2.21",
+    "angular-input-stars-directive": "angular-input-stars#*"
   },
   "resolutions": {
     "angular": "1.4.8",

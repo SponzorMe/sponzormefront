@@ -51,7 +51,7 @@
                         <a href="" ng-click="seeCause(s)">
                           <i class="fa fa-question-circle"></i>
                         </a>
-                        <a href="#/sponzors/rating/{{s.id}}" ng-if="s.status >= 1">
+                        <a href="#/sponzors/rating/{{s.id}}" ng-if="s.status >= 1 && s.ends < todayDate">
                           <i class="fa fa-smile-o"></i>
                         </a>
                       </td>

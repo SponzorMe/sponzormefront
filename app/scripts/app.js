@@ -17,7 +17,8 @@ var expirationTime = 1;
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
-      'textAngular'
+      'textAngular',
+      'angular-input-stars'
     ])
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
@@ -222,7 +223,8 @@ var expirationTime = 1;
             'MEETUPAPIKEY': '9pfi8r66lr4da194pc1lvhclq7',
             'MEETUPREDIRECTURL': 'https://apilocal.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
         } else if (host.indexOf('staging') > -1) { //Staging
           return {
@@ -241,7 +243,8 @@ var expirationTime = 1;
             'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
             'MEETUPREDIRECTURL': 'https://apistaging.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
         } else if (host.indexOf('app') > -1) { //Production
           return {
@@ -260,7 +263,8 @@ var expirationTime = 1;
             'MEETUPAPIKEY': 'lc876qakj5itnsnebm3dijus12',
             'MEETUPREDIRECTURL': 'https://api.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
         }
       };
@@ -488,7 +492,8 @@ var expirationTime = 1;
           });
         }
       };
-    }).directive('logo', function() {
+    })
+    .directive('logo', function() {
       return {
         restrict: 'AE',
         scope: {

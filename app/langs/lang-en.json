@@ -696,7 +696,10 @@
   "ConnectingToMeetup":"Connecting to Meetup...",
   "group":"Event Group",
   "requestedSponzorshipNoExist":"The requested sponzorship does not exist",
+  "Good":"Good",
+  "Bad":"Bad",
   "ratingSponzor":{
+    "question0":"In general, What is your score for this Organizer?",
     "question1":"Overall, how was your experience with us?*",
     "question2":"How did you find out about our events?",
     "question3":"How do you perceive the way organizers handled your brand? *",
@@ -709,13 +712,13 @@
     "question10":"Write whatever"
   },
   "ratingOrganizer":{
+    "question0":"Overall, how was your experience with your sponsor?",
     "question1":"Who manages sponsoring in your Group?*",
-    "question2":"Overall, how was your experience with your sponsor?",
-    "question3":"How do you perceive the Sponsor's commitment to you ? *",
-    "question4":"Did you got what was promised?*",
-    "question5":"Do you going to use us again in the future?*",
-    "question6":"Which is your audience? *",
-    "question7":"Write whatever"
+    "question2":"How do you perceive the Sponsor's commitment to you ? *",
+    "question3":"Did you got what was promised?*",
+    "question4":"Do you going to use us again in the future?*",
+    "question5":"Which is your audience? *",
+    "question6":"Write whatever"
   },
   "chooseOneOption":"--Choose an Option--",
   "howwasyoursponzorship": "Please tell us how was your sponzorship in: ",

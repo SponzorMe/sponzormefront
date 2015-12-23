@@ -32,6 +32,7 @@
       };
       //This function allows get sponzorship info from organizerId
       $scope.getSponzorshipsBySponzor = function() {
+        $scope.todayDate = new Date().getTime();
         sponzorshipRequest.oneSponzorshipBySponzor($localStorage.id).success(function(data) {
           $scope.sponzorshipsLoading = false;
           $scope.noSponzorshipsMessage = false;
@@ -44,6 +45,8 @@
             var flag = false; //used to verify if there is tasks
             angular.forEach(data.SponzorsEvents, function(value) {
               if (value.status >= '1') {
+                var timer = parseInt(parseInt($rootScope.getConstants().EVENTEXPIRATIONDAYS) * 24 * 60 * 60 * 1000);
+                  value.ends = new Date(new Date(value.ends).getTime() + timer);
                 $scope.sponzorships.push(value);
                 flag = true;
               }
