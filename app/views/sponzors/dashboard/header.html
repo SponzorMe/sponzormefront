@@ -8,7 +8,49 @@
         <img ng-if="!$storage.image" data-ng-src="http://www.sponzor.me/images/photo.png" style="border-radius:50%;" />
       </a>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li class="dropdown-header">{{$storage.email}}</li>
+        <li class="dropdown-header">{{$storage.email}}<br/>
+          <span ng-if="!$storage.rating" class="stars2">
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+          </span>
+          <span ng-if="$storage.rating == 1" class="stars2">
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+          </span>
+          <span ng-if="$storage.rating == 2" class="stars2">
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+          </span>
+          <span ng-if="$storage.rating == 3" class="stars2">
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+          </span>
+          <span ng-if="$storage.rating == 4" class="stars2">
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_border</i>
+          </span>
+          <span ng-if="$storage.rating >= 5" class="stars2">
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+            <i class="material-icons orange600 md-12">star_rate</i>
+          </span></li>
         <li class="divider"></li>
         <li class="link">
           <a href="#/sponzors/settings">{{ 'settings' | translate }}</a>

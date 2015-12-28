@@ -33,6 +33,7 @@
             $localStorage.demo = adata.user.demo;
             $localStorage.image = adata.user.image;
             $localStorage.startDate = Date.now();
+            $localStorage.rating = adata.rating;
             $scope.$storage = $localStorage;
             idiomaselect = adata.user.lang;
             $scope.loagind = false;
