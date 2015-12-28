@@ -7,7 +7,34 @@
       $scope.upcomingLoading = true;
       $scope.bestLoading = true;
       $scope.tolsctive = 'active';
-
+      $scope.showOrganizerInfo =  function(event){
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        eventRequest.oneEvent(event.id).success(function(sData){
+          
+          userRequest.oneUser(sData.data.organizer[0].id)
+          .success(function(sData) {
+            
+            ngDialog.closeAll();
+            $scope.user = sData.data;
+            ngDialog.open({
+              template: 'views/templates/userInfo.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData){
+            ngDialog.closeAll();
+            $scope.message = 'canNotGetUserInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+        });
+      };
       $scope.getAllEvents = function() {
         eventRequest.allEvents().success(function(adata) {
           $scope.search = [];

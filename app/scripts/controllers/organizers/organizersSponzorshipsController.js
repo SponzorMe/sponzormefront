@@ -11,6 +11,31 @@
       $translate.use(idiomaselect);
       $scope.tolsctive = 'active';
       //This function allows get sponzorship info from organizerId
+      $scope.showSponzorInfo =  function(sponzorId){
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        userRequest.oneUser(sponzorId)
+        .success(function(sData) {
+          
+          ngDialog.closeAll();
+          $scope.user = sData.data;
+          ngDialog.open({
+            template: 'views/templates/userInfo.html',
+            showClose: false,
+            scope: $scope
+          });
+        }).error(function(eData){
+          ngDialog.closeAll();
+          $scope.message = 'canNotGetUserInfo';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
       $scope.getSponzorshipsByOrganizer = function() {
         $scope.todayDate = new Date().getTime();
         sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {

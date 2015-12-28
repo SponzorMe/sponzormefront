@@ -640,7 +640,7 @@
   "phone1": "Phone 1 (Chile):",
   "phone2": "Phone 2 (Colombia):",
   "address": "Address (Chile):",
-  "email": "E-email",
+  "email": "E-mail",
   "perkTasks":"Perks",
   "sponzorshipTypes": "Kinds of sponzor this event: ",
   "loading": "Loading, We are processing your request.",
@@ -730,5 +730,8 @@
   "no": "No",
   "developers":"Developers",
   "designers":"Designers",
-  "entrepeneurs":"Entrepeneurs"
+  "entrepeneurs":"Entrepeneurs",
+  "rating": "Rating",
+  "noRatesYet": "This user does not have rates yet.",
+  "#sponzorships": "Number of Sponzorships"
 }
