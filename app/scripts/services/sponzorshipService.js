@@ -8,6 +8,7 @@
 (function(){
 
 	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+		console.log($localStorage);
 		var token = $localStorage.token;
 		return {
 			allSponzorships: function(){

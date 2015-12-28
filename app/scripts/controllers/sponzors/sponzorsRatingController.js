@@ -50,7 +50,9 @@
           template: 'views/templates/loadingDialog.html',
           showClose: false
         }); //Loading box
+        console.log($scope.rating);
         ratingRequest.createRating($scope.rating).success(function(sData) {
+          console.log(sData);
           $scope.message = 'ratingSponzorSuccess';
           ngDialog.closeAll(); //Close Loading
           ngDialog.open({
