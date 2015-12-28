@@ -1,18 +1,16 @@
 'use strict';
 (function() {
-
   function OrganizersRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
       $scope.loadingForm = true; //Loading
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
-      }); //Loading box
-      //First we validate this sponzorship does not have rating from this sponzor
-      //
-      //Then we get the sponzorship information
-      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(sData) {
-        ratingRequest.ratingBySponzorship($routeParams.sponzorshipId, 0).success(function(s2Data) {
+      });
+      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId)
+      .success(function(sData) {
+        ratingRequest.ratingBySponzorship($routeParams.sponzorshipId, 0)
+        .success(function(s2Data) {
           $scope.loadingForm = false; //Loading
           ngDialog.closeAll(); //Close Loading
           if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {
