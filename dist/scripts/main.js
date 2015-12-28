@@ -1076,90 +1076,112 @@ var expirationTime = 1;
 })();
 
 /**
-* @Servicio de Sponzorships (Beneficios)
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de Sponzorships (Beneficios)
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
+(function() {
 
-	function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allSponzorships: function(){
-				return $http.get($rootScope.getConstants().URL + 'sponzorships');
+  function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
 
-			},
-			oneSponzorship: function(sponzorshipId){
-				return $http.get($rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId);
+    var token = $localStorage.token;
+    return {
+      allSponzorships: function() {
+        return $http.get($rootScope.getConstants().URL + 'sponzorships');
 
-			},
-			oneSponzorshipByOrganizer: function(organizerId){
-				return $http.get($rootScope.getConstants().URL + 'sponzorships_organizer/' + organizerId);
-			},
-			oneSponzorshipBySponzor: function(sponzorId){
-				return $http.get($rootScope.getConstants().URL + 'sponzorships_sponzor/' + sponzorId);
-			},
-			sendSponzorshipEmail: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'sponzorship_email',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			sendSponzorshipEmailOrganizer: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'sponzorship_email_organizer',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			createSponzorship: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'sponzorships',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			createSponzorshipToken: function(data, userToken){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'sponzorships',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteSponzorship: function(sponzorshipId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editSponzorshipPatch: function(sponzorshipId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editSponzorshipPut: function(sponzorshipId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('sponzorshipRequest', sponzorshipRequest);
+      },
+      oneSponzorship: function(sponzorshipId) {
+        return $http.get($rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId);
+
+      },
+      oneSponzorshipByOrganizer: function(organizerId) {
+        return $http.get($rootScope.getConstants().URL + 'sponzorships_organizer/' + organizerId);
+      },
+      oneSponzorshipBySponzor: function(sponzorId) {
+        return $http.get($rootScope.getConstants().URL + 'sponzorships_sponzor/' + sponzorId);
+      },
+      sendSponzorshipEmail: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'sponzorship_email',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      sendSponzorshipEmailOrganizer: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'sponzorship_email_organizer',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      createSponzorship: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'sponzorships',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      createSponzorshipToken: function(data, userToken) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'sponzorships',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + userToken
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      deleteSponzorship: function(sponzorshipId) {
+        return $http({
+          method: 'DELETE',
+          url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          }
+        });
+      },
+      editSponzorshipPatch: function(sponzorshipId, data) {
+        return $http({
+          method: 'PATCH',
+          url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      editSponzorshipPut: function(sponzorshipId, data) {
+        return $http({
+          method: 'PUT',
+          url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      }
+    };
+  }
+  angular.module('sponzorme')
+    .factory('sponzorshipRequest', sponzorshipRequest);
 })();
 
 /**
@@ -1826,6 +1848,7 @@ var expirationTime = 1;
             $localStorage.demo = adata.user.demo;
             $localStorage.image = adata.user.image;
             $localStorage.startDate = Date.now();
+            $localStorage.rating = adata.rating;
             $scope.$storage = $localStorage;
             idiomaselect = adata.user.lang;
             $scope.loagind = false;
@@ -2301,14 +2324,46 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-
   function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
-    if($rootScope.userValidation('1')){
+    if ($rootScope.userValidation('1')) {
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
       $scope.bestLoading = true;
       $scope.tolsctive = 'active';
-
+      $scope.showOrganizerInfo = function(event) {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        eventRequest.oneEvent(event.id).success(function(sData) {
+          userRequest.oneUser(sData.data.organizer[0].id)
+            .success(function(s2Data) {
+              ngDialog.closeAll();
+              $scope.user = s2Data.data;
+              ngDialog.open({
+                template: 'views/templates/userInfo.html',
+                showClose: false,
+                scope: $scope
+              });
+            }).error(function(eData) {
+              ngDialog.closeAll();
+              $scope.message = 'canNotGetUserInfo';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            });
+        }).error(function(eData) {
+          ngDialog.closeAll();
+          $scope.message = 'canNotGetUserInfo';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+        });
+      };
       $scope.getAllEvents = function() {
         eventRequest.allEvents().success(function(adata) {
           $scope.search = [];
@@ -2332,6 +2387,13 @@ angular.module('sponzorme')
           }
           $scope.upcomingLoading = false;
           $scope.searchLoading = false;
+        }).error(function() {
+          $scope.message = 'canNotGetEvents';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
         });
       };
       $scope.showPerks = function(eventId) {
@@ -2440,6 +2502,7 @@ angular.module('sponzorme')
           });
         });
       };
+
       $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
         if ($scope.tolsctive === true) {
@@ -3732,7 +3795,7 @@ angular.module('sponzorme')
 'use strict';
 (function() {
   function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray) {
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorships = true;
       $scope.loadingsponzorshipstasks = true;
@@ -3742,6 +3805,30 @@ angular.module('sponzorme')
       $translate.use(idiomaselect);
       $scope.tolsctive = 'active';
       //This function allows get sponzorship info from organizerId
+      $scope.showSponzorInfo = function(sponzorId) {
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false
+        });
+        userRequest.oneUser(sponzorId)
+          .success(function(sData) {
+            ngDialog.closeAll();
+            $scope.user = sData.data;
+            ngDialog.open({
+              template: 'views/templates/userInfo.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'canNotGetUserInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          });
+      };
       $scope.getSponzorshipsByOrganizer = function() {
         $scope.todayDate = new Date().getTime();
         sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
@@ -3803,7 +3890,7 @@ angular.module('sponzorme')
           notifications.$add(notification);
           sponzorshipRequest.sendSponzorshipEmail(info).success(function() {});
           $scope.getSponzorshipsByOrganizer();
-        }).error(function(){});
+        }).error(function() {});
       };
       //This function changes to 0 the sponzorship status
       $scope.unacceptSponzorship = function(sponzoshipId) {
@@ -4381,19 +4468,17 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-
   function OrganizersRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
       $scope.loadingForm = true; //Loading
       ngDialog.open({
         template: 'views/templates/loadingDialog.html',
         showClose: false
-      }); //Loading box
-      //First we validate this sponzorship does not have rating from this sponzor
-      //
-      //Then we get the sponzorship information
-      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(sData) {
-        ratingRequest.ratingBySponzorship($routeParams.sponzorshipId, 0).success(function(s2Data) {
+      });
+      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId)
+      .success(function(sData) {
+        ratingRequest.ratingBySponzorship($routeParams.sponzorshipId, 0)
+        .success(function(s2Data) {
           $scope.loadingForm = false; //Loading
           ngDialog.closeAll(); //Close Loading
           if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {

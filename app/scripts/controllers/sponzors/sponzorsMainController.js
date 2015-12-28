@@ -1,36 +1,36 @@
 'use strict';
 (function() {
   function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
-    if($rootScope.userValidation('1')){
+    if ($rootScope.userValidation('1')) {
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
       $scope.bestLoading = true;
       $scope.tolsctive = 'active';
-      $scope.showOrganizerInfo =  function(event){
+      $scope.showOrganizerInfo = function(event) {
         ngDialog.open({
           template: 'views/templates/loadingDialog.html',
           showClose: false
         });
-        eventRequest.oneEvent(event.id).success(function(sData){
+        eventRequest.oneEvent(event.id).success(function(sData) {
           userRequest.oneUser(sData.data.organizer[0].id)
-          .success(function(sData) {
-            ngDialog.closeAll();
-            $scope.user = sData.data;
-            ngDialog.open({
-              template: 'views/templates/userInfo.html',
-              showClose: false,
-              scope: $scope
+            .success(function(s2Data) {
+              ngDialog.closeAll();
+              $scope.user = s2Data.data;
+              ngDialog.open({
+                template: 'views/templates/userInfo.html',
+                showClose: false,
+                scope: $scope
+              });
+            }).error(function(eData) {
+              ngDialog.closeAll();
+              $scope.message = 'canNotGetUserInfo';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
             });
-          }).error(function(eData){
-            ngDialog.closeAll();
-            $scope.message = 'canNotGetUserInfo';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-          });
-        }).error(function(eData){
+        }).error(function(eData) {
           ngDialog.closeAll();
           $scope.message = 'canNotGetUserInfo';
           ngDialog.open({
@@ -63,7 +63,7 @@
           }
           $scope.upcomingLoading = false;
           $scope.searchLoading = false;
-        }).error(function(){
+        }).error(function() {
           $scope.message = 'canNotGetEvents';
           ngDialog.open({
             template: 'views/templates/errorDialog.html',

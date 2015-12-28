@@ -1,7 +1,7 @@
 'use strict';
 (function() {
   function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray) {
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorships = true;
       $scope.loadingsponzorshipstasks = true;
@@ -11,29 +11,29 @@
       $translate.use(idiomaselect);
       $scope.tolsctive = 'active';
       //This function allows get sponzorship info from organizerId
-      $scope.showSponzorInfo =  function(sponzorId){
+      $scope.showSponzorInfo = function(sponzorId) {
         ngDialog.open({
           template: 'views/templates/loadingDialog.html',
           showClose: false
         });
         userRequest.oneUser(sponzorId)
-        .success(function(sData) {
-          ngDialog.closeAll();
-          $scope.user = sData.data;
-          ngDialog.open({
-            template: 'views/templates/userInfo.html',
-            showClose: false,
-            scope: $scope
+          .success(function(sData) {
+            ngDialog.closeAll();
+            $scope.user = sData.data;
+            ngDialog.open({
+              template: 'views/templates/userInfo.html',
+              showClose: false,
+              scope: $scope
+            });
+          }).error(function(eData) {
+            ngDialog.closeAll();
+            $scope.message = 'canNotGetUserInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
           });
-        }).error(function(eData){
-          ngDialog.closeAll();
-          $scope.message = 'canNotGetUserInfo';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
-        });
       };
       $scope.getSponzorshipsByOrganizer = function() {
         $scope.todayDate = new Date().getTime();
@@ -96,7 +96,7 @@
           notifications.$add(notification);
           sponzorshipRequest.sendSponzorshipEmail(info).success(function() {});
           $scope.getSponzorshipsByOrganizer();
-        }).error(function(){});
+        }).error(function() {});
       };
       //This function changes to 0 the sponzorship status
       $scope.unacceptSponzorship = function(sponzoshipId) {
