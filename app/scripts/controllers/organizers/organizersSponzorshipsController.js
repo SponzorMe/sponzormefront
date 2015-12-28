@@ -18,7 +18,6 @@
         });
         userRequest.oneUser(sponzorId)
         .success(function(sData) {
-          
           ngDialog.closeAll();
           $scope.user = sData.data;
           ngDialog.open({

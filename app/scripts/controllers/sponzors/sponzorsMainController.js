@@ -1,6 +1,5 @@
 'use strict';
 (function() {
-
   function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
     if($rootScope.userValidation('1')){
       $scope.searchLoading = true;
@@ -13,10 +12,8 @@
           showClose: false
         });
         eventRequest.oneEvent(event.id).success(function(sData){
-          
           userRequest.oneUser(sData.data.organizer[0].id)
           .success(function(sData) {
-            
             ngDialog.closeAll();
             $scope.user = sData.data;
             ngDialog.open({
@@ -32,6 +29,14 @@
               showClose: false,
               scope: $scope
             });
+          });
+        }).error(function(eData){
+          ngDialog.closeAll();
+          $scope.message = 'canNotGetUserInfo';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
           });
         });
       };
@@ -58,6 +63,13 @@
           }
           $scope.upcomingLoading = false;
           $scope.searchLoading = false;
+        }).error(function(){
+          $scope.message = 'canNotGetEvents';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
         });
       };
       $scope.showPerks = function(eventId) {
@@ -166,6 +178,7 @@
           });
         });
       };
+
       $scope.toggleSidebar = function() {
         $scope.tolsctive = !$scope.tolsctive;
         if ($scope.tolsctive === true) {

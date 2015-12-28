@@ -733,5 +733,7 @@
   "entrepeneurs":"Entrepeneurs",
   "rating": "Rating",
   "noRatesYet": "This user does not have rates yet.",
-  "#sponzorships": "Number of Sponzorships"
+  "#sponzorships": "Number of Sponzorships",
+  "canNotGetUserInfo": "We sorry, the user info is currently unavailable",
+  "canNotGetEvents":"We sorry, the list of events is currently unavailable"
 }

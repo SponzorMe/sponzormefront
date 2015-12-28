@@ -1,4 +1,4 @@
-describe("Organizers Create Controller test", function(){
+describe("Organizers Main Controller test", function(){
   var createController, httpBackend, scope, $location, $localStorage, $routeParams;
   beforeEach(module('sponzorme'));
   beforeEach(inject(function($rootScope, $httpBackend, $controller, _$location_, _$localStorage_, _$routeParams_){
