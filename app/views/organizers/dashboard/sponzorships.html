@@ -70,6 +70,9 @@
                         <a href="" ng-click="deleteSponzorship(s.id)" ng-if="s.status == 0">
                           <i class="fa fa-trash-o"></i>
                         </a>
+                        <a href="#/sponzors/chat/sponzorship/{{s.id}}">
+                          <i class="fa fa-comment"></i>
+                        </a>
                         <a href="#/organizers/rating/{{s.id}}" ng-if="s.status >= 1 && s.ends < todayDate">
                           <i class="fa fa-smile-o"></i>
                         </a>
