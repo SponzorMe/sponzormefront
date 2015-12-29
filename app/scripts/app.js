@@ -157,6 +157,10 @@ var expirationTime = 1;
           templateUrl: 'views/organizers/dashboard/rateSponzorship.html',
           controller: 'OrganizersRatingController'
         })
+        .when('/sponzors/chat/sponzorship/:sponzorshipId', {
+          templateUrl: 'views/chat.html',
+          controller: 'ChatController'
+        })
         .otherwise({
           redirectTo: '/login'
         });
