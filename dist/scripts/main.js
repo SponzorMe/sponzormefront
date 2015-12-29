@@ -2540,13 +2540,15 @@ angular.module('sponzorme')
         userInterestRequest.deleteUserInterest(id).success(function() {});
       };
       $scope.addUserInterests = function(interest) {
-        if (interest.name) {
+        if (interest && interest.name) {
           var flag = false;
-          for (var i = 0; i < $scope.userInterests.length; i++) {
-            if ($scope.userInterests[i].id_interest === interest.id_interest) {
-              flag = true;
-              $scope.selected = '';
-              break;
+          if($scope.UserInterest){
+            for (var i = 0; i < $scope.userInterests.length; i++) {
+              if ($scope.userInterests[i].id_interest === interest.id_interest) {
+                flag = true;
+                $scope.selected = '';
+                break;
+              }
             }
           }
           if (!flag) {
@@ -3628,11 +3630,13 @@ angular.module('sponzorme')
       $scope.addUserInterests = function(interest) {
         if (interest.name) {
           var flag = false;
-          for (var i = 0; i < $scope.userInterests.length; i++) {
-            if ($scope.userInterests[i].id_interest === interest.id_interest) {
-              flag = true;
-              $scope.selected = '';
-              break;
+          if($scope.UserInterest){
+            for (var i = 0; i < $scope.userInterests.length; i++) {
+              if ($scope.userInterests[i].id_interest === interest.id_interest) {
+                flag = true;
+                $scope.selected = '';
+                break;
+              }
             }
           }
           if (!flag) {
