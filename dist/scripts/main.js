@@ -97,6 +97,9 @@ var event_es = {
     'reserved_quantity': '0'
   }]
 };
+var dataTime = new Date();
+var timer = parseInt(2 * 24 * 60 * 60 * 1000);
+var dataExpDate = new Date(dataTime.getTime() + timer);
 
 'use strict';
 var idiomaselect = 'en'; //Default Language
@@ -3628,7 +3631,7 @@ angular.module('sponzorme')
         userInterestRequest.deleteUserInterest(id).success(function() {});
       };
       $scope.addUserInterests = function(interest) {
-        if (interest.name) {
+        if (interest && interest.name) {
           var flag = false;
           if($scope.UserInterest){
             for (var i = 0; i < $scope.userInterests.length; i++) {

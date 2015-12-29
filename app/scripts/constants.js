@@ -97,3 +97,6 @@ var event_es = {
     'reserved_quantity': '0'
   }]
 };
+var dataTime = new Date();
+var timer = parseInt(2 * 24 * 60 * 60 * 1000);
+var dataExpDate = new Date(dataTime.getTime() + timer);
