@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope) {
+  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
     $scope.eventLoaded = false;
     $scope.event = {};
     eventRequest.oneEvent($routeParams.eventId).success(function(data) {
@@ -66,6 +66,18 @@
                 cont++;
               });
             if (cont === sPerkData.data.Tasks.length - 1) {
+
+              //here start firebase notification
+              var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+              var notifications = $firebaseArray(notificationsRef);
+              var notification = {
+                to: $scope.currentOrganizer.id,
+                text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
+                link: '#/organizers/sponzorships'
+              };
+              notifications.$add(notification);
+              //here finish firebase notification
+
               $scope.message = 'sponzorshipCreatedSuccesfuly';
               ngDialog.closeAll();
               ngDialog.open({
@@ -76,6 +88,16 @@
             }
           });
           if (sPerkData.data.Tasks.length === 0) {
+            //here start firebase notification
+            var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+            var notifications = $firebaseArray(notificationsRef);
+            var notification = {
+              to: $scope.currentOrganizer.id,
+              text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
+              link: '#/organizers/sponzorships'
+            };
+            notifications.$add(notification);
+            //here finish firebase notification
             $scope.message = 'sponzorshipCreatedSuccesfuly';
             ngDialog.closeAll();
             ngDialog.open({
