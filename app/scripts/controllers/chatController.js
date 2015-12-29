@@ -6,7 +6,7 @@
       sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
         if(data.data.Organizer.id === $localStorage.id){
           $scope.newMessage = {
-            'author': data.data.Sponzor.email,
+            'author': data.data.organizer.name,
             'color': '#5DDECF',
             'sponzorshipId': $routeParams.sponzorshipId
           };
