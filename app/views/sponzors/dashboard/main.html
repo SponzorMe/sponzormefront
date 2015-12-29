@@ -32,8 +32,9 @@
                         <rd-loading></rd-loading>
                       </td>
                     </tr>
+
                     <tr data-ng-class="{success : event.current === e.id}" data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading">
-                      <td class="text-center">{{ e.title }}</td>
+                      <td class="text-center">{{ e.title }} <a href="" ng-click="showOrganizerInfo(e)"><i class="fa fa-info-circle"></i></a></td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
                       <td class="text-center">{{ e.starts| date}}</td>
                       <td class="text-center" ng-if="e.privacy==0">{{ 'public'| translate }}</td>

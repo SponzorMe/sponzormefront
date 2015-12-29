@@ -6,10 +6,11 @@
       idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
+    var redirectTo = $localStorage.redirectTo;
     $localStorage.$reset();
 
     $scope.sendfrom = function() {
-      if ($scope.email && $scope.password) {//Just Check the values are defined
+      if ($scope.email && $scope.password) { //Just Check the values are defined
         $scope.objuser = {};
         $scope.objuser.email = $scope.email;
         $scope.objuser.password = $scope.password;
@@ -32,14 +33,25 @@
             $localStorage.demo = adata.user.demo;
             $localStorage.image = adata.user.image;
             $localStorage.startDate = Date.now();
+            $localStorage.rating = adata.rating;
             $scope.$storage = $localStorage;
             idiomaselect = adata.user.lang;
-
             $scope.loagind = false;
+
             if (adata.user.type === '1') {
-              $location.path('/sponzors/dashboard');
+              if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) {
+                window.location.href = redirectTo;
+              } else {
+                $location.path('/sponzors/dashboard');
+              }
             } else {
-              $location.path('/organizers/dashboard');
+              if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
+
+                window.location.href = redirectTo;
+              } else {
+
+                $location.path('/organizers/dashboard');
+              }
             }
             ngDialog.closeAll();
           } else {

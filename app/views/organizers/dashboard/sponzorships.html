@@ -39,7 +39,7 @@
                       </td>
                     </tr>
                     <tr data-ng-class="{success : sponzorships.current === s.id}" data-ng-repeat="s in sponzorships" ng-show="!loadingsponzorships && !noSponzorshipsMessage">
-                      <td class="text-center">{{s.name}}</td>
+                      <td class="text-center">{{s.name}} <a href="" ng-click="showSponzorInfo(s.sponzor_id)"><i class="fa fa-info-circle"></i></a></td>
                       <td class="text-center">{{s.email}}</td>
                       <td class="text-center">{{s.title}}</td>
                       <td class="text-center">{{s.kind}}</td>
@@ -69,6 +69,9 @@
                         </a>
                         <a href="" ng-click="deleteSponzorship(s.id)" ng-if="s.status == 0">
                           <i class="fa fa-trash-o"></i>
+                        </a>
+                        <a href="#/organizers/rating/{{s.id}}" ng-if="s.status >= 1 && s.ends < todayDate">
+                          <i class="fa fa-smile-o"></i>
                         </a>
                       </td>
                     </tr>

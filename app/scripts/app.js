@@ -17,7 +17,8 @@ var expirationTime = 1;
       'angularUtils.directives.dirPagination',
       'ui.bootstrap.datetimepicker',
       'firebase',
-      'textAngular'
+      'textAngular',
+      'angular-input-stars'
     ])
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
@@ -148,14 +149,21 @@ var expirationTime = 1;
           templateUrl: 'views/organizers/dashboard/add_event.html',
           controller: 'OrganizersEventCreateController'
         })
+        .when('/sponzors/rating/:sponzorshipId', {
+          templateUrl: 'views/sponzors/dashboard/rateSponzorship.html',
+          controller: 'SponzorsRatingController'
+        })
+        .when('/organizers/rating/:sponzorshipId', {
+          templateUrl: 'views/organizers/dashboard/rateSponzorship.html',
+          controller: 'OrganizersRatingController'
+        })
         .otherwise({
           redirectTo: '/login'
         });
     }])
     /*
      * Author: Sebastian Gomez
-     * This function allows change the language whatever be the route
-     * for this reason this is a global function
+     * This function redirect to https urls
      */
     .run(['$rootScope', function($rootScope) {
       var host = window.location.href;
@@ -165,11 +173,19 @@ var expirationTime = 1;
       }
     }])
     .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
-
+      /*
+       * Author: Sebastian Gomez
+       * This function allows change the language whatever be the route
+       * for this reason this is a global function
+       */
       $rootScope.changeLanguage = function(key) {
         $translate.use(key);
         idiomaselect = key;
       };
+      /*
+       * Author: Sebastian Gomez
+       * This function return the current languaje used in the application
+       */
       $rootScope.currentLanguage = function(key) {
         return $translate.use();
       };
@@ -184,9 +200,13 @@ var expirationTime = 1;
           document.write(a);
         });
       };
+      /*
+       * Author: Sebastian Gomez
+       * This functions detect the enviroment and set the configuration
+       */
       $rootScope.getConstants = function() {
-        var host = window.location.hostname;
-        if (host.indexOf('localhost') > -1) {
+        var host = window.location.hostname; // Get the host
+        if (host.indexOf('localhost') > -1) { //Localhost
           return {
             'URL': 'https://apilocal.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -203,9 +223,10 @@ var expirationTime = 1;
             'MEETUPAPIKEY': '9pfi8r66lr4da194pc1lvhclq7',
             'MEETUPREDIRECTURL': 'https://apilocal.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
-        } else if (host.indexOf('staging') > -1) {
+        } else if (host.indexOf('staging') > -1) { //Staging
           return {
             'URL': 'https://apistaging.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -222,9 +243,10 @@ var expirationTime = 1;
             'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
             'MEETUPREDIRECTURL': 'https://apistaging.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
-        } else if (host.indexOf('app') > -1) {
+        } else if (host.indexOf('app') > -1) { //Production
           return {
             'URL': 'https://api.sponzor.me/',
             'XOOMRATE': parseFloat(4.99),
@@ -241,7 +263,8 @@ var expirationTime = 1;
             'MEETUPAPIKEY': 'lc876qakj5itnsnebm3dijus12',
             'MEETUPREDIRECTURL': 'https://api.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
-            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/'
+            'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
+            'EVENTEXPIRATIONDAYS': '2'
           };
         }
       };
@@ -273,6 +296,8 @@ var expirationTime = 1;
       };
 
       $rootScope.userValidation = function(shouldType) {
+
+        var host = window.location.href;
         $rootScope.isExpiredData();
         if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType) {
           if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {
@@ -291,11 +316,13 @@ var expirationTime = 1;
                 $localStorage.demo = 1;
               }, 3000);
             });
-
           }
           $rootScope.$storage = $localStorage;
+          return true;
         } else {
+          $localStorage.redirectTo = host;
           $location.path('/login');
+          return false;
         }
       };
       $rootScope.updateUserDemo = function(userId) {
@@ -465,7 +492,8 @@ var expirationTime = 1;
           });
         }
       };
-    }).directive('logo', function() {
+    })
+    .directive('logo', function() {
       return {
         restrict: 'AE',
         scope: {

@@ -7,6 +7,14 @@ describe("Organizers Create Controller test", function(){
     $localStorage = _$localStorage_;
     $routeParams = _$routeParams_;
     scope =  $rootScope.$new();
+    //LOGIN VARS
+    $localStorage.cookiesponzorme = cookiesponzorme;
+    $localStorage.email = email;
+    $localStorage.id  = id;
+    $localStorage.token = token;
+    $localStorage.typesponzorme = typeSponzor;
+    $localStorage.startDate = startDate;
+    $localStorage.demo = 1;
     createController = function(){
       return $controller('SponzorsFriendController',{
         '$scope':scope

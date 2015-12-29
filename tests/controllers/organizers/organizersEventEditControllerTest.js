@@ -7,6 +7,14 @@ describe("Organizers Event Edit Controller test", function(){
     $localStorage = _$localStorage_;
     $routeParams = _$routeParams_;
     scope =  $rootScope.$new();
+    //LOGIN VARS
+    $localStorage.cookiesponzorme = cookiesponzorme;
+    $localStorage.email = email;
+    $localStorage.id  = id;
+    $localStorage.token = token;
+    $localStorage.typesponzorme = typeOrganizer;
+    $localStorage.startDate = startDate;
+    $localStorage.demo = 1;
     createController = function(){
       return $controller('OrganizersEventEditController',{
         '$scope':scope
