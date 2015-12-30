@@ -8,7 +8,7 @@
         <div class="col-xs-10 col-xs-offset-1">
           <div class="widget">
             <div class="widget-header">
-              <div class="chat-box">
+              <div class="chat-box" scroll-glue>
                 <div ng-repeat="m in chatMessages| orderBy: - time" class="message" style="background: {{m.color}}">
                   <img ng-src="{{m.userImage}}" width="50px" />
                   <span class="date">{{m.timedate|date:"MM/dd/yyyy 'at' h:mma"}} </span>

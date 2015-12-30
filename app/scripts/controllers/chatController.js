@@ -1,24 +1,27 @@
 'use strict';
 (function() {
-  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $anchorScroll, $routeParams, sponzorshipRequest) {
+  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest) {
     if($localStorage.id){
       $scope.$storage = $localStorage;
-      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
-        if(data.data.Organizer.id === $localStorage.id){
-          $scope.newMessage = {
-            'author': data.data.organizer.name,
-            'color': '#5DDECF',
-            'sponzorshipId': $routeParams.sponzorshipId
-          };
-        }
-        else if(data.data.Sponzor.id === $localStorage.id){
-          $scope.newMessage = {
-            'author': data.data.Sponzor.name,
-            'color': '#F6CECE',
-            'sponzorshipId': $routeParams.sponzorshipId
-          };
-        }
-      });
+        sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
+          if(data.data.Organizer.id === $localStorage.id){
+            $scope.newMessage = {
+              'author': data.data.Organizer.name,
+              'color': '#5DDECF',
+              'sponzorshipId': $routeParams.sponzorshipId
+            };
+          }
+          else if(data.data.Sponzor.id === $localStorage.id){
+            $scope.newMessage = {
+              'author': data.data.Sponzor.name,
+              'color': '#F6CECE',
+              'sponzorshipId': $routeParams.sponzorshipId
+            };
+          }
+          else{
+            $location.path('/');
+          }
+        });
       var ref = new Firebase('https://sponzorme.firebaseio.com/chat');
       var query = ref.orderByChild('sponzorshipId').equalTo($routeParams.sponzorshipId);
       $scope.chatMessages = $firebaseArray(query);
@@ -30,17 +33,19 @@
           $scope.newMessage.text = '';
         }
       };
-      ref.on('child_added', function(snap) {
-        $location.hash('anchor' + snap.val().timedate);
-      });
     }
     else{
       $location.path('/');
     }
-    if($localStorage.typesponzorme === '1')
+    if($localStorage.typesponzorme === '1'){
       $scope.menuprincipal = 'views/sponzors/menu.html';
-    else if($localStorage.typesponzorme === '0')
+    }
+    else if($localStorage.typesponzorme === '0'){
       $scope.menuprincipal = 'views/organizers/menu.html';
+    }
+    else{
+      $location.path('/');
+    }
     $scope.tolsctive = 'active';
     $scope.toggleSidebar = function() {
       $scope.tolsctive = !$scope.tolsctive;

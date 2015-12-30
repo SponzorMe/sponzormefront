@@ -30,6 +30,18 @@
         scope: $scope
       });
     };
+    $scope.sendFirebaseNotification = function(){
+      //here start firebase notification
+      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+      var notifications = $firebaseArray(notificationsRef);
+      var notification = {
+        to: $scope.currentOrganizer.id,
+        text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
+        link: '#/organizers/sponzorships'
+      };
+      notifications.$add(notification);
+      //here finish firebase notification
+    };
     $scope.createSponzorship = function() {
       /**
         this function have two steps, first, create the sponzorhip
@@ -66,18 +78,7 @@
                 cont++;
               });
             if (cont === sPerkData.data.Tasks.length - 1) {
-
-              //here start firebase notification
-              var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-              var notifications = $firebaseArray(notificationsRef);
-              var notification = {
-                to: $scope.currentOrganizer.id,
-                text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
-                link: '#/organizers/sponzorships'
-              };
-              notifications.$add(notification);
-              //here finish firebase notification
-
+              $scope.sendFirebaseNotification();
               $scope.message = 'sponzorshipCreatedSuccesfuly';
               ngDialog.closeAll();
               ngDialog.open({
@@ -88,16 +89,7 @@
             }
           });
           if (sPerkData.data.Tasks.length === 0) {
-            //here start firebase notification
-            var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-            var notifications = $firebaseArray(notificationsRef);
-            var notification = {
-              to: $scope.currentOrganizer.id,
-              text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
-              link: '#/organizers/sponzorships'
-            };
-            notifications.$add(notification);
-            //here finish firebase notification
+            $scope.sendFirebaseNotification();
             $scope.message = 'sponzorshipCreatedSuccesfuly';
             ngDialog.closeAll();
             ngDialog.open({

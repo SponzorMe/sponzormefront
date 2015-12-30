@@ -121,7 +121,8 @@ var expirationTime = 1;
       'ui.bootstrap.datetimepicker',
       'firebase',
       'textAngular',
-      'angular-input-stars'
+      'angular-input-stars',
+      'luegg.directives'
     ])
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
@@ -1652,6 +1653,18 @@ var expirationTime = 1;
         scope: $scope
       });
     };
+    $scope.sendFirebaseNotification = function(){
+      //here start firebase notification
+      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+      var notifications = $firebaseArray(notificationsRef);
+      var notification = {
+        to: $scope.currentOrganizer.id,
+        text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
+        link: '#/organizers/sponzorships'
+      };
+      notifications.$add(notification);
+      //here finish firebase notification
+    };
     $scope.createSponzorship = function() {
       /**
         this function have two steps, first, create the sponzorhip
@@ -1688,18 +1701,7 @@ var expirationTime = 1;
                 cont++;
               });
             if (cont === sPerkData.data.Tasks.length - 1) {
-
-              //here start firebase notification
-              var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-              var notifications = $firebaseArray(notificationsRef);
-              var notification = {
-                to: $scope.currentOrganizer.id,
-                text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
-                link: '#/organizers/sponzorships'
-              };
-              notifications.$add(notification);
-              //here finish firebase notification
-
+              $scope.sendFirebaseNotification();
               $scope.message = 'sponzorshipCreatedSuccesfuly';
               ngDialog.closeAll();
               ngDialog.open({
@@ -1710,16 +1712,7 @@ var expirationTime = 1;
             }
           });
           if (sPerkData.data.Tasks.length === 0) {
-            //here start firebase notification
-            var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-            var notifications = $firebaseArray(notificationsRef);
-            var notification = {
-              to: $scope.currentOrganizer.id,
-              text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
-              link: '#/organizers/sponzorships'
-            };
-            notifications.$add(notification);
-            //here finish firebase notification
+            $scope.sendFirebaseNotification();
             $scope.message = 'sponzorshipCreatedSuccesfuly';
             ngDialog.closeAll();
             ngDialog.open({
@@ -4613,25 +4606,28 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $anchorScroll, $routeParams, sponzorshipRequest) {
+  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest) {
     if($localStorage.id){
       $scope.$storage = $localStorage;
-      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
-        if(data.data.Organizer.id === $localStorage.id){
-          $scope.newMessage = {
-            'author': data.data.Sponzor.email,
-            'color': '#5DDECF',
-            'sponzorshipId': $routeParams.sponzorshipId
-          };
-        }
-        else if(data.data.Sponzor.id === $localStorage.id){
-          $scope.newMessage = {
-            'author': data.data.Sponzor.name,
-            'color': '#F6CECE',
-            'sponzorshipId': $routeParams.sponzorshipId
-          };
-        }
-      });
+        sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
+          if(data.data.Organizer.id === $localStorage.id){
+            $scope.newMessage = {
+              'author': data.data.Organizer.name,
+              'color': '#5DDECF',
+              'sponzorshipId': $routeParams.sponzorshipId
+            };
+          }
+          else if(data.data.Sponzor.id === $localStorage.id){
+            $scope.newMessage = {
+              'author': data.data.Sponzor.name,
+              'color': '#F6CECE',
+              'sponzorshipId': $routeParams.sponzorshipId
+            };
+          }
+          else{
+            $location.path('/');
+          }
+        });
       var ref = new Firebase('https://sponzorme.firebaseio.com/chat');
       var query = ref.orderByChild('sponzorshipId').equalTo($routeParams.sponzorshipId);
       $scope.chatMessages = $firebaseArray(query);
@@ -4643,17 +4639,19 @@ angular.module('sponzorme')
           $scope.newMessage.text = '';
         }
       };
-      ref.on('child_added', function(snap) {
-        $location.hash('anchor' + snap.val().timedate);
-      });
     }
     else{
       $location.path('/');
     }
-    if($localStorage.typesponzorme === '1')
+    if($localStorage.typesponzorme === '1'){
       $scope.menuprincipal = 'views/sponzors/menu.html';
-    else if($localStorage.typesponzorme === '0')
+    }
+    else if($localStorage.typesponzorme === '0'){
       $scope.menuprincipal = 'views/organizers/menu.html';
+    }
+    else{
+      $location.path('/');
+    }
     $scope.tolsctive = 'active';
     $scope.toggleSidebar = function() {
       $scope.tolsctive = !$scope.tolsctive;

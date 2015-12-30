@@ -156,7 +156,7 @@
                 <div ng-show="noRssMessage">
                   <h1>{{ 'noRssMessage' | translate }}</h1>
                 </div>
-                <div class="message" dir-paginate="r in rss | itemsPerPage: 3" ng-show="!loadingrss">
+                <div class="messageRss" dir-paginate="r in rss | itemsPerPage: 3" ng-show="!loadingrss">
                   <h2 class="suggh1">{{ r.title }}</h2>
                   <p>{{r.contentSnippet}}<p>
                   <a href="{{ r.link }}" target="_blank">{{ 'seemore' | translate }}</a>

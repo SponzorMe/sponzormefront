@@ -44,6 +44,8 @@
     "phantomjs": "^1.9.19"
   },
   "dependencies": {
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.1",
     "install": "^0.1.8",
     "npm": "^3.3.9"
   },

@@ -31,7 +31,8 @@
     "textAngular": "~1.4.6",
     "moment": "~2.10.6",
     "aws-sdk": "aws-sdk-js#~2.2.21",
-    "angular-input-stars-directive": "angular-input-stars#*"
+    "angular-input-stars-directive": "angular-input-stars#*",
+    "angular-scroll-glue": "~2.0.6"
   },
   "resolutions": {
     "angular": "1.4.8",

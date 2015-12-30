@@ -1,0 +1,191 @@
+/* Pop ups styles */
+.dialog-container{
+  margin: 0 auto;
+  pading: 0 0 0 0;
+  width: 420px;
+  height: 200px;
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+}
+.dialog-container .dialog-top{
+  width: 100%;
+  height: 60px;
+  padding: 6px 6px 6px 6px;
+  text-align: left;
+}
+.dialog-container .dialog-top img{
+  padding-left: 6px;
+}
+.dialog-container .content{
+  padding: 6px 6px 6px 6px;
+}
+.dialog-container .content h1{
+  padding: 6px 6px 0px 6px;
+  margin: 0 0 0 0;
+  font-size: 20px;
+  color: black;
+}
+.dialog-container .content p{
+  padding: 6px 6px 6px 6px;
+  margin: 0 0 0 0;
+  text-align: justify;
+  font-size: 16px;
+  color: #777;
+}
+.dialog-container .botonera{
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+/**Success style**/
+.dialog-container .top-success{
+  background-color: #cddc39;
+}
+.success .botonera{
+  padding:0 6px 0 0;
+  text-align: right;
+}
+.success .botonera a:link, a:visited{
+ text-decoration:none;
+}
+.success .botonera a{
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #cddc39;
+  border: 0;
+}
+.success .botonera a:hover{
+  text-decoration: none;
+  color: black;
+}
+/**error style**/
+.dialog-container .top-error{
+  background-color: #e91e63;
+}
+.error .botonera{
+  padding:0 6px 0 0;
+  text-align: right;
+}
+.error .botonera a:link, a:visited{
+ text-decoration:none;
+}
+.error .botonera a{
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #e91e63;
+  border: 0;
+}
+.error .botonera a:hover{
+  text-decoration: none;
+  color: black;
+}
+/**loading style**/
+.dialog-container .top-loading{
+  background-color: #2196f3;
+}
+.loading .botonera{
+  padding:0 6px 0 0;
+  text-align: right;
+}
+.loading .botonera a:link, a:visited{
+ text-decoration:none;
+}
+.loading .botonera a{
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #2196f3;
+  border: 0;
+}
+.loading .botonera a:hover{
+  text-decoration: none;
+  color: black;
+}
+/**info style**/
+.dialog-container .top-info{
+  background-color: #009688;
+}
+.info .botonera{
+  padding:0 6px 0 0;
+  text-align: right;
+}
+.info .botonera a:link, a:visited{
+ text-decoration:none;
+}
+.info .botonera a{
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #009688;
+  border: 0;
+}
+.info .botonera a:hover{
+  text-decoration: none;
+  color: black;
+}
+.material-icons.md-16 { font-size: 16px; }
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+
+/* Pop ups styles */
+.user-dialog-container{
+  margin: 0 auto;
+  pading: 0 0 0 0;
+  width: 420px;
+  height: 350px;
+  background-color: white;
+  font-family: 'Roboto', sans-serif;
+}
+.user-dialog-container .dialog-top{
+  width: 100%;
+  height: 60px !important;
+  padding: 6px 6px 6px 6px;
+  text-align: left;
+}
+.user-dialog-container .dialog-top img{
+  padding-left: 6px;
+}
+.user-dialog-container .content{
+  background-color: #FFF;
+  padding: 6px 6px 6px 6px;
+}
+.user-dialog-container .content h1{
+  padding: 6px 6px 0px 6px;
+  margin: 0 0 0 0;
+  font-size: 20px;
+  color: black;
+}
+.user-dialog-container .content p{
+  padding: 6px 6px 6px 6px;
+  margin: 0 0 0 0;
+  text-align: justify;
+  font-size: 16px;
+  color: #777;
+}
+.user-dialog-container .botonera{
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+.user-dialog-container .top-info{
+  background-color: #009688;
+}
+.user-dialog-container .info .botonera{
+  padding:0 6px 0 0;
+  text-align: right;
+}
+.user-dialog-container .info .botonera a:link, a:visited{
+ text-decoration:none;
+}
+.user-dialog-container .info .botonera a{
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #009688;
+  background-color: #FFF;
+  border: 0;
+}
+.user-dialog-container .info .botonera a:hover{
+  text-decoration: none;
+  color: black;
+}

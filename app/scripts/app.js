@@ -18,7 +18,8 @@ var expirationTime = 1;
       'ui.bootstrap.datetimepicker',
       'firebase',
       'textAngular',
-      'angular-input-stars'
+      'angular-input-stars',
+      'luegg.directives'
     ])
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({

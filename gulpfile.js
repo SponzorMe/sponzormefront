@@ -11,7 +11,26 @@ var gulp = require('gulp'),
 	serve = require('gulp-serve'),
 	ngAnnotate = require('gulp-ng-annotate'),
 	eslint = require('gulp-eslint'),
+	sass = require('gulp-sass'),
+	rename = require('gulp-rename'),
 	browserSync = require('browser-sync').create();
+
+	var paths = {
+	  sass: ['./scss/**/*.scss']
+	};
+
+	gulp.task('sass', function(done) {
+	  gulp.src('./scss/**/*.scss')
+	    .pipe(sass())
+	    .on('error', sass.logError)
+	    .pipe(gulp.dest('./app/styles/'))
+	    .pipe(minifyCSS({
+	      keepSpecialComments: 0
+	    }))
+	    .pipe(rename({ extname: '.min.css' }))
+	    .pipe(gulp.dest('./app/styles/'))
+	    .on('end', done);
+	});
 
 gulp.task('main', function()
 {
@@ -48,7 +67,7 @@ gulp.task('extras', function () {
 });
 
 gulp.task('extras1', function(){
-	return gulp.src(['app/styles/event-page.css'])
+	return gulp.src(['app/styles/event-page.min.css'])
 			.pipe(minifyCSS())
 			.pipe(gulp.dest('dist/styles/'));
 
@@ -75,7 +94,7 @@ gulp.task('clean', function() {
            .pipe(clean({ force: true }));
 });
 
-gulp.task('build', ['main','views','images','langs','fonts','extras','extras1','extras2']);
+gulp.task('build', ['sass', 'main','views','images','langs','fonts','extras','extras1','extras2']);
 
 gulp.task('build:staging', ['move'], function() {});
 
@@ -109,16 +128,15 @@ gulp.task('serve', function (){
     'app/scripts/*.js',
     'app/scripts/**/*.js',
     'app/scripts/**/**/*.js',
-    'bower_components/*',
+		'app/styles/*.css',
+    'bower_components/*'
   ]).on('change', browserSync.reload);
-
-  gulp.watch('app/styles/**/*.scss', ['styles']);
+	gulp.watch(paths.sass, ['sass']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json');
 });
 
-gulp.task('serve:dist',['default'], function (){
-	setTimeout(function() {
+gulp.task('serve:dist', function (){
 		browserSync.init({
 	    notify: false,
 	    port: 3000,
@@ -126,13 +144,8 @@ gulp.task('serve:dist',['default'], function (){
 	      baseDir: ['dist']
 	    }
 	  });
-  }, 20000);
 });
-
-
-
 gulp.task('lint', function () {
-		notify("hols");
     return gulp.src(['app/scripts/**/*.js','app/scripts/**/**/*.js','app/scripts/*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
