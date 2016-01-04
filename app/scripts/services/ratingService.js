@@ -19,6 +19,12 @@
       ratingBySponzorship: function(sponzorshipId, type) {
         return $http.get($rootScope.getConstants().URL + 'ratings/sponzorship/' + sponzorshipId + '/' + type);
       },
+      ratingsBySponzor: function(sponzorId) {
+        return $http.get($rootScope.getConstants().URL + 'ratings/sponzor/' + sponzorId);
+      },
+      ratingsByOrganizer: function(organizerId) {
+        return $http.get($rootScope.getConstants().URL + 'ratings/organizer/' + organizerId);
+      },
       createRating: function(data) {
         return $http({
           method: 'POST',

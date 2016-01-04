@@ -1,0 +1,92 @@
+$brand: #00838D;
+$secondary: #DB0032;
+$light: #fff !default;
+$stable: #f6f6f6 !default;
+$positive: $brand !default;
+$energized: #ffc900 !default;
+$dark: #444 !default;
+
+.profile{
+  background: $light;
+  padding: 1em 1em 1em 1em;
+  font-size: 16px;
+  text-align: left;
+}
+.profile h1{
+  color: $brand;
+  font-style: 1.5em;
+  margin-left: 0px;
+  padding-left: 0px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  margin-top: 0px;
+}
+.profile p{
+  color: $dark;
+  font-style: 1em;
+}
+.profile .image img{
+  width: 150px;
+  height: 150px;
+}
+.profile .image{
+  width: 150px;
+  height: 150px;
+  margin-right: 1em;
+}
+.profile .float-left{
+  float: left;
+}
+.profile .info{
+  height: 150px;
+  margin-top: 1em;
+}
+.profile .ratings{
+  width: 100%;
+  border: 1px solid $dark;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.profile .ratings table{
+  width: 100%;
+  border: 1px solid $brand;
+  text-align: center;
+  margin-bottom: 1em;
+}
+.profile .ratings table thead{
+  background-color: $stable;
+}
+.profile .ratings table th{
+  background-color: $brand;
+  text-align: center;
+  padding: 0.5em 0.5em 0.5em 0.5em;
+}
+.profile .ratings table td {
+  padding: 0.5em 0.5em 0.5em 0.5em;
+  text-align: center;
+}
+.profile .ratings table .graysealy{
+  background-color: $stable;
+  border-bottom: 1px solid $brand;
+}
+.profile .ratings table tr td .italic{
+  font-style: italic;
+}
+.footer-profile{
+  position: absolute;
+  width: 100% !important;
+  bottom: 0px;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  background:$stable;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+.footer-profile .langs{
+  float: left;
+}
+.footer-profile .items{
+  padding-top: 0.5em;
+  float: right;
+  margin-right: 150px;
+}

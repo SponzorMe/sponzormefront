@@ -12,24 +12,7 @@
           showClose: false
         });
         eventRequest.oneEvent(event.id).success(function(sData) {
-          userRequest.oneUser(sData.data.organizer[0].id)
-            .success(function(s2Data) {
-              ngDialog.closeAll();
-              $scope.user = s2Data.data;
-              ngDialog.open({
-                template: 'views/templates/userInfo.html',
-                showClose: false,
-                scope: $scope
-              });
-            }).error(function(eData) {
-              ngDialog.closeAll();
-              $scope.message = 'canNotGetUserInfo';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            });
+          $location.path('/profile/'+sData.data.organizer[0].id);
         }).error(function(eData) {
           ngDialog.closeAll();
           $scope.message = 'canNotGetUserInfo';

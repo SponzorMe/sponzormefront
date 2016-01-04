@@ -162,6 +162,10 @@ var expirationTime = 1;
           templateUrl: 'views/chat.html',
           controller: 'ChatController'
         })
+        .when('/profile/:userId', {
+          templateUrl: 'views/profile.html',
+          controller: 'ProfileController'
+        })
         .otherwise({
           redirectTo: '/login'
         });
