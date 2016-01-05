@@ -709,7 +709,7 @@
     "question7":"Would you sponsor us in the future? *",
     "question8":"Which is the audience you're looking for?",
     "question9":"Events on targeted to which developers would you like to sponsor? *",
-    "question10":"Write whatever"
+    "question10":"Write a Comment"
   },
   "ratingOrganizer":{
     "question0":"Overall, how was your experience with your sponsor?",
@@ -718,7 +718,7 @@
     "question3":"Did you got what was promised?*",
     "question4":"Do you going to use us again in the future?*",
     "question5":"Which is your audience? *",
-    "question6":"Write whatever"
+    "question6":"Write a Comment"
   },
   "chooseOneOption":"--Choose an Option--",
   "howwasyoursponzorship": "Please tell us how was your sponzorship in: ",
