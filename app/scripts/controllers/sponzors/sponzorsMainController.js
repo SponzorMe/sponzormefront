@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
+  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray, $window) {
     if ($rootScope.userValidation('1')) {
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
@@ -12,7 +12,7 @@
           showClose: false
         });
         eventRequest.oneEvent(event.id).success(function(sData) {
-          $location.path('/profile/'+sData.data.organizer[0].id);
+          $window.open('#/profile/'+sData.data.organizer[0].id);
         }).error(function(eData) {
           ngDialog.closeAll();
           $scope.message = 'canNotGetUserInfo';
