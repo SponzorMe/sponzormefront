@@ -265,6 +265,10 @@ var expirationTime = 1;
           templateUrl: 'views/chat.html',
           controller: 'ChatController'
         })
+        .when('/profile/:userId', {
+          templateUrl: 'views/profile.html',
+          controller: 'ProfileController'
+        })
         .otherwise({
           redirectTo: '/login'
         });
@@ -1485,6 +1489,12 @@ var expirationTime = 1;
       ratingBySponzorship: function(sponzorshipId, type) {
         return $http.get($rootScope.getConstants().URL + 'ratings/sponzorship/' + sponzorshipId + '/' + type);
       },
+      ratingsBySponzor: function(sponzorId) {
+        return $http.get($rootScope.getConstants().URL + 'ratings/sponzor/' + sponzorId);
+      },
+      ratingsByOrganizer: function(organizerId) {
+        return $http.get($rootScope.getConstants().URL + 'ratings/organizer/' + organizerId);
+      },
       createRating: function(data) {
         return $http({
           method: 'POST',
@@ -2358,24 +2368,7 @@ angular.module('sponzorme')
           showClose: false
         });
         eventRequest.oneEvent(event.id).success(function(sData) {
-          userRequest.oneUser(sData.data.organizer[0].id)
-            .success(function(s2Data) {
-              ngDialog.closeAll();
-              $scope.user = s2Data.data;
-              ngDialog.open({
-                template: 'views/templates/userInfo.html',
-                showClose: false,
-                scope: $scope
-              });
-            }).error(function(eData) {
-              ngDialog.closeAll();
-              $scope.message = 'canNotGetUserInfo';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
-            });
+          $location.path('/profile/'+sData.data.organizer[0].id);
         }).error(function(eData) {
           ngDialog.closeAll();
           $scope.message = 'canNotGetUserInfo';
@@ -4663,4 +4656,80 @@ angular.module('sponzorme')
 
   angular.module('sponzorme')
     .controller('ChatController', ChatController);
+})();
+
+'use strict';
+(function() {
+  function ProfileController($scope, ngDialog, $localStorage, $location, $routeParams, userRequest, ratingRequest, $timeout) {
+    ngDialog.closeAll();
+    $scope.loading = true;
+    ngDialog.open({
+      template: 'views/templates/loadingDialog.html',
+      showClose: false
+    });
+    userRequest.oneUser($routeParams.userId).success(function(userData) {
+      $scope.user = userData.data.user;
+      $scope.user.rating = userData.data.rating;
+      if (userData.data.user.type === '0') {
+        ratingRequest.ratingsByOrganizer($routeParams.userId).success(function(ratingsData) {
+          $scope.ratings = ratingsData.data.Rating;
+          $scope.loading = false;
+          ngDialog.closeAll();
+        }).error(function(){
+          ngDialog.closeAll();
+          $scope.message = 'problem';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $timeout(function() {
+            $location.path('/');
+          }, 3000);
+        });
+      } else if (userData.data.user.type === '1') {
+        ratingRequest.ratingsBySponzor($routeParams.userId).success(function(ratingsData) {
+          $scope.ratings = ratingsData.data.Rating;
+          $scope.loading = false;
+          ngDialog.closeAll();
+        }).error(function(){
+          ngDialog.closeAll();
+          $scope.message = 'problem';
+          ngDialog.open({
+            template: 'views/templates/errorDialog.html',
+            showClose: false,
+            scope: $scope
+          });
+          $timeout(function() {
+            $location.path('/');
+          }, 3000);
+        });
+      }
+      else{
+        ngDialog.closeAll();
+        $scope.message = 'problem';
+        ngDialog.open({
+          template: 'views/templates/errorDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+        $timeout(function() {
+          $location.path('/');
+        }, 3000);
+      }
+    }).error(function(){
+      ngDialog.closeAll();
+      $scope.message = 'problem';
+      ngDialog.open({
+        template: 'views/templates/errorDialog.html',
+        showClose: false,
+        scope: $scope
+      });
+      $timeout(function() {
+        $location.path('/');
+      }, 3000);
+    });
+  }
+  angular.module('sponzorme')
+    .controller('ProfileController', ProfileController);
 })();

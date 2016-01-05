@@ -734,6 +734,11 @@
   "rating": "Rating",
   "noRatesYet": "This user does not have rates yet.",
   "#sponzorships": "Number of Sponzorships",
+  "#events": "Number of Events",
   "canNotGetUserInfo": "We sorry, the user info is currently unavailable",
-  "canNotGetEvents":"We sorry, the list of events is currently unavailable"
+  "canNotGetEvents":"We sorry, the list of events is currently unavailable",
+  "averageRating": "Average",
+  "of": "Of",
+  "memberSince": "Member since",
+  "ratingsInProfile": "Ratings and Comments"
 }
