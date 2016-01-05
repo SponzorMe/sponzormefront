@@ -133,6 +133,7 @@ describe('Organizers Rating Controller test', function(){
     });
     $routeParams.sponzorshipId = 1;
     var controller = createController();
+    httpBackend.flush();
     scope.saveRating();
     httpBackend.flush();
     expect(scope.message).toBe('ratingOrganizerSuccess');
@@ -161,6 +162,7 @@ describe('Organizers Rating Controller test', function(){
     });
     $routeParams.sponzorshipId = 1;
     var controller = createController();
+    httpBackend.flush();
     scope.saveRating();
     httpBackend.flush();
     expect(scope.message).toBe('invalidRateInfo');

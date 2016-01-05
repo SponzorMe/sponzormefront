@@ -284,7 +284,7 @@ var expirationTime = 1;
         window.location.href = aux;
       }
     }])
-    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
+    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog) {
       /*
        * Author: Sebastian Gomez
        * This function allows change the language whatever be the route
@@ -301,6 +301,11 @@ var expirationTime = 1;
       $rootScope.currentLanguage = function(key) {
         return $translate.use();
       };
+
+      $rootScope.closeAllDialogs = function(){
+        console.log("closing all");
+        ngDialog.closeAll();
+      }
       $rootScope.buildInterests = function() {
         allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata) {
           var interests = adata.InterestCategory;
@@ -2356,7 +2361,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
+  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray, $window) {
     if ($rootScope.userValidation('1')) {
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
@@ -2368,7 +2373,19 @@ angular.module('sponzorme')
           showClose: false
         });
         eventRequest.oneEvent(event.id).success(function(sData) {
-          $location.path('/profile/'+sData.data.organizer[0].id);
+          if(sData.data.organizer[0].id){
+            $scope.currentOrganizer = sData.data.organizer[0].id;
+            $window.open('#/profile/'+$scope.currentOrganizer);
+          }
+          else{
+            ngDialog.closeAll();
+            $scope.message = 'canNotGetUserInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }
         }).error(function(eData) {
           ngDialog.closeAll();
           $scope.message = 'canNotGetUserInfo';
@@ -2812,8 +2829,8 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
-    if($rootScope.userValidation('1')){
+  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, ngDialog, $rootScope, ratingRequest) {
+    if ($rootScope.userValidation('1')) {
       $scope.noSponzorshipsMessage = false;
       $scope.noSponzorshipsTaskMessage = false;
       $scope.sponzorshipsLoading = true;
@@ -2822,6 +2839,24 @@ angular.module('sponzorme')
       $scope.userfroups = 0;
       $scope.tolsctive = 'active';
       $translate.use(idiomaselect);
+      $scope.sendToRating = function(s) {
+        sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
+          ratingRequest.ratingBySponzorship(s.id, 1).success(function(s2Data) {
+            $scope.loadingForm = false; //Loading
+            ngDialog.closeAll(); //Close Loading
+            if (s2Data.data.Rating[0] && s2Data.data.Rating[0].sponzor_id === $localStorage.id) {
+              $scope.message = 'ratingAlreadyRated';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            } else {
+              $location.path('/sponzors/rating/'+s.id);
+            }
+          });
+        });
+      };
       $scope.paymentInformation = function(sponzorship) {
         $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
         $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
@@ -2857,7 +2892,7 @@ angular.module('sponzorme')
             angular.forEach(data.SponzorsEvents, function(value) {
               if (value.status >= '1') {
                 var timer = parseInt(parseInt($rootScope.getConstants().EVENTEXPIRATIONDAYS) * 24 * 60 * 60 * 1000);
-                  value.ends = new Date(new Date(value.ends).getTime() + timer);
+                value.ends = new Date(new Date(value.ends).getTime() + timer);
                 $scope.sponzorships.push(value);
                 flag = true;
               }
@@ -3043,19 +3078,20 @@ angular.module('sponzorme')
             $scope.message = 'ratingAlreadyRated';
             ngDialog.open({
               template: 'views/templates/errorDialog.html',
-              showClose: false,
+              showClose: true,
               scope: $scope
             });
             $timeout(function() {
-              $location.path('/sponzors/dashboard');
-            }, 300);
+              $location.path('/sponzors/sponzoring');
+            }, 400);
           } else {
             $scope.sponzorship = sData.data;
             $scope.rating = {
               'sponzorship_id': sData.data.SponzorEvent.id,
               'type': 1,
               'sponzor_id': sData.data.Sponzor.id,
-              'organizer_id': sData.data.Organizer.id
+              'organizer_id': sData.data.Organizer.id,
+              'other':''
             };
           }
         });
@@ -3074,8 +3110,13 @@ angular.module('sponzorme')
           template: 'views/templates/loadingDialog.html',
           showClose: false
         }); //Loading box
+        if($scope.rating.other){
+          $scope.rating.question9 = 'Other: '+$scope.rating.other;
+        }
         ratingRequest.createRating($scope.rating).success(function(sData) {
+
           $scope.message = 'ratingSponzorSuccess';
+          $scope.redirectOnClose = '#/sponzors/sponzoring';
           ngDialog.closeAll(); //Close Loading
           ngDialog.open({
             template: 'views/templates/successDialog.html',
@@ -3084,7 +3125,7 @@ angular.module('sponzorme')
           });
           $scope.rating = {};
           $timeout(function() {
-            $location.path('/sponzors/dashboard');
+            $location.path('/sponzors/sponzoring');
           }, 300);
         }).error(function(eData) {
           $scope.loadingForm = false; //Loading
@@ -3813,7 +3854,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray) {
+  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, ratingRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorships = true;
@@ -3823,6 +3864,25 @@ angular.module('sponzorme')
       $scope.userfroups = 0;
       $translate.use(idiomaselect);
       $scope.tolsctive = 'active';
+      $scope.sendToRating = function(s) {
+        sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
+          ratingRequest.ratingBySponzorship(s.id, 0).success(function(s2Data) {
+            $scope.loadingForm = false; //Loading
+            ngDialog.closeAll(); //Close Loading
+            if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {
+              $scope.message = 'ratingAlreadyRated';
+              $scope.redirectOnClose = '#/sponzors/sponzoring';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            } else {
+              $location.path('/organizers/rating/'+s.id);
+            }
+          });
+        });
+      };
       //This function allows get sponzorship info from organizerId
       $scope.showSponzorInfo = function(sponzorId) {
         ngDialog.open({
@@ -4504,11 +4564,11 @@ angular.module('sponzorme')
             $scope.message = 'ratingAlreadyRated';
             ngDialog.open({
               template: 'views/templates/errorDialog.html',
-              showClose: false,
+              showClose: true,
               scope: $scope
             });
             $timeout(function() {
-              $location.path('/organizers/dashboard');
+              $location.path('/organizers/sponzors');
             }, 300);
           } else {
             $scope.sponzorship = sData.data;
@@ -4516,7 +4576,8 @@ angular.module('sponzorme')
               'sponzorship_id': sData.data.SponzorEvent.id,
               'type': 0,
               'sponzor_id': sData.data.Sponzor.id,
-              'organizer_id': sData.data.Organizer.id
+              'organizer_id': sData.data.Organizer.id,
+              'other': ''
             };
           }
         });
@@ -4535,6 +4596,9 @@ angular.module('sponzorme')
           template: 'views/templates/loadingDialog.html',
           showClose: false
         }); //Loading box
+        if($scope.rating.other){
+          $scope.rating.question5 = 'Other: '+$scope.rating.other;
+        }
         ratingRequest.createRating($scope.rating).success(function(sData) {
           $scope.message = 'ratingOrganizerSuccess';
           ngDialog.closeAll(); //Close Loading
@@ -4545,7 +4609,7 @@ angular.module('sponzorme')
           });
           $scope.rating = {};
           $timeout(function() {
-            $location.path('/organizers/dashboard');
+            $location.path('/organizers/sponzors');
           }, 300);
         }).error(function(eData) {
           $scope.loadingForm = false; //Loading

@@ -31,7 +31,8 @@
               'sponzorship_id': sData.data.SponzorEvent.id,
               'type': 1,
               'sponzor_id': sData.data.Sponzor.id,
-              'organizer_id': sData.data.Organizer.id
+              'organizer_id': sData.data.Organizer.id,
+              'other':''
             };
           }
         });
