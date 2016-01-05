@@ -33,6 +33,7 @@ module.exports = function (config) {
             'bower_components/aws-sdk/dist/aws-sdk.min.js',
             'bower_components/angular-input-stars-directive/angular-input-stars.js',
             'bower_components/angular-scroll-glue/src/scrollglue.js',
+            'bower_components/mockfirebase/browser/mockfirebase.js',
             'bower_components/angular-mocks/angular-mocks.js',
             'app/scripts/**/**/*.js',
             'tests/**/*.js'
