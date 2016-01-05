@@ -75,7 +75,9 @@
                     <option value="developers">{{'developers'|translate}}</option>
                     <option value="designers">{{'designers'|translate}}</option>
                     <option value="entrepeneurs">{{'entrepeneurs'|translate}}</option>
-                  </select>
+                    <option value="other">{{'Other'|translate}}</option>
+                  </select><br/><br/>
+                  <input ng-if="rating.question5 == 'other'" type="text" ng-model="rating.other" required/>
                 </div>
               </div>
 
@@ -84,7 +86,7 @@
                   {{ 'ratingOrganizer.question6' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <textarea ng-mode="rating.question6"></textarea>
+                  <textarea ng-model="rating.question6"></textarea>
                 </div>
               </div>
 

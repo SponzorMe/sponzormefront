@@ -48,6 +48,9 @@
           template: 'views/templates/loadingDialog.html',
           showClose: false
         }); //Loading box
+        if($scope.rating.other){
+          $scope.rating.question5 = 'Other: '+$scope.rating.other;
+        }
         ratingRequest.createRating($scope.rating).success(function(sData) {
           $scope.message = 'ratingOrganizerSuccess';
           ngDialog.closeAll(); //Close Loading
@@ -58,7 +61,7 @@
           });
           $scope.rating = {};
           $timeout(function() {
-            $location.path('/organizers/dashboard');
+            $location.path('/organizers/sponzors');
           }, 300);
         }).error(function(eData) {
           $scope.loadingForm = false; //Loading

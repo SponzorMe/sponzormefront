@@ -181,7 +181,7 @@ var expirationTime = 1;
         window.location.href = aux;
       }
     }])
-    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest) {
+    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog) {
       /*
        * Author: Sebastian Gomez
        * This function allows change the language whatever be the route
@@ -198,6 +198,11 @@ var expirationTime = 1;
       $rootScope.currentLanguage = function(key) {
         return $translate.use();
       };
+
+      $rootScope.closeAllDialogs = function(){
+        console.log("closing all");
+        ngDialog.closeAll();
+      }
       $rootScope.buildInterests = function() {
         allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata) {
           var interests = adata.InterestCategory;

@@ -17,6 +17,7 @@
             ngDialog.closeAll(); //Close Loading
             if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {
               $scope.message = 'ratingAlreadyRated';
+              $scope.redirectOnClose = '#/sponzors/sponzoring';
               ngDialog.open({
                 template: 'views/templates/errorDialog.html',
                 showClose: false,

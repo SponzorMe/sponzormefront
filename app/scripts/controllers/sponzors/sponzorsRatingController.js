@@ -50,8 +50,13 @@
           template: 'views/templates/loadingDialog.html',
           showClose: false
         }); //Loading box
+        if($scope.rating.other){
+          $scope.rating.question9 = 'Other: '+$scope.rating.other;
+        }
         ratingRequest.createRating($scope.rating).success(function(sData) {
+
           $scope.message = 'ratingSponzorSuccess';
+          $scope.redirectOnClose = '#/sponzors/sponzoring';
           ngDialog.closeAll(); //Close Loading
           ngDialog.open({
             template: 'views/templates/successDialog.html',
@@ -60,7 +65,7 @@
           });
           $scope.rating = {};
           $timeout(function() {
-            $location.path('/sponzors/dashboard');
+            $location.path('/sponzors/sponzoring');
           }, 300);
         }).error(function(eData) {
           $scope.loadingForm = false; //Loading
