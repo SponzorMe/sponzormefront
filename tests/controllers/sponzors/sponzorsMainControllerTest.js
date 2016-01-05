@@ -619,7 +619,7 @@ describe("Sponzors Main Controller test", function(){
     httpBackend.flush();
     scope.showOrganizerInfo(scope.search[0]);
     httpBackend.flush();
-    expect($location.path()).toBe('/profile/1003');
+    expect(scope.currentOrganizer).toBe('1003');
   });
 
   it("Should be Show organizer Info Fail 2", function(){

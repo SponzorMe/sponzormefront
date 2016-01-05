@@ -1,8 +1,8 @@
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope) {
-    if($rootScope.userValidation('1')){
+  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, ngDialog, $rootScope, ratingRequest) {
+    if ($rootScope.userValidation('1')) {
       $scope.noSponzorshipsMessage = false;
       $scope.noSponzorshipsTaskMessage = false;
       $scope.sponzorshipsLoading = true;
@@ -11,6 +11,24 @@
       $scope.userfroups = 0;
       $scope.tolsctive = 'active';
       $translate.use(idiomaselect);
+      $scope.sendToRating = function(s) {
+        sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
+          ratingRequest.ratingBySponzorship(s.id, 1).success(function(s2Data) {
+            $scope.loadingForm = false; //Loading
+            ngDialog.closeAll(); //Close Loading
+            if (s2Data.data.Rating[0] && s2Data.data.Rating[0].sponzor_id === $localStorage.id) {
+              $scope.message = 'ratingAlreadyRated';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            } else {
+              $location.path('/sponzors/rating/'+s.id);
+            }
+          });
+        });
+      };
       $scope.paymentInformation = function(sponzorship) {
         $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
         $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
@@ -46,7 +64,7 @@
             angular.forEach(data.SponzorsEvents, function(value) {
               if (value.status >= '1') {
                 var timer = parseInt(parseInt($rootScope.getConstants().EVENTEXPIRATIONDAYS) * 24 * 60 * 60 * 1000);
-                  value.ends = new Date(new Date(value.ends).getTime() + timer);
+                value.ends = new Date(new Date(value.ends).getTime() + timer);
                 $scope.sponzorships.push(value);
                 flag = true;
               }

@@ -12,7 +12,19 @@
           showClose: false
         });
         eventRequest.oneEvent(event.id).success(function(sData) {
-          $window.open('#/profile/'+sData.data.organizer[0].id);
+          if(sData.data.organizer[0].id){
+            $scope.currentOrganizer = sData.data.organizer[0].id;
+            $window.open('#/profile/'+$scope.currentOrganizer);
+          }
+          else{
+            ngDialog.closeAll();
+            $scope.message = 'canNotGetUserInfo';
+            ngDialog.open({
+              template: 'views/templates/errorDialog.html',
+              showClose: false,
+              scope: $scope
+            });
+          }
         }).error(function(eData) {
           ngDialog.closeAll();
           $scope.message = 'canNotGetUserInfo';

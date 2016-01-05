@@ -17,11 +17,11 @@
             $scope.message = 'ratingAlreadyRated';
             ngDialog.open({
               template: 'views/templates/errorDialog.html',
-              showClose: false,
+              showClose: true,
               scope: $scope
             });
             $timeout(function() {
-              $location.path('/organizers/dashboard');
+              $location.path('/organizers/sponzors');
             }, 300);
           } else {
             $scope.sponzorship = sData.data;

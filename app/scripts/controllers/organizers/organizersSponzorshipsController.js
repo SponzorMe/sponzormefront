@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray) {
+  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, ratingRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorships = true;
@@ -10,6 +10,24 @@
       $scope.userfroups = 0;
       $translate.use(idiomaselect);
       $scope.tolsctive = 'active';
+      $scope.sendToRating = function(s) {
+        sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
+          ratingRequest.ratingBySponzorship(s.id, 0).success(function(s2Data) {
+            $scope.loadingForm = false; //Loading
+            ngDialog.closeAll(); //Close Loading
+            if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {
+              $scope.message = 'ratingAlreadyRated';
+              ngDialog.open({
+                template: 'views/templates/errorDialog.html',
+                showClose: false,
+                scope: $scope
+              });
+            } else {
+              $location.path('/organizers/rating/'+s.id);
+            }
+          });
+        });
+      };
       //This function allows get sponzorship info from organizerId
       $scope.showSponzorInfo = function(sponzorId) {
         ngDialog.open({

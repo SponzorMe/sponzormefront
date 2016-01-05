@@ -19,12 +19,12 @@
             $scope.message = 'ratingAlreadyRated';
             ngDialog.open({
               template: 'views/templates/errorDialog.html',
-              showClose: false,
+              showClose: true,
               scope: $scope
             });
             $timeout(function() {
-              $location.path('/sponzors/dashboard');
-            }, 300);
+              $location.path('/sponzors/sponzoring');
+            }, 400);
           } else {
             $scope.sponzorship = sData.data;
             $scope.rating = {
