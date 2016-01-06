@@ -366,7 +366,7 @@ var expirationTime = 1;
             'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
             'PAYPALIPNRETURNURL': 'https://apilocal.sponzor.me/ipn',
             'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
-            'FURL': 'https://sponzorme.firebaseio.com/',
+            'FURL': 'https://sponzorme.firebaseio.com/localhost/',
             'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
             'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
             'AMAZONBUCKET': 'sponzormewebappimages',
@@ -386,7 +386,7 @@ var expirationTime = 1;
             'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
             'PAYPALIPNRETURNURL': 'https://apistaging.sponzor.me/ipn',
             'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
-            'FURL': 'https://sponzorme.firebaseio.com/',
+            'FURL': 'https://sponzorme.firebaseio.com/staging/',
             'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
             'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
             'AMAZONBUCKET': 'sponzormewebappimages',
@@ -406,7 +406,7 @@ var expirationTime = 1;
             'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
             'PAYPALIPNRETURNURL': 'https://api.sponzor.me/ipn',
             'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
-            'FURL': 'https://sponzorme.firebaseio.com/',
+            'FURL': 'https://sponzorme.firebaseio.com/production/',
             'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
             'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
             'AMAZONBUCKET': 'sponzormewebappimages',
@@ -2174,10 +2174,17 @@ angular.module('sponzorme')
               $rootScope.closeAllDialogs();
             }
           }).error(function(data) {
+            console.log(data);
             if (data.message === 'Not inserted') {
               $scope.errorMessages = [];
               if (data.error.email) {
-                $scope.errorMessages.push('errorRegisterEmail');
+                if(data.error.email[0] === 'The email has already been taken.'){
+                  $scope.errorMessages.push('errorEmailAlreadyTaken');
+                  $scope.didYouForgotPassword = true;
+                }
+                else{
+                  $scope.errorMessages.push('errorRegisterEmail');
+                }
               }
               if (data.error.name) {
                 $scope.errorMessages.push('errorRegisterName');
@@ -3068,7 +3075,13 @@ angular.module('sponzorme')
             if (data.message === 'Not inserted') {
               $scope.errorMessages = [];
               if (data.error.email) {
-                $scope.errorMessages.push('errorRegisterEmail');
+                if(data.error.email[0] === 'The email has already been taken.'){
+                  $scope.errorMessages.push('errorEmailAlreadyTaken');
+                  $scope.didYouForgotPassword = true;
+                }
+                else{
+                  $scope.errorMessages.push('errorRegisterEmail');
+                }
               }
               if (data.error.name) {
                 $scope.errorMessages.push('errorRegisterName');
@@ -4307,7 +4320,7 @@ angular.module('sponzorme')
             $location.path('/');
           }
         });
-      var ref = new Firebase('https://sponzorme.firebaseio.com/chat');
+      var ref = new Firebase($rootScope.getConstants().FURL + 'chat');
       var query = ref.orderByChild('sponzorshipId').equalTo($routeParams.sponzorshipId);
       $scope.chatMessages = $firebaseArray(query);
       $scope.addMessage = function() {

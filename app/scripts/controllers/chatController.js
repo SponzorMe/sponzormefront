@@ -22,7 +22,7 @@
             $location.path('/');
           }
         });
-      var ref = new Firebase('https://sponzorme.firebaseio.com/chat');
+      var ref = new Firebase($rootScope.getConstants().FURL + 'chat');
       var query = ref.orderByChild('sponzorshipId').equalTo($routeParams.sponzorshipId);
       $scope.chatMessages = $firebaseArray(query);
       $scope.addMessage = function() {
