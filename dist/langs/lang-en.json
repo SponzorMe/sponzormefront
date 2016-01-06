@@ -740,5 +740,8 @@
   "averageRating": "Average",
   "of": "Of",
   "memberSince": "Member since",
-  "ratingsInProfile": "Ratings and Comments"
+  "ratingsInProfile": "Ratings and Comments",
+  "delayedRequest": "This is taken more than the normal, please check your internet connection",
+  "takeMeOut": "Click Here to Cancel your Request",
+  "eventNoEdited": "We can not update this event"
 }

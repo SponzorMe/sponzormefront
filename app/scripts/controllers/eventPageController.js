@@ -55,11 +55,8 @@
         'cause': $scope.perkToSponzor.cause,
         'organizer_id': $scope.currentOrganizer.id
       };
-      ngDialog.closeAll();
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
+      $rootScope.closeAllDialogs();
+      $rootScope.showLoading();
       sponzorshipRequest.createSponzorship(data, $localStorage.token).success(function(sData) {
         var cont = 0;
         perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
@@ -79,24 +76,12 @@
               });
             if (cont === sPerkData.data.Tasks.length - 1) {
               $scope.sendFirebaseNotification();
-              $scope.message = 'sponzorshipCreatedSuccesfuly';
-              ngDialog.closeAll();
-              ngDialog.open({
-                template: 'views/templates/successDialog.html',
-                showClose: false,
-                scope: $scope
-              });
+              $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
             }
           });
           if (sPerkData.data.Tasks.length === 0) {
             $scope.sendFirebaseNotification();
-            $scope.message = 'sponzorshipCreatedSuccesfuly';
-            ngDialog.closeAll();
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
           }
           var info = {
             organizerId: $scope.currentOrganizer.id,
@@ -105,23 +90,12 @@
           };
           sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function(){});
         }).error(function() {
-          $scope.message = 'eventPageErrorSponzoringEvent';
-          ngDialog.closeAll();
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'eventPageErrorSponzoringEvent', false);
         });
-
       }).error(function() {
-        $scope.message = 'eventPageErrorSponzoringEvent';
-        ngDialog.closeAll();
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
+        $rootScope.closeAllDialogs();
+        $rootScope.showDialog('error', 'eventPageErrorSponzoringEvent', false);
       });
     };
   }

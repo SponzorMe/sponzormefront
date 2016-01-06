@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams) {
+  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams, $rootScope) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
@@ -17,10 +17,7 @@
         $scope.objuser.password_confirmation = $scope.passwordtwo;
         $scope.objuser.lang = idiomaselect;
         $scope.loagind = true;
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         loginRequest.login($scope.objuser).success(function(adata) {
           if (adata.user.activated === '1') {
             var expireDate = new Date();
@@ -53,10 +50,10 @@
                 $location.path('/organizers/dashboard');
               }
             }
-            ngDialog.closeAll();
+            $rootScope.closeAllDialogs();
           } else {
             $scope.loagind = false;
-            ngDialog.closeAll();
+            $rootScope.closeAllDialogs();
             $scope.message = 'unactivatedAccount';
             ngDialog.open({
               template: 'views/templates/unactivatedAccountDialog.html',
@@ -67,13 +64,8 @@
 
         }).error(function() {
           $scope.loagind = false;
-          ngDialog.closeAll();
-          $scope.message = 'invalidCredentials';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'invalidCredentials', false);
         });
       }
     };

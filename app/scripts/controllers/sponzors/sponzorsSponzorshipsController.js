@@ -15,16 +15,11 @@
         sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
           ratingRequest.ratingBySponzorship(s.id, 1).success(function(s2Data) {
             $scope.loadingForm = false; //Loading
-            ngDialog.closeAll(); //Close Loading
+            $rootScope.closeAllDialogs(); //Close Loading
             if (s2Data.data.Rating[0] && s2Data.data.Rating[0].sponzor_id === $localStorage.id) {
-              $scope.message = 'ratingAlreadyRated';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
+              $rootScope.showDialog('error', 'ratingAlreadyRated', false);
             } else {
-              $location.path('/sponzors/rating/'+s.id);
+              $location.path('/sponzors/rating/' + s.id);
             }
           });
         });
@@ -158,11 +153,8 @@
         $scope.tasksSponzor.splice(index, 1);
       };
       $scope.addTask = function() {
-        ngDialog.closeAll();
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.closeAllDialogs();
+        $rootScope.showLoading();
         $scope.todo.perk_id = $scope.currentSponzorship.perk_id;
         $scope.todo.event_id = $scope.currentSponzorship.event_id;
         $scope.todo.status = 0; //We put the defaul status
@@ -181,22 +173,12 @@
           };
           taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {
             $scope.getTaskSponzor($scope.currentSponzorship); //Refresh perks data.
-            ngDialog.closeAll();
-            $scope.message = 'taskCreatedSuccesfuly';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            }); //finally we show a dialog telling the status of the things
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
           });
         }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'errorCreatingTask';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
       };
       $scope.seeCause = function(sponzorship) {

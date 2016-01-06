@@ -103,10 +103,7 @@
       };
 
       $scope.removeEvent = function(idevent) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         eventRequest.oneEvent(idevent).success(function(adata) {
           if (adata.data.event.sponzorship.length === 0) { //If event does not have sponzorhips
             angular.forEach(adata.data.event.sponzor_tasks, function(value) {
@@ -123,32 +120,17 @@
             });
             $timeout(function() {
               eventRequest.deleteEvent(adata.data.event.id).success(function() {
-                ngDialog.closeAll();
-                $scope.message = 'eventDeleteSuccesfully';
-                ngDialog.open({
-                  template: 'views/templates/successDialog.html',
-                  showClose: false,
-                  scope: $scope
-                });
+                $rootScope.closeAllDialogs();
+                $rootScope.showDialog('success', 'eventDeleteSuccesfully', false);
                 $scope.getEventsByOrganizer($localStorage.id);
               }).error(function(eData) {
-                ngDialog.closeAll();
-                $scope.message = 'errorDeletingEvent';
-                ngDialog.open({
-                  template: 'views/templates/errorDialog.html',
-                  showClose: false,
-                  scope: $scope
-                });
+                $rootScope.closeAllDialogs();
+                $rootScope.showDialog('error', 'errorDeletingEvent', false);
               });
             }, 5000);
           } else { //If event has sponzorhips we can not delete
-            ngDialog.closeAll();
-            $scope.message = 'eventDeletingEventHasSponzorship';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            }); //finally we show a dialog telling the status of the things
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'eventDeletingEventHasSponzorship', false);
           }
         });
       };
@@ -164,58 +146,32 @@
         selected perk.*/
 
       $scope.addTask = function() {
-        ngDialog.closeAll();
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.closeAllDialogs();
+        $rootScope.showLoading();
         $scope.todo.perk_id = $scope.currentPerkId;
         $scope.todo.event_id = $scope.event.current;
         $scope.todo.status = 0; //We put the defaul status
         $scope.todo.user_id = $localStorage.id; //Get the organizer Id
         $scope.todo.type = 0; //If task is created by organizer the type is 0
         perkTaskRequest.createPerkTask($scope.todo).success(function() {
-          ngDialog.closeAll();
-          $scope.message = 'taskCreatedSuccesfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          }); //finally we show a dialog telling the status of the things
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
           $scope.getPerk($scope.currentPerkId); //Refresh perks data.
         }).error(function(data) {
-          ngDialog.closeAll();
-          $scope.message = 'errorCreatingTask';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
       };
 
       $scope.removeTask = function(task_id) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         perkTaskRequest.deletePerkTask(task_id).success(function(adata) {
-          ngDialog.closeAll();
-          $scope.message = 'taskDeletedSuccessfuly';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('success', 'taskDeletedSuccessfuly', false);
           $scope.getPerk($scope.currentPerkId);
         }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'errorDeletingTask';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'errorDeletingTask', false);
         });
       };
 

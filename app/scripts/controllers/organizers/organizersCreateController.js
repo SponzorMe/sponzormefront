@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage, eventRequest, perkRequest, $routeParams) {
+  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
@@ -16,10 +16,7 @@
           $scope.objuser.type = 0;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;
-          ngDialog.open({
-            template: 'views/templates/loadingDialog.html',
-            showClose: false
-          });
+          $rootScope.showLoading();
           userRequest.createUser($scope.objuser).success(function(adata) {
             if (adata.message === 'Inserted') {
               $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
@@ -41,7 +38,7 @@
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
-                  ngDialog.closeAll();
+                  $rootScope.closeAllDialogs();
                 }).error(function() {/*Empty Code, nothing necessary here*/});
               } else if (idiomaselect === 'es') {
                 event_es.DEFAULT_EVENT.organizer = adata.User.id;
@@ -53,7 +50,7 @@
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
-                  ngDialog.closeAll();
+                  $rootScope.closeAllDialogs();
                 }).error(function() {/*Empty Code, nothing necessary here*/});
               } else if (idiomaselect === 'pt') {
                 event_pt.DEFAULT_EVENT.organizer = adata.User.id;
@@ -64,7 +61,7 @@
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
-                  ngDialog.closeAll();
+                  $rootScope.closeAllDialogs();
                 }).error(function() {/*Empty Code, nothing necessary here*/});
               }
             }
@@ -85,7 +82,7 @@
               }
             }
             $scope.loagind = false;
-            ngDialog.closeAll();
+            $rootScope.closeAllDialogs();
             ngDialog.open({
               template: 'views/templates/multipleErrorDialog.html',
               showClose: false,
@@ -94,28 +91,13 @@
           });
         } else {
           if ($scope.passwordtwo.length > 6) {
-            $scope.message = 'errorRegisterPasswordNoMatch';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.showDialog('error', 'errorRegisterPasswordNoMatch', false);
           } else {
-            $scope.message = 'errorRegisterShortPassword';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.showDialog('error', 'errorRegisterShortPassword', false);
           }
         }
       } else {
-        $scope.message = 'errorRegisterPasswordNoEmpty';
-        ngDialog.open({
-          template: 'views/templates/errorDialog.html',
-          showClose: false,
-          scope: $scope
-        });
+        $rootScope.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
       }
     };
   }

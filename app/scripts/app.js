@@ -199,10 +199,45 @@ var expirationTime = 1;
         return $translate.use();
       };
 
+      $rootScope.showLoading = function(){
+        ngDialog.open({
+          template: 'views/templates/loadingDialog.html',
+          showClose: false,
+          closeByEscape: false,
+          closeByDocument: false,
+          controller: 'DialogController'
+        });
+      };
+
+      $rootScope.showDialog = function(kind, message, redirectOnClose){
+        $rootScope.pseudoScope = {'message': message, 'redirectOnClose': redirectOnClose};
+        //console.log($rootScope.pseudoScope);
+        var selectedTemplate;
+        if(kind === 'error'){
+          selectedTemplate = 'views/templates/errorDialog.html';
+        }
+        else if(kind === 'success'){
+          selectedTemplate = 'views/templates/successDialog.html';
+        }
+        else{
+          selectedTemplate = 'views/templates/infoDialog.html';
+        }
+        $rootScope.pseudoScope.message = message;
+        $rootScope.pseudoScope.redirectOnClose = redirectOnClose;
+        ngDialog.open({
+          template: selectedTemplate,
+          showClose: false,
+          closeByEscape: false,
+          closeByDocument: false,
+          controller: 'DialogController',
+          scope: $rootScope
+        });
+      };
+
       $rootScope.closeAllDialogs = function(){
-        console.log("closing all");
         ngDialog.closeAll();
-      }
+      };
+
       $rootScope.buildInterests = function() {
         allInterestsServiceRequest.allInterestsCategoriesId().success(function(adata) {
           var interests = adata.InterestCategory;

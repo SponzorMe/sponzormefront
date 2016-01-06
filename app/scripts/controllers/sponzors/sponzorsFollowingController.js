@@ -44,32 +44,19 @@
       };
       //this function deletes an sponzorship if the status is 0
       $scope.deleteSponzorship = function(sponzorshipId) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
           angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
             taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
           });
           $timeout(function() {
             sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
-              ngDialog.closeAll();
-              $scope.message = 'sponzorshipDeleteSuccesfully';
-              ngDialog.open({
-                template: 'views/templates/successDialog.html',
-                showClose: false,
-                scope: $scope
-              });
+              $rootScope.closeAllDialogs();
+              $rootScope.showDialog('success', 'sponzorshipDeleteSuccesfully', false);
               $scope.loadSponzorships();
             }).error(function() {
-              ngDialog.closeAll();
-              $scope.message = 'errorDeletingSponzorship';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
+              $rootScope.closeAllDialogs();
+              $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
             });
           }, 5000);
         });

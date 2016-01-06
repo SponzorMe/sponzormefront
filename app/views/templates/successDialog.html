@@ -2,9 +2,10 @@
   <div class="dialog-top top-success"><i class="material-icons md-48 md-light">done</i><div>
   <div class="content">
     <h1>Congratulations</h1>
-    <p>{{message|translate}}</p>
+    <p>{{pseudoScope.message|translate}}</p>
   </div>
   <div class="botonera">
-    <a href="" ng-click="closeThisDialog()">Continue</a>
+    <a ng-if="pseudoScope.redirectOnClose" href="" ng-click="close(pseudoScope.redirectOnClose)">Continue</a>
+    <a ng-if="!pseudoScope.redirectOnClose" href="" ng-click="closeThisDialog()">Continue</a>
   </div>
 </div>

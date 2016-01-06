@@ -7,32 +7,18 @@
       $scope.bestLoading = true;
       $scope.tolsctive = 'active';
       $scope.showOrganizerInfo = function(event) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         eventRequest.oneEvent(event.id).success(function(sData) {
-          if(sData.data.organizer[0].id){
+          if (sData.data.organizer[0].id) {
             $scope.currentOrganizer = sData.data.organizer[0].id;
-            $window.open('#/profile/'+$scope.currentOrganizer);
-          }
-          else{
-            ngDialog.closeAll();
-            $scope.message = 'canNotGetUserInfo';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $window.open('#/profile/' + $scope.currentOrganizer);
+          } else {
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'canNotGetUserInfo', false);
           }
         }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'canNotGetUserInfo';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'canNotGetUserInfo', false);
         });
       };
       $scope.getAllEvents = function() {
@@ -59,19 +45,11 @@
           $scope.upcomingLoading = false;
           $scope.searchLoading = false;
         }).error(function() {
-          $scope.message = 'canNotGetEvents';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.showDialog('error', 'canNotGetEvents', false);
         });
       };
       $scope.showPerks = function(eventId) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         $scope.noPerksMessage = true;
         eventRequest.oneEvent(eventId).success(function(data) {
           $scope.currentEvent = data.data.event;
@@ -82,19 +60,14 @@
           } else {
             $scope.noPerksMessage = true;
           }
-          ngDialog.closeAll();
+          $rootScope.closeAllDialogs();
           ngDialog.open({
             template: 'views/templates/eventPerksDialog.html',
             scope: $scope
           });
         }).error(function(eData) {
-          ngDialog.closeAll();
-          $scope.message = 'youCanNotSponzorThisEvent';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            scope: $scope,
-            showClose: false
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
         });
       };
       //We display the form to get the sponzorship cause
@@ -107,11 +80,8 @@
       };
       //this function have two steps, first, create the sponzorhip second create the sponzor tasks
       $scope.createSponzorship = function() {
-        ngDialog.closeAll();
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.closeAllDialogs();
+        $rootScope.showLoading();
         var data = { //Set Sponzorship data
           status: 0,
           'sponzor_id': $localStorage.id,
@@ -148,29 +118,14 @@
             };
             notifications.$add(notification);
             sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
-            ngDialog.closeAll();
-            $scope.message = 'sponzorshipCreatedSuccesfuly';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              scope: $scope,
-              showClose: false
-            });
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
           }).error(function() {
-            ngDialog.closeAll();
-            $scope.message = 'youCanNotSponzorThisEvent';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              scope: $scope,
-              showClose: false
-            });
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
           });
         }).error(function() {
-          $scope.message = 'youCanNotSponzorThisEvent';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            scope: $scope,
-            showClose: false
-          });
+          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
         });
       };
 

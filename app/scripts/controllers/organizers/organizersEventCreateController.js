@@ -32,12 +32,7 @@
       $scope.verifyPerkLimit = function(s) {
         if (s.usd > 200 || typeof s.usd === 'undefined') {
           s.usd = 200;
-          $scope.message = 'maxLimitPerk';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.showDialog('error', 'maxLimitPerk', false);
         }
       };
 
@@ -76,30 +71,17 @@
           $scope.categoryevent = '';
           $scope.privacyevent = '';
           $scope.sponzorshipTypes = [];
-          ngDialog.closeAll();
-          $scope.message = 'eventCreatedSuccesfully';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('success', 'eventCreatedSuccesfully', false);
         }).error(function(edata) {
-          ngDialog.closeAll();
-          $scope.message = 'errorCreatingEvent';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'errorCreatingEvent', false);
         });
       };
 
       //this function upload or create the event Image
       $scope.imageVerification = function() {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         $scope.loadingNewEvent = true;
         $scope.errorNewEvent = false;
         $scope.newEvent = {};
@@ -297,7 +279,7 @@
             $scope.dtini = data.start.local;
             $scope.dtfinal = data.end.local;
             $scope.privacyevent = 0;
-            ngDialog.closeAll();
+            $rootScope.closeAllDialogs();
           });
       };
       $scope.prefilEventFormMeetup = function(e) {
@@ -306,7 +288,7 @@
         $scope.dtini = e.time;
         $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
         $scope.privacyevent = 0;
-        ngDialog.closeAll();
+        $rootScope.closeAllDialogs();
       };
       $scope.menuprincipal = 'views/organizers/menu.html';
     }

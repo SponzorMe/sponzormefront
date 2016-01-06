@@ -4,10 +4,7 @@
     if($rootScope.userValidation('0')){
       $scope.tolsctive = 'active';
       $scope.loading = true;
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
+      $rootScope.showLoading();
       eventTypeRequest.allEventTypes().success(function(adata) {
         $scope.type = {};
         $scope.type.list = adata.eventTypes;
@@ -21,12 +18,7 @@
       $scope.verifyPerkLimit = function(s) {
         if (s.usd > 200 || typeof s.usd === 'undefined') {
           s.usd = 200;
-          $scope.message = 'maxLimitPerk';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.showDialog('error', 'maxLimitPerk', false);
         }
       };
       //this function get the event data and put it in the form.
@@ -39,22 +31,14 @@
           $scope.eventData.starts = new Date($scope.eventData.starts);
           $scope.eventData.ends = new Date($scope.eventData.ends);
           $scope.loading = false;
-          ngDialog.closeAll();
+          $rootScope.closeAllDialogs();
         }).error(function() {
-          ngDialog.closeAll();
-          $scope.message = 'errorNotEventInfoGot';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'errorNotEventInfoGot', false);
         });
       };
       $scope.doEditEvent = function(idevent) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         angular.forEach($scope.eventData.perks, function(value) {
           if (value.id === -1) { //If new perk was added we insert that
             $scope.perkitems = {};
@@ -81,16 +65,10 @@
         $scope.eventData.starts = moment($scope.eventData.starts).format('YYYY-MM-DD HH:mm:ss');
         $scope.eventData.ends = moment($scope.eventData.ends).format('YYYY-MM-DD HH:mm:ss');
         eventRequest.editEventPatch(idevent, $scope.eventData).success(function() {
-          ngDialog.closeAll();
-          $scope.message = 'eventEditedSuccesfully';
-          ngDialog.open({
-            template: 'views/templates/successDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('success', 'eventEditedSuccesfully', false);
         }).error(function(edata) {
-
-
+          $rootScope.showDialog('error', 'eventNoEdited', false);
         });
       };
       $scope.saveperks = function() {

@@ -14,30 +14,21 @@
         sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
           ratingRequest.ratingBySponzorship(s.id, 0).success(function(s2Data) {
             $scope.loadingForm = false; //Loading
-            ngDialog.closeAll(); //Close Loading
+            $rootScope.closeAllDialogs(); //Close Loading
             if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {
-              $scope.message = 'ratingAlreadyRated';
-              $scope.redirectOnClose = '#/sponzors/sponzoring';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
+              $rootScope.showDialog('error', 'ratingAlreadyRated', false);
             } else {
-              $location.path('/organizers/rating/'+s.id);
+              $location.path('/organizers/rating/' + s.id);
             }
           });
         });
       };
       //This function allows get sponzorship info from organizerId
       $scope.showSponzorInfo = function(sponzorId) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         userRequest.oneUser(sponzorId)
           .success(function(sData) {
-            ngDialog.closeAll();
+            $rootScope.closeAllDialogs();
             $scope.user = sData.data;
             ngDialog.open({
               template: 'views/templates/userInfo.html',
@@ -45,13 +36,8 @@
               scope: $scope
             });
           }).error(function(eData) {
-            ngDialog.closeAll();
-            $scope.message = 'canNotGetUserInfo';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'canNotGetUserInfo', false);
           });
       };
       $scope.getSponzorshipsByOrganizer = function() {
@@ -132,10 +118,7 @@
       };
       //this function deletes an sponzorship if the status is 0
       $scope.deleteSponzorship = function(sponzorshipId) {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         sponzorshipRequest.oneSponzorship(sponzorshipId).success(function(taskData) {
           angular.forEach(taskData.data.SponzorEvent.task_sponzor, function(value) {
             taskSponzorRequest.deleteTaskSponzor(value.id).success(function() {});
@@ -143,21 +126,11 @@
           setTimeout(function() {
             sponzorshipRequest.deleteSponzorship(sponzorshipId).success(function() {
               $scope.getSponzorshipsByOrganizer();
-              ngDialog.closeAll();
-              $scope.message = 'successDeletingSponzorship';
-              ngDialog.open({
-                template: 'views/templates/successDialog.html',
-                showClose: false,
-                scope: $scope
-              });
+              $rootScope.closeAllDialogs();
+              $rootScope.showDialog('success', 'successDeletingSponzorship', false);
             }).error(function() {
-              ngDialog.closeAll();
-              $scope.message = 'errorDeletingSponzorship';
-              ngDialog.open({
-                template: 'views/templates/errorDialog.html',
-                showClose: false,
-                scope: $scope
-              });
+              $rootScope.closeAllDialogs();
+              $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
             });
           }, 5000);
         });

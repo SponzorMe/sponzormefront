@@ -13,10 +13,7 @@
       //This function invites to a friend to use our platform.
       $scope.invitefriend = function() {
         $scope.loadingInvite = true;
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         $scope.objuserinv = {};
         $scope.objuserinv.user_id = $localStorage.id;
         $scope.objuserinv.email = $scope.friend.email;
@@ -26,22 +23,11 @@
           $scope.friend.email = '';
           $scope.friend.message = '';
           if (adata.code === '200') {
-            ngDialog.closeAll();
-            $scope.message = 'inviteFiendEmailSent';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            });
-
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('success', 'inviteFiendEmailSent', false);
           } else {
-            ngDialog.closeAll();
-            $scope.message = 'problem';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'problem', false);
           }
           $scope.loadingInvite = false;
         });

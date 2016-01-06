@@ -2,14 +2,11 @@
 (function() {
   function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if ($rootScope.userValidation('0')) {
-      ngDialog.open({
-        template: 'views/templates/loadingDialog.html',
-        showClose: false
-      });
+      $rootScope.showLoading();
       userRequest.oneUser($localStorage.id).success(function(adata) {
         $scope.account = adata.data.user;
         $scope.userInterests = adata.data.interests;
-        ngDialog.closeAll();
+        $rootScope.closeAllDialogs();
       });
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
         $scope.interests = sData.InterestCategory;
@@ -45,22 +42,14 @@
             });
           }
         } else {
-          $scope.message = 'invalidInterestSelection';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
         }
       };
       $scope.account = [];
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         $scope.account.location = $scope.account.location.formatted_address;
         if ($scope.file) {
           $scope.creds = {
@@ -93,21 +82,11 @@
               userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
                 $scope.account = adata.User;
                 $scope.file = false;
-                ngDialog.closeAll();
-                $scope.message = 'accountInfoEditedSuccessfuly';
-                ngDialog.open({
-                  template: 'views/templates/successDialog.html',
-                  showClose: false,
-                  scope: $scope
-                });
+                $rootScope.closeAllDialogs();
+                $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
               }).error(function(eData) {
-                ngDialog.closeAll();
-                $scope.message = 'errorEditingAccountInfo';
-                ngDialog.open({
-                  template: 'views/templates/errorDialog.html',
-                  showClose: false,
-                  scope: $scope
-                });
+                $rootScope.closeAllDialogs();
+                $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
             }
           });
@@ -115,30 +94,17 @@
           userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
             $scope.account = adata.User;
             $scope.file = false;
-            ngDialog.closeAll();
-            $scope.message = 'accountInfoEditedSuccessfuly';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
           }).error(function(eData) {
-            ngDialog.closeAll();
-            $scope.message = 'errorEditingAccountInfo';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
         }
       };
 
       $scope.resetPassword = function() {
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false
-        });
+        $rootScope.showLoading();
         if ($scope.password === $scope.passwordConfirmation) {
           var formData = {
             'email': $localStorage.email,
@@ -146,31 +112,16 @@
             'password_confirmation': $scope.passwordConfirmation
           };
           loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
-            ngDialog.closeAll();
+            $rootScope.closeAllDialogs();
             $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
-            $scope.message = 'PasswordChangedSuccesfully';
-            ngDialog.open({
-              template: 'views/templates/successDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
           }).error(function() {
-            ngDialog.closeAll();
-            $scope.message = 'InvalidNewPassword';
-            ngDialog.open({
-              template: 'views/templates/errorDialog.html',
-              showClose: false,
-              scope: $scope
-            });
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });
         } else {
-          ngDialog.closeAll();
-          $scope.message = 'PasswordNoMatch';
-          ngDialog.open({
-            template: 'views/templates/errorDialog.html',
-            showClose: false,
-            scope: $scope
-          });
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'PasswordNoMatch', false);
         }
       };
       $scope.tolsctive = 'active';
