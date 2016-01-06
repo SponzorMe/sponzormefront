@@ -743,5 +743,7 @@
   "ratingsInProfile": "Ratings and Comments",
   "delayedRequest": "This is taken more than the normal, please check your internet connection",
   "takeMeOut": "Click Here to Cancel your Request",
-  "eventNoEdited": "We can not update this event"
+  "eventNoEdited": "We can not update this event",
+  "errorEmailAlreadyTaken": "This e-mail is already in use.",
+  "didYouForgotPassword": "Did you forgot your password?"
 }

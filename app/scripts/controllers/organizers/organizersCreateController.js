@@ -69,7 +69,13 @@
             if (data.message === 'Not inserted') {
               $scope.errorMessages = [];
               if (data.error.email) {
-                $scope.errorMessages.push('errorRegisterEmail');
+                if(data.error.email[0] === 'The email has already been taken.'){
+                  $scope.errorMessages.push('errorEmailAlreadyTaken');
+                  $scope.didYouForgotPassword = true;
+                }
+                else{
+                  $scope.errorMessages.push('errorRegisterEmail');
+                }
               }
               if (data.error.name) {
                 $scope.errorMessages.push('errorRegisterName');
