@@ -720,6 +720,10 @@
     "question5":"Which is your audience? *",
     "question6":"Write a Comment"
   },
+  "NOTIFICATIONS":{
+    "NewSponzorshipRequestfor": "New Sponzorship Request for: ",
+    "SponzorshipAproved": "Sponzorship Approved: "
+  },
   "chooseOneOption":"--Choose an Option--",
   "howwasyoursponzorship": "Please tell us how was your sponzorship in: ",
   "ratingAlreadyRated": "You already rate this sponzorship.",
@@ -745,5 +749,6 @@
   "takeMeOut": "Click Here to Cancel your Request",
   "eventNoEdited": "We can not update this event",
   "errorEmailAlreadyTaken": "This e-mail is already in use.",
-  "didYouForgotPassword": "Did you forgot your password?"
+  "didYouForgotPassword": "Did you forgot your password?",
+  "see": "See..."
 }

@@ -284,7 +284,7 @@ var expirationTime = 1;
         window.location.href = aux;
       }
     }])
-    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog) {
+    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', '$firebaseArray', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog, $firebaseArray) {
       if(!$rootScope.tolsctive){
         $rootScope.tolsctive = 'active';
       }
@@ -293,6 +293,12 @@ var expirationTime = 1;
         if ($rootScope.tolsctive === true) {
           $rootScope.tolsctive = 'active';
         }
+      };
+      $rootScope.sendFirebaseNotification = function(notification) {
+        notification.date = new Date().getTime();
+        var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+        var notifications = $firebaseArray(notificationsRef);
+        notifications.$add(notification);
       };
       /*
        * Author: Sebastian Gomez
@@ -1742,7 +1748,7 @@ var expirationTime = 1;
 
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
+  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope) {
     $scope.eventLoaded = false;
     $scope.event = {};
     eventRequest.oneEvent($routeParams.eventId).success(function(data) {
@@ -1771,18 +1777,6 @@ var expirationTime = 1;
         template: 'views/templates/formCreateSponzorship.html',
         scope: $scope
       });
-    };
-    $scope.sendFirebaseNotification = function(){
-      //here start firebase notification
-      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-      var notifications = $firebaseArray(notificationsRef);
-      var notification = {
-        to: $scope.currentOrganizer.id,
-        text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
-        link: '#/organizers/sponzorships'
-      };
-      notifications.$add(notification);
-      //here finish firebase notification
     };
     $scope.createSponzorship = function() {
       /**
@@ -1817,12 +1811,23 @@ var expirationTime = 1;
                 cont++;
               });
             if (cont === sPerkData.data.Tasks.length - 1) {
-              $scope.sendFirebaseNotification();
+              var firebaseNotification = {
+                to: $scope.currentOrganizer.id,
+                text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.evento.event.title,
+                link: '#/organizers/sponzors'
+              };
+              $rootScope.sendFirebaseNotification(firebaseNotification);
+
               $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
             }
           });
           if (sPerkData.data.Tasks.length === 0) {
-            $scope.sendFirebaseNotification();
+            var firebaseNotification = {
+              to: $scope.currentOrganizer.id,
+              text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.evento.event.title,
+              link: '#/organizers/sponzors'
+            };
+            $rootScope.sendFirebaseNotification(firebaseNotification);
             $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
           }
           var info = {
@@ -2374,7 +2379,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray, $window) {
+  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $window) {
     if ($rootScope.userValidation('1')) {
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
@@ -2482,14 +2487,15 @@ angular.module('sponzorme')
               eventName: $scope.currentEvent.title,
               lang: idiomaselect
             };
-            var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-            var notifications = $firebaseArray(notificationsRef);
-            var notification = {
+
+            var firebaseNotification = {
               to: $scope.currentOrganizer.id,
-              text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.currentEvent.title + ' =)',
-              link: '#/organizers/sponzorships'
+              text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.currentEvent.title,
+              link: '#/organizers/sponzors'
             };
-            notifications.$add(notification);
+            $rootScope.sendFirebaseNotification(firebaseNotification);
+
+
             sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
@@ -3513,7 +3519,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, ratingRequest) {
+  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorships = true;
@@ -3603,17 +3609,19 @@ angular.module('sponzorme')
             organizerEmail: $localStorage.email,
             lang: idiomaselect
           };
-          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-          var notifications = $firebaseArray(notificationsRef);
-          var notification = {
+
+          var firebaseNotification = {
             to: $scope.sponzorships[i].sponzor_id,
-            text: 'Your sponzorship by the event ' + $scope.sponzorships[i].title + ' has been approved.',
-            link: '#/sponzors/sponzorships'
+            text: $translate.instant("NOTIFICATIONS.SponzorshipAproved") + $scope.sponzorships[i].title,
+            link: '#/sponzors/sponzoring'
           };
-          notifications.$add(notification);
+          $rootScope.sendFirebaseNotification(firebaseNotification);
+
           sponzorshipRequest.sendSponzorshipEmail(info).success(function() {});
           $scope.getSponzorshipsByOrganizer();
-        }).error(function() {});
+        }).error(function() {
+          $rootScope.showDialog('error', 'problem', false);
+        });
       };
       //This function changes to 0 the sponzorship status
       $scope.unacceptSponzorship = function(sponzoshipId) {
@@ -3625,7 +3633,7 @@ angular.module('sponzorme')
         sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
           $scope.getSponzorshipsByOrganizer();
         }).error(function(eData) {
-
+          $rootScope.showDialog('error', 'problem', false);
         });
       };
       //this function deletes an sponzorship if the status is 0
@@ -4175,9 +4183,6 @@ angular.module('sponzorme')
       var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
       var query = notificationsRef.orderByChild('to').equalTo($localStorage.id).limitToLast(25);
       $scope.notifications = $firebaseArray(query);
-      $scope.notifications.$loaded().then(function() {
-        $scope.help = $scope.notifications.length;
-      });
       notificationsRef.orderByChild('to').equalTo($localStorage.id).on('child_added', function() {
         $scope.help++;
       });
