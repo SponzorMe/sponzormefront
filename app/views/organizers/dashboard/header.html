@@ -25,9 +25,9 @@
         <i class="fa fa-bell-o"></i>
       </a>
       <ul class="dropdown-menu dropdown-menu-right" role="menu" >
-        <div ng-repeat="n in notifications" ng-if="help">
+        <div ng-repeat="n in notifications| limitTo:5 | orderBy:-date" ng-if="help">
           <li class="" style="padding:0 0.5em 0 0.5em;">
-            <p style="text-align:justify">{{n.text}} <a style="display: inline-block !important; color:red !important;" href="" ng-click="notifications.$remove(n)">x</a> </p></li>
+            <p>{{n.text}} <a style="display: inline-block !important; color:blue !important;" href="{{n.link}}">{{'see'|translate}}</a>&nbsp;<a style="display: inline-block !important; color:red !important;" href="" ng-click="notifications.$remove(n)">X</a></p></li>
           <li class="divider"></li>
         </div>
         <div ng-if="!help">

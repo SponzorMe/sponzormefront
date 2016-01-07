@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray, $window) {
+  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $window) {
     if ($rootScope.userValidation('1')) {
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
@@ -108,14 +108,15 @@
               eventName: $scope.currentEvent.title,
               lang: idiomaselect
             };
-            var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-            var notifications = $firebaseArray(notificationsRef);
-            var notification = {
+
+            var firebaseNotification = {
               to: $scope.currentOrganizer.id,
-              text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.currentEvent.title + ' =)',
-              link: '#/organizers/sponzorships'
+              text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.currentEvent.title,
+              link: '#/organizers/sponzors'
             };
-            notifications.$add(notification);
+            $rootScope.sendFirebaseNotification(firebaseNotification);
+
+
             sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);

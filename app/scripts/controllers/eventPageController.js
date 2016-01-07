@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope, $firebaseArray) {
+  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope) {
     $scope.eventLoaded = false;
     $scope.event = {};
     eventRequest.oneEvent($routeParams.eventId).success(function(data) {
@@ -29,18 +29,6 @@
         template: 'views/templates/formCreateSponzorship.html',
         scope: $scope
       });
-    };
-    $scope.sendFirebaseNotification = function(){
-      //here start firebase notification
-      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-      var notifications = $firebaseArray(notificationsRef);
-      var notification = {
-        to: $scope.currentOrganizer.id,
-        text: 'Hurray!!! Someone wants to sponsor your event ' + $scope.evento.event.title + ' =)',
-        link: '#/organizers/sponzorships'
-      };
-      notifications.$add(notification);
-      //here finish firebase notification
     };
     $scope.createSponzorship = function() {
       /**
@@ -75,12 +63,23 @@
                 cont++;
               });
             if (cont === sPerkData.data.Tasks.length - 1) {
-              $scope.sendFirebaseNotification();
+              var firebaseNotification = {
+                to: $scope.currentOrganizer.id,
+                text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.evento.event.title,
+                link: '#/organizers/sponzors'
+              };
+              $rootScope.sendFirebaseNotification(firebaseNotification);
+
               $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
             }
           });
           if (sPerkData.data.Tasks.length === 0) {
-            $scope.sendFirebaseNotification();
+            var firebaseNotification = {
+              to: $scope.currentOrganizer.id,
+              text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.evento.event.title,
+              link: '#/organizers/sponzors'
+            };
+            $rootScope.sendFirebaseNotification(firebaseNotification);
             $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
           }
           var info = {

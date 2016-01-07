@@ -181,7 +181,7 @@ var expirationTime = 1;
         window.location.href = aux;
       }
     }])
-    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog) {
+    .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', '$firebaseArray', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog, $firebaseArray) {
       if(!$rootScope.tolsctive){
         $rootScope.tolsctive = 'active';
       }
@@ -190,6 +190,12 @@ var expirationTime = 1;
         if ($rootScope.tolsctive === true) {
           $rootScope.tolsctive = 'active';
         }
+      };
+      $rootScope.sendFirebaseNotification = function(notification) {
+        notification.date = new Date().getTime();
+        var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+        var notifications = $firebaseArray(notificationsRef);
+        notifications.$add(notification);
       };
       /*
        * Author: Sebastian Gomez

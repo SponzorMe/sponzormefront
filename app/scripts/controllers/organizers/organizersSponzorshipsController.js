@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, $firebaseArray, ratingRequest) {
+  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.noSponzorshipsMessage = false;
       $scope.loadingsponzorships = true;
@@ -90,17 +90,19 @@
             organizerEmail: $localStorage.email,
             lang: idiomaselect
           };
-          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-          var notifications = $firebaseArray(notificationsRef);
-          var notification = {
+
+          var firebaseNotification = {
             to: $scope.sponzorships[i].sponzor_id,
-            text: 'Your sponzorship by the event ' + $scope.sponzorships[i].title + ' has been approved.',
-            link: '#/sponzors/sponzorships'
+            text: $translate.instant("NOTIFICATIONS.SponzorshipAproved") + $scope.sponzorships[i].title,
+            link: '#/sponzors/sponzoring'
           };
-          notifications.$add(notification);
+          $rootScope.sendFirebaseNotification(firebaseNotification);
+
           sponzorshipRequest.sendSponzorshipEmail(info).success(function() {});
           $scope.getSponzorshipsByOrganizer();
-        }).error(function() {});
+        }).error(function() {
+          $rootScope.showDialog('error', 'problem', false);
+        });
       };
       //This function changes to 0 the sponzorship status
       $scope.unacceptSponzorship = function(sponzoshipId) {
@@ -112,7 +114,7 @@
         sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).success(function() {
           $scope.getSponzorshipsByOrganizer();
         }).error(function(eData) {
-
+          $rootScope.showDialog('error', 'problem', false);
         });
       };
       //this function deletes an sponzorship if the status is 0
