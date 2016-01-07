@@ -9,7 +9,6 @@
       $scope.loadingTasks = true;
       $scope.emailuser = $localStorage.email;
       $scope.userfroups = 0;
-      $scope.tolsctive = 'active';
       $translate.use(idiomaselect);
       $scope.sendToRating = function(s) {
         sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
@@ -198,12 +197,6 @@
         });
       };
       $scope.getSponzorshipsBySponzor();
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }

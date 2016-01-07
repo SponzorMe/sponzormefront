@@ -24,8 +24,13 @@
         <li class="sidebar-list">
           <a href="#/sponzors/friend">{{'invite' | translate }} <span class="menu-icon fa fa-smile-o"></span></a>
         </li>
-        <li class="sidebar-list">
-          <a href="#/logout">{{'logout' | translate }}<span class="menu-icon fa fa-sign-out"></span></a>
+        <li>&nbsp;</li>
+        <li ng-if="tolsctive">
+          <a href="http://j.mp/spmeandroid" target="_blank"><img ng-src="images/play_store.png" alt="SponzorMe Android App - Play Store" width="200px" /></a>
+        </li>
+        <li>&nbsp;</li>
+        <li ng-if="tolsctive">
+          <a href="http://j.mp/spniosapp" target="_blank"><img ng-src="images/app_store.jpg" alt="SponzorMe IOS App - App Store" width="200px" /></a>
         </li>
       </ul>
       <div class="sidebar-footer" id="step4">

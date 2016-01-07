@@ -182,6 +182,15 @@ var expirationTime = 1;
       }
     }])
     .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog) {
+      if(!$rootScope.tolsctive){
+        $rootScope.tolsctive = 'active';
+      }
+      $rootScope.toggleSidebar = function() {
+        $rootScope.tolsctive = !$rootScope.tolsctive;
+        if ($rootScope.tolsctive === true) {
+          $rootScope.tolsctive = 'active';
+        }
+      };
       /*
        * Author: Sebastian Gomez
        * This function allows change the language whatever be the route

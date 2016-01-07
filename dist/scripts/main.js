@@ -285,6 +285,15 @@ var expirationTime = 1;
       }
     }])
     .run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog) {
+      if(!$rootScope.tolsctive){
+        $rootScope.tolsctive = 'active';
+      }
+      $rootScope.toggleSidebar = function() {
+        $rootScope.tolsctive = !$rootScope.tolsctive;
+        if ($rootScope.tolsctive === true) {
+          $rootScope.tolsctive = 'active';
+        }
+      };
       /*
        * Author: Sebastian Gomez
        * This function allows change the language whatever be the route
@@ -2001,8 +2010,8 @@ var expirationTime = 1;
 'use strict';
 (function(){
 
-function LogoutController($scope, $translate, $sessionStorage, $location, $localStorage) {
-
+function LogoutController($scope, $translate, $sessionStorage, $location, $localStorage, $rootScope) {
+  $rootScope.tolsctive = 'active';
   $localStorage.$reset();
 
   $location.path('/login');
@@ -2315,13 +2324,6 @@ angular.module('sponzorme')
           scope: $scope
         });
       };
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.loadSponzorships(); //here starts the callback
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
@@ -2365,15 +2367,6 @@ angular.module('sponzorme')
           $scope.loadingInvite = false;
         });
       };
-
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
-
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }
@@ -2390,7 +2383,6 @@ angular.module('sponzorme')
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
       $scope.bestLoading = true;
-      $scope.tolsctive = 'active';
       $scope.showOrganizerInfo = function(event) {
         $rootScope.showLoading();
         eventRequest.oneEvent(event.id).success(function(sData) {
@@ -2512,13 +2504,6 @@ angular.module('sponzorme')
         }).error(function() {
           $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
         });
-      };
-
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
       };
       $scope.getAllEvents();
       $scope.menuprincipal = 'views/sponzors/menu.html';
@@ -2713,14 +2698,6 @@ angular.module('sponzorme')
           $rootScope.showDialog('error', 'PasswordNoMatch', false);
         }
       };
-
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }
@@ -2741,7 +2718,6 @@ angular.module('sponzorme')
       $scope.loadingTasks = true;
       $scope.emailuser = $localStorage.email;
       $scope.userfroups = 0;
-      $scope.tolsctive = 'active';
       $translate.use(idiomaselect);
       $scope.sendToRating = function(s) {
         sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
@@ -2930,12 +2906,6 @@ angular.module('sponzorme')
         });
       };
       $scope.getSponzorshipsBySponzor();
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }
@@ -2987,13 +2957,6 @@ angular.module('sponzorme')
           $rootScope.closeAllDialogs(); //Close Loading
           $rootScope.showDialog('error', 'invalidRateInfo', false);
         });
-      };
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
       };
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
@@ -3127,7 +3090,6 @@ angular.module('sponzorme')
       $scope.eventos = [];
       $scope.currentPerkId = 0;
       $scope.currentPerk = {};
-      $scope.tolsctive = 'active';
       $scope.emailuser = $localStorage.email;
       $scope.file = false; //By default no file to add.
       $scope.event = {};
@@ -3160,13 +3122,6 @@ angular.module('sponzorme')
           }
         });
       };
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
-
       $scope.updatePerks = function(idevent) {
         $scope.loadingPerks = true; //We need put in load mode the widget
         $scope.noPerksMessage = false; //We suppose that exists persks
@@ -3344,15 +3299,6 @@ function OrganizersFriendController($scope, $translate, $localStorage, userReque
         $scope.loadingInvite = false;
       });
     };
-
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-          $scope.tolsctive = !$scope.tolsctive;
-          if($scope.tolsctive === true){
-             $scope.tolsctive = 'active';
-          }
-      };
-
     $scope.menuprincipal = 'views/organizers/menu.html';
   }
 }
@@ -3365,11 +3311,8 @@ angular.module('sponzorme')
 (function() {
   function OrganizersMainController($scope, $translate, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
     if($rootScope.userValidation('0')){
-
-
       $scope.loadingevents = true;
       $scope.loadingrss = true;
-      $scope.tolsctive = 'active';
       $scope.emailuser = $localStorage.email;
       $scope.userfroups = 0;
       $translate.use(idiomaselect);
@@ -3431,13 +3374,6 @@ angular.module('sponzorme')
         $scope.loadingrss = false;
         $scope.noRssMessage = true;
       });
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
@@ -3572,13 +3508,6 @@ angular.module('sponzorme')
           $rootScope.showDialog('error', 'PasswordNoMatch', false);
         }
       };
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
@@ -3597,7 +3526,6 @@ angular.module('sponzorme')
       $scope.emailuser = $localStorage.email;
       $scope.userfroups = 0;
       $translate.use(idiomaselect);
-      $scope.tolsctive = 'active';
       $scope.sendToRating = function(s) {
         sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
           ratingRequest.ratingBySponzorship(s.id, 0).success(function(s2Data) {
@@ -3786,14 +3714,6 @@ angular.module('sponzorme')
           scope: $scope
         });
       };
-
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
-
       $scope.getSponzorshipsByOrganizer();
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
@@ -3807,7 +3727,6 @@ angular.module('sponzorme')
 (function() {
   function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
     if($rootScope.userValidation('0')){
-      $scope.tolsctive = 'active';
       $scope.loading = true;
       $rootScope.showLoading();
       eventTypeRequest.allEventTypes().success(function(adata) {
@@ -3896,12 +3815,6 @@ angular.module('sponzorme')
       $scope.removeEditPerk = function(index) {
         $scope.eventData.perks.splice(index, 1);
       };
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.formEditEvent($routeParams.id); //Here start the callback
       $translate.use(idiomaselect);
       $scope.menuprincipal = 'views/organizers/menu.html';
@@ -3927,7 +3840,6 @@ angular.module('sponzorme')
 
       //Use This Zone to Vars Initialization
       $translate.use(idiomaselect);
-      $scope.tolsctive = 'active';
       $scope.sponzorshipTypes = [];
       $scope.newEvent = {};
       eventTypeRequest.allEventTypes().success(function(adata) {
@@ -4045,20 +3957,10 @@ angular.module('sponzorme')
           id: -1
         });
       };
-
       //this function removes a SponzorshipType to the new event form
       $scope.removeSponzorshipType = function(index) {
         $scope.sponzorshipTypes.splice(index, 1);
       };
-
-      //this function expand and compress the left menu
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
-
       if ($routeParams.eventBriteCode) {
         eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));
@@ -4257,13 +4159,6 @@ angular.module('sponzorme')
           $rootScope.showDialog('error', 'invalidRateInfo', false);
         });
       };
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
@@ -4344,13 +4239,6 @@ angular.module('sponzorme')
     else{
       $location.path('/');
     }
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
   }
 
   angular.module('sponzorme')

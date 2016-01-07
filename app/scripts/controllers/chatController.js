@@ -46,13 +46,6 @@
     else{
       $location.path('/');
     }
-    $scope.tolsctive = 'active';
-    $scope.toggleSidebar = function() {
-      $scope.tolsctive = !$scope.tolsctive;
-      if ($scope.tolsctive === true) {
-        $scope.tolsctive = 'active';
-      }
-    };
   }
 
   angular.module('sponzorme')

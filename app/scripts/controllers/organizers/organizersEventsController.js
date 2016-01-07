@@ -8,7 +8,6 @@
       $scope.eventos = [];
       $scope.currentPerkId = 0;
       $scope.currentPerk = {};
-      $scope.tolsctive = 'active';
       $scope.emailuser = $localStorage.email;
       $scope.file = false; //By default no file to add.
       $scope.event = {};
@@ -41,13 +40,6 @@
           }
         });
       };
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
-
       $scope.updatePerks = function(idevent) {
         $scope.loadingPerks = true; //We need put in load mode the widget
         $scope.noPerksMessage = false; //We suppose that exists persks

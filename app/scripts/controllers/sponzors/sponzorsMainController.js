@@ -5,7 +5,6 @@
       $scope.searchLoading = true;
       $scope.upcomingLoading = true;
       $scope.bestLoading = true;
-      $scope.tolsctive = 'active';
       $scope.showOrganizerInfo = function(event) {
         $rootScope.showLoading();
         eventRequest.oneEvent(event.id).success(function(sData) {
@@ -127,13 +126,6 @@
         }).error(function() {
           $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
         });
-      };
-
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
       };
       $scope.getAllEvents();
       $scope.menuprincipal = 'views/sponzors/menu.html';

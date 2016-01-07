@@ -13,7 +13,6 @@
 
       //Use This Zone to Vars Initialization
       $translate.use(idiomaselect);
-      $scope.tolsctive = 'active';
       $scope.sponzorshipTypes = [];
       $scope.newEvent = {};
       eventTypeRequest.allEventTypes().success(function(adata) {
@@ -131,20 +130,10 @@
           id: -1
         });
       };
-
       //this function removes a SponzorshipType to the new event form
       $scope.removeSponzorshipType = function(index) {
         $scope.sponzorshipTypes.splice(index, 1);
       };
-
-      //this function expand and compress the left menu
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
-
       if ($routeParams.eventBriteCode) {
         eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));

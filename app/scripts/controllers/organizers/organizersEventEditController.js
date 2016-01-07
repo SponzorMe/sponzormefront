@@ -2,7 +2,6 @@
 (function() {
   function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
     if($rootScope.userValidation('0')){
-      $scope.tolsctive = 'active';
       $scope.loading = true;
       $rootScope.showLoading();
       eventTypeRequest.allEventTypes().success(function(adata) {
@@ -90,12 +89,6 @@
       };
       $scope.removeEditPerk = function(index) {
         $scope.eventData.perks.splice(index, 1);
-      };
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
       };
       $scope.formEditEvent($routeParams.id); //Here start the callback
       $translate.use(idiomaselect);

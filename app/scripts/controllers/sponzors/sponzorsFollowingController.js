@@ -92,13 +92,6 @@
           scope: $scope
         });
       };
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.loadSponzorships(); //here starts the callback
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }

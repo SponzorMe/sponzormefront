@@ -182,14 +182,6 @@
           $rootScope.showDialog('error', 'PasswordNoMatch', false);
         }
       };
-
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }

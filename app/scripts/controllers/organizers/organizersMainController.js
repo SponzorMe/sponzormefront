@@ -2,11 +2,8 @@
 (function() {
   function OrganizersMainController($scope, $translate, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
     if($rootScope.userValidation('0')){
-
-
       $scope.loadingevents = true;
       $scope.loadingrss = true;
-      $scope.tolsctive = 'active';
       $scope.emailuser = $localStorage.email;
       $scope.userfroups = 0;
       $translate.use(idiomaselect);
@@ -68,13 +65,6 @@
         $scope.loadingrss = false;
         $scope.noRssMessage = true;
       });
-      $scope.tolsctive = 'active';
-      $scope.toggleSidebar = function() {
-        $scope.tolsctive = !$scope.tolsctive;
-        if ($scope.tolsctive === true) {
-          $scope.tolsctive = 'active';
-        }
-      };
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
