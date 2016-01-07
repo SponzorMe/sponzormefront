@@ -323,7 +323,6 @@ var expirationTime = 1;
 
       $rootScope.showDialog = function(kind, message, redirectOnClose){
         $rootScope.pseudoScope = {'message': message, 'redirectOnClose': redirectOnClose};
-        //console.log($rootScope.pseudoScope);
         var selectedTemplate;
         if(kind === 'error'){
           selectedTemplate = 'views/templates/errorDialog.html';
@@ -2009,17 +2008,14 @@ var expirationTime = 1;
 
 'use strict';
 (function(){
-
 function LogoutController($scope, $translate, $sessionStorage, $location, $localStorage, $rootScope) {
   $rootScope.tolsctive = 'active';
   $localStorage.$reset();
 
   $location.path('/login');
 }
-
 angular.module('sponzorme')
 .controller('LogoutController', LogoutController);
-
 })();
 
 'use strict';
@@ -4101,8 +4097,11 @@ angular.module('sponzorme')
       $scope.prefilEventFormMeetup = function(e) {
         $scope.titleevent = e.name;
         $scope.descriptionevent = e.description;
-        $scope.dtini = e.time;
-        $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
+        $scope.dtini = new Date(e.time);
+        var dataTime = new Date(e.time);
+        var timer = parseInt(1 * 2 * 60 * 60 * 1000);
+        var dataExpDate = new Date(dataTime.getTime() + timer);
+        $scope.dtfinal = new Date(dataExpDate);
         $scope.privacyevent = 0;
         $rootScope.closeAllDialogs();
       };

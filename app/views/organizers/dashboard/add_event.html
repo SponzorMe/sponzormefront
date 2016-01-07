@@ -76,7 +76,7 @@
             <!--form field-->
             <div class="form-group" id="public">
               <div class="col-sm-4 control-label">
-                <input id="privacy0" type="radio" ng-model="privacyevent" name="privacy" value="0" />
+                <input id="privacy0" type="radio" ng-model="privacyevent" name="privacy" value="0" required="required"/>
               </div>
               <label for="privacy0" class="col-sm-7">
                 <strong>{{ 'privacyoption0' | translate }} : </strong>
@@ -84,7 +84,7 @@
                 {{ 'privacydescription0' | translate }} </label>
 
               <div class="col-sm-4 control-label">
-                <input id="privacy1" type="radio" ng-model="privacyevent" name="privacy" value="1" />
+                <input id="privacy1" type="radio" ng-model="privacyevent" name="privacy" value="1" required="required"/>
               </div>
 
               <label for="privacy1" class="col-sm-7">
@@ -98,7 +98,7 @@
                 {{ 'neweventtype' | translate }}
               </label>
               <div class="col-sm-7">
-                <select ng-model="typeevent" name="type" class="form-control">
+                <select ng-model="typeevent" name="type" class="form-control" required="required">
                   <option value="">{{ 'choosetype' | translate }}</option>
                   <option data-ng-repeat="t in typefilter" data-ng-value="t.id">
                     {{t.name}}
@@ -112,7 +112,7 @@
                 {{ 'neweventcategory' | translate }}
               </label>
               <div class="col-sm-7">
-                <select ng-model="categoryevent" name="type" class="form-control">
+                <select ng-model="categoryevent" name="type" class="form-control" required="required">
                   <option value="">{{ 'choosetype' | translate }}</option>
                   <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id">
                     {{c.title}}

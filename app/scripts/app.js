@@ -220,7 +220,6 @@ var expirationTime = 1;
 
       $rootScope.showDialog = function(kind, message, redirectOnClose){
         $rootScope.pseudoScope = {'message': message, 'redirectOnClose': redirectOnClose};
-        //console.log($rootScope.pseudoScope);
         var selectedTemplate;
         if(kind === 'error'){
           selectedTemplate = 'views/templates/errorDialog.html';

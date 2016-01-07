@@ -274,8 +274,11 @@
       $scope.prefilEventFormMeetup = function(e) {
         $scope.titleevent = e.name;
         $scope.descriptionevent = e.description;
-        $scope.dtini = e.time;
-        $scope.dtfinal = new Date(e.time + (e.utc_offset * -1));
+        $scope.dtini = new Date(e.time);
+        var dataTime = new Date(e.time);
+        var timer = parseInt(1 * 2 * 60 * 60 * 1000);
+        var dataExpDate = new Date(dataTime.getTime() + timer);
+        $scope.dtfinal = new Date(dataExpDate);
         $scope.privacyevent = 0;
         $rootScope.closeAllDialogs();
       };
