@@ -93,7 +93,7 @@
 
           var firebaseNotification = {
             to: $scope.sponzorships[i].sponzor_id,
-            text: $translate.instant("NOTIFICATIONS.SponzorshipAproved") + $scope.sponzorships[i].title,
+            text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.sponzorships[i].title,
             link: '#/sponzors/sponzoring'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);

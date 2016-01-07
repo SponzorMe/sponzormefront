@@ -1750,6 +1750,7 @@ var expirationTime = 1;
 (function() {
   function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope) {
     $scope.eventLoaded = false;
+    var firebaseNotification;
     $scope.event = {};
     eventRequest.oneEvent($routeParams.eventId).success(function(data) {
       $scope.eventLoaded = true;
@@ -1811,9 +1812,9 @@ var expirationTime = 1;
                 cont++;
               });
             if (cont === sPerkData.data.Tasks.length - 1) {
-              var firebaseNotification = {
+              firebaseNotification = {
                 to: $scope.currentOrganizer.id,
-                text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.evento.event.title,
+                text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.evento.event.title,
                 link: '#/organizers/sponzors'
               };
               $rootScope.sendFirebaseNotification(firebaseNotification);
@@ -1822,9 +1823,9 @@ var expirationTime = 1;
             }
           });
           if (sPerkData.data.Tasks.length === 0) {
-            var firebaseNotification = {
+            firebaseNotification = {
               to: $scope.currentOrganizer.id,
-              text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.evento.event.title,
+              text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.evento.event.title,
               link: '#/organizers/sponzors'
             };
             $rootScope.sendFirebaseNotification(firebaseNotification);
@@ -1835,7 +1836,7 @@ var expirationTime = 1;
             eventName: $scope.evento.event.title,
             lang: idiomaselect
           };
-          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function(){});
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
         }).error(function() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'eventPageErrorSponzoringEvent', false);
@@ -2490,7 +2491,7 @@ angular.module('sponzorme')
 
             var firebaseNotification = {
               to: $scope.currentOrganizer.id,
-              text: $translate.instant("NOTIFICATIONS.NewSponzorshipRequestfor") + $scope.currentEvent.title,
+              text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
               link: '#/organizers/sponzors'
             };
             $rootScope.sendFirebaseNotification(firebaseNotification);
@@ -3612,7 +3613,7 @@ angular.module('sponzorme')
 
           var firebaseNotification = {
             to: $scope.sponzorships[i].sponzor_id,
-            text: $translate.instant("NOTIFICATIONS.SponzorshipAproved") + $scope.sponzorships[i].title,
+            text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.sponzorships[i].title,
             link: '#/sponzors/sponzoring'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);

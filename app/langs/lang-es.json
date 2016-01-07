@@ -649,5 +649,7 @@
  "RetryMeetupConection":"Click aquí para intentar de nuevo",
  "GettingYourMeetupEvents":"Obteniendo tus eventos de Meetup...",
  "ConnectingToMeetup":"Conectandose a Meetup...",
- "group":"Grupo de Meetup"
+ "group":"Grupo de Meetup",
+ "messageapp1":"Vamos contigo a donde nos necesites",
+ "messageapp2":"Ahora con un solo click podras descargar nuestra app"
 }

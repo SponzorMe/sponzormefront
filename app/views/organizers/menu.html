@@ -21,13 +21,12 @@
     <li class="sidebar-list">
       <a href="#/organizers/settings">{{ 'settings' | translate }}<span class="menu-icon fa fa-cogs"></span></a>
     </li>
-    <li>&nbsp;</li>
-    <li ng-if="tolsctive">
-      <a href="http://j.mp/spmeandroid" target="_blank"><img ng-src="images/play_store.png" alt="SponzorMe Android App - Play Store" width="200px" /></a>
-    </li>
-    <li>&nbsp;</li>
-    <li ng-if="tolsctive">
-      <a href="http://j.mp/spniosapp" target="_blank"><img ng-src="images/app_store.jpg" alt="SponzorMe IOS App - App Store" width="200px" /></a>
+    <li ng-if="tolsctive" class="menu-app">
+      <p class="great">{{'messageapp1'|translate}}</p>
+      <img ng-src="images/devices.png" alt="SponzorMe IOS App - App Store" width="120px" />
+      <p>{{'messageapp2'|translate}}</p>
+      <a href="http://j.mp/spmeandroid" target="_blank"><img ng-src="images/play_store.png" alt="SponzorMe Android App - Play Store" width="120px" /></a>
+      <a href="http://j.mp/spniosapp" target="_blank"><img ng-src="images/app_store.png" alt="SponzorMe IOS App - App Store" width="120px" /></a>
     </li>
   </ul>
   <div class="sidebar-footer" id="step4">

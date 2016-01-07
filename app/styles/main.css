@@ -15024,3 +15024,30 @@ ul.sidebar .sidebar-list a:hover {
   border-radius: 10px;
   padding: 1em;
   margin: 0.5em; }
+
+.menu-app {
+  margin-top: 0.5em;
+  background-color: #fff;
+  color: #23ae89;
+  text-align: center;
+  text-indent: 0px !important;
+  bottom: 0;
+  position: absolute; }
+
+.menu-app a {
+  background-color: #fff;
+  color: #23ae89;
+  text-align: center; }
+
+.menu-app img {
+  margin-bottom: 10px; }
+
+.menu-app .great {
+  margin: 0;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+  padding: 0 1em; }
+
+.menu-app img {
+  width: 120px; }
