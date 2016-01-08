@@ -321,7 +321,6 @@ var expirationTime = 1;
         ngDialog.open({
           template: 'views/templates/loadingDialog.html',
           showClose: false,
-          closeByEscape: false,
           closeByDocument: false,
           controller: 'DialogController'
         });
@@ -4301,11 +4300,12 @@ angular.module('sponzorme')
       $location.path('/');
     };
     $scope.delayed = false;
-    $timeout(function() {
-        $scope.delayed = true;
-      }, 5000
-    );
-
+    if($scope.delayed === false){
+      $timeout(function() {
+          $scope.delayed = true;
+        }, 15000
+      );
+    }
   }
   angular.module('sponzorme')
     .controller('DialogController', DialogController);
