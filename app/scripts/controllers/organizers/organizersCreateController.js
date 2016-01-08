@@ -33,47 +33,46 @@
                 eventRequest.createEventToken(event_en.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
                   angular.forEach(event_en.PERKS, function(value) {
                     value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {/*Empty Code, nothing necessary here*/})
-                    .error(function(){/*Empty Code, nothing necessary here*/});
+                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() { /*Empty Code, nothing necessary here*/ })
+                      .error(function() { /*Empty Code, nothing necessary here*/ });
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
                   $rootScope.closeAllDialogs();
-                }).error(function() {/*Empty Code, nothing necessary here*/});
+                }).error(function() { /*Empty Code, nothing necessary here*/ });
               } else if (idiomaselect === 'es') {
                 event_es.DEFAULT_EVENT.organizer = adata.User.id;
                 eventRequest.createEventToken(event_es.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
                   angular.forEach(event_es.PERKS, function(value) {
                     value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {/*Empty Code, nothing necessary here*/})
-                    .error(function() {/*Empty Code, nothing necessary here*/});
+                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() { /*Empty Code, nothing necessary here*/ })
+                      .error(function() { /*Empty Code, nothing necessary here*/ });
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
                   $rootScope.closeAllDialogs();
-                }).error(function() {/*Empty Code, nothing necessary here*/});
+                }).error(function() { /*Empty Code, nothing necessary here*/ });
               } else if (idiomaselect === 'pt') {
                 event_pt.DEFAULT_EVENT.organizer = adata.User.id;
                 eventRequest.createEventToken(event_pt.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
                   angular.forEach(event_pt.PERKS, function(value) {
                     value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() {/*Empty Code, nothing necessary here*/}).error(function() {/*Empty Code, nothing necessary here*/});
+                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() { /*Empty Code, nothing necessary here*/ }).error(function() { /*Empty Code, nothing necessary here*/ });
                   });
                   $scope.loagind = false;
                   $location.path('/customization');
                   $rootScope.closeAllDialogs();
-                }).error(function() {/*Empty Code, nothing necessary here*/});
+                }).error(function() { /*Empty Code, nothing necessary here*/ });
               }
             }
           }).error(function(data) {
             if (data.message === 'Not inserted') {
               $scope.errorMessages = [];
               if (data.error.email) {
-                if(data.error.email[0] === 'The email has already been taken.'){
+                if (data.error.email[0] === 'The email has already been taken.') {
                   $scope.errorMessages.push('errorEmailAlreadyTaken');
                   $scope.didYouForgotPassword = true;
-                }
-                else{
+                } else {
                   $scope.errorMessages.push('errorRegisterEmail');
                 }
               }

@@ -58,7 +58,7 @@
             <p>
               {{'perkTasks'|translate}}
               <ul>
-                <li ng-repeat="t in evento.event.perk_tasks" ng-if="p.id == t.perk_id">{{t.title}}</li>
+                <li ng-repeat="t in evento.event.perk_tasks" ng-if="p.id == t.perk_id && t.type==0">{{t.title}}</li>
               </ul>
             </p>
             <ul class="buttons vertical">
