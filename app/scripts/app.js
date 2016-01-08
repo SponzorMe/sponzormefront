@@ -218,7 +218,6 @@ var expirationTime = 1;
         ngDialog.open({
           template: 'views/templates/loadingDialog.html',
           showClose: false,
-          closeByEscape: false,
           closeByDocument: false,
           controller: 'DialogController'
         });

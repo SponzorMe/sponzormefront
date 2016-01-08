@@ -10,11 +10,12 @@
       $location.path('/');
     };
     $scope.delayed = false;
-    $timeout(function() {
-        $scope.delayed = true;
-      }, 5000
-    );
-
+    if($scope.delayed === false){
+      $timeout(function() {
+          $scope.delayed = true;
+        }, 15000
+      );
+    }
   }
   angular.module('sponzorme')
     .controller('DialogController', DialogController);
