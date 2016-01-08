@@ -321,7 +321,6 @@ var expirationTime = 1;
         ngDialog.open({
           template: 'views/templates/loadingDialog.html',
           showClose: false,
-          closeByDocument: false,
           controller: 'DialogController'
         });
       };
@@ -4298,6 +4297,7 @@ angular.module('sponzorme')
     };
     $scope.closeLoading = function(){
       $location.path('/');
+      ngDialog.closeAll();
     };
     $scope.delayed = false;
     if($scope.delayed === false){

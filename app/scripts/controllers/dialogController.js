@@ -8,6 +8,7 @@
     };
     $scope.closeLoading = function(){
       $location.path('/');
+      ngDialog.closeAll();
     };
     $scope.delayed = false;
     if($scope.delayed === false){
