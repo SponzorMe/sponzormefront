@@ -2,63 +2,23 @@
 (function() {
   function OrganizersMainController($scope, $translate, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
     if($rootScope.userValidation('0')){
-      $scope.loadingevents = true;
+      $scope.loadingevents = false;
       $scope.loadingrss = true;
-      $scope.emailuser = $localStorage.email;
-      $scope.userfroups = 0;
-      $translate.use(idiomaselect);
-      $scope.startcounter = 0;
-      $scope.eventos = {};
-      $scope.eventos.size = 'calculating';
-      $scope.event = {};
-      $scope.peaks = [];
-      $scope.sponzors = {};
-      $scope.sponzors.size = 'calculating';
-      $scope.sponzors.balance = 'calculating';
-      $scope.users = {};
-      $scope.users.size = 0;
-      sponzorshipRequest.oneSponzorshipByOrganizer($localStorage.id).success(function(data) {
-        $scope.sponzors.size = 0;
-        $scope.sponzors.balance = 0;
-        angular.forEach(data.SponzorsEvents, function(value) {
-          if (value.status === '1') {
-            $scope.sponzors.balance = parseInt($scope.sponzors.balance) + parseInt(value.usd);
-          }
-        });
-        $scope.sponzors.size = data.SponzorsEvents.length;
-      });
-      userRequest.oneUser($localStorage.id).success(function(adata) {
-        $scope.events = [];
-        $scope.users.size = adata.data.user.comunity_size;
-        var datuser = JSON.stringify(adata.data.user);
-        $localStorage.sponzorme = datuser;
-        $scope.events = adata.data.user.events;
-        $scope.eventos.size = $scope.events.length;
-        $scope.loadingevents = false;
-        if ($scope.events[0]) {
-          $scope.event.current = $scope.events[0].id;
+      $scope.user = JSON.parse($localStorage.user);
+      $scope.user.balance = 0;
+      angular.forEach($scope.user.sponzorships_like_organizer, function(value) {
+        if (value.status === '1') {
+          $scope.user.balance = parseInt($scope.user.balance) + parseInt(value.perk.usd);
         }
       });
-      $scope.$watch('event.current', function(newvalue) {
-        $scope.loadingpeaks = true;
-        $scope.noPerksMessage = false;
-        if ($scope.event.current) {
-          eventRequest.oneEvent(newvalue).success(function(adata) {
-            $scope.peaks = adata.data.event.perks;
-            $scope.loadingpeaks = false;
-            if (!$scope.peaks[0]) {
-              $scope.noPerksMessage = true;
-            } else {
-              $scope.noPerksMessage = false;
-            }
-          }).error(function() {
-            $scope.loadingpeaks = false;
-            $scope.noPerksMessage = true;
-          });
-        }
-      });
+      if($scope.user.events){
+        $scope.currentEvent = $scope.user.events[0];
+      }
+      $scope.showPerk = function(e){
+        $scope.currentEvent = e;
+      };
       $scope.rss = [];
-      rssRequest.rss(idiomaselect).success(function(data) {
+      rssRequest.rss($rootScope.currentLanguage()).success(function(data) {
         $scope.rss = data.responseData.feed.entries;
         $scope.loadingrss = false;
       }).error(function() {

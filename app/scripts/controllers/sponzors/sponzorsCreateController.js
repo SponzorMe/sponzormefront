@@ -3,17 +3,17 @@
 
   function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
-      idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
     $scope.sendfrom = function() {
+      var userLang = $rootScope.currentLanguage();
       if ($scope.passwordone !== undefined || $scope.passwordtwo !== undefined) {
         if ($scope.passwordone === $scope.passwordtwo && $scope.passwordtwo.length > 6) {
           $scope.objuser = {};
           $scope.objuser.email = $scope.email;
           $scope.objuser.password = $scope.passwordone;
           $scope.objuser.password_confirmation = $scope.passwordtwo;
-          $scope.objuser.lang = idiomaselect;
+          $scope.objuser.lang = userLang;
           $scope.objuser.type = 1;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;

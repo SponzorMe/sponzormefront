@@ -2,12 +2,7 @@
 (function() {
   function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if ($rootScope.userValidation('0')) {
-      $rootScope.showLoading();
-      userRequest.oneUser($localStorage.id).success(function(adata) {
-        $scope.account = adata.data.user;
-        $scope.userInterests = adata.data.interests;
-        $rootScope.closeAllDialogs();
-      });
+      $scope.user = JSON.parse($localStorage.user);
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
         $scope.interests = sData.InterestCategory;
       });

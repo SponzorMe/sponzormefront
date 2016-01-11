@@ -10,9 +10,6 @@
       });
     }
     if($rootScope.userValidation('0')){
-
-      //Use This Zone to Vars Initialization
-      $translate.use(idiomaselect);
       $scope.sponzorshipTypes = [];
       $scope.newEvent = {};
       eventTypeRequest.allEventTypes().success(function(adata) {
@@ -45,7 +42,7 @@
         $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD HH:mm:ss');
         //$scope.newEvent.starts = new Date($scope.dtini);
         //$scope.newEvent.ends = new Date($scope.dtfinal);
-        $scope.newEvent.lang = idiomaselect;
+        $scope.newEvent.lang = $rootScope.currentLanguage();
         $scope.newEvent.type = $scope.typeevent;
         $scope.newEvent.category = $scope.categoryevent;
         $scope.newEvent.privacy = $scope.privacyevent;

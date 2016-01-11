@@ -19,7 +19,6 @@
                   <thead>
                     <tr>
                       <th class="text-center">{{ 'name' | translate }}</th>
-                      <th class="text-center">{{ 'email' | translate }}</th>
                       <th class="text-center">{{ 'eventtitle' | translate }}</th>
                       <th class="text-center">{{ 'sponzoring' | translate }}
                         type</th>
@@ -28,21 +27,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingsponzorships && !noSponzorshipsMessage">
-                      <td colspan="6">
-                        <rd-loading></rd-loading>
-                      </td>
-                    </tr>
-                    <tr ng-show="!loadingsponzorships && noSponzorshipsMessage">
+                    <tr ng-show="!user.sponzorships_like_organizer.length">
                       <td class="text-center" colspan="6">
                         <h2 class="text-center">{{'noSponzorshipsMessage'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr data-ng-class="{success : sponzorships.current === s.id}" data-ng-repeat="s in sponzorships" ng-show="!loadingsponzorships && !noSponzorshipsMessage">
-                      <td class="text-center">{{s.name}} <a href="#/profile/{{s.sponzor_id}}" target="_blank"><i class="fa fa-info-circle"></i></a></td>
-                      <td class="text-center">{{s.email}}</td>
-                      <td class="text-center">{{s.title}}</td>
-                      <td class="text-center">{{s.kind}}</td>
+                    <tr data-ng-class="{success : currentSponzorship.id === s.id}" data-ng-repeat="s in user.sponzorships_like_organizer" ng-show="user.sponzorships_like_organizer.length">
+                      <td class="text-center">{{s.sponzor.name}} <a href="#/profile/{{s.sponzor_id}}" target="_blank"><i class="fa fa-info-circle"></i></a></td>
+                      <td class="text-center">{{s.event.title}}</td>
+                      <td class="text-center">{{s.perk.kind}}</td>
                       <td class="text-center">
                         <div ng-if="s.status == 0">{{ 'eventstate0' | translate }}</div>
                         <div ng-if="s.status == 1">{{ 'eventstate1' | translate }}</div>
@@ -64,7 +57,7 @@
                             </a>
                           </div>
                         </div>
-                        <a href="" ng-click="getTaskSponzor(s.id)" ng-if="s.status >= 1">
+                        <a href="" ng-click="getTasks(s)" ng-if="s.status >= 1">
                           <i class="fa fa-tasks"></i>
                         </a>
                         <a href="" ng-click="deleteSponzorship(s.id)" ng-if="s.status == 0">
@@ -99,41 +92,31 @@
                     <thead>
                       <th>{{ 'todoTitle' | translate }}</th>
                       <th>{{ 'todoDescription' | translate }}</th>
-                      <th>{{ 'todoOwner' | translate }}</th>
                       <th>{{ 'todoStatus' | translate }}</th>
                       <th>{{ 'actions' | translate }}</th>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingsponzorshipstasks && !noSponzorshipsTaskMessage">
-                        <td colspan="5">
-                          <rd-loading></rd-loading>
-                        </td>
-                      </tr>
-                      <tr ng-show="!loadingsponzorshipstasks && noSponzorshipsTaskMessage">
+                      <tr ng-show="!currentSponzorship.task_sponzor.length">
                         <td class="text-center" colspan="5">
                           <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr data-ng-repeat="t in tasksSponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadingsponzorshipstasks && !noSponzorshipsTaskMessage" ng-show="!loadingtodo">
-                        <td>{{ t.title }}</td>
-                        <td>{{ t.description }}</td>
-                        <td>
-                          <div ng-if="t.type == 0">{{ 'You' | translate }}</div>
-                          <div ng-if="t.type == 1">{{ 'Sponzor' | translate }}</div>
-                        </td>
+                      <tr data-ng-repeat="t in currentSponzorship.task_sponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="currentSponzorship.task_sponzor.length">
+                        <td>{{ t.task.title }}</td>
+                        <td>{{ t.task.description }}</td>
                         <td>
                           <div ng-if="t.status == 0">{{ 'taskNoCompleted' | translate }}</div>
                           <div ng-if="t.status == 1">{{ 'taskCompleted' | translate }}</div>
                         </td>
                         <td>
                           <span class="text-success">
-                            <a href="" ng-click="completeTask(t.id)" ng-if="t.status == 0 && t.type==0">
+                            <a href="" ng-click="completeTask(t.id)" ng-if="t.status == 0 && t.task.type==0">
                               <i class="fa fa-check"></i>
                             </a>
-                            <a href="" ng-click="uncompleteTask(t.id)" ng-if="t.status == 1 && t.type==0">
+                            <a href="" ng-click="uncompleteTask(t.id)" ng-if="t.status == 1 && t.task.type==0">
                               <i class="fa fa-times"></i>
                             </a>
-                            <span ng-if="t.type==1">{{ 'waitUnitlSponzorComplete' | translate }}</span>
+                            <span ng-if="t.task.type==1">{{ 'waitUnitlSponzorComplete' | translate }}</span>
                           </span>
                         </td>
                       </tr>

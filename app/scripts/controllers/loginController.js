@@ -1,9 +1,8 @@
 'use strict';
 (function() {
 
-  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams, $rootScope) {
+  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams, $rootScope, userRequest) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
-      idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
     var redirectTo = $localStorage.redirectTo;
@@ -15,7 +14,7 @@
         $scope.objuser.email = $scope.email;
         $scope.objuser.password = $scope.password;
         $scope.objuser.password_confirmation = $scope.passwordtwo;
-        $scope.objuser.lang = idiomaselect;
+        $scope.objuser.lang = $rootScope.currentLanguage();
         $scope.loagind = true;
         $rootScope.showLoading();
         loginRequest.login($scope.objuser).success(function(adata) {
@@ -32,9 +31,8 @@
             $localStorage.startDate = Date.now();
             $localStorage.rating = adata.rating;
             $scope.$storage = $localStorage;
-            idiomaselect = adata.user.lang;
+            $translate.use(adata.user.lang);
             $scope.loagind = false;
-
             if (adata.user.type === '1') {
               if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) {
                 window.location.href = redirectTo;
@@ -42,13 +40,16 @@
                 $location.path('/sponzors/dashboard');
               }
             } else {
-              if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
-
-                window.location.href = redirectTo;
-              } else {
-
-                $location.path('/organizers/dashboard');
-              }
+              userRequest.home($localStorage.id).then(function successCallback(response) {
+                $localStorage.user = JSON.stringify(response.data.data.user[0]);
+                if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
+                  window.location.href = redirectTo;
+                } else {
+                  $location.path('/organizers/dashboard');
+                }
+              }, function errorCallback(response) {
+                  console.log(response);
+              });
             }
             $rootScope.closeAllDialogs();
           } else {
@@ -61,7 +62,6 @@
               scope: $scope
             });
           }
-
         }).error(function() {
           $scope.loagind = false;
           $rootScope.closeAllDialogs();

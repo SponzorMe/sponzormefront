@@ -2,13 +2,23 @@
 (function() {
   function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('0')) {
-      $scope.noSponzorshipsMessage = false;
-      $scope.loadingsponzorships = true;
-      $scope.loadingsponzorshipstasks = true;
-      $scope.noSponzorshipsTaskMessage = false;
-      $scope.emailuser = $localStorage.email;
-      $scope.userfroups = 0;
-      $translate.use(idiomaselect);
+      $scope.getTasks = function(s){
+        var aux = s.task_sponzor.filter(function(element) {
+          if (element.task.type === '0') {
+            return element;
+          }
+        });
+        s.task_sponzor = {};
+        s.task_sponzor = aux;
+        $scope.currentSponzorship = s;
+      };
+      $scope.user = JSON.parse($localStorage.user);
+      if($scope.user.sponzorships_like_organizer){
+        $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
+      }
+
+
+
       $scope.sendToRating = function(s) {
         sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
           ratingRequest.ratingBySponzorship(s.id, 0).success(function(s2Data) {
@@ -88,7 +98,7 @@
             sponzorName: $scope.sponzorships[i].name,
             eventName: $scope.sponzorships[i].title,
             organizerEmail: $localStorage.email,
-            lang: idiomaselect
+            lang: $rootScope.currentLanguage()
           };
 
           var firebaseNotification = {

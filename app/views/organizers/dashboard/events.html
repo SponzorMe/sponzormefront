@@ -23,17 +23,12 @@
                     <th class="text-center">{{ 'actionssponzor' | translate }}</th>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingEvents && !noEventsMessage">
-                      <td class="text-center" colspan="5">
-                        <rd-loading></rd-loading>
-                      </td>
-                    </tr>
-                    <tr ng-show="!loadingEvents && noEventsMessage">
+                    <tr ng-show="!user.events.length">
                       <td class="text-center" colspan="5">
                         <h2 class="text-center">{{'noEventsMessage'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr data-ng-class="{success : event.current === e.id}" data-ng-repeat="e in eventos" ng-show="!loadingEvents && !noEventsMessage" ng-show="!loadingevents" data-ng-click="event.current = e.id" class="row-hover">
+                    <tr data-ng-class="{success : currentEvent.id === e.id}" data-ng-repeat="e in user.events" ng-show="user.events.length" data-ng-click="showPerks(e)" class="row-hover">
                       <td class="text-center">{{ e.title }}</td>
                       <td class="text-center" style="width:20%">{{ e.location }}</td>
                       <td class="text-center">{{ e.starts  | date}}</td>
@@ -43,7 +38,7 @@
                         <a href="" ng-click="imageEvent(e.image)"><i class="fa fa-file-image-o"></i></a>
                         <a href="#/event/{{ e.id }}" target="_blank">
                           <i class="fa fa-arrows-alt"></i></a>
-                          <a href="#/organizers/edit/event/{{ e.id }}"><i class="fa fa-edit"></i></a>
+                          <a href="#/organizers/edit/event/{{ $index }}"><i class="fa fa-edit"></i></a>
                           <a href="" ng-click="removeEvent(e.id)">
                           <i class="fa fa-trash-o"></i>
                         </a>
@@ -75,17 +70,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="loadingPerks && !noPerksMessage">
-                      <td class="text-center" colspan="3">
-                        <rd-loading></rd-loading>
-                      </td>
-                    </tr>
-                    <tr ng-show="!loadingPerks && noPerksMessage">
-                      <td class="text-center" colspan="3">
+                    <tr ng-show="!currentEvent.perks.length">
+                      <td class="text-center" colspan="5">
                         <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr data-ng-class="{success : currentPerkId === p.id}" ng-repeat="p in peaks" ng-show="!loadingPerks && !noPerksMessage" ng-click="getPerk(p.id)" class="row-hover">
+                    <tr data-ng-class="{success : currentPerk.id === p.id}" ng-repeat="p in currentEvent.perks" ng-show="currentEvent.perks.length" ng-click="showTasks(p)" class="row-hover">
                       <td class="text-center">{{ p.kind}}</td>
                       <td class="text-center">{{ p.total_quantity }}</td>
                       <td class="text-center">{{ p.usd }}</td>
@@ -102,7 +92,7 @@
           <div class="widget-header">
             <i class="fa fa-trophy"></i>
             {{ 'Tasks' | translate }}
-            <a class="pull-right" href="" ng-click="showTaskForm(currentPerkId,event.current)" ng-if="!loadingPerks && !noPerksMessage">{{ 'add_task' | translate }}</a>
+            <a class="pull-right" href="" ng-click="showTaskForm(currentPerkId,event.current)" ng-if="currentPerk">{{ 'add_task' | translate }}</a>
             <div class="clearfix"></div>
           </div>
           <div class="widget-body medium no-padding">
@@ -116,21 +106,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr ng-show="loadingtasks && !noTasksMessage">
-                    <td class="text-center" colspan="3">
-                      <rd-loading></rd-loading>
-                    </td>
-                  </tr>
-                  <tr ng-show="!loadingtasks && noTasksMessage">
+                  <tr ng-show="!currentPerk.tasks.length">
                     <td class="text-center" colspan="3">
                       <h2 class="text-center">{{'noTasksMessage'| translate}}</h2>
                     </td>
                   </tr>
-                  <tr ng-repeat="t in currentPerk.Tasks" ng-show="!loadingtasks && !noTasksMessage">
+                  <tr ng-repeat="t in currentPerk.tasks" ng-show="currentPerk.tasks.length">
                     <td class="text-center">{{ t.title}}</td>
                     <td class="text-center">{{ t.description }}</td>
                     <td class="text-center">
-                      <a href="" ng-click="removeTask(t.id)">
+                      <a href="" ng-click="removeTask(t.id, $index)">
                         <i class="fa fa-trash-o"></i>
                       </a>
                     </td>

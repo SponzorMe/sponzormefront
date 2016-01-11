@@ -86,7 +86,7 @@
           var info = {
             organizerId: $scope.currentOrganizer.id,
             eventName: $scope.evento.event.title,
-            lang: idiomaselect
+            lang: $rootScope.currentLanguage()
           };
           sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
         }).error(function() {

@@ -2,8 +2,7 @@
 (function() {
   function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
     if($rootScope.userValidation('0')){
-      $scope.loading = true;
-      $rootScope.showLoading();
+      $scope.user = JSON.parse($localStorage.user);
       eventTypeRequest.allEventTypes().success(function(adata) {
         $scope.type = {};
         $scope.type.list = adata.eventTypes;
@@ -21,20 +20,8 @@
         }
       };
       //this function get the event data and put it in the form.
-      $scope.formEditEvent = function(idevent) {
-        $scope.eventData = {};
-        eventRequest.oneEvent(idevent).success(function(adata) {
-          $scope.eventData = adata.data.event;
-          $scope.eventData.category = adata.data.category[0].id;
-          $scope.eventData.type = adata.data.type[0].id;
-          $scope.eventData.starts = new Date($scope.eventData.starts);
-          $scope.eventData.ends = new Date($scope.eventData.ends);
-          $scope.loading = false;
-          $rootScope.closeAllDialogs();
-        }).error(function() {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'errorNotEventInfoGot', false);
-        });
+      $scope.formEditEvent = function(idevent) {        
+        $scope.eventData = $scope.user.events[idevent];
       };
       $scope.doEditEvent = function(idevent) {
         $rootScope.showLoading();
@@ -91,7 +78,6 @@
         $scope.eventData.perks.splice(index, 1);
       };
       $scope.formEditEvent($routeParams.id); //Here start the callback
-      $translate.use(idiomaselect);
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }

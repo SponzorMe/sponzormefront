@@ -2,17 +2,17 @@
 (function() {
   function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
-      idiomaselect = $routeParams.lang;
       $translate.use($routeParams.lang);
     }
     $scope.sendfrom = function() {
+      var userLang = $rootScope.currentLanguage();
       if ($scope.passwordone !== undefined || $scope.passwordtwo !== undefined) {
         if ($scope.passwordone === $scope.passwordtwo && $scope.passwordtwo.length > 6) {
           $scope.objuser = {};
           $scope.objuser.email = $scope.email;
           $scope.objuser.password = $scope.passwordone;
           $scope.objuser.password_confirmation = $scope.passwordtwo;
-          $scope.objuser.lang = idiomaselect;
+          $scope.objuser.lang = userLang;
           $scope.objuser.type = 0;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;
@@ -28,7 +28,7 @@
               $localStorage.startDate = Date.now();
               $localStorage.newUser = true;
               $localStorage.$apply();
-              if (idiomaselect === 'en') {
+              if (userLang === 'en') {
                 event_en.DEFAULT_EVENT.organizer = adata.User.id;
                 eventRequest.createEventToken(event_en.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
                   angular.forEach(event_en.PERKS, function(value) {
@@ -40,7 +40,7 @@
                   $location.path('/customization');
                   $rootScope.closeAllDialogs();
                 }).error(function() { /*Empty Code, nothing necessary here*/ });
-              } else if (idiomaselect === 'es') {
+              } else if (userLang === 'es') {
                 event_es.DEFAULT_EVENT.organizer = adata.User.id;
                 eventRequest.createEventToken(event_es.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
                   angular.forEach(event_es.PERKS, function(value) {
@@ -52,7 +52,7 @@
                   $location.path('/customization');
                   $rootScope.closeAllDialogs();
                 }).error(function() { /*Empty Code, nothing necessary here*/ });
-              } else if (idiomaselect === 'pt') {
+              } else if (userLang === 'pt') {
                 event_pt.DEFAULT_EVENT.organizer = adata.User.id;
                 eventRequest.createEventToken(event_pt.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
                   angular.forEach(event_pt.PERKS, function(value) {

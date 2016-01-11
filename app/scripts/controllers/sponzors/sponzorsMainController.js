@@ -106,7 +106,7 @@
             var info = {
               organizerId: $scope.currentOrganizer.id,
               eventName: $scope.currentEvent.title,
-              lang: idiomaselect
+              lang: $rootScope.currentLanguage()
             };
 
             var firebaseNotification = {

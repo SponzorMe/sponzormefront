@@ -9,7 +9,6 @@
       $scope.loadingTasks = true;
       $scope.emailuser = $localStorage.email;
       $scope.userfroups = 0;
-      $translate.use(idiomaselect);
       $scope.sendToRating = function(s) {
         sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
           ratingRequest.ratingBySponzorship(s.id, 1).success(function(s2Data) {

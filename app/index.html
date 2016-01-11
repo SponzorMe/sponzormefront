@@ -79,8 +79,15 @@
 
   <!-- build:ownJs scripts/main.js -->
   <script src="scripts/constants.js"></script>
-  <script src="scripts/app.js"></script>
-  <script src="scripts/directives/loadingDirective.js"></script>
+  <!--App Initialization -->
+  <script src="scripts/app.modules.js"></script>
+  <script src="scripts/app.constants.js"></script>
+  <script src="scripts/app.providers.js"></script>
+  <script src="scripts/app.routes.js"></script>
+  <script src="scripts/app.run.js"></script>
+  <script src="scripts/app.directives.js"></script>
+  <script src="scripts/app.filters.js"></script>
+  <!--App Services -->
   <script src="scripts/services/categoryService.js"></script>
   <script src="scripts/services/eventService.js"></script>
   <script src="scripts/services/eventTypesService.js"></script>
@@ -97,6 +104,7 @@
   <script src="scripts/services/ratingService.js"></script>
   <script src="scripts/services/eventbriteService.js"></script>
   <script src="scripts/services/util.js"></script>
+  <!--App Controllers -->
   <script src="scripts/controllers/homeController.js"></script>
   <script src="scripts/controllers/activationController.js"></script>
   <script src="scripts/controllers/eventPageController.js"></script>

@@ -7,7 +7,7 @@
       {{'todoTitle' | translate }}
     </label>
     <div class="col-sm-7">
-      <input  type="text" data-ng-model="todo.title" name="title" class="form-control" />
+      <input  type="text" data-ng-model="todo.title" name="title" class="form-control" required/>
     </div>
   </div>
   <!--form field-->
@@ -16,7 +16,7 @@
       {{'todoDescription' | translate }}
     </label>
     <div class="col-sm-7">
-      <textarea rows="5" data-ng-model="todo.description" name="message" class="form-control"></textarea>
+      <textarea rows="5" data-ng-model="todo.description" name="message" class="form-control" required></textarea>
     </div>
   </div>
   <div class="clearfix"></div>
@@ -24,7 +24,7 @@
   <div class="form-group">
     <div class="col-sm-12 text-center">
       <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
-      <button data-ng-click="addTask()" class="btn btn-info"><i class="fa fa-send"></i> {{'submitbutton' | translate}}</button>
+      <button data-ng-click="formTask.$valid && addTask()" class="btn btn-info"><i class="fa fa-send"></i> {{'submitbutton' | translate}}</button>
     </div>
   </div>
 </form>

@@ -12,7 +12,7 @@
                   <i class="fa fa-users"></i>
                 </div>
                 <div class="widget-content pull-left">
-                  <div class="title">{{sponzors.size}}</div>
+                  <div class="title">{{user.sponzorships_like_organizer.length}}</div>
                   <div class="comment">{{ 'sponzors' | translate }}</div>
                 </div>
                 <div class="clearfix"></div>
@@ -26,7 +26,7 @@
                   <i class="fa fa-tasks"></i>
                 </div>
                 <div class="widget-content pull-left">
-                  <div class="title" >{{eventos.size}}</div>
+                  <div class="title" >{{user.events.length}}</div>
                   <div class="comment">{{ 'events' | translate }}</div>
                 </div>
                 <div class="clearfix"></div>
@@ -40,7 +40,7 @@
                   <i class="fa fa-sitemap"></i>
                 </div>
                 <div class="widget-content pull-left">
-                  <div class="title">${{sponzors.balance}}</div>
+                  <div class="title">${{user.balance}}</div>
                   <div class="comment">{{ 'balance' | translate }}</div>
                 </div>
                 <div class="clearfix"></div>
@@ -55,7 +55,7 @@
                   <i class="fa fa-support"></i>
                 </div>
                 <div class="widget-content pull-left">
-                  <div class="title">{{users.size}}</div>
+                  <div class="title">{{user.comunity_size}}</div>
                   <div class="comment">{{ 'comunity' | translate }}</div>
                 </div>
                 <div class="clearfix"></div>
@@ -87,15 +87,15 @@
                           <rd-loading></rd-loading>
                         </td>
                       </tr>
-                      <tr data-ng-repeat="e in events" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                      <tr data-ng-repeat="e in user.events" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
                         <td class="text-center">{{ e.title }}</td>
                         <td class="text-center">{{ e.location }}</td>
                         <td class="text-center">{{ e.starts | date}}</td>
                         <td class="text-center">
                           <span class="text-success">
-                          <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy" ng-show="event.current === e.id"></i></a></span>
+                          <a href=""><i class="fa fa-trophy" ng-show="currentEvent.id === e.id"></i></a></span>
                           <span class="text-success">
-                          <a href="" data-ng-click="event.current = e.id"><i class="fa fa-trophy text-danger" ng-show="event.current != e.id"></i></a></span>
+                          <a href="" data-ng-click="showPerk(e)"><i class="fa fa-trophy text-danger" ng-show="currentEvent.id != e.id"></i></a></span>
                         </td>
                       </tr>
                     </tbody>
@@ -131,7 +131,7 @@
                           <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr ng-show="!loadingpeaks && !noPerksMessage" ng-repeat="p in peaks">
+                      <tr ng-show="!loadingpeaks && !noPerksMessage" ng-repeat="p in currentEvent.perks">
                         <td class="text-center">{{ p.kind}}</td>
                         <td class="text-center">{{ p.total_quantity }}</td>
                         <td class="text-center">{{ p.usd }}</td>

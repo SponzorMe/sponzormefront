@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest) {
+  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
     if($localStorage.id){
       $scope.$storage = $localStorage;
         sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
