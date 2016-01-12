@@ -30,7 +30,7 @@
                   {{ 'neweventlocation' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <input class="form-control" g-places-autocomplete name="location" ng-model="eventData.location" placeholder="{{'neweventlocationdescription' | translate }}" required type="text"/>
+                  <input class="form-control" g-places-autocomplete name="location" ng-model="locationEvent" ng-init="locationEvent = eventData.location" placeholder="{{'neweventlocationdescription' | translate }}" required type="text" autocomplete="off"/>
                 </div>
               </div>
 
@@ -148,7 +148,7 @@
                       <input class="form-control" ng-if="!s.id" ng-init="s.id=-1" ng-model="s.id" placeholder="" type="hidden"/>
                     </td>
                     <td class="text-center" ng-if="s.id==-1">
-                      <a href="" ng-click="removeEditPerk($index)">
+                      <a href="" ng-click="removePerk($index)">
                         <i class="fa fa-trash-o"></i>
                       </a>
                     </td>
@@ -156,7 +156,7 @@
                 </table>
               </div>
               <div class="col-sm-3">
-                <button class="btn btn-block btn-warning" ng-click="addEditPerk()">
+                <button class="btn btn-block btn-warning" ng-click="addPerk()">
                   + Add</button>
               </div>
               <div class="clearfix"></div>

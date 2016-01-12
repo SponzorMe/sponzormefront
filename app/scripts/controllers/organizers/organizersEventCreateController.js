@@ -10,8 +10,6 @@
       });
     }
     if($rootScope.userValidation('0')){
-      $scope.sponzorshipTypes = [];
-      $scope.newEvent = {};
       eventTypeRequest.allEventTypes().success(function(adata) {
         $scope.type = {};
         $scope.type.list = adata.eventTypes;
@@ -31,56 +29,33 @@
           $rootScope.showDialog('error', 'maxLimitPerk', false);
         }
       };
-
+      $scope.newEvent = {perks:[]};
       //This function creates an event
       $scope.createNewEvent = function() {
-        $scope.newEvent.title = $scope.titleevent;
         $scope.newEvent.location = $scope.locationevent.formatted_address;
         $scope.newEvent.location_reference = $scope.locationevent.place_id;
-        $scope.newEvent.description = $scope.descriptionevent;
-        $scope.newEvent.starts = moment($scope.dtini).format('YYYY-MM-DD HH:mm:ss');
-        $scope.newEvent.ends = moment($scope.dtfinal).format('YYYY-MM-DD HH:mm:ss');
-        //$scope.newEvent.starts = new Date($scope.dtini);
-        //$scope.newEvent.ends = new Date($scope.dtfinal);
+        $scope.newEvent.starts = moment($scope.newEvent.starts).format('YYYY-MM-DD HH:mm:ss');
+        $scope.newEvent.ends = moment($scope.newEvent.ends).format('YYYY-MM-DD HH:mm:ss');
         $scope.newEvent.lang = $rootScope.currentLanguage();
-        $scope.newEvent.type = $scope.typeevent;
-        $scope.newEvent.category = $scope.categoryevent;
-        $scope.newEvent.privacy = $scope.privacyevent;
         $scope.newEvent.organizer = $localStorage.id;
-        eventRequest.createEvent($scope.newEvent).success(function(adata) {
-          angular.forEach($scope.sponzorshipTypes, function(value) {
-            $scope.perkitems = {};
-            $scope.perkitems.kind = value.kind;
-            $scope.perkitems.total_quantity = value.quantity;
-            $scope.perkitems.usd = value.usd;
-            $scope.perkitems.id_event = adata.event.id;
-            $scope.perkitems.reserved_quantity = 0;
-            perkRequest.createPerk($scope.perkitems).success(function() {});
-          });
-          //Clean the from
-          $scope.titleevent = '';
+        eventRequest.createEvent($scope.newEvent).then(function successCallback(response) {
+          $scope.user = JSON.parse($localStorage.user);
+          $scope.user.events.push(response.data.event);
+          $localStorage.user = JSON.stringify($scope.user);
+          $scope.newEvent = {};
           $scope.locationevent = {};
-          $scope.descriptionevent = '';
-          $scope.dtini = '';
-          $scope.dtfinal = '';
-          $scope.typeevent = '';
-          $scope.categoryevent = '';
-          $scope.privacyevent = '';
-          $scope.sponzorshipTypes = [];
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'eventCreatedSuccesfully', false);
-        }).error(function(edata) {
+        }, function errorCallback() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingEvent', false);
         });
       };
-
       //this function upload or create the event Image
       $scope.imageVerification = function() {
         $rootScope.showLoading();
         $scope.loadingNewEvent = true;
         $scope.errorNewEvent = false;
-        $scope.newEvent = {};
         if ($scope.file) {
           $scope.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
@@ -117,19 +92,18 @@
           $scope.createNewEvent();
         }
       };
-
       //this function adds a SponzorshipType to the new event form
       $scope.addSponzorshipType = function() {
-        $scope.sponzorshipTypes.push({
+        $scope.newEvent.perks.push({
           kind: '',
           usd: 0,
-          quantity: 1,
-          id: -1
+          total_quantity: 1,
+          reserved_quantity: 0
         });
       };
       //this function removes a SponzorshipType to the new event form
       $scope.removeSponzorshipType = function(index) {
-        $scope.sponzorshipTypes.splice(index, 1);
+        $scope.newEvent.perks.splice(index, 1);
       };
       if ($routeParams.eventBriteCode) {
         eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
@@ -144,23 +118,19 @@
           }
         });
       } else if ($routeParams.meetupCode) {
-
         eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));
           if (response.error) {
-
             $scope.meetupLoadingGetToken = false;
             $scope.reconnectMeetup = true;
             $scope.meetupConectionDone = false;
           } else {
             $localStorage.meetupBeared = response.access_token;
-
             $scope.connectMeetup();
           }
         });
       }
       $scope.connectMeetup = function() {
-
         $scope.meetupLoadingGetToken = true;
         $scope.loadingGetMeetupEvents = false;
         ngDialog.open({
@@ -208,15 +178,11 @@
       $scope.MEETUPAPIKEY = $rootScope.getConstants().MEETUPAPIKEY;
       $scope.MEETUPREDIRECTURL = $rootScope.getConstants().MEETUPREDIRECTURL;
       $scope.getMeetupGroups = function(accessToken) {
-
         eventbriteRequest.getMeetupGroups(accessToken)
           .success(function(data) {
             $scope.loadingGetMeetupEvents = false;
-
             $scope.meetupEvents = JSON.parse(data.response);
-
           }).error(function(data) {
-
             $scope.loadingGetMeetupEvents = false;
             $scope.errorGettingGroups = true;
             $scope.meetupEvents = false;
@@ -247,7 +213,6 @@
               $scope.conectionDone = false;
             } else {
               $localStorage.eventBriteBeared = response.access_token;
-
               $scope.loadingGetToken = false;
               $scope.loadingGetEvents = true;
               $scope.conectionDone = true;
@@ -259,30 +224,27 @@
       $scope.prefilEventForm = function(url) {
         eventbriteRequest.getEventbriteEvent(url, $localStorage.eventBriteBeared)
           .success(function(data) {
-            //Prefill the form
-            $scope.titleevent = data.name.text;
-            $scope.descriptionevent = data.description.html;
-            $scope.dtini = data.start.local;
-            $scope.dtfinal = data.end.local;
-            $scope.privacyevent = 0;
+            $scope.newEvent.title = data.name.text;
+            $scope.newEvent.description = data.description.html;
+            $scope.newEvent.starts = data.start.local;
+            $scope.newEvent.ends = data.end.local;
+            $scope.newEvent.privacy = 0;
             $rootScope.closeAllDialogs();
           });
       };
       $scope.prefilEventFormMeetup = function(e) {
-        $scope.titleevent = e.name;
-        $scope.descriptionevent = e.description;
-        $scope.dtini = new Date(e.time);
+        $scope.newEvent.title = e.name;
+        $scope.newEvent.description = e.description;
+        $scope.newEvent.starts = new Date(e.time);
         var dataTime = new Date(e.time);
         var timer = parseInt(1 * 2 * 60 * 60 * 1000);
         var dataExpDate = new Date(dataTime.getTime() + timer);
-        $scope.dtfinal = new Date(dataExpDate);
+        $scope.newEvent.ends = new Date(dataExpDate);
         $scope.privacyevent = 0;
         $rootScope.closeAllDialogs();
       };
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
-  angular.module('sponzorme')
-    .controller('OrganizersEventCreateController', OrganizersEventCreateController);
-
+  angular.module('sponzorme').controller('OrganizersEventCreateController', OrganizersEventCreateController);
 })();

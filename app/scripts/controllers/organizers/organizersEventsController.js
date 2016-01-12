@@ -24,38 +24,40 @@
           showClose: false
         });
       };
-
-      $scope.removeEvent = function(idevent) {
-        $rootScope.showLoading();
-        eventRequest.oneEvent(idevent).success(function(adata) {
-          if (adata.data.event.sponzorship.length === 0) { //If event does not have sponzorhips
-            angular.forEach(adata.data.event.sponzor_tasks, function(value) {
-              taskSponzorRequest.deleteTaskSponzor(value.id)
-                .error(function(eData) {});
-            });
-            angular.forEach(adata.data.event.perk_tasks, function(value) { //First we delete the tasks
-              perkTaskRequest.deletePerkTask(value.id)
-                .error(function(eData) {});
-            });
-            angular.forEach(adata.data.event.perks, function(value) { //Then we delete the perks
-              perkRequest.deletePerk(value.id)
-                .error(function(eData) {});
-            });
-            $timeout(function() {
-              eventRequest.deleteEvent(adata.data.event.id).success(function() {
-                $rootScope.closeAllDialogs();
-                $rootScope.showDialog('success', 'eventDeleteSuccesfully', false);
-                $scope.getEventsByOrganizer($localStorage.id);
-              }).error(function(eData) {
-                $rootScope.closeAllDialogs();
-                $rootScope.showDialog('error', 'errorDeletingEvent', false);
-              });
-            }, 5000);
-          } else { //If event has sponzorhips we can not delete
-            $rootScope.closeAllDialogs();
-            $rootScope.showDialog('error', 'eventDeletingEventHasSponzorship', false);
+      $scope.hasSponzorship = function(idEvent){
+        for(var i=0; i< $scope.user.sponzorships_like_organizer; i++){
+          if($scope.user.sponzorships_like_organizer[i].event.id === idEvent){
+            return true;
           }
-        });
+        }
+        return false;
+      }
+
+      $scope.removeEvent = function(index) {
+        $rootScope.showLoading();
+        if($scope.hasSponzorship($scope.user.events[index].id)){
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'eventDeletingEventHasSponzorship', false);
+        }
+        else{
+          eventRequest.deleteEvent($scope.user.events[index].id).then(function successCallback(response) {
+            $scope.user.events.splice(index, 1);
+            $localStorage.user = JSON.stringify($scope.user);
+            if($scope.user.events[0]){
+              $scope.currentEvent = $scope.user.events[0];
+              $scope.currentPerk = $scope.user.events[0].perks[0];
+            }
+            else{
+              $scope.currentEvent = {};
+              $scope.currentPerk= {};
+            }
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('success', 'eventDeleteSuccesfully', false);
+          }, function errorCallback(response) {
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'errorDeletingEvent', false);
+          });
+        }
       };
       $scope.showTaskForm = function() {
         $scope.todo = {};
@@ -67,7 +69,6 @@
       };
       /*this function takes the current perk and the current event, and add a task for the
         selected perk.*/
-
       $scope.addTask = function() {
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
@@ -96,7 +97,6 @@
           $localStorage.user = JSON.stringify($scope.user);
           $rootScope.showDialog('success', 'taskDeletedSuccessfuly', false);
         }).error(function(data) {
-          console.log(data);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorDeletingTask', false);
         });
