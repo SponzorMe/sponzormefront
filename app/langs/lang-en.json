@@ -757,5 +757,18 @@
   "messageapp2":"Now, with a single click you can download our app",
   "successDeletingSponzorship": "Sponzorship Deleted successfuly",
   "savingInterest": "Saving new Interest",
-  "passwordRecomendations": "Recomendations to update your password: 8+ characters, combine numbers, letters and symbols."
+  "passwordRecomendations": "Recomendations to update your password: 8+ characters, combine numbers, letters and symbols.",
+  "SponzorInformation": "Know More About This Sponzor",
+  "RemoveSponzorship": "Remove This Sponzorship",
+  "ChatWithSponzor": "Chat With your potential Sponzor",
+  "RateThisSponzor": "Rate this Sponzor",
+  "AcceptSponzorship": "Accept This Sponzorship",
+  "UnacceptSponzorship": "Unaccept This Sponzorship",
+  "seeCause": "See Sponzorship Cause",
+  "RateSuccessfuly": "You have rated this sponzor successfuly",
+  "ImageEvent":"View Event Image",
+  "EventPage":"View Event Page",
+  "EditEvent":"Edit This Event",
+  "RemoveEvent":"Delete This Event",
+  "RemoveTask":"Delete This Task"
 }

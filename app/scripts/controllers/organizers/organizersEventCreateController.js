@@ -10,6 +10,10 @@
       });
     }
     if($rootScope.userValidation('0')){
+      $scope.section = {
+        route:'Events / Add',
+        title: 'Event Add'
+      };
       eventTypeRequest.allEventTypes().success(function(adata) {
         $scope.type = {};
         $scope.type.list = adata.eventTypes;

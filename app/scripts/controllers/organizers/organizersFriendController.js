@@ -4,6 +4,10 @@
 function OrganizersFriendController($scope, $translate, $localStorage, userRequest, ngDialog, $location, $rootScope) {
   if($rootScope.userValidation('0')){
     //Vars initialization
+    $scope.section = {
+      route:'InviteFriend',
+      title: 'Invite Friend'
+    };
     $scope.friend = {};
     $scope.friend.email = '';
     $scope.friend.message = '';

@@ -2,6 +2,10 @@
 (function() {
   function OrganizersRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
+      $scope.section = {
+        route:'Sponzorships / Rating',
+        title: 'Sponzorship Rating'
+      };
       $scope.loadingForm = true; //Loading
       $scope.user = JSON.parse($localStorage.user);
       if ( ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0] &&

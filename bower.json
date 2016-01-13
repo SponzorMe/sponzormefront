@@ -33,7 +33,8 @@
     "aws-sdk": "aws-sdk-js#~2.2.21",
     "angular-input-stars-directive": "angular-input-stars#*",
     "angular-scroll-glue": "~2.0.6",
-    "mockfirebase": "~0.11.0"
+    "mockfirebase": "~0.11.0",
+    "components-font-awesome": "~4.5.0"
   },
   "resolutions": {
     "angular": "1.4.8",

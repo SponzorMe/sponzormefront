@@ -2,6 +2,10 @@
 (function() {
   function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if ($rootScope.userValidation('0')) {
+      $scope.section = {
+        route:'Settings',
+        title: 'Settings'
+      };
       $scope.user = JSON.parse($localStorage.user);
 
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {

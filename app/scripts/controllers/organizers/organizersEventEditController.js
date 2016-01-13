@@ -2,6 +2,10 @@
 (function() {
   function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
     if($rootScope.userValidation('0')){
+      $scope.section = {
+        route:'Events / Edit',
+        title: 'Event Edit'
+      };
       $scope.user = JSON.parse($localStorage.user);
       eventTypeRequest.allEventTypes().success(function(adata) {
         $scope.type = {};

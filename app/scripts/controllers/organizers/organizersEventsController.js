@@ -3,6 +3,10 @@
 
   function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, taskSponzorRequest, $rootScope, $timeout) {
     if ($rootScope.userValidation('0')) {
+      $scope.section = {
+        route:'Events',
+        title: 'Events'
+      };
       $scope.user = JSON.parse($localStorage.user);
       if($scope.user.events){
         $scope.currentEvent = $scope.user.events[0];

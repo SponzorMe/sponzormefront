@@ -33,7 +33,7 @@
                       </td>
                     </tr>
                     <tr data-ng-class="{success : currentSponzorship.id === s.id}" data-ng-repeat="s in user.sponzorships_like_organizer" ng-show="user.sponzorships_like_organizer.length" ng-click="getTasks(s)" class="row-hover">
-                      <td class="text-center">{{s.sponzor.name}} <a href="#/profile/{{s.sponzor_id}}" target="_blank"><i class="fa fa-info-circle"></i></a></td>
+                      <td class="text-center">{{s.sponzor.name}}&nbsp;<a href="#/profile/{{s.sponzor_id}}" target="_blank" tooltip="{{'SponzorInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td>
                       <td class="text-center">{{s.event.title}}</td>
                       <td class="text-center">{{s.perk.kind}}</td>
                       <td class="text-center">
@@ -42,35 +42,22 @@
                         <div ng-if="s.status > 1">{{ 'eventstate3' | translate }}</div>
                       </td>
                       <td class="text-center">
-                        <a href="" ng-click="seeCause(s)">
-                          <i class="fa fa-question-circle"></i>
-                        </a>
+                        <a href="" ng-click="seeCause(s)" tooltip="{{'seeCause'|translate}}"><i class="fa fa-question-circle"></i></a>&nbsp;
                         <div style="display: inline-block">
                           <div ng-if="s.status == 0 && !loadingsponzorships">
-                            <a href="" ng-click="acceptSponzorship(s.id, $index)"><i class="fa fa-star-o"></i></a>
+                            <a href="" ng-click="acceptSponzorship(s.id, $index)" tooltip="{{'AcceptSponzorship'|translate}}"><i class="fa fa-star-o"></i></a>&nbsp;
                           </div>
                           <div ng-if="loadingsponzorships && s.id == currentSponzorshipId">
-                            <a href=""><i class="fa fa-cog fa-spin"></i></a>
+                            <a href=""><i class="fa fa-cog fa-spin"></i></a>&nbsp;
                           </div>
-
                           <div ng-if="s.status == 1 && !loadingsponzorships">
-                            <a href="" ng-click="unacceptSponzorship(s.id, $index)">
-                              <i class="fa fa-star"></i>
-                            </a>
+                            <a href="" ng-click="unacceptSponzorship(s.id, $index)" tooltip="{{'UnacceptSponzorship'|translate}}"><i class="fa fa-star"></i></a>&nbsp;
                           </div>
                         </div>
-                        <a href="" ng-click="deleteSponzorship(s.id, $index)" ng-if="s.status == 0">
-                          <i class="fa fa-trash-o"></i>
-                        </a>
-                        <a href="#/sponzors/chat/sponzorship/{{s.id}}">
-                          <i class="fa fa-comment"></i>
-                        </a>
-                        <a href="#/organizers/rating/{{$index}}" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type != 0 && s.ratings[1].type != 0">
-                          <i class="fa fa-smile-o"></i>
-                        </a>
-                        <a href="" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type == 0 || s.ratings[1].type == 0">
-                          <i class="fa fa-check-circle-o"></i>
-                        </a>
+                        <a href="" ng-click="deleteSponzorship(s.id, $index)" ng-if="s.status == 0"><i class="fa fa-trash-o" tooltip="{{'RemoveSponzorship'|translate}}"></i></a>&nbsp;
+                        <a href="#/sponzors/chat/sponzorship/{{s.id}}" tooltip="{{'ChatWithSponzor'|translate}}"><i class="fa fa-comment"></i></a>&nbsp;
+                        <a href="#/organizers/rating/{{$index}}" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type != 0 && s.ratings[1].type != 0" tooltip="{{'RateThisSponzor'|translate}}"><i class="fa fa-smile-o"></i></a>&nbsp;
+                        <a href="" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type == 0 || s.ratings[1].type == 0" tooltip="{{'RateSuccessfuly'|translate}}"><i class="fa fa-check-circle-o"></i></a>
                       </td>
                     </tr>
                   </tbody>

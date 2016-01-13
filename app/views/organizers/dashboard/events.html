@@ -10,7 +10,8 @@
             <div class="widget-header">
               <i class="fa fa-tasks"></i>
               {{ 'events' | translate }}
-              <a class="pull-right" href="#/organizers/add/event">{{ 'add_event' | translate }}</a>
+              <a href="#/organizers/add/event" class="pull-right btn btn-primary">
+                <i class="fa fa-plus"></i>&nbsp;{{ 'add_event' | translate }}</a>
             </div>
             <div class="widget-body medium no-padding">
               <div class="table-responsive">
@@ -35,13 +36,10 @@
                       <td class="text-center" ng-if="e.privacy==0">{{ 'public'| translate }}</td>
                       <td class="text-center" ng-if="e.privacy==1">{{ 'private'| translate }}</td>
                       <td class="text-center">
-                        <a href="" ng-click="imageEvent(e.image)"><i class="fa fa-file-image-o"></i></a>
-                        <a href="#/event/{{ e.id }}" target="_blank">
-                          <i class="fa fa-arrows-alt"></i></a>
-                          <a href="#/organizers/edit/event/{{ $index }}"><i class="fa fa-edit"></i></a>
-                          <a href="" ng-click="removeEvent($index)">
-                          <i class="fa fa-trash-o"></i>
-                        </a>
+                        <a href="" ng-click="imageEvent(e.image)" tooltip="{{'ImageEvent'|translate}}"><i class="fa fa-file-image-o"></i></a>&nbsp;
+                        <a href="#/event/{{ e.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a>&nbsp;
+                        <a href="#/organizers/edit/event/{{ $index }}" tooltip="{{'EditEvent'|translate}}"><i class="fa fa-edit"></i></a>&nbsp;
+                        <a href="" ng-click="removeEvent($index)" tooltip="{{'RemoveEvent'|translate}}"><i class="fa fa-trash-o"></i></a>&nbsp;
                       </td>
                     </tr>
                   </tbody>
@@ -92,7 +90,8 @@
           <div class="widget-header">
             <i class="fa fa-trophy"></i>
             {{ 'Tasks' | translate }}
-            <a class="pull-right" href="" ng-click="showTaskForm(currentPerkId,event.current)" ng-if="currentPerk">{{ 'add_task' | translate }}</a>
+            <a href="" ng-click="showTaskForm(currentPerkId,event.current)" ng-if="currentPerk"class="pull-right btn btn-primary">
+              <i class="fa fa-plus"></i>&nbsp;{{ 'add_task' | translate }}</a>
             <div class="clearfix"></div>
           </div>
           <div class="widget-body medium no-padding">
@@ -115,9 +114,7 @@
                     <td class="text-center">{{ t.title}}</td>
                     <td class="text-center">{{ t.description }}</td>
                     <td class="text-center">
-                      <a href="" ng-click="removeTask(t.id, $index)">
-                        <i class="fa fa-trash-o"></i>
-                      </a>
+                      <a href="" ng-click="removeTask(t.id, $index)" tooltip="{{'RemoveTask'|translate}}"><i class="fa fa-trash-o"></i></a>
                     </td>
                   </tr>
                 </tbody>

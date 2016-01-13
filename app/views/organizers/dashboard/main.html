@@ -68,7 +68,8 @@
             <div class="widget">
               <div class="widget-header">
                 <i class="fa fa-tasks"></i> {{ 'events' | translate }}
-                <a href="#/organizers/events" class="pull-right">{{ 'manage' | translate }}</a>
+                <a href="#/organizers/events" class="pull-right btn btn-primary">
+                  <i class="fa fa-table"></i>&nbsp;{{ 'manage' | translate }}</a>
               </div>
               <div class="widget-body medium no-padding">
                 <div class="table-responsive">
@@ -78,25 +79,13 @@
                       <th class="text-center">{{ 'title' | translate }}</th>
                       <th class="text-center">{{ 'location' | translate }}</th>
                       <th class="text-center">{{ 'starts' | translate }}</th>
-                      <th class="text-center">{{ 'perks' | translate }}</th>
                     </tr>
                   </thead>
                     <tbody>
-                      <tr ng-show="loadingevents">
-                        <td colspan="4">
-                          <rd-loading></rd-loading>
-                        </td>
-                      </tr>
-                      <tr data-ng-repeat="e in user.events" data-ng-class="{success : event.current === e.id}" ng-show="!loadingevents">
+                      <tr data-ng-repeat="e in user.events" data-ng-class="{success : currentEvent.id === e.id}"  data-ng-click="showPerk(e)" class="row-hover">
                         <td class="text-center">{{ e.title }}</td>
                         <td class="text-center">{{ e.location }}</td>
                         <td class="text-center">{{ e.starts | date}}</td>
-                        <td class="text-center">
-                          <span class="text-success">
-                          <a href=""><i class="fa fa-trophy" ng-show="currentEvent.id === e.id"></i></a></span>
-                          <span class="text-success">
-                          <a href="" data-ng-click="showPerk(e)"><i class="fa fa-trophy text-danger" ng-show="currentEvent.id != e.id"></i></a></span>
-                        </td>
                       </tr>
                     </tbody>
                   </table>

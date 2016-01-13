@@ -2,6 +2,10 @@
 (function() {
   function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('0')) {
+      $scope.section = {
+        route:'Sponzorships',
+        title: 'Sponzorships'
+      };
       $scope.getTasks = function(s) {
         var aux = s.task_sponzor.filter(function(element) {
           if (element.task.type === '0') {

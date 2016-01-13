@@ -2,6 +2,10 @@
 (function() {
   function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
     if($localStorage.id){
+      $scope.section = {
+        route:'Sponzorship / Chat',
+        title: 'Sponzorship Chat'
+      };
       $scope.$storage = $localStorage;
         sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
           if(data.data.Organizer.id === $localStorage.id){
