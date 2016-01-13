@@ -755,5 +755,7 @@
   "see": "See...",
   "messageapp1":"We go with you to anywhere",
   "messageapp2":"Now, with a single click you can download our app",
-  "successDeletingSponzorship": "Sponzorship Deleted successfuly"
+  "successDeletingSponzorship": "Sponzorship Deleted successfuly",
+  "savingInterest": "Saving new Interest",
+  "passwordRecomendations": "Recomendations to update your password: 8+ characters, combine numbers, letters and symbols."
 }

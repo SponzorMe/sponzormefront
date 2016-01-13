@@ -3,19 +3,23 @@
   function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.user = JSON.parse($localStorage.user);
+
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
         $scope.interests = sData.InterestCategory;
       });
+
       $scope.removeUserInterest = function(index, id) {
-        $scope.userInterests.splice(index, 1);
-        userInterestRequest.deleteUserInterest(id).success(function() {});
+        $scope.user.interests.splice(index, 1);
+        userInterestRequest.deleteUserInterest(id).then(function() {});
       };
+
       $scope.addUserInterests = function(interest) {
+        $scope.loadingSaveInterest = true;
         if (interest && interest.name) {
           var flag = false;
-          if($scope.UserInterest){
-            for (var i = 0; i < $scope.userInterests.length; i++) {
-              if ($scope.userInterests[i].id_interest === interest.id_interest) {
+          if($scope.user.interests){
+            for (var i = 0; i < $scope.user.interests.length; i++) {
+              if ($scope.user.interests[i].interest_id === interest.id_interest) {
                 flag = true;
                 $scope.selected = '';
                 break;
@@ -27,25 +31,28 @@
               user_id: $localStorage.id,
               interest_id: interest.id_interest
             };
-            userInterestRequest.createUserInterest(dataInterest).success(function(data) {
-              $scope.userInterests.push({
-                'name': interest.name,
-                'id': data.UserInterest.id,
-                'id_interest': interest.id_interest
-              });
+            userInterestRequest.createUserInterest(dataInterest).then(function successCallback(response) {
+              $scope.user.interests.push(response.data.UserInterest);
+              $localStorage.user = JSON.stringify($scope.user);
               $scope.selected = '';
+              $scope.loadingSaveInterest = false;
             });
           }
-        } else {
+        }
+        else {
+          $scope.loadingSaveInterest = false;
           $rootScope.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
         }
       };
-      $scope.account = [];
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
         $rootScope.showLoading();
-        $scope.account.location = $scope.account.location.formatted_address;
+        if($scope.user.location!==$scope.locationUser){
+          $scope.user.location = $scope.locationUser.formatted_address;
+          $scope.user.location_reference = $scope.locationUser.place_id;
+        }
+        $scope.user.location = $scope.user.location.formatted_address;
         if ($scope.file) {
           $scope.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
@@ -73,25 +80,25 @@
           bucket.putObject(params, function(err, data) {
             if (!err) {
               $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-              $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-              userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-                $scope.account = adata.User;
+              $scope.user.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              userRequest.editUserPatch($localStorage.id, $scope.user).then(function successCallback(response) {
+                $localStorage.user = JSON.stringify($scope.user);
                 $scope.file = false;
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-              }).error(function(eData) {
+              }, function errorCallback(err) {
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
             }
           });
         } else {
-          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-            $scope.account = adata.User;
+          userRequest.editUserPatch($localStorage.id, $scope.user).then(function successCallback(response) {
+            $localStorage.user = JSON.stringify($scope.user);
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }).error(function(eData) {
+          }, function errorCallback(err) {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
@@ -99,23 +106,24 @@
       };
 
       $scope.resetPassword = function() {
-        $rootScope.showLoading();
         if ($scope.password === $scope.passwordConfirmation) {
+          $rootScope.showLoading();
           var formData = {
             'email': $localStorage.email,
             'password': $scope.password,
             'password_confirmation': $scope.passwordConfirmation
           };
-          loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
+          loginRequest.changePassword(formData, $localStorage.token).then(function successCallback(response) {
             $rootScope.closeAllDialogs();
             $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
             $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
-          }).error(function() {
+            $scope.password = '';
+            $scope.passwordConfirmation = '';
+          }, function errorCallback(err) {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });
         } else {
-          $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'PasswordNoMatch', false);
         }
       };

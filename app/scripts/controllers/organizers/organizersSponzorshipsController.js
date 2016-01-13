@@ -12,23 +12,16 @@
         s.task_sponzor = aux;
         $scope.currentSponzorship = s;
       };
+      $scope.todayDate = new Date().getTime();
       $scope.user = JSON.parse($localStorage.user);
       if ($scope.user.sponzorships_like_organizer) {
+        var aux = $scope.user.sponzorships_like_organizer.filter(function(element) {
+          element.event.ends = new Date(element.event.ends).getTime();
+            return element;
+        });
+        $scope.user.sponzorships_like_organizer.filter = aux;
         $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
       }
-      $scope.sendToRating = function(s) {
-        sponzorshipRequest.oneSponzorship(s.id).success(function(sData) {
-          ratingRequest.ratingBySponzorship(s.id, 0).success(function(s2Data) {
-            $scope.loadingForm = false; //Loading
-            $rootScope.closeAllDialogs(); //Close Loading
-            if (s2Data.data.Rating[0] && s2Data.data.Rating[0].organizer_id === $localStorage.id) {
-              $rootScope.showDialog('error', 'ratingAlreadyRated', false);
-            } else {
-              $location.path('/organizers/rating/' + s.id);
-            }
-          });
-        });
-      };
       //This function changes to 1 the sponzorship status
       $scope.acceptSponzorship = function(sponzoshipId, i) {
         $scope.currentSponzorshipId = sponzoshipId;
@@ -96,7 +89,7 @@
           $rootScope.sendFirebaseNotification(firebaseNotification);
           $scope.user.sponzorships_like_organizer.splice(i, 1);
           $localStorage.user = JSON.stringify($scope.user);
-          
+
           $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'successDeletingSponzorship', false);

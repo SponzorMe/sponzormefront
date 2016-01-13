@@ -41,6 +41,7 @@
               }
             } else {
               userRequest.home($localStorage.id).then(function successCallback(response) {
+                $rootScope.closeAllDialogs();
                 $localStorage.user = JSON.stringify(response.data.data.user[0]);
                 if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
                   window.location.href = redirectTo;
@@ -51,7 +52,6 @@
                   console.log(response);
               });
             }
-            $rootScope.closeAllDialogs();
           } else {
             $scope.loagind = false;
             $rootScope.closeAllDialogs();
