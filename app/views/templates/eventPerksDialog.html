@@ -1,41 +1,41 @@
-<div class="text-center background-white margin-bottom-10">
-  <table class="table table-striped table-center">
+<p class="text-center" ng-if="!selectedPerk"><strong>{{'SponzorshipsList'|translate}}</strong></p>
+<div class="text-center background-white margin-bottom-10" ng-if="!selectedPerk">
+
+  <table class="table table-striped table-center" ng-if="!selectedPerk">
     <thead>
       <tr>
         <th class="text-center">{{ 'kind' | translate }}</th>
         <th class="text-center">{{ 'quantityAvailable' | translate }}</th>
         <th class="text-center">${{ 'usd' | translate }}</th>
-        <th class="text-center">{{ 'actions' | translate }}</th>
+        <th class="text-center">{{ 'Sponzor' | translate }}</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-show="loadingpeaks && !noPerksMessage">
-        <td colspan="4">
-          <rd-loading></rd-loading>
-        </td>
-      </tr>
-      <tr ng-show="!loadingpeaks && noPerksMessage">
+      <tr ng-show="!currentEvent.perks.length">
         <td class="text-center" colspan="3">
           <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
         </td>
       </tr>
-      <tr data-ng-class="{success : currentPerkId === p.id}" ng-repeat="p in currentEvent.perks" ng-show="!loadingpeaks && !noPerksMessage">
+      <tr data-ng-class="{success : currentPerkId === p.id}" ng-repeat="p in currentEvent.perks" ng-show="currentEvent.perks.length">
         <td class="text-center">{{ p.kind}}</td>
         <td class="text-center">{{ p.total_quantity - p.reserved_quantity }}</td>
         <td class="text-center">{{ p.usd }}</td>
         <td class="text-center">
-          <a class="btn btn-warning" href="" ng-click="formCreateSponzorship(p)">
-            <i class="fa fa-edit" ng-show="(p.total_quantity - p.reserved_quantity) > 0"></i>
-            {{'sponzor'|translate}}</a>
+          <a href="" ng-click="formCreateSponzorship(p)">
+            <i class="fa fa-trophy" ng-show="(p.total_quantity - p.reserved_quantity) > 0"></i>
           <span ng-show="(p.total_quantity - p.reserved_quantity) <= 0">
-            {{'noSponzorshipAvailable'|translate}}
+              <i class="fa fa-ban"></i>
           </span>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="ngdialog-buttons text-center">
-    <button class="btn btn-danger" ng-click="closeThisDialog()">
-      <i class="fa fa-times"></i>
-      {{'Close' | translate}}</button>
+  <p class="text-center" ng-if="selectedPerk"><strong>{{'causeForm'|translate}}</strong></p>
+  <div class="text-center background-white margin-bottom-10" ng-if="selectedPerk">
+    <br/>
+    <form class="form-horizontal" name="causeForm" role="form" >
+      <textarea cols="40" name="cause" ng-model="newSponzorship.cause" placeholder="Your event is amazing!" required rows="8"></textarea>
+      <button class="btn btn-primary" ng-click="causeForm.$valid && createSponzorship() && closeThisDialog()"><i class="fa fa-check"></i>&nbsp;{{ 'submitbutton' | translate }}</button>
+    </form>
+    <br/>
   </div>

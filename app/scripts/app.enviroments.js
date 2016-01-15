@@ -8,7 +8,7 @@
  */
 (function() {
   'use strict';
-  angular.module('sponzorme').run(['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', '$firebaseArray', function($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog, $firebaseArray, EXPIRATIONTIME) {
+  angular.module('sponzorme').run(['$rootScope', function($rootScope) {
     $rootScope.getConstants = function() {
       var host = window.location.hostname; // Get the host
       if (host.indexOf('localhost') > -1) { //Localhost

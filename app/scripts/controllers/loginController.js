@@ -6,6 +6,7 @@
       $translate.use($routeParams.lang);
     }
     var redirectTo = $localStorage.redirectTo;
+    console.log('redirect', redirectTo);
     $localStorage.$reset();
 
     $scope.sendfrom = function() {
@@ -33,25 +34,31 @@
             $scope.$storage = $localStorage;
             $translate.use(adata.user.lang);
             $scope.loagind = false;
-            if (adata.user.type === '1') {
-              if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) {
-                window.location.href = redirectTo;
-              } else {
-                $location.path('/sponzors/dashboard');
+            userRequest.home($localStorage.id).then(function successCallback(response) {
+              $rootScope.closeAllDialogs();
+              $localStorage.user = JSON.stringify(response.data.data.user);
+              $localStorage.events = [];
+              if(response.data.data.events){
+                $localStorage.events = JSON.stringify(response.data.data.events);
               }
-            } else {
-              userRequest.home($localStorage.id).then(function successCallback(response) {
-                $rootScope.closeAllDialogs();
-                $localStorage.user = JSON.stringify(response.data.data.user[0]);
+              if (adata.user.type === '1') {
+                if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) {
+                  window.location.href = redirectTo;
+                } else {
+                  $location.path('/sponzors/dashboard');
+                }
+              } else {
+
                 if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
                   window.location.href = redirectTo;
                 } else {
                   $location.path('/organizers/dashboard');
                 }
-              }, function errorCallback(response) {
-                  console.log(response);
-              });
-            }
+              }
+            }, function errorCallback(response) {
+              $rootScope.closeAllDialogs();
+              $rootScope.showDialog('error', 'canNotGetUserInfo', false);
+            });
           } else {
             $scope.loagind = false;
             $rootScope.closeAllDialogs();

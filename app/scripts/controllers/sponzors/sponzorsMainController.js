@@ -1,138 +1,108 @@
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $window) {
+  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $window, $sce) {
     if ($rootScope.userValidation('1')) {
-      $scope.searchLoading = true;
-      $scope.upcomingLoading = true;
-      $scope.bestLoading = true;
-      $scope.showOrganizerInfo = function(event) {
-        $rootScope.showLoading();
-        eventRequest.oneEvent(event.id).success(function(sData) {
-          if (sData.data.organizer[0].id) {
-            $scope.currentOrganizer = sData.data.organizer[0].id;
-            $window.open('#/profile/' + $scope.currentOrganizer);
-          } else {
-            $rootScope.closeAllDialogs();
-            $rootScope.showDialog('error', 'canNotGetUserInfo', false);
+      $scope.user = JSON.parse($localStorage.user);
+      $scope.balance = 0;
+      $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
+        if (e.status === '0') {
+          return e;
+        }
+      });
+      $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
+        if (e.status > 0) {
+          $scope.balance = parseInt(parseInt(e.perk.usd) + parseInt($scope.balance));
+          return e;
+        }
+      });
+      if ($localStorage.events) {
+        var events = JSON.parse($localStorage.events);
+        $scope.search = events.filter(function(e) {
+          if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
+            return e;
           }
-        }).error(function(eData) {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'canNotGetUserInfo', false);
         });
-      };
+      }
+      $localStorage.user = JSON.stringify($scope.user);
+      $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+      }
       $scope.getAllEvents = function() {
-        eventRequest.allEvents().success(function(adata) {
+        $scope.searchLoading = true;
+        eventRequest.allEvents().then(function successCallback(response) {
+          $localStorage.events = JSON.stringify(response.data.data.events);
           $scope.search = [];
-          $scope.search = adata.events.filter(function(e) {
+          $scope.search = response.data.data.events.filter(function(e) {
             if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
               return e;
             }
           });
-          $scope.upcomingEvents = [];
-          var currentDate = new Date();
-          var count = 0; //to count 10 events
-          for (var i = 0; i < $scope.search.length; i++) {
-            var eventDate = new Date($scope.search[i].starts);
-            if (eventDate > currentDate) {
-              $scope.upcomingEvents.push($scope.search[i]);
-              count++;
-            }
-            if (count > 10) {
-              break;
-            }
-          }
-          $scope.upcomingLoading = false;
           $scope.searchLoading = false;
-        }).error(function() {
-          $rootScope.showDialog('error', 'canNotGetEvents', false);
+        }, function errorCallback() {
+          $scope.searchLoading = false;
         });
       };
-      $scope.showPerks = function(eventId) {
-        $rootScope.showLoading();
-        $scope.noPerksMessage = true;
-        eventRequest.oneEvent(eventId).success(function(data) {
-          $scope.currentEvent = data.data.event;
-          $scope.currentOrganizer = data.data.organizer[0];
-          $scope.loadingpeaks = false;
-          if ($scope.currentEvent.perks[0]) {
-            $scope.noPerksMessage = false;
-          } else {
-            $scope.noPerksMessage = true;
-          }
-          $rootScope.closeAllDialogs();
-          ngDialog.open({
-            template: 'views/templates/eventPerksDialog.html',
-            scope: $scope
-          });
-        }).error(function(eData) {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
-        });
-      };
-      //We display the form to get the sponzorship cause
-      $scope.formCreateSponzorship = function(perk) {
-        $scope.perkToSponzor = perk;
+      $scope.openLocation = function(event) {
+        $scope.currentEvent = event;
+        $scope.mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=" + encodeURIComponent($scope.currentEvent.location);
         ngDialog.open({
-          template: 'views/templates/insertCauseForm.html',
-          scope: $scope
+          template: 'views/templates/locationDialog.html',
+          scope: $scope,
+          showClose: true
         });
       };
-      //this function have two steps, first, create the sponzorhip second create the sponzor tasks
+      $scope.showPerks = function(event) {
+        $scope.selectedPerk = false;
+        $scope.currentEvent = event;
+        ngDialog.open({
+          template: 'views/templates/eventPerksDialog.html',
+          scope: $scope,
+          showClose: true
+        });
+      };
+      $scope.formCreateSponzorship = function(perk) {
+        $scope.newSponzorship = {
+          'organizer_id': $scope.currentEvent.user_organizer.id,
+          'sponzor_id': $localStorage.id,
+          'event_id': $scope.currentEvent.id,
+          'perk_id': perk.id,
+          'cause': '',
+          'status': 0
+        };
+        $scope.selectedPerk = perk;
+      };
       $scope.createSponzorship = function() {
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
-        var data = { //Set Sponzorship data
-          status: 0,
-          'sponzor_id': $localStorage.id,
-          'perk_id': $scope.perkToSponzor.id,
-          'event_id': $scope.perkToSponzor.id_event,
-          'cause': $scope.perkToSponzor.cause,
-          'organizer_id': $scope.currentOrganizer.id
-        };
-        sponzorshipRequest.createSponzorship(data).success(function(sData) {
-          perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
-            angular.forEach(sPerkData.data.Tasks, function(value) {
-              var taskSponzor = {
-                status: 0,
-                'sponzor_id': $localStorage.id,
-                'perk_id': $scope.perkToSponzor.id,
-                'event_id': $scope.perkToSponzor.id_event,
-                'organizer_id': $scope.currentOrganizer.id,
-                'sponzorship_id': sData.Sponzorship.id,
-                'task_id': value.id
-              };
-              taskSponzorRequest.createTaskSponzor(taskSponzor).success(function() {});
-            });
-            var info = {
-              organizerId: $scope.currentOrganizer.id,
-              eventName: $scope.currentEvent.title,
-              lang: $rootScope.currentLanguage()
-            };
-
-            var firebaseNotification = {
-              to: $scope.currentOrganizer.id,
-              text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
-              link: '#/organizers/sponzors'
-            };
-            $rootScope.sendFirebaseNotification(firebaseNotification);
-
-
-            sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
-            $rootScope.closeAllDialogs();
-            $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-          }).error(function() {
-            $rootScope.closeAllDialogs();
+        sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
+          $scope.user.sponzorships.push(response.data.Sponzorship);
+          $scope.user.pendingSponzorships.push(response.data.Sponzorship);
+          $localStorage.user = JSON.stringify($scope.user);
+          var info = {
+            organizerId: $scope.currentEvent.user_organizer.id,
+            eventName: $scope.currentEvent.title,
+            lang: $rootScope.currentLanguage()
+          };
+          var firebaseNotification = {
+            to: $scope.currentEvent.user_organizer.id,
+            text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
+            link: '#/organizers/sponzors'
+          };
+          $rootScope.sendFirebaseNotification(firebaseNotification);
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function(){});
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
+        }, function errorCallback(err) {
+          $rootScope.closeAllDialogs();
+          if (err.status === 409) {
+            $rootScope.showDialog('error', 'alreadySponzoring', false);
+          } else {
             $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
-          });
-        }).error(function() {
-          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
+          }
         });
       };
-      $scope.getAllEvents();
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }
-  angular.module('sponzorme')
-    .controller('SponzorsMainController', SponzorsMainController);
-
+  angular.module('sponzorme').controller('SponzorsMainController', SponzorsMainController);
 })();
