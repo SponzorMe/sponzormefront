@@ -17,7 +17,7 @@
     'ui.bootstrap',
     'google.places',
     'angularSpinner',
-    'naif.base64',
+    'jshor.angular-addtocalendar',
     'angularUtils.directives.dirPagination',
     'ui.bootstrap.datetimepicker',
     'firebase',

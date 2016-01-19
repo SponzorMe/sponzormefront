@@ -1,8 +1,7 @@
-<!--Template asociado a los sponzors-->
-<div class="{{tolsctive}}" id="page-wrapper" ng-class="{'active': toggle}">
+<div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
   <div ng-include="menuprincipal"></div>
   <div id="content-wrapper">
-    <div class="page-content">
+    <div class="page-content" ng-controller="SponzorsSponzorshipsController">
       <div class="row header">
         <div class="row header" ng-include src="'views/sponzors/dashboard/header.html'"></div>
       </div>
@@ -10,53 +9,45 @@
         <div class="col-lg-12">
           <div class="widget">
             <div class="widget-header">
-              <i class="fa fa-tasks"></i>
-              {{ 'sponzorshipsListInSponzor' | translate }}
+              <i class="fa fa-tasks"></i> {{ 'followedEvents' | translate }}
             </div>
             <div class="widget-body medium no-padding">
               <div class="table-responsive">
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th class="text-center">{{ 'name' | translate }}</th>
-                      <th class="text-center">{{ 'email' | translate }}</th>
-                      <th class="text-center">{{ 'eventtitle' | translate }}</th>
+                      <th class="text-center">{{ 'organizer' | translate }}</th>
+                      <th class="text-center">{{ 'Event' | translate }}</th>
+                      <th class="text-center">{{ 'perkUsd' | translate }}</th>
                       <th class="text-center">{{ 'starts' | translate }}</th>
-                      <th class="text-center">{{ 'sponzoring' | translate }}
-                        type</th>
                       <th class="text-center">{{ 'actions' | translate }}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="sponzorshipsLoading && !noSponzorshipsMessage">
-                      <td colspan="6">
-                        <rd-loading></rd-loading>
-                      </td>
-                    </tr>
-                    <tr ng-show="!sponzorshipsLoading && noSponzorshipsMessage">
-                      <td class="text-center" colspan="3">
+                    <tr ng-show="!user.acceptedSponzorships.length">
+                      <td colspan="6" class="text-center">
                         <h2 class="text-center">{{'noSponzorshipsMessageSponzor'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr class="row-hover" data-ng-class="{success : sponzorships.current === s.id}" data-ng-repeat="s in sponzorships" ng-click="getTaskSponzor(s)" ng-show="!sponzorshipsLoading && !noSponzorshipsMessage">
-                      <td class="text-center">{{s.name}}</td>
-                      <td class="text-center">{{s.email}}</td>
-                      <td class="text-center">{{s.title}}</td>
-                      <td class="text-center">{{s.starts}}</td>
-                      <td class="text-center">{{s.kind}}</td>
+                    <tr ng-show="user.acceptedSponzorships.length" data-ng-repeat="s in user.acceptedSponzorships" data-ng-class="{success : currentSponzorship.id === s.id}"
+                    ng-click="showTasks(s)" class="row-hover">
+                      <td class="text-center">{{s.organizer.name}}&nbsp;
+                        <a href="#/profile/{{ s.organizer.id }}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a>
+                      </td>
+                      <td class="text-center">{{s.event.title}}&nbsp;
+                        <a href="#/event/{{ s.event.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a>
+                      </td>
+                      <td class="text-center">{{s.perk.kind}} - ${{s.perk.usd}}</td>
+                      <td class="text-center">{{s.event.starts| date}}&nbsp;
+                        <a href="" ng-click="downloadCalendar(s)" tooltip="{{'AddToCalendar'|translate}}"><i class="fa fa-calendar"></i></a>
+                      </td>
                       <td class="text-center">
-                        <a ng-if="s.status==1 && s.usd !=0" href="" ng-click="paymentInformation(s)"><i class="fa fa-credit-card"></i></a>
-                        <a ng-if="s.status==3 || s.usd ==0" href=""><i class="fa fa-check"></i></a>
-                        <a href="" ng-click="downloadCalendar(s)"><i class="fa fa-calendar"></i></a>
-                        <a href="" ng-click="seeCause(s)">
-                          <i class="fa fa-question-circle"></i>
-                        </a>
-                        <a href="#/sponzors/chat/sponzorship/{{s.id}}">
-                          <i class="fa fa-comment"></i>
-                        </a>
-                        <a href="" ng-click="sendToRating(s)" ng-if="s.status >= 1 && s.ends < todayDate">
-                          <i class="fa fa-smile-o"></i>
-                        </a>
+                        <a href="" ng-click="seeCause(s)" tooltip="{{'SeeCause'|translate}}"><i class="fa fa-question-circle"></i></a>&nbsp;
+                        <a href="" ng-click="openLocation(s)"><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp;
+                        <a href="#/sponzors/chat/sponzorship/{{s.id}}" tooltip="{{'ChatWithOrganizer'|translate}}"><i class="fa fa-comment"></i></a>&nbsp;
+                        <a ng-if="s.status==1 && s.perk.usd !=0" href="" ng-click="paymentInformation(s)" tooltip="{{'ProceedToPay'|translate}}"><i class="fa fa-credit-card"></i></a>
+                        <a ng-if="s.status==3 || s.perk.usd ==0" href="" tooltip="{{'SponzorshipPaid'|translate}}"><i class="fa fa-check"></i></a>
+                        <a href="" ng-click="sendToRating(s)" ng-if="s.status >= 1 && s.event.ends < todayDate"><i class="fa fa-smile-o"></i></a>
                       </td>
                     </tr>
                   </tbody>
@@ -65,56 +56,64 @@
             </div>
           </div>
         </div>
-
-        <!-- A partir de aca se muestran las notas de acuerdo al peak y al sponzor seleccionado -->
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-6">
             <div class="widget">
               <div class="widget-header">
-                <i class="fa fa-plus"></i>{{ 'todosList' | translate }}
-                <a class="pull-right" href="" ng-click="showTaskForm(currentPerkId,event.current)" ng-if="!loadingPerks && !noPerksMessage">{{ 'add_task' | translate }}</a>
+                <i class="fa fa-plus"></i>{{ 'organizerTasks' | translate }}
                 <div class="clearfix"></div>
               </div>
               <div class="widget-body medium no-padding">
                 <div class="table-responsive">
                   <table class="table table-striped">
                     <thead>
-                      <th>{{ 'todoTitle' | translate }}</th>
-                      <th>{{ 'todoDescription' | translate }}</th>
-                      <th>{{ 'todoOwner' | translate }}</th>
-                      <th>{{ 'todoStatus' | translate }}</th>
-                      <th>{{ 'actions' | translate }}</th>
+                      <th class="text-center">{{ 'todoTitle' | translate }}</th>
+                      <th class="text-center">{{ 'todoDescription' | translate }}</th>
+                      <th class="text-center">{{ 'todoStatus' | translate }}</th>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingTasks && !noSponzorshipsTaskMessage">
-                        <td colspan="5">
-                          <rd-loading></rd-loading>
-                        </td>
-                      </tr>
-                      <tr ng-show="!loadingTasks && noSponzorshipsTaskMessage">
-                        <td class="text-center" colspan="5">
+                      <tr ng-show="!organizerTasks.length">
+                        <td colspan="4" class="text-center">
                           <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr data-ng-repeat="t in tasksSponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="!loadingTasks && !noSponzorshipsTaskMessage" ng-show="!loadingtodo">
-                        <td>{{ t.title }}</td>
-                        <td>{{ t.description }}</td>
-                        <td>
-                          <div ng-if="t.type == 0">{{ 'Organizer' | translate }}</div>
-                          <div ng-if="t.type == 1">{{ 'You' | translate }}</div>
+                      <tr ng-show="organizerTasks.length" data-ng-repeat="t in organizerTasks">
+                        <td class="text-center">{{ t.task.title }}</td>
+                        <td class="text-center">{{ t.task.description }}</td>
+                        <td class="text-center">{{ t.status }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="widget">
+              <div class="widget-header">
+                <i class="fa fa-plus"></i>{{ 'YourTasks' | translate }}
+                <a href="" ng-click="showTaskForm(currentSponzorship)" ng-if="currentSponzorship"class="pull-right btn btn-primary">
+                <i class="fa fa-plus"></i>&nbsp;{{ 'add_task' | translate }}</a>
+                <div class="clearfix"></div>
+              </div>
+              <div class="widget-body medium no-padding">
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <th class="text-center">{{ 'todoTitle' | translate }}</th>
+                      <th class="text-center">{{ 'todoDescription' | translate }}</th>
+                      <th class="text-center">{{ 'todoStatus' | translate }}</th>
+                    </thead>
+                    <tbody>
+                      <tr ng-show="!sponzorTasks.length">
+                        <td colspan="4" class="text-center">
+                          <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
-                        <td>
-                          <div ng-if="t.status == 0">{{ 'taskNoCompleted' | translate }}</div>
-                          <div ng-if="t.status == 1">{{ 'taskCompleted' | translate }}</div>
-                        </td>
-                        <td>
-                          <span class="text-success">
-                            <a href="" ng-click="completeTask($index)" ng-if="t.status == 0 && t.type==1"><i class="fa fa-check"></i></a>
-                            <a href="" ng-click="uncompleteTask($index)" ng-if="t.status == 1 && t.type==1"><i class="fa fa-times"></i></a>
-                            <a href="" ng-click="deleteTaskSponzor($index)" ng-if="t.type==1"><i class="fa fa-trash-o"></i></a>
-                            <span ng-if="t.type==0 && t.status==0">{{ 'waitUnitlOrganizerComplete' | translate }}</span>
-                          </span>
-                        </td>
+                      </tr>
+                      <tr ng-show="sponzorTasks.length" data-ng-repeat="t in sponzorTasks">
+                        <td class="text-center">{{ t.task.title }}</td>
+                        <td class="text-center">{{ t.task.description }}</td>
+                        <td class="text-center">{{ t.status }}</td>
                       </tr>
                     </tbody>
                   </table>

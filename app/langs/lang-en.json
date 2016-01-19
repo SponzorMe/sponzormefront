@@ -787,5 +787,13 @@
   "perkUsd": "Type-Price",
   "AddToCalendar": "Add to Calendar",
   "CancelThisSponzorship": "Click here to cancel this Sponzorship",
-  "SeeCause": "Remmber Why Do you Want Sponzor This Event"
+  "SeeCause": "Remmber Why Do you Want Sponzor This Event",
+  "privateEvent": "This event is private",
+  "publicEvent": "This event is public",
+  "NoPerkTasks": "Unfortunately this Sponzorship type does not have perks yet.",
+  "PerksForSponzorThisEvent": "List of perks offer by the organizer",
+  "agree": "I agree, I want Sponzor it!",
+  "chooseYourCalendar": "Please choose your favorite calendar to import",
+  "SponzorshipPaid": "This Sponzorship is already Paid",
+  "ProceedToPay": "Click Here to Proceed With a Payment"
 }

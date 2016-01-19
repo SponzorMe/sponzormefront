@@ -93,16 +93,14 @@
                         <h2 class="text-center">{{'noEventsMessage'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr data-ng-class="{success : currentEvent === e.id}" data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading" class="row-hover">
-                      <td class="text-center"><i ng-if="e.privacy==0" class="fa fa-unlock"></i>
-                      <i ng-if="e.privacy==1" class="fa fa-lock"></i></td><td class="text-center">{{ e.title }}</td>
-
+                    <tr data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading" class="row-hover">
+                      <td class="text-center"><i ng-if="e.privacy==0" tooltip="{{'publicEvent'|translate}}" class="fa fa-unlock"></i>
+                      <i ng-if="e.privacy==1" tooltip="{{'privateEvent'|translate}}" class="fa fa-lock"></i></td>
+                      <td class="text-center">{{ e.title }}</td>
                       <td class="text-center">{{e.user_organizer.name}}&nbsp;<a href="#/profile/{{e.user_organizer.id}}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td>
                       <td class="text-center">{{e.type.name}}</td>
                       <td class="text-center">{{e.category.title}}</td>
-
                       <td class="text-center">{{ e.starts| date}}</td>
-
                       <td class="text-center">
                         <a href="" ng-click="showPerks(e)" tooltip="{{'SponzorshipOportunities'|translate}}"><i class="fa fa-eye"></i></a>&nbsp;
                         <a href="" ng-click="openLocation(e)"><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp;

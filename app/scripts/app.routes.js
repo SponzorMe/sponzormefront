@@ -84,11 +84,11 @@
       })
       .when('/sponzors/following', {
         templateUrl: 'views/sponzors/dashboard/following.html',
-        controller: 'SponzorsFollowingController'
+        controller: 'SponzorsMasterController'
       })
       .when('/sponzors/sponzoring', {
         templateUrl: 'views/sponzors/dashboard/sponzorships.html',
-        controller: 'SponzorsSponzorshipsController'
+        controller: 'SponzorsMasterController'
       })
       .when('/event/:eventId', {
         templateUrl: 'views/event.html',

@@ -11,7 +11,7 @@
       });
       $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
         if (e.status > 0) {
-          $scope.balance = parseInt(parseInt(e.perk.usd) + parseInt($scope.balance));
+          $scope.balance = parseInt(e.perk.usd) + parseInt($scope.balance);
           return e;
         }
       });
@@ -52,6 +52,7 @@
         });
       };
       $scope.showPerks = function(event) {
+        $scope.showForm = false;
         $scope.selectedPerk = false;
         $scope.currentEvent = event;
         ngDialog.open({
@@ -70,6 +71,9 @@
           'status': 0
         };
         $scope.selectedPerk = perk;
+      };
+      $scope.showCauseForm = function(){
+        $scope.showForm = true;  
       };
       $scope.createSponzorship = function() {
         $rootScope.closeAllDialogs();

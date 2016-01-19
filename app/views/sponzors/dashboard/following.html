@@ -1,8 +1,7 @@
-<!--Template asociado a los sponzors-->
 <div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
   <div ng-include="menuprincipal"></div>
   <div id="content-wrapper">
-    <div class="page-content">
+    <div class="page-content" ng-controller="SponzorsFollowingController">
       <div class="row header">
         <div class="row header" ng-include src="'views/sponzors/dashboard/header.html'"></div>
       </div>
@@ -30,16 +29,23 @@
                         <h2 class="text-center">{{'noSponzorshipsMessageSponzor'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr ng-show="user.pendingSponzorships.length" data-ng-repeat="s in user.pendingSponzorships" data-ng-class="{success : currentSponzorship.id === s.id}" ng-click="showTasks(s)" class="row-hover">
-                      <td class="text-center">{{s.organizer.name}}&nbsp;<a href="#/profile/{{ s.organizer.id }}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td>
-                      <td class="text-center">{{s.event.title}}&nbsp;<a href="#/event/{{ s.event.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a></td>
+                    <tr ng-show="user.pendingSponzorships.length" data-ng-repeat="s in user.pendingSponzorships" data-ng-class="{success : currentSponzorship.id === s.id}"
+                    ng-click="showTasks(s)" class="row-hover">
+                      <td class="text-center">{{s.organizer.name}}&nbsp;
+                        <a href="#/profile/{{ s.organizer.id }}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a>
+                      </td>
+                      <td class="text-center">{{s.event.title}}&nbsp;
+                        <a href="#/event/{{ s.event.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a>
+                      </td>
                       <td class="text-center">{{s.perk.kind}} - ${{s.perk.usd}}</td>
-                      <td class="text-center">{{s.event.starts| date}}&nbsp;<a href="" ng-click="downloadCalendar(s)" tooltip="{{'AddToCalendar'|translate}}"><i class="fa fa-calendar"></i></a></td>
+                      <td class="text-center">{{s.event.starts| date}}&nbsp;
+                        <a href="" ng-click="downloadCalendar(s)" tooltip="{{'AddToCalendar'|translate}}"><i class="fa fa-calendar"></i></a>
+                      </td>
                       <td class="text-center">
                         <a href="" ng-click="seeCause(s)" tooltip="{{'SeeCause'|translate}}"><i class="fa fa-question-circle"></i></a>&nbsp;
                         <a href="" ng-click="openLocation(s)"><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp;
                         <a href="#/sponzors/chat/sponzorship/{{s.id}}" tooltip="{{'ChatWithOrganizer'|translate}}"><i class="fa fa-comment"></i></a>&nbsp;
-                        <a href="" ng-click="deleteSponzorship(s.id, $index)" tooltip="{{'CancelThisSponzorship'|translate}}"><i class="fa fa-times-circle"></i></a>
+                        <a href="" ng-click="deleteSponzorship(s.id, $index)" tooltip="{{'CancelThisSponzorship'|translate}}"><i class="fa fa-trash"></i></a>
                       </td>
                     </tr>
                   </tbody>
@@ -48,8 +54,6 @@
             </div>
           </div>
         </div>
-
-        <!-- A partir de aca se muestran las notas de acuerdo al peak y al sponzor seleccionado -->
         <div class="row">
           <div class="col-lg-12">
             <div class="widget">
@@ -85,14 +89,3 @@
     </div>
   </div>
 </div>
-</div></div>
-<script type="text/ng-template" id="sponzorshipCause">
-  <div class="text-center">
-    <h3>{{'causeWhySponzor'|translate}}</h3>
-
-    <pre>{{cause}}</pre>
-  </div>
-  <div class="ngdialog-buttons text-center">
-    <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
-  </div>
-</script>
