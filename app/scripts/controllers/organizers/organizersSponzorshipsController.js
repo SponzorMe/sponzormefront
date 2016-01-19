@@ -105,34 +105,22 @@
           $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
         });
       };
-      //---ARREGLAR --- //
-      //This function changes to 1 the sponzor task status
-      $scope.completeTask = function(taskSponzorId) {
+      $scope.changeStatus = function (index, status) {
+        $scope.currentSponzorship.task_sponzor[index].loading = true;
+        var taskSponzorId = $scope.currentSponzorship.task_sponzor[index].id;
         var data = {
-          status: 1
+          status: status
         };
-        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {}).error(function(eData) {
-
-        });
-      };
-      //This function changes to 0 the sponzor task status
-      $scope.uncompleteTask = function(taskSponzorId) {
-        var data = {
-          status: 0
-        };
-        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).success(function() {
-          $scope.getTaskSponzor($scope.sponzorships.current);
-        }).error(function(eData) {
-
-        });
-      };
-      // --------------FIN DE ARREGLAR ---------- //
-      $scope.deleteTaskSponzor = function(taskSponzorId) {
-        taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {
-          $scope.getTaskSponzor($scope.sponzorships.current);
-        }).error(function(eData) {
-
-        });
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response){
+          $scope.currentSponzorship.task_sponzor[index].loading = false;
+          $scope.currentSponzorship.task_sponzor[index].status = status;
+          
+          $localStorage.user = JSON.stringify($scope.user);
+         
+         }, function errorCallback(err){
+            $scope.currentSponzorship.task_sponzor[index].loading = false;
+            $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
+         });
       };
       $scope.seeCause = function(sponzorship) {
         $scope.cause = sponzorship.cause;

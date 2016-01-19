@@ -90,7 +90,7 @@
                           <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr data-ng-repeat="t in currentSponzorship.task_sponzor" ng-class="{success: t.status === 1, warning: t.status === 0}" ng-show="currentSponzorship.task_sponzor.length" ng-if="t.task.type==0">
+                      <tr data-ng-repeat="t in currentSponzorship.task_sponzor" ng-class="{success: t.status, warning: t.status == 0}" ng-show="currentSponzorship.task_sponzor.length" ng-if="t.task.type==0">
                         <td>{{ t.task.title }}</td>
                         <td>{{ t.task.description }}</td>
                         <td>
@@ -98,14 +98,9 @@
                           <div ng-if="t.status == 1">{{ 'taskCompleted' | translate }}</div>
                         </td>
                         <td>
-                          <span class="text-success">
-                            <a href="" ng-click="completeTask(t.id)" ng-if="t.status == 0 && t.task.type==0">
-                              <i class="fa fa-check"></i>
-                            </a>
-                            <a href="" ng-click="uncompleteTask(t.id)" ng-if="t.status == 1 && t.task.type==0">
-                              <i class="fa fa-times"></i>
-                            </a>
-                          </span>
+                          <i ng-if="t.loading" class="fa fa-cog fa-spin"></i>
+                          <a href="" ng-click="changeStatus($index, 1)" ng-if="!t.loading && t.status == 0 && t.task.type==0"><i class="fa fa-check"></i></a>&nbsp;
+                          <a href="" ng-click="changeStatus($index, 0)" ng-if="!t.loading && t.status == 1 && t.task.type==0"><i class="fa fa-times"></i></a>&nbsp;
                         </td>
                       </tr>
                     </tbody>
