@@ -28,16 +28,17 @@
       }
       //This function changes to 1 the sponzorship status
       $scope.acceptSponzorship = function(sponzoshipId, i) {
+        $scope.user.sponzorships_like_organizer[i].loading=true;
         $scope.currentSponzorshipId = sponzoshipId;
-        $scope.loadingsponzorships = true;
         var data = {
           status: 1
         };
-        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback() {
+        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback(response) {
+          $scope.user.sponzorships_like_organizer[i].task_sponzor = response.data.Sponzorship.task_sponzor;
           $scope.user.sponzorships_like_organizer[i].status = 1;
+          $scope.user.sponzorships_like_organizer[i].loading = false;
           $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
-          $localStorage.user = JSON.stringify($scope.user);
-          $scope.loadingsponzorships = false;
+          $localStorage.user = JSON.stringify($scope.user);          
           var info = {
             sponzorEmail: $scope.currentSponzorship.sponzor.email,
             sponzorName: $scope.currentSponzorship.sponzor.name,
@@ -50,25 +51,27 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification);
-          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
+          //$rootScope.sendFirebaseNotification(firebaseNotification);
+          //sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
         }, function errorCallback(response) {
-          $scope.loadingsponzorships = false;
+          console.log(response);
+          $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
         });
       };
       //This function changes to 0 the sponzorship status
       $scope.unacceptSponzorship = function(sponzoshipId, i) {
         $scope.currentSponzorshipId = sponzoshipId;
-        $scope.loadingsponzorships = true;
+        $scope.user.sponzorships_like_organizer[i].loading=true;
         var data = {
           status: 0
         };
-        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback() {
+        sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback(response) {
           $scope.user.sponzorships_like_organizer[i].status = 0;
-          $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
+          $scope.user.sponzorships_like_organizer[i].task_sponzor = response.data.Sponzorship.task_sponzor;
+          $scope.user.sponzorships_like_organizer[i].loading=false;
+          $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];        
           $localStorage.user = JSON.stringify($scope.user);
-          $scope.loadingsponzorships = false;
           var firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipRejected') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
@@ -76,7 +79,7 @@
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
         }, function errorCallback(response) {
-          $scope.loadingsponzorships = false;
+          $scope.user.sponzorships_like_organizer[i].loading=false;
           $rootScope.showDialog('error', 'problem', false);
         });
       };
@@ -102,6 +105,7 @@
           $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
         });
       };
+      //---ARREGLAR --- //
       //This function changes to 1 the sponzor task status
       $scope.completeTask = function(taskSponzorId) {
         var data = {
@@ -122,6 +126,7 @@
 
         });
       };
+      // --------------FIN DE ARREGLAR ---------- //
       $scope.deleteTaskSponzor = function(taskSponzorId) {
         taskSponzorRequest.deleteTaskSponzor(taskSponzorId).success(function() {
           $scope.getTaskSponzor($scope.sponzorships.current);

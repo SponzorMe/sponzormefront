@@ -114,7 +114,8 @@
                     <td class="text-center">{{ t.title}}</td>
                     <td class="text-center">{{ t.description }}</td>
                     <td class="text-center">
-                      <a href="" ng-click="removeTask(t.id, $index)" tooltip="{{'RemoveTask'|translate}}"><i class="fa fa-trash-o"></i></a>
+                      <i class="fa fa-cog fa-spin" ng-if="t.loading"></i>
+                      <a href="" ng-if="!t.loading" ng-click="removeTask(t.id, $index)" tooltip="{{'RemoveTask'|translate}}"><i class="fa fa-trash-o"></i></a>
                     </td>
                   </tr>
                 </tbody>

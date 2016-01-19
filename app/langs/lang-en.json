@@ -605,8 +605,8 @@
   "toCreateNewTask": "Please complete the info below to create new task:",
   "taskCreatedSuccesfuly": "The new task has been created and added to the current sponzorship type!",
   "errorDeletingTask": "We sorry, we can not delete this task because this event has Sponsorship",
-  "eventstate0": "This sponzor still is waiting your approval",
-  "eventstate1": "Sponzorship Accepted",
+  "eventstate0": "Pending",
+  "eventstate1": "Accepted",
   "eventstate0Sponzor": "Waiting organizer approval",
   "eventstate1Sponzor": "Sponzorship Accepted",
   "causeWhy": "Why this sponzor wants sponsor your event?",
@@ -795,5 +795,6 @@
   "agree": "I agree, I want Sponzor it!",
   "chooseYourCalendar": "Please choose your favorite calendar to import",
   "SponzorshipPaid": "This Sponzorship is already Paid",
-  "ProceedToPay": "Click Here to Proceed With a Payment"
+  "ProceedToPay": "Click Here to Proceed With a Payment",
+  "YourTasks": "Your Tasks"
 }

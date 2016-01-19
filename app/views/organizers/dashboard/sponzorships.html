@@ -44,13 +44,13 @@
                       <td class="text-center">
                         <a href="" ng-click="seeCause(s)" tooltip="{{'seeCause'|translate}}"><i class="fa fa-question-circle"></i></a>&nbsp;
                         <div style="display: inline-block">
-                          <div ng-if="s.status == 0 && !loadingsponzorships">
+                          <div ng-if="s.status == 0 && !s.loading">
                             <a href="" ng-click="acceptSponzorship(s.id, $index)" tooltip="{{'AcceptSponzorship'|translate}}"><i class="fa fa-star-o"></i></a>&nbsp;
                           </div>
-                          <div ng-if="loadingsponzorships && s.id == currentSponzorshipId">
+                          <div ng-if="s.loading">
                             <a href=""><i class="fa fa-cog fa-spin"></i></a>&nbsp;
                           </div>
-                          <div ng-if="s.status == 1 && !loadingsponzorships">
+                          <div ng-if="s.status == 1 && !s.loading">
                             <a href="" ng-click="unacceptSponzorship(s.id, $index)" tooltip="{{'UnacceptSponzorship'|translate}}"><i class="fa fa-star"></i></a>&nbsp;
                           </div>
                         </div>
