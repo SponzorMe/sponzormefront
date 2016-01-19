@@ -34,12 +34,22 @@ module.exports = function (config) {
             'bower_components/angular-input-stars-directive/angular-input-stars.js',
             'bower_components/angular-scroll-glue/src/scrollglue.js',
             'bower_components/mockfirebase/browser/mockfirebase.js',
+            'bower_components/angular-addtocalendar/addtocalendar.min.js',
             'bower_components/angular-mocks/angular-mocks.js',
-            'app/scripts/**/**/*.js',
+            'app/scripts/app.modules.js',
+            'app/scripts/app.constants.js',
+            'app/scripts/app.enviroment.js',
+            'app/scripts/app.directives.js',
+            'app/scripts/app.filters.js',
+            'app/scripts/app.routes.js',
+            'app/scripts/app.run.js',
+            'app/scripts/app.providers.js',
+            'app/scripts/services/*.js',
             'tests/**/*.js'
         ],
         preprocessors:{
-          'app/scripts/**/**/*.js': 'coverage'
+          'app/scripts/services/*.js': 'coverage'
+          
         },
         singleRun : true,
         autowatch : false,
