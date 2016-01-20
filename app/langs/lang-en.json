@@ -797,5 +797,9 @@
   "SponzorshipPaid": "This Sponzorship is already Paid",
   "ProceedToPay": "Click Here to Proceed With a Payment",
   "YourTasks": "Your Tasks",
-  "noSponzorsEventsMessage": "Ops, looks like no Events to Sponzor at this moment, please check later"
+  "noSponzorsEventsMessage": "Ops, looks like no Events to Sponzor at this moment, please check later",
+  "CompleteTask": "Click here to complete this task",
+  "UncompleteTask": "Click here to Uncomplete this task",
+  "DeleteTask": "Click here to remove this task",
+  "interestAlreadyInList": "This interest is already on your list"
 }

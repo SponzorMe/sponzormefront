@@ -12,6 +12,7 @@
       $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
         if (e.status > 0) {
           $scope.balance = parseInt(e.perk.usd) + parseInt($scope.balance);
+          e.event.ends = new Date(e.event.ends).getTime();
           return e;
         }
       });
@@ -73,7 +74,7 @@
         $scope.selectedPerk = perk;
       };
       $scope.showCauseForm = function(){
-        $scope.showForm = true;  
+        $scope.showForm = true;
       };
       $scope.createSponzorship = function() {
         $rootScope.closeAllDialogs();

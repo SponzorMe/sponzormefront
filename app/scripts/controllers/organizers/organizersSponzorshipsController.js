@@ -3,11 +3,11 @@
   function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Sponzorships',
+        route: 'Sponzorships',
         title: 'Sponzorships'
       };
       $scope.getTasks = function(s) {
-        if(s.task_sponzor.length){
+        if (s.task_sponzor.length) {
           var aux = s.task_sponzor.filter(function(element) {
             if (element.task.type === '0') {
               return element;
@@ -15,7 +15,7 @@
           });
           s.task_sponzor = {};
           s.task_sponzor = aux;
-        }        
+        }
         $scope.currentSponzorship = s;
       };
       $scope.todayDate = new Date().getTime();
@@ -23,16 +23,16 @@
       if ($scope.user.sponzorships_like_organizer) {
         var aux = $scope.user.sponzorships_like_organizer.filter(function(element) {
           element.event.ends = new Date(element.event.ends).getTime();
-            return element;
+          return element;
         });
         $scope.user.sponzorships_like_organizer.filter = aux;
-        if($scope.user.sponzorships_like_organizer.length){
+        if ($scope.user.sponzorships_like_organizer.length) {
           $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
-        }        
+        }
       }
       //This function changes to 1 the sponzorship status
       $scope.acceptSponzorship = function(sponzoshipId, i) {
-        $scope.user.sponzorships_like_organizer[i].loading=true;
+        $scope.user.sponzorships_like_organizer[i].loading = true;
         $scope.currentSponzorshipId = sponzoshipId;
         var data = {
           status: 1
@@ -42,7 +42,7 @@
           $scope.user.sponzorships_like_organizer[i].status = 1;
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
-          $localStorage.user = JSON.stringify($scope.user);          
+          $localStorage.user = JSON.stringify($scope.user);
           var info = {
             sponzorEmail: $scope.currentSponzorship.sponzor.email,
             sponzorName: $scope.currentSponzorship.sponzor.name,
@@ -66,15 +66,15 @@
       //This function changes to 0 the sponzorship status
       $scope.unacceptSponzorship = function(sponzoshipId, i) {
         $scope.currentSponzorshipId = sponzoshipId;
-        $scope.user.sponzorships_like_organizer[i].loading=true;
+        $scope.user.sponzorships_like_organizer[i].loading = true;
         var data = {
           status: 0
         };
         sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback(response) {
           $scope.user.sponzorships_like_organizer[i].status = 0;
           $scope.user.sponzorships_like_organizer[i].task_sponzor = response.data.Sponzorship.task_sponzor;
-          $scope.user.sponzorships_like_organizer[i].loading=false;
-          $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];        
+          $scope.user.sponzorships_like_organizer[i].loading = false;
+          $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
           $localStorage.user = JSON.stringify($scope.user);
           var firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
@@ -83,7 +83,7 @@
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
         }, function errorCallback(response) {
-          $scope.user.sponzorships_like_organizer[i].loading=false;
+          $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
         });
       };
@@ -109,22 +109,22 @@
           $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
         });
       };
-      $scope.changeStatus = function (index, status) {
+      $scope.changeStatus = function(index, status) {
         $scope.currentSponzorship.task_sponzor[index].loading = true;
         var taskSponzorId = $scope.currentSponzorship.task_sponzor[index].id;
         var data = {
           status: status
         };
-        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response){
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response) {
           $scope.currentSponzorship.task_sponzor[index].loading = false;
           $scope.currentSponzorship.task_sponzor[index].status = status;
-          
+
           $localStorage.user = JSON.stringify($scope.user);
-         
-         }, function errorCallback(err){
-            $scope.currentSponzorship.task_sponzor[index].loading = false;
-            $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
-         });
+
+        }, function errorCallback(err) {
+          $scope.currentSponzorship.task_sponzor[index].loading = false;
+          $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
+        });
       };
       $scope.seeCause = function(sponzorship) {
         $scope.cause = sponzorship.cause;

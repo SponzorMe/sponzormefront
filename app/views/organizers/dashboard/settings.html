@@ -123,49 +123,51 @@
             <br/>
             <form class="form-horizontal padding-10 text-center" role="form" name="passwordForm">
               <alert type="warning" class="margin"><span class="text-warning ng-scope"><i class="fa fa-warning"></i></span>&nbsp;{{'passwordRecomendations'| translate}}</alert>
-            <!--form field-->
-            <div class="form-group" id="password">
-              <label for="label" class="col-sm-4 control-label">
-                {{'newPassword' | translate}}
-              </label>
-              <div class="col-sm-7">
-                <input type="password" ng-model="password" class="form-control" required/>
+              <!--form field-->
+              <div class="form-group" id="password">
+                <label for="label" class="col-sm-4 control-label">
+                  {{'newPassword' | translate}}
+                </label>
+                <div class="col-sm-7">
+                  <input type="password" ng-model="password" class="form-control" required/>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group" id="password">
+                <label for="label" class="col-sm-4 control-label">
+                  {{'newPasswordConfirm' | translate}}
+                </label>
+                <div class="col-sm-7">
+                  <input type="password" ng-model="passwordConfirmation" class="form-control" required/>
+                </div>
+              </div>
+              <!--form field-->
+              <div class="form-group">
+                <div class="col-sm-12 text-centered">
+                  <button data-ng-click="passwordForm.$valid && resetPassword()" class="btn btn-warning">{{'changePassword' | translate}}</button>
+                </div>
+              </div>
+            </form>
+            <hr/>
+            <div class="widget-body">
+              {{'YourPreferedInterests' | translate}}:
+              <div ng-repeat="i in user.interests" class="interest_tag">
+                <span>{{i.interest.name}}</span>
+                <a href="" ng-click="removeUserInterest($index, i.id)">X</a>
+              </div>
+              <br/>
+              <br/>
+              <div ng-if="!loadingSaveInterest">
+                Add an interest:
+                <input type="text" ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
+                <button class="btn btn-success" ng-click="addUserInterests(selected)">
+                  {{'add_interest' | translate}}
+                </button>
+              </div>
+              <div ng-if="loadingSaveInterest">
+                <i class="fa fa-cog fa-spin"></i>&nbsp;{{'savingInterest' | translate}}
               </div>
             </div>
-            <!--form field-->
-            <div class="form-group" id="password">
-              <label for="label" class="col-sm-4 control-label">
-                {{'newPasswordConfirm' | translate}}
-              </label>
-              <div class="col-sm-7">
-                <input type="password" ng-model="passwordConfirmation" class="form-control" required/>
-              </div>
-            </div>
-            <!--form field-->
-            <div class="form-group">
-              <div class="col-sm-12 text-centered">
-                <button data-ng-click="passwordForm.$valid && resetPassword()" class="btn btn-warning">{{'changePassword' | translate}}</button>
-              </div>
-            </div>
-          </form>
-          <hr/>
-          <div class="widget-body">
-            {{'YourPreferedInterests' | translate}}:
-            <div ng-repeat="i in user.interests" class="interest_tag">
-              <span>{{i.interest.name}}</span>
-              <a href="" ng-click="removeUserInterest($index, i.id)">X</a>
-            </div>
-            <br/><br/>
-            <div ng-if="!loadingSaveInterest">
-              Add an interest: <input type="text" ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
-              <button class="btn btn-success" ng-click="addUserInterests(selected)">
-                {{'add_interest' | translate}}
-              </button>
-            </div>
-            <div ng-if="loadingSaveInterest">
-              <i class="fa fa-cog fa-spin"></i>&nbsp;{{'savingInterest' | translate}}
-            </div>
-          </div>
           </div>
         </div>
       </div>

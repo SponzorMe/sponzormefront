@@ -9,7 +9,7 @@
         <div class="col-lg-12">
           <div class="widget">
             <div class="widget-header">
-              <i class="fa fa-tasks"></i> {{ 'followedEvents' | translate }}
+              <i class="fa fa-tasks"></i> {{ 'sponzorshipsListInSponzor' | translate }}
             </div>
             <div class="widget-body medium no-padding">
               <div class="table-responsive">
@@ -47,7 +47,8 @@
                         <a href="#/sponzors/chat/sponzorship/{{s.id}}" tooltip="{{'ChatWithOrganizer'|translate}}"><i class="fa fa-comment"></i></a>&nbsp;
                         <a ng-if="s.status==1 && s.perk.usd !=0" href="" ng-click="paymentInformation(s)" tooltip="{{'ProceedToPay'|translate}}"><i class="fa fa-credit-card"></i></a>
                         <a ng-if="s.status==3 || s.perk.usd ==0" href="" tooltip="{{'SponzorshipPaid'|translate}}"><i class="fa fa-check"></i></a>
-                        <a href="" ng-click="sendToRating(s)" ng-if="s.status >= 1 && s.event.ends < todayDate"><i class="fa fa-smile-o"></i></a>
+                        <a href="#/sponzors/rating/{{$index}}" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type != 1 && s.ratings[1].type != 1" tooltip="{{'RateThisOrganizer'|translate}}"><i class="fa fa-smile-o"></i></a>&nbsp;
+                        <a href="" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type == 1 || s.ratings[1].type == 1" tooltip="{{'RateSuccessfuly'|translate}}"><i class="fa fa-check-circle-o"></i></a>
                       </td>
                     </tr>
                   </tbody>
@@ -79,7 +80,7 @@
                       <tr ng-show="organizerTasks.length" data-ng-repeat="t in organizerTasks">
                         <td class="text-center">{{ t.task.title }}
                           <span ng-if="t.status == 0">({{ 'taskNoCompleted' | translate }})</span>
-                          <span ng-if="t.status == 1">({{ 'taskCompleted' | translate }})</span>                          
+                          <span ng-if="t.status == 1">({{ 'taskCompleted' | translate }})</span>
                         </td>
                         <td class="text-center">{{ t.task.description }}</td>
                       </tr>
@@ -111,7 +112,7 @@
                           <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr ng-show="sponzorTasks.length" data-ng-repeat="t in sponzorTasks" ng-class="{success: t.status, warning: !t.status}">
+                      <tr ng-show="sponzorTasks.length" data-ng-repeat="t in sponzorTasks" ng-class="{success: t.status == 1, warning: t.status == 0}">
                         <td class="text-center">{{ t.task.title }}
                           <span ng-if="t.status == 0">({{ 'taskNoCompleted' | translate }})</span>
                           <span ng-if="t.status == 1">({{ 'taskCompleted' | translate }})</span>
@@ -119,9 +120,9 @@
                         <td class="text-center">{{ t.task.description }}</td>
                         <td class="text-center">
                           <i ng-if="t.loading" class="fa fa-cog fa-spin"></i>
-                          <a href="" ng-click="changeStatus($index, 1)" ng-if="!t.loading && t.status == 0 && t.task.type==1"><i class="fa fa-check"></i></a>&nbsp;
-                          <a href="" ng-click="changeStatus($index, 0)" ng-if="!t.loading && t.status == 1 && t.task.type==1"><i class="fa fa-times"></i></a>&nbsp;
-                          <a href="" ng-click="deleteTaskSponzor($index)" ng-if="!t.loading && t.task.type==1"><i class="fa fa-trash"></i></a>
+                          <a href="" ng-click="changeStatus($index, 1)" ng-if="!t.loading && t.status == 0 && t.task.type==1"><i class="fa fa-check" tooltip="{{'CompleteTask'|translate}}"></i></a>&nbsp;
+                          <a href="" ng-click="changeStatus($index, 0)" ng-if="!t.loading && t.status == 1 && t.task.type==1"><i class="fa fa-times" tooltip="{{'UncompleteTask'|translate}}"></i></a>&nbsp;
+                          <a href="" ng-click="deleteTaskSponzor($index)" ng-if="!t.loading && t.task.type==1" tooltip="{{'DeleteTask'|translate}}"><i class="fa fa-trash"></i></a>
                         </td>
                       </tr>
                     </tbody>

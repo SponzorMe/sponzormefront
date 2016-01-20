@@ -8,7 +8,7 @@
         title: 'Events'
       };
       $scope.showTasks = function (p) {
-        $scope.currentPerk = p;        
+        $scope.currentPerk = p;
         if($scope.currentPerk.tasks.length){
           var aux = $scope.currentPerk.tasks.filter(function (element) {
             if (element.type === '0') {
@@ -16,16 +16,18 @@
             }
           });
           p.tasks = {};
-          p.tasks = aux;  
-        }     
+          p.tasks = aux;
+        }
       };
       $scope.showPerks = function (e) {
         $scope.currentEvent = e;
+        $scope.currentPerk = {};
         if($scope.currentEvent.perks.length){
           $scope.showTasks($scope.currentEvent.perks[0]);
         }
         else{
           $scope.currentEvent.perks = [];
+          $scope.currentEvent.perks.tasks = [];
         }
       };
       $scope.imageEvent = function (image) {
@@ -100,7 +102,7 @@
                 }
               }
               break;
-            }            
+            }
           }
           $scope.user.sponzorships_like_organizer = response.data.sponzorships_like_organizer;
           $localStorage.user = JSON.stringify($scope.user);
@@ -115,7 +117,7 @@
 
       $scope.removeTask = function (task_id, index) {
         $scope.currentPerk.tasks[index].loading = true;
-        perkTaskRequest.deletePerkTask(task_id).then(function successCallback(response) {          
+        perkTaskRequest.deletePerkTask(task_id).then(function successCallback(response) {
           $scope.user.sponzorships_like_organizer = response.data.sponzorships_like_organizer;
           $scope.currentPerk.tasks.splice(index, 1);
           $localStorage.user = JSON.stringify($scope.user);
@@ -130,7 +132,7 @@
         $scope.currentEvent = $scope.user.events[0];
         if($scope.currentEvent.perks.length){
           $scope.showPerks($scope.currentEvent);
-        }        
+        }
       }
       $scope.menuprincipal = 'views/organizers/menu.html';
     }

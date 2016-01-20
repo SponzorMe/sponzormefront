@@ -3,7 +3,10 @@
 
   function SponzorsFriendController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage) {
     if($rootScope.userValidation('1')){
-      //Vars initialization
+      $scope.section = {
+        route:'InviteFriend',
+        title: 'Invite Friend'
+      };
       $scope.friend = {};
       $scope.friend.email = '';
       $scope.friend.message = '';
