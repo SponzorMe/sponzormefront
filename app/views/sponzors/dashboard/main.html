@@ -84,13 +84,13 @@
                   </thead>
                   <tbody>
                     <tr ng-show="searchLoading">
-                      <td colspan="6">
+                      <td colspan="7" class="text-center">
                         <rd-loading></rd-loading>
                       </td>
                     </tr>
                     <tr ng-show="!searchLoading && !search.length">
-                      <td class="text-center" colspan="5">
-                        <h2 class="text-center">{{'noEventsMessage'| translate}}</h2>
+                      <td colspan="7" class="text-center">
+                        <h2 class="text-center">{{'noSponzorsEventsMessage'| translate}}</h2>
                       </td>
                     </tr>
                     <tr data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading" class="row-hover">

@@ -8,18 +8,25 @@
         title: 'Events'
       };
       $scope.showTasks = function (p) {
-        $scope.currentPerk = p;
-        var aux = $scope.currentPerk.tasks.filter(function (element) {
-          if (element.type === '0') {
-            return element;
-          }
-        });
-        p.tasks = {};
-        p.tasks = aux;        
+        $scope.currentPerk = p;        
+        if($scope.currentPerk.tasks.length){
+          var aux = $scope.currentPerk.tasks.filter(function (element) {
+            if (element.type === '0') {
+              return element;
+            }
+          });
+          p.tasks = {};
+          p.tasks = aux;  
+        }     
       };
       $scope.showPerks = function (e) {
         $scope.currentEvent = e;
-        $scope.showTasks($scope.currentEvent.perks[0]);
+        if($scope.currentEvent.perks.length){
+          $scope.showTasks($scope.currentEvent.perks[0]);
+        }
+        else{
+          $scope.currentEvent.perks = [];
+        }
       };
       $scope.imageEvent = function (image) {
         $scope.currentImage = image;
@@ -95,7 +102,6 @@
               break;
             }            
           }
-          console.log(response.data);
           $scope.user.sponzorships_like_organizer = response.data.sponzorships_like_organizer;
           $localStorage.user = JSON.stringify($scope.user);
           $rootScope.closeAllDialogs();
@@ -122,7 +128,9 @@
       $scope.user = JSON.parse($localStorage.user);
       if ($scope.user.events) {
         $scope.currentEvent = $scope.user.events[0];
-        $scope.showPerks($scope.currentEvent);
+        if($scope.currentEvent.perks.length){
+          $scope.showPerks($scope.currentEvent);
+        }        
       }
       $scope.menuprincipal = 'views/organizers/menu.html';
     }

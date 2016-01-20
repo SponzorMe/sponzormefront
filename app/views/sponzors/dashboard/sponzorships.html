@@ -69,7 +69,6 @@
                     <thead>
                       <th class="text-center">{{ 'todoTitle' | translate }}</th>
                       <th class="text-center">{{ 'todoDescription' | translate }}</th>
-                      <th class="text-center">{{ 'todoStatus' | translate }}</th>
                     </thead>
                     <tbody>
                       <tr ng-show="!organizerTasks.length">
@@ -78,9 +77,11 @@
                         </td>
                       </tr>
                       <tr ng-show="organizerTasks.length" data-ng-repeat="t in organizerTasks">
-                        <td class="text-center">{{ t.task.title }}</td>
+                        <td class="text-center">{{ t.task.title }}
+                          <span ng-if="t.status == 0">({{ 'taskNoCompleted' | translate }})</span>
+                          <span ng-if="t.status == 1">({{ 'taskCompleted' | translate }})</span>                          
+                        </td>
                         <td class="text-center">{{ t.task.description }}</td>
-                        <td class="text-center">{{ t.status }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -102,7 +103,6 @@
                     <thead>
                       <th class="text-center">{{ 'todoTitle' | translate }}</th>
                       <th class="text-center">{{ 'todoDescription' | translate }}</th>
-                      <th class="text-center">{{ 'todoStatus' | translate }}</th>
                       <th class="text-center">{{ 'actions' | translate }}</th>
                     </thead>
                     <tbody>
@@ -117,10 +117,6 @@
                           <span ng-if="t.status == 1">({{ 'taskCompleted' | translate }})</span>
                         </td>
                         <td class="text-center">{{ t.task.description }}</td>
-                        <td>
-                          <div ng-if="t.status == 0">{{ 'taskNoCompleted' | translate }}</div>
-                          <div ng-if="t.status == 1">{{ 'taskCompleted' | translate }}</div>
-                        </td>
                         <td class="text-center">
                           <i ng-if="t.loading" class="fa fa-cog fa-spin"></i>
                           <a href="" ng-click="changeStatus($index, 1)" ng-if="!t.loading && t.status == 0 && t.task.type==1"><i class="fa fa-check"></i></a>&nbsp;

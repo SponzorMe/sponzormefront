@@ -1,14 +1,12 @@
 'use strict';
 (function() {
 
-  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams, $rootScope, userRequest) {
+  function LoginController($scope, $translate, loginRequest, $localStorage, $location, ngDialog, $routeParams, $rootScope, userRequest) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
     var redirectTo = $localStorage.redirectTo;
-    console.log('redirect', redirectTo);
     $localStorage.$reset();
-
     $scope.sendfrom = function() {
       if ($scope.email && $scope.password) { //Just Check the values are defined
         $scope.objuser = {};
@@ -77,8 +75,5 @@
       }
     };
   }
-
-  angular.module('sponzorme')
-    .controller('LoginController', LoginController);
-
+  angular.module('sponzorme').controller('LoginController', LoginController);
 })();

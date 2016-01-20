@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr ng-show="!currentEvent.perks.length">
-                <td class="text-center" colspan="3">
+                <td class="text-center" colspan="4">
                     <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
                 </td>
             </tr>
@@ -45,7 +45,7 @@
         <tbody>
             <tr ng-show="!selectedPerk.tasks.length">
                 <td class="text-center" colspan="3">
-                    <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
+                    <h2 class="text-center">{{'noTaskMessages'| translate}}</h2>
                 </td>
             </tr>
             <tr ng-repeat="t in selectedPerk.tasks" ng-show="selectedPerk.tasks.length">

@@ -220,6 +220,7 @@
     };
     $rootScope.showDemoOrganizers = function() {
       var intro = introJs();
+      var userLang = $rootScope.currentLanguage();
       if (userLang === 'pt') {
         intro.setOptions({
           steps: [{

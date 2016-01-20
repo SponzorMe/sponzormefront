@@ -796,5 +796,6 @@
   "chooseYourCalendar": "Please choose your favorite calendar to import",
   "SponzorshipPaid": "This Sponzorship is already Paid",
   "ProceedToPay": "Click Here to Proceed With a Payment",
-  "YourTasks": "Your Tasks"
+  "YourTasks": "Your Tasks",
+  "noSponzorsEventsMessage": "Ops, looks like no Events to Sponzor at this moment, please check later"
 }

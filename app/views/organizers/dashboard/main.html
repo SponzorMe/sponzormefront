@@ -109,17 +109,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-show="loadingpeaks && !noPerksMessage">
-                        <td colspan="3">
-                          <rd-loading></rd-loading>
-                        </td>
-                      </tr>
-                      <tr ng-show="!loadingpeaks && noPerksMessage">
+                      <tr ng-show="!currentEvent.perks.length">
                         <td colspan="3" class="text-center">
                           <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
                         </td>
                       </tr>
-                      <tr ng-show="!loadingpeaks && !noPerksMessage" ng-repeat="p in currentEvent.perks">
+                      <tr ng-show="currentEvent.perks.length" ng-repeat="p in currentEvent.perks">
                         <td class="text-center">{{ p.kind}}</td>
                         <td class="text-center">{{ p.total_quantity }}</td>
                         <td class="text-center">{{ p.usd }}</td>

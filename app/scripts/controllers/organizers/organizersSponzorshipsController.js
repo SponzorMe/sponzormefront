@@ -7,13 +7,15 @@
         title: 'Sponzorships'
       };
       $scope.getTasks = function(s) {
-        var aux = s.task_sponzor.filter(function(element) {
-          if (element.task.type === '0') {
-            return element;
-          }
-        });
-        s.task_sponzor = {};
-        s.task_sponzor = aux;
+        if(s.task_sponzor.length){
+          var aux = s.task_sponzor.filter(function(element) {
+            if (element.task.type === '0') {
+              return element;
+            }
+          });
+          s.task_sponzor = {};
+          s.task_sponzor = aux;
+        }        
         $scope.currentSponzorship = s;
       };
       $scope.todayDate = new Date().getTime();
@@ -24,7 +26,9 @@
             return element;
         });
         $scope.user.sponzorships_like_organizer.filter = aux;
-        $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
+        if($scope.user.sponzorships_like_organizer.length){
+          $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
+        }        
       }
       //This function changes to 1 the sponzorship status
       $scope.acceptSponzorship = function(sponzoshipId, i) {

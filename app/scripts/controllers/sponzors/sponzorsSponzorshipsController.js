@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, ngDialog, $rootScope, ratingRequest) {
+  function SponzorsSponzorshipsController($scope, $location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('1')) {
       $scope.user = JSON.parse($localStorage.user);
       if (!$scope.user.acceptedSponzorships) {
@@ -59,11 +59,12 @@
       $scope.paymentInformation = function (sponzorship) {
         $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
         $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
+        $scope.SANDBOX = $rootScope.getConstants().PAYPALSANDBOX;
         $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
         $scope.sponzorship = sponzorship;
-        $scope.paymentValue = sponzorship.usd;
-        $scope.fee = parseFloat((sponzorship.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
-        $scope.paymentTotal = parseFloat(sponzorship.usd) + parseFloat($scope.fee);
+        $scope.paymentValue = sponzorship.perk.usd;
+        $scope.fee = parseFloat((sponzorship.perk.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
+        $scope.paymentTotal = parseFloat(sponzorship.perk.usd) + parseFloat($scope.fee);
         ngDialog.open({
           scope: $scope,
           template: 'views/templates/prePaymentInfo.html',
@@ -138,7 +139,7 @@
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
       };
-      if($scope.user.acceptedSponzorships){
+      if($scope.user.acceptedSponzorships.length){
         $scope.showTasks($scope.user.acceptedSponzorships[0]);
       }
     }

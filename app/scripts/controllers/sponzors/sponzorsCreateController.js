@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
+  function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, $routeParams, $rootScope) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
