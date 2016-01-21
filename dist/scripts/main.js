@@ -171,12 +171,12 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
   angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('', {
-        templateUrl: 'views/main.html',
-        controller: 'HomeController'
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
       })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'HomeController'
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
       })
       .when('/activation/:token', {
         templateUrl: 'views/activation.html',
@@ -207,7 +207,7 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
         controller: 'OrganizersCreateController'
       })
       .when('/logout', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/login.html',
         controller: 'LogoutController'
       })
       .when('/organizers/dashboard', {
@@ -320,12 +320,13 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
           'XOOMRATE': parseFloat(4.99),
           'FEE': parseFloat(0.1),
           'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
-          'PAYPALIPNRETURNURL': 'https://apilocal.sponzor.me/ipn',
-          'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+          'PAYPALIPNRETURNURL': 'http://apilocal.sponzor.me/ipn',
+          'PAYPALEMAIL': 'bussines@sponzor.me',
           'FURL': 'https://sponzorme.firebaseio.com/localhost/',
           'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
           'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
           'AMAZONBUCKET': 'sponzormewebappimages',
+          'PAYPALSANDBOX': true,
           'EVENTBRITECLIENTSECRET': 'QNC7CUESEQ67AA3WST4UWHFRAFNQ5J6RELHQVHBIPY2QCHY5DZ',
           'EVENTBRITEAPYKEY': 'BI5D6XQVDCIPGOKY4U',
           'MEETUPAPIKEY': '9pfi8r66lr4da194pc1lvhclq7',
@@ -340,12 +341,13 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
           'XOOMRATE': parseFloat(4.99),
           'FEE': parseFloat(0.1),
           'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
-          'PAYPALIPNRETURNURL': 'https://apistaging.sponzor.me/ipn',
-          'PAYPALEMAIL': 'ing.carlosandresrojas@gmail.com',
+          'PAYPALIPNRETURNURL': 'http://apistaging.sponzor.me/ipn',
+          'PAYPALEMAIL': 'bussines@sponzor.me',
           'FURL': 'https://sponzorme.firebaseio.com/staging/',
           'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
           'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
           'AMAZONBUCKET': 'sponzormewebappimages',
+          'PAYPALSANDBOX': true,
           'EVENTBRITECLIENTSECRET': 'REYYYTW7MW4ABJUI275V3JESPWRR55E5OLKTVC63VNXWFL4WLB',
           'EVENTBRITEAPYKEY': '6WILTRRV7HVLBSRSGP',
           'MEETUPAPIKEY': 'scqnorvk4o3utc3k19qfj45vng',
@@ -366,6 +368,7 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
           'AMAZONSECRET': 'RlzqEBFUlJW/8YGkeasfmTZRLTlWMWwaBpJNBxu6',
           'AMAZONKEY': 'AKIAJDGUKWK3H7SJZKSQ',
           'AMAZONBUCKET': 'sponzormewebappimages',
+          'PAYPALSANDBOX': false,
           'EVENTBRITECLIENTSECRET': 'V72EKSC2YWR5Y4XKVKCUL4W45ZAAVXJSEG3KOBAFIVKR6ESIX5',
           'EVENTBRITEAPYKEY': 'MI3YNPLR3R73AD36YS',
           'MEETUPAPIKEY': 'lc876qakj5itnsnebm3dijus12',
@@ -601,6 +604,7 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
     };
     $rootScope.showDemoOrganizers = function() {
       var intro = introJs();
+      var userLang = $rootScope.currentLanguage();
       if (userLang === 'pt') {
         intro.setOptions({
           steps: [{
@@ -765,248 +769,130 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
  })();
 
 /**
-* @Servicio de Categories
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de Categories
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
+(function() {
+  function categoryRequest($http, $rootScope) {
+    return {
+      /**
+       * Get all categories
+       * @returns promise
+       */
+      allCategories: function() {
+        return $http.get($rootScope.getConstants().URL + 'categories');
 
-	function categoryRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			/**
-			* Get all categories
-			* @returns success(function(data, status, headers, config)
-			*/
-			allCategories: function(){
-				return $http.get($rootScope.getConstants().URL + 'categories');
-
-			},
-			/**
-			* Get Category By Id
-			* @param {JSON} categoryId
-			* @returns success(function(data, status, headers, config)
-			*/
-			oneCategory: function(categoryId){
-				return $http.get($rootScope.getConstants().URL + 'categories/' + categoryId);
-
-			},
-			createCategory: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'categories',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteCategory: function(categoryId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'categories/' + categoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editCategoryPatch: function(categoryId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'categories/' + categoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editCategoryPut: function(categoryId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'categories/' + categoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('categoryRequest', categoryRequest);
+      }
+    };
+  }
+  angular.module('sponzorme').factory('categoryRequest', categoryRequest);
 })();
 
 /**
-* @Servicio de Eventos
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de Eventos
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
+(function() {
+  function eventRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+    var token = $localStorage.token;
+    return {
+      allEvents: function() {
+        return $http.get($rootScope.getConstants().URL + 'events');
 
-	function eventRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allEvents: function(){
-				return $http.get($rootScope.getConstants().URL + 'events');
+      },
+      oneEvent: function(EventId) {
+        return $http.get($rootScope.getConstants().URL + 'events/' + EventId);
 
-			},
-			oneEvent: function(EventId){
-				return $http.get($rootScope.getConstants().URL + 'events/' + EventId);
-
-			},
-			createEvent: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'events',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			createEventToken: function(data, newUserToken){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'events',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteEvent: function(EventId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'events/' + EventId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editEventPatch: function(EventId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'events/' + EventId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editEventPut: function(EventId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'events/' + EventId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('eventRequest', eventRequest);
+      },
+      createEvent: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'events',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      createEventToken: function(data, newUserToken) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'events',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + newUserToken
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      deleteEvent: function(EventId) {
+        return $http({
+          method: 'DELETE',
+          url: $rootScope.getConstants().URL + 'events/' + EventId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          }
+        });
+      },
+      editEventPut: function(EventId, data) {
+        return $http({
+          method: 'PUT',
+          url: $rootScope.getConstants().URL + 'events/' + EventId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      }
+    };
+  }
+  angular.module('sponzorme').factory('eventRequest', eventRequest);
 })();
 
 /**
-* @Servicio de event_types
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de event_types
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
-
-	function eventTypeService($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allEventTypes: function(){
-				return $http.get($rootScope.getConstants().URL + 'event_types');
-
-			},
-			oneEventTypes: function(eventTypeId){
-				return $http.get($rootScope.getConstants().URL + 'event_types/' + eventTypeId);
-
-			},
-			createEventType: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'event_types',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteEventType: function(eventTypeId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'event_types/' + eventTypeId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editEventTypePatch: function(eventTypeId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'event_types/' + eventTypeId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editEventTypePut: function(eventTypeId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'event_types/' + eventTypeId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('eventTypeRequest', eventTypeService);
+(function() {
+  function eventTypeService($http, $rootScope) {
+    return {
+      allEventTypes: function() {
+        return $http.get($rootScope.getConstants().URL + 'event_types');
+      }
+    };
+  }
+  angular.module('sponzorme').factory('eventTypeRequest', eventTypeService);
 })();
 
 /**
-* @Servicio de interests_category
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de interests_category
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
+(function() {
+  function allInterestsServiceRequest($http, $rootScope) {
+    return {
+      allInterestsCategoriesId: function() {
+        return $http.get($rootScope.getConstants().URL + 'interests_category');
 
-	function allInterestsServiceRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allInterestsCategoriesId: function(){
-				return $http.get($rootScope.getConstants().URL + 'interests_category');
-
-			},
-			oneInterestsCategory: function(interestsCategoryId){
-				return $http.get($rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId);
-
-			},
-			createInterestsCategory: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'interests_category',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteInterestsCategory: function(interestsCategoryId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editInterestsCategoryPatch: function(interestsCategoryId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editInterestsCategoryPut: function(interestsCategoryId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'interests_category/' + interestsCategoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('allInterestsServiceRequest', allInterestsServiceRequest);
+      }
+    };
+  }
+  angular.module('sponzorme').factory('allInterestsServiceRequest', allInterestsServiceRequest);
 })();
 
 'use strict';
@@ -1023,7 +909,7 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
        * Login function return the user info if the credentials match
        * @param {JSON} credentials.email
        * @param {JSON} credentials.password
-       * @returns success(function(data, status, headers, config)
+       * @returns promise
        */
       login: function(credentials) {
         var data = {
@@ -1082,136 +968,90 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
         return $http({
           method: 'POST',
           url: $rootScope.getConstants().URL + 'change_password',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
         });
       }
     };
   }
-  angular.module('sponzorme')
-    .factory('loginRequest', loginRequest);
+  angular.module('sponzorme').factory('loginRequest', loginRequest);
 })();
 
 /**
-* @Servicio de Perks (Beneficios)
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de Perks (Beneficios)
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
-
-	function perkRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allPerks: function(){
-				return $http.get($rootScope.getConstants().URL + 'perks');
-
-			},
-			onePerk: function(perkId){
-				return $http.get($rootScope.getConstants().URL + 'perks/' + perkId);
-
-			},
-			createPerk: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'perks',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			createPerkToken: function(data, newUserToken){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'perks',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + newUserToken},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deletePerk: function(perkId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'perks/' + perkId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editPerkPatch: function(perkId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'perks/' + perkId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editPerkPut: function(perkId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'perks/' + perkId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('perkRequest', perkRequest);
+(function() {
+  function perkRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+    var token = $localStorage.token;
+    return {
+      createPerk: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'perks',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      deletePerk: function(perkId) {
+        return $http({
+          method: 'DELETE',
+          url: $rootScope.getConstants().URL + 'perks/' + perkId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          }
+        });
+      }
+    };
+  }
+  angular.module('sponzorme').factory('perkRequest', perkRequest);
 })();
 
 /**
-* @Servicio de Perks (Beneficios)
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de Perks (Beneficios)
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
-
-	function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allPerkTasks: function(){
-				return $http.get($rootScope.getConstants().URL + 'perk_tasks');
-
-			},
-			onePerkTask: function(perkTaskId){
-				return $http.get($rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId);
-
-			},
-			createPerkTask: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'perk_tasks',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deletePerkTask: function(perkTaskId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editPerkTaskPatch: function(perkTaskId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editPerkTaskPut: function(perkTaskId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('perkTaskRequest', perkTaskRequest);
+(function() {
+  function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+    var token = $localStorage.token;
+    return {
+      createPerkTask: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'perk_tasks',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      deletePerkTask: function(perkTaskId) {
+        return $http({
+          method: 'DELETE',
+          url: $rootScope.getConstants().URL + 'perk_tasks/' + perkTaskId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          }
+        });
+      }
+    };
+  }
+  angular.module('sponzorme').factory('perkTaskRequest', perkTaskRequest);
 })();
 
 /**
@@ -1222,24 +1062,11 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
  */
 'use strict';
 (function() {
-
   function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-
     var token = $localStorage.token;
     return {
-      allSponzorships: function() {
-        return $http.get($rootScope.getConstants().URL + 'sponzorships');
-
-      },
       oneSponzorship: function(sponzorshipId) {
         return $http.get($rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId);
-
-      },
-      oneSponzorshipByOrganizer: function(organizerId) {
-        return $http.get($rootScope.getConstants().URL + 'sponzorships_organizer/' + organizerId);
-      },
-      oneSponzorshipBySponzor: function(sponzorId) {
-        return $http.get($rootScope.getConstants().URL + 'sponzorships_sponzor/' + sponzorId);
       },
       sendSponzorshipEmail: function(data) {
         return $http({
@@ -1305,11 +1132,48 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
           },
           data: $httpParamSerializerJQLike(data)
         });
-      },
-      editSponzorshipPut: function(sponzorshipId, data) {
+      }
+    };
+  }
+  angular.module('sponzorme').factory('sponzorshipRequest', sponzorshipRequest);
+})();
+
+/**
+ * @Servicio de TaskSponzor (Tareas de los patrocinadores)
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
+'use strict';
+(function() {
+  function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+    var token = $localStorage.token;
+    return {
+      createTaskSponzor: function(data) {
         return $http({
-          method: 'PUT',
-          url: $rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId,
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'task_sponzor',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      deleteTaskSponzor: function(taskSponzorId) {
+        return $http({
+          method: 'DELETE',
+          url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          }
+        });
+      },
+      editTaskSponzorPatch: function(taskSponzorId, data) {
+        return $http({
+          method: 'PATCH',
+          url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ' + token
@@ -1320,285 +1184,125 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
     };
   }
   angular.module('sponzorme')
-    .factory('sponzorshipRequest', sponzorshipRequest);
+    .factory('taskSponzorRequest', taskSponzorRequest);
 })();
 
 /**
-* @Servicio de TaskSponzor (Tareas de los patrocinadores)
-*
-* @author Sebastian
-* @version 0.1
-*/
+ * @Servicio de TaskSponzor (Tareas de los patrocinadores)
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
 'use strict';
-(function(){
+(function() {
 
-	function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allTaskSponzor: function(){
-				return $http.get($rootScope.getConstants().URL + 'task_sponzor');
-
-			},
-			oneTaskSponzor: function(taskSponzorId){
-				return $http.get($rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId);
-
-			},
-			tasksBySponzorship: function(sponzorshipId){
-				return $http.get($rootScope.getConstants().URL + 'perk_tasks_sponzorship/' + sponzorshipId);
-			},
-			createTaskSponzor: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'task_sponzor',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			createTaskSponzorToken: function(data, userToken){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'task_sponzor',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + userToken},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteTaskSponzor: function(taskSponzorId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editTaskSponzorPatch: function(taskSponzorId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editTaskSponzorPut: function(taskSponzorId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'task_sponzor/' + taskSponzorId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('taskSponzorRequest', taskSponzorRequest);
-})();
-
-/**
-* @Servicio de UserCategory (Categorias de preferencia de los usuarios)
-*
-* @author Sebastian
-* @version 0.1
-*/
-'use strict';
-(function(){
-
-	function userCategoryRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allUserCategories: function(){
-				return $http.get($rootScope.getConstants().URL + 'user_categories');
-			},
-			oneUserCategory: function(userCategoryId){
-				return $http.get($rootScope.getConstants().URL + 'user_categories/' + userCategoryId);
-			},
-			createUserCategory: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'user_categories',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteUserCategory: function(userCategoryId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editUserCategoryPatch: function(userCategoryId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editUserCategoryPut: function(userCategoryId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'user_categories/' + userCategoryId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('userCategoryRequest', userCategoryRequest);
-})();
-
-/**
-* @Servicio de TaskSponzor (Tareas de los patrocinadores)
-*
-* @author Sebastian
-* @version 0.1
-*/
-'use strict';
-(function(){
-
-	function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-		var token = $localStorage.token;
-		return {
-			allUserInterests: function(){
-				return $http.get($rootScope.getConstants().URL + 'user_interests');
-			},
-			oneUserInterest: function(userInterestId){
-				return $http.get($rootScope.getConstants().URL + 'user_interests/' + userInterestId);
-			},
-			createUserInterest: function(data){
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'user_interests',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteUserInterest: function(userInterestId){
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'user_interests/' + userInterestId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editUserInterestPatch: function(userInterestId, data){
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'user_interests/' + userInterestId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editUserInterestPut: function(userInterestId, data){
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'user_interests/' + userInterestId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-	angular.module('sponzorme')
-		.factory('userInterestRequest', userInterestRequest);
-})();
-
-/**
-* @Servicio de Usuarios
-*
-* @author Sebastian
-* @version 0.1
-*/
-'use strict';
-(function(){
-
-	function userRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
-
-		return {
-			allUsers: function(){
-				return $http.get($rootScope.getConstants().URL + 'users');
-			},
-			oneUser: function(userId){
-				var token = $localStorage.token;
-				$http.defaults.headers.common.Authorization = 'Basic ' + token;
-				return $http.get($rootScope.getConstants().URL + 'users/' + userId);
-
-			},
-			home: function(userId){
-				var token = $localStorage.token;
-				$http.defaults.headers.common.Authorization = 'Basic ' + token;
-				return $http.get($rootScope.getConstants().URL + 'home/' + userId);
-
-			},
-			createUser: function(data){
-				var token = 'b3JnYW5pemVyQHNwb256b3IubWU6c3Bvbnpvcm1l';
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'users',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			deleteUser: function(userId){
-				var token = $localStorage.token;
-				return $http({
-					method: 'DELETE',
-					url: $rootScope.getConstants().URL + 'users/' + userId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token}
-				});
-			},
-			editUserPatch: function(userId, data){
-				var token = $localStorage.token;
-				return $http({
-					method: 'PATCH',
-					url: $rootScope.getConstants().URL + 'users/' + userId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			editUserPut: function(userId, data){
-				var token = $localStorage.token;
-				return $http({
-					method: 'PUT',
-					url: $rootScope.getConstants().URL + 'users/' + userId,
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			},
-			invitedUser: function(data){
-				var token = $localStorage.token;
-				return $http({
-					method: 'POST',
-					url: $rootScope.getConstants().URL + 'invite_friend/',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
-				});
-			}
-		};
-	}
-
-	angular.module('sponzorme')
-		.factory('userRequest', userRequest);
-
-})();
-
-/**
-* @Servicio de retorn de rss de los diferentes blogs
-*
-* @author Sebastian
-* @version 0.1
-*/
-'use strict';
-(function(){
-
-	function rssRequest($http) {
+  function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+    var token = $localStorage.token;
     return {
-			rss: function(lang){
-				var path = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=JSON_CALLBACK&q=' + 'http://blog' + lang + '.sponzor.me/feeds/posts/default';
-				return $http.jsonp(path);
-			}
+      createUserInterest: function(data) {
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'user_interests',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      deleteUserInterest: function(userInterestId) {
+        return $http({
+          method: 'DELETE',
+          url: $rootScope.getConstants().URL + 'user_interests/' + userInterestId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          }
+        });
+      }
     };
-	}
-	angular.module('sponzorme')
-		.factory('rssRequest', rssRequest);
+  }
+  angular.module('sponzorme').factory('userInterestRequest', userInterestRequest);
+})();
+
+/**
+ * @Servicio de Usuarios
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
+'use strict';
+(function() {
+  function userRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
+    return {
+      oneUser: function(userId) {
+        var token = $localStorage.token;
+        $http.defaults.headers.common.Authorization = 'Basic ' + token;
+        return $http.get($rootScope.getConstants().URL + 'users/' + userId);
+      },
+      home: function(userId) {
+        var token = $localStorage.token;
+        $http.defaults.headers.common.Authorization = 'Basic ' + token;
+        return $http.get($rootScope.getConstants().URL + 'home/' + userId);
+      },
+      createUser: function(data) {
+        var token = 'b3JnYW5pemVyQHNwb256b3IubWU6c3Bvbnpvcm1l';
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'users',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      editUserPatch: function(userId, data) {
+        var token = $localStorage.token;
+        return $http({
+          method: 'PATCH',
+          url: $rootScope.getConstants().URL + 'users/' + userId,
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
+      invitedUser: function(data) {
+        var token = $localStorage.token;
+        return $http({
+          method: 'POST',
+          url: $rootScope.getConstants().URL + 'invite_friend/',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      }
+    };
+  }
+  angular.module('sponzorme').factory('userRequest', userRequest);
+})();
+
+/**
+ * @Servicio de retorn de rss de los diferentes blogs
+ *
+ * @author Sebastian
+ * @version 0.1
+ */
+'use strict';
+(function() {
+  function rssRequest($http) {
+    return {
+      rss: function(lang) {
+        var path = '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=JSON_CALLBACK&q=' + 'http://blog' + lang + '.sponzor.me/feeds/posts/default';
+        return $http.jsonp(path);
+      }
+    };
+  }
+  angular.module('sponzorme').factory('rssRequest', rssRequest);
 })();
 
 /**
@@ -1608,20 +1312,9 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
  */
 'use strict';
 (function() {
-
   function ratingRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
-      allRatings: function() {
-        return $http.get($rootScope.getConstants().URL + 'ratings');
-
-      },
-      oneRating: function(ratingsId) {
-        return $http.get($rootScope.getConstants().URL + 'ratings/' + ratingsId);
-      },
-      ratingBySponzorship: function(sponzorshipId, type) {
-        return $http.get($rootScope.getConstants().URL + 'ratings/sponzorship/' + sponzorshipId + '/' + type);
-      },
       ratingsBySponzor: function(sponzorId) {
         return $http.get($rootScope.getConstants().URL + 'ratings/sponzor/' + sponzorId);
       },
@@ -1638,54 +1331,10 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
           },
           data: $httpParamSerializerJQLike(data)
         });
-      },
-      createRatingToken: function(data, newUserToken) {
-        return $http({
-          method: 'POST',
-          url: $rootScope.getConstants().URL + 'ratings',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + newUserToken
-          },
-          data: $httpParamSerializerJQLike(data)
-        });
-      },
-      deleteRating: function(ratingId) {
-        return $http({
-          method: 'DELETE',
-          url: $rootScope.getConstants().URL + 'ratings/' + ratingsId,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + token
-          }
-        });
-      },
-      editRatingsPatch: function(ratingId, data) {
-        return $http({
-          method: 'PATCH',
-          url: $rootScope.getConstants().URL + 'ratings/' + ratingsId,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + token
-          },
-          data: $httpParamSerializerJQLike(data)
-        });
-      },
-      editRatingPut: function(ratingId, data) {
-        return $http({
-          method: 'PUT',
-          url: $rootScope.getConstants().URL + 'ratings/' + ratingsId,
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + token
-          },
-          data: $httpParamSerializerJQLike(data)
-        });
       }
     };
   }
-  angular.module('sponzorme')
-    .factory('ratingRequest', ratingRequest);
+  angular.module('sponzorme').factory('ratingRequest', ratingRequest);
 })();
 
 /**
@@ -1696,7 +1345,6 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
  */
 'use strict';
 (function() {
-
   function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     return {
       getEventbriteAuth: function(code) {
@@ -1718,92 +1366,17 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
         return $http.get($rootScope.getConstants().URL + 'events/meetup/' + token);
       },
       getEventbriteEvent: function(url, token) {
-        var config = { headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + token}
+        var config = {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ' + token
+          }
         };
         return $http.get(url + '?token=' + token, config);
       }
     };
   }
-  angular.module('sponzorme')
-    .factory('eventbriteRequest', eventbriteRequest);
-})();
-
-/**
- * @Servicio de retorn de rss de los diferentes blogs
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
-(function() {
-  function Util(ngDialog, $rootScope) {
-    var Utils = {
-      showDialog: function(kind, message, redirectOnClose) {
-        $rootScope.pseudoScope = {'message': message, 'redirectOnClose': redirectOnClose};
-        var selectedTemplate;
-        if(kind === 'error'){
-          selectedTemplate = 'views/templates/errorDialog.html';
-        }
-        else if(kind === 'success'){
-          selectedTemplate = 'views/templates/successDialog.html';
-        }
-        else{
-          selectedTemplate = 'views/templates/infoDialog.html';
-        }
-        if(redirectOnClose){
-          $rootScope.pseudoScope.message = message;
-          $rootScope.pseudoScope.redirectOnClose = redirectOnClose;
-          ngDialog.open({
-            template: selectedTemplate,
-            showClose: false,
-            closeByEscape: false,
-            closeByDocument: false,
-            controller: 'DialogController',
-            scope: $rootScope
-          });
-        }
-        else{
-          $rootScope.pseudoScope.message = message;
-          ngDialog.open({
-            template: selectedTemplate,
-            showClose: false,
-            closeByEscape: false,
-            closeByDocument: false,
-            controller: 'DialogController',
-            scope: $rootScope
-          });
-        }
-      },
-      showLoading: function(){
-        ngDialog.open({
-          template: 'views/templates/loadingDialog.html',
-          showClose: false,
-          closeByEscape: false,
-          closeByDocument: false
-        });
-      }
-    };
-    return Utils;
-  }
-  angular.module('sponzorme')
-    .factory('Util', Util);
-})();
-
-'use strict';
-(function() {
-
-  function HomeController($scope, $translate, $localStorage, $location) {
-     if ($localStorage.typesponzorme === '1') {
-        $location.path('/sponzors/dashboard');
-      } else if($localStorage.typesponzorme === '0') {
-        $location.path('/organizers/dashboard');
-      }
-      else{
-        window.location.href = 'http://www.sponzor.me';
-      }
-  }
-  angular.module('sponzorme')
-    .controller('HomeController', HomeController);
+  angular.module('sponzorme').factory('eventbriteRequest', eventbriteRequest);
 })();
 
 'use strict';
@@ -1819,25 +1392,22 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
       $scope.errorActivation = true;
     });
   }
-
-  angular.module('sponzorme')
-    .controller('ActivationController', ActivationController);
+  angular.module('sponzorme').controller('ActivationController', ActivationController);
 
 })();
 
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope) {
+  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope) {
     $scope.eventLoaded = false;
     var firebaseNotification;
-    $scope.event = {};
-    eventRequest.oneEvent($routeParams.eventId).success(function(data) {
+    $scope.todayDate = new Date().getTime();
+    eventRequest.oneEvent($routeParams.eventId).then(function successCallback(response) {
       $scope.eventLoaded = true;
-      $scope.evento = data.data;
-      $scope.currentEvent = data.data.event.id;
-      $scope.currentOrganizer = data.data.organizer[0];
+      $scope.currentEvent = response.data.event;
+      $scope.currentEvent.starts = new Date($scope.currentEvent.starts).getTime();
       $scope.eventURL = $location.absUrl();
-    }).error(function() {
+    }, function errorCallback(err) {
       $scope.eventLoaded = true;
     });
     if ($localStorage.typesponzorme === '1' && !$rootScope.isExpiredData()) { //He is an sponzor
@@ -1850,79 +1420,60 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
       $scope.isSponzor = false;
       $scope.isNoLogged = true;
     }
+    $scope.sendToLogin = function() {
+      $localStorage.redirectTo = $scope.eventURL;
+      $location.path('/login');
+    };
     //We display the form to get the sponzorship cause
     $scope.formCreateSponzorship = function(perk) {
-      $scope.perkToSponzor = perk;
+      $scope.newSponzorship = {
+        'organizer_id': $scope.currentEvent.user_organizer.id,
+        'sponzor_id': $localStorage.id,
+        'event_id': $scope.currentEvent.id,
+        'perk_id': perk.id,
+        'cause': '',
+        'status': 0
+      };
+      $scope.selectedPerk = perk;
       ngDialog.open({
         template: 'views/templates/formCreateSponzorship.html',
         scope: $scope
       });
     };
     $scope.createSponzorship = function() {
-      /**
-        this function have two steps, first, create the sponzorhip
-        second create the sponzor tasks
-      */
-      var data = {
-        status: 0,
-        'sponzor_id': $localStorage.id,
-        'perk_id': $scope.perkToSponzor.id,
-        'event_id': $scope.perkToSponzor.id_event,
-        'cause': $scope.perkToSponzor.cause,
-        'organizer_id': $scope.currentOrganizer.id
-      };
       $rootScope.closeAllDialogs();
       $rootScope.showLoading();
-      sponzorshipRequest.createSponzorship(data, $localStorage.token).success(function(sData) {
-        var cont = 0;
-        perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
-          angular.forEach(sPerkData.data.Tasks, function(value) {
-            var taskSponzor = {
-              status: 0,
-              'sponzor_id': $localStorage.id,
-              'perk_id': $scope.perkToSponzor.id,
-              'event_id': $scope.perkToSponzor.id_event,
-              'organizer_id': $scope.currentOrganizer.id,
-              'sponzorship_id': sData.Sponzorship.id,
-              'task_id': value.id
-            };
-            taskSponzorRequest.createTaskSponzor(taskSponzor, $localStorage.token)
-              .success(function() {
-                cont++;
-              });
-            if (cont === sPerkData.data.Tasks.length - 1) {
-              firebaseNotification = {
-                to: $scope.currentOrganizer.id,
-                text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.evento.event.title,
-                link: '#/organizers/sponzors'
-              };
-              $rootScope.sendFirebaseNotification(firebaseNotification);
-
-              $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-            }
-          });
-          if (sPerkData.data.Tasks.length === 0) {
-            firebaseNotification = {
-              to: $scope.currentOrganizer.id,
-              text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.evento.event.title,
-              link: '#/organizers/sponzors'
-            };
-            $rootScope.sendFirebaseNotification(firebaseNotification);
-            $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-          }
-          var info = {
-            organizerId: $scope.currentOrganizer.id,
-            eventName: $scope.evento.event.title,
-            lang: $rootScope.currentLanguage()
-          };
-          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
-        }).error(function() {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'eventPageErrorSponzoringEvent', false);
-        });
-      }).error(function() {
+      $scope.user = JSON.parse($localStorage.user);
+      $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
+        if (e.status === '0') {
+          return e;
+        }
+      });
+      sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
+        $scope.user.sponzorships.push(response.data.Sponzorship);
+        $scope.user.pendingSponzorships.push(response.data.Sponzorship);
+        $localStorage.user = JSON.stringify($scope.user);
+        var info = {
+          organizerId: $scope.currentEvent.user_organizer.id,
+          eventName: $scope.currentEvent.title,
+          lang: $rootScope.currentLanguage()
+        };
+        var firebaseNotification = {
+          to: $scope.currentEvent.user_organizer.id,
+          text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
+          link: '#/organizers/sponzors'
+        };
+        $rootScope.sendFirebaseNotification(firebaseNotification);
+        sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function() {});
         $rootScope.closeAllDialogs();
-        $rootScope.showDialog('error', 'eventPageErrorSponzoringEvent', false);
+        $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
+      }, function errorCallback(err) {
+        $rootScope.closeAllDialogs();
+        if (err.status === 409) {
+          $rootScope.showDialog('error', 'alreadySponzoring', false);
+        } else {
+          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
+        }
       });
     };
   }
@@ -1932,8 +1483,7 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
 'use strict';
 (function() {
 
-  function ForgotController($scope, $translate, $routeParams, $sessionStorage, $localStorage, ngDialog, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, loginRequest) {
-
+  function ForgotController($scope, $translate, $routeParams, ngDialog, loginRequest) {
     $scope.error_log = []; //We storage here all translate error during register process
     $scope.forgotPassword = function() {
       $scope.loagind = true;
@@ -1988,10 +1538,7 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
       }
     };
   }
-
-  angular.module('sponzorme')
-    .controller('ForgotController', ForgotController);
-
+  angular.module('sponzorme').controller('ForgotController', ForgotController);
 })();
 
 'use strict';
@@ -2007,23 +1554,18 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
       $scope.errorActivation = true;
     });
   }
-
-  angular.module('sponzorme')
-    .controller('ActivationController', ActivationController);
+  angular.module('sponzorme').controller('ActivationController', ActivationController);
 
 })();
 
 'use strict';
 (function() {
 
-  function LoginController($scope, $translate, loginRequest, $base64, $sessionStorage, $localStorage, $location, usSpinnerService, ngDialog, $routeParams, $rootScope, userRequest) {
+  function LoginController($scope, $translate, loginRequest, $localStorage, $location, ngDialog, $routeParams, $rootScope, userRequest) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
     var redirectTo = $localStorage.redirectTo;
-    console.log('redirect', redirectTo);
-    $localStorage.$reset();
-
     $scope.sendfrom = function() {
       if ($scope.email && $scope.password) { //Just Check the values are defined
         $scope.objuser = {};
@@ -2057,14 +1599,14 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
                 $localStorage.events = JSON.stringify(response.data.data.events);
               }
               if (adata.user.type === '1') {
-                if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) {
+                if ((redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) || (redirectTo && redirectTo.indexOf('/#/event/') > -1)) {
                   window.location.href = redirectTo;
                 } else {
                   $location.path('/sponzors/dashboard');
                 }
               } else {
 
-                if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
+                if ((redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) || (redirectTo && redirectTo.indexOf('/#/event/') > -1)){
                   window.location.href = redirectTo;
                 } else {
                   $location.path('/organizers/dashboard');
@@ -2092,59 +1634,48 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
       }
     };
   }
-
-  angular.module('sponzorme')
-    .controller('LoginController', LoginController);
-
+  angular.module('sponzorme').controller('LoginController', LoginController);
 })();
 
 'use strict';
 (function(){
-function LogoutController($scope, $translate, $sessionStorage, $location, $localStorage, $rootScope) {
+function LogoutController($scope, $translate, $location, $localStorage, $rootScope) {
   $rootScope.tolsctive = 'active';
   $localStorage.$reset();
-
   $location.path('/login');
 }
-angular.module('sponzorme')
-.controller('LogoutController', LogoutController);
-})();
-
-'use strict';
-(function(){
-
-function ResendController($scope, $translate, loginRequest, ngDialog) {
-  $scope.error_log = []; //We storage here all translate error during register process
-  $scope.resend = function() {
-    $scope.loagind = true;
-    loginRequest.resendActivation($scope.email).success(function() {
-      $scope.loagind = false;
-      $scope.error_log[0] = 'ActivationLinkResent';
-      ngDialog.open({
-        template: 'templateId',
-        scope: $scope
-      });
-    }).error(function() {
-      $scope.error_log[0] = 'InvalidEmail';
-      $scope.loagind = false;
-      ngDialog.open({
-        template: 'templateId',
-        scope: $scope
-      });
-    });
-  };
-}
-
-angular.module('sponzorme')
-.controller('ResendController', ResendController);
-
+angular.module('sponzorme').controller('LogoutController', LogoutController);
 })();
 
 'use strict';
 (function() {
+  function ResendController($scope, $translate, loginRequest, ngDialog) {
+    $scope.error_log = []; //We storage here all translate error during register process
+    $scope.resend = function() {
+      $scope.loagind = true;
+      loginRequest.resendActivation($scope.email).success(function() {
+        $scope.loagind = false;
+        $scope.error_log[0] = 'ActivationLinkResent';
+        ngDialog.open({
+          template: 'templateId',
+          scope: $scope
+        });
+      }).error(function() {
+        $scope.error_log[0] = 'InvalidEmail';
+        $scope.loagind = false;
+        ngDialog.open({
+          template: 'templateId',
+          scope: $scope
+        });
+      });
+    };
+  }
+  angular.module('sponzorme').controller('ResendController', ResendController);
+})();
 
-  function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $q) {
-
+'use strict';
+(function() {
+  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
     $scope.steps = [false, false, false]; //Number of steps in customization proccess
     $scope.startCustomization = function() {
       //We check if localStorage is seeted.
@@ -2176,13 +1707,11 @@ angular.module('sponzorme')
         $location.path('/');
       }
     };
-
     //This function hide all steps and only shows one
     $scope.showStep = function(stepToShow) {
       $scope.steps = [false, false, false];
       $scope.steps[stepToShow] = true;
     };
-
     $scope.sendfrom = function() {
       $scope.objuser = {};
       $scope.objuser.age = $scope.userData.age;
@@ -2196,11 +1725,9 @@ angular.module('sponzorme')
         }
       });
     };
-
     $scope.showInterests = function(categoryid) {
       $scope.idselect = categoryid;
     };
-
     $scope.interestselect = function(interestselect) {
       var searcharray = $scope.interestselectarray.indexOf(interestselect);
       if (searcharray === -1) {
@@ -2209,7 +1736,6 @@ angular.module('sponzorme')
         $scope.interestselectarray.splice(searcharray, 1);
       }
     };
-
     $scope.submitCategoryInfo = function() {
       var promises = [];
       angular.forEach($scope.interestselectarray, function(valuep) {
@@ -2222,26 +1748,19 @@ angular.module('sponzorme')
       promises[$scope.interestselectarray.length - 1].success(function(data) {
         $scope.showStep(2);
       });
-
-        //setTimeout(function () {$localStorage.$reset();}, 3000);
     };
-
-    //Here start the callback
     $scope.startCustomization();
   }
-
-  angular.module('sponzorme')
-    .controller('CustomizationController', CustomizationController);
-
+  angular.module('sponzorme').controller('CustomizationController', CustomizationController);
 })();
 
 'use strict';
-(function () {
-  function SponzorsMasterController($scope, $translate, $localStorage, taskSponzorRequest, ngDialog, $location, $rootScope, $sce) {
-    $scope.trustSrc = function (src) {
+(function() {
+  function SponzorsMasterController($scope, $translate, $localStorage, ngDialog, $location, $rootScope, $sce) {
+    $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
     }
-    $scope.downloadCalendar = function (sponzorship) {
+    $scope.downloadCalendar = function(sponzorship) {
       $scope.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
       $scope.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
       $scope.ends = $scope.ends.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
@@ -2253,7 +1772,7 @@ angular.module('sponzorme')
         scope: $scope
       });
     };
-    $scope.openLocation = function (sponzorship) {
+    $scope.openLocation = function(sponzorship) {
       $scope.currentEvent = sponzorship.event;
       $scope.mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=" + encodeURIComponent($scope.currentEvent.location);
       ngDialog.open({
@@ -2262,7 +1781,7 @@ angular.module('sponzorme')
         showClose: true
       });
     };
-    $scope.seeCause = function (sponzorship) {
+    $scope.seeCause = function(sponzorship) {
       $scope.cause = sponzorship.cause;
       $scope.status = sponzorship.status;
       ngDialog.open({
@@ -2275,10 +1794,11 @@ angular.module('sponzorme')
   }
   angular.module('sponzorme').controller('SponzorsMasterController', SponzorsMasterController);
 })();
+
 'use strict';
 (function() {
 
-  function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
+  function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, $routeParams, $rootScope) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
@@ -2360,8 +1880,12 @@ angular.module('sponzorme')
 'use strict';
 (function() {
 
-  function SponzorsFollowingController($scope, $translate, $localStorage, userRequest, sponzorshipRequest, perkRequest, taskSponzorRequest, ngDialog, $location, $rootScope, $timeout, $sce) {
+  function SponzorsFollowingController($scope, $localStorage, sponzorshipRequest, $rootScope) {
     if($rootScope.userValidation('1')){
+      $scope.section = {
+        route:'Events / Follwing',
+        title: 'Following Events'
+      };
       $scope.user = JSON.parse($localStorage.user);
       if(!$scope.user.pendingSponzorships){
         $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
@@ -2371,11 +1895,11 @@ angular.module('sponzorme')
         });
         $localStorage.user = JSON.stringify($scope.user);
       }
-      
+
       $scope.showTasks = function(sponzorship) {
         $scope.currentSponzorship = sponzorship;
         $scope.tasksSponzor = sponzorship.perk.tasks.filter(function(element) {
-          if (element.type === '1') {
+          if (element.type === '0') {
             return element;
           }
         });
@@ -2399,25 +1923,25 @@ angular.module('sponzorme')
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'problem', false);
         });
-      };      
+      };
       if($scope.user.pendingSponzorships[0]){
         $scope.showTasks($scope.user.pendingSponzorships[0]);
       }
-
-      
     }
   }
-  angular.module('sponzorme')
-    .controller('SponzorsFollowingController', SponzorsFollowingController);
+  angular.module('sponzorme').controller('SponzorsFollowingController', SponzorsFollowingController);
 
 })();
 
 'use strict';
 (function() {
 
-  function SponzorsFriendController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage) {
+  function SponzorsFriendController($scope, $translate, userRequest, $rootScope, $localStorage) {
     if($rootScope.userValidation('1')){
-      //Vars initialization
+      $scope.section = {
+        route:'InviteFriend',
+        title: 'Invite Friend'
+      };
       $scope.friend = {};
       $scope.friend.email = '';
       $scope.friend.message = '';
@@ -2457,8 +1981,12 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $window, $sce) {
+  function SponzorsMainController($scope, $translate, $localStorage, eventRequest, ngDialog, sponzorshipRequest, $rootScope, $sce) {
     if ($rootScope.userValidation('1')) {
+      $scope.section = {
+        route: 'Dashboard',
+        title: 'Dashboard'
+      }
       $scope.user = JSON.parse($localStorage.user);
       $scope.balance = 0;
       $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
@@ -2469,6 +1997,7 @@ angular.module('sponzorme')
       $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
         if (e.status > 0) {
           $scope.balance = parseInt(e.perk.usd) + parseInt($scope.balance);
+          e.event.ends = new Date(e.event.ends).getTime();
           return e;
         }
       });
@@ -2529,8 +2058,8 @@ angular.module('sponzorme')
         };
         $scope.selectedPerk = perk;
       };
-      $scope.showCauseForm = function(){
-        $scope.showForm = true;  
+      $scope.showCauseForm = function() {
+        $scope.showForm = true;
       };
       $scope.createSponzorship = function() {
         $rootScope.closeAllDialogs();
@@ -2550,7 +2079,7 @@ angular.module('sponzorme')
             link: '#/organizers/sponzors'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
-          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function(){});
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function() {});
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
         }, function errorCallback(err) {
@@ -2573,56 +2102,65 @@ angular.module('sponzorme')
 
   function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if($rootScope.userValidation('1')){
-      $rootScope.showLoading();
-      userRequest.oneUser($localStorage.id).success(function(adata) {
-        $scope.account = adata.data.user;
-        $scope.userInterests = adata.data.interests;
-        $rootScope.closeAllDialogs();
-      });
+      $scope.section = {
+        route:'Settings',
+        title: 'Settings'
+      };
+      $scope.user = JSON.parse($localStorage.user);
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
         $scope.interests = sData.InterestCategory;
       });
       $scope.removeUserInterest = function(index, id) {
-        $scope.userInterests.splice(index, 1);
-        userInterestRequest.deleteUserInterest(id).success(function() {});
+        $scope.user.interests.splice(index, 1);
+        userInterestRequest.deleteUserInterest(id).then(function() {});
       };
+
       $scope.addUserInterests = function(interest) {
+        $scope.loadingSaveInterest = true;
         if (interest && interest.name) {
           var flag = false;
-          if($scope.UserInterest){
-            for (var i = 0; i < $scope.userInterests.length; i++) {
-              if ($scope.userInterests[i].id_interest === interest.id_interest) {
+          if($scope.user.interests){
+            for (var i = 0; i < $scope.user.interests.length; i++) {
+              if ($scope.user.interests[i].interest_id === interest.id_interest) {
                 flag = true;
                 $scope.selected = '';
+                $scope.loadingSaveInterest = false;
+                $rootScope.showDialog('error', 'interestAlreadyInList', false);
                 break;
               }
             }
           }
           if (!flag) {
-            var interestData = {
+            var dataInterest = {
               user_id: $localStorage.id,
               interest_id: interest.id_interest
             };
-            userInterestRequest.createUserInterest(interestData).success(function(data) {
-              $scope.userInterests.push({
-                'name': interest.name,
-                'id': data.UserInterest.id,
-                'id_interest': interest.id_interest
-              });
+            userInterestRequest.createUserInterest(dataInterest).then(function successCallback(response) {
+              $scope.user.interests.push(response.data.UserInterest);
+              $localStorage.user = JSON.stringify($scope.user);
+              $scope.selected = '';
+              $scope.loadingSaveInterest = false;
+            }, function errorCallback(err){
+              $scope.loadingSaveInterest = false;
+              $rootScope.showDialog('error', 'invalidInterestSelection', false);
               $scope.selected = '';
             });
           }
-        } else {
+        }
+        else {
+          $scope.loadingSaveInterest = false;
           $rootScope.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
         }
       };
-      $scope.account = [];
-
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
         $rootScope.showLoading();
-        $scope.account.location = $scope.account.location.formatted_address;
+        if($scope.user.location!==$scope.locationUser){
+          $scope.user.location = $scope.locationUser.formatted_address;
+          $scope.user.location_reference = $scope.locationUser.place_id;
+        }
+        $scope.user.location = $scope.user.location.formatted_address;
         if ($scope.file) {
           $scope.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
@@ -2650,33 +2188,31 @@ angular.module('sponzorme')
           bucket.putObject(params, function(err, data) {
             if (!err) {
               $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-              $scope.account.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-              userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-                $scope.account = adata.User;
+              $scope.user.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              userRequest.editUserPatch($localStorage.id, $scope.user).then(function successCallback(response) {
+                $localStorage.user = JSON.stringify($scope.user);
                 $scope.file = false;
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-              }).error(function(eData) {
+              }, function errorCallback(err) {
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
             }
           });
         } else {
-          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-            $scope.account = adata.User;
+          userRequest.editUserPatch($localStorage.id, $scope.user).then(function successCallback(response) {
+            $localStorage.user = JSON.stringify($scope.user);
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }).error(function(eData) {
+          }, function errorCallback(err) {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
         }
       };
-
       $scope.logo = false; //By default no file to update.
-
       $scope.updateDetails = function() {
         $rootScope.showLoading();
         if ($scope.logo) {
@@ -2719,114 +2255,105 @@ angular.module('sponzorme')
             }
           });
         } else {
-          userRequest.editUserPatch($localStorage.id, $scope.account).success(function(adata) {
-            $scope.account = adata.User;
-            $scope.logo = false;
+          userRequest.editUserPatch($localStorage.id, $scope.user).then(function successCallback(response) {
+            $localStorage.user = JSON.stringify($scope.user);
+            $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }).error(function(eData) {
+          }, function errorCallback(err) {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
         }
       };
-
       $scope.resetPassword = function() {
-        $rootScope.showLoading();
         if ($scope.password === $scope.passwordConfirmation) {
+          $rootScope.showLoading();
           var formData = {
             'email': $localStorage.email,
             'password': $scope.password,
             'password_confirmation': $scope.passwordConfirmation
           };
-          loginRequest.changePassword(formData, $localStorage.token).success(function(data) {
+          loginRequest.changePassword(formData, $localStorage.token).then(function successCallback(response) {
             $rootScope.closeAllDialogs();
             $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
             $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
-          }).error(function() {
+            $scope.password = '';
+            $scope.passwordConfirmation = '';
+          }, function errorCallback(err) {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });
         } else {
-          $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'PasswordNoMatch', false);
         }
       };
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }
-
-  angular.module('sponzorme')
-    .controller('SponzorsSettingsController', SponzorsSettingsController);
-
+  angular.module('sponzorme').controller('SponzorsSettingsController', SponzorsSettingsController);
 })();
 
 'use strict';
-(function () {
+(function() {
 
-  function SponzorsSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, ngDialog, $rootScope, ratingRequest) {
+  function SponzorsSponzorshipsController($scope, $location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('1')) {
+      $scope.section = {
+        route:'Events / Sponzoring',
+        title: 'Sponzoring Events'
+      };
+      $scope.todayDate = new Date().getTime();
       $scope.user = JSON.parse($localStorage.user);
       if (!$scope.user.acceptedSponzorships) {
-        $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function (e) {
+        $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
           if (e.status > '0') {
+            e.event.ends = new Date(e.event.ends).getTime();
             return e;
           }
         });
         $localStorage.user = JSON.stringify($scope.user);
       }
-      $scope.saveStatus = function(){
-        for(var i=0; i<$scope.user.acceptedSponzorships.length;i++){
-            if($scope.user.acceptedSponzorships[i].id === $scope.currentSponzorship.id){
-              $scope.user.acceptedSponzorships[i] = $scope.currentSponzorship;
-              break;
-            }
+      $scope.saveStatus = function() {
+        for (var i = 0; i < $scope.user.acceptedSponzorships.length; i++) {
+          if ($scope.user.acceptedSponzorships[i].id === $scope.currentSponzorship.id) {
+            $scope.user.acceptedSponzorships[i] = $scope.currentSponzorship;
+            break;
           }
-          //We update in general Sponzorships
-          for(var i=0; i<$scope.user.sponzorships.length;i++){
-            if($scope.user.sponzorships[i].id === $scope.currentSponzorship.id){
-              $scope.user.sponzorships[i] = $scope.currentSponzorship;
-              break;
-            }
+        }
+        //We update in general Sponzorships
+        for (var i = 0; i < $scope.user.sponzorships.length; i++) {
+          if ($scope.user.sponzorships[i].id === $scope.currentSponzorship.id) {
+            $scope.user.sponzorships[i] = $scope.currentSponzorship;
+            break;
           }
-          $localStorage.user = JSON.stringify($scope.user);
+        }
+        $localStorage.user = JSON.stringify($scope.user);
       };
-      $scope.showTasks = function (sponzorship) {
+      $scope.showTasks = function(sponzorship) {
         $scope.currentSponzorship = sponzorship;
         if (sponzorship.task_sponzor) {
-          $scope.organizerTasks = sponzorship.task_sponzor.filter(function (element) {
+          $scope.organizerTasks = sponzorship.task_sponzor.filter(function(element) {
             if (element.task.type === '0') {
               return element;
             }
           });
-          $scope.sponzorTasks = sponzorship.task_sponzor.filter(function (element) {
+          $scope.sponzorTasks = sponzorship.task_sponzor.filter(function(element) {
             if (element.task.type === '1') {
               return element;
             }
           });
         }
-      };      
-      $scope.sendToRating = function (s) {
-        sponzorshipRequest.oneSponzorship(s.id).success(function (sData) {
-          ratingRequest.ratingBySponzorship(s.id, 1).success(function (s2Data) {
-            $scope.loadingForm = false; //Loading
-            $rootScope.closeAllDialogs(); //Close Loading
-            if (s2Data.data.Rating[0] && s2Data.data.Rating[0].sponzor_id === $localStorage.id) {
-              $rootScope.showDialog('error', 'ratingAlreadyRated', false);
-            } else {
-              $location.path('/sponzors/rating/' + s.id);
-            }
-          });
-        });
       };
-      $scope.paymentInformation = function (sponzorship) {
+      $scope.paymentInformation = function(sponzorship) {
         $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
         $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
+        $scope.SANDBOX = $rootScope.getConstants().PAYPALSANDBOX;
         $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
         $scope.sponzorship = sponzorship;
-        $scope.paymentValue = sponzorship.usd;
-        $scope.fee = parseFloat((sponzorship.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
-        $scope.paymentTotal = parseFloat(sponzorship.usd) + parseFloat($scope.fee);
+        $scope.paymentValue = sponzorship.perk.usd;
+        $scope.fee = parseFloat((sponzorship.perk.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
+        $scope.paymentTotal = parseFloat(sponzorship.perk.usd) + parseFloat($scope.fee);
         ngDialog.open({
           scope: $scope,
           template: 'views/templates/prePaymentInfo.html',
@@ -2834,41 +2361,41 @@ angular.module('sponzorme')
         });
       };
       //This function changes to 1 the sponzor task status
-      $scope.changeStatus = function (index, status) {
+      $scope.changeStatus = function(index, status) {
         $scope.sponzorTasks[index].loading = true;
         var taskSponzorId = $scope.sponzorTasks[index].id;
         var data = {
           status: status
         };
-        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response){
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response) {
           $scope.sponzorTasks[index].loading = false;
           $scope.sponzorTasks[index].status = status;
           $scope.saveStatus();
-         }, function errorCallback(err){
-            $scope.sponzorTasks[index].loading = false;
-            $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
-         });
+        }, function errorCallback(err) {
+          $scope.sponzorTasks[index].loading = false;
+          $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
+        });
       };
-      $scope.deleteTaskSponzor = function (index) {
+      $scope.deleteTaskSponzor = function(index) {
         $scope.sponzorTasks[index].loading = true;
         var taskSponzorId = $scope.sponzorTasks[index].id;
-        taskSponzorRequest.deleteTaskSponzor(taskSponzorId).then(function successCallback(response){
-          for(var i=0; i<$scope.currentSponzorship.task_sponzor.length;i++){
-            if($scope.currentSponzorship.task_sponzor[i].id === taskSponzorId){
+        taskSponzorRequest.deleteTaskSponzor(taskSponzorId).then(function successCallback(response) {
+          for (var i = 0; i < $scope.currentSponzorship.task_sponzor.length; i++) {
+            if ($scope.currentSponzorship.task_sponzor[i].id === taskSponzorId) {
               $scope.currentSponzorship.task_sponzor.splice(i, 1);
               break;
             }
-          }          
+          }
           $scope.sponzorTasks.splice(index, 1);
           $scope.saveStatus();
-        },function errorCallback(err){
+        }, function errorCallback(err) {
           $scope.sponzorTasks[index].loading = false;
           $rootScope.showDialog('error', 'errorRemovingTaskSponzor', false);
-        });        
-      };    
-      $scope.showTaskForm = function () {
+        });
+      };
+      $scope.showTaskForm = function() {
         $scope.todo = {
-          type: 1,//Because is created by the Sponzor
+          type: 1, //Because is created by the Sponzor
           status: 0, //By default is not complete
           perk_id: $scope.currentSponzorship.perk.id,
           event_id: $scope.currentSponzorship.event_id,
@@ -2877,7 +2404,7 @@ angular.module('sponzorme')
           organizer_id: $scope.currentSponzorship.organizer.id,
           sponzor_id: $localStorage.id,
           title: '',
-          description: ''          
+          description: ''
         };
         ngDialog.open({
           template: 'views/templates/newTaskForm.html',
@@ -2885,23 +2412,23 @@ angular.module('sponzorme')
           showClose: false
         });
       };
-      $scope.addTask = function(){
+      $scope.addTask = function() {
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
-        taskSponzorRequest.createTaskSponzor($scope.todo).then(function successCallback(response){
+        taskSponzorRequest.createTaskSponzor($scope.todo).then(function successCallback(response) {
           $scope.currentSponzorship.perk.tasks.push(response.data.PerkTask);
           $scope.currentSponzorship.task_sponzor.push(response.data.TaskSponzor);
-          $scope.saveStatus();          
-          $scope.showTasks($scope.currentSponzorship);        
+          $scope.saveStatus();
+          $scope.showTasks($scope.currentSponzorship);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
-        }, function errorCallback(err){
+        }, function errorCallback(err) {
           console.log(err);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
       };
-      if($scope.user.acceptedSponzorships){
+      if ($scope.user.acceptedSponzorships.length) {
         $scope.showTasks($scope.user.acceptedSponzorships[0]);
       }
     }
@@ -2911,44 +2438,49 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-
-  function SponzorsRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
+  function SponzorsRatingController($scope, $translate, userRequest, ngDialog, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('1') && $routeParams.sponzorshipId) {
+      $scope.section = {
+        route:'Sponzorships / Rating',
+        title: 'Sponzorship Rating'
+      };
       $scope.loadingForm = true; //Loading
-      $rootScope.showLoading();
-      //First we validate this sponzorship does not have rating from this sponzor
-      //
-      //Then we get the sponzorship information
-      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(sData) {
-        ratingRequest.ratingBySponzorship($routeParams.sponzorshipId, 1).success(function(s2Data) {
-          $scope.loadingForm = false; //Loading
-          $rootScope.closeAllDialogs(); //Close Loading
-          if (s2Data.data.Rating[0] && s2Data.data.Rating[0].sponzor_id === $localStorage.id) {
-            $rootScope.showDialog('error', 'ratingAlreadyRated', '/sponzors/sponzoring');
-          } else {
-            $scope.sponzorship = sData.data;
-            $scope.rating = {
-              'sponzorship_id': sData.data.SponzorEvent.id,
-              'type': 1,
-              'sponzor_id': sData.data.Sponzor.id,
-              'organizer_id': sData.data.Organizer.id,
-              'other': ''
-            };
+      $scope.user = JSON.parse($localStorage.user);
+      if (!$scope.user.acceptedSponzorships) {
+        $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
+          if (e.status > '0') {
+            e.event.ends = new Date(e.event.ends).getTime();
+            return e;
           }
         });
-      }).error(function(eData) {
-        $scope.loadingForm = false; //Loading
-        $rootScope.closeAllDialogs(); //Close Loading
-        $rootScope.showDialog('error', 'requestedSponzorshipNoExist', false);
-      });
+        $localStorage.user = JSON.stringify($scope.user);
+      }
+      if (($scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings[0] &&
+          $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings[0].sponzor_id === $localStorage.id && $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings[0].type === '1'
+        ) || ($scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings[1] &&
+          $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings[1].sponzor_id === $localStorage.id && $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings[1].type === '1')) {
+        $rootScope.showDialog('error', 'ratingAlreadyRated', 'sponzors/sponzoring');
+      } else {
+        $scope.rating = {
+          'sponzorship_id': $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].id,
+          'type': 1,
+          'sponzor_id': $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].sponzor_id,
+          'organizer_id': $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].organizer_id,
+          'other': ''
+        };
+      }
       $scope.saveRating = function() { //Finally we save the rating information
         $rootScope.showLoading();
         if ($scope.rating.other) {
-          $scope.rating.question9 = 'Other: ' + $scope.rating.other;
+          $scope.rating.question5 = 'Other: ' + $scope.rating.other;
         }
-        ratingRequest.createRating($scope.rating).success(function(sData) {
-          $rootScope.showDialog('success', 'ratingSponzorSuccess', '/sponzors/sponzoring');
-        }).error(function(eData) {
+        ratingRequest.createRating($scope.rating).then(function successCallback(response) {
+          $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings.push(response.data.Rating);
+          $localStorage.user = JSON.stringify($scope.user);
+          $scope.rating = {};
+          $rootScope.closeAllDialogs(); //Close Loading
+          $rootScope.showDialog('success', 'ratingSponzorSuccess', 'sponzors/sponzoring');
+        }, function errorCallback(response) {
           $scope.loadingForm = false; //Loading
           $rootScope.closeAllDialogs(); //Close Loading
           $rootScope.showDialog('error', 'invalidRateInfo', false);
@@ -2957,15 +2489,12 @@ angular.module('sponzorme')
       $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }
-
-  angular.module('sponzorme')
-    .controller('SponzorsRatingController', SponzorsRatingController);
-
+  angular.module('sponzorme').controller('SponzorsRatingController', SponzorsRatingController);
 })();
 
 'use strict';
 (function() {
-  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, usSpinnerService, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
+  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
@@ -3078,7 +2607,7 @@ angular.module('sponzorme')
 'use strict';
 (function () {
 
-  function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, taskSponzorRequest, $rootScope, $timeout) {
+  function OrganizersEventsController($scope, $translate, $localStorage, eventRequest, ngDialog, perkTaskRequest, $rootScope) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Events',
@@ -3086,17 +2615,26 @@ angular.module('sponzorme')
       };
       $scope.showTasks = function (p) {
         $scope.currentPerk = p;
-        var aux = $scope.currentPerk.tasks.filter(function (element) {
-          if (element.type === '0') {
-            return element;
-          }
-        });
-        p.tasks = {};
-        p.tasks = aux;        
+        if($scope.currentPerk.tasks.length){
+          var aux = $scope.currentPerk.tasks.filter(function (element) {
+            if (element.type === '0') {
+              return element;
+            }
+          });
+          p.tasks = {};
+          p.tasks = aux;
+        }
       };
       $scope.showPerks = function (e) {
         $scope.currentEvent = e;
-        $scope.showTasks($scope.currentEvent.perks[0]);
+        $scope.currentPerk = {};
+        if($scope.currentEvent.perks.length){
+          $scope.showTasks($scope.currentEvent.perks[0]);
+        }
+        else{
+          $scope.currentEvent.perks = [];
+          $scope.currentEvent.perks.tasks = [];
+        }
       };
       $scope.imageEvent = function (image) {
         $scope.currentImage = image;
@@ -3141,8 +2679,15 @@ angular.module('sponzorme')
           });
         }
       };
-      $scope.showTaskForm = function () {
+      $scope.showTaskForm = function (cP, cE) {
         $scope.todo = {};
+        $scope.todo.perk_id = cP.id;
+        $scope.todo.event_id = cE.id;
+        $scope.todo.status = 0; //We put the defaul status
+        $scope.todo.user_id = $localStorage.id; //Get the organizer Id
+        $scope.todo.type = 0; //If task is created by organizer the type is 0
+        $scope.todo.title = '';
+        $scope.todo.description = '';
         ngDialog.open({
           template: 'views/templates/newTaskForm.html',
           scope: $scope,
@@ -3154,25 +2699,20 @@ angular.module('sponzorme')
       $scope.addTask = function () {
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
-        $scope.todo.perk_id = $scope.currentPerk.id;
-        $scope.todo.event_id = $scope.currentEvent.id;
-        $scope.todo.status = 0; //We put the defaul status
-        $scope.todo.user_id = $localStorage.id; //Get the organizer Id
-        $scope.todo.type = 0; //If task is created by organizer the type is 0
         perkTaskRequest.createPerkTask($scope.todo).then(function successCallback(response) {
+          console.log(response);
           $scope.todo.id = response.data.PerkTask.id;
           for(var i = 0; i<$scope.user.events.length; i++){
             if($scope.user.events[i].id === response.data.PerkTask.event_id){
-              for(var j = 0; j<$scope.user.events[i].perks.length; i++){
+              for(var j = 0; j<$scope.user.events[i].perks.length; j++){
                 if($scope.user.events[i].perks[j].id === response.data.PerkTask.perk_id){
                   $scope.user.events[i].perks[j].tasks.push(response.data.PerkTask);
                   break;
                 }
               }
               break;
-            }            
+            }
           }
-          console.log(response.data);
           $scope.user.sponzorships_like_organizer = response.data.sponzorships_like_organizer;
           $localStorage.user = JSON.stringify($scope.user);
           $rootScope.closeAllDialogs();
@@ -3186,7 +2726,7 @@ angular.module('sponzorme')
 
       $scope.removeTask = function (task_id, index) {
         $scope.currentPerk.tasks[index].loading = true;
-        perkTaskRequest.deletePerkTask(task_id).then(function successCallback(response) {          
+        perkTaskRequest.deletePerkTask(task_id).then(function successCallback(response) {
           $scope.user.sponzorships_like_organizer = response.data.sponzorships_like_organizer;
           $scope.currentPerk.tasks.splice(index, 1);
           $localStorage.user = JSON.stringify($scope.user);
@@ -3199,7 +2739,9 @@ angular.module('sponzorme')
       $scope.user = JSON.parse($localStorage.user);
       if ($scope.user.events) {
         $scope.currentEvent = $scope.user.events[0];
-        $scope.showPerks($scope.currentEvent);
+        if($scope.currentEvent.perks.length){
+          $scope.showPerks($scope.currentEvent);
+        }
       }
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
@@ -3212,7 +2754,7 @@ angular.module('sponzorme')
 'use strict';
 (function(){
 
-function OrganizersFriendController($scope, $translate, $localStorage, userRequest, ngDialog, $location, $rootScope) {
+function OrganizersFriendController($scope, $translate, $localStorage, userRequest, $rootScope) {
   if($rootScope.userValidation('0')){
     //Vars initialization
     $scope.section = {
@@ -3257,12 +2799,12 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersMainController($scope, $translate, $localStorage, $location, userRequest, eventRequest, rssRequest, usSpinnerService, $rootScope, sponzorshipRequest) {
+  function OrganizersMainController($scope, $translate, $localStorage, rssRequest, $rootScope) {
     if($rootScope.userValidation('0')){
       $scope.section = {
         route:'Dashboard',
         title: 'Dashboard'
-      }
+      };
       $scope.loadingevents = false;
       $scope.loadingrss = true;
       $scope.user = JSON.parse($localStorage.user);
@@ -3289,35 +2831,31 @@ angular.module('sponzorme')
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
-  angular.module('sponzorme')
-    .controller('OrganizersMainController', OrganizersMainController);
+  angular.module('sponzorme').controller('OrganizersMainController', OrganizersMainController);
 
 })();
 
 'use strict';
 (function() {
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $rootScope, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Settings',
+        route: 'Settings',
         title: 'Settings'
       };
       $scope.user = JSON.parse($localStorage.user);
-
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
         $scope.interests = sData.InterestCategory;
       });
-
       $scope.removeUserInterest = function(index, id) {
         $scope.user.interests.splice(index, 1);
         userInterestRequest.deleteUserInterest(id).then(function() {});
       };
-
       $scope.addUserInterests = function(interest) {
         $scope.loadingSaveInterest = true;
         if (interest && interest.name) {
           var flag = false;
-          if($scope.user.interests){
+          if ($scope.user.interests) {
             for (var i = 0; i < $scope.user.interests.length; i++) {
               if ($scope.user.interests[i].interest_id === interest.id_interest) {
                 flag = true;
@@ -3338,8 +2876,7 @@ angular.module('sponzorme')
               $scope.loadingSaveInterest = false;
             });
           }
-        }
-        else {
+        } else {
           $scope.loadingSaveInterest = false;
           $rootScope.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
@@ -3348,7 +2885,7 @@ angular.module('sponzorme')
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
         $rootScope.showLoading();
-        if($scope.user.location!==$scope.locationUser){
+        if ($scope.user.location !== $scope.locationUser) {
           $scope.user.location = $scope.locationUser.formatted_address;
           $scope.user.location_reference = $scope.locationUser.place_id;
         }
@@ -3404,7 +2941,6 @@ angular.module('sponzorme')
           });
         }
       };
-
       $scope.resetPassword = function() {
         if ($scope.password === $scope.passwordConfirmation) {
           $rootScope.showLoading();
@@ -3430,26 +2966,27 @@ angular.module('sponzorme')
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
-  angular.module('sponzorme')
-    .controller('OrganizersSettingsController', OrganizersSettingsController);
+  angular.module('sponzorme').controller('OrganizersSettingsController', OrganizersSettingsController);
 })();
 
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, ratingRequest) {
+  function OrganizersSponzorshipsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Sponzorships',
+        route: 'Sponzorships',
         title: 'Sponzorships'
       };
       $scope.getTasks = function(s) {
-        var aux = s.task_sponzor.filter(function(element) {
-          if (element.task.type === '0') {
-            return element;
-          }
-        });
-        s.task_sponzor = {};
-        s.task_sponzor = aux;
+        if (s.task_sponzor.length) {
+          var aux = s.task_sponzor.filter(function(element) {
+            if (element.task.type === '0') {
+              return element;
+            }
+          });
+          s.task_sponzor = {};
+          s.task_sponzor = aux;
+        }
         $scope.currentSponzorship = s;
       };
       $scope.todayDate = new Date().getTime();
@@ -3457,14 +2994,16 @@ angular.module('sponzorme')
       if ($scope.user.sponzorships_like_organizer) {
         var aux = $scope.user.sponzorships_like_organizer.filter(function(element) {
           element.event.ends = new Date(element.event.ends).getTime();
-            return element;
+          return element;
         });
         $scope.user.sponzorships_like_organizer.filter = aux;
-        $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
+        if ($scope.user.sponzorships_like_organizer.length) {
+          $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
+        }
       }
       //This function changes to 1 the sponzorship status
       $scope.acceptSponzorship = function(sponzoshipId, i) {
-        $scope.user.sponzorships_like_organizer[i].loading=true;
+        $scope.user.sponzorships_like_organizer[i].loading = true;
         $scope.currentSponzorshipId = sponzoshipId;
         var data = {
           status: 1
@@ -3474,7 +3013,7 @@ angular.module('sponzorme')
           $scope.user.sponzorships_like_organizer[i].status = 1;
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
-          $localStorage.user = JSON.stringify($scope.user);          
+          $localStorage.user = JSON.stringify($scope.user);
           var info = {
             sponzorEmail: $scope.currentSponzorship.sponzor.email,
             sponzorName: $scope.currentSponzorship.sponzor.name,
@@ -3498,15 +3037,15 @@ angular.module('sponzorme')
       //This function changes to 0 the sponzorship status
       $scope.unacceptSponzorship = function(sponzoshipId, i) {
         $scope.currentSponzorshipId = sponzoshipId;
-        $scope.user.sponzorships_like_organizer[i].loading=true;
+        $scope.user.sponzorships_like_organizer[i].loading = true;
         var data = {
           status: 0
         };
         sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback(response) {
           $scope.user.sponzorships_like_organizer[i].status = 0;
           $scope.user.sponzorships_like_organizer[i].task_sponzor = response.data.Sponzorship.task_sponzor;
-          $scope.user.sponzorships_like_organizer[i].loading=false;
-          $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];        
+          $scope.user.sponzorships_like_organizer[i].loading = false;
+          $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
           $localStorage.user = JSON.stringify($scope.user);
           var firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
@@ -3515,7 +3054,7 @@ angular.module('sponzorme')
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
         }, function errorCallback(response) {
-          $scope.user.sponzorships_like_organizer[i].loading=false;
+          $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
         });
       };
@@ -3541,22 +3080,22 @@ angular.module('sponzorme')
           $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
         });
       };
-      $scope.changeStatus = function (index, status) {
+      $scope.changeStatus = function(index, status) {
         $scope.currentSponzorship.task_sponzor[index].loading = true;
         var taskSponzorId = $scope.currentSponzorship.task_sponzor[index].id;
         var data = {
           status: status
         };
-        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response){
+        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response) {
           $scope.currentSponzorship.task_sponzor[index].loading = false;
           $scope.currentSponzorship.task_sponzor[index].status = status;
-          
+
           $localStorage.user = JSON.stringify($scope.user);
-         
-         }, function errorCallback(err){
-            $scope.currentSponzorship.task_sponzor[index].loading = false;
-            $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
-         });
+
+        }, function errorCallback(err) {
+          $scope.currentSponzorship.task_sponzor[index].loading = false;
+          $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
+        });
       };
       $scope.seeCause = function(sponzorship) {
         $scope.cause = sponzorship.cause;
@@ -3576,7 +3115,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, perkRequest, perkTaskRequest, $location, $rootScope, $routeParams) {
+  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams) {
     if($rootScope.userValidation('0')){
       $scope.section = {
         route:'Events / Edit',
@@ -3599,12 +3138,6 @@ angular.module('sponzorme')
           $rootScope.showDialog('error', 'maxLimitPerk', false);
         }
       };
-
-      //this function get the event data and put it in the form.
-      $scope.formEditEvent = function(idevent) {
-        $scope.eventData = {};
-        $scope.eventData = $scope.user.events[idevent];
-      };
       $scope.doEditEvent = function(idevent) {
         $rootScope.showLoading();
         $scope.eventData.organizer = $localStorage.id;
@@ -3618,11 +3151,9 @@ angular.module('sponzorme')
         eventRequest.editEventPut(idevent, $scope.eventData).then(function successCallback(response) {
           $scope.user.events[$routeParams.id] = response.data.event;
           $localStorage.user = JSON.stringify($scope.user);
-          $scope.formEditEvent($routeParams.id);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'eventEditedSuccesfully', false);
         }, function errorCallback(response) {
-          console.log(response);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'eventNoEdited', false);
         });
@@ -3638,7 +3169,10 @@ angular.module('sponzorme')
       $scope.removePerk = function(index) {
         $scope.eventData.perks.splice(index, 1);
       };
-      $scope.formEditEvent($routeParams.id); //Here start the callback
+      $scope.eventData = {};
+      $scope.eventData = $scope.user.events[$routeParams.id];
+      $scope.eventData.starts = new Date($scope.eventData.starts).getTime();
+      $scope.eventData.ends = new Date($scope.eventData.ends).getTime();
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
@@ -3647,7 +3181,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, $rootScope, $routeParams, eventbriteRequest) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, $rootScope, $routeParams, eventbriteRequest) {
     //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
@@ -3661,6 +3195,9 @@ angular.module('sponzorme')
         route:'Events / Add',
         title: 'Event Add'
       };
+      $scope.newEvent = {perks:[]};
+      $scope.newEvent.starts = new Date().getTime();
+      $scope.newEvent.ends = new Date().getTime();
       eventTypeRequest.allEventTypes().success(function(adata) {
         $scope.type = {};
         $scope.type.list = adata.eventTypes;
@@ -3680,7 +3217,7 @@ angular.module('sponzorme')
           $rootScope.showDialog('error', 'maxLimitPerk', false);
         }
       };
-      $scope.newEvent = {perks:[]};
+
       //This function creates an event
       $scope.createNewEvent = function() {
         $scope.newEvent.location = $scope.locationevent.formatted_address;
@@ -3902,7 +3439,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function OrganizersRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
+  function OrganizersRatingController($scope, $translate, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
       $scope.section = {
         route:'Sponzorships / Rating',
@@ -3955,7 +3492,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, $rootScope) {
+  function NotificationController($scope, $translate, $localStorage, $firebaseArray, $rootScope) {
     if($localStorage.id){
       $scope.help = 0;
       var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
@@ -3969,13 +3506,12 @@ angular.module('sponzorme')
       });
     }
   }
-  angular.module('sponzorme')
-    .controller('NotificationController', NotificationController);
+  angular.module('sponzorme').controller('NotificationController', NotificationController);
 })();
 
 'use strict';
 (function() {
-  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
+  function ChatController($scope, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
     if($localStorage.id){
       $scope.section = {
         route:'Sponzorship / Chat',
@@ -3998,7 +3534,7 @@ angular.module('sponzorme')
             };
           }
           else{
-            $location.path('/');
+            $location.path('/login');
           }
         });
       var ref = new Firebase($rootScope.getConstants().FURL + 'chat');
@@ -4033,7 +3569,7 @@ angular.module('sponzorme')
 
 'use strict';
 (function() {
-  function ProfileController($scope, ngDialog, $localStorage, $location, $routeParams, userRequest, ratingRequest, $timeout, $rootScope) {
+  function ProfileController($scope, $routeParams, userRequest, ratingRequest, $rootScope) {
     $rootScope.closeAllDialogs();
     $scope.loading = true;
     $rootScope.showLoading();
@@ -4045,7 +3581,7 @@ angular.module('sponzorme')
           $scope.ratings = ratingsData.data.Rating;
           $scope.loading = false;
           $rootScope.closeAllDialogs();
-        }).error(function(){
+        }).error(function() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'problem', '/');
         });
@@ -4054,44 +3590,39 @@ angular.module('sponzorme')
           $scope.ratings = ratingsData.data.Rating;
           $scope.loading = false;
           $rootScope.closeAllDialogs();
-        }).error(function(){
+        }).error(function() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'problem', '/');
         });
-      }
-      else{
+      } else {
         $rootScope.closeAllDialogs();
         $rootScope.showDialog('error', 'problem', '/');
       }
-    }).error(function(){
+    }).error(function() {
       $rootScope.closeAllDialogs();
       $rootScope.showDialog('error', 'problem', '/');
     });
   }
-  angular.module('sponzorme')
-    .controller('ProfileController', ProfileController);
+  angular.module('sponzorme').controller('ProfileController', ProfileController);
 })();
 
 'use strict';
 (function() {
-
   function DialogController($scope, $translate, ngDialog, $location, $timeout, $localStorage) {
-    $scope.close = function(redirect){
+    $scope.close = function(redirect) {
       $location.path(redirect);
       ngDialog.closeAll();
     };
-    $scope.closeLoading = function(){
-      $location.path('/');
+    $scope.closeLoading = function() {
+      $location.path('/login');
       ngDialog.closeAll();
     };
     $scope.delayed = false;
-    if($scope.delayed === false){
+    if ($scope.delayed === false) {
       $timeout(function() {
-          $scope.delayed = true;
-        }, 15000
-      );
+        $scope.delayed = true;
+      }, 15000);
     }
   }
-  angular.module('sponzorme')
-    .controller('DialogController', DialogController);
+  angular.module('sponzorme').controller('DialogController', DialogController);
 })();
