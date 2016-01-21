@@ -1,16 +1,15 @@
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, perkRequest, taskSponzorRequest, $rootScope) {
+  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope) {
     $scope.eventLoaded = false;
     var firebaseNotification;
-    $scope.event = {};
-    eventRequest.oneEvent($routeParams.eventId).success(function(data) {
+    $scope.todayDate = new Date().getTime();
+    eventRequest.oneEvent($routeParams.eventId).then(function successCallback(response) {
       $scope.eventLoaded = true;
-      $scope.evento = data.data;
-      $scope.currentEvent = data.data.event.id;
-      $scope.currentOrganizer = data.data.organizer[0];
+      $scope.currentEvent = response.data.event;
+      $scope.currentEvent.starts = new Date($scope.currentEvent.starts).getTime();
       $scope.eventURL = $location.absUrl();
-    }).error(function() {
+    }, function errorCallback(err){
       $scope.eventLoaded = true;
     });
     if ($localStorage.typesponzorme === '1' && !$rootScope.isExpiredData()) { //He is an sponzor
@@ -23,79 +22,60 @@
       $scope.isSponzor = false;
       $scope.isNoLogged = true;
     }
+    $scope.sendToLogin = function(){
+      $localStorage.redirectTo = $scope.eventURL;
+      $location.path('/login');
+    };
     //We display the form to get the sponzorship cause
     $scope.formCreateSponzorship = function(perk) {
-      $scope.perkToSponzor = perk;
+      $scope.newSponzorship = {
+        'organizer_id': $scope.currentEvent.user_organizer.id,
+        'sponzor_id': $localStorage.id,
+        'event_id': $scope.currentEvent.id,
+        'perk_id': perk.id,
+        'cause': '',
+        'status': 0
+      };
+      $scope.selectedPerk = perk;
       ngDialog.open({
         template: 'views/templates/formCreateSponzorship.html',
         scope: $scope
       });
     };
     $scope.createSponzorship = function() {
-      /**
-        this function have two steps, first, create the sponzorhip
-        second create the sponzor tasks
-      */
-      var data = {
-        status: 0,
-        'sponzor_id': $localStorage.id,
-        'perk_id': $scope.perkToSponzor.id,
-        'event_id': $scope.perkToSponzor.id_event,
-        'cause': $scope.perkToSponzor.cause,
-        'organizer_id': $scope.currentOrganizer.id
-      };
       $rootScope.closeAllDialogs();
       $rootScope.showLoading();
-      sponzorshipRequest.createSponzorship(data, $localStorage.token).success(function(sData) {
-        var cont = 0;
-        perkRequest.onePerk($scope.perkToSponzor.id).success(function(sPerkData) {
-          angular.forEach(sPerkData.data.Tasks, function(value) {
-            var taskSponzor = {
-              status: 0,
-              'sponzor_id': $localStorage.id,
-              'perk_id': $scope.perkToSponzor.id,
-              'event_id': $scope.perkToSponzor.id_event,
-              'organizer_id': $scope.currentOrganizer.id,
-              'sponzorship_id': sData.Sponzorship.id,
-              'task_id': value.id
-            };
-            taskSponzorRequest.createTaskSponzor(taskSponzor, $localStorage.token)
-              .success(function() {
-                cont++;
-              });
-            if (cont === sPerkData.data.Tasks.length - 1) {
-              firebaseNotification = {
-                to: $scope.currentOrganizer.id,
-                text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.evento.event.title,
-                link: '#/organizers/sponzors'
-              };
-              $rootScope.sendFirebaseNotification(firebaseNotification);
-
-              $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-            }
-          });
-          if (sPerkData.data.Tasks.length === 0) {
-            firebaseNotification = {
-              to: $scope.currentOrganizer.id,
-              text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.evento.event.title,
-              link: '#/organizers/sponzors'
-            };
-            $rootScope.sendFirebaseNotification(firebaseNotification);
-            $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-          }
-          var info = {
-            organizerId: $scope.currentOrganizer.id,
-            eventName: $scope.evento.event.title,
-            lang: $rootScope.currentLanguage()
-          };
-          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).success(function() {});
-        }).error(function() {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'eventPageErrorSponzoringEvent', false);
-        });
-      }).error(function() {
+      $scope.user = JSON.parse($localStorage.user);
+      $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
+        if (e.status === '0') {
+          return e;
+        }
+      });
+      sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
+        $scope.user.sponzorships.push(response.data.Sponzorship);
+        $scope.user.pendingSponzorships.push(response.data.Sponzorship);
+        $localStorage.user = JSON.stringify($scope.user);
+        var info = {
+          organizerId: $scope.currentEvent.user_organizer.id,
+          eventName: $scope.currentEvent.title,
+          lang: $rootScope.currentLanguage()
+        };
+        var firebaseNotification = {
+          to: $scope.currentEvent.user_organizer.id,
+          text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
+          link: '#/organizers/sponzors'
+        };
+        $rootScope.sendFirebaseNotification(firebaseNotification);
+        sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function(){});
         $rootScope.closeAllDialogs();
-        $rootScope.showDialog('error', 'eventPageErrorSponzoringEvent', false);
+        $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
+      }, function errorCallback(err) {
+        $rootScope.closeAllDialogs();
+        if (err.status === 409) {
+          $rootScope.showDialog('error', 'alreadySponzoring', false);
+        } else {
+          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
+        }
       });
     };
   }

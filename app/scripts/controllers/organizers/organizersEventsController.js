@@ -73,8 +73,15 @@
           });
         }
       };
-      $scope.showTaskForm = function () {
+      $scope.showTaskForm = function (cP, cE) {
         $scope.todo = {};
+        $scope.todo.perk_id = cP.id;
+        $scope.todo.event_id = cE.id;
+        $scope.todo.status = 0; //We put the defaul status
+        $scope.todo.user_id = $localStorage.id; //Get the organizer Id
+        $scope.todo.type = 0; //If task is created by organizer the type is 0
+        $scope.todo.title = '';
+        $scope.todo.description = '';
         ngDialog.open({
           template: 'views/templates/newTaskForm.html',
           scope: $scope,
@@ -86,16 +93,12 @@
       $scope.addTask = function () {
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
-        $scope.todo.perk_id = $scope.currentPerk.id;
-        $scope.todo.event_id = $scope.currentEvent.id;
-        $scope.todo.status = 0; //We put the defaul status
-        $scope.todo.user_id = $localStorage.id; //Get the organizer Id
-        $scope.todo.type = 0; //If task is created by organizer the type is 0
         perkTaskRequest.createPerkTask($scope.todo).then(function successCallback(response) {
+          console.log(response);
           $scope.todo.id = response.data.PerkTask.id;
           for(var i = 0; i<$scope.user.events.length; i++){
             if($scope.user.events[i].id === response.data.PerkTask.event_id){
-              for(var j = 0; j<$scope.user.events[i].perks.length; i++){
+              for(var j = 0; j<$scope.user.events[i].perks.length; j++){
                 if($scope.user.events[i].perks[j].id === response.data.PerkTask.perk_id){
                   $scope.user.events[i].perks[j].tasks.push(response.data.PerkTask);
                   break;

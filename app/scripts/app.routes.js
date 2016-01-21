@@ -7,12 +7,12 @@
   angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('', {
-        templateUrl: 'views/main.html',
-        controller: 'HomeController'
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
       })
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'HomeController'
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
       })
       .when('/activation/:token', {
         templateUrl: 'views/activation.html',
@@ -43,7 +43,7 @@
         controller: 'OrganizersCreateController'
       })
       .when('/logout', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/login.html',
         controller: 'LogoutController'
       })
       .when('/organizers/dashboard', {

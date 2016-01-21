@@ -23,12 +23,6 @@
           $rootScope.showDialog('error', 'maxLimitPerk', false);
         }
       };
-
-      //this function get the event data and put it in the form.
-      $scope.formEditEvent = function(idevent) {
-        $scope.eventData = {};
-        $scope.eventData = $scope.user.events[idevent];
-      };
       $scope.doEditEvent = function(idevent) {
         $rootScope.showLoading();
         $scope.eventData.organizer = $localStorage.id;
@@ -42,11 +36,9 @@
         eventRequest.editEventPut(idevent, $scope.eventData).then(function successCallback(response) {
           $scope.user.events[$routeParams.id] = response.data.event;
           $localStorage.user = JSON.stringify($scope.user);
-          $scope.formEditEvent($routeParams.id);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'eventEditedSuccesfully', false);
         }, function errorCallback(response) {
-          console.log(response);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'eventNoEdited', false);
         });
@@ -62,7 +54,10 @@
       $scope.removePerk = function(index) {
         $scope.eventData.perks.splice(index, 1);
       };
-      $scope.formEditEvent($routeParams.id); //Here start the callback
+      $scope.eventData = {};
+      $scope.eventData = $scope.user.events[$routeParams.id];
+      $scope.eventData.starts = new Date($scope.eventData.starts).getTime();
+      $scope.eventData.ends = new Date($scope.eventData.ends).getTime();
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }

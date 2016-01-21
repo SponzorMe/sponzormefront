@@ -18,7 +18,7 @@
                   {{ 'ratingOrganizer.question0' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <input-stars max="5" ng-model="rating.question0" required></input-stars>
+                  <input-stars max="5" data-ng-model="rating.question0" required></input-stars>
                 </div>
               </div>
               <div class="form-group">
@@ -26,7 +26,7 @@
                   {{ 'ratingOrganizer.question1' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <input type="text" ng-model="rating.question1" />
+                  <input type="text" data-ng-model="rating.question1" />
                 </div>
               </div>
 
@@ -35,7 +35,7 @@
                   {{ 'ratingOrganizer.question2' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <input-stars max="5" ng-model="rating.question2"></input-stars>
+                  <input-stars max="5" data-ng-model="rating.question2"></input-stars>
                 </div>
               </div>
 
@@ -44,7 +44,7 @@
                   {{ 'ratingOrganizer.question3' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <select ng-model="rating.question3" required>
+                  <select data-ng-model="rating.question3" required>
                     <option value="">{{'chooseOneOption'|translate}}</option>
                     <option value="1">{{'yes'|translate}}</option>
                     <option value="0">{{'no'|translate}}</option>
@@ -57,7 +57,7 @@
                   {{ 'ratingOrganizer.question4' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <select ng-model="rating.question4" required>
+                  <select data-ng-model="rating.question4" required>
                     <option value="">{{'chooseOneOption'|translate}}</option>
                     <option value="1">{{'yes'|translate}}</option>
                     <option value="0">{{'no'|translate}}</option>
@@ -70,14 +70,14 @@
                   {{ 'ratingOrganizer.question5' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <select ng-model="rating.question5" required>
+                  <select data-ng-model="rating.question5" required>
                     <option value="">{{'chooseOneOption'|translate}}</option>
                     <option value="developers">{{'developers'|translate}}</option>
                     <option value="designers">{{'designers'|translate}}</option>
                     <option value="entrepeneurs">{{'entrepeneurs'|translate}}</option>
                     <option value="other">{{'Other'|translate}}</option>
                   </select><br/><br/>
-                  <input ng-if="rating.question5 == 'other'" type="text" ng-model="rating.other" required/>
+                  <input ng-if="rating.question5 == 'other'" type="text" data-ng-model="rating.other" required/>
                 </div>
               </div>
 
@@ -86,7 +86,7 @@
                   {{ 'ratingOrganizer.question6' | translate}}
                 </label>
                 <div class="col-sm-5">
-                  <textarea ng-model="rating.question6"></textarea>
+                  <textarea data-ng-model="rating.question6"></textarea>
                 </div>
               </div>
 

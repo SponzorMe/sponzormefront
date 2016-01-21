@@ -15,11 +15,12 @@
 
 /* Base */
 html {
-  overflow-y: scroll; }
+  background-color: white; }
 
 body {
   font-family: "Montserrat";
-  color: #333 !important; }
+  color: #333 !important;
+  background-color: white; }
 
 body .page-content {
   background: #f3f3f3 !important;
@@ -1139,15 +1140,11 @@ h1 {
   background-color: #20222D !important;
   background-image: linear-gradient(to bottom, #20222D 0, #20222D 100%); }
 
-.testimonials {
-  font-size: 12px !important;
-  margin-top: 35px !important; }
+.margin-top-100 {
+  margin-top: 100px; }
 
-.testimonials h1 {
-  font-size: 32px !important; }
-
-.testimonials .content {
-  height: auto; }
+.margin-top-50 {
+  margin-top: 50px; }
 
 /* Custom container */
 .container-narrow {

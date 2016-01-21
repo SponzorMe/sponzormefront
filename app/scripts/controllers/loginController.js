@@ -6,7 +6,6 @@
       $translate.use($routeParams.lang);
     }
     var redirectTo = $localStorage.redirectTo;
-    $localStorage.$reset();
     $scope.sendfrom = function() {
       if ($scope.email && $scope.password) { //Just Check the values are defined
         $scope.objuser = {};
@@ -40,14 +39,14 @@
                 $localStorage.events = JSON.stringify(response.data.data.events);
               }
               if (adata.user.type === '1') {
-                if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) {
+                if ((redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('sponzors') > -1) || (redirectTo && redirectTo.indexOf('/#/event/') > -1)) {
                   window.location.href = redirectTo;
                 } else {
                   $location.path('/sponzors/dashboard');
                 }
               } else {
 
-                if (redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) {
+                if ((redirectTo && redirectTo.indexOf('login') === -1 && redirectTo.indexOf('organizers') > -1) || (redirectTo && redirectTo.indexOf('/#/event/') > -1)){
                   window.location.href = redirectTo;
                 } else {
                   $location.path('/organizers/dashboard');

@@ -55,7 +55,7 @@
                   {{'editaccountsex' | translate}}
                 </label>
                 <div class="col-sm-7">
-                  <select class="form-control" ng-init="user.sex=user.sex" ng-model="user.sex" aria-label="ngSelected">
+                  <select class="form-control" ng-init="user.sex=user.sex" data-ng-model="user.sex" aria-label="ngSelected">
                     <option value="0" ng-selected="user.sex==0">{{'woman' | translate}}</option>
                     <option value="1" ng-selected="user.sex">{{'man' | translate}}</option>
                   </select>
@@ -67,7 +67,7 @@
                   {{'editaccountlocation' | translate}}
                 </label>
                 <div class="col-sm-7">
-                  <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="locationUser" ng-init="locationUser = user.location" autocomplete="off" />
+                  <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" data-ng-model="locationUser" ng-init="locationUser = user.location" autocomplete="off" />
                 </div>
               </div>
               <!--form field-->
@@ -76,7 +76,7 @@
                   {{'comunitySize' | translate}}
                 </label>
                 <div class="col-sm-7">
-                  <input type="text" ng-model="user.comunity_size" name="comunity_size" class="form-control" />
+                  <input type="text" data-ng-model="user.comunity_size" name="comunity_size" class="form-control" />
                 </div>
               </div>
               <!--form field-->
@@ -96,7 +96,7 @@
                   </div>
                   <div class="fileUpload btn btn-danger">
                     <span><i class="fa fa-image"></i> Change Image</span>
-                    <input class="upload" type="file" ng-model="file" name="file" maxsize="500" accept="image/*" file>
+                    <input class="upload" type="file" data-ng-model="file" name="file" maxsize="500" accept="image/*" file>
                   </div>
                   <div class="clearfix"></div>
                 </div>
@@ -129,7 +129,7 @@
                   {{'newPassword' | translate}}
                 </label>
                 <div class="col-sm-7">
-                  <input type="password" ng-model="password" class="form-control" required/>
+                  <input type="password" data-ng-model="password" class="form-control" required/>
                 </div>
               </div>
               <!--form field-->
@@ -138,7 +138,7 @@
                   {{'newPasswordConfirm' | translate}}
                 </label>
                 <div class="col-sm-7">
-                  <input type="password" ng-model="passwordConfirmation" class="form-control" required/>
+                  <input type="password" data-ng-model="passwordConfirmation" class="form-control" required/>
                 </div>
               </div>
               <!--form field-->
@@ -159,7 +159,7 @@
               <br/>
               <div ng-if="!loadingSaveInterest">
                 Add an interest:
-                <input type="text" ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
+                <input type="text" data-ng-model="selected" typeahead="interest as (interest.name) for interest in interests | filter:$viewValue" />
                 <button class="btn btn-success" ng-click="addUserInterests(selected)">
                   {{'add_interest' | translate}}
                 </button>

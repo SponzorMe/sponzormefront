@@ -14,6 +14,9 @@
         route:'Events / Add',
         title: 'Event Add'
       };
+      $scope.newEvent = {perks:[]};
+      $scope.newEvent.starts = new Date().getTime();
+      $scope.newEvent.ends = new Date().getTime();
       eventTypeRequest.allEventTypes().success(function(adata) {
         $scope.type = {};
         $scope.type.list = adata.eventTypes;
@@ -33,7 +36,7 @@
           $rootScope.showDialog('error', 'maxLimitPerk', false);
         }
       };
-      $scope.newEvent = {perks:[]};
+
       //This function creates an event
       $scope.createNewEvent = function() {
         $scope.newEvent.location = $scope.locationevent.formatted_address;

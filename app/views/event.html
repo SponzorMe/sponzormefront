@@ -33,42 +33,38 @@
   <section id="banner" ng-cloak>
     <div class="inner">
       <header>
-        <h2 ng-cloak>{{evento.event.title}}</h2>
+        <h2 ng-cloak>{{currentEvent.title}}</h2>
       </header>
-      <p styles="width:25%;" ng-bind-html="evento.event.description"></p>
+      <p styles="width:25%;" ng-bind-html="currentEvent.description"></p>
     </div>
 
   </section>
 
   <!-- Main -->
-  <article id="main">
+  <article class="padding-top-10">
     <section class="wrapper style1 container special">
       <header class="major">
         <h2>{{'sponzorshipTypes'|translate}}</h2>
       </header>
       <div class="row">
-        <div class="4u 12u(narrower)" ng-repeat="p in evento.event.perks">
-
-          <section>
+        <div class="4u 12u" ng-repeat="p in currentEvent.perks">
+          <section class="font-size-14 bordered text-center">
             <span class="icon fa-heart"></span>
             <header>
               <h3>{{p.kind}}</h3>
               <h4>${{p.usd}} USD</h4>
             </header>
-            <p>
-              {{'perkTasks'|translate}}
-              <ul>
-                <li ng-repeat="t in evento.event.perk_tasks" ng-if="p.id == t.perk_id && t.type==0">{{t.title}}</li>
-              </ul>
-            </p>
-            <ul class="buttons vertical">
-              <li>
-                <button ng-if="!isNoLogged && isSponzor" class="button fit scrolly" ng-click="formCreateSponzorship(p)">{{'sponzor'|translate}}</button>
-                <button ng-if="!isNoLogged && !isSponzor" class="button fit scrolly">{{'noSponzor'|translate}}</button>
-                <a href="#/login" ng-if="isNoLogged && !isSponzor" class="button fit scrolly">{{'logginToSPonzor'|translate}}</a></li>
+            <strong ng-if="p.tasks.length">{{'perkTasks'|translate}}:</strong>
+            <strong ng-if="!p.tasks.length" class="font-size-10">*({{'NoPerkTasks'|translate}})</strong>
+            <ul class="text-center no-list-style" ng-if="p.tasks.length">
+              <li ng-repeat="t in p.tasks" ng-if="t.type==0"><i class="fa fa-check"></i>&nbsp;{{t.title}}</li>
             </ul>
+            <span ng-if="!isNoLogged && !isSponzor">({{'noSponzor'|translate}})</span>
+            <span ng-if="p.reserved_quantity >= p.total_quantity">({{'sponzorshipsComplete'|translate}})</span>
+            <span ng-if="todayDate>= currentEvent.starts">({{'sponzorshipsClose'|translate}})</span>
+            <a href="" ng-if="!isNoLogged && isSponzor && p.reserved_quantity < p.total_quantity && todayDate < currentEvent.starts" class="button fit scrolly" ng-click="formCreateSponzorship(p)">{{'sponzor'|translate}}&nbsp;<i class="fa fa-arrow-right"></i></a>
+            <a href="" ng-click="sendToLogin()" ng-if="isNoLogged && !isSponzor" class="button fit scrolly">{{'logginToSPonzor'|translate}}</a>
           </section>
-
         </div>
       </div>
     </section>

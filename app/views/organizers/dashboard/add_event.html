@@ -21,7 +21,7 @@
                 {{ 'neweventtitle' | translate }}
               </label>
               <div class="col-sm-7">
-                <input type="text" ng-model="newEvent.title" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" required/>
+                <input type="text" data-ng-model="newEvent.title" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" required/>
               </div>
               <br/>
               <br/>
@@ -32,7 +32,7 @@
                 {{ 'neweventlocation' | translate }}
               </label>
               <div class="col-sm-7">
-                <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" ng-model="locationevent" autocomplete="off" required/>
+                <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" data-ng-model="locationevent" autocomplete="off" required/>
               </div>
             </div>
             <!--form field-->
@@ -41,7 +41,7 @@
                 {{ 'neweventdescription' | translate }}
               </label>
               <div class="col-sm-7">
-                <div text-angular ng-model="newEvent.description"></div>
+                <div text-angular data-ng-model="newEvent.description"></div>
               </div>
             </div>
             <!--form field-->
@@ -50,7 +50,7 @@
                 {{ 'neweventstarts' | translate }}
               </label>
               <div class="col-sm-7">
-              <datetimepicker ng-model="newEvent.starts"
+              <datetimepicker data-ng-model="newEvent.starts"
                 date-format="yyyy-MM-dd"
                 date-options="dateOptions"
                 show-meridian="false"
@@ -63,11 +63,11 @@
                 {{ 'neweventends' | translate }}
               </label>
               <div class="col-sm-7">
-              <datetimepicker ng-model="newEvent.ends"
+              <datetimepicker data-ng-model="newEvent.ends"
                 date-format="yyyy-MM-dd"
                 date-options="dateOptions"
                 show-meridian="false"
-                min-date="dtini"
+                min-date="newEvent.starts"
                 date-disabled="isDisabledDate(date, mode)">
               </datetimepicker>
               </div>
@@ -75,7 +75,7 @@
             <!--form field-->
             <div class="form-group" id="public">
               <div class="col-sm-4 control-label">
-                <input id="privacy0" type="radio" ng-model="newEvent.privacy" name="privacy" value="0" required="required"/>
+                <input id="privacy0" type="radio" data-ng-model="newEvent.privacy" name="privacy" value="0" required="required"/>
               </div>
               <label for="privacy0" class="col-sm-7">
                 <strong>{{ 'privacyoption0' | translate }} : </strong>
@@ -83,7 +83,7 @@
                 {{ 'privacydescription0' | translate }} </label>
 
               <div class="col-sm-4 control-label">
-                <input id="privacy1" type="radio" ng-model="newEvent.privacy" name="privacy" value="1" required="required"/>
+                <input id="privacy1" type="radio" data-ng-model="newEvent.privacy" name="privacy" value="1" required="required"/>
               </div>
 
               <label for="privacy1" class="col-sm-7">
@@ -97,7 +97,7 @@
                 {{ 'neweventtype' | translate }}
               </label>
               <div class="col-sm-7">
-                <select ng-model="newEvent.type" name="type" class="form-control" required="required">
+                <select data-ng-model="newEvent.type" name="type" class="form-control" required="required">
                   <option value="">{{ 'choosetype' | translate }}</option>
                   <option data-ng-repeat="t in typefilter" data-ng-value="t.id">
                     {{t.name}}
@@ -111,7 +111,7 @@
                 {{ 'neweventcategory' | translate }}
               </label>
               <div class="col-sm-7">
-                <select ng-model="newEvent.category" name="type" class="form-control" required="required">
+                <select data-ng-model="newEvent.category" name="type" class="form-control" required="required">
                   <option value="">{{ 'choosetype' | translate }}</option>
                   <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id">
                     {{c.title}}
@@ -126,7 +126,7 @@
                 <label for="label" class="col-sm-4 control-label">
                   {{ 'file' | translate }}
                 </label>
-                <input type="file" ng-model="file" name="file" maxsize="500" accept="image/*" file>
+                <input type="file" data-ng-model="file" name="file" maxsize="500" accept="image/*" file>
                 <br/>
                 <div>
                 </div>
@@ -152,13 +152,13 @@
                     </thead>
                     <tr ng-repeat="s in newEvent.perks" data-ng-show="newEvent.perks.length">
                       <td class="text-center">
-                        <input type="text" class="form-control" placeholder="" ng-model="s.kind" />
+                        <input type="text" class="form-control" placeholder="" data-ng-model="s.kind" />
                       </td>
                       <td class="text-center">
-                        <input type="text" class="form-control" placeholder="" ng-model="s.total_quantity" />
+                        <input type="text" class="form-control" placeholder="" data-ng-model="s.total_quantity" />
                       </td>
                       <td class="text-center">
-                        <input type="number" min="0" max="200" class="form-control" placeholder="Max 200" ng-model="s.usd" ng-keyup="verifyPerkLimit(s)"/>
+                        <input type="number" min="0" max="200" class="form-control" placeholder="Max 200" data-ng-model="s.usd" ng-keyup="verifyPerkLimit(s)"/>
                       </td>
                       <td class="text-center">
                         <a href="" ng-click="removeSponzorshipType($index)"><i class="fa fa-trash-o"></i></a>

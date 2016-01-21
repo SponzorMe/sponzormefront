@@ -2189,3 +2189,24 @@ body.index #main {
   -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
   margin-bottom: 15px !important; }
+
+.font-size-14 {
+  font-size: 14px; }
+
+.bordered {
+  border: 1px solid #EEE;
+  background-color: white; }
+
+.no-list-style {
+  list-style: none; }
+
+.no-list-style li {
+  list-style-position: inside;
+  text-align: left;
+  margin-left: 5em; }
+
+.padding-top-10 {
+  padding-top: 1em; }
+
+.font-size-10 {
+  font-size: 10px; }

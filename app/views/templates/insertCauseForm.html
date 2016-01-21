@@ -2,7 +2,7 @@
   <div class="text-center">
     <form class="form-horizontal" name="causeForm" role="form">
       <label>{{'causeForm'|translate}}</label>
-      <textarea cols="40" name="cause" ng-model="perkToSponzor.cause" placeholder="Your event is amazing!" required rows="8"></textarea>
+      <textarea cols="40" name="cause" data-ng-model="perkToSponzor.cause" placeholder="Your event is amazing!" required rows="8"></textarea>
       <button class="btn btn-block btn-primary" ng-click="causeForm.$valid && createSponzorship() && closeThisDialog()">{{ 'submitbutton' | translate }}</button>
     </form>
   </div>
