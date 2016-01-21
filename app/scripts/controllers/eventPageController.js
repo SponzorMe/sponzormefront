@@ -9,7 +9,7 @@
       $scope.currentEvent = response.data.event;
       $scope.currentEvent.starts = new Date($scope.currentEvent.starts).getTime();
       $scope.eventURL = $location.absUrl();
-    }, function errorCallback(err){
+    }, function errorCallback(err) {
       $scope.eventLoaded = true;
     });
     if ($localStorage.typesponzorme === '1' && !$rootScope.isExpiredData()) { //He is an sponzor
@@ -22,7 +22,7 @@
       $scope.isSponzor = false;
       $scope.isNoLogged = true;
     }
-    $scope.sendToLogin = function(){
+    $scope.sendToLogin = function() {
       $localStorage.redirectTo = $scope.eventURL;
       $location.path('/login');
     };
@@ -66,7 +66,7 @@
           link: '#/organizers/sponzors'
         };
         $rootScope.sendFirebaseNotification(firebaseNotification);
-        sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function(){});
+        sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function() {});
         $rootScope.closeAllDialogs();
         $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {

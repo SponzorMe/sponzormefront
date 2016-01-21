@@ -1,8 +1,7 @@
 'use strict';
 (function() {
 
-  function ForgotController($scope, $translate, $routeParams, $sessionStorage, $localStorage, ngDialog, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, loginRequest) {
-
+  function ForgotController($scope, $translate, $routeParams, ngDialog, loginRequest) {
     $scope.error_log = []; //We storage here all translate error during register process
     $scope.forgotPassword = function() {
       $scope.loagind = true;
@@ -57,8 +56,5 @@
       }
     };
   }
-
-  angular.module('sponzorme')
-    .controller('ForgotController', ForgotController);
-
+  angular.module('sponzorme').controller('ForgotController', ForgotController);
 })();

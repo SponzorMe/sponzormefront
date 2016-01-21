@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function SponzorsFriendController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage) {
+  function SponzorsFriendController($scope, $translate, userRequest, $rootScope, $localStorage) {
     if($rootScope.userValidation('1')){
       $scope.section = {
         route:'InviteFriend',

@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function ProfileController($scope, ngDialog, $localStorage, $location, $routeParams, userRequest, ratingRequest, $timeout, $rootScope) {
+  function ProfileController($scope, $routeParams, userRequest, ratingRequest, $rootScope) {
     $rootScope.closeAllDialogs();
     $scope.loading = true;
     $rootScope.showLoading();
@@ -12,7 +12,7 @@
           $scope.ratings = ratingsData.data.Rating;
           $scope.loading = false;
           $rootScope.closeAllDialogs();
-        }).error(function(){
+        }).error(function() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'problem', '/');
         });
@@ -21,20 +21,18 @@
           $scope.ratings = ratingsData.data.Rating;
           $scope.loading = false;
           $rootScope.closeAllDialogs();
-        }).error(function(){
+        }).error(function() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'problem', '/');
         });
-      }
-      else{
+      } else {
         $rootScope.closeAllDialogs();
         $rootScope.showDialog('error', 'problem', '/');
       }
-    }).error(function(){
+    }).error(function() {
       $rootScope.closeAllDialogs();
       $rootScope.showDialog('error', 'problem', '/');
     });
   }
-  angular.module('sponzorme')
-    .controller('ProfileController', ProfileController);
+  angular.module('sponzorme').controller('ProfileController', ProfileController);
 })();

@@ -11,8 +11,6 @@
       $scope.errorActivation = true;
     });
   }
-
-  angular.module('sponzorme')
-    .controller('ActivationController', ActivationController);
+  angular.module('sponzorme').controller('ActivationController', ActivationController);
 
 })();

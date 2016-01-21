@@ -1,10 +1,10 @@
 'use strict';
-(function () {
-  function SponzorsMasterController($scope, $translate, $localStorage, taskSponzorRequest, ngDialog, $location, $rootScope, $sce) {
-    $scope.trustSrc = function (src) {
+(function() {
+  function SponzorsMasterController($scope, $translate, $localStorage, ngDialog, $location, $rootScope, $sce) {
+    $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
     }
-    $scope.downloadCalendar = function (sponzorship) {
+    $scope.downloadCalendar = function(sponzorship) {
       $scope.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
       $scope.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
       $scope.ends = $scope.ends.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
@@ -16,7 +16,7 @@
         scope: $scope
       });
     };
-    $scope.openLocation = function (sponzorship) {
+    $scope.openLocation = function(sponzorship) {
       $scope.currentEvent = sponzorship.event;
       $scope.mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=" + encodeURIComponent($scope.currentEvent.location);
       ngDialog.open({
@@ -25,7 +25,7 @@
         showClose: true
       });
     };
-    $scope.seeCause = function (sponzorship) {
+    $scope.seeCause = function(sponzorship) {
       $scope.cause = sponzorship.cause;
       $scope.status = sponzorship.status;
       ngDialog.open({

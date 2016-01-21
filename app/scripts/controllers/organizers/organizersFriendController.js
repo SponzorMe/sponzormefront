@@ -1,7 +1,7 @@
 'use strict';
 (function(){
 
-function OrganizersFriendController($scope, $translate, $localStorage, userRequest, ngDialog, $location, $rootScope) {
+function OrganizersFriendController($scope, $translate, $localStorage, userRequest, $rootScope) {
   if($rootScope.userValidation('0')){
     //Vars initialization
     $scope.section = {

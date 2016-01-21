@@ -3,6 +3,10 @@
 
   function SponzorsFollowingController($scope, $localStorage, sponzorshipRequest, $rootScope) {
     if($rootScope.userValidation('1')){
+      $scope.section = {
+        route:'Events / Follwing',
+        title: 'Following Events'
+      };
       $scope.user = JSON.parse($localStorage.user);
       if(!$scope.user.pendingSponzorships){
         $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
@@ -12,7 +16,7 @@
         });
         $localStorage.user = JSON.stringify($scope.user);
       }
-      
+
       $scope.showTasks = function(sponzorship) {
         $scope.currentSponzorship = sponzorship;
         $scope.tasksSponzor = sponzorship.perk.tasks.filter(function(element) {
@@ -40,10 +44,10 @@
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'problem', false);
         });
-      };      
+      };
       if($scope.user.pendingSponzorships[0]){
         $scope.showTasks($scope.user.pendingSponzorships[0]);
-      }      
+      }
     }
   }
   angular.module('sponzorme').controller('SponzorsFollowingController', SponzorsFollowingController);

@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function NotificationController($scope, $translate, $localStorage, $location, $firebaseArray, $rootScope) {
+  function NotificationController($scope, $translate, $localStorage, $firebaseArray, $rootScope) {
     if($localStorage.id){
       $scope.help = 0;
       var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
@@ -14,6 +14,5 @@
       });
     }
   }
-  angular.module('sponzorme')
-    .controller('NotificationController', NotificationController);
+  angular.module('sponzorme').controller('NotificationController', NotificationController);
 })();

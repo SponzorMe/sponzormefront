@@ -2,6 +2,10 @@
 (function() {
   function SponzorsRatingController($scope, $translate, userRequest, ngDialog, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('1') && $routeParams.sponzorshipId) {
+      $scope.section = {
+        route:'Sponzorships / Rating',
+        title: 'Sponzorship Rating'
+      };
       $scope.loadingForm = true; //Loading
       $scope.user = JSON.parse($localStorage.user);
       if (!$scope.user.acceptedSponzorships) {

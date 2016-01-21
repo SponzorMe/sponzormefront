@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, $location, taskSponzorRequest, perkTaskRequest, sponzorshipRequest, $localStorage, userRequest, usSpinnerService, ngDialog, $rootScope, ratingRequest) {
+  function OrganizersSponzorshipsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Sponzorships',

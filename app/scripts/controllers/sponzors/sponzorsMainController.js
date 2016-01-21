@@ -1,7 +1,11 @@
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, userRequest, $localStorage, eventRequest, $location, usSpinnerService, ngDialog, sponzorshipRequest, perkTaskRequest, perkRequest, taskSponzorRequest, $rootScope, $window, $sce) {
+  function SponzorsMainController($scope, $translate, $localStorage, eventRequest, ngDialog, sponzorshipRequest, $rootScope, $sce) {
     if ($rootScope.userValidation('1')) {
+      $scope.section = {
+        route: 'Dashboard',
+        title: 'Dashboard'
+      }
       $scope.user = JSON.parse($localStorage.user);
       $scope.balance = 0;
       $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
@@ -73,7 +77,7 @@
         };
         $scope.selectedPerk = perk;
       };
-      $scope.showCauseForm = function(){
+      $scope.showCauseForm = function() {
         $scope.showForm = true;
       };
       $scope.createSponzorship = function() {
@@ -94,7 +98,7 @@
             link: '#/organizers/sponzors'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
-          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function(){});
+          sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function() {});
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
         }, function errorCallback(err) {

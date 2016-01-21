@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function ChatController($scope, ngDialog, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
+  function ChatController($scope, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
     if($localStorage.id){
       $scope.section = {
         route:'Sponzorship / Chat',
@@ -23,7 +23,7 @@
             };
           }
           else{
-            $location.path('/');
+            $location.path('/login');
           }
         });
       var ref = new Firebase($rootScope.getConstants().FURL + 'chat');

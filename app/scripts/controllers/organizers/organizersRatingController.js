@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersRatingController($scope, $translate, userRequest, ngDialog, $location, $rootScope, $localStorage, $routeParams, sponzorshipRequest, ratingRequest, $timeout) {
+  function OrganizersRatingController($scope, $translate, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
       $scope.section = {
         route:'Sponzorships / Rating',

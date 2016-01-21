@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-  function OrganizersEventsController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, userRequest, perkRequest, perkTaskRequest, $location, usSpinnerService, taskSponzorRequest, $rootScope, $timeout) {
+  function OrganizersEventsController($scope, $translate, $localStorage, eventRequest, ngDialog, perkTaskRequest, $rootScope) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Events',

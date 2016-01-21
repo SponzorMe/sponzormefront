@@ -1,27 +1,24 @@
 'use strict';
 (function() {
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $rootScope, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Settings',
+        route: 'Settings',
         title: 'Settings'
       };
       $scope.user = JSON.parse($localStorage.user);
-
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
         $scope.interests = sData.InterestCategory;
       });
-
       $scope.removeUserInterest = function(index, id) {
         $scope.user.interests.splice(index, 1);
         userInterestRequest.deleteUserInterest(id).then(function() {});
       };
-
       $scope.addUserInterests = function(interest) {
         $scope.loadingSaveInterest = true;
         if (interest && interest.name) {
           var flag = false;
-          if($scope.user.interests){
+          if ($scope.user.interests) {
             for (var i = 0; i < $scope.user.interests.length; i++) {
               if ($scope.user.interests[i].interest_id === interest.id_interest) {
                 flag = true;
@@ -42,8 +39,7 @@
               $scope.loadingSaveInterest = false;
             });
           }
-        }
-        else {
+        } else {
           $scope.loadingSaveInterest = false;
           $rootScope.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
@@ -52,7 +48,7 @@
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
         $rootScope.showLoading();
-        if($scope.user.location!==$scope.locationUser){
+        if ($scope.user.location !== $scope.locationUser) {
           $scope.user.location = $scope.locationUser.formatted_address;
           $scope.user.location_reference = $scope.locationUser.place_id;
         }
@@ -108,7 +104,6 @@
           });
         }
       };
-
       $scope.resetPassword = function() {
         if ($scope.password === $scope.passwordConfirmation) {
           $rootScope.showLoading();
@@ -134,6 +129,5 @@
       $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
-  angular.module('sponzorme')
-    .controller('OrganizersSettingsController', OrganizersSettingsController);
+  angular.module('sponzorme').controller('OrganizersSettingsController', OrganizersSettingsController);
 })();

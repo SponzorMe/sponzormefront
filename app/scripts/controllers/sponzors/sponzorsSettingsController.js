@@ -3,6 +3,10 @@
 
   function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
     if($rootScope.userValidation('1')){
+      $scope.section = {
+        route:'Settings',
+        title: 'Settings'
+      };
       $scope.user = JSON.parse($localStorage.user);
       allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
         $scope.interests = sData.InterestCategory;

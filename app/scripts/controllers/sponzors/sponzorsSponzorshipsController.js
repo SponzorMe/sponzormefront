@@ -3,6 +3,10 @@
 
   function SponzorsSponzorshipsController($scope, $location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('1')) {
+      $scope.section = {
+        route:'Events / Sponzoring',
+        title: 'Sponzoring Events'
+      };
       $scope.todayDate = new Date().getTime();
       $scope.user = JSON.parse($localStorage.user);
       if (!$scope.user.acceptedSponzorships) {

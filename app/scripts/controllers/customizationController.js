@@ -1,8 +1,6 @@
 'use strict';
 (function() {
-
-  function CustomizationController($scope, $translate, $localStorage, usSpinnerService, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $q) {
-
+  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
     $scope.steps = [false, false, false]; //Number of steps in customization proccess
     $scope.startCustomization = function() {
       //We check if localStorage is seeted.
@@ -34,13 +32,11 @@
         $location.path('/');
       }
     };
-
     //This function hide all steps and only shows one
     $scope.showStep = function(stepToShow) {
       $scope.steps = [false, false, false];
       $scope.steps[stepToShow] = true;
     };
-
     $scope.sendfrom = function() {
       $scope.objuser = {};
       $scope.objuser.age = $scope.userData.age;
@@ -54,11 +50,9 @@
         }
       });
     };
-
     $scope.showInterests = function(categoryid) {
       $scope.idselect = categoryid;
     };
-
     $scope.interestselect = function(interestselect) {
       var searcharray = $scope.interestselectarray.indexOf(interestselect);
       if (searcharray === -1) {
@@ -67,7 +61,6 @@
         $scope.interestselectarray.splice(searcharray, 1);
       }
     };
-
     $scope.submitCategoryInfo = function() {
       var promises = [];
       angular.forEach($scope.interestselectarray, function(valuep) {
@@ -80,15 +73,8 @@
       promises[$scope.interestselectarray.length - 1].success(function(data) {
         $scope.showStep(2);
       });
-
-        //setTimeout(function () {$localStorage.$reset();}, 3000);
     };
-
-    //Here start the callback
     $scope.startCustomization();
   }
-
-  angular.module('sponzorme')
-    .controller('CustomizationController', CustomizationController);
-
+  angular.module('sponzorme').controller('CustomizationController', CustomizationController);
 })();
