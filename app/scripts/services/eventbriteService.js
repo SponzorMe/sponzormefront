@@ -6,7 +6,6 @@
  */
 'use strict';
 (function() {
-
   function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     return {
       getEventbriteAuth: function(code) {
@@ -28,12 +27,15 @@
         return $http.get($rootScope.getConstants().URL + 'events/meetup/' + token);
       },
       getEventbriteEvent: function(url, token) {
-        var config = { headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ' + token}
+        var config = {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Bearer ' + token
+          }
         };
         return $http.get(url + '?token=' + token, config);
       }
     };
   }
-  angular.module('sponzorme')
-    .factory('eventbriteRequest', eventbriteRequest);
+  angular.module('sponzorme').factory('eventbriteRequest', eventbriteRequest);
 })();

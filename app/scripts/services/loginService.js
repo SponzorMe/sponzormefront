@@ -12,7 +12,7 @@
        * Login function return the user info if the credentials match
        * @param {JSON} credentials.email
        * @param {JSON} credentials.password
-       * @returns success(function(data, status, headers, config)
+       * @returns promise
        */
       login: function(credentials) {
         var data = {
@@ -71,12 +71,14 @@
         return $http({
           method: 'POST',
           url: $rootScope.getConstants().URL + 'change_password',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Basic ' + token},
-					data: $httpParamSerializerJQLike(data)
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
         });
       }
     };
   }
-  angular.module('sponzorme')
-    .factory('loginRequest', loginRequest);
+  angular.module('sponzorme').factory('loginRequest', loginRequest);
 })();
