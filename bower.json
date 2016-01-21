@@ -37,6 +37,6 @@
     "angular-addtocalendar": "~1.1.4"
   },
   "resolutions": {
-    "angular": "1.4.8"
+    "angular": "1.4.9"
   }
 }
