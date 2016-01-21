@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest categoryRequest, $rootScope, $routeParams) {
+  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams) {
     if($rootScope.userValidation('0')){
       $scope.section = {
         route:'Events / Edit',

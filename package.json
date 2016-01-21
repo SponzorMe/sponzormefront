@@ -1,7 +1,7 @@
 {
   "name": "Sponzorme",
   "description": "We connect Events With Sponzors",
-  "version": "1.0.0.9",
+  "version": "1.0.9",
   "homepage": "https://github.com/carlosrojaso/sponzormefront",
   "repository": "git@github.com:carlosrojaso/sponzormefront.git",
   "author": "Sponzorme Team (http://www.sponzor.me/)",
@@ -45,7 +45,7 @@
     "ng-annotate": "^1.0.2",
     "phantomjs": "^1.9.19"
   },
-  "dependencies": {    
+  "dependencies": {
     "install": "^0.1.8",
     "npm": "^3.3.9"
   },
