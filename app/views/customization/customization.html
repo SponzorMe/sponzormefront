@@ -1,55 +1,62 @@
-<section>
-<div class="navbar white-background navbar-fixed-top" ng-include src="'views/header.html'"></div>
-<div class="container" style="padding-top:60px;">
-	<div class="alert alert-success alert-dismissable" ng-if="email && newUser && id">
-	  <strong>Success:</strong> Your account has been created. Check your email for the confirmation link.
-	</div>
-	<div>
-		<div ng-if="email && newUser && id">
+<section class="white-background">
+	<div class="navbar white-background navbar-fixed-top" ng-include src="'views/header.html'"></div>
+	<div class="row">
+		<div class="col-12 margin-top-100">
+			<div class="alert alert-success alert-dismissable text-center" ng-if="email && newUser && id">
+				<strong>Success:</strong> Your account has been created. Check your email for the confirmation link.
+			</div>
 			<div>
-			<!--Step 1, the user choose the age, sex, and location -->
-				<div class="col-md-8 col-md-offset-2 step1" id="step1" ng-show="steps[0]">
-					<form class="form-inline" ng-submit="sendfrom()">
-					<h1 class="form-signin-heading" style='color:black'>{{'aboutyou'  | translate }}</h1>	<br/>
-						<div class="form-group">
-							<label for="age">{{'ageiam' | translate }}</label>
+				<div ng-if="email && newUser && id">
+					<div>
+						<!--Step 1, the user choose the age, sex, and location -->
+						<div class="col-md-8 col-md-offset-2 step1" id="step1" ng-show="steps[0]">
+							<form class="form-inline" ng-submit="sendfrom()">
+								<h1 class="form-signin-heading" style='color:black'>{{'aboutyou'  | translate }}</h1>
+								<br/>
+								<div class="form-group">
+									<label for="age">{{'ageiam' | translate }}</label>
+								</div>
+								<div class="form-group">
+									<input type="number" class="form-control" min="18" max="120" name="age" ng-model="userData.age" id="age" value="43" required/>
+								</div>
+								<div class="form-group">
+									<label for="sex"> {{'old' | translate }}</label>
+								</div>
+								<div class="form-group">
+									<select class="form-control" ng-model="userData.sex" name="sex" id="sex">
+										<option value="" selected>{{'chooseSex' | translate }}</option>
+										<option value="0">{{'woman' | translate }}</option>
+										<option value="1">{{'man' | translate }}</option>
+									</select>
+								</div>
+								<br/>
+								<br/>
+								<div class="form-group">
+									<label for="country"> {{ 'language' | translate }}</label>
+								</div>
+								<div class="form-group">
+									<select class="form-control" ng-model="userData.lang" name="lang" id="lang">
+										<option value="" selected>{{ 'chooseLang' | translate }}</option>
+										<option value="en">{{'en' | translate }}</option>
+										<option value="es">{{'es' | translate }}</option>
+										<option value="pt">{{'pt' | translate }}</option>
+									</select>
+								</div>
+								<br/>
+								<br/>
+								<div class="form-group">
+									<label for="country"> {{'livein' | translate }}</label>
+								</div>
+								<div class="form-group">
+									<label>{{'location' | translate }}</label>
+									<br/>
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" ng-autocomplete="results" details="details" options="options" required name="location" g-places-autocomplete class="form-control" ng-model="userData.location" autocomplete="off" />
+								</div>
+								<button type="submit" class="btn btn-block btn-primary">{{'next' | translate }}</button>
 						</div>
-						<div class="form-group">
-							<input type="number" class="form-control" min="18" max="120" name="age" ng-model="userData.age" id="age" value="43" required/>
-						</div>
-						<div class="form-group">
-							<label for="sex"> {{'old' | translate }}</label>
-						</div>
-						<div class="form-group">
-						<select class="form-control" ng-model="userData.sex" name="sex" id="sex">
-							<option value="" selected>{{'chooseSex'  | translate }}</option>
-							<option value="0">{{'woman' | translate }}</option>
-							<option value="1">{{'man' | translate }}</option>
-						</select>
-					    </div> <br/><br/>
-					    <div class="form-group">
-					    	<label for="country"> {{ 'language' | translate }}</label>
-					    </div>
-					    <div class="form-group">
-						<select class="form-control" ng-model="userData.lang" name="lang" id="lang">
-							<option value="" selected>{{ 'chooseLang' | translate }}</option>
-							<option value="en">{{'en' | translate }}</option>
-							<option value="es">{{'es' | translate }}</option>
-							<option value="pt">{{'pt' | translate }}</option>
-						</select>
-					    </div> <br/><br/>
-					    <div class="form-group">
-					    	<label for="country"> {{'livein'  | translate }}</label>
-					    </div>
-						<div class="form-group">
-							<label>{{'location' | translate }}</label><br/>
-						</div>
-						<div class="form-group">
-							<input  type="text" class="form-control" ng-autocomplete="results" details="details" options="options" required name="location" g-places-autocomplete class="form-control" ng-model="userData.location" autocomplete="off"/>
-						</div>
-								<button type="submit" class="btn btn-block">{{'next' | translate }}</button>
-						</div>
-					</form>
+						</form>
 					</div>
 					<!--Step 2, the user choose the categories and the interests -->
 					<div class="col-md-10 col-md-offset-1 step1" id="step2" ng-show="steps[1]">
@@ -66,18 +73,14 @@
 									<div class="row contenedor-categorias" ng-show="category.id == idselect">
 										<div class="interest" ng-repeat="interest in category.interests">
 											<label>
-												<input type="checkbox"
-                          data-ng-model='selectedInterests[interest.id_interest]'
-                          value="{{interest.id_interest}}" ng-click="interestselect(interest.id_interest)"
-                          data-ng-true-value="1" data-ng-false-value="0" />
-						    					{{interest.name| normalize | translate}}
-					  						</label>
+												<input type="checkbox" data-ng-model='selectedInterests[interest.id_interest]' value="{{interest.id_interest}}" ng-click="interestselect(interest.id_interest)" data-ng-true-value="1" data-ng-false-value="0" /> {{interest.name| normalize | translate}}
+											</label>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-block">{{'next'  | translate }}</button>
+								<button type="submit" class="btn btn-block btn-primary">{{'next' | translate }}</button>
 							</div>
 						</form>
 					</div>
@@ -92,6 +95,5 @@
 			<p>{{'forbidden' | translate }}</p>
 		</div>
 	</div>
-</div>
-<div class="white-background footer" ng-include src="'views/footer.html'"></div>
+	<div class="footer white-background navbar-fixed-bottom" ng-include src="'views/footer.html'"></div>
 </section>

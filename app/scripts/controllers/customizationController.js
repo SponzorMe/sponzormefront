@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
+  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $rootScope) {
     $scope.steps = [false, false, false]; //Number of steps in customization proccess
     $scope.startCustomization = function() {
       //We check if localStorage is seeted.
@@ -15,17 +15,10 @@
         //Everything is configure to show the first step
         $scope.showStep(0);
         //Get All Categories from Backend
-        categoryRequest.allCategories().success(function(response) {
-          $scope.categories = response.categories;
-          allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
-            $scope.interests = sData.InterestCategory;
-            //Merge the interests into categories
-            angular.forEach($scope.categories, function(value) {
-              value.interests = $scope.interests.filter(function(element) {
-                return element.category_id === value.id;
-              });
-            });
-          });
+        categoryRequest.allCategories().then(function successCallback(response) {
+          $scope.categories = response.data.categories;
+        }, function errorCallback(err){
+          $scope.categories = [];
         });
       } else {
         $localStorage.$reset();
@@ -38,39 +31,40 @@
       $scope.steps[stepToShow] = true;
     };
     $scope.sendfrom = function() {
+      $rootScope.showLoading();
       $scope.objuser = {};
       $scope.objuser.age = $scope.userData.age;
       $scope.objuser.sex = $scope.userData.sex;
       $scope.objuser.lang = $scope.userData.lang;
-      $scope.objuser.location = $scope.userData.location.reference;
+      $scope.objuser.location = $scope.userData.location.formatted_address;
+      $scope.objuser.location_reference = $scope.userData.location.reference;
+      $scope.objuser.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/user_default.jpg';
       $scope.loagind = true;
       userRequest.editUserPatch($localStorage.id, $scope.objuser).success(function(adata) {
         if (adata.message === 'Updated') {
           $scope.showStep(1);
         }
+        $rootScope.closeAllDialogs();
       });
     };
     $scope.showInterests = function(categoryid) {
       $scope.idselect = categoryid;
     };
-    $scope.interestselect = function(interestselect) {
-      var searcharray = $scope.interestselectarray.indexOf(interestselect);
+    $scope.interestselect = function(i) {
+      var searcharray = $scope.interestselectarray.indexOf(i);
       if (searcharray === -1) {
-        $scope.interestselectarray.push(interestselect);
-      } else {
+        var interest = {'user_id': $localStorage.id, 'interest_id':i};
+        $scope.interestselectarray.push(interest);
+      }
+      else {
         $scope.interestselectarray.splice(searcharray, 1);
       }
     };
     $scope.submitCategoryInfo = function() {
-      var promises = [];
-      angular.forEach($scope.interestselectarray, function(valuep) {
-        $scope.currentInterest = {
-          interest_id: valuep,
-          user_id: $localStorage.id
-        };
-        promises.push(userInterestRequest.createUserInterest($scope.currentInterest));
-      });
-      promises[$scope.interestselectarray.length - 1].success(function(data) {
+      $rootScope.showLoading();
+      var data = {interests: $scope.interestselectarray};
+      userInterestRequest.bulkUserInterest(data).then(function successCallback(response){
+        $rootScope.closeAllDialogs();
         $scope.showStep(2);
       });
     };

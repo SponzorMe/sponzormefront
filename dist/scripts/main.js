@@ -1,106 +1,3 @@
-var event_en = {
-  'DEFAULT_EVENT': {
-    'title': 'Your first event.',
-    'description': 'Congrats!!! This is your first event. In this place your going to have your event description.',
-    'location': 'San Francisco, California',
-    'location_reference': 'ljsadljf3289uojklfhasd',
-    'startdate': 'Today',
-    'enddate': 'Today +2 Hours',
-    'image': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg',
-    'privacy': '0',
-    'lang': 'en',
-    'category': '14',
-    'type': '1',
-    'starts': moment(Date.now()).format('YYYY-MM-DD hh:mm:ss'),
-    'ends': moment(Date.now() + 2).format('YYYY-MM-DD hh:mm:ss')
-  },
-  'PERKS': [{
-    'kind': 'Gold',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }, {
-    'kind': 'Plate',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }, {
-    'kind': 'Bronze',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }]
-};
-var event_pt = {
-  'DEFAULT_EVENT': {
-    'title': 'Seu primeiro evento.',
-    'description': 'Parabéns!!! Este é o seu primeiro evento. Aqui você terá a descrição do evento.',
-    'location': 'São Paulo, Brasil',
-    'location_reference': 'ljsadljf3289uojklfhasd',
-    'startdate': 'Today',
-    'enddate': 'Today +2 Hours',
-    'image': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg',
-    'privacy': '0',
-    'lang': 'en',
-    'category': '14',
-    'type': '1',
-    'starts': moment(Date.now()).format('YYYY-MM-DD hh:mm:ss'),
-    'ends': moment(Date.now() + 2).format('YYYY-MM-DD hh:mm:ss')
-  },
-  'PERKS': [{
-    'kind': 'Gold',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }, {
-    'kind': 'Plate',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }, {
-    'kind': 'Bronze',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }]
-};
-var event_es = {
-  'DEFAULT_EVENT': {
-    'title': 'Tu Primer Evento.',
-    'description': 'Felicidades!!! Este es tu primer evento. En este lugar vas a tener la descripción de tu evento',
-    'location': 'San Francisco, California',
-    'location_reference': 'ljsadljf3289uojklfhasd',
-    'startdate': 'Today',
-    'enddate': 'Today +2 Hours',
-    'image': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg',
-    'privacy': '0',
-    'lang': 'en',
-    'category': '14',
-    'type': '1',
-    'starts': moment(Date.now()).format('YYYY-MM-DD hh:mm:ss'),
-    'ends': moment(Date.now() + 2).format('YYYY-MM-DD hh:mm:ss')
-  },
-  'PERKS': [{
-    'kind': 'Oro',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }, {
-    'kind': 'Plata',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }, {
-    'kind': 'Bronce',
-    'usd': '0',
-    'total_quantity': '1',
-    'reserved_quantity': '0'
-  }]
-};
-var dataTime = new Date();
-var timer = parseInt(2 * 24 * 60 * 60 * 1000);
-var dataExpDate = new Date(dataTime.getTime() + timer);
-
 /**
 * @File the start the app
 *
@@ -315,8 +212,8 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
       var host = window.location.hostname; // Get the host
       if (host.indexOf('localhost') > -1) { //Localhost
         return {
-          //'URL': 'http://local.api.com/',
-          'URL': 'https://apilocal.sponzor.me/',
+          'URL': 'http://local.api.com/',
+          //'URL': 'https://apilocal.sponzor.me/',
           'XOOMRATE': parseFloat(4.99),
           'FEE': parseFloat(0.1),
           'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
@@ -726,7 +623,13 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
         link: function(scope, element, attrs) {
           var intPart = Math.floor(attrs.number);
           var decimalPart = attrs.number - Math.floor(attrs.number);
-          var halfStarString = '<i class="material-icons orange600 md-12">star_border</i>';
+          var halfStarString;
+          if(intPart < 5){
+            halfStarString = '<i class="material-icons orange600 md-12">star_border</i>';
+          }
+          else{
+            halfStarString = '';
+          }
           if (decimalPart > 0.48) {
             halfStarString = '<i class="material-icons orange600 md-12">star_half</i>';
           }
@@ -1210,6 +1113,17 @@ var dataExpDate = new Date(dataTime.getTime() + timer);
           data: $httpParamSerializerJQLike(data)
         });
       },
+      bulkUserInterest: function(data) {
+        return $http({
+          method: 'PUT',
+          url: $rootScope.getConstants().URL + 'user_interests/1',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
       deleteUserInterest: function(userInterestId) {
         return $http({
           method: 'DELETE',
@@ -1675,7 +1589,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
 
 'use strict';
 (function() {
-  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location) {
+  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $rootScope) {
     $scope.steps = [false, false, false]; //Number of steps in customization proccess
     $scope.startCustomization = function() {
       //We check if localStorage is seeted.
@@ -1690,17 +1604,10 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         //Everything is configure to show the first step
         $scope.showStep(0);
         //Get All Categories from Backend
-        categoryRequest.allCategories().success(function(response) {
-          $scope.categories = response.categories;
-          allInterestsServiceRequest.allInterestsCategoriesId().success(function(sData) {
-            $scope.interests = sData.InterestCategory;
-            //Merge the interests into categories
-            angular.forEach($scope.categories, function(value) {
-              value.interests = $scope.interests.filter(function(element) {
-                return element.category_id === value.id;
-              });
-            });
-          });
+        categoryRequest.allCategories().then(function successCallback(response) {
+          $scope.categories = response.data.categories;
+        }, function errorCallback(err){
+          $scope.categories = [];
         });
       } else {
         $localStorage.$reset();
@@ -1713,39 +1620,40 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       $scope.steps[stepToShow] = true;
     };
     $scope.sendfrom = function() {
+      $rootScope.showLoading();
       $scope.objuser = {};
       $scope.objuser.age = $scope.userData.age;
       $scope.objuser.sex = $scope.userData.sex;
       $scope.objuser.lang = $scope.userData.lang;
-      $scope.objuser.location = $scope.userData.location.reference;
+      $scope.objuser.location = $scope.userData.location.formatted_address;
+      $scope.objuser.location_reference = $scope.userData.location.reference;
+      $scope.objuser.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/user_default.jpg';
       $scope.loagind = true;
       userRequest.editUserPatch($localStorage.id, $scope.objuser).success(function(adata) {
         if (adata.message === 'Updated') {
           $scope.showStep(1);
         }
+        $rootScope.closeAllDialogs();
       });
     };
     $scope.showInterests = function(categoryid) {
       $scope.idselect = categoryid;
     };
-    $scope.interestselect = function(interestselect) {
-      var searcharray = $scope.interestselectarray.indexOf(interestselect);
+    $scope.interestselect = function(i) {
+      var searcharray = $scope.interestselectarray.indexOf(i);
       if (searcharray === -1) {
-        $scope.interestselectarray.push(interestselect);
-      } else {
+        var interest = {'user_id': $localStorage.id, 'interest_id':i};
+        $scope.interestselectarray.push(interest);
+      }
+      else {
         $scope.interestselectarray.splice(searcharray, 1);
       }
     };
     $scope.submitCategoryInfo = function() {
-      var promises = [];
-      angular.forEach($scope.interestselectarray, function(valuep) {
-        $scope.currentInterest = {
-          interest_id: valuep,
-          user_id: $localStorage.id
-        };
-        promises.push(userInterestRequest.createUserInterest($scope.currentInterest));
-      });
-      promises[$scope.interestselectarray.length - 1].success(function(data) {
+      $rootScope.showLoading();
+      var data = {interests: $scope.interestselectarray};
+      userInterestRequest.bulkUserInterest(data).then(function successCallback(response){
+        $rootScope.closeAllDialogs();
         $scope.showStep(2);
       });
     };
@@ -2423,7 +2331,6 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
         }, function errorCallback(err) {
-          console.log(err);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
@@ -2499,86 +2406,49 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       $translate.use($routeParams.lang);
     }
     $scope.sendfrom = function() {
-      var userLang = $rootScope.currentLanguage();
       if ($scope.passwordone !== undefined || $scope.passwordtwo !== undefined) {
         if ($scope.passwordone === $scope.passwordtwo && $scope.passwordtwo.length > 6) {
           $scope.objuser = {};
           $scope.objuser.email = $scope.email;
           $scope.objuser.password = $scope.passwordone;
           $scope.objuser.password_confirmation = $scope.passwordtwo;
-          $scope.objuser.lang = userLang;
+          $scope.objuser.lang = $rootScope.currentLanguage();
           $scope.objuser.type = 0;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;
           $rootScope.showLoading();
-          userRequest.createUser($scope.objuser).success(function(adata) {
-            if (adata.message === 'Inserted') {
-              $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
-              $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);
-              $localStorage.typesponzorme = adata.User.type;
-              $localStorage.id = adata.User.id;
-              $localStorage.email = adata.User.email;
-              $localStorage.demo = adata.User.demo;
-              $localStorage.startDate = Date.now();
-              $localStorage.newUser = true;
-              $localStorage.$apply();
-              if (userLang === 'en') {
-                event_en.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_en.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_en.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() { /*Empty Code, nothing necessary here*/ })
-                      .error(function() { /*Empty Code, nothing necessary here*/ });
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  $rootScope.closeAllDialogs();
-                }).error(function() { /*Empty Code, nothing necessary here*/ });
-              } else if (userLang === 'es') {
-                event_es.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_es.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_es.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() { /*Empty Code, nothing necessary here*/ })
-                      .error(function() { /*Empty Code, nothing necessary here*/ });
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  $rootScope.closeAllDialogs();
-                }).error(function() { /*Empty Code, nothing necessary here*/ });
-              } else if (userLang === 'pt') {
-                event_pt.DEFAULT_EVENT.organizer = adata.User.id;
-                eventRequest.createEventToken(event_pt.DEFAULT_EVENT, btoa($scope.email + ':' + $scope.passwordone)).success(function(sData) {
-                  angular.forEach(event_pt.PERKS, function(value) {
-                    value.id_event = sData.event.id;
-                    perkRequest.createPerkToken(value, btoa($scope.email + ':' + $scope.passwordone)).success(function() { /*Empty Code, nothing necessary here*/ }).error(function() { /*Empty Code, nothing necessary here*/ });
-                  });
-                  $scope.loagind = false;
-                  $location.path('/customization');
-                  $rootScope.closeAllDialogs();
-                }).error(function() { /*Empty Code, nothing necessary here*/ });
+          userRequest.createUser($scope.objuser).then(function successCallback(response) {
+            console.log('success', response);
+            $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
+            $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);
+            $localStorage.typesponzorme = response.data.User.type;
+            $localStorage.id = response.data.User.id;
+            $localStorage.email = response.data.User.email;
+            $localStorage.demo = response.data.User.demo;
+            $localStorage.startDate = Date.now();
+            $localStorage.newUser = true;
+            $scope.loagind = false;
+            $location.path('/customization');
+            $rootScope.closeAllDialogs();
+          }, function errorCallback(response) {
+            console.log('error', response);
+            $scope.errorMessages = [];
+            if (response.data.error.email) {
+              if (response.data.error.email[0] === 'The email has already been taken.') {
+                $scope.errorMessages.push('errorEmailAlreadyTaken');
+                $scope.didYouForgotPassword = true;
+              } else {
+                $scope.errorMessages.push('errorRegisterEmail');
               }
             }
-          }).error(function(data) {
-            if (data.message === 'Not inserted') {
-              $scope.errorMessages = [];
-              if (data.error.email) {
-                if (data.error.email[0] === 'The email has already been taken.') {
-                  $scope.errorMessages.push('errorEmailAlreadyTaken');
-                  $scope.didYouForgotPassword = true;
-                } else {
-                  $scope.errorMessages.push('errorRegisterEmail');
-                }
-              }
-              if (data.error.name) {
-                $scope.errorMessages.push('errorRegisterName');
-              }
-              if (data.error.lastname) {
-                $scope.errorMessages.push('errorRegisterLastname');
-              }
-              if (data.error.password) {
-                $scope.errorMessages.push('errorRegisterPassword');
-              }
+            if (response.data.error.name) {
+              $scope.errorMessages.push('errorRegisterName');
+            }
+            if (response.data.error.lastname) {
+              $scope.errorMessages.push('errorRegisterLastname');
+            }
+            if (response.data.error.password) {
+              $scope.errorMessages.push('errorRegisterPassword');
             }
             $scope.loagind = false;
             $rootScope.closeAllDialogs();
@@ -2600,8 +2470,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       }
     };
   }
-  angular.module('sponzorme')
-    .controller('OrganizersCreateController', OrganizersCreateController);
+  angular.module('sponzorme').controller('OrganizersCreateController', OrganizersCreateController);
 })();
 
 'use strict';
@@ -2652,7 +2521,6 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         }
         return false;
       };
-
       $scope.removeEvent = function (index) {
         $rootScope.showLoading();
         if ($scope.hasSponzorship($scope.user.events[index].id)) {
@@ -2700,7 +2568,6 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
         perkTaskRequest.createPerkTask($scope.todo).then(function successCallback(response) {
-          console.log(response);
           $scope.todo.id = response.data.PerkTask.id;
           for(var i = 0; i<$scope.user.events.length; i++){
             if($scope.user.events[i].id === response.data.PerkTask.event_id){
@@ -2718,7 +2585,6 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           $rootScope.closeAllDialogs();
           $scope.todo = {};
         }, function errorCallback(response) {
-          console.log(response);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
@@ -3026,10 +2892,9 @@ angular.module('sponzorme')
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          //$rootScope.sendFirebaseNotification(firebaseNotification);
-          //sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
+          $rootScope.sendFirebaseNotification(firebaseNotification);
+          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
         }, function errorCallback(response) {
-          console.log(response);
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
         });

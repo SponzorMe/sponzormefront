@@ -21,6 +21,17 @@
           data: $httpParamSerializerJQLike(data)
         });
       },
+      bulkUserInterest: function(data) {
+        return $http({
+          method: 'PUT',
+          url: $rootScope.getConstants().URL + 'user_interests/1',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + token
+          },
+          data: $httpParamSerializerJQLike(data)
+        });
+      },
       deleteUserInterest: function(userInterestId) {
         return $http({
           method: 'DELETE',
