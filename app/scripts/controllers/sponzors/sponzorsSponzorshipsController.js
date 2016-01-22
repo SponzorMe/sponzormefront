@@ -127,7 +127,6 @@
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
         }, function errorCallback(err) {
-          console.log(err);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });

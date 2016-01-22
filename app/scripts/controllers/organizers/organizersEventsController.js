@@ -46,7 +46,6 @@
         }
         return false;
       };
-
       $scope.removeEvent = function (index) {
         $rootScope.showLoading();
         if ($scope.hasSponzorship($scope.user.events[index].id)) {
@@ -94,7 +93,6 @@
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
         perkTaskRequest.createPerkTask($scope.todo).then(function successCallback(response) {
-          console.log(response);
           $scope.todo.id = response.data.PerkTask.id;
           for(var i = 0; i<$scope.user.events.length; i++){
             if($scope.user.events[i].id === response.data.PerkTask.event_id){
@@ -112,7 +110,6 @@
           $rootScope.closeAllDialogs();
           $scope.todo = {};
         }, function errorCallback(response) {
-          console.log(response);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });

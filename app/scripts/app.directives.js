@@ -53,7 +53,13 @@
         link: function(scope, element, attrs) {
           var intPart = Math.floor(attrs.number);
           var decimalPart = attrs.number - Math.floor(attrs.number);
-          var halfStarString = '<i class="material-icons orange600 md-12">star_border</i>';
+          var halfStarString;
+          if(intPart < 5){
+            halfStarString = '<i class="material-icons orange600 md-12">star_border</i>';
+          }
+          else{
+            halfStarString = '';
+          }
           if (decimalPart > 0.48) {
             halfStarString = '<i class="material-icons orange600 md-12">star_half</i>';
           }

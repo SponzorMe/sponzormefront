@@ -55,10 +55,9 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          //$rootScope.sendFirebaseNotification(firebaseNotification);
-          //sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
+          $rootScope.sendFirebaseNotification(firebaseNotification);
+          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
         }, function errorCallback(response) {
-          console.log(response);
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
         });
