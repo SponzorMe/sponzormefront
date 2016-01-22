@@ -8,13 +8,13 @@
       };
       $scope.getTasks = function(s) {
         if (s.task_sponzor.length) {
-          var aux = s.task_sponzor.filter(function(element) {
+          var aux1 = s.task_sponzor.filter(function(element) {
             if (element.task.type === '0') {
               return element;
             }
           });
           s.task_sponzor = {};
-          s.task_sponzor = aux;
+          s.task_sponzor = aux1;
         }
         $scope.currentSponzorship = s;
       };
@@ -56,8 +56,8 @@
             link: '#/sponzors/sponzoring'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
-          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
-        }, function errorCallback(response) {
+          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback1() {});
+        }, function errorCallback() {
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
         });
@@ -120,7 +120,7 @@
 
           $localStorage.user = JSON.stringify($scope.user);
 
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $scope.currentSponzorship.task_sponzor[index].loading = false;
           $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
         });

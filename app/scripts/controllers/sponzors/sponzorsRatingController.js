@@ -3,7 +3,7 @@
   function SponzorsRatingController($scope, $translate, userRequest, ngDialog, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('1') && $routeParams.sponzorshipId) {
       $scope.section = {
-        route:'Sponzorships / Rating',
+        route: 'Sponzorships / Rating',
         title: 'Sponzorship Rating'
       };
       $scope.loadingForm = true; //Loading

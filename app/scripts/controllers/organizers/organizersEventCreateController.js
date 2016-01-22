@@ -9,12 +9,14 @@
         return '"' + $1 + '"';
       });
     }
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Events / Add',
+        route: 'Events / Add',
         title: 'Event Add'
       };
-      $scope.newEvent = {perks:[]};
+      $scope.newEvent = {
+        perks: []
+      };
       $scope.newEvent.starts = new Date().getTime();
       $scope.newEvent.ends = new Date().getTime();
       eventTypeRequest.allEventTypes().success(function(adata) {

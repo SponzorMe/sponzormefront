@@ -9,7 +9,7 @@
       $scope.currentEvent = response.data.event;
       $scope.currentEvent.starts = new Date($scope.currentEvent.starts).getTime();
       $scope.eventURL = $location.absUrl();
-    }, function errorCallback(err) {
+    }, function errorCallback() {
       $scope.eventLoaded = true;
     });
     if ($localStorage.typesponzorme === '1' && !$rootScope.isExpiredData()) { //He is an sponzor
@@ -60,7 +60,7 @@
           eventName: $scope.currentEvent.title,
           lang: $rootScope.currentLanguage()
         };
-        var firebaseNotification = {
+        firebaseNotification = {
           to: $scope.currentEvent.user_organizer.id,
           text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
           link: '#/organizers/sponzors'

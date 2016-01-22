@@ -68,7 +68,7 @@
           for (var i = 0; i < 5 - intPart - 1; i++) {
             starBorderString = starBorderString + '<i class="material-icons orange600 md-12">star_border</i>';
           }
-          for (var i = 0; i < intPart; i++) {
+          for (i = 0; i < intPart; i++) {
             starRateString = starRateString + '<i class="material-icons orange600 md-12">star_rate</i>';
           }
           element.html('<span class="stars2">' + starRateString + halfStarString + starBorderString + '</span>');

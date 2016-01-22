@@ -4,7 +4,7 @@
   function SponzorsSponzorshipsController($scope, $location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('1')) {
       $scope.section = {
-        route:'Events / Sponzoring',
+        route: 'Events / Sponzoring',
         title: 'Sponzoring Events'
       };
       $scope.todayDate = new Date().getTime();
@@ -26,7 +26,7 @@
           }
         }
         //We update in general Sponzorships
-        for (var i = 0; i < $scope.user.sponzorships.length; i++) {
+        for (i = 0; i < $scope.user.sponzorships.length; i++) {
           if ($scope.user.sponzorships[i].id === $scope.currentSponzorship.id) {
             $scope.user.sponzorships[i] = $scope.currentSponzorship;
             break;
@@ -75,7 +75,7 @@
           $scope.sponzorTasks[index].loading = false;
           $scope.sponzorTasks[index].status = status;
           $scope.saveStatus();
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $scope.sponzorTasks[index].loading = false;
           $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
         });
@@ -92,7 +92,7 @@
           }
           $scope.sponzorTasks.splice(index, 1);
           $scope.saveStatus();
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $scope.sponzorTasks[index].loading = false;
           $rootScope.showDialog('error', 'errorRemovingTaskSponzor', false);
         });
@@ -126,7 +126,7 @@
           $scope.showTasks($scope.currentSponzorship);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });

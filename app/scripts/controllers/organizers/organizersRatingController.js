@@ -3,17 +3,15 @@
   function OrganizersRatingController($scope, $translate, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
       $scope.section = {
-        route:'Sponzorships / Rating',
+        route: 'Sponzorships / Rating',
         title: 'Sponzorship Rating'
       };
       $scope.loadingForm = true; //Loading
       $scope.user = JSON.parse($localStorage.user);
-      if ( ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0] &&
-        $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].organizer_id === $localStorage.id
-        && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].type === '0'
-      ) || ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1] &&
-          $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].organizer_id === $localStorage.id
-          && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].type === '0')) {
+      if (($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0] &&
+          $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].organizer_id === $localStorage.id && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].type === '0'
+        ) || ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1] &&
+          $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].organizer_id === $localStorage.id && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].type === '0')) {
         $rootScope.showDialog('error', 'ratingAlreadyRated', '/organizers/sponzors');
       } else {
         $scope.rating = {

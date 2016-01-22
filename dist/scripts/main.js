@@ -369,7 +369,7 @@
         }, log);
         document.write(a);
       });
-    };    
+    };
     $rootScope.isExpiredData = function() {
       if ($localStorage.startDate) {
         var dataTime = new Date($localStorage.startDate);
@@ -399,7 +399,7 @@
 
     $rootScope.userValidation = function(shouldType) {
 
-      var host = window.location.href;
+      host = window.location.href;
       $rootScope.isExpiredData();
       if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType && $localStorage.user) {
         if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {
@@ -638,7 +638,7 @@
           for (var i = 0; i < 5 - intPart - 1; i++) {
             starBorderString = starBorderString + '<i class="material-icons orange600 md-12">star_border</i>';
           }
-          for (var i = 0; i < intPart; i++) {
+          for (i = 0; i < intPart; i++) {
             starRateString = starRateString + '<i class="material-icons orange600 md-12">star_rate</i>';
           }
           element.html('<span class="stars2">' + starRateString + halfStarString + starBorderString + '</span>');
@@ -1321,7 +1321,7 @@
       $scope.currentEvent = response.data.event;
       $scope.currentEvent.starts = new Date($scope.currentEvent.starts).getTime();
       $scope.eventURL = $location.absUrl();
-    }, function errorCallback(err) {
+    }, function errorCallback() {
       $scope.eventLoaded = true;
     });
     if ($localStorage.typesponzorme === '1' && !$rootScope.isExpiredData()) { //He is an sponzor
@@ -1372,7 +1372,7 @@
           eventName: $scope.currentEvent.title,
           lang: $rootScope.currentLanguage()
         };
-        var firebaseNotification = {
+        firebaseNotification = {
           to: $scope.currentEvent.user_organizer.id,
           text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
           link: '#/organizers/sponzors'
@@ -1606,7 +1606,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         //Get All Categories from Backend
         categoryRequest.allCategories().then(function successCallback(response) {
           $scope.categories = response.data.categories;
-        }, function errorCallback(err){
+        }, function errorCallback() {
           $scope.categories = [];
         });
       } else {
@@ -1642,17 +1642,21 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
     $scope.interestselect = function(i) {
       var searcharray = $scope.interestselectarray.indexOf(i);
       if (searcharray === -1) {
-        var interest = {'user_id': $localStorage.id, 'interest_id':i};
+        var interest = {
+          'user_id': $localStorage.id,
+          'interest_id': i
+        };
         $scope.interestselectarray.push(interest);
-      }
-      else {
+      } else {
         $scope.interestselectarray.splice(searcharray, 1);
       }
     };
     $scope.submitCategoryInfo = function() {
       $rootScope.showLoading();
-      var data = {interests: $scope.interestselectarray};
-      userInterestRequest.bulkUserInterest(data).then(function successCallback(response){
+      var data = {
+        interests: $scope.interestselectarray
+      };
+      userInterestRequest.bulkUserInterest(data).then(function successCallback(response) {
         $rootScope.closeAllDialogs();
         $scope.showStep(2);
       });
@@ -1667,7 +1671,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
   function SponzorsMasterController($scope, $translate, $localStorage, ngDialog, $location, $rootScope, $sce) {
     $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
-    }
+    };
     $scope.downloadCalendar = function(sponzorship) {
       $scope.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
       $scope.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
@@ -1682,7 +1686,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
     };
     $scope.openLocation = function(sponzorship) {
       $scope.currentEvent = sponzorship.event;
-      $scope.mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=" + encodeURIComponent($scope.currentEvent.location);
+      $scope.mapSrc = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=' + encodeURIComponent($scope.currentEvent.location);
       ngDialog.open({
         template: 'views/templates/locationDialog.html',
         scope: $scope,
@@ -1789,13 +1793,13 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
 (function() {
 
   function SponzorsFollowingController($scope, $localStorage, sponzorshipRequest, $rootScope) {
-    if($rootScope.userValidation('1')){
+    if ($rootScope.userValidation('1')) {
       $scope.section = {
-        route:'Events / Follwing',
+        route: 'Events / Follwing',
         title: 'Following Events'
       };
       $scope.user = JSON.parse($localStorage.user);
-      if(!$scope.user.pendingSponzorships){
+      if (!$scope.user.pendingSponzorships) {
         $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
           if (e.status === '0') {
             return e;
@@ -1815,24 +1819,24 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       //this function deletes an sponzorship if the status is 0
       $scope.deleteSponzorship = function(sponzorshipId, index) {
         $rootScope.showLoading();
-        sponzorshipRequest.deleteSponzorship(sponzorshipId).then(function successCallback(response){
+        sponzorshipRequest.deleteSponzorship(sponzorshipId).then(function successCallback(response) {
           $scope.user.pendingSponzorships.splice(index, 1);
           $scope.user.sponzorships = $scope.user.sponzorships.filter(function(e) {
-            if (e.id != sponzorshipId) {
+            if (e.id !== sponzorshipId) {
               return e;
             }
           });
           $localStorage.user = JSON.stringify($scope.user);
-          if($scope.user.pendingSponzorships[0]){
+          if ($scope.user.pendingSponzorships[0]) {
             $scope.showTasks($scope.user.pendingSponzorships[0]);
           }
           $rootScope.closeAllDialogs();
-        }, function errorCallback(err){
+        }, function errorCallback() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'problem', false);
         });
       };
-      if($scope.user.pendingSponzorships[0]){
+      if ($scope.user.pendingSponzorships[0]) {
         $scope.showTasks($scope.user.pendingSponzorships[0]);
       }
     }
@@ -1845,9 +1849,9 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
 (function() {
 
   function SponzorsFriendController($scope, $translate, userRequest, $rootScope, $localStorage) {
-    if($rootScope.userValidation('1')){
+    if ($rootScope.userValidation('1')) {
       $scope.section = {
-        route:'InviteFriend',
+        route: 'InviteFriend',
         title: 'Invite Friend'
       };
       $scope.friend = {};
@@ -1894,7 +1898,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       $scope.section = {
         route: 'Dashboard',
         title: 'Dashboard'
-      }
+      };
       $scope.user = JSON.parse($localStorage.user);
       $scope.balance = 0;
       $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
@@ -1920,7 +1924,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       $localStorage.user = JSON.stringify($scope.user);
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
-      }
+      };
       $scope.getAllEvents = function() {
         $scope.searchLoading = true;
         eventRequest.allEvents().then(function successCallback(response) {
@@ -1938,7 +1942,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       };
       $scope.openLocation = function(event) {
         $scope.currentEvent = event;
-        $scope.mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=" + encodeURIComponent($scope.currentEvent.location);
+        $scope.mapSrc = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=' + encodeURIComponent($scope.currentEvent.location);
         ngDialog.open({
           template: 'views/templates/locationDialog.html',
           scope: $scope,
@@ -1990,7 +1994,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function() {});
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $rootScope.closeAllDialogs();
           if (err.status === 409) {
             $rootScope.showDialog('error', 'alreadySponzoring', false);
@@ -2009,9 +2013,9 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
 (function() {
 
   function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
-    if($rootScope.userValidation('1')){
+    if ($rootScope.userValidation('1')) {
       $scope.section = {
-        route:'Settings',
+        route: 'Settings',
         title: 'Settings'
       };
       $scope.user = JSON.parse($localStorage.user);
@@ -2027,7 +2031,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         $scope.loadingSaveInterest = true;
         if (interest && interest.name) {
           var flag = false;
-          if($scope.user.interests){
+          if ($scope.user.interests) {
             for (var i = 0; i < $scope.user.interests.length; i++) {
               if ($scope.user.interests[i].interest_id === interest.id_interest) {
                 flag = true;
@@ -2048,14 +2052,13 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
               $localStorage.user = JSON.stringify($scope.user);
               $scope.selected = '';
               $scope.loadingSaveInterest = false;
-            }, function errorCallback(err){
+            }, function errorCallback() {
               $scope.loadingSaveInterest = false;
               $rootScope.showDialog('error', 'invalidInterestSelection', false);
               $scope.selected = '';
             });
           }
-        }
-        else {
+        } else {
           $scope.loadingSaveInterest = false;
           $rootScope.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
@@ -2064,7 +2067,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
         $rootScope.showLoading();
-        if($scope.user.location!==$scope.locationUser){
+        if ($scope.user.location !== $scope.locationUser) {
           $scope.user.location = $scope.locationUser.formatted_address;
           $scope.user.location_reference = $scope.locationUser.place_id;
         }
@@ -2102,7 +2105,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
                 $scope.file = false;
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-              }, function errorCallback(err) {
+              }, function errorCallback() {
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
@@ -2114,7 +2117,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
@@ -2168,7 +2171,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
@@ -2188,7 +2191,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
             $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
             $scope.password = '';
             $scope.passwordConfirmation = '';
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });
@@ -2208,7 +2211,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
   function SponzorsSponzorshipsController($scope, $location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest) {
     if ($rootScope.userValidation('1')) {
       $scope.section = {
-        route:'Events / Sponzoring',
+        route: 'Events / Sponzoring',
         title: 'Sponzoring Events'
       };
       $scope.todayDate = new Date().getTime();
@@ -2230,7 +2233,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           }
         }
         //We update in general Sponzorships
-        for (var i = 0; i < $scope.user.sponzorships.length; i++) {
+        for (i = 0; i < $scope.user.sponzorships.length; i++) {
           if ($scope.user.sponzorships[i].id === $scope.currentSponzorship.id) {
             $scope.user.sponzorships[i] = $scope.currentSponzorship;
             break;
@@ -2279,7 +2282,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           $scope.sponzorTasks[index].loading = false;
           $scope.sponzorTasks[index].status = status;
           $scope.saveStatus();
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $scope.sponzorTasks[index].loading = false;
           $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
         });
@@ -2296,7 +2299,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           }
           $scope.sponzorTasks.splice(index, 1);
           $scope.saveStatus();
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $scope.sponzorTasks[index].loading = false;
           $rootScope.showDialog('error', 'errorRemovingTaskSponzor', false);
         });
@@ -2330,7 +2333,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           $scope.showTasks($scope.currentSponzorship);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
@@ -2348,7 +2351,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
   function SponzorsRatingController($scope, $translate, userRequest, ngDialog, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('1') && $routeParams.sponzorshipId) {
       $scope.section = {
-        route:'Sponzorships / Rating',
+        route: 'Sponzorships / Rating',
         title: 'Sponzorship Rating'
       };
       $scope.loadingForm = true; //Loading
@@ -2474,7 +2477,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
 })();
 
 'use strict';
-(function () {
+(function() {
 
   function OrganizersEventsController($scope, $translate, $localStorage, eventRequest, ngDialog, perkTaskRequest, $rootScope) {
     if ($rootScope.userValidation('0')) {
@@ -2482,10 +2485,10 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         route: 'Events',
         title: 'Events'
       };
-      $scope.showTasks = function (p) {
+      $scope.showTasks = function(p) {
         $scope.currentPerk = p;
-        if($scope.currentPerk.tasks.length){
-          var aux = $scope.currentPerk.tasks.filter(function (element) {
+        if ($scope.currentPerk.tasks.length) {
+          var aux = $scope.currentPerk.tasks.filter(function(element) {
             if (element.type === '0') {
               return element;
             }
@@ -2494,18 +2497,17 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           p.tasks = aux;
         }
       };
-      $scope.showPerks = function (e) {
+      $scope.showPerks = function(e) {
         $scope.currentEvent = e;
         $scope.currentPerk = {};
-        if($scope.currentEvent.perks.length){
+        if ($scope.currentEvent.perks.length) {
           $scope.showTasks($scope.currentEvent.perks[0]);
-        }
-        else{
+        } else {
           $scope.currentEvent.perks = [];
           $scope.currentEvent.perks.tasks = [];
         }
       };
-      $scope.imageEvent = function (image) {
+      $scope.imageEvent = function(image) {
         $scope.currentImage = image;
         ngDialog.open({
           template: 'views/templates/eventImage.html',
@@ -2513,7 +2515,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           showClose: false
         });
       };
-      $scope.hasSponzorship = function (idEvent) {
+      $scope.hasSponzorship = function(idEvent) {
         for (var i = 0; i < $scope.user.sponzorships_like_organizer; i++) {
           if ($scope.user.sponzorships_like_organizer[i].event.id === idEvent) {
             return true;
@@ -2521,21 +2523,19 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         }
         return false;
       };
-      $scope.removeEvent = function (index) {
+      $scope.removeEvent = function(index) {
         $rootScope.showLoading();
         if ($scope.hasSponzorship($scope.user.events[index].id)) {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'eventDeletingEventHasSponzorship', false);
-        }
-        else {
+        } else {
           eventRequest.deleteEvent($scope.user.events[index].id).then(function successCallback(response) {
             $scope.user.events.splice(index, 1);
             $localStorage.user = JSON.stringify($scope.user);
             if ($scope.user.events[0]) {
               $scope.currentEvent = $scope.user.events[0];
               $scope.currentPerk = $scope.user.events[0].perks[0];
-            }
-            else {
+            } else {
               $scope.currentEvent = {};
               $scope.currentPerk = {};
             }
@@ -2547,7 +2547,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           });
         }
       };
-      $scope.showTaskForm = function (cP, cE) {
+      $scope.showTaskForm = function(cP, cE) {
         $scope.todo = {};
         $scope.todo.perk_id = cP.id;
         $scope.todo.event_id = cE.id;
@@ -2564,15 +2564,15 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       };
       /*this function takes the current perk and the current event, and add a task for the
         selected perk.*/
-      $scope.addTask = function () {
+      $scope.addTask = function() {
         $rootScope.closeAllDialogs();
         $rootScope.showLoading();
         perkTaskRequest.createPerkTask($scope.todo).then(function successCallback(response) {
           $scope.todo.id = response.data.PerkTask.id;
-          for(var i = 0; i<$scope.user.events.length; i++){
-            if($scope.user.events[i].id === response.data.PerkTask.event_id){
-              for(var j = 0; j<$scope.user.events[i].perks.length; j++){
-                if($scope.user.events[i].perks[j].id === response.data.PerkTask.perk_id){
+          for (var i = 0; i < $scope.user.events.length; i++) {
+            if ($scope.user.events[i].id === response.data.PerkTask.event_id) {
+              for (var j = 0; j < $scope.user.events[i].perks.length; j++) {
+                if ($scope.user.events[i].perks[j].id === response.data.PerkTask.perk_id) {
                   $scope.user.events[i].perks[j].tasks.push(response.data.PerkTask);
                   break;
                 }
@@ -2590,13 +2590,13 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
         });
       };
 
-      $scope.removeTask = function (task_id, index) {
+      $scope.removeTask = function(task_id, index) {
         $scope.currentPerk.tasks[index].loading = true;
         perkTaskRequest.deletePerkTask(task_id).then(function successCallback(response) {
           $scope.user.sponzorships_like_organizer = response.data.sponzorships_like_organizer;
           $scope.currentPerk.tasks.splice(index, 1);
           $localStorage.user = JSON.stringify($scope.user);
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $scope.currentPerk.tasks[index].loading = false;
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'errorDeletingTask', false);
@@ -2605,7 +2605,7 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       $scope.user = JSON.parse($localStorage.user);
       if ($scope.user.events) {
         $scope.currentEvent = $scope.user.events[0];
-        if($scope.currentEvent.perks.length){
+        if ($scope.currentEvent.perks.length) {
           $scope.showPerks($scope.currentEvent);
         }
       }
@@ -2618,57 +2618,57 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
 })();
 
 'use strict';
-(function(){
+(function() {
 
-function OrganizersFriendController($scope, $translate, $localStorage, userRequest, $rootScope) {
-  if($rootScope.userValidation('0')){
-    //Vars initialization
-    $scope.section = {
-      route:'InviteFriend',
-      title: 'Invite Friend'
-    };
-    $scope.friend = {};
-    $scope.friend.email = '';
-    $scope.friend.message = '';
-    $scope.emailuser = $localStorage.email;
-    //Vars initialization ends
+  function OrganizersFriendController($scope, $translate, $localStorage, userRequest, $rootScope) {
+    if ($rootScope.userValidation('0')) {
+      //Vars initialization
+      $scope.section = {
+        route: 'InviteFriend',
+        title: 'Invite Friend'
+      };
+      $scope.friend = {};
+      $scope.friend.email = '';
+      $scope.friend.message = '';
+      $scope.emailuser = $localStorage.email;
+      //Vars initialization ends
 
-    //This function invites to a friend to use our platform.
-    $scope.invitefriend = function() {
-      $scope.loadingInvite = true;
-      $rootScope.showLoading();
-      $scope.objuserinv = {};
-      $scope.objuserinv.user_id = $localStorage.id;
-      $scope.objuserinv.email = $scope.friend.email;
-      $scope.objuserinv.message = $scope.friend.message;
-      userRequest.invitedUser($scope.objuserinv).success(function(adata) {
-        $scope.friend.tempEmail = $scope.friend.email;
-        $scope.friend.email = '';
-        $scope.friend.message = '';
-        if (adata.code === '200') {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('success', 'inviteFiendEmailSent', false);
-        } else {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'problem', false);
-        }
-        $scope.loadingInvite = false;
-      });
-    };
-    $scope.menuprincipal = 'views/organizers/menu.html';
+      //This function invites to a friend to use our platform.
+      $scope.invitefriend = function() {
+        $scope.loadingInvite = true;
+        $rootScope.showLoading();
+        $scope.objuserinv = {};
+        $scope.objuserinv.user_id = $localStorage.id;
+        $scope.objuserinv.email = $scope.friend.email;
+        $scope.objuserinv.message = $scope.friend.message;
+        userRequest.invitedUser($scope.objuserinv).success(function(adata) {
+          $scope.friend.tempEmail = $scope.friend.email;
+          $scope.friend.email = '';
+          $scope.friend.message = '';
+          if (adata.code === '200') {
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('success', 'inviteFiendEmailSent', false);
+          } else {
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'problem', false);
+          }
+          $scope.loadingInvite = false;
+        });
+      };
+      $scope.menuprincipal = 'views/organizers/menu.html';
+    }
   }
-}
-angular.module('sponzorme')
-.controller('OrganizersFriendController', OrganizersFriendController);
+  angular.module('sponzorme')
+    .controller('OrganizersFriendController', OrganizersFriendController);
 
 })();
 
 'use strict';
 (function() {
   function OrganizersMainController($scope, $translate, $localStorage, rssRequest, $rootScope) {
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Dashboard',
+        route: 'Dashboard',
         title: 'Dashboard'
       };
       $scope.loadingevents = false;
@@ -2680,10 +2680,10 @@ angular.module('sponzorme')
           $scope.user.balance = parseInt($scope.user.balance) + parseInt(value.perk.usd);
         }
       });
-      if($scope.user.events){
+      if ($scope.user.events) {
         $scope.currentEvent = $scope.user.events[0];
       }
-      $scope.showPerk = function(e){
+      $scope.showPerk = function(e) {
         $scope.currentEvent = e;
       };
       $scope.rss = [];
@@ -2789,7 +2789,7 @@ angular.module('sponzorme')
                 $scope.file = false;
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-              }, function errorCallback(err) {
+              }, function errorCallback() {
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
@@ -2801,7 +2801,7 @@ angular.module('sponzorme')
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
@@ -2821,7 +2821,7 @@ angular.module('sponzorme')
             $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
             $scope.password = '';
             $scope.passwordConfirmation = '';
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });
@@ -2845,13 +2845,13 @@ angular.module('sponzorme')
       };
       $scope.getTasks = function(s) {
         if (s.task_sponzor.length) {
-          var aux = s.task_sponzor.filter(function(element) {
+          var aux1 = s.task_sponzor.filter(function(element) {
             if (element.task.type === '0') {
               return element;
             }
           });
           s.task_sponzor = {};
-          s.task_sponzor = aux;
+          s.task_sponzor = aux1;
         }
         $scope.currentSponzorship = s;
       };
@@ -2893,8 +2893,8 @@ angular.module('sponzorme')
             link: '#/sponzors/sponzoring'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
-          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback() {});
-        }, function errorCallback(response) {
+          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback1() {});
+        }, function errorCallback() {
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
         });
@@ -2957,7 +2957,7 @@ angular.module('sponzorme')
 
           $localStorage.user = JSON.stringify($scope.user);
 
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $scope.currentSponzorship.task_sponzor[index].loading = false;
           $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
         });
@@ -2981,9 +2981,9 @@ angular.module('sponzorme')
 'use strict';
 (function() {
   function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams) {
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Events / Edit',
+        route: 'Events / Edit',
         title: 'Event Edit'
       };
       $scope.user = JSON.parse($localStorage.user);
@@ -3006,7 +3006,7 @@ angular.module('sponzorme')
       $scope.doEditEvent = function(idevent) {
         $rootScope.showLoading();
         $scope.eventData.organizer = $localStorage.id;
-        if($scope.eventData.location!==$scope.locationEvent){
+        if ($scope.eventData.location !== $scope.locationEvent) {
           $scope.eventData.location = $scope.locationEvent.formatted_address;
           $scope.eventData.location_reference = $scope.locationEvent.place_id;
         }
@@ -3055,12 +3055,14 @@ angular.module('sponzorme')
         return '"' + $1 + '"';
       });
     }
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Events / Add',
+        route: 'Events / Add',
         title: 'Event Add'
       };
-      $scope.newEvent = {perks:[]};
+      $scope.newEvent = {
+        perks: []
+      };
       $scope.newEvent.starts = new Date().getTime();
       $scope.newEvent.ends = new Date().getTime();
       eventTypeRequest.allEventTypes().success(function(adata) {
@@ -3307,17 +3309,15 @@ angular.module('sponzorme')
   function OrganizersRatingController($scope, $translate, $rootScope, $localStorage, $routeParams, ratingRequest) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
       $scope.section = {
-        route:'Sponzorships / Rating',
+        route: 'Sponzorships / Rating',
         title: 'Sponzorship Rating'
       };
       $scope.loadingForm = true; //Loading
       $scope.user = JSON.parse($localStorage.user);
-      if ( ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0] &&
-        $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].organizer_id === $localStorage.id
-        && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].type === '0'
-      ) || ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1] &&
-          $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].organizer_id === $localStorage.id
-          && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].type === '0')) {
+      if (($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0] &&
+          $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].organizer_id === $localStorage.id && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].type === '0'
+        ) || ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1] &&
+          $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].organizer_id === $localStorage.id && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].type === '0')) {
         $rootScope.showDialog('error', 'ratingAlreadyRated', '/organizers/sponzors');
       } else {
         $scope.rating = {
@@ -3377,31 +3377,26 @@ angular.module('sponzorme')
 'use strict';
 (function() {
   function ChatController($scope, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
-    if($localStorage.id){
-      $scope.section = {
-        route:'Sponzorship / Chat',
-        title: 'Sponzorship Chat'
-      };
+    if ($localStorage.id) {
+      $scope.section = {'route': 'Sponzorship / Chat', 'title': 'Sponzorship Chat'};
       $scope.$storage = $localStorage;
-        sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data){
-          if(data.data.Organizer.id === $localStorage.id){
-            $scope.newMessage = {
-              'author': data.data.Organizer.name,
-              'color': '#5DDECF',
-              'sponzorshipId': $routeParams.sponzorshipId
-            };
-          }
-          else if(data.data.Sponzor.id === $localStorage.id){
-            $scope.newMessage = {
-              'author': data.data.Sponzor.name,
-              'color': '#F6CECE',
-              'sponzorshipId': $routeParams.sponzorshipId
-            };
-          }
-          else{
-            $location.path('/login');
-          }
-        });
+      sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).success(function(data) {
+        if (data.data.Organizer.id === $localStorage.id) {
+          $scope.newMessage = {
+            'author': data.data.Organizer.name,
+            'color': '#5DDECF',
+            'sponzorshipId': $routeParams.sponzorshipId
+          };
+        } else if (data.data.Sponzor.id === $localStorage.id) {
+          $scope.newMessage = {
+            'author': data.data.Sponzor.name,
+            'color': '#F6CECE',
+            'sponzorshipId': $routeParams.sponzorshipId
+          };
+        } else {
+          $location.path('/login');
+        }
+      });
       var ref = new Firebase($rootScope.getConstants().FURL + 'chat');
       var query = ref.orderByChild('sponzorshipId').equalTo($routeParams.sponzorshipId);
       $scope.chatMessages = $firebaseArray(query);
@@ -3413,17 +3408,14 @@ angular.module('sponzorme')
           $scope.newMessage.text = '';
         }
       };
-    }
-    else{
+    } else {
       $location.path('/');
     }
-    if($localStorage.typesponzorme === '1'){
+    if ($localStorage.typesponzorme === '1') {
       $scope.menuprincipal = 'views/sponzors/menu.html';
-    }
-    else if($localStorage.typesponzorme === '0'){
+    } else if ($localStorage.typesponzorme === '0') {
       $scope.menuprincipal = 'views/organizers/menu.html';
-    }
-    else{
+    } else {
       $location.path('/');
     }
   }

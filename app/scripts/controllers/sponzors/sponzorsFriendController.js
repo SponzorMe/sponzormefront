@@ -2,9 +2,9 @@
 (function() {
 
   function SponzorsFriendController($scope, $translate, userRequest, $rootScope, $localStorage) {
-    if($rootScope.userValidation('1')){
+    if ($rootScope.userValidation('1')) {
       $scope.section = {
-        route:'InviteFriend',
+        route: 'InviteFriend',
         title: 'Invite Friend'
       };
       $scope.friend = {};

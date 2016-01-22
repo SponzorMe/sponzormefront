@@ -86,7 +86,7 @@
                 $scope.file = false;
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-              }, function errorCallback(err) {
+              }, function errorCallback() {
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
@@ -98,7 +98,7 @@
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
@@ -118,7 +118,7 @@
             $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
             $scope.password = '';
             $scope.passwordConfirmation = '';
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });

@@ -3,7 +3,7 @@
   function SponzorsMasterController($scope, $translate, $localStorage, ngDialog, $location, $rootScope, $sce) {
     $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
-    }
+    };
     $scope.downloadCalendar = function(sponzorship) {
       $scope.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
       $scope.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
@@ -18,7 +18,7 @@
     };
     $scope.openLocation = function(sponzorship) {
       $scope.currentEvent = sponzorship.event;
-      $scope.mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=" + encodeURIComponent($scope.currentEvent.location);
+      $scope.mapSrc = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=' + encodeURIComponent($scope.currentEvent.location);
       ngDialog.open({
         template: 'views/templates/locationDialog.html',
         scope: $scope,

@@ -5,7 +5,7 @@
       $scope.section = {
         route: 'Dashboard',
         title: 'Dashboard'
-      }
+      };
       $scope.user = JSON.parse($localStorage.user);
       $scope.balance = 0;
       $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
@@ -31,7 +31,7 @@
       $localStorage.user = JSON.stringify($scope.user);
       $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);
-      }
+      };
       $scope.getAllEvents = function() {
         $scope.searchLoading = true;
         eventRequest.allEvents().then(function successCallback(response) {
@@ -49,7 +49,7 @@
       };
       $scope.openLocation = function(event) {
         $scope.currentEvent = event;
-        $scope.mapSrc = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=" + encodeURIComponent($scope.currentEvent.location);
+        $scope.mapSrc = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=' + encodeURIComponent($scope.currentEvent.location);
         ngDialog.open({
           template: 'views/templates/locationDialog.html',
           scope: $scope,
@@ -101,7 +101,7 @@
           sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function() {});
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           $rootScope.closeAllDialogs();
           if (err.status === 409) {
             $rootScope.showDialog('error', 'alreadySponzoring', false);

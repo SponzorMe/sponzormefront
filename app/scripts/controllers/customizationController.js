@@ -17,7 +17,7 @@
         //Get All Categories from Backend
         categoryRequest.allCategories().then(function successCallback(response) {
           $scope.categories = response.data.categories;
-        }, function errorCallback(err){
+        }, function errorCallback() {
           $scope.categories = [];
         });
       } else {
@@ -53,17 +53,21 @@
     $scope.interestselect = function(i) {
       var searcharray = $scope.interestselectarray.indexOf(i);
       if (searcharray === -1) {
-        var interest = {'user_id': $localStorage.id, 'interest_id':i};
+        var interest = {
+          'user_id': $localStorage.id,
+          'interest_id': i
+        };
         $scope.interestselectarray.push(interest);
-      }
-      else {
+      } else {
         $scope.interestselectarray.splice(searcharray, 1);
       }
     };
     $scope.submitCategoryInfo = function() {
       $rootScope.showLoading();
-      var data = {interests: $scope.interestselectarray};
-      userInterestRequest.bulkUserInterest(data).then(function successCallback(response){
+      var data = {
+        interests: $scope.interestselectarray
+      };
+      userInterestRequest.bulkUserInterest(data).then(function successCallback(response) {
         $rootScope.closeAllDialogs();
         $scope.showStep(2);
       });

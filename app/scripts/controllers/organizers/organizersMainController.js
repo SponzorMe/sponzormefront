@@ -1,9 +1,9 @@
 'use strict';
 (function() {
   function OrganizersMainController($scope, $translate, $localStorage, rssRequest, $rootScope) {
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Dashboard',
+        route: 'Dashboard',
         title: 'Dashboard'
       };
       $scope.loadingevents = false;
@@ -15,10 +15,10 @@
           $scope.user.balance = parseInt($scope.user.balance) + parseInt(value.perk.usd);
         }
       });
-      if($scope.user.events){
+      if ($scope.user.events) {
         $scope.currentEvent = $scope.user.events[0];
       }
-      $scope.showPerk = function(e){
+      $scope.showPerk = function(e) {
         $scope.currentEvent = e;
       };
       $scope.rss = [];

@@ -88,7 +88,7 @@
         }, log);
         document.write(a);
       });
-    };    
+    };
     $rootScope.isExpiredData = function() {
       if ($localStorage.startDate) {
         var dataTime = new Date($localStorage.startDate);
@@ -118,7 +118,7 @@
 
     $rootScope.userValidation = function(shouldType) {
 
-      var host = window.location.href;
+      host = window.location.href;
       $rootScope.isExpiredData();
       if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType && $localStorage.user) {
         if ($localStorage.demo === '0' && $localStorage.typesponzorme === '1') {

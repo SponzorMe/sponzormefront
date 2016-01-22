@@ -1,9 +1,9 @@
 'use strict';
 (function() {
   function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams) {
-    if($rootScope.userValidation('0')){
+    if ($rootScope.userValidation('0')) {
       $scope.section = {
-        route:'Events / Edit',
+        route: 'Events / Edit',
         title: 'Event Edit'
       };
       $scope.user = JSON.parse($localStorage.user);
@@ -26,7 +26,7 @@
       $scope.doEditEvent = function(idevent) {
         $rootScope.showLoading();
         $scope.eventData.organizer = $localStorage.id;
-        if($scope.eventData.location!==$scope.locationEvent){
+        if ($scope.eventData.location !== $scope.locationEvent) {
           $scope.eventData.location = $scope.locationEvent.formatted_address;
           $scope.eventData.location_reference = $scope.locationEvent.place_id;
         }

@@ -2,9 +2,9 @@
 (function() {
 
   function SponzorsSettingsController($scope, $translate, userRequest, $localStorage, $location, $rootScope, ngDialog, categoryRequest, allInterestsServiceRequest, loginRequest, userInterestRequest) {
-    if($rootScope.userValidation('1')){
+    if ($rootScope.userValidation('1')) {
       $scope.section = {
-        route:'Settings',
+        route: 'Settings',
         title: 'Settings'
       };
       $scope.user = JSON.parse($localStorage.user);
@@ -20,7 +20,7 @@
         $scope.loadingSaveInterest = true;
         if (interest && interest.name) {
           var flag = false;
-          if($scope.user.interests){
+          if ($scope.user.interests) {
             for (var i = 0; i < $scope.user.interests.length; i++) {
               if ($scope.user.interests[i].interest_id === interest.id_interest) {
                 flag = true;
@@ -41,14 +41,13 @@
               $localStorage.user = JSON.stringify($scope.user);
               $scope.selected = '';
               $scope.loadingSaveInterest = false;
-            }, function errorCallback(err){
+            }, function errorCallback() {
               $scope.loadingSaveInterest = false;
               $rootScope.showDialog('error', 'invalidInterestSelection', false);
               $scope.selected = '';
             });
           }
-        }
-        else {
+        } else {
           $scope.loadingSaveInterest = false;
           $rootScope.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
@@ -57,7 +56,7 @@
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
         $rootScope.showLoading();
-        if($scope.user.location!==$scope.locationUser){
+        if ($scope.user.location !== $scope.locationUser) {
           $scope.user.location = $scope.locationUser.formatted_address;
           $scope.user.location_reference = $scope.locationUser.place_id;
         }
@@ -95,7 +94,7 @@
                 $scope.file = false;
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-              }, function errorCallback(err) {
+              }, function errorCallback() {
                 $rootScope.closeAllDialogs();
                 $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
@@ -107,7 +106,7 @@
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
@@ -161,7 +160,7 @@
             $scope.file = false;
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
@@ -181,7 +180,7 @@
             $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
             $scope.password = '';
             $scope.passwordConfirmation = '';
-          }, function errorCallback(err) {
+          }, function errorCallback() {
             $rootScope.closeAllDialogs();
             $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });
