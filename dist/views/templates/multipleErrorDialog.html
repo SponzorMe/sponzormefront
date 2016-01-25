@@ -1,1 +1,13 @@
-<div class="dialog-container error"><div class="dialog-top top-error"><i class="material-icons md-48 md-light">warning</i><div><div class=content><h1>We've got a litte problem</h1><p ng-repeat="message in errorMessages">{{message|translate}}</p><p ng-if=didYouForgotPassword><a href=#/forgot ng-click=closeThisDialog()>{{'didYouForgotPassword'|translate}}</a></p></div><div class=botonera><a ng-click=closeThisDialog()>Ok</a></div></div></div></div>
+<div class="dialog-container error">
+  <div class="dialog-top top-error"><i class="material-icons md-48 md-light">warning</i><div>
+  <div class="content">
+    <h1>We've got a litte problem</h1>
+    <p ng-repeat="message in errorMessages">{{message|translate}}</p>
+    <p ng-if="didYouForgotPassword">
+      <a href="#/forgot" ng-click="closeThisDialog()">{{'didYouForgotPassword'|translate}}</a> 
+    </p>
+  </div>
+  <div class="botonera">
+    <a href="" ng-click="closeThisDialog()">Ok</a>
+  </div>
+</div></div></div>

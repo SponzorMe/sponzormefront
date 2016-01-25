@@ -1,58 +1,34 @@
 'use strict';
 (function() {
-
-  function ForgotController($scope, $translate, $routeParams, ngDialog, loginRequest) {
-    $scope.error_log = []; //We storage here all translate error during register process
+  function ForgotController($scope, $rootScope, $translate, $routeParams, loginRequest) {
     $scope.forgotPassword = function() {
-      $scope.loagind = true;
-      loginRequest.resetPassword($scope.email).success(function(adata) {
-        $scope.loagind = false;
-        $scope.error_log[0] = 'PasswordResetLinkSent';
-        ngDialog.open({
-          template: 'templateId',
-          scope: $scope
-        });
-      }).error(function() {
-        $scope.error_log[0] = 'InvalidEmail';
-        $scope.loagind = false;
-        ngDialog.open({
-          template: 'templateId',
-          scope: $scope
-        });
+      $rootScope.showLoading();
+      loginRequest.resetPassword($scope.email).then(function successCallback1() {
+        $rootScope.closeAllDialogs();
+        $rootScope.showDialog('success','PasswordResetLinkSent', false);
+      }, function errorCallback1() {
+        $rootScope.closeAllDialogs();
+        $rootScope.showDialog('error','InvalidEmail', false);
       });
     };
     $scope.resetPassword = function() {
-      $scope.errorActivation = false;
-      $scope.successActivation = false;
+      $rootScope.showLoading();
       if ($scope.password === $scope.passwordConfirmation) {
         var formData = {
           'email': $scope.email,
           'password': $scope.password,
           'password_confirmation': $scope.passwordConfirmation
         };
-        loginRequest.updatePassword($routeParams.tokenReset, formData).success(function(data) {
-          if (data.code === 200) {
-            $scope.successActivation = true;
-          }
-          $scope.error_log[0] = 'PasswordChangedSuccesfully';
-          ngDialog.open({
-            template: 'templateId',
-            scope: $scope
-          });
-        }).error(function() {
-          $scope.error_log[0] = 'InvalidData';
-          $scope.loagind = false;
-          ngDialog.open({
-            template: 'templateId',
-            scope: $scope
-          });
+        loginRequest.updatePassword($routeParams.tokenReset, formData).then(function successCallback2(response) {
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('success','PasswordChangedSuccesfully', '/login');
+        }, function errorCallback2(err) {
+          $rootScope.closeAllDialogs();
+          $rootScope.showDialog('error', 'InvalidData' , false);
         });
       } else {
-        $scope.error_log[0] = 'PasswordNoMatch';
-        ngDialog.open({
-          template: 'templateId',
-          scope: $scope
-        });
+        $rootScope.closeAllDialogs();
+        $rootScope.showDialog('error', 'PasswordNoMatch' , false);
       }
     };
   }

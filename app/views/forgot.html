@@ -9,9 +9,6 @@
             <div class="form-group">
               <input type="email" class="form-control" placeholder="{{'editaccountemail' | translate }}" autofocus required data-ng-model="email">
             </div>
-            <div ng-show="loagind">
-              <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
-            </div>
             <div ng-show="!loagind">
               <input class="btn btn-block btn-primary" type="submit" value="{{'Send Instructions' | translate }}" />
             </div>

@@ -1,1 +1,35 @@
-<section><div class="navbar white-background navbar-fixed-top" ng-include="" src="'views/header.html'"></div><div class=container><div class=testimonials><div class=row style=margin-top:145px;><div class="content col-md-4 col-md-offset-4"><form class=form-reset role=form name=reset ng-submit="reset.$valid && resetPassword()"><h2>{{'ResetPasswordText' | translate }}</h2><div class=form-group><input type=email class=form-control placeholder="{{'email' | translate }}" autofocus="" required="" data-ng-model=email> <input type=password class="form-control margintop10" placeholder="{{'newPassword' | translate }}" autofocus="" required="" data-ng-model=password> <input type=password class="form-control margintop10" placeholder="{{'newPasswordConfirm' | translate }}" autofocus="" required="" data-ng-model=passwordConfirmation></div><div ng-show=loagind><span us-spinner="{radius:15, width:8, length: 16}" spinner-key=spinner-2 spinner-start-active=true></span></div><div ng-show=!loagind><input class="btn btn-block" type=submit value="{{'send' | translate }}"></div></form></div></div></div></div><div class="footer white-background" ng-include="" src="'views/footer.html'"></div></section><script type=text/ng-template id=templateId><div class="dialog-container"> <img class="image-100 image-center" src="images/warning.png" width="100px" /> <p ng-repeat="e in error_log">{{e}}</p> <hr/> <p>{{'StillHavingProblems'|translate}}</p> </div></script>
+<section>
+  <div class="navbar white-background navbar-fixed-top" ng-include src="'views/header.html'"></div>
+  <div class="container">
+    <div class="testimonials">
+      <div class="row" style="margin-top:145px">
+        <div class="content col-md-4 col-md-offset-4">
+          <form class="form-reset" role="form" name="reset" ng-submit="reset.$valid && resetPassword()">
+            <h2>{{'ResetPasswordText' | translate }}</h2>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="{{'email' | translate }}" autofocus required data-ng-model="email">
+              <input type="password" class="form-control margintop10" placeholder="{{'newPassword' | translate }}" autofocus required data-ng-model="password">
+              <input type="password" class="form-control margintop10" placeholder="{{'newPasswordConfirm' | translate }}" autofocus required data-ng-model="passwordConfirmation">
+            </div>
+            <div ng-show="loagind">
+              <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+            </div>
+            <div ng-show="!loagind">
+              <input class="btn btn-block" type="submit" value="{{'send' | translate }}">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer white-background" ng-include src="'views/footer.html'"></div>
+</section>
+
+<script type="text/ng-template" id="templateId">
+  <div class="dialog-container">
+    <img class="image-100 image-center" src="images/warning.png" width="100px" />
+    <p ng-repeat="e in error_log">{{e}}</p>
+    <hr/>
+    <p>{{'StillHavingProblems'|translate}}</p>
+  </div>
+</script>

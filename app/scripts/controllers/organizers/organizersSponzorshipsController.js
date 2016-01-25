@@ -38,25 +38,18 @@
           status: 1
         };
         sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback(response) {
+          console.log(response);
           $scope.user.sponzorships_like_organizer[i].task_sponzor = response.data.Sponzorship.task_sponzor;
           $scope.user.sponzorships_like_organizer[i].status = 1;
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
           $localStorage.user = JSON.stringify($scope.user);
-          var info = {
-            sponzorEmail: $scope.currentSponzorship.sponzor.email,
-            sponzorName: $scope.currentSponzorship.sponzor.name,
-            eventName: $scope.currentSponzorship.event.title,
-            organizerEmail: $localStorage.email,
-            lang: $rootScope.currentLanguage()
-          };
           var firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification);
-          sponzorshipRequest.sendSponzorshipEmail(info).then(function successCallback1() {});
         }, function errorCallback() {
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);

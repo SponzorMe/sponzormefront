@@ -10,7 +10,7 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- build:vendorCss styles/vendor.css -->
+  <!-- build:cendorCss styles/vendor.css -->
   <link rel="stylesheet" href="../bower_components/ngDialog/css/ngDialog.css" />
   <link rel="stylesheet" href="../bower_components/ngDialog/css/ngDialog-theme-default.css" />
   <link rel="stylesheet" href="../bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" />
@@ -22,19 +22,17 @@
   <link rel='stylesheet' href='../bower_components/angular-input-stars-directive/angular-input-stars.css'>
   <link rel='stylesheet' href='../bower_components/font-awesome/css/font-awesome.min.css'>
   <!-- endbuild -->
-
-  <!-- build:ownCss styles/main.css -->
+  
+  <!-- build:AppCss styles/app.css -->
   <link rel="stylesheet" href="styles/main.min.css">
   <!-- endbuild -->
+  
 </head>
 
 <body>
-  <!--[if lt IE 10]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
   <div ng-view></div>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  
   <!-- build:vendorJs scripts/vendor.js -->
   <script src="../bower_components/jquery/dist/jquery.js"></script>
   <script src="../bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
@@ -69,8 +67,8 @@
   <script src="../bower_components/downloadjs/download.min.js"></script>
   <script src='../bower_components/angular-addtocalendar/addtocalendar.min.js'></script>
   <!-- endbuild -->
-
-  <!-- build:ownJs scripts/main.js -->
+  
+  <!-- build:appJs scripts/scripts.js -->
   <!--App Initialization -->
   <script src="scripts/app.modules.js"></script>
   <script src="scripts/app.constants.js"></script>

@@ -1,1 +1,175 @@
-<div id=page-wrapper ng-class="{'active': toggle}" class={{tolsctive}}><div ng-include=menuprincipal></div><div id=content-wrapper><div class=page-content><div class="row header" ng-include="" src="'views/organizers/dashboard/header.html'"></div><div class=row><div class=col-xs-12><div class=widget><div class=widget-header><i class="fa fa-plus"></i>{{ 'addevent' | translate }} <a class=pull-right ng-click=connectMeetup()><img height=20px src=images/meetup.png></a> <a class=pull-right ng-click=connectEventbrite()><img width=24px src=images/eventbrite.png></a> <span class=pull-right>{{ 'Import from' | translate }}:</span><div class=clearfix></div></div><h2 class=text-center>{{ 'completeInfoNewEvent' | translate }}</h2><form class=form-horizontal role=form name=createEvent><div class=form-group id=title><label for=label class="col-sm-4 control-label">{{ 'neweventtitle' | translate }}</label><div class=col-sm-7><input type=text data-ng-model=newEvent.title placeholder="{{trans('dashboard.neweventtitledescription')}}" name=title class=form-control required=""></div><br><br></div><div class=form-group id=location><label for=label class="col-sm-4 control-label">{{ 'neweventlocation' | translate }}</label><div class=col-sm-7><input type=text placeholder="{{trans('dashboard.neweventlocationdescription')}}" name=location g-places-autocomplete="" class=form-control data-ng-model=locationevent autocomplete=off required=""></div></div><div class=form-group id=description><label for=label class="col-sm-4 control-label">{{ 'neweventdescription' | translate }}</label><div class=col-sm-7><div text-angular="" data-ng-model=newEvent.description></div></div></div><div class=form-group id=starts><label for=label class="col-sm-4 control-label">{{ 'neweventstarts' | translate }}</label><div class=col-sm-7><datetimepicker data-ng-model=newEvent.starts date-format=yyyy-MM-dd date-options=dateOptions show-meridian=false date-disabled="isDisabledDate(date, mode)"></datetimepicker></div></div><div class=form-group id=ends><label for=label class="col-sm-4 control-label">{{ 'neweventends' | translate }}</label><div class=col-sm-7><datetimepicker data-ng-model=newEvent.ends date-format=yyyy-MM-dd date-options=dateOptions show-meridian=false min-date=newEvent.starts date-disabled="isDisabledDate(date, mode)"></datetimepicker></div></div><div class=form-group id=public><div class="col-sm-4 control-label"><input id=privacy0 type=radio data-ng-model=newEvent.privacy name=privacy value=0 required=required></div><label for=privacy0 class=col-sm-7><strong>{{ 'privacyoption0' | translate }} :</strong> {{ 'privacydescription0' | translate }}</label><div class="col-sm-4 control-label"><input id=privacy1 type=radio data-ng-model=newEvent.privacy name=privacy value=1 required=required></div><label for=privacy1 class=col-sm-7><strong>{{ 'privacyoption1' | translate }} :</strong> {{ 'privacydescription1' | translate }}</label></div><div class=form-group id=type><label for=label class="col-sm-4 control-label">{{ 'neweventtype' | translate }}</label><div class=col-sm-7><select data-ng-model=newEvent.type name=type class=form-control required=required><option>{{ 'choosetype' | translate }}</option><option data-ng-repeat="t in typefilter" data-ng-value=t.id>{{t.name}}</option></select></div></div><div class=form-group id=category><label for=label class="col-sm-4 control-label">{{ 'neweventcategory' | translate }}</label><div class=col-sm-7><select data-ng-model=newEvent.category name=type class=form-control required=required><option>{{ 'choosetype' | translate }}</option><option data-ng-repeat="c in categoriasfilter" data-ng-value=c.id>{{c.title}}</option></select></div></div><hr><div class=form-group id=image><div class=col-sm-12><label for=label class="col-sm-4 control-label">{{ 'file' | translate }}</label> <input type=file data-ng-model=file name=file maxsize=500 accept=image/* file=""><br><div></div><div class=clearfix></div><hr><div class=table-responsive><table class="table table-striped"><thead><th class=text-center>{{ 'typesponzor' | translate }}</th><th class=text-center>{{ 'quantitysponzor' | translate }}</th><th class=text-center>{{ 'pricesponzor' | translate }}</th><th class=text-center>{{ 'actionssponzor' | translate }}</th></thead><tr ng-repeat="s in newEvent.perks" data-ng-show=newEvent.perks.length><td class=text-center><input type=text class=form-control data-ng-model=s.kind></td><td class=text-center><input type=text class=form-control data-ng-model=s.total_quantity></td><td class=text-center><input type=number min=0 max=200 class=form-control placeholder="Max 200" data-ng-model=s.usd ng-keyup=verifyPerkLimit(s)></td><td class=text-center><a ng-click=removeSponzorshipType($index)><i class="fa fa-trash-o"></i></a></td></tr></table></div><div class=col-sm-3><button class="btn btn-block btn-warning" ng-click=addSponzorshipType()>+ Add</button></div><div class=clearfix></div><hr><div class=form-group><div class="col-sm-6 col-sm-offset-3"><button class="btn btn-block btn-primary" ng-click="createEvent.$valid && imageVerification()">{{ 'submitbutton' | translate }}</button></div></div></div></div></form></div></div></div></div></div></div>
+<div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
+  <div ng-include="menuprincipal"></div>
+  <div id="content-wrapper">
+    <div class="page-content">
+      <div class="row header" ng-include src="'views/organizers/dashboard/header.html'"></div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="widget">
+          <div class="widget-header">
+            <i class="fa fa-plus"></i>{{ 'addevent' | translate }}
+            <a class="pull-right" href="" ng-click="connectMeetup()"><img height="20px" src="images/meetup.png"></a>
+            <a class="pull-right" href="" ng-click="connectEventbrite()"><img width="24px" src="images/eventbrite.png"></a>
+              <span class="pull-right">{{ 'Import from' | translate }}: </span>
+            <div class="clearfix"></div>
+          </div>
+          <h2 class="text-center">{{ 'completeInfoNewEvent' | translate }}</h2>
+          <form class="form-horizontal" role="form" name="createEvent">
+            <!--form field-->
+            <div class="form-group" id="title">
+              <label for="label" class="col-sm-4 control-label">
+                {{ 'neweventtitle' | translate }}
+              </label>
+              <div class="col-sm-7">
+                <input type="text" data-ng-model="newEvent.title" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" required>
+              </div>
+              <br>
+              <br>
+            </div>
+            <!--form field-->
+            <div class="form-group" id="location">
+              <label for="label" class="col-sm-4 control-label">
+                {{ 'neweventlocation' | translate }}
+              </label>
+              <div class="col-sm-7">
+                <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" data-ng-model="locationevent" autocomplete="off" required>
+              </div>
+            </div>
+            <!--form field-->
+            <div class="form-group" id="description">
+              <label for="label" class="col-sm-4 control-label">
+                {{ 'neweventdescription' | translate }}
+              </label>
+              <div class="col-sm-7">
+                <div text-angular data-ng-model="newEvent.description"></div>
+              </div>
+            </div>
+            <!--form field-->
+            <div class="form-group" id="starts">
+              <label for="label" class="col-sm-4 control-label">
+                {{ 'neweventstarts' | translate }}
+              </label>
+              <div class="col-sm-7">
+              <datetimepicker data-ng-model="newEvent.starts" date-format="yyyy-MM-dd" date-options="dateOptions" show-meridian="false" date-disabled="isDisabledDate(date, mode)">
+              </datetimepicker>
+              </div>
+            </div>
+            <div class="form-group" id="ends">
+              <label for="label" class="col-sm-4 control-label">
+                {{ 'neweventends' | translate }}
+              </label>
+              <div class="col-sm-7">
+              <datetimepicker data-ng-model="newEvent.ends" date-format="yyyy-MM-dd" date-options="dateOptions" show-meridian="false" min-date="newEvent.starts" date-disabled="isDisabledDate(date, mode)">
+              </datetimepicker>
+              </div>
+            </div>
+            <!--form field-->
+            <div class="form-group" id="public">
+              <div class="col-sm-4 control-label">
+                <input id="privacy0" type="radio" data-ng-model="newEvent.privacy" name="privacy" value="0" required="required">
+              </div>
+              <label for="privacy0" class="col-sm-7">
+                <strong>{{ 'privacyoption0' | translate }} : </strong>
+
+                {{ 'privacydescription0' | translate }} </label>
+
+              <div class="col-sm-4 control-label">
+                <input id="privacy1" type="radio" data-ng-model="newEvent.privacy" name="privacy" value="1" required="required">
+              </div>
+
+              <label for="privacy1" class="col-sm-7">
+                <strong>{{ 'privacyoption1' | translate }} : </strong>
+
+                {{ 'privacydescription1' | translate }}</label>
+            </div>
+            <!--form field-->
+            <div class="form-group" id="type">
+              <label for="label" class="col-sm-4 control-label">
+                {{ 'neweventtype' | translate }}
+              </label>
+              <div class="col-sm-7">
+                <select data-ng-model="newEvent.type" name="type" class="form-control" required="required">
+                  <option value="">{{ 'choosetype' | translate }}</option>
+                  <option data-ng-repeat="t in typefilter" data-ng-value="t.id">
+                    {{t.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" id="category">
+              <label for="label" class="col-sm-4 control-label">
+                {{ 'neweventcategory' | translate }}
+              </label>
+              <div class="col-sm-7">
+                <select data-ng-model="newEvent.category" name="type" class="form-control" required="required">
+                  <option value="">{{ 'choosetype' | translate }}</option>
+                  <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id">
+                    {{c.title}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <!-- Imagen -->
+            <hr>
+            <div class="form-group" id="image">
+              <div class="col-sm-12">
+                <label for="label" class="col-sm-4 control-label">
+                  {{ 'file' | translate }}
+                </label>
+                <input type="file" data-ng-model="file" name="file" maxsize="500" accept="image/*" file>
+                <br>
+                <div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- End Imagen -->
+                <hr>
+                <!--form field-->
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <th class="text-center">
+                        {{ 'typesponzor' | translate }}
+                      </th>
+                      <th class="text-center">
+                        {{ 'quantitysponzor' | translate }}
+                      </th>
+                      <th class="text-center">
+                        {{ 'pricesponzor' | translate }}
+                      </th>
+                      <th class="text-center">
+                        {{ 'actionssponzor' | translate }}
+                      </th>
+                    </thead>
+                    <tr ng-repeat="s in newEvent.perks" data-ng-show="newEvent.perks.length">
+                      <td class="text-center">
+                        <input type="text" class="form-control" placeholder="" data-ng-model="s.kind">
+                      </td>
+                      <td class="text-center">
+                        <input type="text" class="form-control" placeholder="" data-ng-model="s.total_quantity">
+                      </td>
+                      <td class="text-center">
+                        <input type="number" min="0" max="200" class="form-control" placeholder="Max 200" data-ng-model="s.usd" ng-keyup="verifyPerkLimit(s)">
+                      </td>
+                      <td class="text-center">
+                        <a href="" ng-click="removeSponzorshipType($index)"><i class="fa fa-trash-o"></i></a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-sm-3">
+                  <button class="btn btn-block btn-warning" ng-click="addSponzorshipType()"> + Add</button>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <!--form field-->
+                <div class="form-group">
+                  <div class="col-sm-6 col-sm-offset-3">
+                    <button class="btn btn-block btn-primary" ng-click="createEvent.$valid && imageVerification()">{{ 'submitbutton' | translate }}</button>
+                  </div>
+                </div>
+          </div></div></form>
+        </div>
+      </div>
+    </div>
+</div></div></div>

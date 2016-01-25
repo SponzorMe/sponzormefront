@@ -1,1 +1,13 @@
-<div class="dialog-container info"><div class="dialog-top top-info"><i class="material-icons md-48 md-light">info</i><div><div class=content><strong>{{'causeForm'|translate}}:</strong>{{cause}}<br><span ng-if="status == 0"><strong>Status:</strong>{{ 'eventSponzorState0' | translate }}</span> <span ng-if="status == 1"><strong>Status:</strong>{{ 'eventSponzorState1' | translate }}</span><p></p></div><div class=botonera><a ng-click=closeThisDialog()>Ok</a></div></div></div></div>
+<div class="dialog-container info">
+  <div class="dialog-top top-info"><i class="material-icons md-48 md-light">info</i><div>
+  <div class="content">
+    <strong>{{'causeForm'|translate}}: </strong>{{cause}}<br>
+      <span ng-if="status == 0"><strong>Status: </strong>{{ 'eventSponzorState0' | translate }}</span>
+      <span ng-if="status == 1"><strong>Status: </strong>{{ 'eventSponzorState1' | translate }}</span>
+    
+  </div>
+
+  <div class="botonera">
+    <a href="" ng-click="closeThisDialog()">Ok</a>
+  </div>
+</div></div></div>

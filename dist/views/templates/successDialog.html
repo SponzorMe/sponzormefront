@@ -1,1 +1,11 @@
-<div class="dialog-container success"><div class="dialog-top top-success"><i class="material-icons md-48 md-light">done</i><div><div class=content><h1>Congratulations</h1><p>{{pseudoScope.message|translate}}</p></div><div class=botonera><a ng-if=pseudoScope.redirectOnClose ng-click=close(pseudoScope.redirectOnClose)>Continue</a> <a ng-if=!pseudoScope.redirectOnClose ng-click=closeThisDialog()>Continue</a></div></div></div></div>
+<div class="dialog-container success">
+  <div class="dialog-top top-success"><i class="material-icons md-48 md-light">done</i><div>
+  <div class="content">
+    <h1>Congratulations</h1>
+    <p>{{pseudoScope.message|translate}}</p>
+  </div>
+  <div class="botonera">
+    <a ng-if="pseudoScope.redirectOnClose" href="" ng-click="close(pseudoScope.redirectOnClose)">Continue</a>
+    <a ng-if="!pseudoScope.redirectOnClose" href="" ng-click="closeThisDialog()">Continue</a>
+  </div>
+</div></div></div>

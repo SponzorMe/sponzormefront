@@ -1,1 +1,119 @@
-<div class={{tolsctive}} id=page-wrapper ng-class="{'active': toggle}"><div ng-include=menuprincipal></div><div id=content-wrapper><div class=page-content><div class="row header" ng-include="" src="'views/sponzors/dashboard/header.html'"></div><div class=row><div class="col-lg-3 col-md-6 col-xs-12"><div class=widget><div class=widget-body><div class="widget-icon green pull-left"><i class="fa fa-check"></i></div><div class="widget-content pull-left"><div class=title>{{user.acceptedSponzorships.length}}</div><div class=comment>{{ 'AcceptedSponzorships' | translate }}</div></div><div class=clearfix></div></div></div></div><div class="col-lg-3 col-md-6 col-xs-12"><div class=widget><div class=widget-body><div class="widget-icon red pull-left"><i class="fa fa-clock-o"></i></div><div class="widget-content pull-left"><div class=title>{{user.pendingSponzorships.length}}</div><div class=comment>{{ 'PendingSponzorships' | translate }}</div></div><div class=clearfix></div></div></div></div><div class="col-lg-3 col-md-6 col-xs-12"><div class=widget><div class=widget-body><div class="widget-icon orange pull-left"><i class="fa fa-money"></i></div><div class="widget-content pull-left"><div class=title>${{balance}}</div><div class=comment>{{ 'SponzorshipsFunding' | translate }}</div></div><div class=clearfix></div></div></div></div><div class="spacer visible-xs"></div><div class="col-lg-3 col-md-6 col-xs-12"><div class=widget><div class=widget-body><div class="widget-icon blue pull-left"><i class="fa fa-star"></i></div><div class="widget-content pull-left"><div class=title>{{$storage.rating|number:1}}/5</div><div class=comment>{{ 'Reputation' | translate }}</div></div><div class=clearfix></div></div></div></div></div><div class=row><div class=col-lg-12><div class=widget><div class=widget-header><i class="fa fa-tasks"></i>&nbsp;{{'searchtitle' | translate}}&nbsp;<a ng-click=getAllEvents() ng-if=!searchLoading><i class="fa fa-refresh"></i></a><i ng-if=searchLoading class="fa fa-cog fa-spin"></i> <input class="pull-right input-sm" data-ng-model=searchevents type=text placeholder="{{'typeyourtesthere'|translate}}"></div><div class="widget-body large no-padding"><div class=table-responsive><table class="table table-striped"><thead><th class=text-center></th><th class=text-center>{{ 'neweventtitle' | translate }}</th><th class=text-center>{{ 'organizer' | translate }}</th><th class=text-center>{{ 'Type' | translate }}</th><th class=text-center>{{ 'Category' | translate }}</th><th class=text-center>{{ 'neweventstarts' | translate }}</th><th class=text-center>{{ 'actionssponzor' | translate }}</th></thead><tbody><tr ng-show=searchLoading><td colspan=7 class=text-center><rd-loading></rd-loading></td></tr><tr ng-show="!searchLoading && !search.length"><td colspan=7 class=text-center><h2 class=text-center>{{'noSponzorsEventsMessage'| translate}}</h2></td></tr><tr data-ng-repeat="e in search | filter:searchevents" ng-show=!searchLoading class=row-hover><td class=text-center><i ng-if="e.privacy==0" tooltip="{{'publicEvent'|translate}}" class="fa fa-unlock"></i> <i ng-if="e.privacy==1" tooltip="{{'privateEvent'|translate}}" class="fa fa-lock"></i></td><td class=text-center>{{ e.title }}</td><td class=text-center>{{e.user_organizer.name}}&nbsp;<a href=#/profile/{{e.user_organizer.id}} tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td><td class=text-center>{{e.type.name}}</td><td class=text-center>{{e.category.title}}</td><td class=text-center>{{ e.starts| date}}</td><td class=text-center><a ng-click=showPerks(e) tooltip="{{'SponzorshipOportunities'|translate}}"><i class="fa fa-eye"></i></a>&nbsp; <a ng-click=openLocation(e)><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp; <a href="#/event/{{ e.id }}" target=_blank tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a></td></tr></tbody></table></div></div></div></div></div></div></div></div>
+<div class="{{tolsctive}}" id="page-wrapper" ng-class="{'active': toggle}">
+  <div ng-include="menuprincipal"></div>
+  <div id="content-wrapper">
+    <div class="page-content">
+      <div class="row header" ng-include src="'views/sponzors/dashboard/header.html'"></div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-xs-12">
+          <div class="widget">
+            <div class="widget-body">
+              <div class="widget-icon green pull-left">
+                <i class="fa fa-check"></i>
+              </div>
+              <div class="widget-content pull-left">
+                <div class="title">{{user.acceptedSponzorships.length}}</div>
+                <div class="comment">{{ 'AcceptedSponzorships' | translate }}</div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xs-12">
+          <div class="widget">
+            <div class="widget-body">
+              <div class="widget-icon red pull-left">
+                <i class="fa fa-clock-o"></i>
+              </div>
+              <div class="widget-content pull-left">
+                <div class="title">{{user.pendingSponzorships.length}}</div>
+                <div class="comment">{{ 'PendingSponzorships' | translate }}</div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xs-12">
+          <div class="widget">
+            <div class="widget-body">
+              <div class="widget-icon orange pull-left">
+                <i class="fa fa-money"></i>
+              </div>
+              <div class="widget-content pull-left">
+                <div class="title">${{balance}}</div>
+                <div class="comment">{{ 'SponzorshipsFunding' | translate }}</div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <div class="spacer visible-xs"></div>
+        <div class="col-lg-3 col-md-6 col-xs-12">
+          <div class="widget">
+            <div class="widget-body">
+              <div class="widget-icon blue pull-left">
+                <i class="fa fa-star"></i>
+              </div>
+              <div class="widget-content pull-left">
+                <div class="title">{{$storage.rating|number:1}}/5</div>
+                <div class="comment">{{ 'Reputation' | translate }}</div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="widget">
+            <div class="widget-header">
+              <i class="fa fa-tasks"></i>&nbsp;{{'searchtitle' | translate}}&nbsp;<a href="" ng-click="getAllEvents()" ng-if="!searchLoading"><i class="fa fa-refresh"></i></a><i ng-if="searchLoading" class="fa fa-cog fa-spin"></i>
+              <input class="pull-right input-sm" data-ng-model="searchevents" type="text" value="" placeholder="{{'typeyourtesthere'|translate}}">
+            </div>
+            <div class="widget-body large no-padding">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <th class="text-center"></th>
+                    <th class="text-center">{{ 'neweventtitle' | translate }}</th>
+                    <th class="text-center">{{ 'organizer' | translate }}</th>
+                    <th class="text-center">{{ 'Type' | translate }}</th>
+                    <th class="text-center">{{ 'Category' | translate }}</th>
+                    <th class="text-center">{{ 'neweventstarts' | translate }}</th>
+                    <th class="text-center">
+                      {{ 'actionssponzor' | translate }}</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="searchLoading">
+                      <td colspan="7" class="text-center">
+                        <rd-loading></rd-loading>
+                      </td>
+                    </tr>
+                    <tr ng-show="!searchLoading && !search.length">
+                      <td colspan="7" class="text-center">
+                        <h2 class="text-center">{{'noSponzorsEventsMessage'| translate}}</h2>
+                      </td>
+                    </tr>
+                    <tr data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading" class="row-hover">
+                      <td class="text-center"><i ng-if="e.privacy==0" tooltip="{{'publicEvent'|translate}}" class="fa fa-unlock"></i>
+                      <i ng-if="e.privacy==1" tooltip="{{'privateEvent'|translate}}" class="fa fa-lock"></i></td>
+                      <td class="text-center">{{ e.title }}</td>
+                      <td class="text-center">{{e.user_organizer.name}}&nbsp;<a href="#/profile/{{e.user_organizer.id}}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td>
+                      <td class="text-center">{{e.type.name}}</td>
+                      <td class="text-center">{{e.category.title}}</td>
+                      <td class="text-center">{{ e.starts| date}}</td>
+                      <td class="text-center">
+                        <a href="" ng-click="showPerks(e)" tooltip="{{'SponzorshipOportunities'|translate}}"><i class="fa fa-eye"></i></a>&nbsp;
+                        <a href="" ng-click="openLocation(e)"><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp;
+                        <a href="#/event/{{ e.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
