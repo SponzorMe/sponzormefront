@@ -46,7 +46,7 @@
       };
       return directive;
     })
-    .directive('stars', function($firebaseObject) {
+    .directive('stars', function() {
       return {
         restrict: 'E',
         template: '<div></div>',

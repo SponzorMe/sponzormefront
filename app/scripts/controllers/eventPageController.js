@@ -55,18 +55,12 @@
         $scope.user.sponzorships.push(response.data.Sponzorship);
         $scope.user.pendingSponzorships.push(response.data.Sponzorship);
         $localStorage.user = JSON.stringify($scope.user);
-        var info = {
-          organizerId: $scope.currentEvent.user_organizer.id,
-          eventName: $scope.currentEvent.title,
-          lang: $rootScope.currentLanguage()
-        };
         firebaseNotification = {
           to: $scope.currentEvent.user_organizer.id,
           text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
           link: '#/organizers/sponzors'
         };
-        $rootScope.sendFirebaseNotification(firebaseNotification);
-        sponzorshipRequest.sendSponzorshipEmailOrganizer(info).then(function() {});
+        $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentEvent.user_organizer.id);
         $rootScope.closeAllDialogs();
         $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {

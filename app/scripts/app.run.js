@@ -19,9 +19,9 @@
         $rootScope.tolsctive = 'active';
       }
     };
-    $rootScope.sendFirebaseNotification = function(notification) {
+    $rootScope.sendFirebaseNotification = function(notification, to) {
       notification.date = new Date().getTime();
-      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
+      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/'+to);
       var notifications = $firebaseArray(notificationsRef);
       notifications.$add(notification);
     };

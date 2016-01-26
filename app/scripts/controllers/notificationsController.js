@@ -3,13 +3,12 @@
   function NotificationController($scope, $translate, $localStorage, $firebaseArray, $rootScope) {
     if($localStorage.id){
       $scope.help = 0;
-      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications');
-      var query = notificationsRef.orderByChild('to').equalTo($localStorage.id).limitToLast(25);
-      $scope.notifications = $firebaseArray(query);
-      notificationsRef.orderByChild('to').equalTo($localStorage.id).on('child_added', function() {
+      var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/'+$localStorage.id);
+      $scope.notifications = $firebaseArray(notificationsRef);
+      notificationsRef.on('child_added', function() {
         $scope.help++;
       });
-      notificationsRef.orderByChild('to').equalTo($localStorage.id).on('child_removed', function() {
+      notificationsRef.on('child_removed', function() {
         $scope.help--;
       });
     }

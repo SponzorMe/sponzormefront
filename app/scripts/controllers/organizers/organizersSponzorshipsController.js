@@ -51,7 +51,7 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification);
+          $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
         }, function errorCallback() {
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
@@ -75,7 +75,7 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipRejected') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification);
+          $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
         }, function errorCallback(response) {
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $rootScope.showDialog('error', 'problem', false);
@@ -91,7 +91,7 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipDeleted') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification);
+          $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
           $scope.user.sponzorships_like_organizer.splice(i, 1);
           $localStorage.user = JSON.stringify($scope.user);
 

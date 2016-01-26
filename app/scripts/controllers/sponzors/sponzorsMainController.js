@@ -92,7 +92,7 @@
             text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
             link: '#/organizers/sponzors'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification);
+          $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentEvent.user_organizer.id);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
         }, function errorCallback(err) {
