@@ -125,7 +125,7 @@
         });
       };
       $scope.user = JSON.parse($localStorage.user);
-      if ($scope.user.events) {
+      if ($scope.user.events.length) {
         $scope.currentEvent = $scope.user.events[0];
         if ($scope.currentEvent.perks.length) {
           $scope.showPerks($scope.currentEvent);

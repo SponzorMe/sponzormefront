@@ -6,6 +6,7 @@
         route: 'Sponzorships',
         title: 'Sponzorships'
       };
+      
       $scope.getTasks = function(s) {
         if (s.task_sponzor.length) {
           var aux1 = s.task_sponzor.filter(function(element) {
@@ -30,6 +31,7 @@
           $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
         }
       }
+      console.log($scope.user.sponzorships_like_organizer);
       //This function changes to 1 the sponzorship status
       $scope.acceptSponzorship = function(sponzoshipId, i) {
         $scope.user.sponzorships_like_organizer[i].loading = true;
