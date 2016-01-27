@@ -9,7 +9,7 @@
   "private": true,
   "license": "Propietary Software",
   "engines": {
-    "node": ">=0.12.0"
+    "node": ">=0.10.0"
   },
   "devDependencies": {
     "bower": "^1.6.3",
@@ -47,7 +47,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
     "install": "^0.1.8",
-    "npm": "^3.3.9"
+    "npm": "^3.5.0"
   },
   "scripts": {
     "test": "karma start karma.conf.dev.js && karma start karma.conf.dist.js"
