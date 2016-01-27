@@ -61,6 +61,7 @@
     "install": "bower install",
     "postinstall": "gulp build",
     "pretest": "karma start karma.conf.dev.js",
-    "test": "karma start karma.conf.dist.js"
+    "test": "karma start karma.conf.dist.js",
+    "start": "gulp serve"
   }
 }
