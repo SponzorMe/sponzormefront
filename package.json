@@ -9,15 +9,19 @@
     "type": "git",
     "url": "https://github.com/carlosrojaso/sponzormefront.git"
   },
-  "author": "Sponzorme Team (http://www.sponzor.me/)",
-  "main": "app/index.html",
-  "private": true,
-  "license": "Propietary Software",
-  "contributors": {
+  "author": {
     "name": "Sebastian Gomez",
     "email": "sebastian.gomez@sponzor.me ",
     "url": "http://www.sebastian-gomez.com/"
   },
+  "main": "app/index.html",
+  "private": true,
+  "license": "Propietary Software",
+  "contributors": [{
+    "name": "Sebastian Gomez",
+    "email": "sebastian.gomez@sponzor.me ",
+    "url": "http://www.sebastian-gomez.com/"
+  }],
   "engines": {
     "node": ">=0.10.33"
   },

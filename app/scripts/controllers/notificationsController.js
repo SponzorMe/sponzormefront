@@ -8,7 +8,6 @@
       notificationsRef.on('child_added', function(snapshot) {
         var current = snapshot.val();
         if($localStorage.lastUpdate < current.date){
-          console.log('Callback LLamado');
           userRequest.home($localStorage.id).then(function successCallback(response) {
             $localStorage.lastUpdate = new Date().getTime();
             $scope.user = response.data.data.user;

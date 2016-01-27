@@ -17,7 +17,6 @@
           $scope.loagind = true;
           $rootScope.showLoading();
           userRequest.createUser($scope.objuser).then(function successCallback(response) {
-            console.log('success', response);
             $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
             $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);
             $localStorage.typesponzorme = response.data.User.type;
@@ -30,7 +29,6 @@
             $location.path('/customization');
             $rootScope.closeAllDialogs();
           }, function errorCallback(response) {
-            console.log('error', response);
             $scope.errorMessages = [];
             if (response.data.error.email) {
               if (response.data.error.email[0] === 'The email has already been taken.') {
