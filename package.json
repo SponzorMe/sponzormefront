@@ -42,16 +42,16 @@
     "gulp-usemin": "^0.3.20",
     "gulp-webserver": "^0.9.1",
     "jasmine-core": "^2.4.1",
-    "jasmine-expect": "^1.22.3",
-    "karma": "^0.13.15",
+    "jasmine-expect": "^2.0.0-beta2",
+    "karma": "^0.13.19",
     "karma-coverage": "^0.5.3",
     "karma-htmlfile-reporter": "^0.2.2",
     "karma-jasmine": "^0.3.6",
     "karma-jasmine-runner-reporter": "^0.2.0",
-    "karma-phantomjs-launcher": "^0.2.1",
-    "main-bower-files": "^2.5.0",
-    "ng-annotate": "^1.0.2",
-    "phantomjs": "^1.9.19"
+    "karma-phantomjs-launcher": "^0.2.3",
+    "main-bower-files": "^2.11.1",
+    "ng-annotate": "^1.2.1",
+    "phantomjs": "^2.1.2"
   },
   "dependencies": {
     "install": "^0.1.8",
