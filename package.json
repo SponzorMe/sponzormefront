@@ -19,7 +19,7 @@
     "url": "http://www.sebastian-gomez.com/"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.10.33"
   },
   "devDependencies": {
     "bower": "^1.7.7",
@@ -54,8 +54,8 @@
     "phantomjs": "^2.1.2"
   },
   "dependencies": {
-    "install": "^0.1.8",
-    "npm": "^3.5.0"
+    "install": "^0.4.1",
+    "npm": "^3.5.3"
   },
   "scripts": {
     "postinstall": "bower install",
