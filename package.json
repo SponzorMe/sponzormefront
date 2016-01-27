@@ -58,8 +58,9 @@
     "npm": "^3.5.0"
   },
   "scripts": {
-    "postinstall":"bower install",
-    "pretest": "karma start karma.conf.dev.js",
-    "test": "karma start karma.conf.dist.js"
+    "postinstall": "bower install",
+    "pretest": "gulp build",
+    "test": "karma start karma.conf.dev.js",
+    "posttest": "karma start karma.conf.dist.js"
   }
 }
