@@ -49,7 +49,7 @@
   "dependencies": {
     "deprecated": "0.0.1",
     "install": "^0.4.1",
-    "npm": "^3.5.3"    
+    "npm": "^3.5.3"
   },
   "scripts": {
     "test": "karma start karma.conf.dev.js"

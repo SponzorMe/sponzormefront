@@ -17,7 +17,6 @@ module.exports = function (config) {
             'bower_components/angular-base64/angular-base64.js',
             'bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js',
             'bower_components/ngstorage/ngStorage.js',
-            'bower_components/angular-base64-upload/src/angular-base64-upload.js',
             'bower_components/spin.js/spin.min.js',
             'bower_components/angular-spinner/angular-spinner.js',
             'bower_components/angular-utils-pagination/dirPagination.js',
@@ -38,7 +37,7 @@ module.exports = function (config) {
             'bower_components/angular-mocks/angular-mocks.js',
             'app/scripts/app.modules.js',
             'app/scripts/app.constants.js',
-            'app/scripts/app.enviroment.js',
+            'app/scripts/app.enviroments.js',
             'app/scripts/app.directives.js',
             'app/scripts/app.filters.js',
             'app/scripts/app.routes.js',
@@ -49,7 +48,7 @@ module.exports = function (config) {
         ],
         preprocessors:{
           'app/scripts/services/*.js': 'coverage'
-          
+
         },
         singleRun : true,
         autowatch : false,

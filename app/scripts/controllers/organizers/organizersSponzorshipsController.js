@@ -6,7 +6,7 @@
         route: 'Sponzorships',
         title: 'Sponzorships'
       };
-      
+      var firebaseNotification;
       $scope.getTasks = function(s) {
         if (s.task_sponzor.length) {
           var aux1 = s.task_sponzor.filter(function(element) {
@@ -31,7 +31,6 @@
           $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
         }
       }
-      console.log($scope.user.sponzorships_like_organizer);
       //This function changes to 1 the sponzorship status
       $scope.acceptSponzorship = function(sponzoshipId, i) {
         $scope.user.sponzorships_like_organizer[i].loading = true;
@@ -40,13 +39,12 @@
           status: 1
         };
         sponzorshipRequest.editSponzorshipPatch(sponzoshipId, data).then(function successCallback(response) {
-          console.log(response);
           $scope.user.sponzorships_like_organizer[i].task_sponzor = response.data.Sponzorship.task_sponzor;
           $scope.user.sponzorships_like_organizer[i].status = 1;
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
           $localStorage.user = JSON.stringify($scope.user);
-          var firebaseNotification = {
+          firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
@@ -70,7 +68,7 @@
           $scope.user.sponzorships_like_organizer[i].loading = false;
           $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
           $localStorage.user = JSON.stringify($scope.user);
-          var firebaseNotification = {
+          firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipRejected') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
@@ -86,7 +84,7 @@
         $rootScope.showLoading();
         $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
         sponzorshipRequest.deleteSponzorship(sponzorshipId).then(function successCallback() {
-          var firebaseNotification = {
+          firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipDeleted') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
@@ -94,7 +92,6 @@
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
           $scope.user.sponzorships_like_organizer.splice(i, 1);
           $localStorage.user = JSON.stringify($scope.user);
-
           $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'successDeletingSponzorship', false);
@@ -112,6 +109,13 @@
         taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response) {
           $scope.currentSponzorship.task_sponzor[index].loading = false;
           $scope.currentSponzorship.task_sponzor[index].status = status;
+
+          firebaseNotification = {
+            to: $scope.currentSponzorship.sponzor.id,
+            text: $translate.instant('NOTIFICATIONS.TaskChanged1') + $scope.currentSponzorship.task_sponzor[index].task.title + $translate.instant('NOTIFICATIONS.TaskChanged2') + $scope.currentSponzorship.event.title+$translate.instant('NOTIFICATIONS.TaskChanged3'),
+            link: '#/sponzors/sponzoring'
+          };
+          $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
 
           $localStorage.user = JSON.stringify($scope.user);
 

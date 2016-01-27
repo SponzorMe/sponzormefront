@@ -32,6 +32,7 @@
             $translate.use(adata.user.lang);
             $scope.loagind = false;
             userRequest.home($localStorage.id).then(function successCallback(response) {
+              $localStorage.lastUpdate = new Date().getTime();
               $rootScope.closeAllDialogs();
               $localStorage.user = JSON.stringify(response.data.data.user);
               $localStorage.events = [];

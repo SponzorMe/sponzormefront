@@ -39,6 +39,12 @@
         ratingRequest.createRating($scope.rating).then(function successCallback(response) {
           $scope.user.acceptedSponzorships[$routeParams.sponzorshipId].ratings.push(response.data.Rating);
           $localStorage.user = JSON.stringify($scope.user);
+          var firebaseNotification = {
+            to: response.data.Rating.organizer_id,
+            text: $translate.instant('NOTIFICATIONS.OrganizerRated') + $scope.user.name,
+            link: '#/profile/'+response.data.Rating.organizer_id
+          };
+          $rootScope.sendFirebaseNotification(firebaseNotification, response.data.Rating.organizer_id);
           $scope.rating = {};
           $rootScope.closeAllDialogs(); //Close Loading
           $rootScope.showDialog('success', 'ratingSponzorSuccess', 'sponzors/sponzoring');

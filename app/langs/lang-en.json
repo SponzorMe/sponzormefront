@@ -724,7 +724,13 @@
     "NewSponzorshipRequestfor": "New Sponzorship Request for: ",
     "SponzorshipAproved": "Sponzorship Approved: ",
     "SponzorshipRejected": "Your Sponzorship status has been changed from accepted to waiting for approval in: ",
-    "SponzorshipDeleted": "Your Sponzorship status has been changed from waiting for removed permanently in: "
+    "SponzorshipDeleted": "Your Sponzorship status has been changed from waiting for removed permanently in: ",
+    "SponzorRated": "You have been rated by the orgnaizer: ",
+    "OrganizerRated": "You have been rated by the sponzor: ",
+    "SponzorshipCancell": "Has cancell the Sponzorship by the event: ",
+    "TaskChanged1": "A task: ",
+    "TaskChanged2": " in the Event ",
+    "TaskChanged3": " has been updated"
   },
   "chooseOneOption":"--Choose an Option--",
   "howwasyoursponzorship": "Please tell us how was your sponzorship in: ",

@@ -29,6 +29,12 @@
       $scope.deleteSponzorship = function(sponzorshipId, index) {
         $rootScope.showLoading();
         sponzorshipRequest.deleteSponzorship(sponzorshipId).then(function successCallback(response) {
+          var firebaseNotification = {
+            to: $scope.user.pendingSponzorships[index].organizer.id,
+            text: $scope.user.name + $translate.instant('NOTIFICATIONS.SponzorshipCancell') + $scope.user.pendingSponzorships[index].event.title,
+            link: '#/organizers/sponzors'
+          };
+          $rootScope.sendFirebaseNotification(firebaseNotification, $scope.user.pendingSponzorships[index].organizer.id);
           $scope.user.pendingSponzorships.splice(index, 1);
           $scope.user.sponzorships = $scope.user.sponzorships.filter(function(e) {
             if (e.id !== sponzorshipId) {
