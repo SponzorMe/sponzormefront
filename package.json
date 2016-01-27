@@ -58,6 +58,8 @@
     "npm": "^3.5.0"
   },
   "scripts": {
-    "test": "karma start karma.conf.dev.js && karma start karma.conf.dist.js"
+    "postinstall":"bower install",
+    "pretest": "karma start karma.conf.dev.js",
+    "test": "karma start karma.conf.dist.js"
   }
 }
