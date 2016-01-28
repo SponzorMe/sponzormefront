@@ -1,9 +1,8 @@
 <div class="{{tolsctive}}" id="page-wrapper" ng-class="{'active': toggle}">
   <div ng-include="menuprincipal"></div>
   <div id="content-wrapper">
-    <div class="page-content">
+    <div class="page-content" ng-controller="OrganizersEventEditController">
       <div class="row header" ng-include src="'views/organizers/dashboard/header.html'"></div>
-      <!-- -->
       <div class="row">
         <div class="col-xs-12">
           <div class="widget">
@@ -92,11 +91,11 @@
                 </label>
                 <div class="col-sm-7">
                   <select class="form-control" name="type" data-ng-model="eventData.type">
-                    <option data-ng-repeat="t in typefilter" data-ng-value="t.id" ng-if="t.id!=eventData.type">
-                      {{t.name}}
+                    <option data-ng-repeat="t in eventTypes" data-ng-value="t.id" ng-if="t.id!=eventData.type">
+                      {{'eventTypes.'+t.name|translate}}
                     </option>
-                    <option data-ng-repeat="t in typefilter" data-ng-value="t.id" ng-if="t.id==eventData.type" selected="selected">
-                      {{t.name}}
+                    <option data-ng-repeat="t in eventTypes" data-ng-value="t.id" ng-if="t.id==eventData.type" selected="selected">
+                      {{'eventTypes.'+t.name|translate}}
                     </option>
                   </select>
                 </div>
@@ -108,11 +107,11 @@
                 </label>
                 <div class="col-sm-7">
                   <select class="form-control" name="type" data-ng-model="eventData.category">
-                    <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id" ng-if="c.id!=eventData.category && c.id!=''">
-                      {{c.title}}
+                    <option data-ng-repeat="c in categories" data-ng-value="c.id" ng-if="c.id!=eventData.category && c.id!=''">
+                      {{'categories.'+c.title|translate}}
                     </option>
-                    <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id" ng-if="c.id==eventData.category" selected="selected">
-                      {{c.title}}
+                    <option data-ng-repeat="c in categories" data-ng-value="c.id" ng-if="c.id==eventData.category" selected="selected">
+                      {{'categories.'+c.title|translate}}
                     </option>
                   </select>
                 </div>

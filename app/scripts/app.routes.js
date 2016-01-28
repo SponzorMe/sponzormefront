@@ -96,11 +96,11 @@
       })
       .when('/organizers/add/event', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
-        controller: 'OrganizersEventCreateController'
+        controller: 'OrganizersMasterController'
       })
       .when('/organizers/edit/event/:id', {
         templateUrl: 'views/organizers/dashboard/edit_event.html',
-        controller: 'OrganizersEventEditController'
+        controller: 'OrganizersMasterController'
       })
       .when('/sponzors/payment_complete/:sponzorship_id/:sponzor_id', {
         templateUrl: 'views/sponzors/dashboard/sponzorships.html',

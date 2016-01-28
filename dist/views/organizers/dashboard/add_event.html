@@ -1,7 +1,7 @@
 <div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
   <div ng-include="menuprincipal"></div>
   <div id="content-wrapper">
-    <div class="page-content">
+    <div class="page-content" ng-controller="OrganizersEventCreateController">
       <div class="row header" ng-include src="'views/organizers/dashboard/header.html'"></div>
       <div class="row">
         <div class="col-xs-12">
@@ -90,8 +90,8 @@
               <div class="col-sm-7">
                 <select data-ng-model="newEvent.type" name="type" class="form-control" required="required">
                   <option value="">{{ 'choosetype' | translate }}</option>
-                  <option data-ng-repeat="t in typefilter" data-ng-value="t.id">
-                    {{t.name}}
+                  <option data-ng-repeat="t in eventTypes" data-ng-value="t.id">
+                    {{'eventTypes.'+t.name|translate}}
                   </option>
                 </select>
               </div>
@@ -104,8 +104,8 @@
               <div class="col-sm-7">
                 <select data-ng-model="newEvent.category" name="type" class="form-control" required="required">
                   <option value="">{{ 'choosetype' | translate }}</option>
-                  <option data-ng-repeat="c in categoriasfilter" data-ng-value="c.id">
-                    {{c.title}}
+                  <option data-ng-repeat="c in categories" data-ng-value="c.id">
+                    {{'categories.'+c.title|translate}}
                   </option>
                 </select>
               </div>

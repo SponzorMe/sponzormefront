@@ -1,11 +1,16 @@
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $translate, $localStorage, eventRequest, ngDialog, sponzorshipRequest, $rootScope, $sce) {
+  function SponzorsMainController($scope, $translate, $localStorage, eventRequest, ngDialog, sponzorshipRequest, $rootScope, $sce, demoRequest, $timeout) {
     if ($rootScope.userValidation('1')) {
       $scope.section = {
         route: 'Dashboard',
         title: 'Dashboard'
       };
+      if ($localStorage.demo === '0') {
+          $timeout(function() {
+            demoRequest.showDemo($localStorage.id, $localStorage.typesponzorme);
+          }, 1000);
+      }
       $scope.user = JSON.parse($localStorage.user);
       $scope.balance = 0;
       $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {

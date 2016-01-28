@@ -7,22 +7,7 @@
         title: 'Event Edit'
       };
       $scope.user = JSON.parse($localStorage.user);
-      eventTypeRequest.allEventTypes().success(function(adata) {
-        $scope.type = {};
-        $scope.type.list = adata.eventTypes;
-        $scope.typefilter = adata.eventTypes;
-      });
-      $scope.categorias = {};
-      categoryRequest.allCategories().success(function(adata) {
-        $scope.categorias.list = adata.categories;
-        $scope.categoriasfilter = adata.categories;
-      });
-      $scope.verifyPerkLimit = function(s) {
-        if (s.usd > 200 || typeof s.usd === 'undefined') {
-          s.usd = 200;
-          $rootScope.showDialog('error', 'maxLimitPerk', false);
-        }
-      };
+      $scope.setEventData();
       $scope.doEditEvent = function(idevent) {
         $rootScope.showLoading();
         $scope.eventData.organizer = $localStorage.id;
@@ -58,7 +43,6 @@
       $scope.eventData = $scope.user.events[$routeParams.id];
       $scope.eventData.starts = new Date($scope.eventData.starts).getTime();
       $scope.eventData.ends = new Date($scope.eventData.ends).getTime();
-      $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);

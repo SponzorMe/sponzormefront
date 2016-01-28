@@ -1,11 +1,16 @@
 'use strict';
 (function() {
-  function OrganizersMainController($scope, $translate, $localStorage, rssRequest, $rootScope) {
+  function OrganizersMainController($scope, $translate, $localStorage, rssRequest, $rootScope, demoRequest, $timeout) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Dashboard',
         title: 'Dashboard'
       };
+      if ($localStorage.demo === '0') {
+          $timeout(function() {
+            demoRequest.showDemo($localStorage.id, $localStorage.typesponzorme);
+          }, 1000);
+      }
       $scope.loadingevents = false;
       $scope.loadingrss = true;
       $scope.user = JSON.parse($localStorage.user);

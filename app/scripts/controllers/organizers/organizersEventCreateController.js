@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, ngDialog, categoryRequest, $rootScope, $routeParams, eventbriteRequest) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest) {
     //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
@@ -19,25 +19,8 @@
       };
       $scope.newEvent.starts = new Date().getTime();
       $scope.newEvent.ends = new Date().getTime();
-      eventTypeRequest.allEventTypes().success(function(adata) {
-        $scope.type = {};
-        $scope.type.list = adata.eventTypes;
-        $scope.typefilter = adata.eventTypes;
-      });
-      $scope.categorias = {};
-      categoryRequest.allCategories().success(function(adata) {
-        $scope.categorias.list = adata.categories;
-        $scope.categoriasfilter = adata.categories;
-      });
+      $scope.setEventData();
       //End vars Initialization
-
-      //This function very no perks over 200USD
-      $scope.verifyPerkLimit = function(s) {
-        if (s.usd > 200 || typeof s.usd === 'undefined') {
-          s.usd = 200;
-          $rootScope.showDialog('error', 'maxLimitPerk', false);
-        }
-      };
 
       //This function creates an event
       $scope.createNewEvent = function() {
