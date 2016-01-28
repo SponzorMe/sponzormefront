@@ -7,12 +7,12 @@
   angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginController'
+        templateUrl: 'views/home.html',
+        controller: 'HomeController'
       })
       .when('/', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginController'
+        templateUrl: 'views/home.html',
+        controller: 'HomeController'
       })
       .when('/activation/:token', {
         templateUrl: 'views/activation.html',
