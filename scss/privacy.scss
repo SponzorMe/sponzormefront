@@ -1,0 +1,13 @@
+.allContainer .superContainer .cont .privacyContainer {        
+    margin: 0 1em 2em 1em;
+    background-color: $color_white;
+    padding: 2em 3em 3em 3em;
+    min-height: 100vh;
+    text-align: justify;
+
+    &>.backButton {
+        &>a > md-icon {
+            font-size: 3em;
+        }
+    }
+}

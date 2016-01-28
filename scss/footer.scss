@@ -1,0 +1,49 @@
+.footerContainer {
+    background: $color_white;
+    bottom: 0;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+    position: relative;
+    width: 100%;
+    z-index: 61;
+    
+    @media screen and (max-width: $media_step1_bottom) {
+        position: relative;
+    }
+
+    div.lang-buttons {
+        margin-bottom: 0.5em;
+        &>button.lang-button {
+            background: $color_white;
+            border-radius: 50%;
+            border: 2px solid $color_green;
+            color: $color_green;
+            font-weight: bold;
+            height: 2.3em;
+            margin-right: 0.5em;
+            width: 2.3em;
+
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        
+        button.lang-button-active {
+            @extend button.lang-button;
+                background: $color_green;
+                color: $color_white;
+        }
+    }
+
+    .footer-links {
+        margin-bottom: 0.5em;
+
+        &>a {
+            margin-right: 1.5em;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+nav.navbar{
+    padding: 0.4em;
+	position: relative;
+	top: 0;
+	z-index: 15;
+
+    &>div{
+        &>a {
+            &>h1{
+                margin: 0;
+
+                &>span {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

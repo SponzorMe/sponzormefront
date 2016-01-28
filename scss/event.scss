@@ -1,0 +1,220 @@
+.allContainer .superContainer .cont .contentContainer {
+    .notifyDetailContainer {  
+        &>.event {
+            overflow: hidden;
+            padding: 0.5em;
+
+            &>.leftContainer {
+                &>.image {
+                    background-color: $color_orange;
+                    padding: 0;
+            
+                    &>p {
+                        color: $color_white;
+                        font-size: 14px;
+                        font-weight: bold;
+                        padding: 0 2em 1.5em 1em;
+                    }
+                }
+                &>.description {
+                    color: $color_gray3;
+                    font-size: 12px;
+                    padding: 1em 0 1.5em 0;
+                    text-align: justify;
+                }
+            }
+
+            &>.rightContainer {
+                color: $color_gray3;
+                font-size: 10px;
+
+                h4 {
+                    font-size: 12px;
+                    margin-bottom: 1em;
+                    margin-top: 0.5em;
+                }
+                    
+                a {
+                    color: $color_active;
+                    font-size: 12px;
+                    margin-top: 0;
+                    text-transform: uppercase;
+                }
+
+                &>.organizer {
+
+                    &>.userOrganizer {
+                        margin-bottom: 1em;
+
+                        &>img {
+                            border-radius: 50%;
+                            margin-right: 1em;
+                        }
+                        &>.rating {
+                            margin: 0;
+
+                            &>p {
+                                margin-bottom: 0;
+                            }
+
+                            &>.stars {
+                                &>md-icon {
+                                    color: $color_active;
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                    }
+
+                    &>.contact {
+                        color: $color_gray3;
+                        
+                        &>p {
+                            margin-left: 1em;
+                        }
+                    }                    
+                }
+
+                .buttonContainer {  
+                    margin: 0;
+                    padding: 0;
+
+                    &>.toSponsorButton {
+                        background-color: $color_fuchsia;
+                        color: $color_white;
+                        width: 150px;
+                    }
+                }
+            }
+        }
+
+        &>.sponsorAnEvent {
+            border-top: 1px solid $color_gray1;
+            color: $color_gray3;
+            font-size: 12px;
+            padding: 0.5em;
+
+            &>.table {
+                
+                .tableTitle {
+                    background-color: $color_fuchsia;
+                    padding: 1.5em 0;
+                    text-transform: uppercase;
+                    text-align: center;
+                    width: 100%;
+
+                    &>a {
+                        color: $color_fuchsia_darker;
+                        font-size: 16px;
+                        position: relative;
+
+                        &:nth-child(1) {
+                            left: 15px;
+                        }
+                        
+                        &:nth-child(2) {
+                         left: 24px;   
+                        }
+
+                        &:nth-child(3) {
+                            left: 25px;
+                        }
+
+                        &:nth-child(4) {
+                            left: 0;
+                        }
+                    }                    
+                }
+
+                &>.tableContent {
+                    background-color: $color_gray1;
+                    padding: 0 1.5em 1.5em 1.5em;
+
+                    &>.columnContainer {
+                        position: relative;
+                        margin-bottom: 0.5em;
+
+                        &>.tablePrice {
+                            background-color: $color_black;
+                            font-size: 14px;
+                            font-weight: bold;
+                            height: 40px;
+                            margin-bottom: 0.2em;
+                            margin-top: 0.5em;
+                            opacity: 0.2;
+                            text-transform: uppercase;
+
+                            &>a {
+                                color: $color_white;
+                            }
+                        }
+
+                        &>.tableLikeButton {
+                            background-color: $color_fuchsia;
+                            height: 40px;
+                            visibility: hidden;
+
+                            &>a md-icon {
+                                color: $color_white;
+                                font-size: 36px;
+                            }
+                        }
+                        
+
+                        &>a {
+                            color: $color_gray_text;
+                            margin-top: 0;
+                            padding: 0 2.5em 2.5em 2.5em;
+                        }
+
+                        &>.border {
+                            background-color: $color_fuchsia_darker;
+                            height: 3px;
+                            position: absolute;
+                            top: -3px;
+                            visibility: hidden;
+                            width: 126px;
+                        }
+
+                        &:hover {        
+                            &>a {    
+                                background-color: $color_white;
+                            }
+                                           
+                            &>.tableLikeButton {
+                                visibility: visible;
+                            }
+
+                            &>.tablePrice {
+                                opacity: 1;
+                            }
+
+                            &>.border {
+                                visibility: visible;
+                            }                             
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.allContainer .superContainer .cont .menuContainer .menuItems .arrow {
+    &>a {
+        margin-left: 1em;
+        
+        &>md-icon {
+            color: $color_white;
+            font-size: 48px;
+        }
+    }
+}
+
+
+
+
+
+
+
+

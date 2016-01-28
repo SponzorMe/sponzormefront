@@ -1,0 +1,106 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer { 
+    &>.addTask {
+        font-size: 12px;
+        &>div {
+            &>md-icon {
+                color: $color_active;
+            }
+            &>span {
+                color: $color_active;
+            }
+        }
+    }
+
+    &>.event {
+        &>.leftContainer {
+            &>.typeOfSponzor {
+                font-size: 12px;
+                color: $color_active;
+            }
+        }
+    }
+
+    &>.taskstoDo {
+        min-height: 400;
+        padding: 0.3em;
+        
+        &>.tasksTitles {
+            text-transform: uppercase;
+            margin: 0 0.6em 0 0;
+            font-size: 14px;
+        }
+
+        &>.taskItem {
+            background: $color_gray1;
+            margin: 0.2em 0.6em 0.2em 0;
+            text-transform: uppercase;
+            font-size: 12px;
+
+            &:hover {
+                background: $color_active;
+                color: $color_white;
+            }
+            &>a {
+                &>.taskTitle {
+                    text-transform: initial;
+                }
+                &>.taskDescription {
+                    text-transform: initial;
+                }
+            }
+        }
+    }
+
+//
+//for sponzors/sponzoring
+//
+    &>.eventTitles {
+        text-transform: uppercase;
+        margin: 0 0.6em 0 0;
+        font-size: 14px;
+    }
+    
+    &>.eventItem {
+        background: $color_white;
+        margin: 0.2em 0.6em 0.7em 0;
+        text-transform: uppercase;
+        font-size: 12px;
+
+        &:hover {
+            box-shadow: 3px -1px 3px 0px rgba(0, 0, 0, 0.2),
+                        1px 1px 1px -1px rgba(0, 0, 0, 0.12);
+        }
+        &>a {
+            &>.eventTitle {
+                text-transform: initial;
+            }
+            &>.eventSponzorType {
+                text-transform: uppercase;
+            }
+        }
+
+        &>.eventLink {
+            color: $color_active;
+        }
+
+    }
+}
+
+.allContainer .superContainer .cont .menuContainer .menuItems .arrow {
+    &>a {
+        margin-left: 1em;
+        
+        &>md-icon {
+            color: $color_white;
+            font-size: 48px;
+        }
+    }
+}
+
+
+
+
+
+
+
+

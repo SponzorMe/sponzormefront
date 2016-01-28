@@ -13,14 +13,59 @@ var gulp = require('gulp'),
   eslint = require('gulp-eslint'),
   sass = require('gulp-sass'),
   rename = require('gulp-rename'),
-  browserSync = require('browser-sync').create();
+  browserSync = require('browser-sync').create(),
+  sourcemaps = require('gulp-sourcemaps'),
+  inject = require('gulp-inject'),
+  autoprefixer = require('gulp-autoprefixer'),
+  gutil = require('gulp-util');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
+var errorHandler = function(title) {
+    'use strict';
+
+    return function(err) {
+      gutil.log(gutil.colors.red('[' + title + ']'), err.toString());
+      this.emit('end');
+    };
+  };
+
+gulp.task('styles', function(){
+
+  var sassOptions = {
+      style: 'expanded'
+    };
+
+  var injectFiles = gulp.src(['./scss/**/*.scss', '!./scss/index.scss', '!./scss/ignoreStyles/*.scss'], { read: false });
+
+  var injectOptions = {
+    transform: function(filePath) {
+      filePath = filePath.replace('app/', '');
+      return '@import "' + filePath + '";';
+    },
+    starttag: '// injector',
+    endtag: '// endinjector',
+    addRootSlash: false
+  };
+  
+  return gulp.src('./scss/index.scss')
+    .pipe(inject(injectFiles, injectOptions))
+    .pipe(sourcemaps.init())
+    .pipe(sass(sassOptions)).on('error', errorHandler('Sass'))
+    .pipe(autoprefixer()).on('error', errorHandler('Autoprefixer'))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('./app/styles'));
+});
+
+gulp.task('cleanStyles', function(){
+  return gulp.src('./app/styles/index.css', {read: false})
+    .pipe(clean({ force: true }));
+});
+
 gulp.task('sass', function (done) {
-  gulp.src('./scss/**/*.scss')
+  gulp.src('./scss/ignoreStyles/*.scss')
     .pipe(sass())
     .on('error', sass.logError)
     .pipe(gulp.dest('./app/styles/'))
@@ -92,7 +137,7 @@ gulp.task('clean', function () {
     .pipe(clean({ force: true }));
 });
 
-gulp.task('build', ['sass', 'main', 'views', 'images', 'langs', 'fonts', 'extras', 'extras1', 'extras2']);
+gulp.task('build', ['styles', 'main', 'views', 'images', 'langs', 'fonts', 'extras', 'extras1', 'extras2']);
 
 gulp.task('success', ['clean'], function () {
   gulp.start('build');
@@ -103,6 +148,7 @@ gulp.task('default', ['lint'], function () {
 });
 
 gulp.task('serve', function () {
+  gulp.start('default');
   browserSync.init({
     notify: false,
     https: false,
@@ -127,7 +173,7 @@ gulp.task('serve', function () {
     'app/styles/*.css',
     'bower_components/*'
   ]).on('change', browserSync.reload);
-  gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.sass, ['styles']);
   gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json');
 });

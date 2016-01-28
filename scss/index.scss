@@ -1,0 +1,211 @@
+/**
+ *  Do not remove the comment below. It's the markers used by wiredep to inject
+ *  sass dependencies when defined in the bower.json of your dependencies
+ */
+// bower:scss
+// endbower
+
+/* Colors */
+$color_white: white;
+$color_black: black;
+
+$color_gray1: #ececec;
+$color_gray_text: #9a9a9a;
+$color_gray3: #5B5B5B;
+
+$color_fuchsia: #e91e63;
+$color_fuchsia_darker: #9c0035;
+
+$color_green: rgb(0, 131, 141);
+
+$color_orange: #faaf3a;
+$color_orange_darker: #7d571d;
+
+$color_blue: #29aae3;
+$color_blue_darker: #29ace2;
+$color_blue_brighter: #00bcd2;
+
+$color_active: #f09200;
+$color_active_darker: #E6A235;
+
+$media_step1_bottom: 640px;
+$media_step1_top: 1200px;
+
+
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+       url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.woff) format('woff'),
+       url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+  display: inline-block;
+  font-family: 'Material Icons';
+  font-size: 24px;  /* Preferred icon size */
+  font-style: normal;
+  font-weight: normal;
+  height: 1em;
+  letter-spacing: normal;
+  line-height: 1;
+  text-transform: none;
+  width: 1em;
+  word-wrap: normal;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+
+
+[layout=row] {
+  flex-direction: row;
+}
+
+.browsehappy {
+  background: #ccc;
+  color: #000;
+  margin: 0.2em 0;
+  padding: 0.2em 0;
+}
+
+md-toolbar.md-default-theme {
+  background-color: black;
+}
+
+
+a.no-style {
+  text-decoration: none;
+}
+/**
+ *  Background & Color classes
+ *  
+ */
+
+.bg-white {
+  background: $color_white!important;
+}
+
+.bg-black {
+  background: $color_black!important;
+}
+
+.bg-green {
+  background: $color_green!important;
+}
+
+.bg-active {
+  background: $color_active!important;
+}
+
+.bg-active-darker {
+  background: $color_active_darker!important;
+}
+
+.bg-blue-brighter {
+  background: $color_blue_brighter!important;
+}
+/* --- */
+
+.color-white {
+  color: $color_white!important;
+}
+
+.color-black {
+  color: $color_black!important;
+}
+
+.color-green {
+  color: $color_green!important;
+}
+
+.color-active {
+  color: $color_active!important;
+}
+
+.color-active-darker {
+  color: $color_active_darker!important;
+}
+
+.color-blue-brighter {
+  color: $color_blue_brighter!important;
+}
+
+/**
+ *  Helper classes
+ *  
+ */
+.text-bold {
+  font-weight: bold;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.text-center {
+  text-align: center;
+}
+
+button.button-light {
+  border-radius: 0;
+  border: none;
+}
+
+html {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  a {
+    text-decoration: none;
+  }
+}
+
+/**
+ *  Helper classes for inputs
+ *  
+ */
+
+md-input-container.organizers:not(.md-input-invalid).md-input-focused label {
+        color: $color_blue_brighter;
+    }
+
+md-input-container.organizers:not(.md-input-invalid).md-input-focused .md-input {
+    border-color: $color_blue_brighter;
+}
+
+md-input-container.sponzors:not(.md-input-invalid).md-input-focused label {
+    color: $color_active;
+    color: $color_active;
+}
+
+md-input-container.sponzors:not(.md-input-invalid).md-input-focused .md-input {
+    border-color: $color_active;
+}
+
+md-select.sponzors:not([disabled]):focus .md-select-value {
+  border-bottom-color: $color_active;
+}
+
+md-select.organizers:not([disabled]):focus .md-select-value {
+  border-bottom-color: $color_blue_brighter;
+}
+
+/**
+ *  Do not remove the comment below. It's the markers used by gulp-inject to inject
+ *  all your sass files automatically
+ */
+// injector
+// endinjector

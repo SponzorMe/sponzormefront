@@ -1,0 +1,76 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer {                    
+    &>.replyElement {
+        padding: 0.5em;
+
+        &>div md-input-container {
+            width: 100%;
+        }
+
+
+        &>.titleInput {
+            font-size: 14px; 
+            margin-bottom: 0.5em;
+
+            &>md-input-container {
+                height: 15px;
+            }
+        }
+
+        &>.messageInput {
+            text-align: justify; 
+
+            &>md-input-container {
+                &>textarea {
+                    min-height: 150px;            
+                }
+            }
+        }
+
+        &>.actions {
+            font-size: 12px;
+            margin-left: 1.5em;
+
+
+            &>a {
+                margin-right: 2.5em;
+                color: $color_gray_text; 
+
+                &>p {
+                    margin-left: 0.5em;
+                }             
+
+                &:hover {
+                    &>p {
+                        color: $color_active;
+                    }
+                    &>md-icon {
+                        color: $color_active;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.allContainer .superContainer .cont .menuContainer .menuItems .arrow {
+    &>a {
+        margin-left: 1em;
+        &>md-icon {
+            font-size: 48px;
+            color: $color_white;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

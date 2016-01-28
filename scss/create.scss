@@ -1,0 +1,96 @@
+
+.allContainer .superContainer .cont .createContainer {        
+	margin: 0 1em 2em 1em;
+	background-color: $color_white;
+	padding: 2em 7em 3em 7em;
+
+	@media screen and (max-width: $media_step1_bottom) {
+    	padding: 1.5em;
+    	margin: 0;        
+    }
+	
+	&>.logo {
+		&>figure > img {
+			max-width: 110px;
+			max-height: 110px;
+		}
+	}
+
+    &>.formContainer {
+		&>div > .sendButton.send {	
+			font-size: 16px;
+			padding: 0.4em 1.8em;
+			background-color: $color_blue_brighter;	
+			margin-top: 1.5em;		
+			&>span {
+				color: $color_white;
+			}
+		}
+
+		&>div > .firstPageContainer {
+		 	&>.btnCont > .sendButton.next {	
+				font-size: 16px;
+				padding: 0.4em 1.8em;
+				background-color: $color_blue_brighter;			
+				&>span {
+					color: $color_white;
+				}
+			}
+		}
+
+		&>div > .secondPageContainer {
+			&>.backButton {
+				position: absolute;
+				top: 40px;
+				left: 40px;
+				&>button md-icon {
+					font-size: 3.5em;
+					color: $color_blue_brighter;
+				}
+
+				@media screen and (max-width: $media_step1_bottom) {
+				    top: 20;
+				    left: 0;
+				}
+			}
+			&>.supCont {
+				&>div > md-input-container {
+					min-width: 150px;
+				}
+			}
+		}
+    }     
+
+	.createTitle {
+		margin-bottom: 1em;
+
+		&>h1 {
+			text-align: center;
+			color: $color_blue_brighter;
+		}
+		
+		&>span.organizer {
+			color: $color_blue_darker;
+			font-size: 2.5em;
+			font-weight: bold;
+		}
+
+		&>span.sponzor {
+			color: $color_active;
+			font-size: 2.5em;
+			font-weight: bold;
+		}
+  		@media screen and (max-width: $media_step1_bottom) {
+    		margin-bottom: 2em;        
+   		}
+	}
+
+	&>.confirmText {
+		margin-top: 2em;
+		&>h1 {
+			text-align: center;
+			color: $color_blue;
+		}
+	}
+}    
+
