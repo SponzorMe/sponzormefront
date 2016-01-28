@@ -49,7 +49,7 @@ module.exports = function(config) {
     preprocessors: {
       'app/scripts/services/*.js': 'coverage'
     },
-    singleRun: true,
+    singleRun: false,
     autowatch: false,
     frameworks: ['jasmine'],
     browsers: ['PhantomJS'],

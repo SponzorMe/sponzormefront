@@ -712,5 +712,30 @@
     "step2":"Empecemos, explorando un poco tu dashboard.</br>Lo primero es que vas a ver en esta zona un resumen de todo lo que esta sucediendo.</br>Podrás ver un resumen global, Resumen de tus Eventos, Resumen de tus Patrocinios y Algunas sugerencias que nuestro equipo de expertos ha preparado para ti.",
     "step3":"Ahora miremos un poco de nuestro menu.</br>Aca podras encontrar lo siguiente. </br>Dashboard -> Para volver al resumen de todas las actividades.</br>Eventos -> Para poder crear, editar y gestionar tus eventos.</br>Sponzors -> Para poder crear, editar y gestionar tus patrocinadores.</br>Task List -> Para poder manejar tus acuerdos con tus patrocinadores y mantener buenas y sanas relaciones con ellos.</br>Invita a tus amigos -> Esparce el amor. Envíaselo a esa persona que sabes necesita algo como esto y lo va a disfrutar.</br>Configuración -> Acá podrás actualizar tu información y conectar tus cuentas externas.</br>Desconectar -> Aca podras salir de nuestra plataforma de una manera segura. Sabemos que es temporal por que te queremos <B",
     "step4":"Ahora miremos un poco de esas opciones con un poco menos de relevancia pero que te gustaran cuando las necesites.</br>Blog ->   Lee un poco de lo que escribe nuestro equipo.</br>About -> Lee un poco sobre el equipo.</br>Soporte -> Algun problema? escribele a nuestro equipo de expertos para que resuelvan lo antes posible ese inconveniente."
+  },
+  "categories":{
+    "Outdoor": "Exteriores",
+    "Art & Culture": "Arte y Cultura",
+    "Dancing": "Baile",
+    "Wellness": "Bienestar",
+    "Career & Business": "Negocios",
+    "Eat & Foods": "Comida",
+    "Belief": "Creencias",
+    "Sports & Fitness": "Deportes",
+    "Education": "Educación",
+    "Photography": "Fotografia",
+    "Languages": "Lenguajes",
+    "Books": "Libros",
+    "Music": "Musica",
+    "Technology": "Tecnologia"
+  },
+  "eventTypes":{
+    "Charity": "Caridad",
+    "Recruitment": "Reclutamiento",
+    "Training or Workshop”:"Entrenamiento",
+    "Perfomance”:”Conciertos",
+    "Conference”:"Conferencias",
+    "Networking Event”:"Eventos",
+    "Other": "Otros",
   }
 }

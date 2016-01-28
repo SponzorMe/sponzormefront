@@ -13,8 +13,8 @@
         return $http.get($rootScope.getConstants().URL + 'events');
 
       },
-      oneEvent: function(EventId) {
-        return $http.get($rootScope.getConstants().URL + 'events/' + EventId);
+      oneEvent: function(eventId) {
+        return $http.get($rootScope.getConstants().URL + 'events/' + eventId);
 
       },
       createEvent: function(data) {
@@ -39,20 +39,20 @@
           data: $httpParamSerializerJQLike(data)
         });
       },
-      deleteEvent: function(EventId) {
+      deleteEvent: function(eventId) {
         return $http({
           method: 'DELETE',
-          url: $rootScope.getConstants().URL + 'events/' + EventId,
+          url: $rootScope.getConstants().URL + 'events/' + eventId,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ' + token
           }
         });
       },
-      editEventPut: function(EventId, data) {
+      editEventPut: function(eventId, data) {
         return $http({
           method: 'PUT',
-          url: $rootScope.getConstants().URL + 'events/' + EventId,
+          url: $rootScope.getConstants().URL + 'events/' + eventId,
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Basic ' + token

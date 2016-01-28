@@ -14,7 +14,6 @@
        */
       allCategories: function() {
         return $http.get($rootScope.getConstants().URL + 'categories');
-
       }
     };
   }
