@@ -29,13 +29,14 @@
         }
 
         .login-tabs {
-            height: 50vh;
+            height: 45vh;
             margin-top: 1.5em;
             overflow: hidden;
             width: 30%;
             
             @media screen and (max-width: $media_step1_bottom) {
                 width: 90%;
+                height: 52vh;
             }
             
             @media (min-width: $media_step1_bottom) and (max-width: $media_step1_top) {
@@ -71,6 +72,7 @@
             }
             
             .login-content {
+                margin-top: 1em;
                 &>p {
                     margin: 0;
                 }
