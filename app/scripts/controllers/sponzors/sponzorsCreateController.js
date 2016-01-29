@@ -2,6 +2,37 @@
 (function() {
 
   function SponzorsCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, $routeParams, $rootScope) {
+    //mock starts
+
+    $scope.pages = {
+      'firstPage': '',
+      'secondPage': '',
+      'thirdPage': ''
+    }
+
+    $scope.submitSucces = function() {
+      return false;
+    };
+
+    $scope.create = {
+      'date' : new Date(),
+      'image' : '',
+      'success' : false,
+      'age': ''
+    };
+
+    $scope.firstPage = true;
+
+    $scope.toggleCreateForm = function() {
+      if($scope.firstPage === true){
+        $scope.firstPage = false;  
+      } else {
+        $scope.firstPage = true;
+      }
+    };
+
+    //mock ends
+
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
