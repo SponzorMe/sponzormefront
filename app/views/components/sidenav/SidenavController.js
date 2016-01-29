@@ -7,7 +7,8 @@
     $scope.statesSponzors = {
         'dashboard': {
           'dashboard': 'views/sponzors/dashboard/main.html',
-          'outstanding': 'views/sponzors/dashboard/outstanding.html'
+          'outstanding': 'views/sponzors/dashboard/outstanding.html',
+          'eventId': 'views/event.html'
         },
         'sponzoring': {
           'sponzoring': 'views/sponzors/dashboard/sponzorships.html',

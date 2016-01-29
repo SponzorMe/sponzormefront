@@ -1,98 +1,116 @@
 .allContainer .superContainer .cont .contentContainer {
     .notifyDetailContainer {  
-        &>.event {
-            overflow: hidden;
-            padding: 0.5em;
+        &>.eventContainer {
+            padding: 0;
+            background: $color_white;
+            @media screen and (max-width: $media_step1_bottom) {
+                
+                width: 100vw;
+            }
+           &>img {
+                min-width: 100%;
+                width: 100%;
+                max-height: 300px!important;
+           }                    
+        
+            &>.imageTexts {
+                background: $color_blue_brighter;
+                margin: 0;
+                min-height: 120px;
+                position: relative;
+                padding: 0.1em 3em 2em 3em;
+                top: -50px;
+                margin-left: 15%;
+                margin-right: 15%;  
+                text-align: justify;
 
-            &>.leftContainer {
-                &>.image {
-                    background-color: $color_orange;
-                    padding: 0;
-            
-                    &>p {
-                        color: $color_white;
-                        font-size: 14px;
-                        font-weight: bold;
-                        padding: 0 2em 1.5em 1em;
-                    }
+                @media screen and (max-width: $media_step1_bottom) {
+                    margin: 0;
+                    padding: 1em;
                 }
+
+                &>h3 {
+                    font-weight: normal;
+                    font-style: italic;
+                }
+                &>p {
+                    color: $color_white;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+                &>a {
+                    color: $color_blue_darker;
+                    text-decoration: underline;
+                }
+            }
+
+            &>.shareButton {
+                position: absolute;
+                top: 320px;
+                right: 30px;
+
+                @media screen and (max-width: $media_step1_bottom) {
+                    position: fixed;
+                    top: 30px;
+                    right: 0;
+                    z-index: 30;
+                }
+            }
+
+            &>.textsContainer {
+                margin: 0 15% 0 15%;
+                
+                @media screen and (max-width: $media_step1_bottom) {
+                    margin: 0;
+                    padding: 1em;
+                }
+
                 &>.description {
-                    color: $color_gray3;
                     font-size: 12px;
                     padding: 1em 0 1.5em 0;
                     text-align: justify;
                 }
-            }
-
-            &>.rightContainer {
-                color: $color_gray3;
-                font-size: 10px;
-
-                h4 {
-                    font-size: 12px;
-                    margin-bottom: 1em;
-                    margin-top: 0.5em;
-                }
-                    
-                a {
-                    color: $color_active;
-                    font-size: 12px;
-                    margin-top: 0;
-                    text-transform: uppercase;
-                }
-
-                &>.organizer {
-
-                    &>.userOrganizer {
-                        margin-bottom: 1em;
-
-                        &>img {
-                            border-radius: 50%;
-                            margin-right: 1em;
-                        }
-                        &>.rating {
-                            margin: 0;
-
-                            &>p {
-                                margin-bottom: 0;
+                &>.eventInfo {
+                    &>.item {
+                        padding: 0.5em;
+                        &>div {
+                            height: 52px;
+                            &>img {
+                                width: 50px;
+                                border-radius: 50%;
+                                margin-right: 0.3em;
                             }
-
-                            &>.stars {
-                                &>md-icon {
-                                    color: $color_active;
-                                    font-size: 16px;
+                            &>md-icon {
+                                margin-right: 0.3em;
+                            }
+                            &>div {
+                                p {
+                                    font-size: 12px;
+                                    margin: 0;
+                                    color: $color_gray3;
+                                }
+                                &>div md-icon {
+                                    font-size: 14px;
                                 }
                             }
                         }
                     }
-
-                    &>.contact {
-                        color: $color_gray3;
-                        
-                        &>p {
-                            margin-left: 1em;
-                        }
-                    }                    
                 }
-
-                .buttonContainer {  
-                    margin: 0;
-                    padding: 0;
-
-                    &>.toSponsorButton {
-                        background-color: $color_fuchsia;
-                        color: $color_white;
-                        width: 150px;
+                &>.contact {
+                    &>p {
+                        font-size: 12px;
+                        color: $color_gray3;
                     }
                 }
             }
         }
-
         &>.sponsorAnEvent {
             border-top: 1px solid $color_gray1;
             color: $color_gray3;
+            background: $color_gray1;
             font-size: 12px;
             padding: 0.5em;
+            margin: 1em 15%;
 
             &>.table {
                 
@@ -133,6 +151,11 @@
                     &>.columnContainer {
                         position: relative;
                         margin-bottom: 0.5em;
+
+                        &>.toSponzorWith {
+                            min-height: 260px;
+                            height: 260px;
+                        }
 
                         &>.tablePrice {
                             background-color: $color_black;

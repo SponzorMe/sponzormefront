@@ -1,0 +1,98 @@
+<div class="container" style="height:50px">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="" href="#/">
+      <img class="padding-left-10 padding-top-7" src="images/logo.png" alt="sponzorme" height="40px" />
+    </a>
+  </div>
+  <ul class="nav navbar-nav navbar-right">
+    <section ng-show="isNoLogged">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#/login" style="color:#00838d !important">{{ 'login' | translate }}</a></li>
+        <li><a href="#/sponzors/create" style="color:#00838d !important">{{ 'sponsorreg' | translate }}</a></li>
+        <li><a href="#/organizers/create" style="color:#00838d !important">{{ 'organizerreg' | translate }}</a></li>
+      </ul>
+    </section>
+    <section ng-show="!isNoLogged">
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-show="!isNoLogged && !isSponzor"><a href="#/organizers/dashboard" style="color:#00838d !important">{{ 'dashboard' | translate }}</a></li>
+        <li ng-show="!isNoLogged && isSponzor" style="color:#00838d !important"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
+        <li><a href="#/logout" style="color:#00838d !important">{{ 'logout' | translate }}</a></li>
+      </ul>
+    </section>
+  </ul>
+</div>
+</div>
+<link rel="stylesheet" href="styles/event-page.min.css">
+<div id="page-wrapper" ng-cloak ng-if="eventLoaded">
+  <!-- Banner -->
+  <section id="banner" ng-cloak>
+    <div class="inner">
+      <header>
+        <h2 ng-cloak>{{currentEvent.title}}</h2>
+      </header>
+      <p styles="width:25%;" ng-bind-html="currentEvent.description"></p>
+    </div>
+
+  </section>
+
+  <!-- Main -->
+  <article class="padding-top-10">
+    <section class="wrapper style1 container special">
+      <header class="major">
+        <h2>{{'sponzorshipTypes'|translate}}</h2>
+      </header>
+      <div class="row">
+        <div class="4u 12u" ng-repeat="p in currentEvent.perks">
+          <section class="font-size-14 bordered text-center">
+            <span class="icon fa-heart"></span>
+            <header>
+              <h3>{{p.kind}}</h3>
+              <h4>${{p.usd}} USD</h4>
+            </header>
+            <strong ng-if="p.tasks.length">{{'perkTasks'|translate}}:</strong>
+            <strong ng-if="!p.tasks.length" class="font-size-10">*({{'NoPerkTasks'|translate}})</strong>
+            <ul class="text-center no-list-style" ng-if="p.tasks.length">
+              <li ng-repeat="t in p.tasks" ng-if="t.type==0"><i class="fa fa-check"></i>&nbsp;{{t.title}}</li>
+            </ul>
+            <span ng-if="!isNoLogged && !isSponzor">({{'noSponzor'|translate}})</span>
+            <span ng-if="p.reserved_quantity >= p.total_quantity">({{'sponzorshipsComplete'|translate}})</span>
+            <span ng-if="todayDate>= currentEvent.starts">({{'sponzorshipsClose'|translate}})</span>
+            <a href="" ng-if="!isNoLogged && isSponzor && p.reserved_quantity < p.total_quantity && todayDate < currentEvent.starts" class="button fit scrolly" ng-click="formCreateSponzorship(p)">{{'sponzor'|translate}}&nbsp;<i class="fa fa-arrow-right"></i></a>
+            <a href="" ng-click="sendToLogin()" ng-if="isNoLogged && !isSponzor" class="button fit scrolly">{{'logginToSPonzor'|translate}}</a>
+          </section>
+        </div>
+      </div>
+    </section>
+
+  </article>
+  <hr/>
+  <!-- Footer -->
+  <footer id="footer">
+
+    <ul class="icons">
+      <li>
+        <a href="https://twitter.com/home?status={{eventURL}}" class="icon circle fa-twitter">
+          <span class="label">Twitter</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{eventURL}}" target="_blank" onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;" class="icon circle fa-facebook">
+          <span class="label">Facebook</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://plus.google.com/share?url={{eventURL}}" class="icon circle fa-google-plus">
+          <span class="label">Google+</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="copyright">
+      <li>&copy; Sponzorme 2015</li>
+    </ul>
+  </footer>
+</div>
