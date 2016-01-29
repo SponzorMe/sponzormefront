@@ -5,6 +5,11 @@
     min-height: 100vh;
     text-align: justify;
 
+    @media screen and (max-width: $media_step1_bottom) {
+        text-align: justify;
+        margin: 0;
+    }
+
     &>.backButton {
         &>a > md-icon {
             font-size: 3em;
