@@ -4,6 +4,10 @@
     padding: 2em 3em 3em 3em;
     min-height: 100vh;
     text-align: justify;
+    @media screen and (max-width: $media_step1_bottom) {
+        margin: 0;
+        padding: 2em;
+    }
 
     &>.backButton {
         &>a > md-icon {

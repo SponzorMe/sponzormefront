@@ -6,6 +6,7 @@
     text-align: justify;
     @media screen and (max-width: $media_step1_bottom) {
         margin: 0;
+        padding: 2em;
     }
 
     &>.backButton {
