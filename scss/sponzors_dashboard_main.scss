@@ -139,6 +139,13 @@ body {
                             }
                         }
                     }
+
+                    &>.chipsFilter {
+                        &>md-chips .md-chip {
+                            background: $color_gray3;
+                            color: $color_white;
+                        }
+                    }
                 }
             }
 
@@ -162,7 +169,7 @@ body {
                 margin-right: 1em;
 
                 &>.event {
-                    width: 500px;
+                    
                     margin-bottom: 5%;
                     position: relative;
                     top: 0;
@@ -205,7 +212,7 @@ body {
 }
 
 .menuXsItems {
-    background-color: $color_orange;
+    background-color: $color_white;
     &>.menuXsItem {
         &:before {
             border-left: 3px solid transparent;

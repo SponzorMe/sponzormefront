@@ -11,7 +11,7 @@
           'sponzoringId': 'views/sponzors/dashboard/sponzorshipsId.html'
         },
         'following': 'views/sponzors/dashboard/following.html',
-        'tasks': '',
+        'tasks': 'views/tasks.html',
         'notifications': {
           'notifications': 'views/sponzors/notifications/notifications.html',
           'notificationId': 'views/sponzors/notifications/notification_detail.html',

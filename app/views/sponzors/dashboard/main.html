@@ -1,119 +1,170 @@
-<div class="{{tolsctive}}" id="page-wrapper" ng-class="{'active': toggle}">
-  <div ng-include="menuprincipal"></div>
-  <div id="content-wrapper">
-    <div class="page-content">
-      <div class="row header" ng-include src="'views/sponzors/dashboard/header.html'"></div>
-      <div class="row">
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="widget">
-            <div class="widget-body">
-              <div class="widget-icon green pull-left">
-                <i class="fa fa-check"></i>
-              </div>
-              <div class="widget-content pull-left">
-                <div class="title">{{user.acceptedSponzorships.length}}</div>
-                <div class="comment">{{ 'AcceptedSponzorships' | translate }}</div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+  
+    <div class="cont" flex>
+    
+    <!-- navbar -->      
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-around center" hide-xs hide-sm>
+        <div class="menuItem">
+          <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple>_Buscar eventos_</a>
+          <div class="border active"></div>
         </div>
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="widget">
-            <div class="widget-body">
-              <div class="widget-icon red pull-left">
-                <i class="fa fa-clock-o"></i>
-              </div>
-              <div class="widget-content pull-left">
-                <div class="title" >{{user.pendingSponzorships.length}}</div>
-                <div class="comment">{{ 'PendingSponzorships' | translate }}</div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
+        <div class="menuItem">
+          <a href="#/sponzors/comingevents" md-ink-ripple layout="row" layout-align="space-around center">
+            _Eventos por venir_
+          </a>
+          <div class="border"></div>
         </div>
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="widget">
-            <div class="widget-body">
-              <div class="widget-icon orange pull-left">
-                <i class="fa fa-money"></i>
-              </div>
-              <div class="widget-content pull-left">
-                <div class="title">${{balance}}</div>
-                <div class="comment">{{ 'SponzorshipsFunding' | translate }}</div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
+        <div class="menuItem" layout="row" layout-align="space-around center">
+          <a href="#/sponzors/outstanding" md-ink-ripple>_Eventos destacados_</a>
+          <div class="border"></div>
         </div>
-        <div class="spacer visible-xs"></div>
-        <div class="col-lg-3 col-md-6 col-xs-12">
-          <div class="widget">
-            <div class="widget-body">
-              <div class="widget-icon blue pull-left">
-                <i class="fa fa-star"></i>
-              </div>
-              <div class="widget-content pull-left">
-                <div class="title">{{$storage.rating|number:1}}/5</div>
-                <div class="comment">{{ 'Reputation' | translate }}</div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
+        <div class="menuItem" layout="row" layout-align="space-around center">
+          <a href="#/sponzors/notifications" md-ink-ripple translate>notifications</a>
+          <div class="border"></div>
+        </div>
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+           <a href="#/sponzors/profile" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="widget">
-            <div class="widget-header">
-              <i class="fa fa-tasks"></i>&nbsp;{{'searchtitle' | translate}}&nbsp;<a href="" ng-click="getAllEvents()" ng-if="!searchLoading"><i class="fa fa-refresh"></i></a><i ng-if="searchLoading" class="fa fa-cog fa-spin"></i>
-              <input class="pull-right input-sm" data-ng-model="searchevents" type="text" value="" placeholder="{{'typeyourtesthere'|translate}}" />
+
+    <!-- navbar ("menu") when xs -->
+      <div class="menuXsContainer">
+        <md-menu hide-gt-sm>
+          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon>person</md-icon>
+          </md-button>
+          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+            <md-menu-item class="menuXsItem active">
+              <a href="#/sponzors/dashboard" md-ink-ripple>_Buscar eventos_</a>              
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/comingevents" md-ink-ripple>_Eventos por venir_</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/outstanding" md-ink-ripple>_Eventos destacados_</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>        
+    
+    <!-- Content starts -->    
+      
+      <div class="contentContainer">     
+          <!-- Filter --> 
+        <div class="filter">
+          <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp" md-no-float md-ink-ripple="false" >
+            <md-icon>search</md-icon>
+            <input type="text" placeholder="{{ 'typeyourtesthere' | translate }}"/>
+          </md-input-container>
+          
+          <div class="chipContainer"> 
+            <h3 class="normalText">_Refina la búsqueda con palabras clave:_</h3>           
+            <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
+              <a class="md-chip inset toSelect" 
+                  md-ink-ripple layout="row"
+                  layout-align="center center"
+                  
+                  ng-repeat="item in chips"
+                  ng-model="filter"
+                  ng-click="filterClick(item)"
+                  layout-wrap> 
+                _{{item}}_
+              </a>
+            </div>  
+            <md-divider></md-divider>
+            <div class="chipsFilter">              
+              <md-chips ng-model="filter">
+              </md-chips>
             </div>
-            <div class="widget-body large no-padding">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <th class="text-center"></th>
-                    <th class="text-center">{{ 'neweventtitle' | translate }}</th>
-                    <th class="text-center">{{ 'organizer' | translate }}</th>
-                    <th class="text-center">{{ 'Type' | translate }}</th>
-                    <th class="text-center">{{ 'Category' | translate }}</th>
-                    <th class="text-center">{{ 'neweventstarts' | translate }}</th>
-                    <th class="text-center">
-                      {{ 'actionssponzor' | translate }}</th>
-                  </thead>
-                  <tbody>
-                    <tr ng-show="searchLoading">
-                      <td colspan="7" class="text-center">
-                        <rd-loading></rd-loading>
-                      </td>
-                    </tr>
-                    <tr ng-show="!searchLoading && !search.length">
-                      <td colspan="7" class="text-center">
-                        <h2 class="text-center">{{'noSponzorsEventsMessage'| translate}}</h2>
-                      </td>
-                    </tr>
-                    <tr data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading" class="row-hover">
-                      <td class="text-center"><i ng-if="e.privacy==0" tooltip="{{'publicEvent'|translate}}" class="fa fa-unlock"></i>
-                      <i ng-if="e.privacy==1" tooltip="{{'privateEvent'|translate}}" class="fa fa-lock"></i></td>
-                      <td class="text-center">{{ e.title }}</td>
-                      <td class="text-center">{{e.user_organizer.name}}&nbsp;<a href="#/profile/{{e.user_organizer.id}}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td>
-                      <td class="text-center">{{e.type.name}}</td>
-                      <td class="text-center">{{e.category.title}}</td>
-                      <td class="text-center">{{ e.starts| date}}</td>
-                      <td class="text-center">
-                        <a href="" ng-click="showPerks(e)" tooltip="{{'SponzorshipOportunities'|translate}}"><i class="fa fa-eye"></i></a>&nbsp;
-                        <a href="" ng-click="openLocation(e)"><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp;
-                        <a href="#/event/{{ e.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          </div>  
         </div>
-      </div>
+
+        <div class="texts" layout="row" layout-align="space-between">
+            <h3>_Resultados de la búsqueda:_</h3>
+            <p>_12 eventos encontrados_</p>
+        </div> 
+
+      <!-- Events Results -->
+           
+        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
+          <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex="50" flex-gt-xs="30">
+            <div class="eventImage" layout="column" layout-align="center center">
+              <img src="{{event.img}}" alt="event">
+              <p>_{{event.imgDescript}}_</p>
+            </div>
+            <div class="textContainer">
+              <h2>_{{event.date}}_</h2>
+              <md-divider></md-divider>
+              <p>
+                _{{event.eventDescript}}_
+              </p>
+            </div>
+            <md-menu>  
+              <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
+                <md-icon aria-label="b">add</md-icon>
+              </md-button>
+              <md-menu-content class="menuContent" width="4">
+                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">stars</md-icon>
+                    <a href="#/event/:eventId">_Ver evento_</a>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">thumb_up</md-icon>
+                    _Ver tipos de patrocinio_
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">remove_red_eye</md-icon>
+                    _Seguir evento_
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">share</md-icon>
+                    _Compartir evento_
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div> 
+        </md-content>                      
+      </div>    
     </div>
-  </div>
+  </md-content>  
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
