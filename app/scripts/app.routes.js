@@ -144,6 +144,9 @@
       .when('/testimonials', {
         templateUrl: 'views/testimonials.html'
       })
+      .when('/invitefriend', {
+        templateUrl: 'views/inviteFriend.html'
+      })
 
 
       .otherwise({

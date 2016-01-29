@@ -1,0 +1,28 @@
+<div layout-fill class="allContainer">
+    <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+        <md-content class="superContainer" layout="row"> 
+          <div class="cont" flex>
+            <div class="invitefriendContainer" class="md-whiteframe-24dp" layout="column">
+                <div class="backButton">
+                    <a href="#/">
+                        <md-icon>reply</md-icon>
+                    </a>
+                </div>
+                <h1 class="color-blue-brighter" translate>_Invitar a un amigo_</h1>
+                <div>    
+                    <p class="color-blue-brighter text-bold" translate>_Sabemos que quieres compartir SponzorMe_</p>
+                    <p translate>Si tuviste una magnífica experiencia con SponzorMe recomienda a un amigo, es sencillo: </p>
+                </div>
+                <form class="form" name="friend" layout="column" layout-align="start start">
+                   <md-input-container class="organizers">
+                     <label translate>editaccountemail</label>
+                     <input type="email" name="email" required>
+                   </md-input-container>
+                    <md-button class="md-raised bg-blue-brighter color-white" type="submit" translate>send</md-button>
+                </form>
+            </div>
+          </div>
+        </md-content>
+    </div>
+    <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
