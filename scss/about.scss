@@ -4,6 +4,9 @@
     padding: 2em 3em 3em 3em;
     min-height: 100vh;
     text-align: justify;
+    @media screen and (max-width: $media_step1_bottom) {
+        margin: 0;
+    }
 
     &>.backButton {
         &>a > md-icon {
@@ -16,10 +19,10 @@
             &>md-list-item {
                 &>img {
                     border-radius: 50%;
-                    max-width: 120px;
-                    max-height: 120px;
-                    width: 120px;
-                    height: 120px;
+                    max-width: 80px;
+                    max-height: 80px;
+                    width: 80px;
+                    height: 80px;
                 }
             }
         }

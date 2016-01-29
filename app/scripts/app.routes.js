@@ -138,6 +138,9 @@
       .when('/privacy', {
         templateUrl: 'views/privacy.html'
       })
+      .when('/about', {
+        templateUrl: 'views/about.html'
+      })
 
 
       .otherwise({
