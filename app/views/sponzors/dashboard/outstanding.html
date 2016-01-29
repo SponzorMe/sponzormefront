@@ -5,8 +5,8 @@
   
   <md-content class="superContainer" layout="row"> 
     
-    <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+ 
   
     <div class="cont" flex>
     
@@ -15,12 +15,12 @@
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple>_Buscar eventos_</a>
-            <div class="border active"></div>
+            <a href="#/sponzors/dashboard" md-ink-ripple>_Buscar eventos_</a>
+            <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/outstanding" md-ink-ripple>_Eventos destacados_</a>
-            <div class="border"></div>
+            <a href="#/sponzors/outstanding" class="textActive" md-ink-ripple>_Eventos destacados_</a>
+            <div class="border active"></div>
           </div>
         </div>      
         <div class="buttons" layout="row" layout-align="start center">
@@ -54,51 +54,23 @@
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-      </div>         
+      </div>        
     
     <!-- Content starts -->    
       
-      <div class="contentContainer">     
-          <!-- Filter --> 
-        <div class="filter">
-          <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp" md-no-float md-ink-ripple="false" >
-            <md-icon>search</md-icon>
-            <input type="text" placeholder="{{ 'typeyourtesthere' | translate }}"/>
-          </md-input-container>
-          
-          <div class="chipContainer"> 
-            <h3 class="normalText">_Refina la búsqueda con palabras clave:_</h3>           
-            <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
-              <a class="md-chip inset toSelect" 
-                  md-ink-ripple layout="row"
-                  layout-align="center center"
-                  
-                  ng-repeat="item in chips"
-                  ng-model="filter"
-                  ng-click="filterClick(item)"
-                  layout-wrap> 
-                _{{item}}_
-              </a>
-            </div>  
-            <md-divider></md-divider>
-            <div class="chipsFilter">              
-              <md-chips ng-model="filter">
-              </md-chips>
-            </div>
-          </div>  
-        </div>
-
-        <div class="texts" layout="row" layout-align="space-between">
-            <h3>_Resultados de la búsqueda:_</h3>
-            <p>_12 eventos encontrados_</p>
-        </div> 
-
+      <div class="contentContainer">
+      <div class="texts" layout="row" layout-align="space-between">
+        <h3 translate>Featured Events:</h3>
+      </div>      
       <!-- Events Results -->
-           
-        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
+        
+        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
+          <div class="eventCategory" flex="100">
+            <p translate>_Música_:</p>
+          </div>        
           <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
             <div class="eventImage" layout="column" layout-align="center center">
-              <img src="{{event.img}}" alt="event">
+              <img src="{{event.img}}" alt="event" flex="100">
               <p>_{{event.imgDescript}}_</p>
             </div>
             <div class="textContainer">

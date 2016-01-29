@@ -32,30 +32,41 @@ body {
             margin-bottom: 0.3em;
             padding: 0.5em;
             
-            &>.menuItem {                
-                &>a { 
-                    color: $color_orange_darker;
-                    font-size: 12px;                
-                    text-decoration: none;
-                    text-transform: uppercase;
+            &>.menuItemContainer {
+                &>.menuItem {
+                    margin-right: 2em; 
 
-                    &:hover {
-                        color: $color_white;
+                    &:nth-child(1) {
+                        margin-left: 2em;
+                    }      
+
+                    &>a { 
+                        color: $color_orange_darker;
+                        font-size: 12px;                
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        position: relative;
+
+                        &:hover {
+                            color: $color_white;
+                        }
+                    }   
+                    
+                    &>.border {
+
+                        bottom: -14px;                
+                        position: relative;
                     }
-                }   
-                
-                &>.border {
-                    bottom: -14px;                
-                    position: relative;
+
+                    &>.textActive {
+                            color: $color_white;
+                        }
+
+                    &>.active {
+                        border-bottom: 4px solid $color_active;
+                    }            
                 }
-
-                &>.textActive {
-                        color: $color_white;
-                    }
-
-                &>.active {
-                    border-bottom: 4px solid $color_active;
-                }            
             }
             
             &>.buttons {
@@ -167,6 +178,11 @@ body {
                 background-color: $color_white;
                 margin-left: 1em;
                 margin-right: 1em;
+
+                &>.eventCategory {
+                    color: $color_active;
+                    padding-top: 0;
+                }
 
                 &>.event {
                     

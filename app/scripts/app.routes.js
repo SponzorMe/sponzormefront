@@ -147,6 +147,10 @@
       .when('/invitefriend', {
         templateUrl: 'views/inviteFriend.html'
       })
+      .when('/sponzors/outstanding', {
+        templateUrl: 'views/sponzors/dashboard/outstanding.html',
+        controller: 'SponzorsOutstandingController'
+      })
 
 
       .otherwise({

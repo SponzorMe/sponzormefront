@@ -5,7 +5,10 @@
     $scope.route = $route.current.loadedTemplateUrl;
     console.log('esta es la ruta: ', $scope.route);
     $scope.statesSponzors = {
-        'dashboard': 'views/sponzors/dashboard/main.html',
+        'dashboard': {
+          'dashboard': 'views/sponzors/dashboard/main.html',
+          'outstanding': 'views/sponzors/dashboard/outstanding.html'
+        },
         'sponzoring': {
           'sponzoring': 'views/sponzors/dashboard/sponzorships.html',
           'sponzoringId': 'views/sponzors/dashboard/sponzorshipsId.html'

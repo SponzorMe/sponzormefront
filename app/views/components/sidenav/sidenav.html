@@ -10,7 +10,7 @@
     </div>
     <div class="sidenavButtons" layout="column">
 
-      <div class="buttContainer" ng-class="{active : statesSponzors.dashboard === route}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.dashboard.dashboard, statesSponzors.dashboard.outstanding)}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/dashboard" class="sidenavButton" layout="row">
             <md-icon aria-label="b">view_quilt</md-icon>
             <a href="#/sponzors/dashboard"><h3 translate>dashboard</h3></a>
