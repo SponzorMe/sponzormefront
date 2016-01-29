@@ -3,6 +3,11 @@
     background-color: $color_white;
     padding: 2em 15em 3em 3em;
     min-height: 100vh;
+    
+    @media screen and (max-width: $media_step1_bottom) {
+        padding-right: 3em;
+        text-align: justify;
+    }
 
     &>.backButton {
         &>a > md-icon {

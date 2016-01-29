@@ -130,6 +130,13 @@
         templateUrl: 'views/profile.html',
         controller: 'ProfileController'
       })
+
+      
+      .when('/support', {
+        templateUrl: 'views/support.html'
+      })
+
+
       .otherwise({
         redirectTo: '/login'
       });
