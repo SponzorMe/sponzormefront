@@ -63,6 +63,7 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "test": "karma start karma.conf.dev.js"
+    "pretest": "karma start karma.conf.dev.js",
+    "test": "karma start karma.conf.dist.js"
   }
 }
