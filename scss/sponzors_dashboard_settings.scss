@@ -1,0 +1,63 @@
+.allContainer .superContainer .cont .createContainer.settings {
+	margin: 1em;
+	padding: 1.5em 1em 1.5em 1em; 
+
+	.formContainer {
+		padding: 0 6em 0 0; 
+	}
+	
+	input.md-datepicker-input {
+		width: 150px;
+	}
+
+	.companyDescription {
+		margin: 1em 1em;
+		 &>md-input-container {
+		 	&>textarea {
+		 		height: 100px!important;
+		 	}
+		 }
+	}
+
+	&>.chipContainer {
+        margin-left: 1em;
+        font-size: 14px;
+
+        md-chips .md-chips.md-focused {
+        	box-shadow: 0 2px $color_active;
+        }
+
+ 		md-chips .md-chip.md-focused {
+    		background: $color_active;
+    		color: $color_white;
+		}
+
+        &>span {
+        	color: $color_gray3
+        }
+
+        &>.chipSelect {
+            margin: 0 0 1em 0;
+
+            &>.toSelect {
+                background-color: #ffffff;
+                border-radius: 16px;
+                color: $color_black;
+                cursor: pointer;
+                height: 22px;
+                margin: 8px 8px 0 0;
+                min-width: 80px;
+                padding: 0 12px 0 12px;
+
+                &:hover {
+                    background-color: $color_active;
+                    color: $color_white;
+                }
+            }
+        }
+    }
+}
+
+.superContainer > .cont > .menuItems > .menuItemContainer > .menuItem > .border.settings {
+	bottom: -16px;
+}

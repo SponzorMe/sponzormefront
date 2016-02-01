@@ -23,6 +23,10 @@
     'firebase',
     'textAngular',
     'angular-input-stars',
-    'luegg.directives'
+    'luegg.directives',
+    'ngMaterial',
+    'ngAria',
+    'ngAnimate',
+    'ngMessages'
   ]);
 })();

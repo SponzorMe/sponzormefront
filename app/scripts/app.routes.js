@@ -7,12 +7,12 @@
   angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
     $routeProvider
       .when('', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginController'
+        templateUrl: 'views/home.html',
+        controller: 'HomeController'
       })
       .when('/', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginController'
+        templateUrl: 'views/home.html',
+        controller: 'HomeController'
       })
       .when('/activation/:token', {
         templateUrl: 'views/activation.html',
@@ -130,6 +130,29 @@
         templateUrl: 'views/profile.html',
         controller: 'ProfileController'
       })
+
+      
+      .when('/support', {
+        templateUrl: 'views/support.html'
+      })
+      .when('/privacy', {
+        templateUrl: 'views/privacy.html'
+      })
+      .when('/about', {
+        templateUrl: 'views/about.html'
+      })
+      .when('/testimonials', {
+        templateUrl: 'views/testimonials.html'
+      })
+      .when('/invitefriend', {
+        templateUrl: 'views/inviteFriend.html'
+      })
+      .when('/sponzors/outstanding', {
+        templateUrl: 'views/sponzors/dashboard/outstanding.html',
+        controller: 'SponzorsOutstandingController'
+      })
+
+
       .otherwise({
         redirectTo: '/login'
       });

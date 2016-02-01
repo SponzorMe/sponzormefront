@@ -1,0 +1,243 @@
+.allContainer .superContainer .cont .contentContainer {
+    .notifyDetailContainer {  
+        &>.eventContainer {
+            padding: 0;
+            background: $color_white;
+            @media screen and (max-width: $media_step1_bottom) {
+                
+                width: 100vw;
+            }
+           &>img {
+                min-width: 100%;
+                width: 100%;
+                max-height: 300px!important;
+           }                    
+        
+            &>.imageTexts {
+                background: $color_blue_brighter;
+                margin: 0;
+                min-height: 120px;
+                position: relative;
+                padding: 0.1em 3em 2em 3em;
+                top: -50px;
+                margin-left: 15%;
+                margin-right: 15%;  
+                text-align: justify;
+
+                @media screen and (max-width: $media_step1_bottom) {
+                    margin: 0;
+                    padding: 1em;
+                }
+
+                &>h3 {
+                    font-weight: normal;
+                    font-style: italic;
+                }
+                &>p {
+                    color: $color_white;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+                &>a {
+                    color: $color_blue_darker;
+                    text-decoration: underline;
+                }
+            }
+
+            &>.shareButton {
+                position: absolute;
+                top: 320px;
+                right: 30px;
+
+                @media screen and (max-width: $media_step1_bottom) {
+                    position: fixed;
+                    top: 30px;
+                    right: 0;
+                    z-index: 30;
+                }
+            }
+
+            &>.textsContainer {
+                margin: 0 15% 0 15%;
+                
+                @media screen and (max-width: $media_step1_bottom) {
+                    margin: 0;
+                    padding: 1em;
+                }
+
+                &>.description {
+                    font-size: 12px;
+                    padding: 1em 0 1.5em 0;
+                    text-align: justify;
+                }
+                &>.eventInfo {
+                    &>.item {
+                        padding: 0.5em;
+                        &>div {
+                            height: 52px;
+                            &>img {
+                                width: 50px;
+                                border-radius: 50%;
+                                margin-right: 0.3em;
+                            }
+                            &>md-icon {
+                                margin-right: 0.3em;
+                            }
+                            &>div {
+                                p {
+                                    font-size: 12px;
+                                    margin: 0;
+                                    color: $color_gray3;
+                                }
+                                &>div md-icon {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                    }
+                }
+                &>.contact {
+                    &>p {
+                        font-size: 12px;
+                        color: $color_gray3;
+                    }
+                }
+            }
+        }
+        &>.sponsorAnEvent {
+            border-top: 1px solid $color_gray1;
+            color: $color_gray3;
+            background: $color_gray1;
+            font-size: 12px;
+            padding: 0.5em;
+            margin: 1em 15%;
+
+            &>.table {
+                
+                .tableTitle {
+                    background-color: $color_fuchsia;
+                    padding: 1.5em 0;
+                    text-transform: uppercase;
+                    text-align: center;
+                    width: 100%;
+
+                    &>a {
+                        color: $color_fuchsia_darker;
+                        font-size: 16px;
+                        position: relative;
+
+                        &:nth-child(1) {
+                            left: 15px;
+                        }
+                        
+                        &:nth-child(2) {
+                         left: 24px;   
+                        }
+
+                        &:nth-child(3) {
+                            left: 25px;
+                        }
+
+                        &:nth-child(4) {
+                            left: 0;
+                        }
+                    }                    
+                }
+
+                &>.tableContent {
+                    background-color: $color_gray1;
+                    padding: 0 1.5em 1.5em 1.5em;
+
+                    &>.columnContainer {
+                        position: relative;
+                        margin-bottom: 0.5em;
+
+                        &>.toSponzorWith {
+                            min-height: 260px;
+                            height: 260px;
+                        }
+
+                        &>.tablePrice {
+                            background-color: $color_black;
+                            font-size: 14px;
+                            font-weight: bold;
+                            height: 40px;
+                            margin-bottom: 0.2em;
+                            margin-top: 0.5em;
+                            opacity: 0.2;
+                            text-transform: uppercase;
+
+                            &>a {
+                                color: $color_white;
+                            }
+                        }
+
+                        &>.tableLikeButton {
+                            background-color: $color_fuchsia;
+                            height: 40px;
+                            visibility: hidden;
+
+                            &>a md-icon {
+                                color: $color_white;
+                                font-size: 36px;
+                            }
+                        }
+                        
+
+                        &>a {
+                            color: $color_gray_text;
+                            margin-top: 0;
+                            padding: 0 2.5em 2.5em 2.5em;
+                        }
+
+                        &>.border {
+                            background-color: $color_fuchsia_darker;
+                            height: 3px;
+                            position: absolute;
+                            top: -3px;
+                            visibility: hidden;
+                            width: 126px;
+                        }
+
+                        &:hover {        
+                            &>a {    
+                                background-color: $color_white;
+                            }
+                                           
+                            &>.tableLikeButton {
+                                visibility: visible;
+                            }
+
+                            &>.tablePrice {
+                                opacity: 1;
+                            }
+
+                            &>.border {
+                                visibility: visible;
+                            }                             
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.allContainer .superContainer .cont .menuContainer .menuItems .arrow {
+    &>a {
+        margin-left: 1em;
+        
+        &>md-icon {
+            color: $color_white;
+            font-size: 48px;
+        }
+    }
+}
+
+
+
+
+
+
+
+

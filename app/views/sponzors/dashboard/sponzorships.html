@@ -1,138 +1,82 @@
-<div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
-  <div ng-include="menuprincipal"></div>
-  <div id="content-wrapper">
-    <div class="page-content" ng-controller="SponzorsSponzorshipsController">
-      <div class="row header">
-        <div class="row header" ng-include src="'views/sponzors/dashboard/header.html'"></div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="widget">
-            <div class="widget-header">
-              <i class="fa fa-tasks"></i> {{ 'sponzorshipsListInSponzor' | translate }}
-            </div>
-            <div class="widget-body medium no-padding">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th class="text-center">{{ 'organizer' | translate }}</th>
-                      <th class="text-center">{{ 'Event' | translate }}</th>
-                      <th class="text-center">{{ 'perkUsd' | translate }}</th>
-                      <th class="text-center">{{ 'starts' | translate }}</th>
-                      <th class="text-center">{{ 'actions' | translate }}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-show="!user.acceptedSponzorships.length">
-                      <td colspan="6" class="text-center">
-                        <h2 class="text-center">{{'noSponzorshipsMessageSponzor'| translate}}</h2>
-                      </td>
-                    </tr>
-                    <tr ng-show="user.acceptedSponzorships.length" data-ng-repeat="s in user.acceptedSponzorships" data-ng-class="{success : currentSponzorship.id === s.id}"
-                    ng-click="showTasks(s)" class="row-hover">
-                      <td class="text-center">{{s.organizer.name}}&nbsp;
-                        <a href="#/profile/{{ s.organizer.id }}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a>
-                      </td>
-                      <td class="text-center">{{s.event.title}}&nbsp;
-                        <a href="#/event/{{ s.event.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a>
-                      </td>
-                      <td class="text-center">{{s.perk.kind}} - ${{s.perk.usd}}</td>
-                      <td class="text-center">{{s.event.starts| date}}&nbsp;
-                        <a href="" ng-click="downloadCalendar(s)" tooltip="{{'AddToCalendar'|translate}}"><i class="fa fa-calendar"></i></a>
-                      </td>
-                      <td class="text-center">
-                        <a href="" ng-click="seeCause(s)" tooltip="{{'SeeCause'|translate}}"><i class="fa fa-question-circle"></i></a>&nbsp;
-                        <a href="" ng-click="openLocation(s)"><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp;
-                        <a href="#/sponzors/chat/sponzorship/{{s.id}}" tooltip="{{'ChatWithOrganizer'|translate}}"><i class="fa fa-comment"></i></a>&nbsp;
-                        <a ng-if="s.status==1 && s.perk.usd !=0" href="" ng-click="paymentInformation(s)" tooltip="{{'ProceedToPay'|translate}}"><i class="fa fa-credit-card"></i></a>
-                        <a ng-if="s.status==3 || s.perk.usd ==0" href="" tooltip="{{'SponzorshipPaid'|translate}}"><i class="fa fa-check"></i></a>
-                        <a href="#/sponzors/rating/{{$index}}" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type != 1 && s.ratings[1].type != 1" tooltip="{{'RateThisOrganizer'|translate}}"><i class="fa fa-smile-o"></i></a>&nbsp;
-                        <a href="" ng-if="s.status >= 1 && s.event.ends < todayDate && s.ratings[0].type == 1 || s.ratings[1].type == 1" tooltip="{{'RateSuccessfuly'|translate}}"><i class="fa fa-check-circle-o"></i></a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="widget">
-              <div class="widget-header">
-                <i class="fa fa-plus"></i>{{ 'organizerTasks' | translate }}
-                <div class="clearfix"></div>
-              </div>
-              <div class="widget-body medium no-padding">
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <th class="text-center">{{ 'todoTitle' | translate }}</th>
-                      <th class="text-center">{{ 'todoDescription' | translate }}</th>
-                    </thead>
-                    <tbody>
-                      <tr ng-show="!organizerTasks.length">
-                        <td colspan="4" class="text-center">
-                          <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
-                        </td>
-                      </tr>
-                      <tr ng-show="organizerTasks.length" data-ng-repeat="t in organizerTasks">
-                        <td class="text-center">{{ t.task.title }}
-                          <span ng-if="t.status == 0">({{ 'taskNoCompleted' | translate }})</span>
-                          <span ng-if="t.status == 1">({{ 'taskCompleted' | translate }})</span>
-                        </td>
-                        <td class="text-center">{{ t.task.description }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="widget">
-              <div class="widget-header">
-                <i class="fa fa-plus"></i>{{ 'YourTasks' | translate }}
-                <a href="" ng-click="showTaskForm(currentSponzorship)" ng-if="currentSponzorship" class="pull-right btn btn-primary">
-                  <i class="fa fa-plus"></i>&nbsp;{{ 'add_task' | translate }}</a>
-                <div class="clearfix"></div>
-              </div>
-              <div class="widget-body medium no-padding">
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <th class="text-center">{{ 'todoTitle' | translate }}</th>
-                      <th class="text-center">{{ 'todoDescription' | translate }}</th>
-                      <th class="text-center">{{ 'actions' | translate }}</th>
-                    </thead>
-                    <tbody>
-                      <tr ng-show="!sponzorTasks.length">
-                        <td colspan="4" class="text-center">
-                          <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
-                        </td>
-                      </tr>
-                      <tr ng-show="sponzorTasks.length" data-ng-repeat="t in sponzorTasks" ng-class="{success: t.status == 1, warning: t.status == 0}">
-                        <td class="text-center">{{ t.task.title }}
-                          <span ng-if="t.status == 0">({{ 'taskNoCompleted' | translate }})</span>
-                          <span ng-if="t.status == 1">({{ 'taskCompleted' | translate }})</span>
-                        </td>
-                        <td class="text-center">{{ t.task.description }}</td>
-                        <td class="text-center">
-                          <i ng-if="t.loading" class="fa fa-cog fa-spin"></i>
-                          <a href="" ng-click="changeStatus($index, 1)" ng-if="!t.loading && t.status == 0 && t.task.type==1"><i class="fa fa-check" tooltip="{{'CompleteTask'|translate}}"></i></a>&nbsp;
-                          <a href="" ng-click="changeStatus($index, 0)" ng-if="!t.loading && t.status == 1 && t.task.type==1"><i class="fa fa-times" tooltip="{{'UncompleteTask'|translate}}"></i></a>&nbsp;
-                          <a href="" ng-click="deleteTaskSponzor($index)" ng-if="!t.loading && t.task.type==1" tooltip="{{'DeleteTask'|translate}}"><i class="fa fa-trash"></i></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+
+  
+    <div class="cont" flex>
+    
+    <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+        </div>      
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+           <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
         </div>
       </div>
-    </div>
-  </div>
+
+
+         
+    
+    <!-- Content starts -->    
+      
+      <div class="contentContainer" flex>     
+        <div class="notifyDetailContainer" layout="column">
+          <div class="eventTitles" layout="row"  hide-xs>
+            <div layout="row" flex="100">
+              <p flex="30" layout="row" layout-align="center center" translate>title</p>
+              <p flex="20" layout="row" layout-align="center center" translate>_fecha_</p>
+              <p flex="20" layout="row" layout-align="center center" translate>_tipo de patrocinio_</p>
+              <p flex="20" layout="row" layout-align="center center" translate>status</p>
+            </div>
+            <p layout="row" layout-align="center center" flex="25" translate>actionssponzor</p>
+          </div>
+
+          <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in eventItem">            
+            <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
+              <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.title}}</p>
+              <p class="eventDate" flex="20" layout="row" layout-align="center center" translate>{{item.date}}</p>
+              <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.sponzorType}}</p>
+              <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
+                {{item.status}}
+              </p>
+            </a>
+            <div class="actionSponzor" layout="row" layout-align="center center" flex="25">
+              <a href=""><md-icon>thumb_up</md-icon></a>
+              <a href=""><md-icon>event</md-icon></a>
+              <a href=""><md-icon>help</md-icon></a>
+              <a href=""><md-icon>comment</md-icon></a>
+              <a href=""><md-icon>stars</md-icon></a>
+            </div>
+          </div>
+        </div>                           
+      </div>
+    </div> 
+  </md-content>  
+  
+
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+

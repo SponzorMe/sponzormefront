@@ -1,0 +1,22 @@
+.superContainer {
+    &>.cont {
+        &>.contentContainer {
+            &>.filter {
+                background-color: $color_gray1;
+                &>h3 {
+                        font-size: 12px;
+                        margin-left: 1em;
+                    }
+
+                &>.datePickerContainer {
+                    
+                    &>md-datepicker {
+                        margin-left: 2em;                                             
+                        height: 60px;
+                    }                
+                }
+            }
+        }
+    }
+}
+

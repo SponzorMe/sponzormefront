@@ -1,0 +1,89 @@
+.allContainer > .superContainer > .sidenavSuperContainer {
+    background-color: $color_white; 
+    
+    &>.sidenavToggle {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 70;
+    }
+
+    &>.sidenavContainer {   
+        background-color: $color_white;
+        max-width: 200px;      
+        &>.sidenav2 {
+            &>.text-container {
+                background-color: $color_gray3;
+                box-shadow: solid 10px 10px 10px black;
+                height: 50px;
+                padding: 0 1em 0 0;
+                margin: 0;
+
+                &>a {
+                    width: 100%;
+                    color: $color_white;
+                }   
+            }
+
+            &>.sidenavButtons {
+                margin-top: 0.5em;
+                padding: 0 0 0 0;
+                    
+                &>.buttContainer {
+                    margin-bottom: 1em;
+
+                    &:before {
+                        border-left: 3px solid transparent;
+                        content: "";
+                    }
+                    
+                     &>a > h3 {
+                            color: $color_gray_text;
+                            font-size: 12px;
+                            text-decoration: none;
+                            margin-left: 1em;
+                        }
+
+                    &>.sidenavButton {
+
+                        &>md-icon {
+                            margin-left: 0.5em;
+                            color: $color_gray_text;
+                        }              
+                    }
+
+                     &:hover {
+                        &>a >h3 {
+                            color: $color_active;
+                        }
+                        
+                        &>.sidenavButton {
+                            &>md-icon {
+                                color: $color_active;
+                            }
+                        }     
+                    }
+                }   
+
+                &>.active {
+                    &>.sidenavButton {                    
+                        
+                        &>h3 {
+                            color: $color_active;
+                        }
+
+                        &>md-icon {
+                            color: $color_active;
+                        }
+                    }
+
+                    &:before {
+                        border-left: 3px solid $color_active;
+                        content: "";
+                    }
+                }
+            }
+        }
+    }
+}
+

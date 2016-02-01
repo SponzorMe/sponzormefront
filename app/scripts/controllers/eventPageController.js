@@ -1,6 +1,34 @@
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope) {
+  function EventPageController($scope, $mdSidenav,$routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope) {
+    //mock starts
+
+   $scope.openSidenavLeft = function(){
+        $mdSidenav('left').toggle();
+   };
+
+   $scope.isOpenLeft = function () {
+     var isOpen = true;
+     return isOpen = $mdSidenav('left').isOpen();
+   };
+
+   $scope.openMenu = function($mdOpenMenu, $event) {
+       $scope.originatorEv = $event;
+       $mdOpenMenu($event);
+     };    
+  
+    $scope.hideValue = false; 
+
+    $scope.toggle = function() {
+      if ($scope.hideValue) {
+        $scope.hideValue = false;
+      } else {
+        $scope.hideValue = true;
+      }
+    };
+
+   //mock ends
+
     $scope.eventLoaded = false;
     var firebaseNotification;
     $scope.todayDate = new Date().getTime();

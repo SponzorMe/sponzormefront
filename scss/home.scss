@@ -1,0 +1,156 @@
+
+
+.home-container {
+
+    .home-content {
+        background-color: transparent;
+        height: 100%;
+        padding-top: 1em;
+        position: fixed;
+        width: 100%;
+        z-index: 1;
+        
+        @media screen and (max-width: $media_step1_bottom) {
+            position: relative;
+        }
+        
+        &>.md-button {
+            font-size: 18px;
+            padding: 0.5em;
+        }
+
+        &>.home-header {
+            color: $color_white;
+            text-shadow: 1px 1px 1px $color_black;
+        }   
+
+        &>.howWorks {
+            color: $color_blue;
+        }
+
+        .login-tabs {
+            height: 45vh;
+            margin-top: 1.5em;
+            overflow: hidden;
+            width: 30%;
+            
+            @media screen and (max-width: $media_step1_bottom) {
+                width: 90%;
+                height: 52vh;
+            }
+            
+            @media (min-width: $media_step1_bottom) and (max-width: $media_step1_top) {
+                width: 50%;
+            }
+            
+            md-tabs-content-wrapper {
+                background-color: $color_white;
+            }
+
+            md-pagination-wrapper {
+                width: 100%!important;
+
+
+                md-tab-item {
+                    background: $color_gray1;
+                    color: $color_gray3;
+                    text-align: center;
+                    width: 50%;
+                }
+
+                md-tab-item:nth-child(1).md-active {
+                    @extend .login-tab;
+                    background: $color_active;
+                    color: $color_white;
+                }
+
+                md-tab-item:nth-child(2).md-active {
+                    @extend .login-tab;
+                    background: $color_blue;
+                    color: $color_white;
+                }
+            }
+            
+            .login-content {
+                margin-top: 1em;
+                &>p {
+                    margin: 0;
+                }
+                &>figure {
+                    margin: 0;
+
+                    &>img {
+                        max-width: 110px;
+                        max-height: 110px;
+                    }
+                }
+                &>div {
+                    margin: 0;
+                }
+
+                &>.logRegButtons {
+                    &>.sponzor {
+                        text-transform: uppercase;
+                        color: $color_active;
+                    }
+
+                    &>.organizer {
+                        text-transform: uppercase;
+                        color: $color_blue;
+                    }
+                }
+            }
+
+            md-ink-bar {
+                display: none;
+            }
+        }
+    }
+}
+
+
+
+.video-container {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 0;
+
+    @media (max-width: 767px) {
+        background: url("../images/home-bkg.jpg") center center / cover no-repeat;
+    }
+    .the-video {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        
+        @media (min-aspect-ratio: 16/9) {
+            height: 300%;
+            top: -100%;
+        }
+
+        @media (max-aspect-ratio: 16/9) {
+            width: 300%;
+            left: -100%;
+        }
+
+        @media (max-width: 767px) {
+            display: none;
+        }
+    }
+
+}
+
+.footerFixed {
+    &>.footerContainer {
+        position:fixed;
+        @media screen and (max-width: $media_step1_bottom) {
+            position: relative;
+        }
+    }   
+}

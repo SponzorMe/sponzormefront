@@ -1,0 +1,46 @@
+.allContainer .superContainer .cont .contentContainer .notifyContainer {                    
+    margin: 1em 2em 0 1.5em;
+        
+    &>.notifyElement {
+        margin-bottom: 0.8em;
+    
+        &>a {
+            text-decoration: none;
+            color: $color_gray3;
+            padding: 0.2em;
+            &>md-button {
+                width: 50px;
+            }
+        }  
+
+        &>.texts {
+            padding: 0.5em;
+            &>.date {
+                color: $color_gray_text;
+                margin-right: 1em;
+            }
+            
+            &>.link {
+                color: $color_active;
+                font-size: 12px
+            }
+        }
+
+        &:hover {
+            box-shadow: 
+                3px -1px 3px 0px rgba(0, 0, 0, 0.2),
+                1px 1px 1px -1px rgba(0, 0, 0, 0.12);
+
+            &>a {
+                color: $color_active;
+
+                &>.md-button md-icon {
+                    color: $color_active;
+                }
+            }
+        }
+    }
+}
+
+
+

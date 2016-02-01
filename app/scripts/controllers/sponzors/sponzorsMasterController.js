@@ -1,6 +1,91 @@
 'use strict';
 (function() {
-  function SponzorsMasterController($scope, $translate, $localStorage, ngDialog, $location, $rootScope, $sce) {
+  function SponzorsMasterController($scope, $mdSidenav, $translate, $localStorage, ngDialog, $location, $rootScope, $sce) {
+    //mock starts
+    $scope.openSidenavLeft = function(){
+      $mdSidenav('left').toggle();
+    };
+
+      $scope.eventItem = [
+        {
+          'title': 'Este es el nombre del evento, solo 50 caracteres.dasdsadsadsas',
+          'date': '20/12/2016',
+          'sponzorType': 'gold',
+          'status': 'patrocinado'
+        },
+        {
+          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'date': '20/12/2016',
+          'sponzorType': 'gold',
+          'status': 'patrocinado'
+        },
+        {
+          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'date': '20/12/2016',
+          'sponzorType': 'gold',
+          'status': 'patrocinado'
+        },
+        {
+          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'date': '20/12/2016',
+          'sponzorType': 'gold',
+          'status': 'patrocinado'
+        },
+        {
+          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'date': '20/12/2016',
+          'sponzorType': 'gold',
+          'status': 'patrocinado'
+        },
+        {
+          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'date': '20/12/2016',
+          'sponzorType': 'gold',
+          'status': 'patrocinado'
+        },
+        {
+          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'date': '20/12/2016',
+          'sponzorType': 'gold',
+          'status': 'patrocinado'
+        }
+      ]
+
+      $scope.task = [
+        {
+          'title': '.Este es el nombre de la tarea, solo 50 caracteres',
+          'date': '10/2/2016',
+          'description': 'una pequeña descripcion de la tarea para hacer',
+          'userName': 'ramiro',
+          'status': 'incompleta',
+        },
+        {
+          'title': 'Titulo de una tarea2',
+          'date': '98/2/2016',
+          'description': 'una pequeña descripcion de la tarea para hacer',
+          'userName': 'jose',
+          'status': 'completa',
+        },
+        {
+          'title': 'Titulo de una tarea3',
+          'date': '5/1/2016',
+          'description': 'una pequeña descripcion de la tarea para hacer',
+          'userName': 'liz',
+          'status': 'incompleta',
+        },
+        {
+          'title': 'Titulo de una tarea4',
+          'date': '6/12/2015',
+          'description': 'una pequeña descripcion de la tarea para hacer',
+          'userName': 'fernando',
+          'status': 'incompleta',
+        }
+      ];
+
+      $scope.typeOfSponzor = 'gold';
+    //mack ends
+
+
     $scope.trustSrc = function(src) {
       return $sce.trustAsResourceUrl(src);
     };
