@@ -1,91 +1,108 @@
-<div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
-  <div ng-include="menuprincipal"></div>
-  <div id="content-wrapper">
-    <div class="page-content" ng-controller="SponzorsFollowingController">
-      <div class="row header">
-        <div class="row header" ng-include src="'views/sponzors/dashboard/header.html'"></div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="widget">
-            <div class="widget-header">
-              <i class="fa fa-tasks"></i> {{ 'followedEvents' | translate }}
-            </div>
-            <div class="widget-body medium no-padding">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th class="text-center">{{ 'organizer' | translate }}</th>
-                      <th class="text-center">{{ 'Event' | translate }}</th>
-                      <th class="text-center">{{ 'perkUsd' | translate }}</th>
-                      <th class="text-center">{{ 'starts' | translate }}</th>
-                      <th class="text-center">{{ 'actions' | translate }}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-show="!user.pendingSponzorships.length">
-                      <td colspan="6" class="text-center">
-                        <h2 class="text-center">{{'noSponzorshipsMessageSponzor'| translate}}</h2>
-                      </td>
-                    </tr>
-                    <tr ng-show="user.pendingSponzorships.length" data-ng-repeat="s in user.pendingSponzorships" data-ng-class="{success : currentSponzorship.id === s.id}"
-                    ng-click="showTasks(s)" class="row-hover">
-                      <td class="text-center">{{s.organizer.name}}&nbsp;
-                        <a href="#/profile/{{ s.organizer.id }}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a>
-                      </td>
-                      <td class="text-center">{{s.event.title}}&nbsp;
-                        <a href="#/event/{{ s.event.id }}" target="_blank" tooltip="{{'EventPage'|translate}}"><i class="fa fa-arrows-alt"></i></a>
-                      </td>
-                      <td class="text-center">{{s.perk.kind}} - ${{s.perk.usd}}</td>
-                      <td class="text-center">{{s.event.starts| date}}&nbsp;
-                        <a href="" ng-click="downloadCalendar(s)" tooltip="{{'AddToCalendar'|translate}}"><i class="fa fa-calendar"></i></a>
-                      </td>
-                      <td class="text-center">
-                        <a href="" ng-click="seeCause(s)" tooltip="{{'SeeCause'|translate}}"><i class="fa fa-question-circle"></i></a>&nbsp;
-                        <a href="" ng-click="openLocation(s)"><i class="fa fa-map-marker" tooltip="{{'SeeEventLocation'|translate}}"></i></a>&nbsp;
-                        <a href="#/sponzors/chat/sponzorship/{{s.id}}" tooltip="{{'ChatWithOrganizer'|translate}}"><i class="fa fa-comment"></i></a>&nbsp;
-                        <a href="" ng-click="deleteSponzorship(s.id, $index)" tooltip="{{'CancelThisSponzorship'|translate}}"><i class="fa fa-trash"></i></a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="widget">
-              <div class="widget-header">
-                <i class="fa fa-plus"></i>{{ 'organizerTasks' | translate }}
-                <div class="clearfix"></div>
-              </div>
-              <div class="widget-body medium no-padding">
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <th class="text-center">{{ 'todoTitle' | translate }}</th>
-                      <th class="text-center">{{ 'todoDescription' | translate }}</th>
-                    </thead>
-                    <tbody>
-                      <tr ng-show="!tasksSponzor.length">
-                        <td colspan="4" class="text-center">
-                          <h2 class="text-center">{{'noSponzorshipsTaskMessage'| translate}}</h2>
-                        </td>
-                      </tr>
-                      <tr ng-show="tasksSponzor.length" data-ng-repeat="t in tasksSponzor">
-                        <td class="text-center">{{ t.title }}</td>
-                        <td class="text-center">{{ t.description }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+  
+    <div class="cont" flex>
+    
+    <!-- navbar -->      
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+          
+        </div>      
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+           <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
         </div>
       </div>
+      <!-- navbar ("menu") when xs -->
+        <div class="menuXsContainer">
+          <md-menu hide-gt-sm>
+            <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+              <md-icon>person</md-icon>
+            </md-button>
+            <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+              <md-menu-item class="menuXsItem">
+                <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </div>         
+         
+    
+    <!-- Content starts -->    
+      
+      <div class="contentContainer">     
+       
+
+      <!-- Events Results -->
+           
+        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
+          <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
+            <div class="eventImage" layout="column" layout-align="center center">
+              <img src="{{event.img}}" alt="event">
+              <p>_{{event.imgDescript}}_</p>
+            </div>
+            <div class="textContainer">
+              <h2>_{{event.date}}_</h2>
+              <md-divider></md-divider>
+              <p>
+                _{{event.eventDescript}}_
+              </p>
+            </div>
+            <md-menu>  
+              <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
+                <md-icon aria-label="b">add</md-icon>
+              </md-button>
+              <md-menu-content class="menuContent" width="4">
+                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">stars</md-icon>
+                    <a href="#/event/:eventId">_Ver evento_</a>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">thumb_up</md-icon>
+                    _Ver tipos de patrocinio_
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">share</md-icon>
+                    _Compartir evento_
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div> 
+        </md-content>                      
+      </div>    
     </div>
-  </div>
+  </md-content>  
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
