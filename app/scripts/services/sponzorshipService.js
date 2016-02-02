@@ -12,28 +12,6 @@
       oneSponzorship: function(sponzorshipId) {
         return $http.get($rootScope.getConstants().URL + 'sponzorships/' + sponzorshipId);
       },
-      sendSponzorshipEmail: function(data) {
-        return $http({
-          method: 'POST',
-          url: $rootScope.getConstants().URL + 'sponzorship_email',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + token
-          },
-          data: $httpParamSerializerJQLike(data)
-        });
-      },
-      sendSponzorshipEmailOrganizer: function(data) {
-        return $http({
-          method: 'POST',
-          url: $rootScope.getConstants().URL + 'sponzorship_email_organizer',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': 'Basic ' + token
-          },
-          data: $httpParamSerializerJQLike(data)
-        });
-      },
       createSponzorship: function(data) {
         return $http({
           method: 'POST',

@@ -7,7 +7,7 @@
   angular.module('sponzorme')
     .config(['$translateProvider', function($translateProvider) {
       $translateProvider.useStaticFilesLoader({
-        prefix: 'langs/lang-',
+        prefix: 'langs/lan-',
         suffix: '.json'
       });
       $translateProvider.useSanitizeValueStrategy('escaped');

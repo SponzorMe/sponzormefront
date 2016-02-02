@@ -6,7 +6,7 @@
       $translate.use($routeParams.lang);
     }
     var redirectTo = $localStorage.redirectTo;
-    $scope.sendfrom = function() {
+    $scope.doLogin = function() {
       if ($scope.email && $scope.password) { //Just Check the values are defined
         $scope.objuser = {};
         $scope.objuser.email = $scope.email;

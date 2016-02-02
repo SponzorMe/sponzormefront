@@ -100,6 +100,10 @@
         templateUrl: 'views/sponzors/dashboard/tasks.html',
         controller: 'SponzorsTasksController'
       })
+      .when('/sponzors/task/:id', {
+        templateUrl: 'views/sponzors/dashboard/taskId.html',
+        controller: 'SponzorsTasksController'
+      })
 
       .when('/event/:eventId', {
         templateUrl: 'views/event.html',

@@ -1,0 +1,29 @@
+        
+{
+  "general":{
+    "howItWorks": "How Do it Works?",
+    "getting": "Welcome",
+    "sponzor": "Sponzor",
+    "organizer": "Organizer",
+    "email": "E-mail"
+  },
+  "footer":{
+    "testimonials": "Testimonials",
+    "support": "Support",
+    "blog": "Blog",
+    "privacy": "Privacy"
+  },
+  "login": {     
+      
+      "password": "Password",
+      "pleaseEnterYourEmail": "Please enter your E-mail",
+      "pleaseEnteraPassword": "Please enter a password",
+      "login": "Login",
+      "forgot": "Forgot password?"
+      
+  },
+  "forgot":{
+    "instructions":"Put your registered E-mail, there you will get instructions.",
+    "enterEmail": "Please insert your email"
+  }
+}

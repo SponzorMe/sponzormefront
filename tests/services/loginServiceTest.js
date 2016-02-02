@@ -1,11 +1,11 @@
-describe('Event Service Unit Tests', function() {
-  var eventRequest;
+describe('Login Service Unit Tests', function() {
+  var loginRequest;
   var $httpBackend;
   beforeEach(function() {
     module('sponzorme');
   });
-  beforeEach(inject(function(_eventRequest_, $injector) {
-    eventRequest = _eventRequest_;
+  beforeEach(inject(function(_loginRequest_, $injector) {
+    loginRequest = _loginRequest_;
     $httpBackend = $injector.get('$httpBackend');
     $httpBackend.whenGET('langs/lang-en.json').respond(200, {
       'title': 'Sponzorme EN'
@@ -21,18 +21,20 @@ describe('Event Service Unit Tests', function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
-  var eventId = Math.floor((Math.random() * 100));
-  var token = 'my-test-token-'+ new Date().getTime();
+  var code = "random-test-code-" + new Date().getTime();
+  var token = "random-test-token-" + new Date().getTime();
+  var url = "http://my-test-url.com";
+  var credentials = {email: token+'@'+token+'.com', password: code};
   var data = {};
-  it('Should be eventRequest defined', function() {
-    expect(eventRequest).toBe.defined;
+  it('Should be loginRequest defined', function() {
+    expect(loginRequest).toBe.defined;
     $httpBackend.flush();
   });
-  it('Should be allEvents success', function() {
-    $httpBackend.whenGET(apiUrl + 'events').respond(200, {
+  it('Should be login success', function() {
+    $httpBackend.whenPOST(apiUrl + 'auth').respond(200, {
       'success': true
     });
-    var returnedPromise = eventRequest.allEvents();
+    var returnedPromise = loginRequest.login(credentials);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -43,11 +45,11 @@ describe('Event Service Unit Tests', function() {
     expect(successData.data.success).toBe(true);
     expect(errorData).not.toBeDefined;
   });
-  it('Should be allEvents failed', function() {
-    $httpBackend.whenGET(apiUrl + 'events').respond(400, {
+  it('Should be login failed', function() {
+    $httpBackend.whenPOST(apiUrl + 'auth').respond(400, {
       'success': false
     });
-    var returnedPromise = eventRequest.allEvents();
+    var returnedPromise = loginRequest.login(credentials);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -58,11 +60,11 @@ describe('Event Service Unit Tests', function() {
     expect(errorData.data.success).toBe(false);
     expect(successData).not.toBeDefined;
   });
-  it('Should be oneEvent success', function() {
-    $httpBackend.whenGET(apiUrl + 'events/' + eventId).respond(200, {
+  it('Should be resetPassword success', function() {
+    $httpBackend.whenPOST(apiUrl + 'send_reset_password').respond(200, {
       'success': true
     });
-    var returnedPromise = eventRequest.oneEvent(eventId);
+    var returnedPromise = loginRequest.resetPassword(data);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -73,11 +75,11 @@ describe('Event Service Unit Tests', function() {
     expect(successData.data.success).toBe(true);
     expect(errorData).not.toBeDefined;
   });
-  it('Should be oneEvent failed', function() {
-    $httpBackend.whenGET(apiUrl + 'events/' + eventId).respond(400, {
+  it('Should be resetPassword failed', function() {
+    $httpBackend.whenPOST(apiUrl + 'send_reset_password').respond(400, {
       'success': false
     });
-    var returnedPromise = eventRequest.oneEvent(eventId);
+    var returnedPromise = loginRequest.resetPassword(data);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -88,12 +90,11 @@ describe('Event Service Unit Tests', function() {
     expect(errorData.data.success).toBe(false);
     expect(successData).not.toBeDefined;
   });
-  it('Should be createEvent success', function() {
-    $httpBackend.whenPOST(apiUrl + 'events').respond(200, {
+  it('Should be tryActivation success', function() {
+    $httpBackend.whenGET(apiUrl+'verify_activation/' + token).respond(200, {
       'success': true
     });
-
-    var returnedPromise = eventRequest.createEvent(data);
+    var returnedPromise = loginRequest.tryActivation(token);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -104,12 +105,11 @@ describe('Event Service Unit Tests', function() {
     expect(successData.data.success).toBe(true);
     expect(errorData).not.toBeDefined;
   });
-  it('Should be createEvent failed', function() {
-    $httpBackend.whenPOST(apiUrl + 'events').respond(400, {
+  it('Should be tryActivation failed', function() {
+    $httpBackend.whenGET(apiUrl+'verify_activation/' + token).respond(400, {
       'success': false
     });
-
-    var returnedPromise = eventRequest.createEvent(data);
+    var returnedPromise = loginRequest.tryActivation(token);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -120,12 +120,11 @@ describe('Event Service Unit Tests', function() {
     expect(errorData.data.success).toBe(false);
     expect(successData).not.toBeDefined;
   });
-  it('Should be createEventToken success', function() {
-    $httpBackend.whenPOST(apiUrl + 'events').respond(200, {
+  it('Should be resendActivation success', function() {
+    $httpBackend.whenPOST(apiUrl + 'send_activation').respond(200, {
       'success': true
     });
-
-    var returnedPromise = eventRequest.createEventToken(data, token);
+    var returnedPromise = loginRequest.resendActivation(data);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -136,12 +135,11 @@ describe('Event Service Unit Tests', function() {
     expect(successData.data.success).toBe(true);
     expect(errorData).not.toBeDefined;
   });
-  it('Should be createEventToken failed', function() {
-    $httpBackend.whenPOST(apiUrl + 'events').respond(400, {
+  it('Should be resendActivation failed', function() {
+    $httpBackend.whenPOST(apiUrl + 'send_activation').respond(400, {
       'success': false
     });
-
-    var returnedPromise = eventRequest.createEventToken(data, token);
+    var returnedPromise = loginRequest.resendActivation(data);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -152,11 +150,11 @@ describe('Event Service Unit Tests', function() {
     expect(errorData.data.success).toBe(false);
     expect(successData).not.toBeDefined;
   });
-  it('Should be deleteEvent success', function() {
-    $httpBackend.whenDELETE(apiUrl + 'events/' + eventId).respond(200, {
+  it('Should be updatePassword success', function() {
+    $httpBackend.whenPOST(apiUrl + 'update_password/' + token).respond(200, {
       'success': true
     });
-    var returnedPromise = eventRequest.deleteEvent(eventId);
+    var returnedPromise = loginRequest.updatePassword(token, data);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -167,11 +165,11 @@ describe('Event Service Unit Tests', function() {
     expect(successData.data.success).toBe(true);
     expect(errorData).not.toBeDefined;
   });
-  it('Should be deleteEvent failed', function() {
-    $httpBackend.whenDELETE(apiUrl + 'events/' + eventId).respond(400, {
+  it('Should be updatePassword failed', function() {
+    $httpBackend.whenPOST(apiUrl + 'update_password/' + token).respond(400, {
       'success': false
     });
-    var returnedPromise = eventRequest.deleteEvent(eventId);
+    var returnedPromise = loginRequest.updatePassword(token, data);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -182,12 +180,11 @@ describe('Event Service Unit Tests', function() {
     expect(errorData.data.success).toBe(false);
     expect(successData).not.toBeDefined;
   });
-  it('Should be editEventPut success', function() {
-    $httpBackend.whenPUT(apiUrl + 'events/' + eventId).respond(200, {
+  it('Should be changePassword success', function() {
+    $httpBackend.whenPOST(apiUrl + 'change_password').respond(200, {
       'success': true
     });
-
-    var returnedPromise = eventRequest.editEventPut(eventId);
+    var returnedPromise = loginRequest.changePassword(data, token);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;
@@ -198,12 +195,11 @@ describe('Event Service Unit Tests', function() {
     expect(successData.data.success).toBe(true);
     expect(errorData).not.toBeDefined;
   });
-  it('Should be editEventPut failed', function() {
-    $httpBackend.whenPUT(apiUrl + 'events/' + eventId).respond(400, {
+  it('Should be changePassword failed', function() {
+    $httpBackend.whenPOST(apiUrl + 'change_password').respond(400, {
       'success': false
     });
-
-    var returnedPromise = eventRequest.editEventPut(eventId);
+    var returnedPromise = loginRequest.changePassword(data, token);
     var successData, errorData;
     returnedPromise.then(function(response) {
       successData = response;

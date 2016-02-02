@@ -27,15 +27,23 @@ describe('Demo Service Unit Tests', function() {
     expect(demoRequest).toBe.defined;
     $httpBackend.flush();
   });
-  it('Should be a demo showed', function() {
+  it('Should be a organizer demo showed', function() {
     var userId = 1;
-    var userData = {
-      demo: 1
-    };
+    var type = '0';
     $httpBackend.when('PATCH', apiUrl + 'users/' + userId).respond(200, {
       'message': 'Updated'
     });
-    demoRequest.showDemo(userId, userData);
+    demoRequest.showDemo(userId, type);
+    $httpBackend.flush();
+    expect($localStorage.demo).toBe(1);
+  });
+  it('Should be a sponzor demo showed', function() {
+    var userId = 1;
+    var type = '1';
+    $httpBackend.when('PATCH', apiUrl + 'users/' + userId).respond(200, {
+      'message': 'Updated'
+    });
+    demoRequest.showDemo(userId, type);
     $httpBackend.flush();
     expect($localStorage.demo).toBe(1);
   });
