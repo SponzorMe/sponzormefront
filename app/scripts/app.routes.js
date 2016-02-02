@@ -96,10 +96,16 @@
         controller: 'SponzorsMasterController'
       })
 
+      .when('/sponzors/tasks', {
+        templateUrl: 'views/sponzors/dashboard/tasks.html',
+        controller: 'SponzorsTasksController'
+      })
+
       .when('/event/:eventId', {
         templateUrl: 'views/event.html',
         controller: 'EventPageController'
       })
+
       .when('/organizers/add/event', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
         controller: 'OrganizersMasterController'

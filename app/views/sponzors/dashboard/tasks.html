@@ -1,0 +1,88 @@
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+
+  
+    <div class="cont" flex>
+    
+    <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+        </div>      
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+           <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+
+
+         
+    
+    <!-- Content starts -->    
+      
+      <div class="contentContainer" flex>     
+        <div class="notifyDetailContainer" layout="column">
+          <div class="eventTitles" layout="row"  hide-xs>
+            <div layout="row" flex="100">
+              <p flex="40" layout="row" layout-align="center center" translate>evento / título de la tarea</p>
+              <p flex="20" layout="row" layout-align="center center" translate>_fecha_</p>
+              <p flex="20" layout="row" layout-align="center center" translate>todoOwner</p>
+              <p flex="20" layout="row" layout-align="center center" translate>status</p>
+            </div>
+          </div>
+
+          <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in eventItem">            
+            <a class="eventInfo" href="#/sponzors/task/ :id" layout="row" flex="100">
+              <div class="taskIcon" flex="5" flex-xs="10" layout="row" layout-align="start center">
+                <md-icon ng-if="item.status === 'incompleta'">assignment</md-icon>
+                <md-icon ng-if="item.status === 'completa'">playlist_add_check</md-icon>
+            </div>
+              <div class="eventTitle" flex="35" flex-xs="60" flex-sm="70" layout="column" layout-align="center start">
+                <div>
+                    <span class="taskSubtitle" translate>todoEvent:</span>
+                    <span>{{item.title}}</span>
+                </div>
+                
+                <div>
+                    <span class="taskSubtitle" translate>_Task_:</span>
+                    <span>{{item.taskTitle}}</span>
+                </div>
+              </div>
+              <p class="eventDate" flex="20" layout="row" layout-align="center center" hide-xs hide-sm translate>{{item.date}}</p>
+              <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" flex-xs="30" flex-sm="30" translate>{{item.owner}}</p>
+              <p class="eventStatus" flex="20" layout="row" layout-align="center center" hide-xs hide-sm translate>
+                {{item.status}}
+              </p>
+            </a>
+          </div>
+        </div>                           
+      </div>
+    </div> 
+  </md-content>  
+  
+
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
