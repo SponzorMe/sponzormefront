@@ -90,6 +90,12 @@
         templateUrl: 'views/sponzors/dashboard/sponzorships.html',
         controller: 'SponzorsMasterController'
       })
+
+      .when('/sponzors/sponzoring/:id', {
+        templateUrl: 'views/sponzors/dashboard/sponzorshipsId.html',
+        controller: 'SponzorsMasterController'
+      })
+
       .when('/event/:eventId', {
         templateUrl: 'views/event.html',
         controller: 'EventPageController'
