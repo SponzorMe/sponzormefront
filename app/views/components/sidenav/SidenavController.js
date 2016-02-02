@@ -17,7 +17,8 @@
         'following': 'views/sponzors/dashboard/following.html',
         'tasks': {
           'tasks': 'views/sponzors/dashboard/tasks.html',
-          'task' : 'views/sponzors/dashboard/taskId.html'
+          'task' : 'views/sponzors/dashboard/taskId.html',
+          'tasksCreate': 'views/sponzors/dashboard/tasks_create.html'
         },
         'notifications': {
           'notifications': 'views/sponzors/notifications/notifications.html',

@@ -43,25 +43,6 @@
     }
 }
 
-md-checkbox.statusMessage.md-checked {
-    .md-ink-ripple {
-        color: $color_active;
-    }
-
-    .md-icon {
-        background: $color_active;
-    }
-}        
-
-md-checkbox.statusMessage.md-default-theme.md-checked.md-focused .md-container:before, md-checkbox.md-checked.md-focused .md-container:before {
-    background-color: rgba(240, 146, 0, 0.26);
-}
-
-
-
-
-
-
 
 
 

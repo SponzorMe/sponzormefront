@@ -129,6 +129,10 @@ a.no-style {
   color: $color_black!important;
 }
 
+.color-gray-text {
+  color: $color_gray_text;
+}
+
 .color-green {
   color: $color_green!important;
 }
@@ -202,6 +206,38 @@ md-select.sponzors:not([disabled]):focus .md-select-value {
 md-select.organizers:not([disabled]):focus .md-select-value {
   border-bottom-color: $color_blue_brighter;
 }
+
+md-select-menu.md-default-theme md-option[selected], md-select-menu md-option.sponzors[selected] {
+  color: $color_active
+}
+
+md-select-menu.md-default-theme md-option[selected], md-select-menu md-option.organizers[selected] {
+  color: $color_blue_brighter
+}
+
+md-checkbox.sponzors.md-checked {
+    .md-ink-ripple {
+        color: $color_active;
+    }
+
+    .md-icon {
+        background: $color_active;
+    }
+}        
+
+md-checkbox.sponzors.md-default-theme.md-checked.md-focused .md-container:before, md-checkbox.md-checked.md-focused .md-container:before {
+    background-color: rgba(240, 146, 0, 0.26);
+}
+
+md-checkbox.sponzors.md-default-theme .md-icon, md-checkbox .md-icon {
+  border-color: $color_active;
+}
+
+
+
+
+
+
 
 /**
  *  Do not remove the comment below. It's the markers used by gulp-inject to inject

@@ -1,8 +1,16 @@
 .allContainer .superContainer .cont .contentContainer .notifyDetailContainer { 
    
-//
-//for sponzors/sponzoring
-//
+    &>.addTask {
+        &>.md-button.md-fab {
+            background-color: $color_active; 
+        }
+        &>p {
+            color: $color_active;
+            text-transform: uppercase;
+            margin-left: 0.5em;
+        }
+    }
+
     &>.eventItem.tasks {  
         &>.eventInfo { 
             padding: 1em 0em;            

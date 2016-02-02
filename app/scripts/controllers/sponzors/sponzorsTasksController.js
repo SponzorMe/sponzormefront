@@ -11,10 +11,14 @@
       return isOpen = $mdSidenav('left').isOpen();
     };
     
+
     $scope.openMenu = function($mdOpenMenu, $event) {
       $scope.originatorEv = $event;
       $mdOpenMenu($event);
     };
+    $scope.myDate = new Date()
+
+    $scope.option = '';
 
     $scope.taskDetail = {
         'event': 'Concierto tributo Charly Garcia',
