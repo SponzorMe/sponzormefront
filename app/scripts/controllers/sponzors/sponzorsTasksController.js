@@ -15,6 +15,18 @@
       $scope.originatorEv = $event;
       $mdOpenMenu($event);
     };
+
+    $scope.taskDetail = {
+        'event': 'Concierto tributo Charly Garcia',
+        'title': 'enviar boletín por correo a los asistentes',
+        'from': {
+            'sender': 'SponzorMe Team',
+            'link': ''
+        },
+
+        'time': '4:40PM',
+        'message': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos alias reiciendis nobis quo veniam blanditiis dicta magnam hic, incidunt voluptate earum quia illum corrupti eaque, enim voluptatum ut ratione officia. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum rem architecto quae ipsam commodi nulla tempore sapiente et soluta totam nemo, vero culpa possimus optio consequatur expedita repellat nostrum delectus.'
+    }
 $scope.eventItem = [
         {
           'title': 'Este es el nombre del evento, solo 50 caracteres.s',
