@@ -1,29 +1,125 @@
-        
 {
-  "general":{
+  "general": {
     "howItWorks": "How Do it Works?",
     "getting": "Welcome",
     "sponzor": "Sponzor",
     "organizer": "Organizer",
-    "email": "E-mail"
+    "email": "E-mail",
+    "english": "English",
+    "spanish": "Spanish",
+    "portuguese": "Portuguese"
   },
-  "footer":{
+  "dialog": {
+    "loadingMessage": "Please wait, We are proccessing your request.",
+    "unactivatedAccount": "Your account has not been activated yet, please verify you E-mail inbox or go to ",
+    "resendActivationPage":"Resend Activation Page",
+    "activationSuccess": "Activation Success!",
+    "activationSuccessMessage": "Your account has been activated and now you can login",
+    "invalidCredentials": "Invalid E-mail or Password, please try again",
+    "delayedRequest": "This is taken more than the normal, please check your internet connection",
+    "takeMeOut": "Click Here to Cancel your Request"
+  },
+  "footer": {
     "testimonials": "Testimonials",
     "support": "Support",
     "blog": "Blog",
     "privacy": "Privacy"
   },
-  "login": {     
-      
-      "password": "Password",
-      "pleaseEnterYourEmail": "Please enter your E-mail",
-      "pleaseEnteraPassword": "Please enter a password",
-      "login": "Login",
-      "forgot": "Forgot password?"
-      
+  "login": {
+    "password": "Password",
+    "pleaseEnterYourEmail": "Please enter your E-mail",
+    "pleaseEnteraPassword": "Please enter a password",
+    "login": "Login",
+    "forgot": "Forgot password?"
   },
-  "forgot":{
-    "instructions":"Put your registered E-mail, there you will get instructions.",
+  "forgot": {
+    "instructions": "Put your registered E-mail, there you will get instructions.",
     "enterEmail": "Please insert your email"
+  },
+  "eventPage": {
+    "date": "Date"
+  },
+  "createSponzor": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "E-mail",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "completeFields": "Please complete the info below",
+    "asSponzor": "Sponzor",
+    "tellUsAboutYou": "Tell us something about you",
+    "pleaseEnterYourEmail": "Please enter your E-mail",
+    "pleaseEnterYourFirstName": "Please enter your First Name",
+    "pleaseEnterYourLastName": "Please enter your Last Name",
+    "pleaseEnterPassword": "Please enter a password",
+    "pleaseConfirmPassword": "Please confirm the password",
+    "next": "Next",
+    "age": "Age",
+    "gender": "Gender",
+    "men": "Male",
+    "woman": "Female",
+    "other": "Other",
+    "preferLanguage": "Prefer Language",
+    "location": "Location",
+    "areYouInterestedIn": "Are you interested in?",
+    "pleaseEnterYourAge": "Please enter your Age",
+    "pleaseChooseASex": "Please choose your Sex",
+    "pleaseChooseLanguage": "Please choose a prefer language",
+    "pleaseEnterLocation": "Plase enter a location"
+  },
+  "sponzorsMain": {
+    "foundEvents": "events found",
+    "searchResults": "Search results: ",
+    "refineSearch": "Refine search based on your interests",
+    "searchEvents": "Search Events",
+    "highlightEvents": "Highlight Events",
+    "notifications": "Notifications",
+    "typeYourSearchHere": "Type your search here",
+    "seeEvent": "See Event",
+    "seeSponzorshipTypes": "See Sponzorship Types",
+    "followEvent": "Follow Event",
+    "shareEvent": "Share Event",
+    "featuredEvents": "Featured Events"
+  },
+  "sponzorsSponzorships":{
+    "title": "Title",
+    "date": "Date",
+    "type": "Type",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "sidenav": {
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "tasks": "Tasks",
+    "following": "Following",
+    "sponzoring": "Sponzoring",
+    "dashboard": "Dashboard",
+    "sponzorDashboard": "Sponzor"
+  },
+  "categories":{
+    "Outdoor": "Outdoor",
+    "Art & Culture": "Art & Culture",
+    "Dancing": "Dancing",
+    "Wellness": "Wellness",
+    "Career & Business": "Career & Business",
+    "Eat & Foods": "Eat & Foods",
+    "Belief": "Belief",
+    "Sports & Fitness": "Sports & Fitness",
+    "Education": "Education",
+    "Photography": "Photography",
+    "Languages": "Languages",
+    "Books": "Books",
+    "Music": "Music",
+    "Technology": "Technology"
+  },
+  "eventTypes":{
+    "Charity": "Charity",
+    "Recruitment": "Recruitment",
+    "Training or Workshop":"Training or Workshop",
+    "Perfomance":"Perfomance",
+    "Conference":"Conference",
+    "Networking Event":"Networking Event",
+    "Other": "Other"
   }
 }

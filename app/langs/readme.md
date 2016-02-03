@@ -5,7 +5,7 @@
 |     grouping in the JSON object the strings that you need for the translation.
 |     EXAMPLE: if you want a translation for the text 'Who am I?' in orga-main.html
 |     you need to do: 
-|                "organizersMain": {
+|                "orgaMain": {
 |                  "whoAmI": "Who am I?"
 |                }
 |3. Final rules: 1. No Symbols in the name of the string,

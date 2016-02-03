@@ -15,8 +15,8 @@
         controller: 'HomeController'
       })
       .when('/activation/:token', {
-        templateUrl: 'views/activation.html',
-        controller: 'ActivationController'
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
@@ -130,8 +130,6 @@
         templateUrl: 'views/profile.html',
         controller: 'ProfileController'
       })
-
-      
       .when('/support', {
         templateUrl: 'views/support.html'
       })
@@ -151,8 +149,6 @@
         templateUrl: 'views/sponzors/dashboard/outstanding.html',
         controller: 'SponzorsOutstandingController'
       })
-
-
       .otherwise({
         redirectTo: '/login'
       });

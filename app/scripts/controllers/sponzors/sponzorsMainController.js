@@ -1,154 +1,24 @@
 'use strict';
 (function() {
   function SponzorsMainController($scope, $mdSidenav, $translate, $localStorage, eventRequest, ngDialog, sponzorshipRequest, $rootScope, $sce, demoRequest, $timeout) {
-    
-     //mock starts
-
-    $scope.filterClick = function(id) {
-      $scope.filter.push(id);
-    };
+    if ($rootScope.userValidation('1')) {
+      $scope.filter = [];
+      $scope.user = JSON.parse($localStorage.user);
+      if ($localStorage.events) {
+        var events = JSON.parse($localStorage.events);
+        $scope.events = events.filter(function(e) {//Remember remove past events and fake events
+          e.starts = new Date(e.starts);
+          return e;
+        });
+      }
+      $scope.filterClick = function(interest) {
+        $scope.filter.push(interest);
+      };
       $scope.openMenu = function($mdOpenMenu, $event) {
         $scope.originatorEv = $event;
         $mdOpenMenu($event);
-      };    
-      $scope.filter = ['New York'];
-      $scope.chips = ['Rock', 'Música', 'Conferencia', 'Tecnología', 'Emprendimiento', 'Bogotá'];
-      
-      $scope.events = [
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-      {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-          {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-      {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      },
-        {
-          'img':'../../../images/home-bkg.jpg',
-          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
-          'date':'Dom, Ene 10, 9:000',
-          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
-      }];
-    //mock ends
+      };
 
-    if ($rootScope.userValidation('1')) {
-      $scope.section = {
-        route: 'Dashboard',
-        title: 'Dashboard'
-      };
-      if ($localStorage.demo === '0') {
-          $timeout(function() {
-            demoRequest.showDemo($localStorage.id, $localStorage.typesponzorme);
-          }, 1000);
-      }
-      $scope.user = JSON.parse($localStorage.user);
-      $scope.balance = 0;
-      $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
-        if (e.status === '0') {
-          return e;
-        }
-      });
-      $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
-        if (e.status > 0) {
-          $scope.balance = parseInt(e.perk.usd) + parseInt($scope.balance);
-          e.event.ends = new Date(e.event.ends).getTime();
-          return e;
-        }
-      });
-      if ($localStorage.events) {
-        var events = JSON.parse($localStorage.events);
-        $scope.search = events.filter(function(e) {
-          if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
-            return e;
-          }
-        });
-      }
-      $localStorage.user = JSON.stringify($scope.user);
-      $scope.trustSrc = function(src) {
-        return $sce.trustAsResourceUrl(src);
-      };
-      $scope.getAllEvents = function() {
-        $scope.searchLoading = true;
-        eventRequest.allEvents().then(function successCallback(response) {
-          $localStorage.events = JSON.stringify(response.data.data.events);
-          $scope.search = [];
-          $scope.search = response.data.data.events.filter(function(e) {
-            if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
-              return e;
-            }
-          });
-          $scope.searchLoading = false;
-        }, function errorCallback() {
-          $scope.searchLoading = false;
-        });
-      };
-      $scope.openLocation = function(event) {
-        $scope.currentEvent = event;
-        $scope.mapSrc = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyDxXJIUmt5IDbqXuqNpD4ZssRl6aXBRhcU&q=' + encodeURIComponent($scope.currentEvent.location);
-        ngDialog.open({
-          template: 'views/templates/locationDialog.html',
-          scope: $scope,
-          showClose: true
-        });
-      };
       $scope.showPerks = function(event) {
         $scope.showForm = false;
         $scope.selectedPerk = false;
@@ -197,7 +67,6 @@
           }
         });
       };
-      $scope.menuprincipal = 'views/sponzors/menu.html';
     }
   }
   angular.module('sponzorme').controller('SponzorsMainController', SponzorsMainController);

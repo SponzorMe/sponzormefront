@@ -10,15 +10,6 @@
       var aux = host.replace('http:', 'https:');
       window.location.href = aux;
     }
-    if (!$rootScope.tolsctive) {
-      $rootScope.tolsctive = 'active';
-    }
-    $rootScope.toggleSidebar = function() {
-      $rootScope.tolsctive = !$rootScope.tolsctive;
-      if ($rootScope.tolsctive === true) {
-        $rootScope.tolsctive = 'active';
-      }
-    };
     $rootScope.sendFirebaseNotification = function(notification, to) {
       notification.date = new Date().getTime();
       var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + to);
@@ -106,7 +97,7 @@
     $rootScope.userValidation = function(shouldType) {
       host = window.location.href;
       $rootScope.isExpiredData();
-      if ($localStorage.cookiesponzorme && $localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.typesponzorme === shouldType && $localStorage.user) {
+      if ($localStorage.email && $localStorage.id > 0 && $localStorage.token && $localStorage.type === shouldType && $localStorage.user) {
         $rootScope.$storage = $localStorage;
         return true;
       } else {
