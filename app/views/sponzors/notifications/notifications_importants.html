@@ -16,16 +16,16 @@
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/sponzors/notifications" class="textActive" md-ink-ripple>_bandeja de entrada_</a>
-            <div class="border active"></div>
+            <a href="#/sponzors/notifications" md-ink-ripple>_bandeja de entrada_</a>
+            <div class="border"></div>
           </div>
           <div class="menuItem">
             <a href="#/sponzors/notifications/readed" md-ink-ripple>_leídas_</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/notifications/importants" md-ink-ripple>__importantes_</a>
-            <div class="border"></div>
+            <a href="#/sponzors/notifications/importants" class="textActive" md-ink-ripple>__importantes_</a>
+            <div class="border active"></div>
           </div>
         </div>      
         <div class="buttons" layout="row" layout-align="start center">
@@ -48,13 +48,13 @@
             <md-icon>person</md-icon>
           </md-button>
           <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
-            <md-menu-item class="menuXsItem active">
+            <md-menu-item class="menuXsItem ">
               <a href="#/sponzors/dashboard" md-ink-ripple>_bandeja de entrada_</a>              
             </md-menu-item>
             <md-menu-item class="menuXsItem">
               <a href="#/sponzors/outstanding" md-ink-ripple>_leídas_</a>
             </md-menu-item>
-            <md-menu-item class="menuXsItem">
+            <md-menu-item class="menuXsItem active">
               <a href="#/sponzors/notifications" md-ink-ripple>_importantes_</a>
             </md-menu-item>
           </md-menu-content>
@@ -78,7 +78,7 @@
        <md-divider></md-divider>
 
        <div layout="column" class="notifyContainer" >
-         <md-content class="notifyElement" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="notify in notifications">
+         <md-content class="notifyElement importants" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="notify in notifications">
             <a href="#/sponzors/notification/:id" layout="row" layout-align="start center" flex="grow">
               <md-button class="md-icon-button" aria-label="b">
                 <md-icon>notifications</md-icon>

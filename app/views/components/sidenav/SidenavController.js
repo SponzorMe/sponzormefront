@@ -24,6 +24,8 @@
           'notifications': 'views/sponzors/notifications/notifications.html',
           'notificationId': 'views/sponzors/notifications/notification_detail.html',
           'notificationReply': 'views/sponzors/notifications/notification_reply.html',
+          'notificationsReaded': 'views/sponzors/notifications/notifications_readed.html',
+          'notificationsImportant': 'views/sponzors/notifications/notifications_importants.html'
         },
         'settings': {
           'profile': 'views/sponzors/dashboard/settings_profile.html',
@@ -31,8 +33,9 @@
         }
     };
 
-    $scope.getRoute = function(route1, route2, route3) {
-      if($scope.route === route1 || $scope.route === route2 || $scope.route === route3) {
+    $scope.getRoute = function(route1, route2, route3, route4, route5) {
+      
+      if($scope.route === route1 || $scope.route === route2 || $scope.route === route3 || $scope.route === route4 || $scope.route === route5) {
         return true;
       }
     }

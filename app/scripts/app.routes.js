@@ -175,6 +175,14 @@
         templateUrl: 'views/sponzors/notifications/notifications.html',
         controller: 'SponzorsNotificationsController'
       })
+      .when('/sponzors/notifications/importants', {
+        templateUrl: 'views/sponzors/notifications/notifications_importants.html',
+        controller: 'SponzorsNotificationsController'
+      })
+      .when('/sponzors/notifications/readed', {
+        templateUrl: 'views/sponzors/notifications/notifications_readed.html',
+        controller: 'SponzorsNotificationsController'
+      })
       .when('/sponzors/notification/:id', {
         templateUrl: 'views/sponzors/notifications/notification_detail.html',
         controller: 'SponzorsNotificationDetailController'
