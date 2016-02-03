@@ -171,7 +171,18 @@
         templateUrl: 'views/sponzors/dashboard/outstanding.html',
         controller: 'SponzorsOutstandingController'
       })
-
+      .when('/sponzors/notifications', {
+        templateUrl: 'views/sponzors/notifications/notifications.html',
+        controller: 'SponzorsNotificationsController'
+      })
+      .when('/sponzors/notification/:id', {
+        templateUrl: 'views/sponzors/notifications/notification_detail.html',
+        controller: 'SponzorsNotificationDetailController'
+      })
+      .when('/sponzors/notification/:id/reply', {
+        templateUrl: 'views/sponzors/notifications/notification_reply.html',
+        controller: 'SponzorsNotificationReplyController'
+      })
 
       .otherwise({
         redirectTo: '/login'
