@@ -79,7 +79,8 @@
     "seeSponzorshipTypes": "See Sponzorship Types",
     "followEvent": "Follow Event",
     "shareEvent": "Share Event",
-    "featuredEvents": "Featured Events"
+    "featuredEvents": "Featured Events",
+    "saveEvent": "Save Event"
   },
   "sponzorsSponzorships":{
     "title": "Title",
