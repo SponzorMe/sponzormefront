@@ -82,17 +82,17 @@
         templateUrl: 'views/sponzors/dashboard/friend.html',
         controller: 'SponzorsFriendController'
       })
-      .when('/sponzors/following', {
-        templateUrl: 'views/sponzors/dashboard/following.html',
-        controller: 'SponzorsMasterController'
+      .when('/sponzors/saved', {
+        templateUrl: 'views/sponzors/dashboard/saved.html',
+        controller: 'SponzorsSavedController'
       })
       .when('/sponzors/sponzoring', {
         templateUrl: 'views/sponzors/dashboard/sponzorships.html',
         controller: 'SponzorsMasterController'
       })
-      .when('/event/:eventId', {
-        templateUrl: 'views/event.html',
-        controller: 'EventPageController'
+      .when('/sponzors/event/:eventId', {
+        templateUrl: 'views/sponzors/dashboard/event.html',
+        controller: 'SponzorsEventPageController'
       })
       .when('/organizers/add/event', {
         templateUrl: 'views/organizers/dashboard/add_event.html',

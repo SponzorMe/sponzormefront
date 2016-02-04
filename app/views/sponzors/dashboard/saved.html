@@ -5,8 +5,8 @@
 
   <md-content class="superContainer" layout="row">
 
-    <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+
 
     <div class="cont" flex>
 
@@ -15,12 +15,12 @@
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple translate>sponzorsMain.searchEvents</a>
-            <div class="border active"></div>
+            <a href="#/sponzors/dashboard" md-ink-ripple translate>sponzorsMain.searchEvents</a>
+            <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
-            <div class="border"></div>
+            <a href="#/sponzors/outstanding" class="textActive" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
+            <div class="border active"></div>
           </div>
         </div>
         <div class="buttons" layout="row" layout-align="start center">
@@ -43,10 +43,10 @@
             <md-icon>person</md-icon>
           </md-button>
           <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
-            <md-menu-item class="menuXsItem active">
+            <md-menu-item class="menuXsItem">
               <a href="#/sponzors/dashboard" md-ink-ripple translate>sponzorsMain.searchEvents</a>
             </md-menu-item>
-            <md-menu-item class="menuXsItem">
+            <md-menu-item class="menuXsItem active">
               <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem">
@@ -59,53 +59,24 @@
     <!-- Content starts -->
 
       <div class="contentContainer">
-          <!-- Filter -->
-        <div class="filter">
-          <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp" md-no-float md-ink-ripple="false" >
-            <md-icon>search</md-icon>
-            <input type="text" placeholder="{{ 'sponzorsMain.typeYourSearchHere' | translate }}"/>
-          </md-input-container>
-
-          <div class="chipContainer">
-            <h3 class="normalText" translate>sponzorsMain.refineSearch</h3>
-            <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
-              <a class="md-chip inset toSelect"
-                  md-ink-ripple layout="row"
-                  layout-align="center center"
-                  ng-repeat="item in user.interests"
-                  ng-model="filter"
-                  ng-click="filterClick(item.interest.name)"
-                  layout-wrap>
-                {{item.interest.name}}
-              </a>
-            </div>
-            <md-divider></md-divider>
-            <div class="chipsFilter">
-              <md-chips ng-model="filter"></md-chips>
-            </div>
-          </div>
-        </div>
-
-        <div class="texts" layout="row" layout-align="space-between">
-            <h3 translate>sponzorsMain.searchResults</h3>
-            <p>{{events.length}} {{'sponzorsMain.foundEvents'|translate}}</p>
-        </div>
-
+      <div class="texts" layout="row" layout-align="space-between">
+        <h3  translate>sponzorsMain.featuredEvents</h3>
+      </div>
       <!-- Events Results -->
 
-        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
-          <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
-            <div class="eventImage" layout="column" layout-align="center center">
-              <img src="{{event.image}}" alt="event" width="125px" height="130px">
-              <p>{{event.title}}</p>
-            </div>
-            <div class="textContainer">
-              <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
-              <md-divider></md-divider>
-              <p>
-                {{event.description|limitTo:100}}
-              </p>
-            </div>
+      <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
+        <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
+          <div class="eventImage" layout="column" layout-align="center center">
+            <img src="{{event.image}}" alt="event" width="125px" height="130px">
+            <p>{{event.title}}</p>
+          </div>
+          <div class="textContainer">
+            <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
+            <md-divider></md-divider>
+            <p>
+              {{event.description|limitTo:100}}
+            </p>
+          </div>
             <md-menu>
               <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
                 <md-icon aria-label="b">add</md-icon>
@@ -114,11 +85,11 @@
                 <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">stars</md-icon>
-                    <a href="#/sponzors/event/{{$index}}" translate>sponzorsMain.seeEvent</a>
+                    <a href="#/event/:eventId" translate>sponzorsMain.seeEvent</a>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
-                  <md-button ng-click="showPerks(event)">
+                  <md-button>
                     <md-icon aria-label="b">thumb_up</md-icon>
                     {{'sponzorsMain.seeSponzorshipTypes'|translate}}
                   </md-button>
