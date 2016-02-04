@@ -3,6 +3,7 @@
   function SidenavController($scope, $mdSidenav, $route) {
     //mock starts
     $scope.route = $route.current.loadedTemplateUrl;
+    console.log('esta es la ruta:', $scope.route);
     $scope.statesSponzors = {
         'dashboard': {
           'dashboard': 'views/sponzors/dashboard/main.html',
@@ -14,20 +15,28 @@
           'sponzoringId': 'views/sponzors/dashboard/sponzorshipsId.html'
         },
         'following': 'views/sponzors/dashboard/following.html',
-        'tasks': 'views/tasks.html',
+        'tasks': {
+          'tasks': 'views/sponzors/dashboard/tasks.html',
+          'task' : 'views/sponzors/dashboard/taskId.html',
+          'tasksCreate': 'views/sponzors/dashboard/tasks_create.html'
+        },
         'notifications': {
           'notifications': 'views/sponzors/notifications/notifications.html',
           'notificationId': 'views/sponzors/notifications/notification_detail.html',
           'notificationReply': 'views/sponzors/notifications/notification_reply.html',
+          'notificationsReaded': 'views/sponzors/notifications/notifications_readed.html',
+          'notificationsImportant': 'views/sponzors/notifications/notifications_importants.html'
         },
         'settings': {
           'profile': 'views/sponzors/dashboard/settings_profile.html',
-          'preferences': 'views/sponzors/dashboard/settings_preferences.html'
+          'preferences': 'views/sponzors/dashboard/settings_preferences.html',
+          'ratings': 'views/sponzors/dashboard/settings_ratings.html'
         }
     };
 
-    $scope.getRoute = function(route1, route2, route3) {
-      if($scope.route === route1 || $scope.route === route2 || $scope.route === route3) {
+    $scope.getRoute = function(route1, route2, route3, route4, route5) {
+      
+      if($scope.route === route1 || $scope.route === route2 || $scope.route === route3 || $scope.route === route4 || $scope.route === route5) {
         return true;
       }
     }
