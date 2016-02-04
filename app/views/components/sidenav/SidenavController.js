@@ -3,7 +3,6 @@
   function SidenavController($scope, $mdSidenav, $route) {
     //mock starts
     $scope.route = $route.current.loadedTemplateUrl;
-    console.log('esta es la ruta: ', $scope.route);
     $scope.statesSponzors = {
         'dashboard': {
           'dashboard': 'views/sponzors/dashboard/main.html',
@@ -44,7 +43,7 @@
       $scope.originatorEv = $event;
       $mdOpenMenu($event);
     };
-    
+
     $scope.openSidenavLeft = function(){
       $mdSidenav('left').toggle();
     };

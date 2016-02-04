@@ -1,28 +1,28 @@
 <div layout-fill class="allContainer">
-  
+
  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-  
-  <md-content class="superContainer" layout="row"> 
-    
+
+  <md-content class="superContainer" layout="row">
+
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
- 
-  
+
+
     <div class="cont" flex>
-    
-    <!-- navbar -->      
+
+    <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/sponzors/dashboard" md-ink-ripple>_Buscar eventos_</a>
+            <a href="#/sponzors/dashboard" md-ink-ripple translate>sponzorsMain.searchEvents</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/outstanding" class="textActive" md-ink-ripple>_Eventos destacados_</a>
+            <a href="#/sponzors/outstanding" class="textActive" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
             <div class="border active"></div>
           </div>
-        </div>      
+        </div>
         <div class="buttons" layout="row" layout-align="start center">
           <a href="#sponzors/notifications">
             <md-icon aria-label="b">notifications</md-icon>
@@ -44,43 +44,40 @@
           </md-button>
           <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/dashboard" md-ink-ripple>_Buscar eventos_</a>              
+              <a href="#/sponzors/dashboard" md-ink-ripple translate>sponzorsMain.searchEvents</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem active">
-              <a href="#/sponzors/outstanding" md-ink-ripple>_Eventos destacados_</a>
+              <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
+              <a href="#/sponzors/notifications" md-ink-ripple translate>sponzorsMain.notifications</a>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-      </div>        
-    
-    <!-- Content starts -->    
-      
+      </div>
+
+    <!-- Content starts -->
+
       <div class="contentContainer">
       <div class="texts" layout="row" layout-align="space-between">
-        <h3 translate>Featured Events:</h3>
-      </div>      
+        <h3  translate>sponzorsMain.featuredEvents</h3>
+      </div>
       <!-- Events Results -->
-        
-        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
-          <div class="eventCategory" flex="100">
-            <p translate>_Música_:</p>
-          </div>        
-          <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
-            <div class="eventImage" layout="column" layout-align="center center">
-              <img src="{{event.img}}" alt="event" flex="100">
-              <p>_{{event.imgDescript}}_</p>
-            </div>
-            <div class="textContainer">
-              <h2>_{{event.date}}_</h2>
-              <md-divider></md-divider>
-              <p>
-                _{{event.eventDescript}}_
-              </p>
-            </div>
-            <md-menu>  
+
+      <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
+        <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
+          <div class="eventImage" layout="column" layout-align="center center">
+            <img src="{{event.image}}" alt="event" width="125px" height="130px">
+            <p>{{event.title}}</p>
+          </div>
+          <div class="textContainer">
+            <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
+            <md-divider></md-divider>
+            <p>
+              {{event.description|limitTo:100}}
+            </p>
+          </div>
+            <md-menu>
               <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
                 <md-icon aria-label="b">add</md-icon>
               </md-button>
@@ -88,44 +85,33 @@
                 <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">stars</md-icon>
-                    <a href="#/event/:eventId">_Ver evento_</a>
+                    <a href="#/event/:eventId" translate>sponzorsMain.seeEvent</a>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">thumb_up</md-icon>
-                    _Ver tipos de patrocinio_
+                    {{'sponzorsMain.seeSponzorshipTypes'|translate}}
                   </md-button>
                 </md-menu-item>
                 <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">remove_red_eye</md-icon>
-                    _Seguir evento_
+                    {{'sponzorsMain.followEvent'|translate}}
                   </md-button>
                 </md-menu-item>
                 <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">share</md-icon>
-                    _Compartir evento_
+                    {{'sponzorsMain.shareEvent'|translate}}
                   </md-button>
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
-          </div> 
-        </md-content>                      
-      </div>    
+          </div>
+        </md-content>
+      </div>
     </div>
-  </md-content>  
+  </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-

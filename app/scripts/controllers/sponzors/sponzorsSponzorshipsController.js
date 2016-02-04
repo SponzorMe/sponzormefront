@@ -1,97 +1,20 @@
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $mdSidenav,$location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest) {
+  function SponzorsSponzorshipsController($scope, $mdSidenav,$location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest, SPONZORSHIPSTATUSES) {
+    $scope.statuses = SPONZORSHIPSTATUSES;
     //mock starts
     $scope.openSidenavLeft = function(){
       $mdSidenav('left').toggle();
     };
-
-      $scope.eventItem = [
-        {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
-          'date': '20/12/2016',
-          'sponzorType': 'gold'
-        },
-        {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
-          'date': '20/12/2016',
-          'sponzorType': 'gold'
-        },
-        {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
-          'date': '20/12/2016',
-          'sponzorType': 'gold'
-        },
-        {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
-          'date': '20/12/2016',
-          'sponzorType': 'gold'
-        },
-        {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
-          'date': '20/12/2016',
-          'sponzorType': 'gold'
-        },
-        {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
-          'date': '20/12/2016',
-          'sponzorType': 'gold'
-        },
-        {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.s',
-          'date': '20/12/2016',
-          'sponzorType': 'gold'
-        }
-      ]
-
-      $scope.task = [
-        {
-          'title': '.Este es el nombre de la tarea, solo 50 caracteres',
-          'date': '10/2/2016',
-          'description': 'una pequeña descripcion de la tarea para hacer',
-          'userName': 'ramiro',
-          'status': 'incompleta',
-        },
-        {
-          'title': 'Titulo de una tarea2',
-          'date': '98/2/2016',
-          'description': 'una pequeña descripcion de la tarea para hacer',
-          'userName': 'jose',
-          'status': 'completa',
-        },
-        {
-          'title': 'Titulo de una tarea3',
-          'date': '5/1/2016',
-          'description': 'una pequeña descripcion de la tarea para hacer',
-          'userName': 'liz',
-          'status': 'incompleta',
-        },
-        {
-          'title': 'Titulo de una tarea4',
-          'date': '6/12/2015',
-          'description': 'una pequeña descripcion de la tarea para hacer',
-          'userName': 'fernando',
-          'status': 'incompleta',
-        }
-      ];
-
-      $scope.typeOfSponzor = 'gold';
-    //mack ends
-
-    /*if ($rootScope.userValidation('1')) {
-      $scope.section = {
-        route: 'Events / Sponzoring',
-        title: 'Sponzoring Events'
-      };
+      if ($rootScope.userValidation('1')) {
       $scope.todayDate = new Date().getTime();
       $scope.user = JSON.parse($localStorage.user);
-      if (!$scope.user.acceptedSponzorships) {
-        $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
-          if (e.status > '0') {
-            e.event.ends = new Date(e.event.ends).getTime();
+      if ($scope.user.sponzorships) {
+        $scope.user.sponzorships = $scope.user.sponzorships.filter(function(e) {
+            e.event.starts = new Date(e.event.starts);
+            //e.event.ends = new Date(e.event.ends).getTime();
             return e;
-          }
         });
         $localStorage.user = JSON.stringify($scope.user);
       }
@@ -208,10 +131,7 @@
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
       };
-      if ($scope.user.acceptedSponzorships.length) {
-        $scope.showTasks($scope.user.acceptedSponzorships[0]);
-      }
-    }*/
+    }
   }
   angular.module('sponzorme').controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
 })();

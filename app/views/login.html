@@ -11,19 +11,19 @@
         <md-tab label="{{'general.sponzor'|translate}}">
           <md-content>
             <div class="loginForm" layout="column" layout-align="center center" layout-padding>
-              <form class="sponzorForm" ng-submit="doLogin()" name="sponzorForm" novalidate layout="column" layout-align="center stretch">
+              <form class="sponzorForm" name="sponzorForm" ng-submit="sponzorForm.$valid && doLogin()"  novalidate layout="column" layout-align="center stretch">
                 <md-input-container>
                   <label translate>general.email</label>
-                  <input type="email" name="email" data-ng-model="email" required>
+                  <input type="email" name="email" data-ng-model="login.email" required>
                   <div ng-messages="sponzorForm.email.$error">
-                    <div ng-message="required">{{'login.pleasEenterYourEmail'|translate}}</div>
+                    <div ng-message="required">{{'login.pleaseEnterYourEmail'|translate}}</div>
                   </div>
                 </md-input-container>
                 <md-input-container>
                   <label translate>login.password</label>
-                  <input type="password" name="password" data-ng-model="password" required>
+                  <input type="password" name="password" data-ng-model="login.password" required>
                   <div ng-messages="sponzorForm.password.$error">
-                    <div ng-message="required">{{'login.pleasEenteraPassword'|translate}}</div>
+                    <div ng-message="required">{{'login.pleaseEnteraPassword'|translate}}</div>
                   </div>
                 </md-input-container>
                 <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"> <span translate>login.login</span> </md-button>
@@ -39,19 +39,19 @@
         <md-tab label="{{'general.organizer'|translate}}" md-active="true">
           <md-content>
             <div class="loginForm" layout="column" layout-align="center center" layout-padding>
-              <form class="organizerForm" ng-submit="doLogin()" name="organizerForm" novalidate layout="column" layout-align="center stretch">
+              <form class="organizerForm" ng-submit="organizerForm.$valid && doLogin()" name="organizerForm" novalidate layout="column" layout-align="center stretch">
                 <md-input-container>
                   <label translate>general.email</label>
-                  <input type="email" name="email" data-ng-model="email" required>
+                  <input type="email" name="email" data-ng-model="login.email" required>
                   <div ng-messages="organizerForm.email.$error">
-                    <div ng-message="required">{{'login.pleaseenteryouremail'|translate}}</div>
+                    <div ng-message="required">{{'login.pleaseEnterYourEmail'|translate}}</div>
                   </div>
                 </md-input-container>
                 <md-input-container>
                   <label translate>login.password</label>
-                  <input type="password" name="password" data-ng-model="password" required>
+                  <input type="password" name="password" data-ng-model="login.password" required>
                   <div ng-messages="organizerForm.password.$error">
-                    <div ng-message="required">{{'login.pleaseenterapassword'|translate}}</div>
+                    <div ng-message="required">{{'login.pleaseEnteraPassword'|translate}}</div>
                   </div>
                 </md-input-container>
                 <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"><span translate>login.login</span></md-button>

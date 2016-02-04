@@ -1,11 +1,11 @@
-<md-sidenav class="sidenavContainer" md-is-locked-open="$mdMedia('gt-xs')" md-component-id="left" flex="nogrow">  
+<md-sidenav class="sidenavContainer" md-is-locked-open="$mdMedia('gt-xs')" md-component-id="left" flex="nogrow">
   <div class="sidenav2" layout="column">
     <div class="text-container md-whiteframe-1dp md-cornered" layout="row">
       <a href="#/sponzors/dashboard" md-ink-ripple layout="row" layout-align="center center">
        <div layout="row" layout-align="center center" flex>
           <md-icon aria-label="b">reorder</md-icon>
        </div>
-       <p href="#/sponzors/dashboard" translate layout="row" layout-align="start center" flex="70">_sponzor_</p>
+       <p href="#/sponzors/dashboard" translate layout="row" layout-align="start center" flex="70" translate>sidenav.sponzorDashboard</p>
       </a>
     </div>
     <div class="sidenavButtons" layout="column">
@@ -13,43 +13,43 @@
       <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.dashboard.dashboard, statesSponzors.dashboard.outstanding, statesSponzors.dashboard.eventId)}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/dashboard" class="sidenavButton" layout="row">
             <md-icon aria-label="b">view_quilt</md-icon>
-            <a href="#/sponzors/dashboard"><h3 translate>dashboard</h3></a>
+            <a href="#/sponzors/dashboard"><h3 translate>sidenav.dashboard</h3></a>
         </a>
       </div>
       <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.sponzoring.sponzoring, statesSponzors.sponzoring.sponzoringId)}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/sponzoring" class="sidenavButton" layout="row" layout-align="start center">
             <md-icon aria-label="b">thumb_up</md-icon>
-            <a href="#/sponzors/sponzoring"><h3 translate>sponzoring</h3></a>
+            <a href="#/sponzors/sponzoring"><h3 translate>sidenav.sponzoring</h3></a>
         </a>
       </div>
       <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.following)}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/following" class="sidenavButton" layout="row" layout-align="start center">
             <md-icon aria-label="b">remove_red_eye</md-icon>
-            <a href="#/sponzors/following"><h3 translate>following</h3></a>
+            <a href="#/sponzors/following"><h3 translate>sidenav.following</h3></a>
         </a>
       </div>
       <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.tasks.tasks, statesSponzors.tasks.task, statesSponzors.tasks.tasksCreate)}" md-ink-ripple="#f09200" layout="row">
         <a href="" class="sidenavButton" layout="row">
             <md-icon aria-label="b">description</md-icon>
-            <a href=""><h3>_tareas_</h3></a>
+            <a href=""><h3 translate>sidenav.tasks</h3></a>
         </a>
       </div>
       <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.notifications.notifications, statesSponzors.notifications.notificationId, statesSponzors.notifications.notificationReply, statesSponzors.notifications.notificationsImportant,  statesSponzors.notifications.notificationsReaded)}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/notifications" class="sidenavButton" layout="row">
             <md-icon aria-label="b">notifications</md-icon>
-            <a href="#/sponzors/notifications"><h3 translate>notifications</h3></a>
+            <a href="#/sponzors/notifications"><h3 translate>sidenav.notifications</h3></a>
         </a>
       </div>
       <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.settings.profile, statesSponzors.settings.preferences)}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/settings" class="sidenavButton" layout="row" layout-align="start center">
             <md-icon aria-label="b">settings</md-icon>
-            <a href="#/sponzors/settings/profile"><h3 translate>settings</h3></a>
+            <a href="#/sponzors/settings/profile"><h3 translate>sidenav.settings</h3></a>
         </a>
       </div>
-    </div>  
+    </div>
   </div>
 </md-sidenav>
 
 <md-button class="sidenavToggle md-fab" aria-label="b" ng-click="openSidenavLeft()" ng-hide="isOpenLeft()" hide-gt-xs>
-  <md-icon>reorder</md-icon>  
+  <md-icon>reorder</md-icon>
 </md-button>
