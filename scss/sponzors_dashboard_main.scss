@@ -191,7 +191,8 @@ body {
                     top: 0;
 
                     &>.eventImage {
-                      background-color: #faaf3a;
+                        background-color: #faaf3a;
+                        
                         &>p {
                             color: $color_white;
                             font-size: 10px;
@@ -199,6 +200,7 @@ body {
                         }
                         &> img {
                             max-height: 130px;
+                            max-width: 245px;    
                         }
                     }
 
