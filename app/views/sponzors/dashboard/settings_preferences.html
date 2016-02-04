@@ -1,31 +1,32 @@
 <div layout-fill class="allContainer">
   
  <!-- navbar 1 -->
-  <div ng-include src="'./views/modules/navbar/navbar.html'"></div>
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
   
   <md-content class="superContainer" layout="row"> 
     
     <!-- sidenav -->
-    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/modules/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-
-    <md-button class="sidenavToggle md-fab" aria-label="b" ng-click="openSidenavLeft()" ng-hide="isOpenLeft()" hide-gt-xs>
-      <md-icon>reorder</md-icon>  
-    </md-button>
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
   
     <div class="cont" flex>
     
-    
     <!-- navbar -->      
       <!-- show-gt-xs don't work ¿? -->
-      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-around center" hide-xs hide-sm>
-        <div class="menuItem">
-          <a href="#/sponzors/settings/profile" md-ink-ripple translate>accountProfile</a>
-          <div class="border"></div>
-        </div>
-        <div class="menuItem" layout="row" layout-align="space-around center">
-          <a href="#/sponzors/settings/preferences" class="textActive" md-ink-ripple translate>accountPreferences</a>
-          <div class="border active"></div>
-        </div>
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+          <div class="menuItem">
+            <a href="#/sponzors/settings/profile" md-ink-ripple translate>_perfil_</a>
+            <div class="border"></div>
+          </div>
+          <div class="menuItem">
+            <a href="#/sponzors/settings/preferences" class="textActive" md-ink-ripple translate>_preferencias_</a>
+            <div class="border active"></div>
+          </div>
+          <div class="menuItem">
+            <a href="#/sponzors/settings/rating" md-ink-ripple translate>_calificación_</a>
+            <div class="border"></div>
+          </div>
+        </div>      
         <div class="buttons" layout="row" layout-align="start center">
           <a href="#sponzors/notifications">
             <md-icon aria-label="b">notifications</md-icon>
@@ -38,23 +39,26 @@
           </a>
         </div>
       </div>
-
-    <!-- navbar ("menu") when xs -->
-      <div class="menuXsContainer">
+      <!-- navbar ("menu") when xs -->
+        <div class="menuXsContainer">
         <md-menu hide-gt-sm>
           <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
             <md-icon>person</md-icon>
           </md-button>
           <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/settings/profile" md-ink-ripple translate>accountProfile</a>
+              <a href="#/sponzors/settings/profile" md-ink-ripple translate>_perfil_</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem active">
+              <a href="#/sponzors/settings/preferences" md-ink-ripple translate>_preferencias_</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/settings/preferences" md-ink-ripple translate>accountPreferences</a>
+              <a href="#/sponzors/settings/rating" md-ink-ripple translate>_calificación_</a>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-      </div> 
+      </div>      
+         
     
     <!-- Content starts -->    
       
@@ -92,7 +96,7 @@
               <div class="userImage" layout="column" layout="center center">
                 <img src="../images/4.jpg" ng-if="hasImage() === true"/>
                 <div class="iconPreview" layout="column" layout-align="center center"  ng-if="hasImage() === false">
-                  <md-icon>person</md-icon>
+                  <md-icon>stars</md-icon>
                 </div>
               </div>
               <div class="userSubmitImage">                
@@ -123,21 +127,40 @@
           </div>  
           <md-divider></md-divider>
           <div class="chipsFilter">              
-            <md-chips ng-model="filter">
+            <md-chips ng-model="filter" placeholder="+Tag" secondary-placeholder="+Tag">
             </md-chips>
           </div>
         </div>  
         <div class="companyDescription" layout="column" layout-align="center">
           <md-input-container class="sponzors">                
-            <label translate>companyPitch</label>
-            <textarea form="createForm" ng-model="create.company.description"></textarea>
+            <label translate>_descripcion de la compañía_</label>
+            <textarea form="createForm" ng-model="create.company.pitch" md-maxlength="250"></textarea>
           </md-input-container>
+          <div class="createFormSubmit" layout="row" layout-align="end center">
+            <md-button class="color-active">_editar_</md-button>
+          </div>
+          <md-input-container class="sponzors">                
+            <label translate>companyPitch</label>
+            <textarea form="createForm" ng-model="create.company.pitch" md-maxlength="250"></textarea>
+          </md-input-container>
+          <div class="createFormSubmit" layout="row" layout-align="end center">
+            <md-button class="color-active">_editar_</md-button>
+          </div>
         </div>
-        <div class="createFormSubmit" layout="row" layout-align="center center">
-          <md-button class="md-raised" type="submit" form="createForm">_Guardar cambios_</md-button>
-        </div>
-      </div>  
+        
+      </div>    
     </div>
   </md-content>  
-  <div ng-include src="'./views/modules/footer/footer.html'"></div>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+

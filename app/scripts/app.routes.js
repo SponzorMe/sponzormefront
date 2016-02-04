@@ -194,6 +194,10 @@
         templateUrl: 'views/sponzors/dashboard/settings_profile.html',
         controller: 'SponzorsSettingsController'
       })
+      .when('/sponzors/settings/preferences', {
+        templateUrl: 'views/sponzors/dashboard/settings_preferences.html',
+        controller: 'SponzorsSettingsController'
+      })
 
       .otherwise({
         redirectTo: '/login'
