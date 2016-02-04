@@ -190,6 +190,10 @@
         templateUrl: 'views/sponzors/notifications/notification_reply.html',
         controller: 'SponzorsNotificationReplyController'
       })
+      .when('/sponzors/settings/profile', {
+        templateUrl: 'views/sponzors/dashboard/settings_profile.html',
+        controller: 'SponzorsSettingsController'
+      })
 
       .otherwise({
         redirectTo: '/login'
