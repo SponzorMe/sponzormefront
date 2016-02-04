@@ -1,0 +1,210 @@
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+  
+    <div class="cont" flex>
+    
+    <!-- navbar -->      
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+          <div class="menuItem">
+            <a href="#/sponzors/settings/profile" class="textActive" md-ink-ripple translate>_perfil_</a>
+            <div class="border active"></div>
+          </div>
+          <div class="menuItem">
+            <a href="#/sponzors/settings/preferences" md-ink-ripple translate>_preferencias_</a>
+            <div class="border"></div>
+          </div>
+          <div class="menuItem">
+            <a href="#/sponzors/settings/ratings" md-ink-ripple translate>_calificación_</a>
+            <div class="border"></div>
+          </div>
+        </div>      
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+           <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+      <!-- navbar ("menu") when xs -->
+        <div class="menuXsContainer">
+        <md-menu hide-gt-sm>
+          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon>person</md-icon>
+          </md-button>
+          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+            <md-menu-item class="menuXsItem active">
+              <a href="#/sponzors/settings/profile" md-ink-ripple translate>_perfil_</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/settings/preferences" md-ink-ripple translate>_preferencias_</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/settings/ratings" md-ink-ripple translate>_calificación_</a>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>      
+         
+    
+    <!-- Content starts -->    
+      
+      <div class="createContainer settings" layout="column" flex> 
+        <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
+          <div class="createLeftContainer" flex="50">
+            <form ng-submit="create()" id="createForm" name="createForm" novalidate>
+              <div class="fullname" layout="row">
+                <md-input-container class="sponzors">
+                  <label translate>name</label>
+                  <input type="text" name="name" ng-model="create.name.firstname" required>
+                  <div ng-messages="createForm.name.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="sponzors">
+                <label translate>editarlasname</label>
+                  <input type="text" name="lastName" ng-model="create.name.lastName" required>
+                  <div ng-messages="createForm.lastName.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="date" layout="row" layout-align="center center">
+                  <md-datepicker ng-model="create.date" md-placeholder="_Fecha de nacimiento_"  required></md-datepicker>                
+              </div>
+              <div class="company" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                <label translate>editaccountcompany</label>
+                  <input type="text" name="compny" ng-model="create.company">
+                </md-input-container>
+              </div>
+              <div class="email" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">                
+                  <label translate>email</label>
+                  <input type="email" name="email" ng-model="create.email" required>
+                  <div ng-messages="createForm.email.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                    <div ng-message="email">_Ingrese un email correcto_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="userName" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">                
+                  <label translate>attributes_username</label>
+                  <input type="text" name="userName" ng-model="create.userName" required>
+                  <div ng-messages="createForm.userName.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="password" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">                
+                  <label translate>attributes_password</label>
+                  <input type="password" name="password" ng-model="create.password" required>
+                  <div ng-messages="createForm.password.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="passwordConfirm" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">                
+                  <label translate>attributes_confirmpassword</label>
+                  <input type="password" name="passwordConfirm" ng-model="create.passwordConfirm" required>
+                  <div ng-messages="createForm.passwordConfirm.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="locate" layout="row" layout-align="space-around center">
+                <md-input-container class="sponzors">
+                  <label>_Ubicación_</label>
+                  <md-select class="sponzors" ng-model="location.country">
+                    <md-optgroup label="País">
+                      <md-option ng-value="location.country">Colombia</md-option>
+                      <md-option ng-value="location.country">Francia</md-option>
+                      <md-option ng-value="location.country">Brasil</md-option>
+                      <md-option ng-value="location.country">USA</md-option>
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>
+                <md-input-container class="sponzors">
+                  <md-select class="sponzors" ng-model="location.city">
+                    <md-optgroup label="Zona">
+                      <md-option ng-value="location.zone">Bogotá</md-option>
+                      <md-option ng-value="location.zone">Cali</md-option>
+                      <md-option ng-value="location.zone">Medellín</md-option>
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>
+                <md-input-container class="sponzors">
+                  <md-select class="sponzors" ng-model="location.zone">
+                    <md-optgroup label="Zona">
+                      <md-option ng-value="location.zone">Norte</md-option>
+                      <md-option ng-value="location.zone">Sur</md-option>
+                      <md-option ng-value="location.zone">Oriente</md-option>
+                      <md-option ng-value="location.zone">Occidente</md-option>
+                    </md-optgroup>
+                  </md-select>
+                </md-input-container>
+              </div>
+            </form> 
+          </div>
+          <div flex="20"></div>
+          <div class="createRightContainer" flex="30">
+            <div class="userImageContainer" layout="column" layout-align="center center">
+              <div class="userImage" layout="column" layout="center center">
+                <img src="../images/4.jpg" ng-if="hasImage() === true"/>
+                <div class="iconPreview" layout="column" layout-align="center center"  ng-if="hasImage() === false">
+                  <md-icon>person</md-icon>
+                </div>
+              </div>
+              <div class="userSubmitImage">                
+                <input id="imageInput" name="userImage" type="file" ng-hide="true">              
+                <md-button class="submitButton">
+                  <label for="imageInput" layout="row" layout-align="center center">
+                    <md-icon>add_a_photo</md-icon>
+                    <span>_Cargar foto_</span>
+                  </label>                  
+                </md-button>
+              </div>
+            </div>
+            <div class="phoneNumber">
+              <md-input-container class="sponzors" layout="row" layout-align="start stretch">                
+                  <label>_Móvil_</label>
+                  <input type="tel" name="phoneNumber" ng-model="create.phoneNumber" required>
+                </md-input-container>
+            </div>
+          </div>
+        </div>
+        <div class="createFormSubmit" layout="row" layout-align="end center">
+          <md-button class="color-active" type="submit" form="createForm">_editar_</md-button>
+        </div>
+      </div>    
+    </div>
+  </md-content>  
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

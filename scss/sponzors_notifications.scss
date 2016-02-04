@@ -40,6 +40,17 @@
             }
         }
     }
+
+     &>.notifyElement.importants {
+    
+        &>a {
+            color: $color_active;
+            
+            &>.md-button md-icon {
+                color: $color_active;
+            }
+        }          
+    }
 }
 
 

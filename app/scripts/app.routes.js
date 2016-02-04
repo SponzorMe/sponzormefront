@@ -93,7 +93,30 @@
       .when('/sponzors/event/:eventId', {
         templateUrl: 'views/sponzors/dashboard/event.html',
         controller: 'SponzorsEventPageController'
+
+      .when('/sponzors/sponzoring/:id', {
+        templateUrl: 'views/sponzors/dashboard/sponzorshipsId.html',
+        controller: 'SponzorsMasterController'
       })
+
+      .when('/sponzors/tasks', {
+        templateUrl: 'views/sponzors/dashboard/tasks.html',
+        controller: 'SponzorsTasksController'
+      })
+      .when('/sponzors/task/:id', {
+        templateUrl: 'views/sponzors/dashboard/taskId.html',
+        controller: 'SponzorsTasksController'
+      })
+      .when('/sponzors/tasks/create', {
+        templateUrl: 'views/sponzors/dashboard/tasks_create.html',
+        controller: 'SponzorsTasksController'
+      })
+
+      .when('/event/:eventId', {
+        templateUrl: 'views/event.html',
+        controller: 'EventPageController'
+      })
+
       .when('/organizers/add/event', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
         controller: 'OrganizersMasterController'
@@ -149,6 +172,41 @@
         templateUrl: 'views/sponzors/dashboard/outstanding.html',
         controller: 'SponzorsOutstandingController'
       })
+
+      .when('/sponzors/notifications', {
+        templateUrl: 'views/sponzors/notifications/notifications.html',
+        controller: 'SponzorsNotificationsController'
+      })
+      .when('/sponzors/notifications/importants', {
+        templateUrl: 'views/sponzors/notifications/notifications_importants.html',
+        controller: 'SponzorsNotificationsController'
+      })
+      .when('/sponzors/notifications/readed', {
+        templateUrl: 'views/sponzors/notifications/notifications_readed.html',
+        controller: 'SponzorsNotificationsController'
+      })
+      .when('/sponzors/notification/:id', {
+        templateUrl: 'views/sponzors/notifications/notification_detail.html',
+        controller: 'SponzorsNotificationDetailController'
+      })
+      .when('/sponzors/notification/:id/reply', {
+        templateUrl: 'views/sponzors/notifications/notification_reply.html',
+        controller: 'SponzorsNotificationReplyController'
+      })
+      .when('/sponzors/settings/profile', {
+        templateUrl: 'views/sponzors/dashboard/settings_profile.html',
+        controller: 'SponzorsSettingsController'
+      })
+      .when('/sponzors/settings/ratings', {
+        templateUrl: 'views/sponzors/dashboard/settings_ratings.html',
+        controller: 'SponzorsSettingsController'
+      })
+      .when('/sponzors/settings/preferences', {
+        templateUrl: 'views/sponzors/dashboard/settings_preferences.html',
+        controller: 'SponzorsSettingsController'
+      })
+
+
       .otherwise({
         redirectTo: '/login'
       });

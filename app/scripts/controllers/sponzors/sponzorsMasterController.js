@@ -6,6 +6,89 @@
       $mdSidenav('left').toggle();
     };
 
+    //mock starts
+
+    
+      $scope.openMenu = function($mdOpenMenu, $event) {
+        $scope.originatorEv = $event;
+        $mdOpenMenu($event);
+      };    
+      
+      $scope.events = [
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+      {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+          {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+      {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      },
+        {
+          'img':'../../../images/home-bkg.jpg',
+          'imgDescript':'Concierto Tributo a Soda Stereo, Charly García y Fito Paez',
+          'date':'Dom, Ene 10, 9:000',
+          'eventDescript':'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit iste perspiciatis, nulla quod. Inventore magni aspernatur, eaque molestias quam eligendi consequuntur asperiores suscipit architecto. Suscipit ab corporis eligendi assumenda voluptas.'
+      }];
+    //mock ends
+
       $scope.eventItem = [
         {
           'title': 'Este es el nombre del evento, solo 50 caracteres.dasdsadsadsas',

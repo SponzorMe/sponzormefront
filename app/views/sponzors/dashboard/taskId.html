@@ -1,0 +1,124 @@
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+  
+    <div class="cont" flex>
+    
+    <!-- navbar -->      
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <a href="#/sponzors/dashboard" md-ink-ripple>
+          <md-icon aria-label="b">reply</md-icon>
+        </a>    
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+           <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+      <!-- navbar ("menu") when xs -->
+        <div class="menuXsContainer">
+          <md-menu hide-gt-sm>
+            <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+              <md-icon>person</md-icon>
+            </md-button>
+            <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+               <md-menu-item class="menuXsItem">
+                <a href="#/sponzors/sponzoring" md-ink-ripple><md-icon>reply</md-icon></a>
+              </md-menu-item>
+              <md-menu-item class="menuXsItem">
+                <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </div>         
+         
+    
+    <!-- Content starts -->    
+      
+      <div class="contentContainer">     
+       
+
+      <!-- Events Results -->
+           
+        <div class="notifyDetailContainer taskContainer md-whiteframe-1dp" layout="column">
+          <md-content class="notifyDetailElement" layout="column">
+            <div class="detailHeader" layout="row" layout-align="space-between center">
+              <div class="title" layout="column" layout-align="start start">
+                <div class="subhead" layout="row" translate>
+                  <p>event:</p>
+                  <p>{{taskDetail.event}}</p>
+                </div>
+                <p class="head color-active"> {{taskDetail.title}}</p>
+              </div>
+            </div>
+
+            <md-divider></md-divider>
+
+            <div class="message">
+              <p class="subheadMessage" translate>todoDescription</p>
+              <p>{{taskDetail.message}}</p>
+            </div>
+            
+            <div class="status" layou="column">
+              <p translate>todoStatus</p> 
+              <md-checkbox class="sponzors" ng-model="taskDetail.status">
+                <span translate>_Completada_</span>
+              </md-checkbox>
+            </div>
+            <md-divider></md-divider>
+
+            <div class="actions" layout="row" layout-align="start center" flex="row" hide-xs hide-sm>
+              <a href="" md-ink-ripple="#f09200" layout="row">
+                <md-icon >send</md-icon>
+                <p translate>send</p>
+              </a>
+              <a href="" md-ink-ripple="#f09200" layout="row">
+                <md-icon>delete</md-icon>
+                <p translate>actiondelete</p>
+              </a>
+            </div>
+
+            <!-- Menu Xs for notification actions -->
+
+            <div class="menuXsNotificationContainer" hide-gt-xs>
+              <md-menu hide-gt-sm>
+                <md-button class="md-icon-button" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+                  <md-icon>dashboard</md-icon>
+                </md-button>
+                <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+                  <md-menu-item class="menuXsItem">
+                    <a href="" md-ink-ripple="#f09200" layout="row">
+                      <md-icon >send</md-icon>
+                      <p translate>send</p>
+                    </a>
+                  </md-menu-item>
+                  <md-menu-item class="menuXsItem">
+                    <a href="" md-ink-ripple="#f09200" layout="row">
+                      <md-icon>delete</md-icon>
+                      <p>actiondelete</p>
+                    </a>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </div> 
+            
+          </md-content>
+        </div>                      
+      </div>    
+    </div>
+  </md-content>  
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
