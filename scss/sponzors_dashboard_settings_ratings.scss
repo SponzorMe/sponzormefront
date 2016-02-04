@@ -1,0 +1,57 @@
+.allContainer > .superContainer > .cont > .contentContainer.settingsRating {
+    padding: 1em;
+    &>.ratingSuperiorContainer {
+        padding: 2em 1em;
+        margin-bottom: 2.5em;
+
+        &>.ratingSupLeft {
+            &>.imageContainer {
+                background-color: $color_gray1;
+                width: 200px;
+                height: 200px;
+                border-radius: 50%;
+                position: relative;
+                
+                &>md-icon {
+                    font-size: 10em;
+                    position: absolute;
+                    top: 13px;
+                    left: 19px;
+                }
+            }
+
+
+            &>.rating { 
+                &>.starsContainer {
+                    &>.stars {
+                        margin-right: 0.5em;
+                    }
+                }
+            }
+        }
+
+        &>.ratingSupRigth > div {
+            &>.ratingSub {
+                color: $color_gray_text;
+                font-size: 12px;
+            }
+
+            &>.ratingBlue {
+                color: $color_blue_brighter;
+            }
+        }
+    }
+
+    &>.ratingInferiorContainer {
+        padding: 1em 2em;
+
+        &>.ratingTitles div {
+            text-transform: uppercase;
+            color: $color_gray_text;
+        }
+
+        &>.ratingItem p {
+            text-align: justify;
+        }
+    }
+}

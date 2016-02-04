@@ -3,6 +3,7 @@
   function SidenavController($scope, $mdSidenav, $route) {
     //mock starts
     $scope.route = $route.current.loadedTemplateUrl;
+    console.log('esta es la ruta:', $scope.route);
     $scope.statesSponzors = {
         'dashboard': {
           'dashboard': 'views/sponzors/dashboard/main.html',
@@ -28,7 +29,8 @@
         },
         'settings': {
           'profile': 'views/sponzors/dashboard/settings_profile.html',
-          'preferences': 'views/sponzors/dashboard/settings_preferences.html'
+          'preferences': 'views/sponzors/dashboard/settings_preferences.html',
+          'ratings': 'views/sponzors/dashboard/settings_ratings.html'
         }
     };
 
