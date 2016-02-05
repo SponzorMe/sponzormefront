@@ -17,7 +17,7 @@ body {
 }
 .superContainer {
     background-color: $color_gray1;
-    margin: 0 13% 0 13%;
+    margin: 0 7% 0 7%;
     min-height: 100vh;
 
     @media screen and (max-width: $media_step1_bottom) {
@@ -295,7 +295,7 @@ body {
                 &>.createNewEvent div a {
                     &>.md-button {
                         background: $color_blue_brighter;
-                        
+
                         &>md-icon {
                             color: $color_white;
                         }
@@ -328,8 +328,8 @@ body {
                         }
                         &> img {
                             max-height: 130px;
-                            max-width: 260275px;    
-                            width: 275px;
+                            max-width: 100%;
+                            min-width: 100%;
                         }
                     }
                     &>.eventImage.organizerEventImage {

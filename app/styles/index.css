@@ -600,6 +600,15 @@ nav.navbar {
       margin: 0;
       padding: 0; }
 
+.allContainer .superContainer .cont .actions > .md-button {
+  color: #00bcd2;
+  font-size: 12px; }
+  .allContainer .superContainer .cont .actions > .md-button > md-icon {
+    color: #00bcd2;
+    font-size: 36px;
+    width: 36px;
+    height: 36px; }
+
 .allContainer .superContainer .cont .contentContainer.organizer {
   margin: 0; }
   .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer {
@@ -638,116 +647,163 @@ nav.navbar {
       .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .imageTexts > a {
         color: #3E87A4;
         text-decoration: underline; }
-    .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .shareButton {
-      position: absolute;
-      top: 320px;
-      right: 30px; }
-      @media screen and (max-width: 640px) {
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .shareButton {
-          position: fixed;
-          top: 30px;
-          right: 0;
-          z-index: 30; } }
-    .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer {
-      margin: 0 15% 0 15%; }
-      @media screen and (max-width: 640px) {
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer {
-          margin: 0;
-          padding: 1em; } }
-      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .description {
-        font-size: 12px;
-        padding: 1em 0 1.5em 0;
-        text-align: justify; }
-      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .eventInfo > .item {
-        padding: 0.5em; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .eventInfo > .item > div {
-          height: 52px; }
-          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .eventInfo > .item > div > img {
-            width: 50px;
-            border-radius: 50%;
-            margin-right: 0.3em; }
-          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .eventInfo > .item > div > md-icon {
-            margin-right: 0.3em; }
-          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .eventInfo > .item > div > div p {
-            font-size: 12px;
-            margin: 0;
+    .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm {
+      padding: 1em 2em; }
+      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .dateAndplace {
+        width: 100%; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .dateAndplace > md-datepicker {
+          margin: 18px; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .dateAndplace > md-input-container > .md-button {
+          text-transform: initial;
+          color: #00bcd2; }
+          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .dateAndplace > md-input-container > .md-button > md-icon {
+            color: #00bcd2; }
+      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .location {
+        width: 100%; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .location > md-input-container {
+          margin-right: 1em; }
+      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .eventType {
+        width: 100%;
+        margin-bottom: 2em; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .eventType > md-input-container {
+          padding: 0.7em 0; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .eventType > .age {
+          margin-left: 1em;
+          padding: 0.5em;
+          position: relative; }
+          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .eventType > .age > .text {
+            position: absolute;
+            top: 0;
+            left: 16px;
+            font-size: 10px;
+            color: #9a9a9a; }
+          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .eventType > .age > .text2 {
             color: #5B5B5B; }
-          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .eventInfo > .item > div > div > div md-icon {
-            font-size: 14px; }
-      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .textsContainer > .contact > p {
-        font-size: 12px;
-        color: #5B5B5B; }
-  .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent {
+      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .chipContainer {
+        font-size: 14px;
+        margin-bottom: 6em; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .chipContainer md-chips .md-chips.md-focused {
+          box-shadow: 0 2px #00bcd2; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .chipContainer md-chips .md-chip.md-focused {
+          background: #00bcd2;
+          color: white; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .chipContainer > span {
+          color: #5B5B5B; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .chipContainer > .chipSelect {
+          margin: 0 0 1em 0; }
+          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .chipContainer > .chipSelect > .toSelect {
+            background-color: #ffffff;
+            border-radius: 16px;
+            color: black;
+            cursor: pointer;
+            height: 22px;
+            margin: 8px 8px 0 0;
+            min-width: 80px;
+            padding: 0 12px 0 12px; }
+            .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .eventContainer > .createEventForm > .chipContainer > .chipSelect > .toSelect:hover {
+              background-color: #00bcd2;
+              color: white; }
+  .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable {
     border-top: 1px solid #ececec;
     color: #5B5B5B;
-    background: #ececec;
+    background: white;
     font-size: 12px;
     padding: 0.5em;
-    margin: 1em 15%; }
-    .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table .tableTitle {
-      background-color: #e91e63;
+    margin: 1em 2%;
+    overflow: hidden; }
+    @media screen and (max-width: 640px) {
+      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable {
+        margin: 0; } }
+    .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table .tableTitle {
+      background-color: #00bcd2;
       padding: 1.5em 0;
       text-transform: uppercase;
       text-align: center;
-      width: 100%; }
-      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table .tableTitle > a {
-        color: #9c0035;
+      width: 100%;
+      font-weight: bold; }
+      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table .tableTitle > a {
+        color: white;
         font-size: 16px;
         position: relative; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table .tableTitle > a:nth-child(1) {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table .tableTitle > a:nth-child(1) {
           left: 15px; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table .tableTitle > a:nth-child(2) {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table .tableTitle > a:nth-child(2) {
           left: 24px; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table .tableTitle > a:nth-child(3) {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table .tableTitle > a:nth-child(3) {
           left: 25px; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table .tableTitle > a:nth-child(4) {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table .tableTitle > a:nth-child(4) {
           left: 0; }
-    .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent {
+    .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent {
       background-color: #ececec;
-      padding: 0 1.5em 1.5em 1.5em; }
-      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer {
+      padding: 1.5em 1.5em 1.5em 1.5em; }
+      .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer {
         position: relative;
         margin-bottom: 0.5em; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer > .toSponzorWith {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .toSponzorWith {
           min-height: 260px;
-          height: 260px; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer > .tablePrice {
+          height: 280px; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .addItem {
+          text-transform: initial;
+          color: black;
+          background: white;
+          width: 100%;
+          margin: 0;
+          padding: 0 0 1.5em 0;
+          visibility: hidden; }
+          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .addItem > md-icon {
+            color: #e91e63; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .tablePrice {
           background-color: black;
           font-size: 14px;
           font-weight: bold;
           height: 40px;
-          margin-bottom: 0.2em;
-          margin-top: 0.5em;
+          margin: 0.5em 0.2em;
           opacity: 0.2;
           text-transform: uppercase; }
-          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer > .tablePrice > a {
+          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .tablePrice > a {
             color: white; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer > .tableLikeButton {
-          background-color: #e91e63;
-          height: 40px;
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .sponzorWith {
           visibility: hidden; }
-          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer > .tableLikeButton > a md-icon {
-            color: white;
-            font-size: 36px; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer > a {
+          .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .sponzorWith > md-input-container {
+            margin: 0.2em; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > a {
           color: #9a9a9a;
           margin-top: 0;
-          padding: 0 2.5em 2.5em 2.5em; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer > .border {
-          background-color: #9c0035;
+          padding: 0 2.5em 0 2.5em; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .tableTitle {
+          color: #3E87A4; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer > .border {
+          background-color: #3E87A4;
           height: 3px;
-          position: absolute;
-          top: -3px;
           visibility: hidden;
-          width: 126px; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer:hover > a {
+          width: 100%; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer:hover > a {
           background-color: white; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer:hover > .tableLikeButton {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer:hover > .tableTitle {
+          color: white; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer:hover > .sponzorWith {
           visibility: visible; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer:hover > .tablePrice {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer:hover > .addItem {
+          visibility: visible; }
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer:hover > .tablePrice {
           opacity: 1; }
-        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .sponsorAnEvent > .table > .tableContent > .columnContainer:hover > .border {
+        .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .createEventTable > .table > .tableContent > .columnContainer:hover > .border {
           visibility: visible; }
+  .allContainer .superContainer .cont .contentContainer.organizer .notifyDetailContainer > .saveButton {
+    width: 300px;
+    background: #e91e63;
+    color: white;
+    margin: 2em auto 3em auto; }
+
+.md-calendar-date.md-focus.md-calendar-selected-date .md-calendar-date-selection-indicator {
+  background-color: #00bcd2; }
+
+.md-datepicker-input-container.md-datepicker-focused {
+  border-bottom-color: #00bcd2; }
+
+.md-datepicker-open .md-datepicker-calendar-icon {
+  color: #00bcd2;
+  fill: #00bcd2; }
 
 body a {
   color: inherit; }
@@ -1305,7 +1361,7 @@ body a {
 
 .superContainer {
   background-color: #ececec;
-  margin: 0 13% 0 13%;
+  margin: 0 7% 0 7%;
   min-height: 100vh; }
   @media screen and (max-width: 640px) {
     .superContainer {
@@ -1484,8 +1540,8 @@ body a {
             padding: 0.5em; }
           .superContainer > .cont > .contentContainer > .events > .event > .eventImage > img {
             max-height: 130px;
-            max-width: 260275px;
-            width: 275px; }
+            max-width: 100%;
+            min-width: 100%; }
         .superContainer > .cont > .contentContainer > .events > .event > .eventImage.organizerEventImage {
           background-color: #00bcd2; }
           .superContainer > .cont > .contentContainer > .events > .event > .eventImage.organizerEventImage > p {
