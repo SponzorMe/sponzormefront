@@ -1,20 +1,20 @@
 <div layout-fill class="allContainer">
-  
+
  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-  
-  <md-content class="superContainer" layout="row"> 
-    
+
+  <md-content class="superContainer" layout="row">
+
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-  
+
     <div class="cont" flex>
-    
-    <!-- navbar -->      
+
+    <!-- navbar -->
     <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <a href="#/sponzors/notifications" md-ink-ripple>
           <md-icon aria-label="b">reply</md-icon>
-        </a>    
+        </a>
         <div class="buttons" layout="row" layout-align="start center">
           <a href="#sponzors/notifications">
             <md-icon aria-label="b">notifications</md-icon>
@@ -38,33 +38,33 @@
                 <a href="#/sponzors/sponzoring" md-ink-ripple><md-icon>reply</md-icon></a>
               </md-menu-item>
               <md-menu-item class="menuXsItem">
-                <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
+                <a href="#/sponzors/notifications" md-ink-ripple translate>notifications.notifications</a>
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-        </div>          
-         
-    
-    <!-- Content starts -->    
-      
-      <div class="contentContainer">     
-       
+        </div>
 
-       <div class="contentContainer" flex>     
+
+    <!-- Content starts -->
+
+      <div class="contentContainer">
+
+
+       <div class="contentContainer" flex>
         <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
           <md-content class="replyElement" layout="column">
-            
+
             <div class="titleInput">
               <md-input-container class="sponzors">
-                <label translate>_Introduce título o el asunto del mensaje_</label>
+                <label translate>notifications.replyTitle</label>
                 <input type="text" ng-model="reply.title">
               </md-input-container>
             </div>
-            
+
 
             <div class="messageInput">
               <md-input-container class="sponzors">
-                <label translate>_Escribe tu mensaje_</label>
+                <label translate>notifications.replyMessage</label>
                 <textarea ng-model="reply.message"></textarea>
               </md-input-container>
             </div>
@@ -72,30 +72,19 @@
             <div class="actions" layout="row" layout-align="start center">
               <a href="" md-ink-ripple="#f09200" layout="row">
                 <md-icon>send</md-icon>
-                <p translate>submitbutton</p>
+                <p translate>notifications.send</p>
               </a>
               <a href="" md-ink-ripple="#f09200" layout="row">
                 <md-icon>delete</md-icon>
-                <p translate>actiondelete</p>
-              </a>              
+                <p translate>notifications.delete</p>
+              </a>
             </div>
 
           </md-content>
         </div>
-      </div>                 
-      </div>    
+      </div>
+      </div>
     </div>
-  </md-content>  
+  </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-

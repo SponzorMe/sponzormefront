@@ -181,5 +181,21 @@
     "commentsAndRatings": "Comments and Ratings",
     "grader": "Grader",
     "rate": "Rate"
+  },
+  "notifications": {
+    "inbox": "Inbox",
+    "read": "Read",
+    "important": "Important",
+    "searchInNotifications": "Search in Notifications",
+    "see": "See",
+    "answer": "Reply",
+    "delete": "Delete",
+    "markAsImportant": "Important",
+    "report": "Report",
+    "from": "From",
+    "send": "Send",
+    "delete": "Delete",
+    "replyTitle": "Title",
+    "replyMessage": "Write Message"
   }
 }
