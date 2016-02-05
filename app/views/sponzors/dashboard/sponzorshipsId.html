@@ -1,16 +1,16 @@
 <div layout-fill class="allContainer">
-  
- <!-- navbar 1 -->
+
+  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-  
-  <md-content class="superContainer" layout="row"> 
-    
+
+  <md-content class="superContainer" layout="row">
+
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-  
+
     <div class="cont" flex>
-    
-    <!-- navbar -->      
+
+      <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <a href="#/sponzors/dashboard" md-ink-ripple>
@@ -23,19 +23,17 @@
           <a class="md-icon-button">
             <md-icon aria-label="b">send</md-icon>
           </a>
-           <a class="md-icon-button">
+          <a class="md-icon-button">
             <md-icon aria-label="b">person</md-icon>
           </a>
         </div>
       </div>
 
-         
-    
-    <!-- Content starts -->    
-      
-      <div class="contentContainer" flex>     
+      <!-- Content starts -->
+
+      <div class="contentContainer" flex>
         <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
-          
+
           <div class="eventContainer" layout="column">
             <div class="shareButton">
               <md-button class="md-fab">
@@ -48,18 +46,18 @@
               <p>_El equipo de Ionic anuncio hace poco una nueva version de Ionic 1 la cual trae muchas cosas interesantes. Este meetup es sobre explorar esos cambios y como puedo mejorar mis apps._</p>
               <a href="">https://github.com/driftyco/ionic/releases/tag/v1.2.1</a>
             </div>
-            
+
             <div class="textsContainer">
-              <h3 class="color-blue-brighter">_Speaker:_</h3>
-              <p>Carlos Rojas <span class="color-blue-brighter">@carlosrojas_o</span></p>         
+              <h3 class="color-blue-brighter" translate>eventPage.speaker</h3>
+              <p>Carlos Rojas <span class="color-blue-brighter">@carlosrojas_o</span></p>
               <p class="description">
                 _Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex adipisci ab assumenda consequuntur necessitatibus dolores, minus unde dicta. Id possimus placeat non. Neque consectetur quidem._
               </p>
               <md-divider></md-divider>
-              
+
               <div class="eventInfo" layout="row">
                 <div class="item">
-                  <p class="color-blue-brighter" translate>Organizer</p>
+                  <p class="color-blue-brighter" translate>eventPage.organizer</p>
                   <div layout="row" layout-align="start center">
                     <img src="../../images/pic.png" alt="">
                     <div>
@@ -75,7 +73,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <p class="color-blue-brighter" translate>_Fecha_</p>
+                  <p class="color-blue-brighter" translate>eventPage.date</p>
                   <div layout="row" layout-align="start center">
                     <md-icon>access_time</md-icon>
                     <div>
@@ -85,7 +83,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <p class="color-blue-brighter" translate>_Lugar_</p>
+                  <p class="color-blue-brighter" translate>eventPage.location</p>
                   <div layout="row" layout-align="start center">
                     <md-icon>location_on</md-icon>
                     <div>
@@ -96,72 +94,71 @@
               </div>
               <a href="" class="contact" md-ink-ripple layout="row" layout-align="start center" flex="25">
                 <md-icon>email</md-icon>
-                <p>_Escribir al organizador_</p>
+                <p translate>eventPage.writeToOrganizer</p>
               </a>
 
               <md-divider></md-divider>
-             
+
               <div class="sponzoringActions">
                 <div>
-                  <span class="color-active" translate>seePerks:</span> _LUGAR_ 
+                  <span class="color-active" translate>sponzorsSponzorships.type</span>: Food
                 </div>
                 <div class="sponzorringButtons" layout="row" layout-align="start center">
-                  <span class="color-active" translate>actionssponzor:</span>
+                  <span class="color-active" translate>sponzorsSponzorships.actions</span>
                   <div layout="row" layout-align="start center">
-                    <a href=""><md-icon class="color-active">thumb_up</md-icon></a>
-                    <a href=""><md-icon class="color-active">event</md-icon></a>
-                    <a href=""><md-icon class="color-active">help</md-icon></a>
-                    <a href=""><md-icon class="color-active">comment</md-icon></a>
-                    <a href=""><md-icon class="color-active">stars</md-icon></a>
+                    <a href="">
+                      <md-icon class="color-active">thumb_up</md-icon>
+                    </a>
+                    <a href="">
+                      <md-icon class="color-active">event</md-icon>
+                    </a>
+                    <a href="">
+                      <md-icon class="color-active">help</md-icon>
+                    </a>
+                    <a href="">
+                      <md-icon class="color-active">comment</md-icon>
+                    </a>
+                    <a href="">
+                      <md-icon class="color-active">stars</md-icon>
+                    </a>
                   </div>
                 </div>
               </div>
 
             </div>
-          </div>  
+          </div>
 
 
-            <div class="contentContainer eventTasks" flex>     
-              <p>Tareas para este evento:</p>
-              <div class="notifyDetailContainer eventTasks" layout="column">
-                <div class="eventTitles" layout="row"  hide-xs>
-                  <div layout="row" flex="100">
-                    <p flex="30" layout="row" layout-align="center center" translate>title</p>
-                    <p flex="20" layout="row" layout-align="center center" translate>_fecha_</p>
-                    <p flex="20" layout="row" layout-align="center center" translate>_tipo de patrocinio_</p>
-                    <p flex="20" layout="row" layout-align="center center" translate>status</p>
-                    <p layout="row" layout-align="center center" flex="25" translate></p>
-                  </div>                  
+          <div class="contentContainer eventTasks" flex>
+            <p>Tareas para este evento:</p>
+            <div class="notifyDetailContainer eventTasks" layout="column">
+              <div class="eventTitles" layout="row" hide-xs>
+                <div layout="row" flex="100">
+                  <p flex="30" layout="row" layout-align="center center" translate>sponzorsSponzorships.title</p>
+                  <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.date</p>
+                  <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.type</p>
+                  <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.status</p>
+                  <p layout="row" layout-align="center center" flex="25" translate></p>
                 </div>
+              </div>
 
-                <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in eventItem">            
-                  <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
-                    <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.title}}</p>
-                    <p class="eventDate" flex="20" layout="row" layout-align="center center" translate>{{item.date}}</p>
-                    <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.sponzorType}}</p>
-                    <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
-                      {{item.status}}
-                    </p>
-                    <div layout="row" layout-align="center center" flex="25"></div>
-                  </a>                                      
-                </div>
-              </div>                           
-            </div>                   
-        
+              <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in eventItem">
+                <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
+                  <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.title}}</p>
+                  <p class="eventDate" flex="20" layout="row" layout-align="center center" translate>{{item.date}}</p>
+                  <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.sponzorType}}</p>
+                  <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
+                    {{item.status}}
+                  </p>
+                  <div layout="row" layout-align="center center" flex="25"></div>
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div> 
-  </md-content>  
+    </div>
+  </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-

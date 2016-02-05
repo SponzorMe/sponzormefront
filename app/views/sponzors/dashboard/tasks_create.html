@@ -1,21 +1,21 @@
 <div layout-fill class="allContainer">
-  
+
  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-  
-  <md-content class="superContainer" layout="row"> 
-    
+
+  <md-content class="superContainer" layout="row">
+
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-  
+
     <div class="cont" flex>
-    
-    <!-- navbar -->      
+
+    <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <a href="#/sponzors/tasks" md-ink-ripple>
           <md-icon aria-label="b">reply</md-icon>
-        </a>    
+        </a>
         <div class="buttons" layout="row" layout-align="start center">
           <a href="#sponzors/notifications">
             <md-icon aria-label="b">notifications</md-icon>
@@ -43,92 +43,66 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-        </div>         
-         
-    
-    <!-- Content starts -->    
-      
-    <div class="contentContainer">     
-       
+        </div>
+
+
+    <!-- Content starts -->
+
+    <div class="contentContainer">
+
 
       <!-- Events Results -->
-           
+
         <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
             <md-content class="replyElement newTask" layout="column">
-                
+
                 <div class="titleInput">
                   <md-input-container class="sponzors">
-                    <label translate>_Introduce título de la tarea_</label>
+                    <label translate>tasks.title</label>
                     <input type="text" ng-model="reply.title" md-maxlength="70">
                   </md-input-container>
                 </div>
-                
+
 
                 <div class="messageInput">
                   <md-input-container class="sponzors">
-                    <label translate>_Descripción de la tarea_</label>
+                    <label translate>tasks.description</label>
                     <textarea ng-model="reply.message"  md-maxlength="250"></textarea>
                   </md-input-container>
                 </div>
 
-                <div class="datePicker">
+                <!--div class="datePicker">
                     <p>Standard date-picker</p>
                     <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-                </div>
-
-                <div class="optionsContainer">
-                    <p>_Responsable de la tarea_</p>
-                    <md-input-container>
-                      <md-select class="sponzors" ng-model="someModel" placeholder="Select a state">
-                        <md-option class="sponzors" ng-value="organizer">Organizer</md-option>
-                        <md-option class="sponzors" ng-value="sponzor">Sponsor</md-option>
-                      </md-select>
-                    </md-input-container>
-                </div>
-
-                <div class="editAction">
-                    <p class="color-active" translate>actionedit</p>
-                </div>
+                </div-->
             </md-content>
         </div>
 
         <div class="tasksAsign">
-            <p class="color-gray-text">_Asignar tarea a eventos_</p>
-            <div class="task" layout="row" layout-align="space-between center">
+            <p class="color-gray-text" translate>tasks.assignTo</p>
+            <div class="task" layout="row" layout-align="space-between center" ng-repeat="t in [1,2,3]">
                 <md-checkbox class="sponzors">
                     {{ taskDetail.title }}
                 </md-checkbox>
-                <p>ver evento</p>
+                <p translate>tasks.seeEvent</p>
             </div>
-            <div class="task" layout="row" layout-align="space-between center">
-                <md-checkbox class="sponzors">
-                    {{ taskDetail.title }}
-                </md-checkbox>
-                <p>ver evento</p>
-            </div>
-            <div class="task" layout="row" layout-align="space-between center">
-                <md-checkbox class="sponzors">
-                    {{ taskDetail.title }}
-                </md-checkbox>
-                <p>ver evento</p>
-            </div>    
         </div>
-        
+
         <md-divider></md-divider>
 
         <div class="actions" layout="row" layout-align="start center">
           <a href="" md-ink-ripple="#f09200" layout="row">
             <md-icon>send</md-icon>
-            <p translate>send</p>
+            <p translate>tasks.send</p>
           </a>
           <a href="" md-ink-ripple="#f09200" layout="row">
             <md-icon>delete</md-icon>
-            <p translate>actiondelete</p>
-          </a>              
-        </div> 
-           
-      </div>    
+            <p translate>tasks.delete</p>
+          </a>
+        </div>
+
+      </div>
     </div>
-  </md-content>  
+  </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>

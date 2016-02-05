@@ -197,5 +197,21 @@
     "delete": "Delete",
     "replyTitle": "Title",
     "replyMessage": "Write Message"
+  },
+  "tasks":{
+    "add": "Add Task",
+    "event": "Event",
+    "taskTitle": "Title",
+    "date": "Date",
+    "owner": "Owner",
+    "status": "Status",
+    "task": "Task",
+    "description": "Description",
+    "complete": "Complete",
+    "delete": "Delete",
+    "send": "Send",
+    "title": "Title",
+    "assignTo": "Assign to Event",
+    "seeEvent": "See Event"
   }
 }

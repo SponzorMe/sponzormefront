@@ -1,21 +1,16 @@
 <div layout-fill class="allContainer">
-  
  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-  
-  <md-content class="superContainer" layout="row"> 
-    
+  <md-content class="superContainer" layout="row">
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-  
     <div class="cont" flex>
-    
-    <!-- navbar -->      
+    <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
-        <a href="#/sponzors/dashboard" md-ink-ripple>
+        <a href="#/sponzors/tasks" md-ink-ripple>
           <md-icon aria-label="b">reply</md-icon>
-        </a>    
+        </a>
         <div class="buttons" layout="row" layout-align="start center">
           <a href="#sponzors/notifications">
             <md-icon aria-label="b">notifications</md-icon>
@@ -36,30 +31,23 @@
             </md-button>
             <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
                <md-menu-item class="menuXsItem">
-                <a href="#/sponzors/sponzoring" md-ink-ripple><md-icon>reply</md-icon></a>
+                <a href="#/sponzors/tasks" md-ink-ripple><md-icon>reply</md-icon></a>
               </md-menu-item>
               <md-menu-item class="menuXsItem">
-                <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
+                <a href="#/sponzors/notifications" md-ink-ripple translate>notifications.notifications</a>
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-        </div>         
-         
-    
-    <!-- Content starts -->    
-      
-      <div class="contentContainer">     
-       
-
+        </div>
+    <!-- Content starts -->
+      <div class="contentContainer">
       <!-- Events Results -->
-           
         <div class="notifyDetailContainer taskContainer md-whiteframe-1dp" layout="column">
           <md-content class="notifyDetailElement" layout="column">
             <div class="detailHeader" layout="row" layout-align="space-between center">
               <div class="title" layout="column" layout-align="start start">
-                <div class="subhead" layout="row" translate>
-                  <p>event:</p>
-                  <p>{{taskDetail.event}}</p>
+                <div class="subhead" layout="row">
+                  <p>{{'tasks.event'|translate}}: {{taskDetail.event}}</p>
                 </div>
                 <p class="head color-active"> {{taskDetail.title}}</p>
               </div>
@@ -68,14 +56,14 @@
             <md-divider></md-divider>
 
             <div class="message">
-              <p class="subheadMessage" translate>todoDescription</p>
+              <p class="subheadMessage" translate>tasks.description</p>
               <p>{{taskDetail.message}}</p>
             </div>
-            
+
             <div class="status" layou="column">
-              <p translate>todoStatus</p> 
+              <p translate>tasks.status</p>
               <md-checkbox class="sponzors" ng-model="taskDetail.status">
-                <span translate>_Completada_</span>
+                <span translate>tasks.complete</span>
               </md-checkbox>
             </div>
             <md-divider></md-divider>
@@ -83,11 +71,11 @@
             <div class="actions" layout="row" layout-align="start center" flex="row" hide-xs hide-sm>
               <a href="" md-ink-ripple="#f09200" layout="row">
                 <md-icon >send</md-icon>
-                <p translate>send</p>
+                <p translate>tasks.send</p>
               </a>
               <a href="" md-ink-ripple="#f09200" layout="row">
                 <md-icon>delete</md-icon>
-                <p translate>actiondelete</p>
+                <p translate>tasks.delete</p>
               </a>
             </div>
 
@@ -113,12 +101,12 @@
                   </md-menu-item>
                 </md-menu-content>
               </md-menu>
-            </div> 
-            
+            </div>
+
           </md-content>
-        </div>                      
-      </div>    
+        </div>
+      </div>
     </div>
-  </md-content>  
+  </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
