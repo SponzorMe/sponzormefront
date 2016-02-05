@@ -15,11 +15,11 @@
       <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple translate>sponzorsMain.searchEvents</a>
+            <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple translate>_eventos_</a>
             <div class="border active"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
+            <a href="#/sponzors/outstanding" md-ink-ripple translate>_patrocinadores_</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
@@ -110,8 +110,19 @@
         </div>
 
       <!-- Events Results -->
-           
+
         <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
+          <div class="createNewEvent" flex="100">
+            <div layout="row" layout-align="space-around center" flex-gt-xs="40">
+              <a href="#" layout="row" layout-align="start center">
+                <md-button class="md-icon-button"><md-icon>add</md-icon></md-button>
+                <p flex-xs="50">crear nuevo evento</p>
+              </a>  
+              <a href="#" layout-align="start center">
+                <p flex-xs="40">historial</p>
+              </a>
+            </div>  
+          </div>    
           <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-sm="30">
             <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
               <img src="{{event.img}}" alt="event">

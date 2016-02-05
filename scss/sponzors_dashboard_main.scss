@@ -288,6 +288,21 @@ body {
             &>.events {
                 background-color: $color_white;
 
+                &>.createNewEvent div a {
+                    &>.md-button {
+                        background: $color_blue_brighter;
+                        
+                        &>md-icon {
+                            color: $color_white;
+                        }
+                    }
+
+                    &>p {
+                        color: $color_blue_brighter;
+                        text-transform: uppercase;
+                    }
+                }
+
                 &>.eventCategory {
                     color: $color_active;
                     padding-top: 0;
