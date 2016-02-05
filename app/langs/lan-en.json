@@ -131,5 +131,29 @@
     "date": "Date",
     "organizer": "Organizer",
     "speaker": "Speaker"
+  },
+  "settings":{
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "ratings": "Ratings",
+    "firstName": "First Name",
+    "firstNameRequired": "First Name is Required",
+    "lastName": "Last Name",
+    "lastNameRequired": "Last Name is required",
+    "bithdate": "Birth Date",
+    "company": "Company",
+    "email": "E-mail",
+    "emailRequired": "Email is required",
+    "invalidEmail": "Email is Invalid",
+    "userName": "Username",
+    "userNameRequired": "Username is required",
+    "password": "Password",
+    "passwordRequired": "Password is required",
+    "passwordConfirmation": "Passoword Confirmation",
+    "passwordConfirmationRequired": "Passoword Confirmation is required",
+    "location": "Location",
+    "loadPhoto": "Load photo",
+    "movil": "Movil",
+    "edit": "Edit"
   }
 }
