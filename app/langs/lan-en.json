@@ -152,8 +152,34 @@
     "passwordConfirmation": "Passoword Confirmation",
     "passwordConfirmationRequired": "Passoword Confirmation is required",
     "location": "Location",
-    "loadPhoto": "Load photo",
+    "loadPhoto": "Load new photo",
     "movil": "Movil",
     "edit": "Edit"
+  },
+  "preferences":{
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "ratings": "Ratings",
+    "company": "Company Name",
+    "loadPhoto": "Load new photo",
+    "companyWebsite": "Company Website",
+    "companyAddress": "Company Address",
+    "companyPhone": "Company Phone",
+    "companyDescription": "Company Description",
+    "companyPitch": "Company Pitch",
+    "edit": "Edit",
+    "movil": "Movil"
+  },
+  "ratings":{
+    "profile": "Profile",
+    "preferences": "Preferences",
+    "ratings": "Ratings",
+    "location": "Location",
+    "numberOfEvents": "Number of Events",
+    "numberOfSponzorships": "Number of Sponzorships",
+    "memberSince": "Member Since",
+    "commentsAndRatings": "Comments and Ratings",
+    "grader": "Grader",
+    "rate": "Rate"
   }
 }

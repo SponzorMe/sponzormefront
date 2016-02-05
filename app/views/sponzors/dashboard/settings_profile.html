@@ -71,19 +71,19 @@
                   <label translate>settings.firstName</label>
                   <input type="text" name="name" ng-model="create.name.firstname" required>
                   <div ng-messages="createForm.name.$error">
-                    <div ng-message="required">settings.firstNameRequired</div>
+                    <div ng-message="required">{{'settings.firstNameRequired'|translate}}</div>
                   </div>
                 </md-input-container>
                 <md-input-container class="sponzors">
                 <label translate>settings.lastName</label>
                   <input type="text" name="lastName" ng-model="create.name.lastName" required>
                   <div ng-messages="createForm.lastName.$error">
-                    <div ng-message="required">settings.lastNameRequired</div>
+                    <div ng-message="required">{{'settings.lastNameRequired'|translate}}</div>
                   </div>
                 </md-input-container>
               </div>
               <div class="date" layout="row" layout-align="center center">
-                  <md-datepicker ng-model="create.date" md-placeholder="{{settings.bithdate|translate}}"  required></md-datepicker>
+                  <md-datepicker ng-model="create.date" md-placeholder="{{'settings.bithdate'|translate}}"  required></md-datepicker>
               </div>
               <div class="company" layout="column" layout-align="center stretch">
                 <md-input-container class="sponzors">
@@ -96,8 +96,8 @@
                   <label translate>settings.email</label>
                   <input type="email" name="email" ng-model="create.email" required>
                   <div ng-messages="createForm.email.$error">
-                    <div ng-message="required">settings.emailRequired</div>
-                    <div ng-message="email">settings.invalidEmail</div>
+                    <div ng-message="required">{{'settings.emailRequired'|translate}}</div>
+                    <div ng-message="email">{{'settings.invalidEmail'|translate}}</div>
                   </div>
                 </md-input-container>
               </div>
@@ -106,7 +106,7 @@
                   <label translate>settings.userName</label>
                   <input type="text" name="userName" ng-model="create.userName" required>
                   <div ng-messages="createForm.userName.$error">
-                    <div ng-message="required">settings.userNameRequired</div>
+                    <div ng-message="required">{{'settings.userNameRequired'|translate}}</div>
                   </div>
                 </md-input-container>
               </div>
@@ -115,7 +115,7 @@
                   <label translate>settings.password</label>
                   <input type="password" name="password" ng-model="create.password" required>
                   <div ng-messages="createForm.password.$error">
-                    <div ng-message="required">settings.passwordRequired</div>
+                    <div ng-message="required">{{'settings.passwordRequired'|translate}}</div>
                   </div>
                 </md-input-container>
               </div>
@@ -124,13 +124,13 @@
                   <label translate>settings.passwordConfirmation</label>
                   <input type="password" name="passwordConfirm" ng-model="create.passwordConfirm" required>
                   <div ng-messages="createForm.passwordConfirm.$error">
-                    <div ng-message="required">settings.passwordConfirmationRequired</div>
+                    <div ng-message="required">{{'settings.passwordConfirmationRequired'|translate}}</div>
                   </div>
                 </md-input-container>
               </div>
               <div class="locate" layout="row" layout-align="space-around center">
                 <md-input-container class="sponzors">
-                  <label>settings.location</label>
+                  <label translate>settings.location</label>
                   <md-select class="sponzors" ng-model="location.country">
                     <md-optgroup label="País">
                       <md-option ng-value="location.country">Colombia</md-option>
@@ -190,7 +190,7 @@
           </div>
         </div>
         <div class="createFormSubmit" layout="row" layout-align="end center">
-          <md-button class="color-active" type="submit" form="createForm" translate>settings.edit</md-button>
+          <md-button class="color-active" type="submit" form="createForm">{{'settings.edit'|translate}}</md-button>
         </div>
       </div>
     </div>
