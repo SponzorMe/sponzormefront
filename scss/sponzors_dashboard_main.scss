@@ -140,6 +140,47 @@ body {
             @media screen and (max-width: $media_step1_bottom) {
                 margin: 0;
             }
+
+            &>.counts {
+                background: $color_white;
+                padding: 1em;
+                margin: 1em 20% 0 20%;
+
+                &>div {
+                    border-right: solid 1px $color_gray1;  
+                        
+                    &:nth-last-child(1) {
+                        border-right: none;                    
+                    }
+
+                    @media (max-width: $media_step1_bottom) {                
+                        border-bottom: solid 1px $color_gray1;
+                        border-right: none;
+                    }
+
+                    &>a {
+                        &>md-icon {
+                            font-size: 64px;
+                            height: auto;
+                            width: auto;
+                        }
+                        
+                        &>md-icon:nth-child(1) {
+                            width: 64px;
+                        } 
+
+                        &>p {
+                            margin: 0 0 0.5em 0;
+                        }
+                        
+                        &>h3 {
+                            color: $color_gray_text;
+                            font-size: 3em;
+                            margin: 0;
+                        }
+                    }   
+                }
+            }
             
             &>.filterOrganizer {
                 font-size: 12px;

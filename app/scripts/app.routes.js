@@ -62,6 +62,7 @@
         templateUrl: 'views/customization/customization.html',
         controller: 'CustomizationController'
       })
+
       .when('/organizers/friend', {
         templateUrl: 'views/organizers/dashboard/friend.html',
         controller: 'OrganizersFriendController'
@@ -93,6 +94,7 @@
       .when('/sponzors/event/:eventId', {
         templateUrl: 'views/sponzors/dashboard/event.html',
         controller: 'SponzorsEventPageController'
+      })
 
       .when('/sponzors/sponzoring/:id', {
         templateUrl: 'views/sponzors/dashboard/sponzorshipsId.html',
