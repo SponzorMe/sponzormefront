@@ -79,7 +79,8 @@
     "seeSponzorshipTypes": "See Sponzorship Types",
     "followEvent": "Follow Event",
     "shareEvent": "Share Event",
-    "featuredEvents": "Featured Events"
+    "featuredEvents": "Featured Events",
+    "saveEvent": "Save Event"
   },
   "sponzorsSponzorships":{
     "title": "Title",
@@ -95,7 +96,8 @@
     "following": "Following",
     "sponzoring": "Sponzoring",
     "dashboard": "Dashboard",
-    "sponzorDashboard": "Sponzor"
+    "sponzorDashboard": "Sponzor",
+    "saved": "Saved Events"
   },
   "categories":{
     "Outdoor": "Outdoor",
@@ -121,5 +123,13 @@
     "Conference":"Conference",
     "Networking Event":"Networking Event",
     "Other": "Other"
+  },
+  "eventPage":{
+    "sponzorshipTypes": "Sponzorship Types",
+    "writeToOrganizer": "Write to Organizer",
+    "location": "Location",
+    "date": "Date",
+    "organizer": "Organizer",
+    "speaker": "Speaker"
   }
 }

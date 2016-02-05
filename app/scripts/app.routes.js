@@ -82,14 +82,17 @@
         templateUrl: 'views/sponzors/dashboard/friend.html',
         controller: 'SponzorsFriendController'
       })
-      .when('/sponzors/following', {
-        templateUrl: 'views/sponzors/dashboard/following.html',
-        controller: 'SponzorsMasterController'
+      .when('/sponzors/saved', {
+        templateUrl: 'views/sponzors/dashboard/saved.html',
+        controller: 'SponzorsSavedController'
       })
       .when('/sponzors/sponzoring', {
         templateUrl: 'views/sponzors/dashboard/sponzorships.html',
         controller: 'SponzorsMasterController'
       })
+      .when('/sponzors/event/:eventId', {
+        templateUrl: 'views/sponzors/dashboard/event.html',
+        controller: 'SponzorsEventPageController'
 
       .when('/sponzors/sponzoring/:id', {
         templateUrl: 'views/sponzors/dashboard/sponzorshipsId.html',
@@ -202,7 +205,7 @@
         templateUrl: 'views/sponzors/dashboard/settings_preferences.html',
         controller: 'SponzorsSettingsController'
       })
-      
+
 
       .otherwise({
         redirectTo: '/login'

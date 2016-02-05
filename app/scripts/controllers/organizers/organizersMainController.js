@@ -97,7 +97,7 @@ $scope.openSidenavLeft = function(){
       }];
     //mock ends
 
-    /*if ($rootScope.userValidation('0')) {
+    if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Dashboard',
         title: 'Dashboard'
@@ -131,7 +131,7 @@ $scope.openSidenavLeft = function(){
         $scope.noRssMessage = true;
       });
       $scope.menuprincipal = 'views/organizers/menu.html';
-    }*/
+    }
   }
   angular.module('sponzorme').controller('OrganizersMainController', OrganizersMainController);
 
