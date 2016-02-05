@@ -100,7 +100,6 @@
         templateUrl: 'views/sponzors/dashboard/sponzorshipsId.html',
         controller: 'SponzorsMasterController'
       })
-
       .when('/sponzors/tasks', {
         templateUrl: 'views/sponzors/dashboard/tasks.html',
         controller: 'SponzorsTasksController'
@@ -113,12 +112,10 @@
         templateUrl: 'views/sponzors/dashboard/tasks_create.html',
         controller: 'SponzorsTasksController'
       })
-
       .when('/event/:eventId', {
         templateUrl: 'views/event.html',
         controller: 'EventPageController'
       })
-
       .when('/organizers/add/event', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
         controller: 'OrganizersMasterController'
@@ -174,7 +171,6 @@
         templateUrl: 'views/sponzors/dashboard/outstanding.html',
         controller: 'SponzorsOutstandingController'
       })
-
       .when('/sponzors/notifications', {
         templateUrl: 'views/sponzors/notifications/notifications.html',
         controller: 'SponzorsNotificationsController'
@@ -207,8 +203,6 @@
         templateUrl: 'views/sponzors/dashboard/settings_preferences.html',
         controller: 'SponzorsSettingsController'
       })
-
-
       .otherwise({
         redirectTo: '/login'
       });

@@ -1,32 +1,32 @@
 <div layout-fill class="allContainer">
-  
+
  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-  
-  <md-content class="superContainer" layout="row"> 
-    
+
+  <md-content class="superContainer" layout="row">
+
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-  
+
     <div class="cont" flex>
-    
-    <!-- navbar -->      
+
+    <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/sponzors/settings/profile" md-ink-ripple translate>_perfil_</a>
+            <a href="#/sponzors/settings/profile" md-ink-ripple translate>preferences.profile</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/settings/preferences" class="textActive" md-ink-ripple translate>_preferencias_</a>
+            <a href="#/sponzors/settings/preferences" class="textActive" md-ink-ripple translate>preferences.preferences</a>
             <div class="border active"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/settings/ratings" md-ink-ripple translate>_calificación_</a>
+            <a href="#/sponzors/settings/ratings" md-ink-ripple translate>preferences.ratings</a>
             <div class="border"></div>
           </div>
-        </div>      
+        </div>
         <div class="buttons" layout="row" layout-align="start center">
           <a href="#sponzors/notifications">
             <md-icon aria-label="b">notifications</md-icon>
@@ -47,48 +47,48 @@
           </md-button>
           <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/settings/profile" md-ink-ripple translate>_perfil_</a>
+              <a href="#/sponzors/settings/profile" md-ink-ripple translate>preferences.profile</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem active">
-              <a href="#/sponzors/settings/preferences" md-ink-ripple translate>_preferencias_</a>
+              <a href="#/sponzors/settings/preferences" md-ink-ripple translate>preferences.preferences</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/settings/ratings" md-ink-ripple translate>_calificación_</a>
+              <a href="#/sponzors/settings/ratings" md-ink-ripple translate>preferences.ratings</a>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-      </div>      
-         
-    
-    <!-- Content starts -->    
-      
-      <div class="createContainer settings" layout="column" flex> 
+      </div>
+
+
+    <!-- Content starts -->
+
+      <div class="createContainer settings" layout="column" flex>
         <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
           <div class="createLeftContainer" flex="50">
             <form ng-submit="create()" id="createForm" name="createForm" novalidate>
               <div class="company">
                 <md-input-container class="sponzors">
-                <label translate>editaccountcompany</label>
+                <label translate>preferences.company</label>
                   <input type="text" name="companyName" ng-model="create.company.name">
                 </md-input-container>
               </div>
               <div class="companyData" layout="row">
                 <md-input-container class="sponzors">
-                  <label translate>companyPhone</label>
+                  <label translate>preferences.companyPhone</label>
                   <input type="tel" name="companyPhone" ng-model="create.company.phone">
                 </md-input-container>
                 <md-input-container class="sponzors">
-                <label>_Dirección de la compañía_</label>
+                <label translate>preferences.companyAddress</label>
                   <input type="text" name="companyAddress" ng-model="create.company.Address">
                 </md-input-container>
-              </div>           
+              </div>
               <div class="companyWeb" layout="column" layout-align="center stretch">
-                <md-input-container class="sponzors">                
-                  <label translate>companyWebsite</label>
+                <md-input-container class="sponzors">
+                  <label translate>preferences.companyWebsite</label>
                   <input type="text" name="companyWeb" ng-model="create.company.web">
                 </md-input-container>
               </div>
-            </form> 
+            </form>
           </div>
           <div flex="10"></div>
           <div class="createRightContainer" flex="40">
@@ -99,68 +99,54 @@
                   <md-icon>stars</md-icon>
                 </div>
               </div>
-              <div class="userSubmitImage">                
-                <input id="imageInput" name="userImage" type="file" ng-hide="true">              
+              <div class="userSubmitImage">
+                <input id="imageInput" name="userImage" type="file" ng-hide="true">
                 <md-button class="submitButton">
                   <label for="imageInput" layout="row" layout-align="center center">
                     <md-icon>add_a_photo</md-icon>
-                    <span>_Cargar foto_</span>
-                  </label>                  
+                    <span translate>preferences.loadPhoto</span>
+                  </label>
                 </md-button>
               </div>
             </div>
           </div>
         </div>
-        <div class="chipContainer"> 
-          <span>_Intereses_</span>           
+        <div class="chipContainer">
+          <span>_Intereses_</span>
           <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
-            <a class="md-chip inset toSelect" 
+            <a class="md-chip inset toSelect"
                 md-ink-ripple layout="row"
                 layout-align="center center"
 
                 ng-repeat="item in chips"
                 ng-model="filter"
                 ng-click="filterClick(item)"
-                layout-wrap> 
+                layout-wrap>
               _{{item}}_
             </a>
-          </div>  
+          </div>
           <md-divider></md-divider>
-          <div class="chipsFilter">              
+          <div class="chipsFilter">
             <md-chips ng-model="filter" placeholder="+Tag" secondary-placeholder="+Tag">
             </md-chips>
           </div>
-        </div>  
+        </div>
         <div class="companyDescription" layout="column" layout-align="center">
-          <md-input-container class="sponzors">                
-            <label translate>_descripcion de la compañía_</label>
+          <md-input-container class="sponzors">
+            <label translate>preferences.companyDescription</label>
+            <textarea form="createForm" ng-model="create.company.pitch" md-maxlength="250"></textarea>
+          </md-input-container>
+          <md-input-container class="sponzors">
+            <label translate>preferences.companyPitch</label>
             <textarea form="createForm" ng-model="create.company.pitch" md-maxlength="250"></textarea>
           </md-input-container>
           <div class="createFormSubmit" layout="row" layout-align="end center">
-            <md-button class="color-active">_editar_</md-button>
-          </div>
-          <md-input-container class="sponzors">                
-            <label translate>companyPitch</label>
-            <textarea form="createForm" ng-model="create.company.pitch" md-maxlength="250"></textarea>
-          </md-input-container>
-          <div class="createFormSubmit" layout="row" layout-align="end center">
-            <md-button class="color-active">_editar_</md-button>
+            <md-button class="color-active">{{'preferences.edit'|translate}}</md-button>
           </div>
         </div>
-        
-      </div>    
+
+      </div>
     </div>
-  </md-content>  
+  </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
