@@ -4,6 +4,7 @@
     //mock starts
     $scope.route = $route.current.loadedTemplateUrl;
     console.log('esta es la ruta:', $scope.route);
+    
     $scope.statesSponzors = {
         'dashboard': {
           'dashboard': 'views/sponzors/dashboard/main.html',
@@ -31,6 +32,36 @@
           'profile': 'views/sponzors/dashboard/settings_profile.html',
           'preferences': 'views/sponzors/dashboard/settings_preferences.html',
           'ratings': 'views/sponzors/dashboard/settings_ratings.html'
+        }
+    };
+
+    $scope.statesOrganizers = {
+        'dashboard': {
+          'dashboard': 'views/organizers/dashboard/main.html',
+          'outstanding': 'views/organizers/dashboard/outstanding.html',
+          'eventId': 'views/event.html'
+        },
+        'sponzoring': {
+          'sponzoring': 'views/organizers/dashboard/organizerships.html',
+          'sponzoringId': 'views/organizers/dashboard/organizershipsId.html'
+        },
+        'following': 'views/organizers/dashboard/following.html',
+        'tasks': {
+          'tasks': 'views/organizers/dashboard/tasks.html',
+          'task' : 'views/organizers/dashboard/taskId.html',
+          'tasksCreate': 'views/organizers/dashboard/tasks_create.html'
+        },
+        'notifications': {
+          'notifications': 'views/organizers/notifications/notifications.html',
+          'notificationId': 'views/organizers/notifications/notification_detail.html',
+          'notificationReply': 'views/organizers/notifications/notification_reply.html',
+          'notificationsReaded': 'views/organizers/notifications/notifications_readed.html',
+          'notificationsImportant': 'views/organizers/notifications/notifications_importants.html'
+        },
+        'settings': {
+          'profile': 'views/organizers/dashboard/settings_profile.html',
+          'preferences': 'views/organizers/dashboard/settings_preferences.html',
+          'ratings': 'views/organizers/dashboard/settings_ratings.html'
         }
     };
 

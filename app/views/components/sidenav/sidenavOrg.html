@@ -1,0 +1,55 @@
+<md-sidenav class="sidenavContainer" md-is-locked-open="$mdMedia('gt-xs')" md-component-id="left" flex="nogrow">
+  <div class="sidenav2" layout="column">
+    <div class="text-container md-whiteframe-1dp md-cornered" layout="row">
+      <a href="#/sponzors/dashboard" md-ink-ripple layout="row" layout-align="center center">
+       <div layout="row" layout-align="center center" flex>
+          <md-icon aria-label="b">reorder</md-icon>
+       </div>
+       <p href="#/sponzors/dashboard" translate layout="row" layout-align="start center" flex="70" translate>sidenav.sponzorDashboard</p>
+      </a>
+    </div>
+    <div class="sidenavButtons" layout="column">
+
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.dashboard.dashboard, statesOrganizers.dashboard.outstanding, statesOrganizers.dashboard.eventId)}" md-ink-ripple="#f09200" layout="row">
+        <a href="#/Organizers/dashboard" class="sidenavButton" layout="row">
+            <md-icon aria-label="b">view_quilt</md-icon>
+            <a href="#/Organizers/dashboard"><h3 translate>sidenav.dashboard</h3></a>
+        </a>
+      </div>
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.sponzoring.sponzoring, statesOrganizers.sponzoring.sponzoringId)}" md-ink-ripple="#f09200" layout="row">
+        <a href="#/Organizers/sponzoring" class="sidenavButton" layout="row" layout-align="start center">
+            <md-icon aria-label="b">thumb_up</md-icon>
+            <a href="#/Organizers/sponzoring"><h3 translate>sidenav.sponzoring</h3></a>
+        </a>
+      </div>
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.following)}" md-ink-ripple="#f09200" layout="row">
+        <a href="#/Organizers/following" class="sidenavButton" layout="row" layout-align="start center">
+            <md-icon aria-label="b">remove_red_eye</md-icon>
+            <a href="#/Organizers/following"><h3 translate>sidenav.following</h3></a>
+        </a>
+      </div>
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.tasks.tasks, statesOrganizers.tasks.task, statesOrganizers.tasks.tasksCreate)}" md-ink-ripple="#f09200" layout="row">
+        <a href="" class="sidenavButton" layout="row">
+            <md-icon aria-label="b">description</md-icon>
+            <a href=""><h3 translate>sidenav.tasks</h3></a>
+        </a>
+      </div>
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.notifications.notifications, statesOrganizers.notifications.notificationId, statesOrganizers.notifications.notificationReply, statesOrganizers.notifications.notificationsImportant,  statesOrganizers.notifications.notificationsReaded)}" md-ink-ripple="#f09200" layout="row">
+        <a href="#/Organizers/notifications" class="sidenavButton" layout="row">
+            <md-icon aria-label="b">notifications</md-icon>
+            <a href="#/Organizers/notifications"><h3 translate>sidenav.notifications</h3></a>
+        </a>
+      </div>
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.settings.profile, statesOrganizers.settings.preferences, statesOrganizers.settings.ratings)}" md-ink-ripple="#f09200" layout="row">
+        <a href="#/Organizers/settings/profile" class="sidenavButton" layout="row" layout-align="start center">
+            <md-icon aria-label="b">settings</md-icon>
+            <a href="#/sponzors/settings/profile"><h3 translate>sidenav.settings</h3></a>
+        </a>
+      </div>
+    </div>
+  </div>
+</md-sidenav>
+
+<md-button class="sidenavToggle md-fab" aria-label="b" ng-click="openSidenavLeft()" ng-hide="isOpenLeft()" hide-gt-xs>
+  <md-icon>reorder</md-icon>
+</md-button>
