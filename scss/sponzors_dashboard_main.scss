@@ -84,6 +84,47 @@ body {
             }
         }
 
+        &>.menuItems.menuItemsOrganizer {
+            background-color: $color_blue_brighter;
+            height: 50px;
+            margin-bottom: 0.3em;
+            padding: 0.5em;
+            
+            &>.menuItemContainer {
+                &>.menuItem {
+                    &>a { 
+                        color: $color_blue_darker;
+
+                        &:hover {
+                            color: $color_white;
+                        }
+                    }  
+
+                    &>.textActive {
+                        color: $color_white;
+                    }
+
+                    &>.active {
+                        border-bottom: 4px solid $color_blue_darker;
+                    }            
+                }
+            }
+            
+            &>.buttons {
+                a {
+                    md-icon {
+                        margin-right: 0.3em;
+                        color: $color_white;
+                        cursor: pointer;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;        
+                    }
+                }
+            }
+        }
+
         &>.menuXsContainer { //next styles at bottom
             &>md-menu {
                 position: absolute;
@@ -98,6 +139,34 @@ body {
             
             @media screen and (max-width: $media_step1_bottom) {
                 margin: 0;
+            }
+            
+            &>.filterOrganizer {
+                font-size: 12px;
+                
+                &>md-input-container {
+                    background-color: $color_white;
+                    height: 3em;
+                    margin: 2em 0 1.5em 2.5em;
+                   
+                    &>.md-input {
+                        border-width: 0 0 0 0;
+                        line-height: 38px!important;
+                        padding: 0;
+                    }
+
+                    &>md-icon {
+                        color: $color_blue_brighter;
+                        line-height: 30px;
+                    }
+                }
+                &>.viewOptions {
+                    margin-right: 1.8em;
+                    &>.md-button {
+                        margin-right: 0; 
+                        border-radius: 0;
+                    }
+                }
             }
 
             &>.filter {
@@ -120,6 +189,8 @@ body {
                         line-height: 30px;
                     }
                 }
+
+                
 
                 &>.chipContainer {
                     margin-left: 1em;  
@@ -174,10 +245,7 @@ body {
             }
 
             &>.events {
-                padding: 1em;
                 background-color: $color_white;
-                margin-left: 1em;
-                margin-right: 1em;
 
                 &>.eventCategory {
                     color: $color_active;
@@ -185,13 +253,13 @@ body {
                 }
 
                 &>.event {
-                    
+                    padding: 0;
                     margin-bottom: 5%;
                     position: relative;
                     top: 0;
 
                     &>.eventImage {
-                        background-color: #faaf3a;
+                        background-color: $color_active;
                         
                         &>p {
                             color: $color_white;
@@ -200,7 +268,22 @@ body {
                         }
                         &> img {
                             max-height: 130px;
-                            max-width: 245px;    
+                            max-width: 260275px;    
+                            width: 275px;
+                        }
+                    }
+                    &>.eventImage.organizerEventImage {
+                        background-color: $color_blue_brighter;
+                        
+                        &>p {
+                            color: $color_white;
+                            font-size: 10px;
+                            padding: 0.5em;
+                        }
+                        &> img {
+                            max-height: 130px;
+                            max-width: 275px; 
+                            width: 275px;   
                         }
                     }
 
@@ -277,5 +360,23 @@ body {
             }
         }
     }
-}         
+}
+
+.md-open-menu-container > .menuContent > .searchMenuItemOrganizers {
+    &>.md-button {
+        color: $color_gray_text;
+
+        &>md-icon {
+            color: $color_gray_text;
+        }
+
+        &:hover {
+            color: $color_blue_brighter;
+
+            &>md-icon {
+                color: $color_blue_brighter;
+            }
+        }
+    }
+}      
 

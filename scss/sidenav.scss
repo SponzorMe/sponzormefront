@@ -66,12 +66,11 @@
                 }   
 
                 &>.active {
-                    &>.sidenavButton {                    
-                        
-                        &>h3 {
-                            color: $color_active;
-                        }
-
+                    &>a > h3 {
+                        color: $color_active;
+                    }
+                    
+                    &>.sidenavButton {                          
                         &>md-icon {
                             color: $color_active;
                         }
@@ -79,6 +78,63 @@
 
                     &:before {
                         border-left: 3px solid $color_active;
+                        content: "";
+                    }
+                }
+
+
+//ORGANIZERS
+                
+                &>.buttContainerOrganizers {
+                    margin-bottom: 1em;
+
+                    &:before {
+                        border-left: 3px solid transparent;
+                        content: "";
+                    }
+                    
+                     &>a > h3 {
+                            color: $color_gray_text;
+                            font-size: 12px;
+                            text-decoration: none;
+                            margin-left: 1em;
+                        }
+
+                    &>.sidenavButton {
+
+                        &>md-icon {
+                            margin-left: 0.5em;
+                            color: $color_gray_text;
+                        }              
+                    }
+
+                     &:hover {
+                        &>a >h3 {
+                            color: $color_blue_brighter;
+                        }
+                        
+                        &>.sidenavButton {
+                            &>md-icon {
+                                color: $color_blue_brighter;
+                            }
+                        }     
+                    }
+                }
+
+
+                 &>.activeOrganizers {
+                    &>a > h3 {
+                        color: $color_blue_brighter;
+                    }
+                    
+                    &>.sidenavButton {                          
+                        &>md-icon {
+                            color: $color_blue_brighter;
+                        }
+                    }
+
+                    &:before {
+                        border-left: 3px solid $color_blue_brighter;
                         content: "";
                     }
                 }

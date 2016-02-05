@@ -1,153 +1,134 @@
-<div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
-  <div ng-include="menuprincipal"></div>
-  <div id="content-wrapper">
-    <div class="page-content">
-      <div class="row header" ng-include src="'views/organizers/dashboard/header.html'"></div>
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-xs-12">
-            <div class="widget">
-              <div class="widget-body">
-                <div class="widget-icon green pull-left">
-                  <i class="fa fa-users"></i>
-                </div>
-                <div class="widget-content pull-left">
-                  <div class="title">{{user.sponzorships_like_organizer.length}}</div>
-                  <div class="comment">{{ 'sponzors' | translate }}</div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
+<div layout-fill class="allContainer">
+
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+
+    <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+          <div class="menuItem">
+            <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple translate>sponzorsMain.searchEvents</a>
+            <div class="border active"></div>
           </div>
-          <div class="col-lg-3 col-md-6 col-xs-12">
-            <div class="widget">
-              <div class="widget-body">
-                <div class="widget-icon red pull-left">
-                  <i class="fa fa-tasks"></i>
-                </div>
-                <div class="widget-content pull-left">
-                  <div class="title" >{{user.events.length}}</div>
-                  <div class="comment">{{ 'events' | translate }}</div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
+          <div class="menuItem">
+            <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
+            <div class="border"></div>
           </div>
-          <div class="col-lg-3 col-md-6 col-xs-12">
-            <div class="widget">
-              <div class="widget-body">
-                <div class="widget-icon orange pull-left">
-                  <i class="fa fa-sitemap"></i>
-                </div>
-                <div class="widget-content pull-left">
-                  <div class="title">${{user.balance}}</div>
-                  <div class="comment">{{ 'balance' | translate }}</div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
+          <div class="menuItem">
+            <a href="#/sponzors/outstanding" md-ink-ripple translate>_saldo_</a>
+            <div class="border"></div>
           </div>
-          <div class="spacer visible-xs"></div>
-          <div class="col-lg-3 col-md-6 col-xs-12">
-            <div class="widget">
-              <div class="widget-body">
-                <div class="widget-icon blue pull-left">
-                  <i class="fa fa-support"></i>
-                </div>
-                <div class="widget-content pull-left">
-                  <div class="title">{{user.comunity_size}}</div>
-                  <div class="comment">{{ 'comunity' | translate }}</div>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-            </div>
+          <div class="menuItem">
+            <a href="#/sponzors/outstanding" md-ink-ripple translate>_comunidad_</a>
+            <div class="border"></div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="widget">
-              <div class="widget-header">
-                <i class="fa fa-tasks"></i> {{ 'events' | translate }}
-                <a href="#/organizers/events" class="pull-right btn btn-primary">
-                  <i class="fa fa-table"></i>&nbsp;{{ 'manage' | translate }}</a>
-              </div>
-              <div class="widget-body medium no-padding">
-                <div class="table-responsive">
-                  <table class="table table-striped table-center">
-                  <thead>
-                    <tr>
-                      <th class="text-center">{{ 'title' | translate }}</th>
-                      <th class="text-center">{{ 'location' | translate }}</th>
-                      <th class="text-center">{{ 'starts' | translate }}</th>
-                    </tr>
-                  </thead>
-                    <tbody>
-                      <tr data-ng-repeat="e in user.events" data-ng-class="{success : currentEvent.id === e.id}"  data-ng-click="showPerk(e)" class="row-hover">
-                        <td class="text-center">{{ e.title }}</td>
-                        <td class="text-center">{{ e.location }}</td>
-                        <td class="text-center">{{ e.starts | date}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="widget">
-              <div class="widget-header">
-                <i class="fa fa-trophy"></i> {{ 'peak' | translate }}
-                <div class="clearfix"></div>
-              </div>
-              <div class="widget-body medium no-padding">
-                <div class="table-responsive">
-                  <table class="table table-striped table-center" >
-                    <thead>
-                      <tr>
-                        <th class="text-center">{{ 'kind' | translate }}</th>
-                        <th class="text-center">{{ 'quantity' | translate }}</th>
-                        <th class="text-center">${{ 'usd' | translate }}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-show="!currentEvent.perks.length">
-                        <td colspan="3" class="text-center">
-                          <h2 class="text-center">{{'noPerksMessage'| translate}}</h2>
-                        </td>
-                      </tr>
-                      <tr ng-show="currentEvent.perks.length" ng-repeat="p in currentEvent.perks">
-                        <td class="text-center">{{ p.kind}}</td>
-                        <td class="text-center">{{ p.total_quantity }}</td>
-                        <td class="text-center">{{ p.usd }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-8">
-            <div class="widget">
-              <div class="widget-header">
-                <i class="fa fa-plus"></i> {{ 'suggestions' | translate }}
-                <dir-pagination-controls class="pull-right"></dir-pagination-controls>
-                <div class="clearfix"></div>
-              </div>
-              <div class="widget-body" style="min-height:200px;">
-                <div ng-show="loadingrss">
-                  <rd-loading></rd-loading>
-                </div>
-                <div ng-show="noRssMessage">
-                  <h1>{{ 'noRssMessage' | translate }}</h1>
-                </div>
-                <div class="messageRss" dir-paginate="r in rss | itemsPerPage: 3" ng-show="!loadingrss">
-                  <h2 class="suggh1">{{ r.title }}</h2>
-                  <p>{{r.contentSnippet}}<p>
-                  <a href="{{ r.link }}" target="_blank">{{ 'seemore' | translate }}</a>
-                </div>
-              </div>
-            </div>
-          </div-->
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">favorite</md-icon>
+          </a>
+           <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
         </div>
       </div>
+
+    <!-- navbar ("menu") when xs -->
+      <div class="menuXsContainer">
+        <md-menu hide-gt-sm>
+          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon>person</md-icon>
+          </md-button>
+          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+            <md-menu-item class="menuXsItem active">
+              <a href="#/sponzors/dashboard" md-ink-ripple translate>sponzorsMain.searchEvents</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/notifications" md-ink-ripple translate>sponzorsMain.notifications</a>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+
+    <!-- Content starts -->
+
+    <div class="contentContainer">     
+          <!-- Filter --> 
+        <div class="filterOrganizer" layout="row" layout-align="space-between center">
+          <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp " md-no-float md-ink-ripple="false" flex-gt-xs="30" flex="70">
+            <md-icon class="filterOrganizer">search</md-icon>
+            <input type="text" placeholder="{{ 'typeyourtesthere' | translate }}"/>
+          </md-input-container>
+          <div class="viewOptions" hide-xs hide-sm>
+            <md-button class="md-icon-button"> <md-icon class="md-36">reorder</md-icon> </md-button>
+            <md-button class="md-icon-button"> <md-icon class="color-blue-brighter md-36">dashboard</md-icon> </md-button>
+          </div>     
+        </div>
+
+      <!-- Events Results -->
+           
+        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
+          <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-sm="30">
+            <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
+              <img src="{{event.img}}" alt="event">
+              <p>_{{event.imgDescript}}_</p>
+            </div>
+            <div class="textContainer">
+              <h2>_{{event.date}}_</h2>
+              <md-divider></md-divider>
+              <p>
+                _{{event.eventDescript}}_
+              </p>
+            </div>
+            <md-menu>  
+              <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
+                <md-icon aria-label="b">add</md-icon>
+              </md-button>
+              <md-menu-content class="menuContent" width="4">
+                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">mode_edit</md-icon>
+                    <a href="#/event/:eventId">_Editar evento_</a>
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">share</md-icon>
+                    _compartir evento_
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">assignment</md-icon>
+                    _ver tareas_
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                  <md-button>
+                    <md-icon aria-label="b">thumb_up</md-icon>
+                    _Borrar evento_
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div> 
+        </md-content>                      
+      </div>  
     </div>
-  </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
