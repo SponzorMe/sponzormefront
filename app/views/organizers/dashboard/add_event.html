@@ -1,184 +1,139 @@
-<div id="page-wrapper" ng-class="{'active': toggle}" class="{{tolsctive}}">
-  <div ng-include="menuprincipal"></div>
-  <div id="content-wrapper">
-    <div class="page-content" ng-controller="OrganizersEventCreateController">
-      <div class="row header" ng-include src="'views/organizers/dashboard/header.html'"></div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="widget">
-          <div class="widget-header">
-            <i class="fa fa-plus"></i>{{ 'addevent' | translate }}
-            <a class="pull-right" href="" ng-click="connectMeetup()" ><img height="20px" src="images/meetup.png"/></a>
-            <a class="pull-right" href="" ng-click="connectEventbrite()" ><img width="24px" src="images/eventbrite.png"/></a>
-              <span class="pull-right">{{ 'Import from' | translate }}: </span>
-            <div class="clearfix"></div>
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <a href="#/organizers/dashboard" md-ink-ripple>
+          <md-icon aria-label="b">reply</md-icon>
+        </a>
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#/organizers/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a class="md-icon-button">
+            <md-icon aria-label="b">favorite</md-icon>
+          </a>
+          <a class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+
+      <div layout="row" layout-align="space-between center">
+          <div layout="row" layout-align="start center">
+              <md-icon>file_download</md-icon>
+              <p>_importar evento_</p>
           </div>
-          <h2 class="text-center">{{ 'completeInfoNewEvent' | translate }}</h2>
-          <form class="form-horizontal" role="form" name="createEvent">
-            <!--form field-->
-            <div class="form-group" id="title">
-              <label for="label" class="col-sm-4 control-label">
-                {{ 'neweventtitle' | translate }}
-              </label>
-              <div class="col-sm-7">
-                <input type="text" data-ng-model="newEvent.title" placeholder="{{trans('dashboard.neweventtitledescription')}}" name="title" class="form-control" required/>
-              </div>
-              <br/>
-              <br/>
-            </div>
-            <!--form field-->
-            <div class="form-group" id="location">
-              <label for="label" class="col-sm-4 control-label">
-                {{ 'neweventlocation' | translate }}
-              </label>
-              <div class="col-sm-7">
-                <input type="text" placeholder="{{trans('dashboard.neweventlocationdescription')}}" name="location" g-places-autocomplete class="form-control" data-ng-model="locationevent" autocomplete="off" required/>
-              </div>
-            </div>
-            <!--form field-->
-            <div class="form-group" id="description">
-              <label for="label" class="col-sm-4 control-label">
-                {{ 'neweventdescription' | translate }}
-              </label>
-              <div class="col-sm-7">
-                <div text-angular data-ng-model="newEvent.description"></div>
-              </div>
-            </div>
-            <!--form field-->
-            <div class="form-group" id="starts">
-              <label for="label" class="col-sm-4 control-label">
-                {{ 'neweventstarts' | translate }}
-              </label>
-              <div class="col-sm-7">
-              <datetimepicker data-ng-model="newEvent.starts"
-                date-format="yyyy-MM-dd"
-                date-options="dateOptions"
-                show-meridian="false"
-                date-disabled="isDisabledDate(date, mode)">
-              </datetimepicker>
-              </div>
-            </div>
-            <div class="form-group" id="ends">
-              <label for="label" class="col-sm-4 control-label">
-                {{ 'neweventends' | translate }}
-              </label>
-              <div class="col-sm-7">
-              <datetimepicker data-ng-model="newEvent.ends"
-                date-format="yyyy-MM-dd"
-                date-options="dateOptions"
-                show-meridian="false"
-                min-date="newEvent.starts"
-                date-disabled="isDisabledDate(date, mode)">
-              </datetimepicker>
-              </div>
-            </div>
-            <!--form field-->
-            <div class="form-group" id="public">
-              <div class="col-sm-4 control-label">
-                <input id="privacy0" type="radio" data-ng-model="newEvent.privacy" name="privacy" value="0" required="required"/>
-              </div>
-              <label for="privacy0" class="col-sm-7">
-                <strong>{{ 'privacyoption0' | translate }} : </strong>
+          <p>_eliminar evento_</p>
+      </div>
+    
+      <!-- Content starts -->
 
-                {{ 'privacydescription0' | translate }} </label>
+      <div class="contentContainer organizer" flex>
+        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
 
-              <div class="col-sm-4 control-label">
-                <input id="privacy1" type="radio" data-ng-model="newEvent.privacy" name="privacy" value="1" required="required"/>
-              </div>
-
-              <label for="privacy1" class="col-sm-7">
-                <strong>{{ 'privacyoption1' | translate }} : </strong>
-
-                {{ 'privacydescription1' | translate }}</label>
+          <div class="eventContainer" layout="column">
+            <div class="shareButton">
+              <md-button class="md-fab">
+                <md-icon>share</md-icon>
+              </md-button>
             </div>
-            <!--form field-->
-            <div class="form-group" id="type">
-              <label for="label" class="col-sm-4 control-label">
-                {{ 'neweventtype' | translate }}
-              </label>
-              <div class="col-sm-7">
-                <select data-ng-model="newEvent.type" name="type" class="form-control" required="required">
-                  <option value="">{{ 'choosetype' | translate }}</option>
-                  <option data-ng-repeat="t in eventTypes" data-ng-value="t.id">
-                    {{'eventTypes.'+t.name|translate}}
-                  </option>
-                </select>
-              </div>
+            <img src="../../images/home-bkg.jpg" alt="image">
+            <div class="imageTexts" layout="column" layout-align="stretch center">
+              <md-input-container class="white" flex="100">
+                <label>_Introduce un título_</label>
+                <textarea type="text" name="title" md-maxlength="250" ng-model="createEvent.title" required></textarea>
+              </md-input-container>
             </div>
 
-            <div class="form-group" id="category">
-              <label for="label" class="col-sm-4 control-label">
-                {{ 'neweventcategory' | translate }}
-              </label>
-              <div class="col-sm-7">
-                <select data-ng-model="newEvent.category" name="type" class="form-control" required="required">
-                  <option value="">{{ 'choosetype' | translate }}</option>
-                  <option data-ng-repeat="c in categories" data-ng-value="c.id">
-                    {{'categories.'+c.title|translate}}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <!-- Imagen -->
-            <hr/>
-            <div class="form-group" id="image">
-              <div class="col-sm-12 ">
-                <label for="label" class="col-sm-4 control-label">
-                  {{ 'file' | translate }}
-                </label>
-                <input type="file" data-ng-model="file" name="file" maxsize="500" accept="image/*" file>
-                <br/>
-                <div>
-                </div>
-                <div class="clearfix"></div>
-                <!-- End Imagen -->
-                <hr/>
-                <!--form field-->
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                    <thead>
-                      <th class="text-center">
-                        {{ 'typesponzor' | translate }}
-                      </th>
-                      <th class="text-center">
-                        {{ 'quantitysponzor' | translate }}
-                      </th>
-                      <th class="text-center">
-                        {{ 'pricesponzor' | translate }}
-                      </th>
-                      <th class="text-center">
-                        {{ 'actionssponzor' | translate }}
-                      </th>
-                    </thead>
-                    <tr ng-repeat="s in newEvent.perks" data-ng-show="newEvent.perks.length">
-                      <td class="text-center">
-                        <input type="text" class="form-control" placeholder="" data-ng-model="s.kind" />
-                      </td>
-                      <td class="text-center">
-                        <input type="text" class="form-control" placeholder="" data-ng-model="s.total_quantity" />
-                      </td>
-                      <td class="text-center">
-                        <input type="number" min="0" max="200" class="form-control" placeholder="Max 200" data-ng-model="s.usd" ng-keyup="verifyPerkLimit(s)"/>
-                      </td>
-                      <td class="text-center">
-                        <a href="" ng-click="removeSponzorshipType($index)"><i class="fa fa-trash-o"></i></a>
-                      </td>
-                    </tr>
-                  </table>
-                </div>
-                <div class="col-sm-3">
-                  <button class="btn btn-block btn-warning" ng-click="addSponzorshipType()"> + Add</button>
-                </div>
-                <div class="clearfix"></div>
-                <hr/>
-                <!--form field-->
-                <div class="form-group">
-                  <div class="col-sm-6 col-sm-offset-3">
-                    <button class="btn btn-block btn-primary" ng-click="createEvent.$valid && imageVerification()">{{ 'submitbutton' | translate }}</button>
+            <div class="textsContainer">
+              <h3 class="color-blue-brighter" translate>eventPage.speaker</h3>
+              <p>{{currentEvent.user_organizer.name}} <span class="color-blue-brighter">{{currentEvent.user_organizer.email}}</span></p>
+              <p class="description">
+                {{currentEvent.user_organizer.description}}
+              </p>
+              <md-divider></md-divider>
+
+              <div class="eventInfo" layout="row">
+                <div class="item">
+                  <p class="color-blue-brighter"  translate>eventPage.organizer</p>
+                  <div layout="row" layout-align="start center">
+                    <img src="../../images/pic.png" alt="">
+                    <div>
+                      <p>{{currentEvent.user_organizer.name}}</p>
+                      <div>
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon>star_border</md-icon>
+                      </div>
+                    </div>
                   </div>
                 </div>
-          </form>
+                <div class="item">
+                  <p class="color-blue-brighter"  translate>eventPage.date</p>
+                  <div layout="row" layout-align="start center">
+                    <md-icon>access_time</md-icon>
+                    <div>
+                      <p>{{currentEvent.starts|date:'MMM dd, yyyy'}}</p>
+                      <p>{{currentEvent.starts|date:'dd:hha'}} - {{currentEvent.ends|date:'dd:hha'}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <p class="color-blue-brighter"  translate>eventPage.location</p>
+                  <div layout="row" layout-align="start center">
+                    <md-icon>location_on</md-icon>
+                    <div>
+                      <p>{{currentEvent.location}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="" class="contact" md-ink-ripple layout="row" layout-align="start center" flex="25">
+                <md-icon>email</md-icon>
+                <p translate>eventPage.writeToOrganizer</p>
+              </a>
+            </div>
+          </div>
+          <md-content class="sponsorAnEvent">
+            <h4 class="color-blue-brighter" translate>eventPage.sponzorshipTypes</h4>
+
+            <div href="" class="table" layout-padding flex="grow">
+              <div class="tableTitle" layout="row" layout-align="space-around" hide-xs hide-sm>
+                <a href="" ng-repeat="p in currentEvent.perks">{{p.kind}}</a>
+              </div>
+              <div class="tableContent" layout="column" layout-align="center center" layout-gt-xs="row" layout-align-gt-xs="space-around">
+                <div class="columnContainer" ng-repeat="p in currentEvent.perks">
+                  <div class="tableTitle" hide-gt-xs>gold</div>
+                  <div class="border"></div>
+                  <a href="" class="toSponzorWith" layout="column">
+                    <p ng-repeat="t in p.tasks">{{t.title}}</p>
+                  </a>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">{{p.usd}} usd</a></p>
+                  <div class="tableLikeButton" layout="row" layout-align="center center">
+                    <a href="">
+                      <md-icon>thumb_up</md-icon>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </md-content>
         </div>
       </div>
     </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
