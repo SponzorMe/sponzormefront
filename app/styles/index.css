@@ -295,9 +295,7 @@ md-checkbox.sponzors.md-default-theme .md-icon, md-checkbox .md-icon {
           margin: 0;
           color: #5B5B5B; }
         .allContainer .superContainer .cont .contentContainer .notifyDetailContainer > .eventContainer > .textsContainer > .eventInfo > .item > div > div > div md-icon {
-          font-size: 16px;
-          margin-left: 0;
-          width: 0; }
+          font-size: 12px; }
     .allContainer .superContainer .cont .contentContainer .notifyDetailContainer > .eventContainer > .textsContainer > .contact > p {
       font-size: 12px;
       color: #5B5B5B; }

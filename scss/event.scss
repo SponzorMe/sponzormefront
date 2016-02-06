@@ -90,9 +90,7 @@
                                     color: $color_gray3;
                                 }
                                 &>div md-icon {
-                                    font-size: 16px;
-                                    margin-left: 0;
-                                    width: 0;
+                                    font-size: 12px;
                                 }
                             }
                         }
@@ -166,8 +164,7 @@
                                 height: 100px;
                             }
                         }
-                    
-                        
+
                         &>.toSponzorWith {
                             min-height: 260px;
                             height: 260px;
@@ -208,7 +205,6 @@
                         &>.border {
                             background-color: $color_fuchsia_darker;
                             height: 3px;
-                            
                             visibility: hidden;
                             width: 100%;
                         }
