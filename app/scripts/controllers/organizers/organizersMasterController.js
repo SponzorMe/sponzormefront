@@ -1,7 +1,7 @@
 'use strict';
 (function() {
   function OrganizersMasterController($scope, eventTypeRequest, MAXPERKLIMIT, $rootScope, $localStorage, categoryRequest) {
-    /*$scope.setEventData = function(){
+    $scope.setEventData = function(){
       if(!$localStorage.eventTypes){
         eventTypeRequest.allEventTypes().then(function successCallback1(response) {
           $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
@@ -27,7 +27,7 @@
         $rootScope.showDialog('error', 'maxLimitPerk', false);
       }
     };
-    $scope.menuprincipal = 'views/organizers/menu.html';*/
+    $scope.menuprincipal = 'views/organizers/menu.html';
   }
   angular.module('sponzorme').controller('OrganizersMasterController', OrganizersMasterController);
 })();
