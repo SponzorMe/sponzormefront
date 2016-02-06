@@ -90,7 +90,7 @@
                                     color: $color_gray3;
                                 }
                                 &>div md-icon {
-                                    font-size: 14px;
+                                    font-size: 12px;
                                 }
                             }
                         }
@@ -111,6 +111,11 @@
             font-size: 12px;
             padding: 0.5em;
             margin: 1em 15%;
+            overflow: hidden;
+
+            @media screen and (max-width: $media_step1_bottom) {
+                margin: 0;
+            }
 
             &>.table {
                 
@@ -147,11 +152,20 @@
                 &>.tableContent {
                     background-color: $color_gray1;
                     padding: 0 1.5em 1.5em 1.5em;
-
+                    
                     &>.columnContainer {
                         position: relative;
                         margin-bottom: 0.5em;
 
+                                  
+                        &:nth-last-child(-n+2) {
+                            &>.toSponzorWith {    
+                                min-height: 100px;
+                                height: 100px;
+                            }
+                        }
+                    
+                        
                         &>.toSponzorWith {
                             min-height: 260px;
                             height: 260px;
@@ -162,8 +176,7 @@
                             font-size: 14px;
                             font-weight: bold;
                             height: 40px;
-                            margin-bottom: 0.2em;
-                            margin-top: 0.5em;
+                            margin: 0.5em 0.2em;
                             opacity: 0.2;
                             text-transform: uppercase;
 
@@ -174,7 +187,7 @@
 
                         &>.tableLikeButton {
                             background-color: $color_fuchsia;
-                            height: 40px;
+                            height: 50px;
                             visibility: hidden;
 
                             &>a md-icon {
@@ -193,10 +206,9 @@
                         &>.border {
                             background-color: $color_fuchsia_darker;
                             height: 3px;
-                            position: absolute;
-                            top: -3px;
+                            
                             visibility: hidden;
-                            width: 126px;
+                            width: 100%;
                         }
 
                         &:hover {        
