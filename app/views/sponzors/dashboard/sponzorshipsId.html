@@ -64,7 +64,7 @@
                     <img src="../../images/pic.png" alt="">
                     <div>
                       <p>Mike Cunningham</p>
-                      <div>
+                      <div layout="row">
                         <md-icon class="color-active">star</md-icon>
                         <md-icon class="color-active">star</md-icon>
                         <md-icon class="color-active">star</md-icon>
@@ -112,7 +112,7 @@
                     <a href=""><md-icon class="color-active">event</md-icon></a>
                     <a href=""><md-icon class="color-active">help</md-icon></a>
                     <a href=""><md-icon class="color-active">comment</md-icon></a>
-                    <a href=""><md-icon class="color-active">stars</md-icon></a>
+                    <a href=""><md-icon class="color-active" >stars</md-icon></a>
                   </div>
                 </div>
               </div>
@@ -130,7 +130,7 @@
                     <p flex="20" layout="row" layout-align="center center" translate>_fecha_</p>
                     <p flex="20" layout="row" layout-align="center center" translate>_tipo de patrocinio_</p>
                     <p flex="20" layout="row" layout-align="center center" translate>status</p>
-                    <p layout="row" layout-align="center center" flex="25" translate></p>
+                    <p layout="row" layout-align="center center" flex="25" translate hide-md hide-sm hide-xs></p>
                   </div>                  
                 </div>
 
@@ -139,7 +139,7 @@
                     <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.title}}</p>
                     <p class="eventDate" flex="20" layout="row" layout-align="center center" translate>{{item.date}}</p>
                     <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.sponzorType}}</p>
-                    <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
+                    <p class="eventStatus" flex="20" layout="row" layout-align="center center" hide-md hide-sm hide-xs translate>
                       {{item.status}}
                     </p>
                     <div layout="row" layout-align="center center" flex="25"></div>

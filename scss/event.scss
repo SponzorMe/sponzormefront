@@ -90,7 +90,9 @@
                                     color: $color_gray3;
                                 }
                                 &>div md-icon {
-                                    font-size: 12px;
+                                    font-size: 16px;
+                                    margin-left: 0;
+                                    width: 0;
                                 }
                             }
                         }
