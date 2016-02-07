@@ -91,7 +91,7 @@
 
       $scope.eventItem = [
         {
-          'title': 'Este es el nombre del evento, solo 50 caracteres.dasdsadsadsas',
+          'title': 'Este es el nombre del evento, solo 50 caracteres.das dsad sadsas',
           'date': '20/12/2016',
           'sponzorType': 'gold',
           'status': 'patrocinado'

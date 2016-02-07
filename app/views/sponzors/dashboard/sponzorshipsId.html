@@ -46,7 +46,7 @@
             <div class="imageTexts">
               <h3>Un vistazo a IONIC 1.2.X</h3>
               <p>_El equipo de Ionic anuncio hace poco una nueva version de Ionic 1 la cual trae muchas cosas interesantes. Este meetup es sobre explorar esos cambios y como puedo mejorar mis apps._</p>
-              <a href="">https://github.com/driftyco/ionic/releases/tag/v1.2.1</a>
+              <a href="https://github.com/driftyco/ionic/releases/tag/v1.2.1">Github</a>
             </div>
             
             <div class="textsContainer">
@@ -57,7 +57,7 @@
               </p>
               <md-divider></md-divider>
               
-              <div class="eventInfo" layout="row">
+              <div class="eventInfo" layout="row" layout-wrap>
                 <div class="item">
                   <p class="color-blue-brighter" translate>Organizer</p>
                   <div layout="row" layout-align="start center">
@@ -136,13 +136,13 @@
 
                 <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in eventItem">            
                   <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
-                    <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.title}}</p>
+                    <p class="eventTitle" flex="30" layout="column" layout-align="center center" translate>{{item.title}}</p>
                     <p class="eventDate" flex="20" layout="row" layout-align="center center" translate>{{item.date}}</p>
                     <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.sponzorType}}</p>
-                    <p class="eventStatus" flex="20" layout="row" layout-align="center center" hide-md hide-sm hide-xs translate>
+                    <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
                       {{item.status}}
                     </p>
-                    <div layout="row" layout-align="center center" flex="25"></div>
+                    <div layout="row" layout-align="center center" flex="25" hide-md hide-sm hide-xs></div>
                   </a>                                      
                 </div>
               </div>                           
