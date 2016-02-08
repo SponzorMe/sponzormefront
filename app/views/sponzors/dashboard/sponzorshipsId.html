@@ -31,7 +31,7 @@
 
       <!-- Content starts -->
 
-      <div class="contentContainer" flex>
+      <div class="contentContainer" flex ng-controller="SponzorsSponzorshipsController">
         <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
 
           <div class="eventContainer" layout="column">
@@ -42,18 +42,15 @@
             </div>
             <img src="../../images/home-bkg.jpg" alt="image">
             <div class="imageTexts">
-              <h3>Un vistazo a IONIC 1.2.X</h3>
-              <p>_El equipo de Ionic anuncio hace poco una nueva version de Ionic 1 la cual trae muchas cosas interesantes.
-                Este meetup es sobre explorar esos cambios y como puedo mejorar mis apps._</p>
-              <a href="https://github.com/driftyco/ionic/releases/tag/v1.2.1">Github</a>
+              <h3>{{currentSponzorship.event.title}}</h3>
+              <p ng-bind-html="currentSponzorship.event.description"></p>
             </div>
 
             <div class="textsContainer">
               <h3 class="color-blue-brighter" translate>eventPage.speaker</h3>
-              <p>Carlos Rojas <span class="color-blue-brighter">@carlosrojas_o</span></p>
+              <p>{{currentSponzorship.organizer.name}} <span class="color-blue-brighter">{{currentSponzorship.organizer.email}}</span></p>
               <p class="description">
-                _Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex adipisci ab assumenda consequuntur necessitatibus dolores,
-                minus unde dicta. Id possimus placeat non. Neque consectetur quidem._
+                {{currentSponzorship.event.organizer.description}}
               </p>
               <md-divider></md-divider>
 
@@ -61,9 +58,9 @@
                 <div class="item">
                   <p class="color-blue-brighter" translate>eventPage.organizer</p>
                   <div layout="row" layout-align="start center">
-                    <img src="../../images/pic.png" alt="">
+                    <img src="{{currentSponzorship.organizer.image}}" alt="">
                     <div>
-                      <p>Mike Cunningham</p>
+                      <p>{{currentSponzorship.organizer.name}}</p>
                       <div layout="row">
                         <md-icon class="color-active">star</md-icon>
                         <md-icon class="color-active">star</md-icon>
@@ -79,8 +76,8 @@
                   <div layout="row" layout-align="start center">
                     <md-icon>access_time</md-icon>
                     <div>
-                      <p>Domingo, Enero 10</p>
-                      <p>09:00 PM - 03:00 AM</p>
+                      <p>{{currentSponzorship.event.starts|date:'MMM dd, yyyy'}}</p>
+                      <p>{{currentSponzorship.event.starts|date:'dd:hha'}} - {{currentSponzorship.event.ends|date:'dd:hha'}}</p>
                     </div>
                   </div>
                 </div>
@@ -89,7 +86,7 @@
                   <div layout="row" layout-align="start center">
                     <md-icon>location_on</md-icon>
                     <div>
-                      <p>_Por confirmar_</p>
+                      <p>{{currentSponzorship.event.location}} </p>
                     </div>
                   </div>
                 </div>
@@ -129,46 +126,29 @@
             </div>
           </div>
           <div class="contentContainer eventTasks" flex>
-            <p>Tareas para este evento:</p>
+            <p translate>eventPage.taskForThisEvent</p>
             <div class="notifyDetailContainer eventTasks" layout="column">
               <div class="eventTitles" layout="row" hide-xs>
                 <div layout="row" flex="100">
-                  <p flex="30" layout="row" layout-align="center center" translate>sponzorsSponzorships.title</p>
-                  <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.date</p>
-                  <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.type</p>
-                  <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.status</p>
+                  <p flex="30" layout="row" layout-align="center center" translate>tasks.title</p>
+                  <p flex="40" layout="row" layout-align="center center" translate>tasks.description</p>
+                  <p flex="20" layout="row" layout-align="center center" translate>tasks.status</p>
                   <p layout="row" layout-align="center center" flex="25" translate hide-md hide-sm hide-xs></p>
                 </div>
               </div>
             </div>
-            <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in eventItem">
+            <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in currentSponzorship.task_sponzor">
               <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
-                <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.title}}</p>
-                <p class="eventDate" flex="20" layout="row" layout-align="center center" translate>{{item.date}}</p>
-                <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.sponzorType}}</p>
-                <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
-                  {{item.status}}
-                </p>
+                <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.task.title}}</p>
+                <p class="eventDate" flex="40" layout="row" layout-align="center center" translate>{{item.task.description}}</p>
+                <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.status}}</p>
                 <div layout="row" layout-align="center center" flex="25"></div>
               </a>
             </div>
           </div>
         </div>
-        <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in eventItem">
-          <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
-            <p class="eventTitle" flex="30" layout="column" layout-align="center center" translate>{{item.title}}</p>
-            <p class="eventDate" flex="20" layout="row" layout-align="center center" translate>{{item.date}}</p>
-            <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.sponzorType}}</p>
-            <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
-              {{item.status}}
-            </p>
-            <div layout="row" layout-align="center center" flex="25" hide-md hide-sm hide-xs></div>
-          </a>
-        </div>
       </div>
     </div>
-</div>
-</div>
 </div>
 </md-content>
 <div ng-include src="'./views/components/footer/footer.html'"></div>

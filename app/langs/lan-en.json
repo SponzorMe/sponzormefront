@@ -130,7 +130,8 @@
     "location": "Location",
     "date": "Date",
     "organizer": "Organizer",
-    "speaker": "Speaker"
+    "speaker": "Speaker",
+    "taskForThisEvent": "Tasks for this events"
   },
   "settings":{
     "profile": "Profile",

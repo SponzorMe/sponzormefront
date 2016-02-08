@@ -26,11 +26,7 @@
           </a>
         </div>
       </div>
-
-
-
     <!-- Content starts -->
-
       <div class="contentContainer" flex ng-controller="SponzorsSponzorshipsController">
         <div class="notifyDetailContainer" layout="column">
           <div class="eventTitles" layout="row"  hide-xs>
@@ -43,7 +39,7 @@
             <p layout="row" layout-align="center center" flex="25" translate>sponzorsSponzorships.actions</p>
           </div>
           <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in user.sponzorships">
-            <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
+            <a class="eventInfo" href="#/sponzors/sponzoring/{{$index}}" layout="row" flex="100">
               <p class="eventTitle" flex="30" layout="row" layout-align="center center"  translate>{{item.event.title}}</p>
               <p class="eventDate" flex="20" layout="row" layout-align="center center">{{item.event.starts|date:'MMM dd, yyyy h:mma'}}</p>
               <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.perk.kind}}</p>

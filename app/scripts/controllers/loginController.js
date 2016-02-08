@@ -12,6 +12,7 @@
         $scope.login.lang = $rootScope.currentLanguage();
         $rootScope.showLoading();
         loginRequest.login($scope.login).then(function successCallback(response) {
+          console.log(response);
           if (response.data.user.activated === '1') { // If account activated
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 1);

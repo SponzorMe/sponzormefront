@@ -1,22 +1,27 @@
 'use strict';
 (function() {
 
-  function SponzorsSponzorshipsController($scope, $mdSidenav,$location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest, SPONZORSHIPSTATUSES) {
+  function SponzorsSponzorshipsController($scope, $mdSidenav, $location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams) {
     $scope.statuses = SPONZORSHIPSTATUSES;
     //mock starts
-    $scope.openSidenavLeft = function(){
+    $scope.openSidenavLeft = function() {
       $mdSidenav('left').toggle();
     };
-      if ($rootScope.userValidation('1')) {
+    if ($rootScope.userValidation('1')) {
       $scope.todayDate = new Date().getTime();
       $scope.user = JSON.parse($localStorage.user);
       if ($scope.user.sponzorships) {
         $scope.user.sponzorships = $scope.user.sponzorships.filter(function(e) {
-            e.event.starts = new Date(e.event.starts);
-            //e.event.ends = new Date(e.event.ends).getTime();
-            return e;
+          e.event.starts = new Date(e.event.starts);
+          return e;
         });
         $localStorage.user = JSON.stringify($scope.user);
+      }
+      if($routeParams.id){
+        $scope.currentSponzorship = $scope.user.sponzorships[$routeParams.id];
+        $scope.currentSponzorship.event.starts = new Date($scope.currentSponzorship.event.starts).getTime();
+        $scope.currentSponzorship.event.ends = new Date($scope.currentSponzorship.event.ends).getTime();
+        console.log($scope.currentSponzorship);
       }
       $scope.saveStatus = function() {
         for (var i = 0; i < $scope.user.acceptedSponzorships.length; i++) {
@@ -131,6 +136,7 @@
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
       };
+
     }
   }
   angular.module('sponzorme').controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
