@@ -1,5 +1,8 @@
 .allContainer .superContainer .cont .contentContainer {
-    &>.notifyDetailContainer {  
+    &>.notifyDetailContainer {
+        &>.eventTitles {
+            padding-right: 0;
+        }  
         &>.eventContainer {
             &>.textsContainer {
                 &>.sponzoringActions {
@@ -17,6 +20,7 @@
         }
     }
 }
+
 .allContainer .superContainer .cont .contentContainer.eventTasks {
     padding: 2.5em;
     @media screen and (max-width: $media_step1_bottom) {
@@ -31,10 +35,10 @@
         }
         
         &>.eventItem {
-            margin-left: 0.5em;
-
+            padding-left: 0.5em;
             &>.eventInfo {
                 background: $color_gray1;
+                padding: 0 0 0 0.5em;
 
                  &:hover {
                    background: $color_active;

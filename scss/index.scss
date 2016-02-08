@@ -29,6 +29,7 @@ $color_active: #f09200;
 $color_active_darker: #E6A235;
 
 $media_step1_bottom: 640px;
+$media_step1_medium: 900px;
 $media_step1_top: 1200px;
 
 
@@ -149,6 +150,33 @@ md-input-container.organizers:not(.md-input-invalid).md-input-focused label {
 
 md-input-container.organizers:not(.md-input-invalid).md-input-focused .md-input {
     border-color: $color_blue_brighter;
+}
+
+md-input-container.white {
+  &:not(.md-input-invalid).md-input-focused label {
+        color: $color_white;
+    }
+  
+  &>label {
+    font-weight: bold;
+  }
+
+  &>input {
+    color: $color_white;
+  }
+
+  &>.md-errors-spacer .md-char-counter {
+    color: $color_white;
+  }
+  &>textarea.md-input {
+    color: $color_white;
+  }
+}
+
+
+
+md-input-container.white:not(.md-input-invalid).md-input-focused .md-input {
+    border-color: $color_white;
 }
 
 md-input-container.sponzors:not(.md-input-invalid).md-input-focused label {

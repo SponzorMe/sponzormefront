@@ -15,24 +15,24 @@
       <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple translate>sponzorsMain.searchEvents</a>
+            <a href="#/organizers/dashboard" class="textActive" md-ink-ripple translate>_eventos_</a>
             <div class="border active"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
+            <a href="#/organizers/outstanding" md-ink-ripple translate>_patrocinadores_</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/outstanding" md-ink-ripple translate>_saldo_</a>
+            <a href="#/organizers/outstanding" md-ink-ripple translate>_saldo_</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/sponzors/outstanding" md-ink-ripple translate>_comunidad_</a>
+            <a href="#/organizers/outstanding" md-ink-ripple translate>_comunidad_</a>
             <div class="border"></div>
           </div>
         </div>
         <div class="buttons" layout="row" layout-align="start center">
-          <a href="#sponzors/notifications">
+          <a href="#organizers/notifications">
             <md-icon aria-label="b">notifications</md-icon>
           </a>
           <a href="" class="md-icon-button">
@@ -52,13 +52,13 @@
           </md-button>
           <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
             <md-menu-item class="menuXsItem active">
-              <a href="#/sponzors/dashboard" md-ink-ripple translate>sponzorsMain.searchEvents</a>
+              <a href="#/organizers/dashboard" md-ink-ripple translate>sponzorsMain.searchEvents</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
+              <a href="#/organizers/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
             </md-menu-item>
             <md-menu-item class="menuXsItem">
-              <a href="#/sponzors/notifications" md-ink-ripple translate>sponzorsMain.notifications</a>
+              <a href="#/organizers/notifications" md-ink-ripple translate>sponzorsMain.notifications</a>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -66,7 +66,37 @@
 
     <!-- Content starts -->
 
-    <div class="contentContainer">     
+    <div class="contentContainer"> 
+        <div class="counts md-whiteframe-1dp" layout="column" layout-gt-xs="row" layout-align="space-around center">
+          <div flex="25">
+            <a href="#" layout="column" layout-align="center center">
+              <md-icon class="color-blue-brighter" md-svg-src="images/rocket.svg"></md-icon>
+              <p class="color-blue-brighter">_patrocinadores_</p>
+              <h3>4</h3>
+            </a>
+          </div>
+          <div flex="25">
+            <a href="#" layout="column" layout-align="center center">
+              <md-icon class="color-blue-brighter">local_activity</md-icon>
+              <p class="color-blue-brighter">_eventos_</p>
+              <h3>12</h3>
+            </a>
+          </div>
+          <div flex="25">
+            <a href="#" layout="column" layout-align="center center">
+              <md-icon class="color-blue-brighter">account_balance</md-icon>
+              <p class="color-blue-brighter">_dinero_</p>
+              <h3>7800</h3>
+            </a>
+          </div>
+          <div flex="25">
+            <a href="#" layout="column" layout-align="center center">
+              <md-icon class="color-blue-brighter">people</md-icon>
+              <p class="color-blue-brighter">_comunidad_</p>
+              <h3>251</h3>
+            </a>
+          </div>
+        </div>  
           <!-- Filter --> 
         <div class="filterOrganizer" layout="row" layout-align="space-between center">
           <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp " md-no-float md-ink-ripple="false" flex-gt-xs="30" flex="70">
@@ -80,8 +110,19 @@
         </div>
 
       <!-- Events Results -->
-           
+
         <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
+          <div class="createNewEvent" flex="100">
+            <div layout="row" layout-align="space-around center" flex-gt-xs="40">
+              <a href="#/organizers/add/event" layout="row" layout-align="start center">
+                <md-button class="md-icon-button"><md-icon>add</md-icon></md-button>
+                <p flex-xs="50">crear nuevo evento</p>
+              </a>  
+              <a href="#" layout-align="start center">
+                <p flex-xs="40">historial</p>
+              </a>
+            </div>  
+          </div>    
           <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-sm="30">
             <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
               <img src="{{event.img}}" alt="event">
