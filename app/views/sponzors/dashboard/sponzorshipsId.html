@@ -40,7 +40,7 @@
                 <md-icon>share</md-icon>
               </md-button>
             </div>
-            <img src="../../images/home-bkg.jpg" alt="image">
+            <img src="{{currentSponzorship.event.image}}" alt="image">
             <div class="imageTexts">
               <h3>{{currentSponzorship.event.title}}</h3>
               <p ng-bind-html="currentSponzorship.event.description"></p>
@@ -100,7 +100,7 @@
 
               <div class="sponzoringActions">
                 <div>
-                  <span class="color-active" translate>sponzorsSponzorships.type</span>: Food
+                  <span class="color-active" translate>sponzorsSponzorships.type</span> {{currentSponzorship.perk.kind}}
                 </div>
                 <div class="sponzorringButtons" layout="row" layout-align="start center">
                   <span class="color-active" translate>sponzorsSponzorships.actions</span>
@@ -132,17 +132,17 @@
                 <div layout="row" flex="100">
                   <p flex="30" layout="row" layout-align="center center" translate>tasks.title</p>
                   <p flex="40" layout="row" layout-align="center center" translate>tasks.description</p>
-                  <p flex="20" layout="row" layout-align="center center" translate>tasks.status</p>
-                  <p layout="row" layout-align="center center" flex="25" translate hide-md hide-sm hide-xs></p>
+                  <p flex="10" layout="row" layout-align="center center" translate>tasks.status</p>
+                  <p flex="10" layout="row" layout-align="center center" translate>tasks.owner</p>
                 </div>
               </div>
             </div>
             <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in currentSponzorship.task_sponzor">
-              <a class="eventInfo" href="#/sponzors/sponzoring/:id" layout="row" flex="100">
+              <a class="eventInfo" layout="row" flex="100">
                 <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.task.title}}</p>
                 <p class="eventDate" flex="40" layout="row" layout-align="center center" translate>{{item.task.description}}</p>
-                <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.status}}</p>
-                <div layout="row" layout-align="center center" flex="25"></div>
+                <p class="eventSponzorType" flex="10" layout="row" layout-align="center center" translate>{{item.status}}</p>
+                <p class="eventSponzorType" flex="10" layout="row" layout-align="center center" translate>{{item.task.type}}</p>
               </a>
             </div>
           </div>

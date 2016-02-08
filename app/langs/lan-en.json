@@ -131,7 +131,7 @@
     "date": "Date",
     "organizer": "Organizer",
     "speaker": "Speaker",
-    "taskForThisEvent": "Tasks for this events"
+    "taskForThisEvent": "Tasks for this event"
   },
   "settings":{
     "profile": "Profile",
@@ -214,5 +214,8 @@
     "title": "Title",
     "assignTo": "Assign to Event",
     "seeEvent": "See Event"
-  }
+  },
+  "organizersMain":{
+    "": ""
+  },
 }
