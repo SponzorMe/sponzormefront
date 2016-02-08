@@ -216,6 +216,15 @@
     "seeEvent": "See Event"
   },
   "organizersMain":{
-    "": ""
-  },
+    "events": "Events",
+    "sponsors": "Sponsors",
+    "balance": "Balance",
+    "community": "Community",
+    "addNewEvent": "Add New Event",
+    "typeSearchEvent": "Type your search here",
+    "editEvent": "Edit Event",
+    "shareEvent": "Share Event",
+    "seeTasks": "See Tasks",
+    "deleteEvent": "Delete Event"
+  }
 }

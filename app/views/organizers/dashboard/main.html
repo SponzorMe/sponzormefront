@@ -15,19 +15,19 @@
       <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
           <div class="menuItem">
-            <a href="#/organizers/dashboard" class="textActive" md-ink-ripple translate>_eventos_</a>
+            <a href="#/organizers/dashboard" class="textActive" md-ink-ripple translate>organizersMain.events</a>
             <div class="border active"></div>
           </div>
           <div class="menuItem">
-            <a href="#/organizers/outstanding" md-ink-ripple translate>_patrocinadores_</a>
+            <a href="#/organizers/outstanding" md-ink-ripple translate>organizersMain.sponsors</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/organizers/outstanding" md-ink-ripple translate>_saldo_</a>
+            <a href="#/organizers/outstanding" md-ink-ripple translate>organizersMain.balance</a>
             <div class="border"></div>
           </div>
           <div class="menuItem">
-            <a href="#/organizers/outstanding" md-ink-ripple translate>_comunidad_</a>
+            <a href="#/organizers/outstanding" md-ink-ripple translate>organizersMain.community</a>
             <div class="border"></div>
           </div>
         </div>
@@ -66,47 +66,47 @@
 
     <!-- Content starts -->
 
-    <div class="contentContainer"> 
+    <div class="contentContainer">
         <div class="counts md-whiteframe-1dp" layout="column" layout-gt-xs="row" layout-align="space-around center">
           <div flex="25">
             <a href="#" layout="column" layout-align="center center">
               <md-icon class="color-blue-brighter" md-svg-src="images/rocket.svg"></md-icon>
-              <p class="color-blue-brighter">_patrocinadores_</p>
+              <p class="color-blue-brighter" translate>organizersMain.sponsors</p>
               <h3>4</h3>
             </a>
           </div>
           <div flex="25">
             <a href="#" layout="column" layout-align="center center">
               <md-icon class="color-blue-brighter">local_activity</md-icon>
-              <p class="color-blue-brighter">_eventos_</p>
+              <p class="color-blue-brighter" translate>organizersMain.events</p>
               <h3>12</h3>
             </a>
           </div>
           <div flex="25">
             <a href="#" layout="column" layout-align="center center">
               <md-icon class="color-blue-brighter">account_balance</md-icon>
-              <p class="color-blue-brighter">_dinero_</p>
+              <p class="color-blue-brighter" translate>organizersMain.balance</p>
               <h3>7800</h3>
             </a>
           </div>
           <div flex="25">
             <a href="#" layout="column" layout-align="center center">
               <md-icon class="color-blue-brighter">people</md-icon>
-              <p class="color-blue-brighter">_comunidad_</p>
+              <p class="color-blue-brighter" translate>organizersMain.community</p>
               <h3>251</h3>
             </a>
           </div>
-        </div>  
-          <!-- Filter --> 
+        </div>
+          <!-- Filter -->
         <div class="filterOrganizer" layout="row" layout-align="space-between center">
           <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp " md-no-float md-ink-ripple="false" flex-gt-xs="30" flex="70">
             <md-icon class="filterOrganizer">search</md-icon>
-            <input type="text" placeholder="{{ 'typeyourtesthere' | translate }}"/>
+            <input type="text" placeholder="{{ 'organizersMain.typeSearchEvent' | translate }}"/>
           </md-input-container>
           <div class="viewOptions" hide-xs hide-sm>
             <md-button class="md-icon-button"> <md-icon class="md-36">reorder</md-icon> </md-button>
             <md-button class="md-icon-button"> <md-icon class="color-blue-brighter md-36">dashboard</md-icon> </md-button>
-          </div>     
+          </div>
         </div>
 
       <!-- Events Results -->
@@ -116,26 +116,26 @@
             <div layout="row" layout-align="space-around center" flex-gt-xs="40">
               <a href="#/organizers/add/event" layout="row" layout-align="start center">
                 <md-button class="md-icon-button"><md-icon>add</md-icon></md-button>
-                <p flex-xs="50">crear nuevo evento</p>
-              </a>  
+                <p flex-xs="50" translate>organizersMain.addNewEvent</p>
+              </a>
               <a href="#" layout-align="start center">
                 <p flex-xs="40">historial</p>
               </a>
-            </div>  
-          </div>    
-          <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-sm="30">
+            </div>
+          </div>
+          <div class="event md-whiteframe-2dp" ng-repeat="event in user.events" flex-gt-sm="30">
             <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
-              <img src="{{event.img}}" alt="event">
-              <p>_{{event.imgDescript}}_</p>
+              <img src="{{event.image}}" alt="event">
+              <p>{{event.title}}</p>
             </div>
             <div class="textContainer">
-              <h2>_{{event.date}}_</h2>
+              <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
               <md-divider></md-divider>
               <p>
-                _{{event.eventDescript}}_
+                {{event.description|limitTo:100}}
               </p>
             </div>
-            <md-menu>  
+            <md-menu>
               <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
                 <md-icon aria-label="b">add</md-icon>
               </md-button>
@@ -143,32 +143,32 @@
                 <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">mode_edit</md-icon>
-                    <a href="#/event/:eventId">_Editar evento_</a>
+                    <a href="#/event/:eventId" translate>organizersMain.editEvent</a>
                   </md-button>
                 </md-menu-item>
                 <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">share</md-icon>
-                    _compartir evento_
+                    {{'organizersMain.shareEvent'|translate}}
                   </md-button>
                 </md-menu-item>
                 <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
                   <md-button>
                     <md-icon aria-label="b">assignment</md-icon>
-                    _ver tareas_
+                    {{'organizersMain.seeTasks'|translate}}
                   </md-button>
                 </md-menu-item>
                 <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
                   <md-button>
-                    <md-icon aria-label="b">thumb_up</md-icon>
-                    _Borrar evento_
+                    <md-icon aria-label="b">delete</md-icon>
+                    {{'organizersMain.deleteEvent'|translate}}
                   </md-button>
                 </md-menu-item>
               </md-menu-content>
             </md-menu>
-          </div> 
-        </md-content>                      
-      </div>  
+          </div>
+        </md-content>
+      </div>
     </div>
   </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
