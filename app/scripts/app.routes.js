@@ -135,7 +135,7 @@
       })
       .when('/organizers/add/event', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
-        controller: 'OrganizersMasterController'
+        controller: 'OrganizersEventCreateController'
       })
       .when('/organizers/edit/event/:id', {
         templateUrl: 'views/organizers/dashboard/edit_event.html',
