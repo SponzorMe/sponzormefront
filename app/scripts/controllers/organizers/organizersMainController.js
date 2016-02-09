@@ -53,7 +53,7 @@
         $scope.noRssMessage = true;
       });
       $scope.menuprincipal = 'views/organizers/menu.html';
-    }*/
+    }
   }
   angular.module('sponzorme').controller('OrganizersMainController', OrganizersMainController);
 
