@@ -33,7 +33,12 @@
             $scope.$storage = $localStorage;
             /* End user vars initialization */
             if(response.data.events){
-              $localStorage.events = JSON.stringify(response.data.events);
+              var parsedEvents = response.data.events.filter(function(e){
+                e.starts = new Date(e.starts).getTime();
+                e.ends = new Date(e.ends).getTime();
+                return e;
+              })
+              $localStorage.events = JSON.stringify(parsedEvents);
             }
             if (response.data.user.type === '1') {
               if ((redirectTo && redirectTo.indexOf('/#/login') === -1 && redirectTo.indexOf('sponzors') > -1) || (redirectTo && redirectTo.indexOf('/#/event/') > -1)) {

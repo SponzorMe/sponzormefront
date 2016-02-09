@@ -1,26 +1,21 @@
 'use strict';
 (function() {
-  function SponzorsOutstandingController($scope, $mdSidenav, $translate, $localStorage, $rootScope) {
+  function SponzorsOutstandingController($scope, $localStorage, $rootScope) {
     if ($rootScope.userValidation('1')) {
-      $scope.openSidenavLeft = function() {
-        $mdSidenav('left').toggle();
+      /*This function generate the events from the localStorage*/
+      $scope.restoreEvents = function() {
+        $scope.events = [];
+        if ($localStorage.events) { //If events, Should ever exist events?
+          var events = JSON.parse($localStorage.events);
+          console.log(events);
+          $scope.events = events.filter(function(e){
+            if(e.outstanding === '1'){
+              return e;
+            }
+          });
+        }
       };
-      $scope.isOpenLeft = function() {
-        var isOpen = true;
-        return isOpen = $mdSidenav('left').isOpen();
-      };
-      $scope.openMenu = function($mdOpenMenu, $event) {
-        $scope.originatorEv = $event;
-        $mdOpenMenu($event);
-      };
-      if ($localStorage.events) {
-        var events = JSON.parse($localStorage.events);
-        $scope.events = events.filter(function(e) {
-          //Remember filter here, past events and fake events
-          e.starts = new Date(e.starts);
-          return e;
-        });
-      }
+      $scope.restoreEvents();//Here Starts the callback
     }
   }
   angular.module('sponzorme').controller('SponzorsOutstandingController', SponzorsOutstandingController);

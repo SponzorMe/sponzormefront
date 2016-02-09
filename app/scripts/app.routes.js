@@ -6,22 +6,43 @@
   'use strict';
   angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeController'
-      })
-      .when('/', {
-        templateUrl: 'views/home.html',
-        controller: 'HomeController'
-      })
+    .when('/', {
+      templateUrl: 'views/login.html',
+      controller: 'LoginController'
+    })
+    .when('/login', {
+      templateUrl: 'views/login.html',
+      controller: 'LoginController'
+    })
+    .when('/sponzors/dashboard', {
+      templateUrl: 'views/sponzors/dashboard/main.html',
+      controller: 'SponzorsMasterController'
+    })
+    .when('/sponzors/outstanding', {
+      templateUrl: 'views/sponzors/dashboard/outstanding.html',
+      controller: 'SponzorsMasterController'
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       .when('/activation/:token', {
         templateUrl: 'views/login.html',
         controller: 'LoginController'
       })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginController'
-      })
+
       .when('/resend', {
         templateUrl: 'views/resend.html',
         controller: 'ResendController'
@@ -70,10 +91,6 @@
       .when('/organizers/settings', {
         templateUrl: 'views/organizers/dashboard/settings.html',
         controller: 'OrganizersSettingsController'
-      })
-      .when('/sponzors/dashboard', {
-        templateUrl: 'views/sponzors/dashboard/main.html',
-        controller: 'SponzorsMainController'
       })
       .when('/sponzors/settings', {
         templateUrl: 'views/sponzors/dashboard/settings.html',

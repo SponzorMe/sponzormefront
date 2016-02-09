@@ -1,72 +1,56 @@
 'use strict';
 (function() {
-  function SponzorsMainController($scope, $mdSidenav, $translate, $localStorage, eventRequest, ngDialog, sponzorshipRequest, $rootScope, $sce, demoRequest, $timeout) {
+  /*This controller has two responsabilities
+   First show all Events
+   Second allows make a filter based on the interests*/
+  function SponzorsMainController($scope, $localStorage, $rootScope) {
     if ($rootScope.userValidation('1')) {
-      $scope.filter = [];
-      $scope.user = JSON.parse($localStorage.user);
-      if ($localStorage.events) {
-        var events = JSON.parse($localStorage.events);
-        $scope.events = events.filter(function(e) {//Remember remove past events and fake events
-          e.starts = new Date(e.starts);
-          return e;
-        });
-      }
-      $scope.filterClick = function(interest) {
-        $scope.filter.push(interest);
-      };
-      $scope.openMenu = function($mdOpenMenu, $event) {
-        $scope.originatorEv = $event;
-        $mdOpenMenu($event);
-      };
+      $scope.filter = [];//Filter to starge the words
+      $scope.events = [];//Array to storage the events
+      $scope.user = JSON.parse($localStorage.user);//Parse User Information
+      var events;//Var to store the events in this controller temporaly
 
-      $scope.showPerks = function(event) {
-        $scope.showForm = false;
-        $scope.selectedPerk = false;
-        $scope.currentEvent = event;
-        ngDialog.open({
-          template: 'views/templates/eventPerksDialog.html',
-          scope: $scope,
-          showClose: true
-        });
-      };
-      $scope.formCreateSponzorship = function(perk) {
-        $scope.newSponzorship = {
-          'organizer_id': $scope.currentEvent.user_organizer.id,
-          'sponzor_id': $localStorage.id,
-          'event_id': $scope.currentEvent.id,
-          'perk_id': perk.id,
-          'cause': '',
-          'status': 0
-        };
-        $scope.selectedPerk = perk;
-      };
-      $scope.showCauseForm = function() {
-        $scope.showForm = true;
-      };
-      $scope.createSponzorship = function() {
-        $rootScope.closeAllDialogs();
-        $rootScope.showLoading();
-        sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
-          $scope.user.sponzorships.push(response.data.Sponzorship);
-          $scope.user.pendingSponzorships.push(response.data.Sponzorship);
-          $localStorage.user = JSON.stringify($scope.user);
-          var firebaseNotification = {
-            to: $scope.currentEvent.user_organizer.id,
-            text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
-            link: '#/organizers/sponzors'
-          };
-          $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentEvent.user_organizer.id);
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
-        }, function errorCallback(err) {
-          $rootScope.closeAllDialogs();
-          if (err.status === 409) {
-            $rootScope.showDialog('error', 'alreadySponzoring', false);
-          } else {
-            $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
+      /*This function select events that match with filter*/
+      $scope.filterEvents = function(){
+        $scope.events = [];
+        $scope.events = events.filter(function(e){
+          for(var j = 0; j < $scope.filter.length; j++){
+            if(
+              e.title.indexOf($scope.filter[j])>-1 ||
+              e.description.indexOf($scope.filter[j])> -1
+            ){
+              return e;
+            }
           }
         });
       };
+
+      /*This function add to the filter the interest clicked on view*/
+      $scope.filterClick = function(interest) {
+        $scope.filter.push(interest);
+        $scope.filterEvents();
+      };
+
+      /*This function is called when an item on filter is removed*/
+      $scope.filterRemove = function(){
+        if($scope.filter.length){
+          $scope.filterEvents();
+        }
+        else{
+          $scope.restoreEvents();
+        }
+      };
+
+      /*This function generate the events from the localStorage*/
+      $scope.restoreEvents = function(){
+        $scope.events = [];
+        if ($localStorage.events) {//If events, Should ever exist events?
+          events = JSON.parse($localStorage.events);
+          $scope.events = JSON.parse($localStorage.events);
+        }
+      };
+
+      $scope.restoreEvents();//Here starts the callback
     }
   }
   angular.module('sponzorme').controller('SponzorsMainController', SponzorsMainController);

@@ -58,7 +58,7 @@
 
     <!-- Content starts -->
 
-      <div class="contentContainer">
+      <div class="contentContainer" ng-controller="SponzorsOutstandingController">
       <div class="texts" layout="row" layout-align="space-between">
         <h3  translate>sponzorsMain.featuredEvents</h3>
       </div>
@@ -67,7 +67,7 @@
       <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
         <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
           <div class="eventImage" layout="column" layout-align="center center">
-            <img src="{{event.image}}" alt="event" width="125px" height="130px">
+            <img ng-src="{{event.image}}" alt="event" width="125px" height="130px">
             <p>{{event.title}}</p>
           </div>
           <div class="textContainer">
