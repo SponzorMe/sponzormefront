@@ -1,60 +1,16 @@
 'use strict';
 (function() {
-
-  function SponzorsSponzorshipsController($scope, $mdSidenav, $location, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams) {
-    $scope.statuses = SPONZORSHIPSTATUSES;
-    //mock starts
-    $scope.openSidenavLeft = function() {
-      $mdSidenav('left').toggle();
-    };
+  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, ngDialog) {
     if ($rootScope.userValidation('1')) {
-      $scope.todayDate = new Date().getTime();
-      $scope.user = JSON.parse($localStorage.user);
-      if ($scope.user.sponzorships) {
-        $scope.user.sponzorships = $scope.user.sponzorships.filter(function(e) {
-          e.event.starts = new Date(e.event.starts);
-          return e;
-        });
-        $localStorage.user = JSON.stringify($scope.user);
-      }
-      if($routeParams.id){
+      $scope.todayDate = new Date().getTime(); //To compare
+      $scope.user = JSON.parse($localStorage.user); //Restoring the user
+      $scope.statuses = SPONZORSHIPSTATUSES; //Status of the Sponzorships
+      if ($routeParams.id) { //If we are in Sponzorship Detail
         $scope.currentSponzorship = $scope.user.sponzorships[$routeParams.id];
-        $scope.currentSponzorship.event.starts = new Date($scope.currentSponzorship.event.starts).getTime();
-        $scope.currentSponzorship.event.ends = new Date($scope.currentSponzorship.event.ends).getTime();
-        console.log($scope.currentSponzorship);
       }
-      $scope.saveStatus = function() {
-        for (var i = 0; i < $scope.user.acceptedSponzorships.length; i++) {
-          if ($scope.user.acceptedSponzorships[i].id === $scope.currentSponzorship.id) {
-            $scope.user.acceptedSponzorships[i] = $scope.currentSponzorship;
-            break;
-          }
-        }
-        //We update in general Sponzorships
-        for (i = 0; i < $scope.user.sponzorships.length; i++) {
-          if ($scope.user.sponzorships[i].id === $scope.currentSponzorship.id) {
-            $scope.user.sponzorships[i] = $scope.currentSponzorship;
-            break;
-          }
-        }
-        $localStorage.user = JSON.stringify($scope.user);
-      };
-      $scope.showTasks = function(sponzorship) {
-        $scope.currentSponzorship = sponzorship;
-        if (sponzorship.task_sponzor) {
-          $scope.organizerTasks = sponzorship.task_sponzor.filter(function(element) {
-            if (element.task.type === '0') {
-              return element;
-            }
-          });
-          $scope.sponzorTasks = sponzorship.task_sponzor.filter(function(element) {
-            if (element.task.type === '1') {
-              return element;
-            }
-          });
-        }
-      };
-      $scope.paymentInformation = function(sponzorship) {
+
+      //This function open the Payment Details Dialog
+      $scope.doPayment = function(sponzorship) {
         $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
         $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
         $scope.SANDBOX = $rootScope.getConstants().PAYPALSANDBOX;
@@ -69,74 +25,31 @@
           showClose: true
         });
       };
-      //This function changes to 1 the sponzor task status
-      $scope.changeStatus = function(index, status) {
-        $scope.sponzorTasks[index].loading = true;
-        var taskSponzorId = $scope.sponzorTasks[index].id;
-        var data = {
-          status: status
-        };
-        taskSponzorRequest.editTaskSponzorPatch(taskSponzorId, data).then(function successCallBack(response) {
-          $scope.sponzorTasks[index].loading = false;
-          $scope.sponzorTasks[index].status = status;
-          $scope.saveStatus();
-        }, function errorCallback() {
-          $scope.sponzorTasks[index].loading = false;
-          $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
-        });
-      };
-      $scope.deleteTaskSponzor = function(index) {
-        $scope.sponzorTasks[index].loading = true;
-        var taskSponzorId = $scope.sponzorTasks[index].id;
-        taskSponzorRequest.deleteTaskSponzor(taskSponzorId).then(function successCallback(response) {
-          for (var i = 0; i < $scope.currentSponzorship.task_sponzor.length; i++) {
-            if ($scope.currentSponzorship.task_sponzor[i].id === taskSponzorId) {
-              $scope.currentSponzorship.task_sponzor.splice(i, 1);
-              break;
-            }
-          }
-          $scope.sponzorTasks.splice(index, 1);
-          $scope.saveStatus();
-        }, function errorCallback() {
-          $scope.sponzorTasks[index].loading = false;
-          $rootScope.showDialog('error', 'errorRemovingTaskSponzor', false);
-        });
-      };
-      $scope.showTaskForm = function() {
-        $scope.todo = {
-          type: 1, //Because is created by the Sponzor
-          status: 0, //By default is not complete
-          perk_id: $scope.currentSponzorship.perk.id,
-          event_id: $scope.currentSponzorship.event_id,
-          sponzorship_id: $scope.currentSponzorship.id,
-          user_id: $localStorage.id,
-          organizer_id: $scope.currentSponzorship.organizer.id,
-          sponzor_id: $localStorage.id,
-          title: '',
-          description: ''
-        };
+
+      //This function displays a popup to Show Download calendar
+      $scope.downloadCalendar = function(sponzorship) {
+        $scope.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
+        $scope.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
+        $scope.ends = $scope.ends.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
+        $scope.starts = $scope.starts.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
+        $scope.currentSponzorship = sponzorship;
         ngDialog.open({
-          template: 'views/templates/newTaskForm.html',
-          scope: $scope,
-          showClose: false
-        });
-      };
-      $scope.addTask = function() {
-        $rootScope.closeAllDialogs();
-        $rootScope.showLoading();
-        taskSponzorRequest.createTaskSponzor($scope.todo).then(function successCallback(response) {
-          $scope.currentSponzorship.perk.tasks.push(response.data.PerkTask);
-          $scope.currentSponzorship.task_sponzor.push(response.data.TaskSponzor);
-          $scope.saveStatus();
-          $scope.showTasks($scope.currentSponzorship);
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('success', 'taskCreatedSuccesfuly', false);
-        }, function errorCallback() {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'errorCreatingTask', false);
+          template: 'views/templates/addToCalendarDialog.html',
+          showClose: false,
+          scope: $scope
         });
       };
 
+      //This function shows SpoonzorShipCause
+      $scope.seeCause = function(sponzorship) {
+        $scope.cause = sponzorship.cause;
+        $scope.status = sponzorship.status;
+        ngDialog.open({
+          template: 'views/templates/sponzorshipCauseDialog.html',
+          showClose: false,
+          scope: $scope
+        });
+      };
     }
   }
   angular.module('sponzorme').controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);

@@ -87,7 +87,15 @@
     "date": "Date",
     "type": "Type",
     "status": "Status",
-    "actions": "Actions"
+    "actions": "Actions",
+    "rateOrganizer": "Rate the Organizer",
+    "chatWithOrganizer": "Chat with the Organizer",
+    "seeCause": "See Cause",
+    "addToCalendar": "Add to Calendar",
+    "verifyingPayment": "We are verifying the payment",
+    "paid": "Paid",
+    "doPayment": "Start the payment Process",
+    "wait": "Wait until Organizer approve"
   },
   "sidenav": {
     "settings": "Settings",

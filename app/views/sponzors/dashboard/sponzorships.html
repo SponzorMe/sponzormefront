@@ -1,6 +1,6 @@
 <div layout-fill class="allContainer">
 
- <!-- navbar 1 -->
+  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
 
   <md-content class="superContainer" layout="row">
@@ -8,10 +8,9 @@
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
 
-
     <div class="cont" flex>
 
-    <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
         </div>
         <div class="buttons" layout="row" layout-align="start center">
@@ -21,15 +20,15 @@
           <a href="" class="md-icon-button">
             <md-icon aria-label="b">send</md-icon>
           </a>
-           <a href="" class="md-icon-button">
+          <a href="" class="md-icon-button">
             <md-icon aria-label="b">person</md-icon>
           </a>
         </div>
       </div>
-    <!-- Content starts -->
+      <!-- Content starts -->
       <div class="contentContainer" flex ng-controller="SponzorsSponzorshipsController">
         <div class="notifyDetailContainer" layout="column">
-          <div class="eventTitles" layout="row"  hide-xs>
+          <div class="eventTitles" layout="row" hide-xs>
             <div layout="row" flex="100">
               <p flex="30" layout="row" layout-align="center center" translate>sponzorsSponzorships.title</p>
               <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.date</p>
@@ -40,7 +39,7 @@
           </div>
           <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in user.sponzorships">
             <a class="eventInfo" href="#/sponzors/sponzoring/{{$index}}" layout="row" flex="100">
-              <p class="eventTitle" flex="30" layout="row" layout-align="center center"  translate>{{item.event.title}}</p>
+              <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.event.title}}</p>
               <p class="eventDate" flex="20" layout="row" layout-align="center center">{{item.event.starts|date:'MMM dd, yyyy h:mma'}}</p>
               <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.perk.kind}}</p>
               <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
@@ -48,18 +47,59 @@
               </p>
             </a>
             <div class="actionSponzor" layout="row" layout-align="center center" flex="25">
-              <a href=""><md-icon>thumb_up</md-icon></a>
-              <a href=""><md-icon>event</md-icon></a>
-              <a href=""><md-icon>help</md-icon></a>
-              <a href=""><md-icon>comment</md-icon></a>
-              <a href=""><md-icon>stars</md-icon></a>
+              <a ng-if="item.status==0" href="">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.wait'|translate}}
+                </md-tooltip>
+                <md-icon>timer</md-icon>
+              </a>
+              <a ng-if="item.status>0 && item.status<3" href="" ng-click="doPayment(item)">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.doPayment'|translate}}
+                </md-tooltip>
+                <md-icon>payment</md-icon>
+              </a>
+              <a ng-if="item.status==3" href="" ng-click="doPayment()">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.paid'|translate}}
+                </md-tooltip>
+                <md-icon><i class="material-icons">verified_user</i></md-icon>
+              </a>
+              <a ng-if="item.status>3" href="" ng-click="doPayment()">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.verifyingPayment'|translate}}
+                </md-tooltip>
+                <md-icon><i class="material-icons"><i class="material-icons">settings_backup_restore</i></i></md-icon>
+              </a>
+              <a href="" ng-click="downloadCalendar(item)">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.addToCalendar'|translate}}
+                </md-tooltip>
+                <md-icon>event</md-icon>
+              </a>
+              <a href="" ng-click="seeCause(item)">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.seeCause'|translate}}
+                </md-tooltip>
+                <md-icon>help</md-icon>
+              </a>
+              <a href="#/sponzors/chat/sponzorship/{{$index}}">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.chatWithOrganizer'|translate}}
+                </md-tooltip>
+                <md-icon>comment</md-icon>
+              </a>
+              <a href="">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.rateOrganizer'|translate}}
+                </md-tooltip>
+                <md-icon>stars</md-icon>
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </md-content>
-
-
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>

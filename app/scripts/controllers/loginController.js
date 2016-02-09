@@ -28,6 +28,12 @@
             $translate.use(response.data.user.lang);
             $localStorage.lastUpdate = new Date().getTime();
             $rootScope.closeAllDialogs();
+            if(response.data.user.sponzorships){
+              response.data.user.sponzorships = response.data.user.sponzorships.filter(function(e){
+                e.event.starts = new Date(e.event.starts).getTime();
+                return e;
+              });
+            }
             $localStorage.user = JSON.stringify(response.data.user);
             $localStorage.events = [];
             $scope.$storage = $localStorage;
