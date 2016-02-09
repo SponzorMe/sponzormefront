@@ -22,6 +22,10 @@
       templateUrl: 'views/sponzors/dashboard/outstanding.html',
       controller: 'SponzorsMasterController'
     })
+    .when('/sponzors/saved', {
+      templateUrl: 'views/sponzors/dashboard/saved.html',
+      controller: 'SponzorsMasterController'
+    })
 
 
 
@@ -99,10 +103,6 @@
       .when('/sponzors/friend', {
         templateUrl: 'views/sponzors/dashboard/friend.html',
         controller: 'SponzorsFriendController'
-      })
-      .when('/sponzors/saved', {
-        templateUrl: 'views/sponzors/dashboard/saved.html',
-        controller: 'SponzorsSavedController'
       })
       .when('/sponzors/sponzoring', {
         templateUrl: 'views/sponzors/dashboard/sponzorships.html',

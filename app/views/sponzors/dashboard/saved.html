@@ -58,23 +58,23 @@
 
     <!-- Content starts -->
 
-      <div class="contentContainer">
+      <div class="contentContainer" ng-controller="SponzorsSavedController">
       <div class="texts" layout="row" layout-align="space-between">
         <h3  translate>sponzorsMain.featuredEvents</h3>
       </div>
       <!-- Events Results -->
 
       <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
-        <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
+        <div class="event md-whiteframe-2dp" ng-repeat="item in user.saved_events" flex-gt-xs="30">
           <div class="eventImage" layout="column" layout-align="center center">
-            <img ng-src="{{event.image}}" alt="event" width="125px" height="130px">
-            <p>{{event.title}}</p>
+            <img ng-src="{{item.event.image}}" alt="event" width="125px" height="130px">
+            <p>{{item.event.title}}</p>
           </div>
           <div class="textContainer">
-            <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
+            <h2>{{item.event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
             <md-divider></md-divider>
             <p>
-              {{event.description|limitTo:100}}
+              {{item.event.description|limitTo:100}}
             </p>
           </div>
             <md-menu>
