@@ -4,6 +4,7 @@
     if ($rootScope.userValidation('1')) {
       $scope.todayDate = new Date().getTime(); //To compare
       $scope.user = JSON.parse($localStorage.user); //Restoring the user
+      console.log($scope.user.sponzorships);
       $scope.statuses = SPONZORSHIPSTATUSES; //Status of the Sponzorships
       if ($routeParams.id) { //If we are in Sponzorship Detail
         $scope.currentSponzorship = $scope.user.sponzorships[$routeParams.id];

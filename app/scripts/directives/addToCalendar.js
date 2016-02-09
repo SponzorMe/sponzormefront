@@ -34,7 +34,7 @@ angular
           if (!s || s.length <= maxLength) {
             return s;
           } else {
-            return s.substring(0, maxLength).replace(/\n/g, '\\n') + "\r\n " + wrap(s.substring(maxLength), 75);
+            return s.substring(0, maxLength).replace(/\n/g, '\\n') + '\r\n ' + wrap(s.substring(maxLength), 75);
           }
         }
 
@@ -143,16 +143,12 @@ angular
         btnText: '@'
       },
       controller: 'AddtocalendarCtrl',
-      template: `
-      <md-button class="md-raised" ng-click="calendarUrl.dlIcal()">iCalendar</md-button>
-      <md-button class="md-raised md-primary" href="{{calendarUrl.google}}" target="_blank">Google Calendar</md-button>
-      <md-button class="md-raised md-primary" ng-click="calendarUrl.dlIcal()">Outlook</md-button>
-      <md-button class="md-raised md-warn" href="{{calendarUrl.yahoo}}" target="_blank">Yahoo! Calendar</md-button>
-      <md-button class="md-raised md-warn" href="{{calendarUrl.microsoft}}" target="_blank">Microsoft Calendar</md-button>
-      <a </a>
-      <a</a>
-      <a</a>
-      <a </a>`
+      template:
+      '<md-button class="md-raised" ng-click="calendarUrl.dlIcal()">iCalendar</md-button>'+
+      '<md-button class="md-raised md-primary" href="{{calendarUrl.google}}" target="_blank">Google Calendar</md-button>'+
+      '<md-button class="md-raised md-primary" ng-click="calendarUrl.dlIcal()">Outlook</md-button>'+
+      '<md-button class="md-raised md-warn" href="{{calendarUrl.yahoo}}" target="_blank">Yahoo! Calendar</md-button>'+
+      '<md-button class="md-raised md-warn" href="{{calendarUrl.microsoft}}" target="_blank">Microsoft Calendar</md-button>'
     };
 
   });

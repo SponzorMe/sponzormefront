@@ -89,11 +89,17 @@
                 </md-tooltip>
                 <md-icon>comment</md-icon>
               </a>
-              <a href="">
+              <a href="" ng-if="item.rated_sponzor == 0">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.rateOrganizer'|translate}}
                 </md-tooltip>
                 <md-icon>stars</md-icon>
+              </a>
+              <a href="" ng-if="item.rated_sponzor == 1">
+                <md-tooltip md-direction="bottom">
+                  {{'sponzorsSponzorships.ratedOrganizer'|translate}}
+                </md-tooltip>
+                <md-icon>playlist_add_check</md-icon>
               </a>
             </div>
           </div>
