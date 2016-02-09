@@ -1,5 +1,6 @@
 .allContainer .superContainer .cont .contentContainer {
-    .notifyDetailContainer {  
+    .notifyDetailContainer {
+        position: relative;
         &>.eventContainer {
             padding: 0;
             background: $color_white;
@@ -54,6 +55,23 @@
                     top: 30px;
                     right: 0;
                     z-index: 30;
+                }
+            }
+
+            &>.editPhoto {
+                position: absolute;
+                top: 15em;
+                left: 0;
+
+                &>.md-button {
+                    font-weight: bold;
+                    color: $color_white;
+                    &>md-icon {
+                        font-size: 3em;
+                        color: $color_white;
+                        height: auto;
+                        width: auto;
+                    }
                 }
             }
 
