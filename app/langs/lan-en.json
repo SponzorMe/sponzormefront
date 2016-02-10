@@ -95,7 +95,8 @@
     "verifyingPayment": "We are verifying the payment",
     "paid": "Paid",
     "doPayment": "Start the payment Process",
-    "wait": "Wait until Organizer approve"
+    "wait": "Wait until Organizer approve",
+    "ratedOrganizer":"Rated"
   },
   "sidenav": {
     "settings": "Settings",
@@ -221,7 +222,12 @@
     "send": "Send",
     "title": "Title",
     "assignTo": "Assign to Event",
-    "seeEvent": "See Event"
+    "seeEvent": "See Event",
+    "organizer": "Organizer",
+    "sponzor": "Sponzor",
+    "you": "You",
+    "status0": "Pending",
+    "status1": "Completed"
   },
   "organizersMain":{
     "events": "Events",
