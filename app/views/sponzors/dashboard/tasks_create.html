@@ -1,16 +1,11 @@
 <div layout-fill class="allContainer">
-
- <!-- navbar 1 -->
+  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-
   <md-content class="superContainer" layout="row">
-
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-
     <div class="cont" flex>
-
-    <!-- navbar -->
+      <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <a href="#/sponzors/tasks" md-ink-ripple>
@@ -23,84 +18,68 @@
           <a href="" class="md-icon-button">
             <md-icon aria-label="b">send</md-icon>
           </a>
-           <a href="" class="md-icon-button">
+          <a href="" class="md-icon-button">
             <md-icon aria-label="b">person</md-icon>
           </a>
         </div>
       </div>
       <!-- navbar ("menu") when xs -->
-        <div class="menuXsContainer">
-          <md-menu hide-gt-sm>
-            <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
-              <md-icon>person</md-icon>
-            </md-button>
-            <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
-               <md-menu-item class="menuXsItem">
-                <a href="#/sponzors/tasks" md-ink-ripple><md-icon>reply</md-icon></a>
-              </md-menu-item>
-              <md-menu-item class="menuXsItem">
-                <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
-        </div>
-
-
-    <!-- Content starts -->
-
-    <div class="contentContainer">
-
-
-      <!-- Events Results -->
-
+      <div class="menuXsContainer">
+        <md-menu hide-gt-sm>
+          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon>person</md-icon>
+          </md-button>
+          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/tasks" md-ink-ripple>
+                <md-icon>reply</md-icon>
+              </a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/notifications" md-ink-ripple>_Notificaciones_</a>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+      <!-- Content starts -->
+      <div class="contentContainer">
+        <!-- Events Results -->
         <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
-            <md-content class="replyElement newTask" layout="column">
-
-                <div class="titleInput">
-                  <md-input-container class="sponzors">
-                    <label translate>tasks.title</label>
-                    <input type="text" ng-model="reply.title" md-maxlength="70">
-                  </md-input-container>
-                </div>
-
-
-                <div class="messageInput">
-                  <md-input-container class="sponzors">
-                    <label translate>tasks.description</label>
-                    <textarea ng-model="reply.message"  md-maxlength="250"></textarea>
-                  </md-input-container>
-                </div>
-
-                <!--div class="datePicker">
-                    <p>Standard date-picker</p>
-                    <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-                </div-->
-            </md-content>
-        </div>
-
-        <div class="tasksAsign">
-            <p class="color-gray-text" translate>tasks.assignTo</p>
-            <div class="task" layout="row" layout-align="space-between center" ng-repeat="t in [1,2,3]">
-                <md-checkbox class="sponzors">
-                    {{ taskDetail.title }}
-                </md-checkbox>
-                <p translate>tasks.seeEvent</p>
+          <md-content class="replyElement newTask" layout="column">
+            <div class="titleInput">
+              <md-input-container class="sponzors">
+                <label translate>tasks.title</label>
+                <input type="text" ng-model="task.title" md-maxlength="70">
+              </md-input-container>
             </div>
+            <div class="messageInput">
+              <md-input-container class="sponzors">
+                <label translate>tasks.description</label>
+                <textarea ng-model="task.description" md-maxlength="250"></textarea>
+              </md-input-container>
+            </div>
+          </md-content>
         </div>
-
+        <div class="tasksAsign">
+          <p class="color-gray-text" translate>tasks.assignTo</p>
+          <div class="task" layout="row" layout-align="space-between center" ng-repeat="t in user.sponzorships">
+            <md-checkbox class="sponzors" ng-model="task.sponzorship[$index]" ng-change="changeSponzorship($index)">
+              {{t.event.title}} - {{t.perk.kind}}
+            </md-checkbox>
+            <p translate>tasks.seeEvent</p>
+          </div>
+        </div>
         <md-divider></md-divider>
-
         <div class="actions" layout="row" layout-align="start center">
-          <a href="" md-ink-ripple="#f09200" layout="row">
+          <a href="" md-ink-ripple="#f09200" layout="row" ng-click="addNewTask()">
             <md-icon>send</md-icon>
             <p translate>tasks.send</p>
           </a>
-          <a href="" md-ink-ripple="#f09200" layout="row">
+          <a href="#/sponzors/tasks" md-ink-ripple="#f09200" layout="row">
             <md-icon>delete</md-icon>
             <p translate>tasks.delete</p>
           </a>
         </div>
-
       </div>
     </div>
   </md-content>

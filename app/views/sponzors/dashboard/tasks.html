@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in tasks">
-            <a class="eventInfo" href="#/sponzors/task/ :id" layout="row" flex="100">
+            <a class="eventInfo" href="#/sponzors/task/{{$index}}" layout="row" flex="100">
               <div class="taskIcon" flex="5" flex-xs="10" layout="row" layout-align="start center">
                 <md-icon ng-if="item.status == 0">timer</md-icon>
                 <md-icon ng-if="item.status == 1">done_all</md-icon>

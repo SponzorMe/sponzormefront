@@ -26,6 +26,10 @@
       templateUrl: 'views/sponzors/dashboard/saved.html',
       controller: 'SponzorsMasterController'
     })
+    .when('/sponzors/task/:id', {
+        templateUrl: 'views/sponzors/dashboard/taskId.html',
+        controller: 'SponzorsTasksController'
+     })
 
 
 

@@ -47,9 +47,9 @@
             <div class="detailHeader" layout="row" layout-align="space-between center">
               <div class="title" layout="column" layout-align="start start">
                 <div class="subhead" layout="row">
-                  <p>{{'tasks.event'|translate}}: {{taskDetail.event}}</p>
+                  <p>{{'tasks.event'|translate}}: {{tasks[currentTaskIndex].event.title}}</p>
                 </div>
-                <p class="head color-active"> {{taskDetail.title}}</p>
+                <p class="head color-active"> {{tasks[currentTaskIndex].task.title}}</p>
               </div>
             </div>
 
@@ -57,7 +57,7 @@
 
             <div class="message">
               <p class="subheadMessage" translate>tasks.description</p>
-              <p>{{taskDetail.message}}</p>
+              <p>{{tasks[currentTaskIndex].task.description}}</p>
             </div>
 
             <div class="status" layou="column">
