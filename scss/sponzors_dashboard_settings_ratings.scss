@@ -50,8 +50,23 @@
             color: $color_gray_text;
         }
 
-        &>.ratingItem p {
-            text-align: justify;
+        &>.ratingItem {
+            &>.ratingComment p {
+                text-align: justify;
+            }
+
+            &>.graderContainer {
+                &>.grader {
+                    margin: 0;
+                    text-align: center;
+                }
+
+                &>.rate {
+                    &>md-icon {
+                        margin: 0;
+                    }
+                }
+            }
         }
     }
 }
