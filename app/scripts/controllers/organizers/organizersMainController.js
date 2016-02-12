@@ -1,7 +1,7 @@
 'use strict';
 (function() {
   function OrganizersMainController($scope, $translate, $localStorage, rssRequest, $rootScope, demoRequest, $timeout) {
-
+    //mock
     $scope.filterClick = function(id) {
       $scope.filter.push(id);
     };
@@ -19,7 +19,7 @@
       $mdOpenMenu($event);
     };
 
-    if ($rootScope.userValidation('0')) {
+   /* if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Dashboard',
         title: 'Dashboard'

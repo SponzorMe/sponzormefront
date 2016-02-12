@@ -139,7 +139,11 @@
       })
       .when('/organizers/add/event', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
-        controller: 'OrganizersMasterController'
+        controller: 'OrganizersEventCreateController'
+      })
+       .when('/organizers/landing', {
+        templateUrl: 'views/organizers/dashboard/landing.html',
+        controller: 'OrganizersLandingController'
       })
       .when('/organizers/edit/event/:id', {
         templateUrl: 'views/organizers/dashboard/edit_event.html',

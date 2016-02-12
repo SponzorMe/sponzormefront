@@ -1,16 +1,12 @@
 <div layout-fill class="allContainer">
-  
+
  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-  
-  <md-content class="superContainer" layout="row"> 
-    
-    <!-- sidenav -->
-    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-  
-    <div class="cont" flex>
-    
-    <!-- navbar -->      
+
+  <md-content class="superContainer" layout="row">
+    <div class="cont landingEvent" flex>
+
+    <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <a href="#/sponzors/dashboard" md-ink-ripple>
@@ -44,15 +40,15 @@
               <p>_El equipo de Ionic anuncio hace poco una nueva version de Ionic 1 la cual trae muchas cosas interesantes. Este meetup es sobre explorar esos cambios y como puedo mejorar mis apps._</p>
               <a href="https://github.com/driftyco/ionic/releases/tag/v1.2.1">Github</a>
             </div>
-            
+
             <div class="textsContainer">
               <h3 class="color-blue-brighter">_Speaker:_</h3>
-              <p>Carlos Rojas <span class="color-blue-brighter">@carlosrojas_o</span></p>         
+              <p>Carlos Rojas <span class="color-blue-brighter">@carlosrojas_o</span></p>
               <p class="description">
                 _Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex adipisci ab assumenda consequuntur necessitatibus dolores, minus unde dicta. Id possimus placeat non. Neque consectetur quidem._
               </p>
               <md-divider></md-divider>
-              
+
               <div class="eventInfo" layout="row" layout-wrap>
                 <div class="item">
                   <p class="color-blue-brighter" translate>Organizer</p>
@@ -90,17 +86,17 @@
                   </div>
                 </div>
               </div>
-              <a href="" class="contact" md-ink-ripple layout="row" layout-align="start center" flex="25">
+              <a href="" class="contact" md-ink-ripple layout="row" layout-align="start center" flex="20">
                 <md-icon>email</md-icon>
                 <p>_Escribir al organizador_</p>
-              </a> 
+              </a>
             </div>
-          </div>          
+          </div>
           <md-content class="sponsorAnEvent">
             <h4 class="color-blue-brighter" translate>seePerks</h4>
             <div href="" class="table" layout-padding flex="grow">
               <div class="tableContent" layout-wrap layout="row" layout-align="space-around center">
-                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                <div class="columnContainer" flex="50" flex-gt-sm="25">
                  <div class="tableTitle">gold</div>
                  <div class="border"></div>
                  <a href="" class="toSponzorWith" layout="column" layout-align="start center">
@@ -111,12 +107,12 @@
                     <p>_Presencia_</p>
                     <p>_Medios_</p>
                   </a>
-                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
                   <div class="tableLikeButton" layout="row" layout-align="center center">
                     <a href=""><md-icon>thumb_up</md-icon></a>
                   </div>
-                </div> 
-                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                </div>
+                <div class="columnContainer" flex="50" flex-gt-sm="25">
                  <div class="tableTitle">silver</div>
                  <div class="border"></div>
                  <a href="" class="toSponzorWith" layout="column" layout-align="start center">
@@ -124,53 +120,42 @@
                     <p>_Escarapelas_</p>
                     <p>_Volantes_</p>
                   </a>
-                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
                   <div class="tableLikeButton" layout="row" layout-align="center center">
                     <a href=""><md-icon>thumb_up</md-icon></a>
                   </div>
-                </div> 
-                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                </div>
+                <div class="columnContainer" flex="50" flex-gt-sm="25">
                  <div class="tableTitle">bronze</div>
                  <div class="border"></div>
                  <a href="" class="toSponzorWith" layout="column" layout-align="start center">
                     <p>_T-Shirt_</p>
                     <p>_Escarapelas_</p>
                   </a>
-                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
                   <div class="tableLikeButton" layout="row" layout-align="center center">
                     <a href=""><md-icon>thumb_up</md-icon></a>
                   </div>
-                </div> 
-                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                </div>
+                <div class="columnContainer" flex="50" flex-gt-sm="25">
                  <div class="tableTitle">voluntary</div>
                  <div class="border"></div>
                  <a href="" class="toSponzorWith" layout="column" layout-align="start center">
                     <p>_T-Shirt_</p>
                   </a>
-                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
                   <div class="tableLikeButton" layout="row" layout-align="center center">
                     <a href=""><md-icon>thumb_up</md-icon></a>
                   </div>
 
-                </div> 
-              </div>            
-            </div>                     
+                </div>
+              </div>
+            </div>
           </md-content>
         </div>
       </div>
 
     </div>
-  </md-content>  
+  </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-

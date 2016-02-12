@@ -38,7 +38,7 @@
     $scope.statesOrganizers = {
         'dashboard': {
           'dashboard': 'views/organizers/dashboard/main.html',
-          'outstanding': 'views/organizers/dashboard/outstanding.html',
+          'addEvent': 'views/organizers/dashboard/add_event.html',
           'eventId': 'views/event.html'
         },
         'sponzoring': {

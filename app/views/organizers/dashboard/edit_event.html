@@ -1,186 +1,303 @@
-<div class="{{tolsctive}}" id="page-wrapper" ng-class="{'active': toggle}">
-  <div ng-include="menuprincipal"></div>
-  <div id="content-wrapper">
-    <div class="page-content" ng-controller="OrganizersEventEditController">
-      <div class="row header" ng-include src="'views/organizers/dashboard/header.html'"></div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="widget">
-            <div class="widget-header">
-              <i class="fa fa-plus"></i>{{ 'editEvent' | translate }}
-              <div class="clearfix"></div>
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <a href="#/organizers/dashboard" md-ink-ripple>
+          <md-icon aria-label="b">reply</md-icon>
+        </a>
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#/organizers/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a class="md-icon-button">
+            <md-icon aria-label="b">favorite</md-icon>
+          </a>
+          <a class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+
+      <div class="actions" layout="row" layout-align="space-between center">
+          <md-button layout="row" layout-align="start center">
+              <md-icon>file_download</md-icon>
+              _importar evento_
+          </md-button>
+          <md-button>_eliminar evento_</md-button>
+      </div>
+
+      <!-- Content starts -->
+
+      <div class="contentContainer organizer" flex>
+        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
+          <div class="eventContainer" layout="column">
+          <div class="shareButton">
+            <md-button class="md-fab">
+              <md-icon>share</md-icon>
+            </md-button>
+          </div>
+            <img src="../../images/home-bkg.jpg" alt="image">
+            <div class="imageTexts" layout="column" layout-align="stretch center">
+              <md-input-container class="white" flex="100">
+                <label>_Introduce un título_</label>
+                <textarea type="text" name="title" md-maxlength="250" ng-model="createEvent.title" required></textarea>
+              </md-input-container>
             </div>
-            <br/>
-            <form class="form-horizontal" name="eventEditForm" role="form">
-              <!--form field-->
-              <div class="form-group" id="title">
-                <label class="col-sm-4 control-label" for="label">
-                  {{ 'neweventtitle' | translate }}
-                </label>
-                <div class="col-sm-7">
-                  <input class="form-control" name="title" data-ng-model="eventData.title" placeholder="{{'neweventtitledescription'| translate}}" required type="text"/>
-                </div>
-                <br/>
-                <br/>
-              </div>
-              <!--form field-->
-              <div class="form-group" id="location">
-                <label class="col-sm-4 control-label" for="label">
-                  {{ 'neweventlocation' | translate }}
-                </label>
-                <div class="col-sm-7">
-                  <input class="form-control" g-places-autocomplete name="location" data-ng-model="locationEvent" ng-init="locationEvent = eventData.location" placeholder="{{'neweventlocationdescription' | translate }}" required type="text" autocomplete="off"/>
-                </div>
+
+            <form
+            ng-submit="submit()"
+            id="createEventForm"
+            name="createEventForm"
+            novalidate
+            class="createEventForm"
+            layout="column">
+
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-datepicker ng-model="date" md-placeholder="Enter date"  flex="40">
+                </md-datepicker>
+                <md-input-container class="organizers" flex="60">
+                  <label>_direccion_</label>
+                  <input type="text" name="place" ng-model="createEvent.place" required>
+                  <md-button>
+                    <md-icon>location_on</md-icon>
+                    Ubicar en mapa
+                  </md-button>
+                </md-input-container>
               </div>
 
-              <!--form field-->
-              <div class="form-group" id="description">
-                <label class="col-sm-4 control-label" for="label">
-                  {{ 'neweventdescription' | translate }}
-                </label>
-                <div class="col-sm-7">
-                  <div text-angular data-ng-model="eventData.description"></div>
-                </div>
-              </div>
-              <!--form field-->
-              <div class="form-group" id="starts">
-                <label class="col-sm-4 control-label" for="label">
-                  {{ 'neweventstarts' | translate }}
-                </label>
-                <div class="col-sm-7">
-                  <datetimepicker date-options="dateOptions" data-ng-model="eventData.starts" show-meridian="false"></datetimepicker>
-                </div>
-              </div>
-              <div class="form-group" id="ends">
-                <label class="col-sm-4 control-label" for="label">
-                  {{ 'neweventends' | translate }}
-                </label>
-                <div class="col-sm-7">
-                  <datetimepicker date-options="dateOptions" min-date="eventData.starts" data-ng-model="eventData.ends" show-meridian="false"></datetimepicker>
-                  <input data-ng-model="eventData.organizer" name="organizer" type="hidden"/>
-                </div>
-              </div>
-              <!--form field-->
-              <div class="form-group" id="public">
-                <div class="col-sm-4 control-label">
-                  <input id="privacy0" name="privacy" data-ng-model="eventData.privacy" type="radio" value="0"/>
-                </div>
-                <label class="col-sm-7" for="privacy0">
-                  <strong>{{ 'privacyoption0' | translate }}
-                    :
-                  </strong>
-
-                  {{ 'privacydescription0' | translate }}
-                </label>
-
-                <div class="col-sm-4 control-label">
-                  <input id="privacy1" name="privacy" data-ng-model="eventData.privacy" type="radio" value="1"/>
-                </div>
-
-                <label class="col-sm-7" for="privacy1">
-                  <strong>{{ 'privacyoption1' | translate }}
-                    :
-                  </strong>
-
-                  {{ 'privacydescription1' | translate }}</label>
-              </div>
-              <!--form field-->
-              <div class="form-group" id="type">
-                <label class="col-sm-4 control-label" for="label">
-                  {{ 'neweventtype' | translate }}
-                </label>
-                <div class="col-sm-7">
-                  <select class="form-control" name="type" data-ng-model="eventData.type">
-                    <option data-ng-repeat="t in eventTypes" data-ng-value="t.id" ng-if="t.id!=eventData.type">
-                      {{'eventTypes.'+t.name|translate}}
-                    </option>
-                    <option data-ng-repeat="t in eventTypes" data-ng-value="t.id" ng-if="t.id==eventData.type" selected="selected">
-                      {{'eventTypes.'+t.name|translate}}
-                    </option>
-                  </select>
-                </div>
+              <div class="location" layout="row">
+                <md-input-container class="organizers" flex="20">
+                  <label>_Ubicación_</label>
+                  <md-select class="organizers" name="userGender" ng-model="createEvent.country" required>
+                    <md-option value="0"><span translate>Colombia</span></md-option>
+                    <md-option value="1"><span translate>España</span></md-option>
+                    <md-option value="2"><span translate>Argentina</span></md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container class="organizers" flex="20">
+                  <label>Ciudad</label>
+                  <md-select class="organizers" name="userGender" ng-model="createEvent.city" required>
+                    <md-option value="0"><span translate>Bogota</span></md-option>
+                    <md-option value="1"><span translate>Cali</span></md-option>
+                    <md-option value="2"><span translate>Medellin</span></md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container class="organizers" flex="20">
+                  <label>zone</label>
+                  <md-select class="organizers" name="userGender" ng-model="createEvent.zone" required>
+                    <md-option value="0"><span translate>Zona norte</span></md-option>
+                    <md-option value="1"><span translate>Centro</span></md-option>
+                    <md-option value="2"><span translate>Zona sur</span></md-option>
+                  </md-select>
+                </md-input-container>
               </div>
 
-              <div class="form-group" id="category">
-                <label class="col-sm-4 control-label" for="label">
-                  {{ 'neweventcategory' | translate }}
-                </label>
-                <div class="col-sm-7">
-                  <select class="form-control" name="type" data-ng-model="eventData.category">
-                    <option data-ng-repeat="c in categories" data-ng-value="c.id" ng-if="c.id!=eventData.category && c.id!=''">
-                      {{'categories.'+c.title|translate}}
-                    </option>
-                    <option data-ng-repeat="c in categories" data-ng-value="c.id" ng-if="c.id==eventData.category" selected="selected">
-                      {{'categories.'+c.title|translate}}
-                    </option>
-                  </select>
+              <div class="eventType" layout="row">
+
+                <md-input-container class="organizers" flex="40">
+                  <label>_tipo de evento_</label>
+                  <md-select class="organizers" name="userGender" ng-model="createEvent.type" required>
+                    <md-option value="0"><span translate>concierto</span></md-option>
+                    <md-option value="1"><span translate>meetup</span></md-option>
+                    <md-option value="2"><span translate>...</span></md-option>
+                  </md-select>
+                </md-input-container>
+
+                <div class="age" flex="50">
+                  <p class="text">Rango de edad público objetivo</p>
+                  <md-input-container class="organizers">
+                    <label>min</label>
+                    <md-select class="organizers" name="userGender" ng-model="createEvent.ageMin" required>
+                      <md-option value="0"><span translate>15</span></md-option>
+                      <md-option value="1"><span translate>20</span></md-option>
+                      <md-option value="2"><span translate>25</span></md-option>
+                    </md-select>
+                  </md-input-container>
+
+                  <md-input-container class="organizers">
+                    <label>max</label>
+                    <md-select class="organizers" name="userGender" ng-model="createEvent.ageMax" required>
+                      <md-option value="0"><span translate>15</span></md-option>
+                      <md-option value="1"><span translate>20</span></md-option>
+                      <md-option value="2"><span translate>25</span></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <span class="text2">años</span>
                 </div>
               </div>
-              <hr/>
-              <!--form field-->
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <th class="text-center">
-                      {{ 'typesponzor' | translate }}
-                    </th>
-                    <th class="text-center">
-                      {{ 'quantitysponzor' | translate }}
-                    </th>
-                    <th class="text-center">
-                      {{ 'pricesponzor' | translate }}
-                    </th>
-                    <th class="text-center">
-                      {{ 'actionssponzor' | translate }}
-                    </th>
-                  </thead>
-                  <tr data-ng-show="eventData.perks.length" ng-repeat="s in eventData.perks">
-                    <td class="text-center">
-                      <input class="form-control" data-ng-model="s.kind" placeholder="" type="text"/>
-                    </td>
-                    <td class="text-center">
-                      <input class="form-control" data-ng-model="s.total_quantity" placeholder="" type="text"/>
-                    </td>
-                    <td class="text-center">
-                      <input class="form-control" data-ng-model="s.usd" placeholder="" ng-keyup="verifyPerkLimit(s)" type="text"/>
-                      <input class="form-control" ng-if="s.id" data-ng-model="s.id" placeholder="" type="hidden"/>
-                      <input class="form-control" ng-if="!s.id" ng-init="s.id=-1" data-ng-model="s.id" placeholder="" type="hidden"/>
-                    </td>
-                    <td class="text-center" ng-if="s.id==-1">
-                      <a href="" ng-click="removePerk($index)">
-                        <i class="fa fa-trash-o"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-sm-3">
-                <button class="btn btn-block btn-warning" ng-click="addPerk()">
-                  + Add</button>
-              </div>
-              <div class="clearfix"></div>
-              <hr/>
-              <!--form field-->
-              <div class="form-group">
-                <div class="col-sm-6 col-sm-offset-3">
-                  <button class="btn btn-block btn-primary" ng-click="eventEditForm.$valid && doEditEvent(eventData.id) && closeThisDialog()">{{ 'submitbutton' | translate }}</button>
+              <div class="chipContainer">
+                <span>_Intereses_</span>
+                <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
+                  <a class="md-chip inset toSelect"
+                      md-ink-ripple layout="row"
+                      layout-align="center center"
+
+                      ng-repeat="item in chips"
+                      ng-model="filter"
+                      ng-click="filterClick(item)"
+                      layout-wrap>
+                    _{{item}}_
+                  </a>
+                </div>
+                <md-divider></md-divider>
+                <div class="chipsFilter">
+                  <md-chips ng-model="filter" placeholder="+Tag" secondary-placeholder="+Tag">
+                  </md-chips>
                 </div>
               </div>
             </form>
           </div>
+
+          <md-content class="createEventTable">
+            <h4 class="color-blue-brighter" translate>seePerks</h4>
+            <p>_En este tipo de patrocinio tendras las posibilidades de poner los montos sugeridos para cada categoria de patrocinio. ASi mismo podras elegir las caracteristicas incluidas dentro de cada categoria y el montoa intervenir por el patrocinador</p>
+            <div href="" class="table" layout-padding flex="grow">
+
+              <div class="tableContent" layout="row" layout-wrap layout-align="space-around center">
+                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                 <div class="tableTitle">gold</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="center center">
+                    <p>_T-Shirt_</p>
+                    <p>_Escarapelas_</p>
+                    <p>_Volantes_</p>
+                    <p>_Logística_</p>
+                    <p>_Presencia_</p>
+                    <p>_Medios_</p>
+                  </a>
+
+                  <md-button class="addItem" layout="row">
+                    <md-icon>add</md-icon>
+                    Agregar ítem
+                  </md-button>
+
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
+                  <div class="sponzorWith" layout="column" layout-align="center stretch">
+                    <md-input-container class="organizers">
+                      <label>Monto</label>
+                      <input type="text" required>
+                    </md-input-container>
+                    <md-input-container class="organizers">
+                      <label>Divisa</label>
+                      <md-select class="organizers" name="userGender" ng-model="createEvent.country" required>
+                        <md-option value="0"><span translate>Colombia</span></md-option>
+                        <md-option value="1"><span translate>España</span></md-option>
+                        <md-option value="2"><span translate>Argentina</span></md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                </div>
+                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                 <div class="tableTitle">silver</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="center center">
+                    <p>_T-Shirt_</p>
+                    <p>_Escarapelas_</p>
+                    <p>_Volantes_</p>
+                    <p>_Logística_</p>
+                    <p>_Presencia_</p>
+                    <p>_Medios_</p>
+                  </a>
+                  <md-button class="addItem" layout="row">
+                    <md-icon>add</md-icon>
+                    Agregar ítem
+                  </md-button>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
+                  <div class="sponzorWith" layout="column" layout-align="center stretch">
+                    <md-input-container class="organizers">
+                      <label>Monto</label>
+                      <input type="text" required>
+                    </md-input-container>
+                    <md-input-container class="organizers">
+                      <label>Divisa</label>
+                      <md-select class="organizers" name="userGender" ng-model="createEvent.country" required>
+                        <md-option value="0"><span translate>Colombia</span></md-option>
+                        <md-option value="1"><span translate>España</span></md-option>
+                        <md-option value="2"><span translate>Argentina</span></md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                </div>
+                <div class="columnContainer" flex="50" flex-gt-sm="25">
+                 <div class="tableTitle">bronze</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="center center">
+                    <p>_T-Shirt_</p>
+                    <p>_Escarapelas_</p>
+                    <p>_Volantes_</p>
+                    <p>_Logística_</p>
+                    <p>_Presencia_</p>
+                    <p>_Medios_</p>
+                  </a>
+                  <md-button class="addItem" layout="row">
+                    <md-icon>add</md-icon>
+                    Agregar ítem
+                  </md-button>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
+                  <div class="sponzorWith" layout="column" layout-align="center stretch">
+                    <md-input-container class="organizers">
+                      <label>Monto</label>
+                      <input type="text" required>
+                    </md-input-container>
+                    <md-input-container class="organizers">
+                      <label>Divisa</label>
+                      <md-select class="organizers" name="userGender" ng-model="createEvent.country" required>
+                        <md-option value="0"><span translate>Colombia</span></md-option>
+                        <md-option value="1"><span translate>España</span></md-option>
+                        <md-option value="2"><span translate>Argentina</span></md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                </div>
+                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                 <div class="tableTitle">voluntary</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="center center">
+                    <p>_T-Shirt_</p>
+                    <p>_Escarapelas_</p>
+                    <p>_Volantes_</p>
+                    <p>_Logística_</p>
+                    <p>_Presencia_</p>
+                    <p>_Medios_</p>
+                  </a>
+                  <md-button class="addItem" layout="row">
+                    <md-icon>add</md-icon>
+                    Agregar ítem
+                  </md-button>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>
+                  <div class="sponzorWith" layout="column" layout-align="center stretch">
+                    <md-input-container class="organizers">
+                      <label>Monto</label>
+                      <input type="text" required>
+                    </md-input-container>
+                    <md-input-container class="organizers">
+                      <label>Divisa</label>
+                      <md-select class="organizers" name="userGender" ng-model="createEvent.country" required>
+                        <md-option value="0"><span translate>Colombia</span></md-option>
+                        <md-option value="1"><span translate>España</span></md-option>
+                        <md-option value="2"><span translate>Argentina</span></md-option>
+                      </md-select>
+                    </md-input-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </md-content>
+          <md-button class="md-raised md-cornered saveButton">guardar y ver landing page</md-button>
         </div>
       </div>
     </div>
-    <script id="successEditingEvent" type="text/ng-template">
-      <div class="dialog-container">
-        <img class="image-100 image-center" src="images/success.jpg" width="100px"/>
-        <p>{{ 'eventEditedSuccesfully' | translate }}</p>
-        <hr/>
-      </div>
-    </script>
-    <script id="loading" type="text/ng-template">
-      <p>{{'loading' | translate}}</p>
-      <div class="dialog-container text-center">
-        <rd-loading></rd-loading>
-      </div>
-    </script>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>

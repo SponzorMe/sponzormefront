@@ -1,6 +1,17 @@
 'use strict';
 (function() {
   function OrganizersEventCreateController($scope, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest) {
+    //mock starts
+    $scope.date = new Date();
+
+    $scope.filterClick = function(id) {
+      $scope.filter.push(id);
+    };
+
+      $scope.filter = ['New York'];
+      $scope.chips = ['Rock', 'Música', 'Conferencia', 'Tecnología', 'Emprendimiento', 'Bogotá', 'Rock2', 'Música2', 'Confer', 'Tecnía', 'Emprento', 'Bogotá2'];
+    //mock ends
+
     //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
