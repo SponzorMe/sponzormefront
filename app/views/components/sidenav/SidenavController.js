@@ -39,7 +39,9 @@
         'dashboard': {
           'dashboard': 'views/organizers/dashboard/main.html',
           'addEvent': 'views/organizers/dashboard/add_event.html',
-          'eventId': 'views/event.html'
+          'eventId': 'views/event.html',
+          'sponzor': 'views/organizers/dashboard/sponzorships.html',
+          'historical': 'views/organizers/dashboard/historical.html'
         },
         'sponzoring': {
           'sponzoring': 'views/organizers/dashboard/organizerships.html',
