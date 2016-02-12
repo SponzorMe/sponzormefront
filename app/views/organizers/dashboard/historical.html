@@ -12,29 +12,23 @@
 
     <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
-      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
-        <div class="menuItemContainer" layout="row">
-          <div class="menuItem">
-            <a href="#/sponzors/dashboard" class="textActive" md-ink-ripple translate>sponzorsMain.searchEvents</a>
-            <div class="border active"></div>
-          </div>
-          <div class="menuItem">
-            <a href="#/sponzors/outstanding" md-ink-ripple translate>sponzorsMain.highlightEvents</a>
-            <div class="border"></div>
-          </div>
-        </div>
+      <div class="menuItems menuItemsOrganizer" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <a href="#/organizers/dashboard" md-ink-ripple>
+          <md-icon aria-label="b">reply</md-icon>
+        </a>
         <div class="buttons" layout="row" layout-align="start center">
-          <a href="#sponzors/notifications">
+          <a href="#/organizers/notifications">
             <md-icon aria-label="b">notifications</md-icon>
           </a>
-          <a href="" class="md-icon-button">
-            <md-icon aria-label="b">send</md-icon>
+          <a class="md-icon-button">
+            <md-icon aria-label="b">favorite</md-icon>
           </a>
-           <a href="" class="md-icon-button">
+          <a class="md-icon-button">
             <md-icon aria-label="b">person</md-icon>
           </a>
         </div>
       </div>
+
 
     <!-- navbar ("menu") when xs -->
       <div class="menuXsContainer">
@@ -61,7 +55,7 @@
       <div class="contentContainer" ng-controller="SponzorsMainController">
           <!-- Filter -->
         <div class="filterOrganizer" layout="row" layout-align="space-between center">
-          <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp" md-no-float md-ink-ripple="false" >
+          <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp" md-no-float md-ink-ripple="false" flex="40">
             <md-icon class="filterOrganizer">search</md-icon>
             <input type="text" placeholder="{{ 'sponzorsMain.typeYourSearchHere' | translate }}" ng-model="search"/>
           </md-input-container>
@@ -74,53 +68,64 @@
 
 
       <!-- Events Results -->
-
-        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
-          <div class="event md-whiteframe-2dp" ng-repeat="event in events | filter:search" flex-gt-xs="30">
-            <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
-              <img ng-src="{{event.img}}" alt="event">
-              <p>_{{event.imgDescript}}_</p>
-            </div>
-            <div class="textContainer">
-              <h2>_{{event.date}}_</h2>
-              <md-divider></md-divider>
-              <p>
-                _{{event.eventDescript}}_
-              </p>
-            </div>
-            <md-menu>
-              <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
-                <md-icon aria-label="b">add</md-icon>
-              </md-button>
-              <md-menu-content class="menuContent" width="4">
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">stars</md-icon>
-                    <a href="#/sponzors/event/{{$index}}" translate>_ver evento_</a>
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button ng-click="showPerks(event)">
-                    <md-icon aria-label="b">thumb_up</md-icon>
-                     _Ver tipos de patrocinio_
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">remove_red_eye</md-icon>
-                    _Seguir evento_
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">share</md-icon>
-                    _Compartir evento_
-                  </md-button>
-                </md-menu-item>
-              </md-menu-content>
-            </md-menu>
+        <div class="eventsContainer md-whiteframe-2dp">
+          <div class="historicalTexts">
+            <h4>historial</h4>
+            <p>_Aqui podras encontrar todos los eventos que has organizado por orden cronologico_</p>
           </div>
-        </md-content>
+          <div>
+            <div class="month">
+              <p>Enero</p>
+            </div>
+            <md-content class="events" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
+
+              <div class="event md-whiteframe-2dp" ng-repeat="event in events | filter:search" flex-gt-xs="30">
+                <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
+                  <img ng-src="{{event.img}}" alt="event">
+                  <p>_{{event.imgDescript}}_</p>
+                </div>
+                <div class="textContainer">
+                  <h2>_{{event.date}}_</h2>
+                  <md-divider></md-divider>
+                  <p>
+                    _{{event.eventDescript}}_
+                  </p>
+                </div>
+                <md-menu>
+                  <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
+                    <md-icon aria-label="b">add</md-icon>
+                  </md-button>
+                  <md-menu-content class="menuContent" width="4">
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button>
+                        <md-icon aria-label="b">stars</md-icon>
+                        <a href="#/sponzors/event/{{$index}}" translate>_ver evento_</a>
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button ng-click="showPerks(event)">
+                        <md-icon aria-label="b">thumb_up</md-icon>
+                         _Ver tipos de patrocinio_
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button>
+                        <md-icon aria-label="b">remove_red_eye</md-icon>
+                        _Seguir evento_
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button>
+                        <md-icon aria-label="b">share</md-icon>
+                        _Compartir evento_
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </div>
+            </md-content>
+          </div>
+        </div>
       </div>
     </div>
   </md-content>

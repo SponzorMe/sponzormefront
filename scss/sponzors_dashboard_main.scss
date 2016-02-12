@@ -288,7 +288,7 @@ body {
                 }
             }
 
-            &>.events {
+            &>.eventsContainer .events {
                 background-color: $color_white;
 
                 &>.createNewEvent div a {
@@ -319,6 +319,8 @@ body {
 
                     &>.eventImage {
                         background-color: $color_active;
+                        max-height: 100%;
+                        max-width: 100%;
                         
                         &>p {
                             color: $color_white;
@@ -328,11 +330,13 @@ body {
                         &> img {
                             max-height: 130px;
                             max-width: 100%;
-                            min-width: 100%;
                         }
                     }
+
                     &>.eventImage.organizerEventImage {
                         background-color: $color_blue_brighter;
+                        max-height: 100%;
+                        max-width: 100%;
                         
                         &>p {
                             color: $color_white;
@@ -341,8 +345,7 @@ body {
                         }
                         &> img {
                             max-height: 130px;
-                            max-width: 275px; 
-                            width: 275px;   
+                            width: 100%;
                         }
                     }
 

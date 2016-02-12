@@ -110,64 +110,67 @@
         </div>
 
       <!-- Events Results -->
-
-        <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
-          <div class="createNewEvent" flex="100">
-            <div layout="row" layout-align="space-around center" flex-gt-xs="40">
-              <a href="#/organizers/add/event" layout="row" layout-align="start center">
-                <md-button class="md-icon-button"><md-icon>add</md-icon></md-button>
-                <p flex-xs="50" translate>organizersMain.addNewEvent</p>
-              </a>
-              <a href="#" layout-align="start center">
-                <p flex-xs="40">historial</p>
-              </a>
-            </div>
+        <div class="eventsContainer">
+          <div>
+            <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
+              <div class="createNewEvent" flex="100">
+                <div layout="row" layout-align="space-around center" flex-gt-xs="40">
+                  <a href="#/organizers/add/event" layout="row" layout-align="start center">
+                    <md-button class="md-icon-button"><md-icon>add</md-icon></md-button>
+                    <p flex-xs="50" translate>organizersMain.addNewEvent</p>
+                  </a>
+                  <a href="#" layout-align="start center">
+                    <p flex-xs="40">historial</p>
+                  </a>
+                </div>
+              </div>
+              <div class="event md-whiteframe-2dp" ng-repeat="event in user.events" flex-gt-sm="30">
+                <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
+                  <img src="{{event.image}}" alt="event">
+                  <p>{{event.title}}</p>
+                </div>
+                <div class="textContainer">
+                  <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
+                  <md-divider></md-divider>
+                  <p>
+                    {{event.description|limitTo:100}}
+                  </p>
+                </div>
+                <md-menu>
+                  <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
+                    <md-icon aria-label="b">add</md-icon>
+                  </md-button>
+                  <md-menu-content class="menuContent" width="4">
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button>
+                        <md-icon aria-label="b">mode_edit</md-icon>
+                        <a href="#/event/:eventId" translate>organizersMain.editEvent</a>
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button>
+                        <md-icon aria-label="b">share</md-icon>
+                        {{'organizersMain.shareEvent'|translate}}
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button>
+                        <md-icon aria-label="b">assignment</md-icon>
+                        {{'organizersMain.seeTasks'|translate}}
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+                      <md-button>
+                        <md-icon aria-label="b">delete</md-icon>
+                        {{'organizersMain.deleteEvent'|translate}}
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </div>
+            </md-content>
           </div>
-          <div class="event md-whiteframe-2dp" ng-repeat="event in user.events" flex-gt-sm="30">
-            <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
-              <img src="{{event.image}}" alt="event">
-              <p>{{event.title}}</p>
-            </div>
-            <div class="textContainer">
-              <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
-              <md-divider></md-divider>
-              <p>
-                {{event.description|limitTo:100}}
-              </p>
-            </div>
-            <md-menu>
-              <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
-                <md-icon aria-label="b">add</md-icon>
-              </md-button>
-              <md-menu-content class="menuContent" width="4">
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">mode_edit</md-icon>
-                    <a href="#/event/:eventId" translate>organizersMain.editEvent</a>
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">share</md-icon>
-                    {{'organizersMain.shareEvent'|translate}}
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">assignment</md-icon>
-                    {{'organizersMain.seeTasks'|translate}}
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">delete</md-icon>
-                    {{'organizersMain.deleteEvent'|translate}}
-                  </md-button>
-                </md-menu-item>
-              </md-menu-content>
-            </md-menu>
-          </div>
-        </md-content>
+        </div>
       </div>
     </div>
   </md-content>
