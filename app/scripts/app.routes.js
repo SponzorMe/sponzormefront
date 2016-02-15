@@ -30,6 +30,14 @@
         templateUrl: 'views/sponzors/dashboard/taskId.html',
         controller: 'SponzorsTasksController'
      })
+     .when('/sponzors/settings/profile', {
+       templateUrl: 'views/sponzors/dashboard/profile.html',
+       controller: 'SponzorsMasterController'
+     })
+     .when('/sponzors/settings/preferences', {
+       templateUrl: 'views/sponzors/dashboard/preferences.html',
+       controller: 'SponzorsMasterController'
+     })
 
 
 
@@ -212,18 +220,12 @@
         templateUrl: 'views/sponzors/notifications/notification_reply.html',
         controller: 'SponzorsNotificationReplyController'
       })
-      .when('/sponzors/settings/profile', {
-        templateUrl: 'views/sponzors/dashboard/settings_profile.html',
-        controller: 'SponzorsSettingsController'
-      })
+
       .when('/sponzors/settings/ratings', {
         templateUrl: 'views/sponzors/dashboard/settings_ratings.html',
         controller: 'SponzorsSettingsController'
       })
-      .when('/sponzors/settings/preferences', {
-        templateUrl: 'views/sponzors/dashboard/settings_preferences.html',
-        controller: 'SponzorsSettingsController'
-      })
+
       .otherwise({
         redirectTo: '/login'
       });

@@ -62,7 +62,7 @@
 
       <!-- Content starts -->
 
-      <div class="createContainer settings" layout="column" flex>
+      <div class="createContainer settings" layout="column" flex ng-controller="SponzorsProfileController">
         <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
           <div class="createLeftContainer" flex="50">
             <form ng-submit="editAccount()" id="createForm" name="createForm" novalidate>
@@ -141,7 +141,7 @@
           <md-button class="color-active" type="submit" form="createForm">{{'settings.edit'|translate}}</md-button>
         </div>
       </div>
-      <div class="formContainer createContainer settings" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column" >
+      <div class="formContainer createContainer settings" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column" ng-controller="SponzorsChangePasswordController">
         <form name="changePassword" ng-submit="resetPassword()" id="changePassword" novalidate>
           <div class="password" layout="column" layout-align="center stretch">
             <md-input-container class="sponzors">

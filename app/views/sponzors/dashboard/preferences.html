@@ -1,6 +1,6 @@
 <div layout-fill class="allContainer">
 
- <!-- navbar 1 -->
+  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
 
   <md-content class="superContainer" layout="row">
@@ -10,7 +10,7 @@
 
     <div class="cont" flex>
 
-    <!-- navbar -->
+      <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
@@ -34,13 +34,13 @@
           <a href="" class="md-icon-button">
             <md-icon aria-label="b">send</md-icon>
           </a>
-           <a href="" class="md-icon-button">
+          <a href="" class="md-icon-button">
             <md-icon aria-label="b">person</md-icon>
           </a>
         </div>
       </div>
       <!-- navbar ("menu") when xs -->
-        <div class="menuXsContainer">
+      <div class="menuXsContainer">
         <md-menu hide-gt-sm>
           <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
             <md-icon>person</md-icon>
@@ -60,32 +60,22 @@
       </div>
 
 
-    <!-- Content starts -->
+      <!-- Content starts -->
 
-      <div class="createContainer settings" layout="column" flex>
+      <div class="createContainer settings" layout="column" flex ng-controller="SponzorsPreferencesController">
         <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
           <div class="createLeftContainer" flex="50">
-            <form ng-submit="create()" id="createForm" name="createForm" novalidate>
+            <form ng-submit="updateDetails()" id="createForm" name="createForm" novalidate>
               <div class="company">
                 <md-input-container class="sponzors">
-                <label translate>preferences.company</label>
-                  <input type="text" name="companyName" ng-model="create.company.name">
-                </md-input-container>
-              </div>
-              <div class="companyData" layout="row">
-                <md-input-container class="sponzors">
-                  <label translate>preferences.companyPhone</label>
-                  <input type="tel" name="companyPhone" ng-model="create.company.phone">
-                </md-input-container>
-                <md-input-container class="sponzors">
-                <label translate>preferences.companyAddress</label>
-                  <input type="text" name="companyAddress" ng-model="create.company.Address">
+                  <label translate>preferences.company</label>
+                  <input type="text" name="companyName" ng-model="user.company">
                 </md-input-container>
               </div>
               <div class="companyWeb" layout="column" layout-align="center stretch">
                 <md-input-container class="sponzors">
                   <label translate>preferences.companyWebsite</label>
-                  <input type="text" name="companyWeb" ng-model="create.company.web">
+                  <input type="text" name="companyWeb" ng-model="user.website">
                 </md-input-container>
               </div>
             </form>
@@ -94,13 +84,13 @@
           <div class="createRightContainer" flex="40">
             <div class="userImageContainer" layout="column" layout-align="center center">
               <div class="userImage" layout="column" layout="center center">
-                <img src="../images/4.jpg" ng-if="hasImage() === true"/>
-                <div class="iconPreview" layout="column" layout-align="center center"  ng-if="hasImage() === false">
+                <img ng-src="{{user.logo}}" ng-if="user.logo" height="170px"/>
+                <div class="iconPreview" layout="column" layout-align="center center" ng-if="!user.logo">
                   <md-icon>stars</md-icon>
                 </div>
               </div>
               <div class="userSubmitImage">
-                <input id="imageInput" name="userImage" type="file" ng-hide="true">
+                <input id="imageInput" name="userImage" type="file" ng-hide="true" class="upload" data-ng-model="logo" name="logo" maxsize="500" accept="image/*" logo>
                 <md-button class="submitButton">
                   <label for="imageInput" layout="row" layout-align="center center">
                     <md-icon>add_a_photo</md-icon>
@@ -112,39 +102,41 @@
           </div>
         </div>
         <div class="chipContainer">
-          <span>_Intereses_</span>
+          <span translate>settings.interests</span>
           <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
-            <a class="md-chip inset toSelect"
-                md-ink-ripple layout="row"
-                layout-align="center center"
-
-                ng-repeat="item in chips"
-                ng-model="filter"
-                ng-click="filterClick(item)"
-                layout-wrap>
-              _{{item}}_
-            </a>
+            <span class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in user.interests" layout-wrap>
+              {{item.interest.name}} <a href=""
+              ng-click="removeInterest(item)"><md-icon aria-label="a">cancel</md-icon></a>
+            </span>
           </div>
           <md-divider></md-divider>
-          <div class="chipsFilter">
-            <md-chips ng-model="filter" placeholder="+Tag" secondary-placeholder="+Tag">
-            </md-chips>
-          </div>
+          <form ng-submit="$event.preventDefault()">
+            <md-autocomplete
+            md-search-text-change="searchTextChange(search)"
+            md-search-text="search"
+            md-items="i in querySearch(search)" md-item-text="i.name"
+            md-selected-item="newItem"
+            md-min-length="0"
+            placeholder="{{'settings.chooseInterest'|translate}}">
+              <md-item-template>
+                <span md-highlight-text="search" md-highlight-flags="^i">{{i.name}}</span>
+              </md-item-template>
+            </md-autocomplete>
+          </form>
         </div>
         <div class="companyDescription" layout="column" layout-align="center">
           <md-input-container class="sponzors">
-            <label translate>preferences.companyDescription</label>
-            <textarea form="createForm" ng-model="create.company.pitch" md-maxlength="250"></textarea>
+            <label translate>preferences.companyPitch</label>
+            <textarea form="createForm" ng-model="user.pitch" md-maxlength="250"></textarea>
           </md-input-container>
           <md-input-container class="sponzors">
-            <label translate>preferences.companyPitch</label>
-            <textarea form="createForm" ng-model="create.company.pitch" md-maxlength="250"></textarea>
+            <label translate>preferences.companyNewsletter</label>
+            <textarea form="createForm" ng-model="user.newsletter" md-maxlength="250"></textarea>
           </md-input-container>
           <div class="createFormSubmit" layout="row" layout-align="end center">
-            <md-button class="color-active">{{'preferences.edit'|translate}}</md-button>
+            <md-button form="createForm" type="submit" class="color-active">{{'preferences.edit'|translate}}</md-button>
           </div>
         </div>
-
       </div>
     </div>
   </md-content>
