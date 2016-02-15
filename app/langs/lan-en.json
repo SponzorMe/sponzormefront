@@ -17,7 +17,14 @@
     "activationSuccessMessage": "Your account has been activated and now you can login",
     "invalidCredentials": "Invalid E-mail or Password, please try again",
     "delayedRequest": "This is taken more than the normal, please check your internet connection",
-    "takeMeOut": "Click Here to Cancel your Request"
+    "takeMeOut": "Click Here to Cancel your Request",
+    "pleaseCompleteAllFields": "Please complete all fields",
+    "taskAddedSuccessfuly": "Task Added Succesfuly",
+    "errorEditingAccountInfo": "We can not update the info",
+    "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
+    "passwordNoMatch": "Passwords not Match",
+    "invalidNewPassword": "Invalid new Password",
+    "passwordChangedSuccesfully": "Password Changed Successfuly",
   },
   "footer": {
     "testimonials": "Testimonials",
@@ -164,7 +171,8 @@
     "location": "Location",
     "loadPhoto": "Load new photo",
     "movil": "Movil",
-    "edit": "Edit"
+    "edit": "Edit",
+    "changePassword": "Change Password"
   },
   "preferences":{
     "profile": "Profile",

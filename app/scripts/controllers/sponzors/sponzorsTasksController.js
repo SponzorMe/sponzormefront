@@ -11,8 +11,7 @@
           $scope.tasks.push(currentTask);
         }
       }
-    };    
-
+    };
     $scope.addNextTask = function (index) {
       if ($scope.sponzorshipsToAdd[index] > -1) {
         var cont = $scope.sponzorshipsToAdd[index];
@@ -37,15 +36,18 @@
       else {
         $rootScope.closeAllDialogs();
         $localStorage.user = JSON.stringify($scope.user);
-        $location.path('/sponzors/tasks');
+        $rootScope.showDialog('success', 'dialog.taskAddedSuccessfuly', '/sponzors/tasks');
       }
     };
-
     $scope.addNewTask = function () {
-      $rootScope.showLoading();
-      $scope.addNextTask(0);      
+      if($scope.task.title && $scope.task.description){
+        $rootScope.showLoading();
+        $scope.addNextTask(0);
+      }
+      else{
+        $rootScope.showDialog('error', 'dialog.pleaseCompleteAllFields', false);
+      }
     };
-
     $scope.changeSponzorship = function (i) {
       if ($scope.sponzorshipsToAdd.indexOf(i) > -1) {
         $scope.sponzorshipsToAdd.splice($scope.sponzorshipsToAdd.indexOf(i));
@@ -54,12 +56,10 @@
         $scope.sponzorshipsToAdd.push(i);
       }
     };
-    
     $scope.regenerateTasks();
     $scope.task = {};
     $scope.sponzorshipsToAdd = [];
     $scope.currentTaskIndex = $routeParams.id;
-    console.log($scope.currentTaskIndex, $scope.tasks[$scope.currentTaskIndex]);
 
   }
   angular.module('sponzorme')

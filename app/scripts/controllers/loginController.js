@@ -34,6 +34,10 @@
                 return e;
               });
             }
+            //Generating firstName, lastName for the user
+            var tempName = response.data.user.name.split(' ');
+            response.data.user.firstName = tempName[0];
+            response.data.user.lastName = tempName[1];
             $localStorage.user = JSON.stringify(response.data.user);
             $localStorage.events = [];
             $scope.$storage = $localStorage;
