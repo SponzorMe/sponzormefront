@@ -96,7 +96,7 @@
       })
       .when('/organizers/dashboard/historical', {
         templateUrl: 'views/organizers/dashboard/historical.html',
-        controller: 'OrganizersHistorialController'
+        controller: 'OrganizersHistoricalController'
       })
       .when('/organizers/events', {
         templateUrl: 'views/organizers/dashboard/events.html',

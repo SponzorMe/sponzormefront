@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersHistorialController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
+  function OrganizersHistoricalController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
    //mock starts
 
     $scope.filterClick = function(id) {
@@ -85,5 +85,5 @@
       }];
     //mock ends
   }
-  angular.module('sponzorme').controller('OrganizersHistorialController', OrganizersHistorialController);
+  angular.module('sponzorme').controller('OrganizersHistoricalController', OrganizersHistoricalController);
 })();
