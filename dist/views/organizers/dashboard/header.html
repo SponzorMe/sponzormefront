@@ -26,7 +26,7 @@
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <div ng-repeat="n in notifications| limitTo:5 | orderBy:-date" ng-if="notifications.length">
           <li class="" style="padding:0 0.5em 0 0.5em">
-            <p>{{n.text}} <a style="display: inline-block !important; color:blue !important" href="{{n.link}}" ng-click="notifications.$remove(n)">{{'see'|translate}}</a>&nbsp;<a style="display: inline-block !important; color:red !important" href="" ng-click="notifications.$remove(n)">X</a></p></li>
+            <p>{{n.text}} <a style="display: inline-block !important; color:blue !important" href="{{n.link}}">{{'see'|translate}}</a>&nbsp;<a style="display: inline-block !important; color:red !important" href="" ng-click="notifications.$remove(n)">X</a></p></li>
           <li class="divider"></li>
         </div>
         <div ng-if="notifications.length < 1">
