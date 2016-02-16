@@ -1,6 +1,60 @@
 'use strict';
 (function() {
   function OrganizersSponzorshipsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope) {
+    //mock starts
+
+    $scope.openSidenavLeft = function(){
+      $mdSidenav('left').toggle();
+    };
+
+      $scope.sponzorship = [
+        {
+          'name': 'mike cunningham',
+          'event': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'perk': 'comida',
+          'status': 'aceptado'
+        },
+        {
+          'name': 'mike cunningham',
+          'event': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'perk': 'comida',
+          'status': 'aceptado'
+        },
+        {
+          'name': 'mike cunningham',
+          'event': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'perk': 'comida',
+          'status': 'aceptado'
+        },
+        {
+          'name': 'mike cunningham',
+          'event': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'perk': 'comida',
+          'status': 'aceptado'
+        },
+        {
+          'name': 'mike cunningham',
+          'event': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'perk': 'comida',
+          'status': 'aceptado'
+        },
+        {
+          'name': 'mike cunningham',
+          'event': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'perk': 'comida',
+          'status': 'aceptado'
+        },
+        {
+          'name': 'mike cunningham',
+          'event': 'Este es el nombre del evento, solo 50 caracteres.s',
+          'perk': 'comida',
+          'status': 'aceptado'
+        }
+      ]
+  $scope.typeOfSponzor = 'gold';
+    
+    //mock ends
+
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Sponzorships',
