@@ -182,6 +182,42 @@ md-checkbox.organizers.md-default-theme .md-icon, md-checkbox .md-icon {
     width: 80px;
     height: 80px; }
 
+.allContainer .superContainer .cont .contentContainer .chatContainer {
+  background: #F9F9FB;
+  min-height: 800px;
+  max-height: 800px;
+  padding: 2em;
+  margin-right: 15%;
+  position: relative; }
+  .allContainer .superContainer .cont .contentContainer .chatContainer > .texts > h2 {
+    text-transform: uppercase;
+    margin-right: 0.3em; }
+  .allContainer .superContainer .cont .contentContainer .chatContainer > .texts > p {
+    color: #00bcd2; }
+  .allContainer .superContainer .cont .contentContainer .chatContainer > .messagesContainer > .messageOrg {
+    margin: 2em 0;
+    background: white;
+    padding: 0.5em 1em;
+    border-radius: 0.5em; }
+    .allContainer .superContainer .cont .contentContainer .chatContainer > .messagesContainer > .messageOrg > .userImage {
+      margin: 0 1em 0 0; }
+      .allContainer .superContainer .cont .contentContainer .chatContainer > .messagesContainer > .messageOrg > .userImage > div > img {
+        border-radius: 50%;
+        border: 3px solid #3E87A4;
+        max-width: 100px;
+        max-height: 100px;
+        width: 100px;
+        height: 100px; }
+      .allContainer .superContainer .cont .contentContainer .chatContainer > .messagesContainer > .messageOrg > .userImage > div > p {
+        margin: 0;
+        color: #9a9a9a; }
+  .allContainer .superContainer .cont .contentContainer .chatContainer > .messagesContainer > .messageOrg.messageSponzor > .userImage > div > img {
+    border: 3px solid #f09200; }
+  .allContainer .superContainer .cont .contentContainer .chatContainer > .inputMessage > md-input-container {
+    width: 80%; }
+    .allContainer .superContainer .cont .contentContainer .chatContainer > .inputMessage > md-input-container > md-icon {
+      color: #00bcd2; }
+
 .allContainer .superContainer .cont .createContainer {
   margin: 0 1em 2em 1em;
   background-color: white;

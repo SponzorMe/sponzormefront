@@ -39,7 +39,28 @@
        controller: 'SponzorsMasterController'
      })
 
-     
+
+
+
+
+
+
+
+
+
+
+      .when('/organizers/chat', {
+        templateUrl: 'views/organizers/chat.html',
+        controller: 'ChatController'
+      })
+      .when('/sponzors/chat', {
+        templateUrl: 'views/sponzors/chat.html',
+        controller: 'ChatController'
+      })
+
+
+
+
       .when('/activation/:token', {
         templateUrl: 'views/login.html',
         controller: 'LoginController'
