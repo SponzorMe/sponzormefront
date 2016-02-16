@@ -29,7 +29,7 @@
             <p>{{n.text}} <a style="display: inline-block !important; color:blue !important;" href="{{n.link}}" ng-click="notifications.$remove(n)">{{'see'|translate}}</a>&nbsp;<a style="display: inline-block !important; color:red !important;" href="" ng-click="notifications.$remove(n)">X</a></p></li>
           <li class="divider"></li>
         </div>
-        <div ng-if="!help">
+        <div ng-if="notifications.length < 1">
           <li class="" style="padding:0 0.5em 0 0.5em;">
             <p style="text-align:center">{{'noNewNotifications'|translate}}</p></li>
           <li class="divider"></li>
