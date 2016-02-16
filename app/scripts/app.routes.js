@@ -87,6 +87,10 @@
         templateUrl: 'views/organizers/dashboard/main.html',
         controller: 'OrganizersMainController'
       })
+      .when('/organizers/dashboard/historical', {
+        templateUrl: 'views/organizers/dashboard/historical.html',
+        controller: 'OrganizersHistorialController'
+      })
       .when('/organizers/events', {
         templateUrl: 'views/organizers/dashboard/events.html',
         controller: 'OrganizersEventsController'
