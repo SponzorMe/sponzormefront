@@ -15,15 +15,15 @@
       controller: 'LoginController'
     })
     .when('/sponzors/dashboard', {
-      templateUrl: 'views/sponzors/dashboard/main.html',
+      templateUrl: 'scripts/sponzors-main/main.html',
       controller: 'SponzorsMasterController'
     })
     .when('/sponzors/outstanding', {
-      templateUrl: 'views/sponzors/dashboard/outstanding.html',
+      templateUrl: 'scripts/sponzors-outstanding/outstanding.html',
       controller: 'SponzorsMasterController'
     })
     .when('/sponzors/saved', {
-      templateUrl: 'views/sponzors/dashboard/saved.html',
+      templateUrl: 'scripts/sponzors-saved/saved.html',
       controller: 'SponzorsMasterController'
     })
     .when('/sponzors/task/:id', {
@@ -39,21 +39,7 @@
        controller: 'SponzorsMasterController'
      })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+     
       .when('/activation/:token', {
         templateUrl: 'views/login.html',
         controller: 'LoginController'

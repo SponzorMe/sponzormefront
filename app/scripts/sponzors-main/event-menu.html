@@ -1,0 +1,31 @@
+<md-menu>
+  <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
+    <md-icon aria-label="b">add</md-icon>
+  </md-button>
+  <md-menu-content class="menuContent" width="4">
+    <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+      <md-button>
+        <md-icon aria-label="b">stars</md-icon>
+        <a href="#/sponzors/event/{{$index}}" translate>sponzorsMain.seeEvent</a>
+      </md-button>
+    </md-menu-item>
+    <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+      <md-button ng-click="showPerks(event)">
+        <md-icon aria-label="b">thumb_up</md-icon>
+        {{'sponzorsMain.seeSponzorshipTypes'|translate}}
+      </md-button>
+    </md-menu-item>
+    <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+      <md-button>
+        <md-icon aria-label="b">remove_red_eye</md-icon>
+        {{'sponzorsMain.saveEvent'|translate}}
+      </md-button>
+    </md-menu-item>
+    <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+      <md-button>
+        <md-icon aria-label="b">share</md-icon>
+        {{'sponzorsMain.shareEvent'|translate}}
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

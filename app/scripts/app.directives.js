@@ -1,6 +1,5 @@
 /**
  * @author Sebastian Gomez
- * @version 0.1
  */
 (function() {
   'use strict';
@@ -38,13 +37,6 @@
           });
         }
       };
-    })
-    .directive('rdLoading', function() {
-      var directive = {
-        restrict: 'AE',
-        template: '<div class="loading"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>'
-      };
-      return directive;
     })
     .directive('stars', function() {
       return {

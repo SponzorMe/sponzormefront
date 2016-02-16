@@ -58,56 +58,15 @@
 
     <!-- Content starts -->
 
-      <div class="contentContainer" ng-controller="SponzorsOutstandingController">
+      <div class="contentContainer" ng-controller="SponzorsSavedController as ssc">
       <div class="texts" layout="row" layout-align="space-between">
         <h3  translate>sponzorsMain.featuredEvents</h3>
       </div>
       <!-- Events Results -->
 
       <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
-        <div class="event md-whiteframe-2dp" ng-repeat="event in events" flex-gt-xs="30">
-          <div class="eventImage" layout="column" layout-align="center center">
-            <img ng-src="{{event.image}}" alt="event" width="125px" height="130px">
-            <p>{{event.title}}</p>
-          </div>
-          <div class="textContainer">
-            <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
-            <md-divider></md-divider>
-            <p>
-              {{event.description|limitTo:100}}
-            </p>
-          </div>
-            <md-menu>
-              <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
-                <md-icon aria-label="b">add</md-icon>
-              </md-button>
-              <md-menu-content class="menuContent" width="4">
-                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">stars</md-icon>
-                    <a href="#/event/:eventId" translate>sponzorsMain.seeEvent</a>
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">thumb_up</md-icon>
-                    {{'sponzorsMain.seeSponzorshipTypes'|translate}}
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">remove_red_eye</md-icon>
-                    {{'sponzorsMain.followEvent'|translate}}
-                  </md-button>
-                </md-menu-item>
-                <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
-                  <md-button>
-                    <md-icon aria-label="b">share</md-icon>
-                    {{'sponzorsMain.shareEvent'|translate}}
-                  </md-button>
-                </md-menu-item>
-              </md-menu-content>
-            </md-menu>
+          <div class="event md-whiteframe-2dp" ng-repeat="event in ssc.events" flex-gt-xs="30">
+            <event-item></event-item>
           </div>
         </md-content>
       </div>

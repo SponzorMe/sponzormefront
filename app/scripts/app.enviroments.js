@@ -1,10 +1,6 @@
-/*
- * Author: Sebastian Gomez
- * This functions detect the enviroment and set the configuration
- */
 /**
  * @author Sebastian Gomez
- * @version 0.1
+ * This functions detect the enviroment and set the configuration
  */
 (function() {
   'use strict';
