@@ -1,15 +1,62 @@
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest) {
+  function OrganizersEventCreateController($scope, $mdDialog, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest) {
     //mock starts
     $scope.date = new Date();
+    $scope.eventProviderSelected = '';
 
     $scope.filterClick = function(id) {
       $scope.filter.push(id);
     };
 
-      $scope.filter = ['New York'];
-      $scope.chips = ['Rock', 'Música', 'Conferencia', 'Tecnología', 'Emprendimiento', 'Bogotá', 'Rock2', 'Música2', 'Confer', 'Tecnía', 'Emprento', 'Bogotá2'];
+    $scope.filter = ['New York'];
+    $scope.chips = ['Rock', 'Música', 'Conferencia', 'Tecnología', 'Emprendimiento', 'Bogotá', 'Rock2', 'Música2', 'Confer', 'Tecnía', 'Emprento', 'Bogotá2'];
+
+//dialog starts
+    $scope.showDialog = function() {
+      $mdDialog.show({
+          clickOutsideToClose: true,
+          templateUrl: 'views/components/dialogs/dialogs.html',
+          controller: dialogs_Ctrl,
+          locals: {parent: $scope},
+          bindToController: true
+      });
+    }
+
+    function dialogs_Ctrl($scope, $mdDialog, parent){
+      parent.eventProviderSelected = '';
+      $scope.eventProviders = ['MeetUp', 'EventBrite'];
+      $scope.firstPage = true;
+
+      $scope.toggleDialog = function () {
+        if ($scope.firstPage === true) {
+          $scope.firstPage = false;
+        } else {
+          $scope.firstPage = true;
+        }
+      };
+
+      $scope.closeDialog = function() {
+          $mdDialog.hide();
+      };
+
+      $scope.existsInEventProv = function(sede) {
+          return parent.eventProviderSelected.indexOf(sede) > -1;
+      };
+
+      $scope.existsInEventProv.toggleSelection = function (sede) {
+          var idx = parent.eventProviderSelected.indexOf(sede);
+           //is currently selected
+          if (idx > -1) {
+              parent.eventProviderSelected.splice(idx, 1);
+          } //is newly selected
+          else {
+             parent.eventProviderSelected = sede;
+          }
+      };
+    }
+//dialog ends
+
     //mock ends
 
     //Function to parse JSON strings in JSON objects

@@ -1,7 +1,78 @@
 .superContainer {
     &>.cont {
         &>.contentContainer {
+            &>.counts {
+                background: $color_white;
+                padding: 1em;
+                margin: 1em 20% 0 20%;
+
+                @media screen and (max-width: $media_step1_medium) {
+                    margin: 0;
+                }
+
+                &>div {
+                    border-right: solid 1px $color_gray1;
+
+                    &:nth-last-child(1) {
+                        border-right: none;
+                    }
+
+                    @media (max-width: $media_step1_medium) {
+                        border-bottom: solid 1px $color_gray1;
+                        border-right: none;
+                    }
+
+                    &>a {
+                        &>md-icon {
+                            font-size: 64px;
+                            height: auto;
+                            width: auto;
+                        }
+
+                        &>md-icon:nth-child(1) {
+                            width: 64px;
+                        }
+
+                        &>p {
+                            margin: 0 0 0.5em 0;
+                        }
+
+                        &>h3 {
+                            color: $color_gray_text;
+                            font-size: 3em;
+                            margin: 0;
+                        }
+                    }
+                }
+            }
             &>.filterOrganizer {
+                font-size: 12px;
+
+                &>md-input-container {
+                    background-color: $color_white;
+                    height: 3em;
+                    margin: 2em 0 1.5em 2.5em;
+
+                    &>.md-input {
+                        border-width: 0 0 0 0;
+                        line-height: 38px!important;
+                        padding: 0;
+                    }
+
+                    &>md-icon {
+                        color: $color_blue_brighter;
+                        line-height: 30px;
+                    }
+                }
+
+                &>.viewOptions {
+                    margin-right: 1.8em;
+                    &>.md-button {
+                        margin-right: 0;
+                        border-radius: 0;
+                    }
+                }
+
                 &>.viewOptionsHistorical {
                     margin-right: 1.8em;
                     &>.md-button {
@@ -14,8 +85,6 @@
                     }
                 }
             }
-
-
 
             &>.texts {
                  margin-left:1em;

@@ -28,8 +28,8 @@ $color_blue_brighter: #00bcd2;
 $color_active: #f09200;
 $color_active_darker: #E6A235;
 
-$media_step1_bottom: 640px;
-$media_step1_medium: 900px;
+$media_step1_bottom: 600px;
+$media_step1_medium: 960px;
 $media_step1_top: 1200px;
 
 
@@ -220,6 +220,24 @@ md-checkbox.sponzors.md-default-theme.md-checked.md-focused .md-container:before
 
 md-checkbox.sponzors.md-default-theme .md-icon, md-checkbox .md-icon {
   border-color: $color_active;
+}
+
+md-checkbox.organizers.md-checked {
+    .md-ink-ripple {
+        color: $color_blue_brighter;
+    }
+
+    .md-icon {
+        background: $color_blue_brighter;
+    }
+}
+
+md-checkbox.organizers.md-default-theme.md-checked.md-focused .md-container:before, md-checkbox.md-checked.md-focused .md-container:before {
+  background-color: rgba(0, 188, 210, 0.50);
+}
+
+md-checkbox.organizers.md-default-theme .md-icon, md-checkbox .md-icon {
+  border-color: $color_blue_brighter;
 }
 
 
