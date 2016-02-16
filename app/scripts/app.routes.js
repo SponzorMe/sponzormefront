@@ -108,11 +108,11 @@
       })
       .when('/eventbrite/:eventBriteCode', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
-        controller: 'OrganizersEventCreateController'
+        controller: 'OrganizersMasterController'
       })
       .when('/meetup/:meetupCode', {
         templateUrl: 'views/organizers/dashboard/add_event.html',
-        controller: 'OrganizersEventCreateController'
+        controller: 'OrganizersMasterController'
       })
       .when('/sponzors/rating/:sponzorshipId', {
         templateUrl: 'views/sponzors/dashboard/rateSponzorship.html',
