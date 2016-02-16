@@ -97,7 +97,7 @@
                       <td class="text-center"><i ng-if="e.privacy==0" tooltip="{{'publicEvent'|translate}}" class="fa fa-unlock"></i>
                       <i ng-if="e.privacy==1" tooltip="{{'privateEvent'|translate}}" class="fa fa-lock"></i></td>
                       <td class="text-center">{{ e.title }}</td>
-                      <td class="text-center">{{e.user_organizer.name}}&nbsp;<a href="#/profile/{{e.user_organizer.id}}" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td>
+                      <td class="text-center">{{e.user_organizer.name}}&nbsp;<a href="#/profile/{{e.user_organizer.id}}" target="_blank" tooltip="{{'OrganizerInformation'|translate}}"><i class="fa fa-info-circle"></i></a></td>
                       <td class="text-center">{{e.type.name}}</td>
                       <td class="text-center">{{e.category.title}}</td>
                       <td class="text-center">{{ e.starts| date}}</td>
