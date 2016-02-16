@@ -22,7 +22,7 @@
           $scope.user.events[$routeParams.id] = response.data.event;
           $localStorage.user = JSON.stringify($scope.user);
           $rootScope.closeAllDialogs();
-          $rootScope.showDialog('success', 'eventEditedSuccesfully', false);
+          $rootScope.showDialog('success', 'eventEditedSuccesfully', '/organizers/events');
         }, function errorCallback(response) {
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('error', 'eventNoEdited', false);
