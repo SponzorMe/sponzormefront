@@ -1,6 +1,6 @@
 {
   "name": "Sponzorme",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "We connect Events With Sponzors!",
   "private": true,
   "dependencies": {
