@@ -66,6 +66,10 @@
       templateUrl: 'views/organizers/notifications/notifications_importants.html',
       controller: 'OrganizersNotificationsController'
     })
+    .when('/organizers/news', {
+      templateUrl: 'views/organizers/dashboard/news.html',
+      controller: 'OrganizersNotificationsController'
+    })
 
     .when('/organizers/chat', {
       templateUrl: 'views/organizers/chat.html',
