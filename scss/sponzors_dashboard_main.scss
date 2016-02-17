@@ -26,7 +26,7 @@ body {
 
 
     &>.cont {
-        &>.menuItems {
+        &>navbar-events .menuItems, .menuItems {
             background-color: $color_orange;
             height: 50px;
             padding: 0.5em;
