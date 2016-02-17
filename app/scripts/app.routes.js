@@ -34,6 +34,10 @@
       templateUrl: 'views/sponzors/dashboard/preferences.html',
       controller: 'SponzorsMasterController'
     })
+    .when('/sponzors/invite', {
+      templateUrl: 'scripts/invite/invite.html',
+      controller: 'SponzorsMasterController'
+    })
 
 
 

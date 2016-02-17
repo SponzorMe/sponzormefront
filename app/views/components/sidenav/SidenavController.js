@@ -7,8 +7,8 @@
     
     var statesSponzors = {
         'dashboard': [
-          'views/sponzors/dashboard/main.html',
-          'views/sponzors/dashboard/outstanding.html',
+          'scripts/sponzors-main/main.html',
+          'scripts/sponzors-outstanding/outstanding.html',
           'views/event.html'
         ],
 
@@ -36,9 +36,17 @@
         ],
 
         'settings': [
-          'views/sponzors/dashboard/settings_profile.html',
-          'views/sponzors/dashboard/settings_preferences.html',
-          'views/sponzors/dashboard/settings_ratings.html'
+          'views/sponzors/dashboard/profile.html',
+          'views/sponzors/dashboard/preferences.html',
+          'views/sponzors/dashboard/ratings.html'
+        ],
+
+        'saved': [
+          'scripts/sponzors-saved/saved.html'
+        ],
+
+        'invite': [
+          'scripts/invite/invite.html'
         ]
     };
 
@@ -187,6 +195,38 @@
       } else if (side === 'sponzors') {
         for (var i = 0; i < statesSponzors.settings.length; i++) {
           if (statesSponzors.settings[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.saved = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.saved.length; i++) {
+          if (statesOrganizers.saved[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.saved.length; i++) {
+          if (statesSponzors.saved[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.invite = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.invite.length; i++) {
+          if (statesOrganizers.invite[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.invite.length; i++) {
+          if (statesSponzors.invite[i] === route) {
             return true
           }
         };

@@ -324,6 +324,65 @@ body {
                         }
                     }
                 }
+                &>.event{
+                    padding: 0;
+                    margin-bottom: 5%;
+                    position: relative;
+                    top: 0;
+
+                    &>event-item .eventImage {
+                        background-color: $color_active;
+                        max-height: 100%;
+                        max-width: 100%;
+
+                        &>p {
+                            color: $color_white;
+                            font-size: 10px;
+                            padding: 0.5em;
+                        }
+                        &> img {
+                            max-height: 130px;
+                            width: 100%;
+                        }
+                    }
+
+                    &>event-item .eventImage.organizerEventImage {
+                        background-color: $color_blue_brighter;
+                        max-height: 100%;
+                        max-width: 100%;
+
+                        &>p {
+                            color: $color_white;
+                            font-size: 10px;
+                            padding: 0.5em;
+                        }
+                        &> img {
+                            max-height: 130px;
+                            width: 100%;
+                        }
+                    }
+
+                    &>event-item .textContainer {
+                        padding: 0.5em;
+                        h2 {
+                            font-size: 12px;
+                        }
+                        p {
+                            font-size: 10px;
+                            height: 30px;
+                        }
+                    }
+
+                    &>event-item event-menu md-menu {
+                        &>.iconMenu {
+                            background-color: $color_fuchsia;
+                            bottom: -20px;
+                            position: absolute;
+                            right: -10px;
+                            z-index: 2;
+                        }
+                    }
+                }
             }
         }
     }

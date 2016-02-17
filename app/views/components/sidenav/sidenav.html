@@ -22,6 +22,12 @@
             <a href="#/sponzors/sponzoring"><h3 translate>sidenav.sponzoring</h3></a>
         </a>
       </div>
+      <div class="buttContainer" ng-class="{active : saved('sponzors')}" md-ink-ripple="#f09200" layout="row">
+        <a href="#/sponzors/sponzoring" class="sidenavButton" layout="row" layout-align="start center">
+            <md-icon aria-label="b">save</md-icon>
+            <a href="#/sponzors/saved"><h3 translate>sidenav.saved</h3></a>
+        </a>
+      </div>
       <div class="buttContainer" ng-class="{active : tasks('sponzors')}" md-ink-ripple="#f09200" layout="row">
         <a href="" class="sidenavButton" layout="row">
             <md-icon aria-label="b">description</md-icon>
@@ -38,6 +44,12 @@
         <a href="#/sponzors/settings/profile" class="sidenavButton" layout="row" layout-align="start center">
             <md-icon aria-label="b">settings</md-icon>
             <a href="#/sponzors/settings/profile"><h3 translate>sidenav.settings</h3></a>
+        </a>
+      </div>
+      <div class="buttContainer" ng-class="{active : invite('sponzors')}" md-ink-ripple="#f09200" layout="row">
+        <a href="#/sponzors/invite" class="sidenavButton" layout="row" layout-align="start center">
+            <md-icon aria-label="b">favorite</md-icon>
+            <a href="#/sponzors/invite"><h3 translate>sidenav.invite</h3></a>
         </a>
       </div>
     </div>

@@ -49,6 +49,7 @@
       };
 
       vm.restoreEvents();//Here starts the callback
+      console.log(vm.events);
     }
   }
   angular.module('sponzorme').controller('SponzorsMainController', SponzorsMainController);
