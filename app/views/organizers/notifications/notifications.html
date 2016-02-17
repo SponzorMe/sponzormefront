@@ -1,0 +1,77 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+          <div class="menuItem">
+            <a href="#/sponzors/notifications" class="textActive" md-ink-ripple translate>notifications.inbox</a>
+            <div class="border active"></div>
+          </div>
+          <div class="menuItem">
+            <a href="#/sponzors/notifications/readed" md-ink-ripple translate>notifications.read</a>
+            <div class="border"></div>
+          </div>
+          <div class="menuItem">
+            <a href="#/sponzors/notifications/importants" md-ink-ripple translate>notifications.important</a>
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+      <!-- navbar ("menu") when xs -->
+      <div class="menuXsContainer">
+        <md-menu hide-gt-sm>
+          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon>person</md-icon>
+          </md-button>
+          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+            <md-menu-item class="menuXsItem active">
+              <a href="#/sponzors/dashboard" md-ink-ripple translate>notifications.inbox</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/outstanding" md-ink-ripple translate>notifications.read</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/sponzors/notifications" md-ink-ripple translate>notifications.important</a>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+      <!-- Content starts -->
+      <div class="contentContainer">
+        
+        <div layout="column" class="notifyContainer">
+          <md-content class="notifyElement organizersNotifyElement" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="notify in notifications">
+            <a href="#/sponzors/notification/:id" layout="row" layout-align="start center" flex="grow">
+              <md-button class="md-icon-button" aria-label="b">
+                <md-icon>notifications</md-icon>
+              </md-button>
+              <p class="md-body-1">{{notify.title}}</p>
+            </a>
+            <div class="texts" layout="row" layout-align="end center" flex="30">
+              <p class="date md-body-2">{{notify.date}}</p>
+              <a href="#/sponzors/notification/:id" class="link" md-ink-ripple="#faaf3a" hide-xs hide-sm translate>{{'notifications.see'|translate}}</a>
+            </div>
+          </md-content>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>

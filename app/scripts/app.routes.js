@@ -26,20 +26,52 @@
       templateUrl: 'scripts/sponzors-saved/saved.html',
       controller: 'SponzorsMasterController'
     })
-    .when('/sponzors/task/:id', {
-        templateUrl: 'views/sponzors/dashboard/taskId.html',
-        controller: 'SponzorsTasksController'
+    .when('/sponzors/settings/profile', {
+      templateUrl: 'views/sponzors/dashboard/profile.html',
+      controller: 'SponzorsMasterController'
      })
-     .when('/sponzors/settings/profile', {
-       templateUrl: 'views/sponzors/dashboard/profile.html',
-       controller: 'SponzorsMasterController'
-     })
-     .when('/sponzors/settings/preferences', {
-       templateUrl: 'views/sponzors/dashboard/preferences.html',
-       controller: 'SponzorsMasterController'
-     })
+    .when('/sponzors/settings/preferences', {
+      templateUrl: 'views/sponzors/dashboard/preferences.html',
+      controller: 'SponzorsMasterController'
+    })
 
-     
+
+
+    .when('/organizers/tasks', {
+      templateUrl: 'views/organizers/dashboard/tasks/tasks.html',
+      controller: 'OrganizersTasksController'
+    })
+    .when('/organizers/task/:id', {
+      templateUrl: 'views/organizers/dashboard/tasks/taskId.html',
+      controller: 'OrganizersTasksController'
+    })
+    .when('/organizers/tasks/create', {
+      templateUrl: 'views/organizers/dashboard/tasks/tasks_create.html',
+      controller: 'OrganizersTasksController'
+    })
+    .when('/organizers/notifications', {
+      templateUrl: 'views/organizers/notifications/notifications.html',
+      controller: 'OrganizersNotificationsController'
+    })
+
+
+
+
+
+
+
+      .when('/organizers/chat', {
+        templateUrl: 'views/organizers/chat.html',
+        controller: 'ChatController'
+      })
+      .when('/sponzors/chat', {
+        templateUrl: 'views/sponzors/chat.html',
+        controller: 'ChatController'
+      })
+
+
+
+
       .when('/activation/:token', {
         templateUrl: 'views/login.html',
         controller: 'LoginController'
@@ -75,7 +107,7 @@
       })
       .when('/organizers/dashboard/historical', {
         templateUrl: 'views/organizers/dashboard/historical.html',
-        controller: 'OrganizersHistorialController'
+        controller: 'OrganizersHistoricalController'
       })
       .when('/organizers/events', {
         templateUrl: 'views/organizers/dashboard/events.html',

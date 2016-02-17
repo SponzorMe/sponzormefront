@@ -1,7 +1,7 @@
 <md-sidenav class="sidenavContainer" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" flex="nogrow">
   <div class="sidenav2" layout="column">
     <div class="text-container md-whiteframe-1dp md-cornered" layout="row">
-      <a href="#/sponzors/dashboard" md-ink-ripple layout="row" layout-align="center center">
+      <a href="#/sponzors/dashboard" md-ink-ripple="#3E87A4" layout="row" layout-align="center center">
        <div layout="row" layout-align="center center" flex>
           <md-icon aria-label="b">reorder</md-icon>
        </div>
@@ -10,31 +10,31 @@
     </div>
     <div class="sidenavButtons" layout="column">
 
-      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.dashboard.dashboard, statesOrganizers.dashboard.addEvent, statesOrganizers.dashboard.eventId, statesOrganizers.dashboard.sponzor, statesOrganizers.dashboard.historical)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : dashboard('organizers')}" md-ink-ripple="#3E87A4" layout="row">
         <a href="#/organizers/dashboard" class="sidenavButton" layout="row">
             <md-icon aria-label="b">view_quilt</md-icon>
             <a href="#/organizers/dashboard"><h3 translate>sidenav.dashboard</h3></a>
         </a>
       </div>
-      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.tasks.tasks, statesOrganizers.tasks.task, statesOrganizers.tasks.tasksCreate)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : tasks('organizers')}" md-ink-ripple="#3E87A4" layout="row">
         <a href="" class="sidenavButton" layout="row">
             <md-icon aria-label="b">description</md-icon>
-            <a href=""><h3 translate>sidenav.tasks</h3></a>
+            <a href="#/organizers/tasks"><h3 translate>sidenav.tasks</h3></a>
         </a>
       </div>
-      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.notifications.notifications, statesOrganizers.notifications.notificationId, statesOrganizers.notifications.notificationReply, statesOrganizers.notifications.notificationsImportant,  statesOrganizers.notifications.notificationsReaded)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : notifications('organizers')}" md-ink-ripple="#3E87A4" layout="row">
         <a href="#/organizers/notifications" class="sidenavButton" layout="row">
             <md-icon aria-label="b">notifications</md-icon>
             <a href="#/organizers/notifications"><h3 translate>sidenav.notifications</h3></a>
         </a>
       </div>
-       <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.notifications.notifications, statesOrganizers.notifications.notificationId, statesOrganizers.notifications.notificationReply, statesOrganizers.notifications.notificationsImportant,  statesOrganizers.notifications.notificationsReaded)}" md-ink-ripple="#f09200" layout="row">
+       <div class="buttContainerOrganizers" ng-class="{activeOrganizers : news('organizers')}" md-ink-ripple="#3E87A4" layout="row">
         <a href="#/organizers/notifications" class="sidenavButton" layout="row">
             <md-icon aria-label="b">notifications</md-icon>
             <a href="#/organizers/notifications"><h3 translate>_novedades_</h3></a>
         </a>
       </div>
-      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : getRoute(statesOrganizers.settings.profile, statesOrganizers.settings.preferences, statesOrganizers.settings.ratings)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainerOrganizers" ng-class="{activeOrganizers : settings('organizers')}" md-ink-ripple="#3E87A4" layout="row">
         <a href="#/organizers/settings/profile" class="sidenavButton" layout="row" layout-align="start center">
             <md-icon aria-label="b">settings</md-icon>
             <a href="#/organizers/settings/profile"><h3 translate>sidenav.settings</h3></a>

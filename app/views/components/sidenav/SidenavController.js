@@ -2,75 +2,194 @@
 (function() {
   function SidenavController($scope, $mdSidenav, $route) {
     //mock starts
-    $scope.route = $route.current.loadedTemplateUrl;
-    console.log('esta es la ruta:', $scope.route);
+    var route = $route.current.loadedTemplateUrl;
+    console.log('This is the route:', route);
     
-    $scope.statesSponzors = {
-        'dashboard': {
-          'dashboard': 'views/sponzors/dashboard/main.html',
-          'outstanding': 'views/sponzors/dashboard/outstanding.html',
-          'eventId': 'views/event.html'
-        },
-        'sponzoring': {
-          'sponzoring': 'views/sponzors/dashboard/sponzorships.html',
-          'sponzoringId': 'views/sponzors/dashboard/sponzorshipsId.html'
-        },
-        'following': 'views/sponzors/dashboard/following.html',
-        'tasks': {
-          'tasks': 'views/sponzors/dashboard/tasks.html',
-          'task' : 'views/sponzors/dashboard/taskId.html',
-          'tasksCreate': 'views/sponzors/dashboard/tasks_create.html'
-        },
-        'notifications': {
-          'notifications': 'views/sponzors/notifications/notifications.html',
-          'notificationId': 'views/sponzors/notifications/notification_detail.html',
-          'notificationReply': 'views/sponzors/notifications/notification_reply.html',
-          'notificationsReaded': 'views/sponzors/notifications/notifications_readed.html',
-          'notificationsImportant': 'views/sponzors/notifications/notifications_importants.html'
-        },
-        'settings': {
-          'profile': 'views/sponzors/dashboard/settings_profile.html',
-          'preferences': 'views/sponzors/dashboard/settings_preferences.html',
-          'ratings': 'views/sponzors/dashboard/settings_ratings.html'
-        }
+    var statesSponzors = {
+        'dashboard': [
+          'views/sponzors/dashboard/main.html',
+          'views/sponzors/dashboard/outstanding.html',
+          'views/event.html'
+        ],
+
+        'sponzoring': [
+          'views/sponzors/dashboard/sponzorships.html',
+          'views/sponzors/dashboard/sponzorshipsId.html'
+        ],
+
+        'following': [
+          'views/sponzors/dashboard/following.html'
+        ],
+
+        'tasks': [
+          'views/sponzors/dashboard/tasks.html',
+          'views/sponzors/dashboard/taskId.html',
+          'views/sponzors/dashboard/tasks_create.html'
+        ],
+
+        'notifications': [
+          'views/sponzors/notifications/notifications.html',
+          'views/sponzors/notifications/notification_detail.html',
+          'views/sponzors/notifications/notification_reply.html',
+          'views/sponzors/notifications/notifications_readed.html',
+          'views/sponzors/notifications/notifications_importants.html'
+        ],
+
+        'settings': [
+          'views/sponzors/dashboard/settings_profile.html',
+          'views/sponzors/dashboard/settings_preferences.html',
+          'views/sponzors/dashboard/settings_ratings.html'
+        ]
     };
 
-    $scope.statesOrganizers = {
-        'dashboard': {
-          'dashboard': 'views/organizers/dashboard/main.html',
-          'addEvent': 'views/organizers/dashboard/add_event.html',
-          'eventId': 'views/event.html',
-          'sponzor': 'views/organizers/dashboard/sponzorships.html',
-          'historical': 'views/organizers/dashboard/historical.html'
-        },
-        'sponzoring': {
-          'sponzoring': 'views/organizers/dashboard/organizerships.html',
-          'sponzoringId': 'views/organizers/dashboard/organizershipsId.html'
-        },
-        'following': 'views/organizers/dashboard/following.html',
-        'tasks': {
-          'tasks': 'views/organizers/dashboard/tasks.html',
-          'task' : 'views/organizers/dashboard/taskId.html',
-          'tasksCreate': 'views/organizers/dashboard/tasks_create.html'
-        },
-        'notifications': {
-          'notifications': 'views/organizers/notifications/notifications.html',
-          'notificationId': 'views/organizers/notifications/notification_detail.html',
-          'notificationReply': 'views/organizers/notifications/notification_reply.html',
-          'notificationsReaded': 'views/organizers/notifications/notifications_readed.html',
-          'notificationsImportant': 'views/organizers/notifications/notifications_importants.html'
-        },
-        'settings': {
-          'profile': 'views/organizers/dashboard/settings_profile.html',
-          'preferences': 'views/organizers/dashboard/settings_preferences.html',
-          'ratings': 'views/organizers/dashboard/settings_ratings.html'
-        }
+    var statesOrganizers = {
+        'dashboard': [
+          'views/organizers/dashboard/main.html', 'views/organizers/dashboard/add_event.html', 'views/event.html', 'views/organizers/dashboard/sponzorships.html', 'views/organizers/dashboard/historical.html', 'views/organizers/chat.html'
+        ],
+
+        'sponzoring': [
+          'views/organizers/dashboard/organizerships.html',
+          'views/organizers/dashboard/organizershipsId.html'
+        ],
+
+        'following': [
+          'views/organizers/dashboard/following.html'
+        ],
+
+        'news': [
+          'views/organizers/dashboard/news.html'
+        ],
+
+        'tasks': [
+          'views/organizers/dashboard/tasks/tasks.html',
+          'views/organizers/dashboard/tasks/taskId.html',
+          'views/organizers/dashboard/tasks/tasks_create.html'
+        ],
+
+        'notifications': [
+          'views/organizers/notifications/notifications.html',
+          'views/organizers/notifications/notification_detail.html',
+          'views/organizers/notifications/notification_reply.html',
+          'views/organizers/notifications/notifications_readed.html',
+          'views/organizers/notifications/notifications_importants.html'
+        ],
+
+        'settings': [
+          'views/organizers/dashboard/settings_profile.html',
+          'views/organizers/dashboard/settings_preferences.html',
+          'views/organizers/dashboard/settings_ratings.html'
+        ]
     };
 
-    $scope.getRoute = function(route1, route2, route3, route4, route5) {
-      
-      if($scope.route === route1 || $scope.route === route2 || $scope.route === route3 || $scope.route === route4 || $scope.route === route5) {
-        return true;
+    $scope.dashboard = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.dashboard.length; i++) {
+          if (statesOrganizers.dashboard[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.dashboard.length; i++) {
+          if (statesSponzors.dashboard[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.sponzoring = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.sponzoring.length; i++) {
+          if (statesOrganizers.sponzoring[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.sponzoring.length; i++) {
+          if (statesSponzors.sponzoring[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.following = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.following.length; i++) {
+          if (statesOrganizers.following[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.following.length; i++) {
+          if (statesSponzors.following[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.news = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.news.length; i++) {
+          if (statesOrganizers.news[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.news.length; i++) {
+          if (statesSponzors.news[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.tasks = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.tasks.length; i++) {
+          if (statesOrganizers.tasks[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.tasks.length; i++) {
+          if (statesSponzors.tasks[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.notifications = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.notifications.length; i++) {
+          if (statesOrganizers.notifications[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.notifications.length; i++) {
+          if (statesSponzors.notifications[i] === route) {
+            return true
+          }
+        };
+      }
+    }
+
+    $scope.settings = function(side){
+      if (side === 'organizers') {
+        for (var i = 0; i < statesOrganizers.settings.length; i++) {
+          if (statesOrganizers.settings[i] === route) {
+            return true
+          }
+        };
+      } else if (side === 'sponzors') {
+        for (var i = 0; i < statesSponzors.settings.length; i++) {
+          if (statesSponzors.settings[i] === route) {
+            return true
+          }
+        };
       }
     }
 

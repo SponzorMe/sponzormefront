@@ -1,0 +1,23 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer.taskContainer {
+    &>.notifyDetailElement {
+        &>.actions.organizers {
+            &>a {
+                color: $color_blue_brighter;
+
+                &>p {
+                    margin-left: 0.5em;
+                }
+
+                &>md-icon {
+                    color: $color_blue_brighter;
+                }
+
+                &:hover {
+                    &>p {
+                        color: $color_blue_brighter;
+                    }
+                }
+            }
+        }
+    }
+}

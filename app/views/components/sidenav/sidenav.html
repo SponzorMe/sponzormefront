@@ -10,37 +10,31 @@
     </div>
     <div class="sidenavButtons" layout="column">
 
-      <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.dashboard.dashboard, statesSponzors.dashboard.outstanding, statesSponzors.dashboard.eventId)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainer" ng-class="{active : dashboard('sponzors')}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/dashboard" class="sidenavButton" layout="row">
             <md-icon aria-label="b">view_quilt</md-icon>
             <a href="#/sponzors/dashboard"><h3 translate>sidenav.dashboard</h3></a>
         </a>
       </div>
-      <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.sponzoring.sponzoring, statesSponzors.sponzoring.sponzoringId)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainer" ng-class="{active : sponzoring('sponzors')}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/sponzoring" class="sidenavButton" layout="row" layout-align="start center">
             <md-icon aria-label="b">thumb_up</md-icon>
             <a href="#/sponzors/sponzoring"><h3 translate>sidenav.sponzoring</h3></a>
         </a>
       </div>
-      <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.saved)}" md-ink-ripple="#f09200" layout="row">
-        <a href="#/sponzors/saved" class="sidenavButton" layout="row" layout-align="start center">
-            <md-icon aria-label="b">remove_red_eye</md-icon>
-            <a href="#/sponzors/saved"><h3 translate>sidenav.saved</h3></a>
-        </a>
-      </div>
-      <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.tasks.tasks, statesSponzors.tasks.task, statesSponzors.tasks.tasksCreate)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainer" ng-class="{active : tasks('sponzors')}" md-ink-ripple="#f09200" layout="row">
         <a href="" class="sidenavButton" layout="row">
             <md-icon aria-label="b">description</md-icon>
             <a href="#/sponzors/tasks"><h3 translate>sidenav.tasks</h3></a>
         </a>
       </div>
-      <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.notifications.notifications, statesSponzors.notifications.notificationId, statesSponzors.notifications.notificationReply, statesSponzors.notifications.notificationsImportant,  statesSponzors.notifications.notificationsReaded)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainer" ng-class="{active : notifications('sponzors')}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/notifications" class="sidenavButton" layout="row">
             <md-icon aria-label="b">notifications</md-icon>
             <a href="#/sponzors/notifications"><h3 translate>sidenav.notifications</h3></a>
         </a>
       </div>
-      <div class="buttContainer" ng-class="{active : getRoute(statesSponzors.settings.profile, statesSponzors.settings.preferences, statesSponzors.settings.ratings)}" md-ink-ripple="#f09200" layout="row">
+      <div class="buttContainer" ng-class="{active : settings('sponzors')}" md-ink-ripple="#f09200" layout="row">
         <a href="#/sponzors/settings/profile" class="sidenavButton" layout="row" layout-align="start center">
             <md-icon aria-label="b">settings</md-icon>
             <a href="#/sponzors/settings/profile"><h3 translate>sidenav.settings</h3></a>

@@ -1,0 +1,69 @@
+.allContainer .superContainer .cont .contentContainer {
+    .chatContainer {
+        background: $color_gray2;
+        min-height: 800px;
+        max-height: 800px;
+        padding: 2em;
+        margin-right: 15%;
+        position: relative;
+
+        &>.texts {
+            &>h2 {
+                text-transform: uppercase;
+                margin-right: 0.3em;
+            }
+            &>p {
+                color: $color_blue_brighter;
+            }
+        }
+
+        &>.messagesContainer {
+            &>.messageOrg {
+                margin: 2em 0;
+                background: $color_white;
+                padding: 0.5em 1em;
+                border-radius: 0.5em;
+
+                &>.userImage  {
+                    margin: 0 1em 0 0;
+
+                    &>div{
+                        &>img {
+                            border-radius: 50%;
+                            border: 3px solid $color_blue_darker;
+                            max-width: 100px;
+                            max-height: 100px;
+                            width: 100px;
+                            height: 100px;
+                        }
+
+                        &>p {
+                            margin: 0;
+                            color: $color_gray_text;
+                        }
+                    }
+                }
+            }
+
+            &>.messageOrg.messageSponzor {
+                &>.userImage  {
+                    &>div{
+                        &>img {
+                            border: 3px solid $color_active;
+                        }
+                    }
+                }
+            }
+        }
+
+        &>.inputMessage {
+            &>md-input-container{
+                width: 80%;
+
+                &>md-icon {
+                    color: $color_blue_brighter;
+                }
+            }
+        }
+    }
+}

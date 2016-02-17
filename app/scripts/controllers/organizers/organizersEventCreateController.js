@@ -59,7 +59,7 @@
 
     //mock ends
 
-    //Function to parse JSON strings in JSON objects
+    Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
         return '"' + $1 + '":';

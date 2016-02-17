@@ -10,6 +10,7 @@ $color_white: white;
 $color_black: black;
 
 $color_gray1: #ececec;
+$color_gray2: #F9F9FB;
 $color_gray_text: #9a9a9a;
 $color_gray3: #5B5B5B;
 
@@ -219,7 +220,7 @@ md-checkbox.sponzors.md-default-theme.md-checked.md-focused .md-container:before
 }
 
 md-checkbox.sponzors.md-default-theme .md-icon, md-checkbox .md-icon {
-  border-color: $color_active;
+  border-color: $color_active!important;
 }
 
 md-checkbox.organizers.md-checked {
@@ -237,7 +238,7 @@ md-checkbox.organizers.md-default-theme.md-checked.md-focused .md-container:befo
 }
 
 md-checkbox.organizers.md-default-theme .md-icon, md-checkbox .md-icon {
-  border-color: $color_blue_brighter;
+  border-color: $color_blue_brighter!important;
 }
 
 
