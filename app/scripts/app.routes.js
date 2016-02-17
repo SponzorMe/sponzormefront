@@ -49,6 +49,10 @@
       templateUrl: 'views/organizers/dashboard/tasks/tasks_create.html',
       controller: 'OrganizersTasksController'
     })
+    .when('/organizers/notifications', {
+      templateUrl: 'views/organizers/notifications/notifications.html',
+      controller: 'OrganizersNotificationsController'
+    })
 
 
 

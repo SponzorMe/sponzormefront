@@ -1,27 +1,8 @@
 .allContainer .superContainer .cont .contentContainer .notifyContainer {                    
-    margin: 1em 2em 0 1.5em;
-        
-    &>.notifyElement {
-        margin-bottom: 0.8em;
-    
-        &>a {
-            text-decoration: none;
-            color: $color_gray3;
-            padding: 0.2em;
-            &>md-button {
-                width: 50px;
-            }
-        }  
-
+    &>.notifyElement.organizersNotifyElement {
         &>.texts {
-            padding: 0.5em;
-            &>.date {
-                color: $color_gray_text;
-                margin-right: 1em;
-            }
-            
             &>.link {
-                color: $color_active;
+                color: $color_blue_brighter;
                 font-size: 12px;
                 text-transform: uppercase;
             }
@@ -33,10 +14,10 @@
                 1px 1px 1px -1px rgba(0, 0, 0, 0.12);
 
             &>a {
-                color: $color_active;
+                color: $color_blue_brighter;
 
                 &>.md-button md-icon {
-                    color: $color_active;
+                    color: $color_blue_brighter;
                 }
             }
         }
@@ -45,10 +26,10 @@
      &>.notifyElement.importants {
     
         &>a {
-            color: $color_active;
+            color: $color_blue_brighter;
             
             &>.md-button md-icon {
-                color: $color_active;
+                color: $color_blue_brighter;
             }
         }          
     }
