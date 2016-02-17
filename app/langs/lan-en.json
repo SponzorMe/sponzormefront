@@ -87,7 +87,8 @@
     "followEvent": "Follow Event",
     "shareEvent": "Share Event",
     "featuredEvents": "Featured Events",
-    "saveEvent": "Save Event"
+    "saveEvent": "Save Event",
+    "savedEvents": "Your Saved Events"
   },
   "sponzorsSponzorships":{
     "title": "Title",
