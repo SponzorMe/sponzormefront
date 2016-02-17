@@ -16,7 +16,6 @@
     'ngStorage',
     'google.places',
     'angularSpinner',
-    'jshor.angular-addtocalendar',
     'angularUtils.directives.dirPagination',
     'firebase',
     'textAngular',

@@ -1,3 +1,4 @@
+(function(){
 'use strict';
 
 angular
@@ -152,3 +153,5 @@ angular
     };
 
   });
+
+})();

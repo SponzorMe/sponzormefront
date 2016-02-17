@@ -1,0 +1,12 @@
+<div class="eventImage" layout="column" layout-align="center center">
+  <img ng-src="{{event.image}}" alt="event" height="120px">
+  <p>{{event.title}}</p>
+</div>
+<div class="textContainer">
+  <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
+  <md-divider></md-divider>
+  <p>
+    {{event.description|limitTo:100}}
+  </p>
+</div>
+<event-menu></event-menu>
