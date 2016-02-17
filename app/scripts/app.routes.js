@@ -26,22 +26,29 @@
       templateUrl: 'scripts/sponzors-saved/saved.html',
       controller: 'SponzorsMasterController'
     })
-    .when('/sponzors/task/:id', {
-        templateUrl: 'views/sponzors/dashboard/taskId.html',
-        controller: 'SponzorsTasksController'
+    .when('/sponzors/settings/profile', {
+      templateUrl: 'views/sponzors/dashboard/profile.html',
+      controller: 'SponzorsMasterController'
      })
-     .when('/sponzors/settings/profile', {
-       templateUrl: 'views/sponzors/dashboard/profile.html',
-       controller: 'SponzorsMasterController'
-     })
-     .when('/sponzors/settings/preferences', {
-       templateUrl: 'views/sponzors/dashboard/preferences.html',
-       controller: 'SponzorsMasterController'
-     })
+    .when('/sponzors/settings/preferences', {
+      templateUrl: 'views/sponzors/dashboard/preferences.html',
+      controller: 'SponzorsMasterController'
+    })
 
 
 
-
+    .when('/organizers/tasks', {
+      templateUrl: 'views/organizers/dashboard/tasks/tasks.html',
+      controller: 'OrganizersTasksController'
+    })
+    .when('/organizers/task/:id', {
+      templateUrl: 'views/organizers/dashboard/tasks/taskId.html',
+      controller: 'OrganizersTasksController'
+    })
+    .when('/organizers/tasks/create', {
+      templateUrl: 'views/organizers/dashboard/tasks/tasks_create.html',
+      controller: 'OrganizersTasksController'
+    })
 
 
 

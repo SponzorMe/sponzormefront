@@ -1,0 +1,26 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer.organizersTasks {
+
+    &>.addTask {
+        &>.md-button.md-fab {
+            background-color: $color_blue_brighter;
+        }
+        &>p {
+            color: $color_blue_brighter;
+        }
+    }
+
+    &>.eventItem.tasks {
+        &>.eventInfo {
+            &>.eventTitle > div {
+                &>.taskSubtitle {
+                    color: $color_blue_brighter;
+                }
+            }
+
+            &:hover {
+                background: $color_blue_brighter;
+                color: $color_white;
+            }
+        }
+    }
+}

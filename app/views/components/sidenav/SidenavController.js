@@ -61,9 +61,9 @@
         ],
 
         'tasks': [
-          'views/organizers/dashboard/tasks.html',
-          'views/organizers/dashboard/taskId.html',
-          'views/organizers/dashboard/tasks_create.html'
+          'views/organizers/dashboard/tasks/tasks.html',
+          'views/organizers/dashboard/tasks/taskId.html',
+          'views/organizers/dashboard/tasks/tasks_create.html'
         ],
 
         'notifications': [

@@ -1,6 +1,10 @@
 'use strict';
 (function() {
   function OrganizersMasterController($scope, eventTypeRequest, MAXPERKLIMIT, $rootScope, $localStorage, categoryRequest) {
+    //mock
+      $scope.myDate = new Date();
+    //
+
     $scope.setEventData = function(){
       if(!$localStorage.eventTypes){
         eventTypeRequest.allEventTypes().then(function successCallback1(response) {
