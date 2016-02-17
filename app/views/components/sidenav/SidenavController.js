@@ -36,9 +36,9 @@
         ],
 
         'settings': [
-          'views/sponzors/dashboard/settings_profile.html',
-          'views/sponzors/dashboard/settings_preferences.html',
-          'views/sponzors/dashboard/settings_ratings.html'
+          'views/sponzors/dashboard/profile.html',
+          'views/sponzors/dashboard/preferences.html',
+          'views/sponzors/dashboard/ratings.html'
         ]
     };
 
