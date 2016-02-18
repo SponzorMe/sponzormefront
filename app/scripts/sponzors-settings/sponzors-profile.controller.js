@@ -1,0 +1,66 @@
+(function() {
+  'use strict';
+  function SponzorsProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest) {
+    if ($rootScope.userValidation('1')) {
+      var vm = this;
+      vm.user = JSON.parse($localStorage.user);
+      console.log(vm.user);
+      vm.file = false;
+      vm.editAccount = function(){
+        $rootScope.showLoading();
+        if (vm.user.location !== vm.locationUser) {
+          vm.user.location = vm.locationUser.formatted_address;
+          vm.user.location_reference = vm.locationUser.place_id;
+        }
+        if (vm.file) {
+          AWS.config.update({
+            accessKeyId: $rootScope.getConstants().AMAZONKEY,
+            secretAccessKey: $rootScope.getConstants().AMAZONSECRET
+          });
+          AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
+          var bucket = new AWS.S3({
+            params: {
+              Bucket: $rootScope.getConstants().AMAZONBUCKET
+            }
+          });
+          // Prepend Unique String To Prevent Overwrites
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension(vm.file.name);
+          var params = {
+            Key: uniqueFileName,
+            ContentType: vm.file.type,
+            Body: vm.file,
+            ServerSideEncryption: 'AES256'
+          };
+          bucket.putObject(params, function(err, data) {
+            if (!err) {
+              $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              vm.user.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              vm.user.name = vm.user.firstName +' '+ vm.user.lastName;
+              userRequest.editUserPatch($localStorage.id, vm.user).then(function successCallback(response) {
+                $localStorage.user = JSON.stringify(vm.user);
+                vm.file = false;
+                $rootScope.closeAllDialogs();
+                $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
+              }, function errorCallback(err) {
+                $rootScope.closeAllDialogs();
+                $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
+              });
+            }
+          });
+        } else {
+          vm.user.name = vm.user.firstName +' '+ vm.user.lastName;
+          userRequest.editUserPatch($localStorage.id, vm.user).then(function successCallback(response) {
+            $localStorage.user = JSON.stringify(vm.user);
+            vm.file = false;
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
+          }, function errorCallback(err) {
+            $rootScope.closeAllDialogs();
+            $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
+          });
+        }
+      };
+    }
+  }
+  angular.module('sponzorme').controller('SponzorsProfileController', SponzorsProfileController);
+})();

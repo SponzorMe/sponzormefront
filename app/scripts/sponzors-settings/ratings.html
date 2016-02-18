@@ -1,0 +1,78 @@
+<div layout-fill class="allContainer">
+
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+    <navbar-settings active="ratings"></navbar-settings>
+      
+    <!-- Content starts -->
+
+        <div class="contentContainer settingsRating" ng-controller="SponzorsRatingsController as src">
+            <md-content class="ratingSuperiorContainer md-whiteframe-1dp" layout="column" layout-gt-xs="row" layout-align="space-around center">
+                <div class="ratingSupLeft" flex="30">
+                    <div class="imageContainer">
+                        <img ng-src="{{src.user.image}}" alt="{{src.user.name}}" height="200px"/>
+                    </div>
+                    <div class="rating">
+                        <p>{{src.user.name}} <span class="color-blue-brighter">{{src.user.email}}</span></p>
+                        <div class="starsContainer" layout="row" layout-align="start center">
+                            <stars number="src.user.rating"></stars>
+                            <p class="color-blue-brighter">{{src.user.rating}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ratingSupRigth" flex="60">
+                    <div>
+                        <p class="ratingSub" translate>ratings.numberOfSponzorships</p>
+                        <p class="ratingBlue">{{src.user.sponzorships.length}}</p>
+                    </div>
+                    <div>
+                        <p class="ratingSub" translate>ratings.memberSince</p>
+                        <p class="ratingBlue">{{src.user.created_at|date:'medium'}}</p>
+                    </div>
+                    <div>
+                        <p class="ratingSub" translate>ratings.location</p>
+                        <p class="ratingBlue">{{src.user.location}}</p>
+                    </div>
+                </div>
+            </md-content>
+            <md-content class="ratingInferiorContainer md-whiteframe-1dp" layout="column">
+                <h2 class="color-blue-brighter" translate>ratings.commentsAndRatings</h2>
+                <div class="ratingTitles" layout="row" hide-xs hide-sm>
+                    <div flex="50" layout="row" layout-align="center center">
+                        <p translate>ratings.memberSince</p>
+                    </div>
+                    <div flex="30" layout="row" layout-align="center center">
+                        <p translate>ratings.grader</p>
+                    </div>
+                    <div flex="20" layout="row" layout-align="center center">
+                        <p translate>ratings.rate</p>
+                    </div>
+                </div>
+                <!--NgRepeat here-->
+                <md-divider ng-repeat-start="item in src.user.ratings"></md-divider>
+                <div class="ratingItem" layout="column" layout-gt-xs="row" ng-repeat-end>
+                    <div class="ratingComment" flex="50">
+                        <p>{{item.question6}}</p>
+                    </div>
+                    <div class="graderContainer" layout="column" layout-gt-sm="row" layout-align-gt-sm="end center" flex="30">
+                        <div class="grader" flex="20" layout="row" layout-align="center end">
+                            <p class="color-active">{{item.organizer.name}}</p>
+                        </div>
+                        <div class="rate" flex="20" layout="row" layout-align="center start">
+                            <stars number="{{item.question0}}"></stars>
+                        </div>
+                    </div>
+                </div>
+            </md-content>
+        </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>

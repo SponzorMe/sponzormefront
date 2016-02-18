@@ -14,9 +14,9 @@
             <div class="detailHeader" layout="row" layout-align="space-between center">
               <div class="title" layout="column" layout-align="start start">
                 <div class="subhead" layout="row">
-                  <p>{{'tasks.event'|translate}}: {{tasks[currentTaskIndex].event.title}}</p>
+                  <p>{{'tasks.event'|translate}}: {{stc.tasks[stc.currentTaskIndex].event.title}}</p>
                 </div>
-                <p class="head color-active"> {{tasks[currentTaskIndex].task.title}}</p>
+                <p class="head color-active"> {{stc.tasks[stc.currentTaskIndex].task.title}}</p>
               </div>
             </div>
 
@@ -24,12 +24,12 @@
 
             <div class="message">
               <p class="subheadMessage" translate>tasks.description</p>
-              <p>{{tasks[currentTaskIndex].task.description}}</p>
+              <p>{{stc.tasks[stc.currentTaskIndex].task.description}}</p>
             </div>
 
             <div class="status" layou="column">
               <p translate>tasks.status</p>
-              <md-checkbox class="sponzors" ng-model="taskDetail.status">
+              <md-checkbox class="sponzors" ng-model="stc.taskDetail.status">
                 <span translate>tasks.complete</span>
               </md-checkbox>
             </div>

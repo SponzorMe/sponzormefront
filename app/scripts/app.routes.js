@@ -2,86 +2,95 @@
  * @author Sebastian Gomez
  * @version 0.1
  */
-(function() {
+(function () {
   'use strict';
-  angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
+  angular.module('sponzorme').config(['$routeProvider', function ($routeProvider) {
     $routeProvider
-    .when('/', {
-      templateUrl: 'views/login.html',
-      controller: 'LoginController'
-    })
-    .when('/login', {
-      templateUrl: 'views/login.html',
-      controller: 'LoginController'
-    })
-    .when('/sponzors/dashboard', {
-      templateUrl: 'scripts/sponzors-main/main.html',
-      controller: 'SponzorsMasterController'
-    })
-    .when('/sponzors/outstanding', {
-      templateUrl: 'scripts/sponzors-outstanding/outstanding.html',
-      controller: 'SponzorsMasterController'
-    })
-    .when('/sponzors/saved', {
-      templateUrl: 'scripts/sponzors-saved/saved.html',
-      controller: 'SponzorsMasterController'
-    })
+      .when('/', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginController'
+      })
+      .when('/sponzors/dashboard', {
+        templateUrl: 'scripts/sponzors-main/main.html',
+        controller: 'SponzorsMasterController'
+      })
+      .when('/sponzors/outstanding', {
+        templateUrl: 'scripts/sponzors-outstanding/outstanding.html',
+        controller: 'SponzorsMasterController'
+      })
+      .when('/sponzors/saved', {
+        templateUrl: 'scripts/sponzors-saved/saved.html',
+        controller: 'SponzorsMasterController'
+      })
+      .when('/sponzors/settings/profile', {
+        templateUrl: 'scripts/sponzors-settings/profile.html',
+        controller: 'SponzorsMasterController'
+      })
+      .when('/sponzors/settings/preferences', {
+        templateUrl: 'scripts/sponzors-settings/preferences.html',
+        controller: 'SponzorsMasterController'
+      })
+      .when('/sponzors/settings/ratings', {
+        templateUrl: 'scripts/sponzors-settings/ratings.html',
+        controller: 'SponzorsMasterController'
+      })
+      .when('/sponzors/invite', {
+        templateUrl: 'scripts/invite/invite.html',
+      })
+      .when('/sponzors/tasks', {
+        templateUrl: 'scripts/sponzors-tasks/tasks.html',
+        controller: 'SponzorsTasksController',
+        controllerAs: 'stc'
+      })
+      .when('/sponzors/task/:id', {
+        templateUrl: 'scripts/sponzors-tasks/taskId.html',
+        controller: 'SponzorsTasksController',
+        controllerAs: 'stc'
+      })
+      .when('/sponzors/tasks/create', {
+        templateUrl: 'scripts/sponzors-tasks/tasks_create.html',
+        controller: 'SponzorsCreateTasksController',
+        controllerAs: 'sctc'
+      })
 
-    .when('/sponzors/settings/profile', {
-      templateUrl: 'views/sponzors/dashboard/profile.html',
-      controller: 'SponzorsMasterController'
-     })
-    .when('/sponzors/settings/preferences', {
-      templateUrl: 'views/sponzors/dashboard/preferences.html',
-      controller: 'SponzorsMasterController'
-    })
-    .when('/sponzors/invite', {
-      templateUrl: 'scripts/invite/invite.html',
-})
-    .when('/sponzors/settings/ratings', {
-      templateUrl: 'views/sponzors/dashboard/ratings.html',
-      controller: 'SponzorsMasterController'
-    })
-    .when('/sponzors/settings', {
-      templateUrl: 'views/sponzors/dashboard/profile.html',
-      controller: 'SponzorsMasterController'
-    })
 
+      .when('/organizers/tasks', {
+        templateUrl: 'views/organizers/dashboard/tasks/tasks.html',
+        controller: 'OrganizersTasksController'
+      })
+      .when('/organizers/task/:id', {
+        templateUrl: 'views/organizers/dashboard/tasks/taskId.html',
+        controller: 'OrganizersTasksController'
+      })
+      .when('/organizers/tasks/create', {
+        templateUrl: 'views/organizers/dashboard/tasks/tasks_create.html',
+        controller: 'OrganizersTasksController'
+      })
+      .when('/organizers/notifications', {
+        templateUrl: 'views/organizers/notifications/notifications.html',
+        controller: 'OrganizersNotificationsController'
+      })
+      .when('/organizers/notifications/importants', {
+        templateUrl: 'views/organizers/notifications/notifications_importants.html',
+        controller: 'OrganizersNotificationsController'
+      })
+      .when('/organizers/news', {
+        templateUrl: 'views/organizers/dashboard/news.html',
+        controller: 'OrganizersNotificationsController'
+      })
 
-
-    .when('/organizers/tasks', {
-      templateUrl: 'views/organizers/dashboard/tasks/tasks.html',
-      controller: 'OrganizersTasksController'
-    })
-    .when('/organizers/task/:id', {
-      templateUrl: 'views/organizers/dashboard/tasks/taskId.html',
-      controller: 'OrganizersTasksController'
-    })
-    .when('/organizers/tasks/create', {
-      templateUrl: 'views/organizers/dashboard/tasks/tasks_create.html',
-      controller: 'OrganizersTasksController'
-    })
-    .when('/organizers/notifications', {
-      templateUrl: 'views/organizers/notifications/notifications.html',
-      controller: 'OrganizersNotificationsController'
-    })
-    .when('/organizers/notifications/importants', {
-      templateUrl: 'views/organizers/notifications/notifications_importants.html',
-      controller: 'OrganizersNotificationsController'
-    })
-    .when('/organizers/news', {
-      templateUrl: 'views/organizers/dashboard/news.html',
-      controller: 'OrganizersNotificationsController'
-    })
-
-    .when('/organizers/chat', {
-      templateUrl: 'views/organizers/chat.html',
-      controller: 'ChatController'
-    })
-    .when('/sponzors/chat', {
-      templateUrl: 'views/sponzors/chat.html',
-      controller: 'ChatController'
-    })
+      .when('/organizers/chat', {
+        templateUrl: 'views/organizers/chat.html',
+        controller: 'ChatController'
+      })
+      .when('/sponzors/chat', {
+        templateUrl: 'views/sponzors/chat.html',
+        controller: 'ChatController'
+      })
 
       .when('/activation/:token', {
         templateUrl: 'views/login.html',
@@ -144,7 +153,7 @@
       .when('/organizers/settings/profile', {
         templateUrl: 'views/organizers/dashboard/settings_profile.html',
         controller: 'OrganizersMasterController'
-       })
+      })
       .when('/organizers/settings/preferences', {
         templateUrl: 'views/organizers/dashboard/settings_preferences.html',
         controller: 'OrganizersMasterController'
@@ -167,18 +176,7 @@
         templateUrl: 'views/sponzors/dashboard/sponzorshipsId.html',
         controller: 'SponzorsMasterController'
       })
-      .when('/sponzors/tasks', {
-        templateUrl: 'views/sponzors/dashboard/tasks.html',
-        controller: 'SponzorsTasksController'
-      })
-      .when('/sponzors/task/:id', {
-        templateUrl: 'views/sponzors/dashboard/taskId.html',
-        controller: 'SponzorsTasksController'
-      })
-      .when('/sponzors/tasks/create', {
-        templateUrl: 'views/sponzors/dashboard/tasks_create.html',
-        controller: 'SponzorsTasksController'
-      })
+      
       .when('/event/:eventId', {
         templateUrl: 'views/event.html',
         controller: 'EventPageController'
@@ -187,7 +185,7 @@
         templateUrl: 'views/organizers/dashboard/add_event.html',
         controller: 'OrganizersEventCreateController'
       })
-       .when('/organizers/landing', {
+      .when('/organizers/landing', {
         templateUrl: 'views/organizers/dashboard/landing.html',
         controller: 'OrganizersLandingController'
       })

@@ -26,7 +26,7 @@
               <p translate>tasks.status</p>
             </div>
           </div>
-          <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in tasks">
+          <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in stc.tasks">
             <a class="eventInfo" href="#/sponzors/task/{{$index}}" layout="row" flex="100">
               <div class="taskIcon" flex="5" layout="row" layout-align="start center">
                 <md-icon ng-if="item.status == 0">timer</md-icon>
