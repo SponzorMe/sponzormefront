@@ -26,6 +26,7 @@
       templateUrl: 'scripts/sponzors-saved/saved.html',
       controller: 'SponzorsMasterController'
     })
+
     .when('/sponzors/settings/profile', {
       templateUrl: 'views/sponzors/dashboard/profile.html',
       controller: 'SponzorsMasterController'
@@ -36,6 +37,13 @@
     })
     .when('/sponzors/invite', {
       templateUrl: 'scripts/invite/invite.html',
+})
+    .when('/sponzors/settings/ratings', {
+      templateUrl: 'views/sponzors/dashboard/ratings.html',
+      controller: 'SponzorsMasterController'
+    })
+    .when('/sponzors/settings', {
+      templateUrl: 'views/sponzors/dashboard/profile.html',
       controller: 'SponzorsMasterController'
     })
 
@@ -57,24 +65,23 @@
       templateUrl: 'views/organizers/notifications/notifications.html',
       controller: 'OrganizersNotificationsController'
     })
+    .when('/organizers/notifications/importants', {
+      templateUrl: 'views/organizers/notifications/notifications_importants.html',
+      controller: 'OrganizersNotificationsController'
+    })
+    .when('/organizers/news', {
+      templateUrl: 'views/organizers/dashboard/news.html',
+      controller: 'OrganizersNotificationsController'
+    })
 
-
-
-
-
-
-
-      .when('/organizers/chat', {
-        templateUrl: 'views/organizers/chat.html',
-        controller: 'ChatController'
-      })
-      .when('/sponzors/chat', {
-        templateUrl: 'views/sponzors/chat.html',
-        controller: 'ChatController'
-      })
-
-
-
+    .when('/organizers/chat', {
+      templateUrl: 'views/organizers/chat.html',
+      controller: 'ChatController'
+    })
+    .when('/sponzors/chat', {
+      templateUrl: 'views/sponzors/chat.html',
+      controller: 'ChatController'
+    })
 
       .when('/activation/:token', {
         templateUrl: 'views/login.html',
@@ -125,19 +132,24 @@
         templateUrl: 'views/customization/customization.html',
         controller: 'CustomizationController'
       })
-
       .when('/organizers/friend', {
         templateUrl: 'views/organizers/dashboard/friend.html',
         controller: 'OrganizersFriendController'
       })
+
       .when('/organizers/settings', {
-        templateUrl: 'views/organizers/dashboard/settings.html',
-        controller: 'OrganizersSettingsController'
+        templateUrl: 'views/organizers/dashboard/settings_profile.html',
+        controller: 'OrganizersMasterController'
       })
-      .when('/sponzors/settings', {
-        templateUrl: 'views/sponzors/dashboard/settings.html',
-        controller: 'SponzorsSettingsController'
+      .when('/organizers/settings/profile', {
+        templateUrl: 'views/organizers/dashboard/settings_profile.html',
+        controller: 'OrganizersMasterController'
+       })
+      .when('/organizers/settings/preferences', {
+        templateUrl: 'views/organizers/dashboard/settings_preferences.html',
+        controller: 'OrganizersMasterController'
       })
+
       .when('/sponzors/friend', {
         templateUrl: 'views/sponzors/dashboard/friend.html',
         controller: 'SponzorsFriendController'
@@ -247,10 +259,7 @@
         controller: 'SponzorsNotificationReplyController'
       })
 
-      .when('/sponzors/settings/ratings', {
-        templateUrl: 'views/sponzors/dashboard/settings_ratings.html',
-        controller: 'SponzorsSettingsController'
-      })
+
 
       .otherwise({
         redirectTo: '/login'

@@ -9,14 +9,6 @@
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
-          <div class="menuItem">
-            <a href="#/organizers/notifications" class="textActive" md-ink-ripple translate>notifications.inbox</a>
-            <div class="border active"></div>
-          </div>
-          <div class="menuItem">
-            <a href="#/organizers/notifications/importants" md-ink-ripple translate>notifications.important</a>
-            <div class="border"></div>
-          </div>
         </div>
         <div class="buttons" layout="row" layout-align="start center">
           <a href="#/organizers/notifications">
@@ -48,12 +40,12 @@
       </div>
       <!-- Content starts -->
       <div class="contentContainer">
-        
+
         <div layout="column" class="notifyContainer">
           <md-content class="notifyElement organizersNotifyElement" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="notify in notifications">
             <a href="#/organizers/notification/:id" layout="row" layout-align="start center" flex="grow">
               <md-button class="md-icon-button" aria-label="b">
-                <md-icon>notifications</md-icon>
+                <md-icon>feedback</md-icon>
               </md-button>
               <p class="md-body-1">{{notify.title}}</p>
             </a>

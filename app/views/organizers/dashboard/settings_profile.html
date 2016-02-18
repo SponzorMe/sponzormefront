@@ -1,0 +1,163 @@
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+          <div class="menuItem">
+            <a href="#/organizers/settings/profile" class="textActive" md-ink-ripple translate>settings.profile</a>
+            <div class="border active"></div>
+          </div>
+          <div class="menuItem">
+            <a href="#/organizers/settings/preferences" md-ink-ripple translate>settings.preferences</a>
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#/organizers/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+      <!-- navbar ("menu") when xs -->
+      <div class="menuXsContainer">
+        <md-menu hide-gt-sm>
+          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon>person</md-icon>
+          </md-button>
+          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+            <md-menu-item class="menuXsItem active">
+              <a href="#/organizers/settings/profile" md-ink-ripple translate>settings.profile</a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/organizers/settings/preferences" md-ink-ripple translate>settings.preferences</a>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+
+
+      <!-- Content starts -->
+
+      <div class="createContainer settings" layout="column" flex ng-controller="SponzorsProfileController">
+        <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
+          <div class="createLeftContainer" flex="50">
+            <form ng-submit="editAccount()" id="createForm" name="createForm" novalidate>
+              <div class="fullname" layout="row">
+                <md-input-container class="organizers">
+                  <label translate>settings.firstName</label>
+                  <input type="text" name="name" ng-model="user.firstName" required>
+                  <div ng-messages="createForm.name.$error">
+                    <div ng-message="required">{{'settings.firstNameRequired'|translate}}</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="organizers">
+                  <label translate>settings.lastName</label>
+                  <input type="text" name="lastName" ng-model="user.lastName" required>
+                  <div ng-messages="createForm.lastName.$error">
+                    <div ng-message="required">{{'settings.lastNameRequired'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="company" layout="column" layout-align="center stretch">
+                <md-input-container class="organizers">
+                  <label translate>settings.company</label>
+                  <input type="text" name="compny" ng-model="user.company">
+                </md-input-container>
+              </div>
+              <div class="email" layout="column" layout-align="center stretch">
+                <md-input-container class="organizers">
+                  <label translate>settings.email</label>
+                  <input type="email" name="email" ng-model="user.email" required>
+                  <div ng-messages="createForm.email.$error">
+                    <div ng-message="required">{{'settings.emailRequired'|translate}}</div>
+                    <div ng-message="email">{{'settings.invalidEmail'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="location" layout="column" layout-align="center stretch">
+                <md-input-container class="organizers">
+                  <label translate>settings.location</label>
+                  <input type="text" name="location" g-places-autocomplete data-ng-model="locationUser" ng-init="locationUser = user.location" autocomplete="off" required/>
+                  <div ng-messages="createForm.location.$error">
+                    <div ng-message="location">{{'settings.invalidLocation'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </form>
+          </div>
+          <div flex="20"></div>
+          <div class="createRightContainer" flex="30">
+            <div class="userImageContainer" layout="column" layout-align="center center">
+              <div class="userImage" layout="column" layout="center center">
+                <img ng-src="{{user.image}}" ng-if="user.image" height="190px" />
+                <div class="iconPreview" layout="column" layout-align="center center" ng-if="!user.image">
+                  <md-icon>person</md-icon>
+                </div>
+              </div>
+              <div class="userSubmitImage">
+                <input id="imageInput" name="userImage" type="file" ng-hide="true" type="file" ng-model="file" name="file" maxsize="500" accept="image/*" file>
+
+                <md-button class="upload">
+                  <label for="imageInput" layout="row" layout-align="center center">
+                    <md-icon>add_a_photo</md-icon>
+                    <span translate>settings.loadPhoto</span>
+                  </label>
+                </md-button>
+              </div>
+            </div>
+            <div class="phoneNumber">
+              <md-input-container class="organizers" layout="row" layout-align="start stretch">
+                <label translate>settings.movil</label>
+                <input type="tel" name="phoneNumber" ng-model="user.phone" required>
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+        <div class="createFormSubmit" layout="row" layout-align="end center">
+          <md-button class="color-blue-brighter" type="submit" form="createForm">{{'settings.edit'|translate}}</md-button>
+        </div>
+      </div>
+      <div class="formContainer createContainer settings" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column" ng-controller="SponzorsChangePasswordController">
+        <form name="changePassword" ng-submit="resetPassword()" id="changePassword" novalidate>
+          <div class="password" layout="column" layout-align="center stretch">
+            <md-input-container class="organizers">
+              <label translate>settings.password</label>
+              <input type="password" name="password" ng-model="password">
+              <div ng-messages="changePassword.password.$error">
+                <div ng-message="required">{{'settings.passwordRequired'|translate}}</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="passwordConfirm" layout="column" layout-align="center stretch">
+            <md-input-container class="organizers">
+              <label translate>settings.passwordConfirmation</label>
+              <input type="password" name="passwordConfirm" ng-model="passwordConfirmation">
+              <div ng-messages="changePassword.passwordConfirm.$error">
+                <div ng-message="required">{{'settings.passwordConfirmationRequired'|translate}}</div>
+              </div>
+            </md-input-container>
+          </div>
+          <md-button class="color-blue-brighter" type="submit" form="changePassword">{{'settings.changePassword'|translate}}</md-button>
+        </form>
+      </div>
+
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+  </div>
