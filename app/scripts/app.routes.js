@@ -14,6 +14,7 @@
         templateUrl: 'views/login.html',
         controller: 'LoginController'
       })
+      
       .when('/sponzors/dashboard', {
         templateUrl: 'scripts/sponzors-main/main.html',
         controller: 'SponzorsMasterController'
@@ -26,6 +27,7 @@
         templateUrl: 'scripts/sponzors-saved/saved.html',
         controller: 'SponzorsMasterController'
       })
+      
       .when('/sponzors/settings/profile', {
         templateUrl: 'scripts/sponzors-settings/profile.html',
         controller: 'SponzorsMasterController'
@@ -38,9 +40,8 @@
         templateUrl: 'scripts/sponzors-settings/ratings.html',
         controller: 'SponzorsMasterController'
       })
-      .when('/sponzors/invite', {
-        templateUrl: 'scripts/invite/invite.html',
-      })
+      
+      
       .when('/sponzors/tasks', {
         templateUrl: 'scripts/sponzors-tasks/tasks.html',
         controller: 'SponzorsTasksController',
@@ -56,6 +57,30 @@
         controller: 'SponzorsCreateTasksController',
         controllerAs: 'sctc'
       })
+      
+      .when('/sponzors/notifications', {
+        templateUrl: 'scripts/sponzors-notifications/notifications.html',
+        controller: 'SponzorsNotificationsController',
+        controllerAs: 'snc'
+      })
+      .when('/sponzors/notifications/importants', {
+        templateUrl: 'scripts/sponzors-notifications/importants.html',
+        controller: 'SponzorsNotificationsController',
+        controllerAs: 'snc'
+      })
+      .when('/sponzors/notifications/readed', {
+        templateUrl: 'scripts/sponzors-notifications/readed.html',
+        controller: 'SponzorsNotificationsController',
+        controllerAs: 'snc'
+      })
+      .when('/sponzors/notification/:id', {
+        templateUrl: 'scripts/sponzors-notifications/detail.html',
+        controller: 'SponzorsNotificationsController',
+        controllerAs: 'snc'
+      })
+      
+      
+      
 
 
       .when('/organizers/tasks', {
@@ -236,26 +261,7 @@
       .when('/invitefriend', {
         templateUrl: 'views/inviteFriend.html'
       })
-      .when('/sponzors/notifications', {
-        templateUrl: 'views/sponzors/notifications/notifications.html',
-        controller: 'SponzorsNotificationsController'
-      })
-      .when('/sponzors/notifications/importants', {
-        templateUrl: 'views/sponzors/notifications/notifications_importants.html',
-        controller: 'SponzorsNotificationsController'
-      })
-      .when('/sponzors/notifications/readed', {
-        templateUrl: 'views/sponzors/notifications/notifications_readed.html',
-        controller: 'SponzorsNotificationsController'
-      })
-      .when('/sponzors/notification/:id', {
-        templateUrl: 'views/sponzors/notifications/notification_detail.html',
-        controller: 'SponzorsNotificationDetailController'
-      })
-      .when('/sponzors/notification/:id/reply', {
-        templateUrl: 'views/sponzors/notifications/notification_reply.html',
-        controller: 'SponzorsNotificationReplyController'
-      })
+      
 
 
 
