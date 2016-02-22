@@ -14,7 +14,17 @@
             <div class="border" ng-class="{'active':active == 'importants'}"></div>
           </div>
         </div>
-        <sponzors-navbar></sponzors-navbar>
+        <div class="buttons" layout="row" layout-align="start center">
+    <a href="#sponzors/notifications">
+      <md-icon aria-label="b">notifications</md-icon>
+    </a>
+    <a href="" class="md-icon-button">
+      <md-icon aria-label="b">favorite</md-icon>
+    </a>
+    <a href="" class="md-icon-button">
+      <md-icon aria-label="b">exit_to_app</md-icon>
+    </a>
+  </div>
       </div>
 
     <!-- navbar ("menu") when xs -->
@@ -30,7 +40,7 @@
             <md-menu-item class="menuXsItem" ng-class="{'active':active == 'readed'}">
               <a href="#/sponzors/notifications/readed" md-ink-ripple translate>notifications.read</a>
             </md-menu-item>
-            <md-menu-item class="menuXsItem" ng-class="{'active':active == 'important'}">
+            <md-menu-item class="menuXsItem" ng-class="{'active':active == 'importants'}">
               <a href="#/sponzors/notifications/importants" md-ink-ripple translate>notifications.important</a>
             </md-menu-item>
           </md-menu-content>

@@ -13,7 +13,7 @@
 
       <!-- Content starts -->
 
-      <div class="contentContainer" ng-controller="SponzorsMainController as smc">
+      <div class="contentContainer">
           <!-- Filter -->
         <div class="filter">
           <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp" md-no-float md-ink-ripple="false" >
@@ -50,7 +50,7 @@
         <div class="eventsContainer">
           <div>
             <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
-              <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events" flex-gt-xs="30">
+              <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events | filter: smc.search" flex-gt-xs="30">
                 <event-item></event-item>
               </div>
             </md-content>

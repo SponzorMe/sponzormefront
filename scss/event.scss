@@ -128,7 +128,7 @@
             background: $color_gray1;
             font-size: 12px;
             padding: 0.5em;
-            margin: 1em 15%;
+            margin: 1em 10%;
             overflow: hidden;
 
             @media screen and (max-width: $media_step1_bottom) {
@@ -147,16 +147,63 @@
                     text-transform: uppercase;
                     text-align: center;
                     width: 100%;
-                    color: $color_fuchsia_darker;
-                }
+                    color: $color_white;
+                    
+                    &>.leftText{
+                    padding-left: 1em;
+                    font-size: 1.6em;
+                    text-align: left;
+                    display: block;
+                    }
+                    
+                    &>.rightText{
+                      font-size: 1.8em;
+                      text-align: right;
+                      display: block;
+                      font-weight: bold;
+                    }
+                    &>md-icon{
+                      font-size: 1.8em;
+                      text-align: right;
+                      display: block;
+                      font-weight: bold;
+                      color:$color_white;
+                      cursor: pointer;
+                    }
+                }                 
+                
 
                 &>.tableContent {
                     background-color: $color_gray1;
                     padding: 0 1.5em 1.5em 1.5em;
                     
+                    @media screen and (max-width: $media_step1_bottom) {
+                        padding: 0;
+                    }
+                    
                     &>.columnContainer {
                         position: relative;
                         margin-bottom: 0.5em;
+                        
+                        &>.toggeable{
+                          background-color: $color_gray2;
+                          color: $color_fuchsia;
+                          
+                          &>ul li{
+                            font-weight: bold;                            
+                          }
+                          
+                          &>ul li span {
+                            color: $color_black;
+                          }
+                          
+                          &>div a{
+                            text-transform: uppercase;
+                            text-align: center;
+                            font-size: 1.6em;
+                          }
+                          
+                        }
 
                         &>.toSponzorWith {
                             min-height: 260px;

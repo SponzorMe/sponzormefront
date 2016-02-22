@@ -13,32 +13,27 @@
         ],
 
         'sponzoring': [
-          'views/sponzors/dashboard/sponzorships.html',
-          'views/sponzors/dashboard/sponzorshipsId.html'
-        ],
-
-        'following': [
-          'views/sponzors/dashboard/following.html'
+          'scripts/sponzors-sponzoring/sponzorships.html',
+          'scripts/sponzors-sponzoring/sponzorshipsId.html'
         ],
 
         'tasks': [
-          'views/sponzors/dashboard/tasks.html',
-          'views/sponzors/dashboard/taskId.html',
-          'views/sponzors/dashboard/tasks_create.html'
+          'scripts/sponzors-tasks/tasks.html',
+          'scripts/sponzors-tasks/taskId.html',
+          'scripts/sponzors-tasks/tasks_create.html'
         ],
 
         'notifications': [
-          'views/sponzors/notifications/notifications.html',
-          'views/sponzors/notifications/notification_detail.html',
-          'views/sponzors/notifications/notification_reply.html',
-          'views/sponzors/notifications/notifications_readed.html',
-          'views/sponzors/notifications/notifications_importants.html'
+          'scripts/sponzors-notifications/notifications.html',
+          'scripts/sponzors-notifications/detail.html',
+          'scripts/sponzors-notifications/readed.html',
+          'scripts/sponzors-notifications/importants.html'
         ],
 
         'settings': [
-          'views/sponzors/dashboard/profile.html',
-          'views/sponzors/dashboard/preferences.html',
-          'views/sponzors/dashboard/ratings.html'
+          'scripts/sponzors-settings/profile.html',
+          'scripts/sponzors-settings/preferences.html',
+          'scripts/sponzors-settings/ratings.html'
         ],
 
         'saved': [

@@ -43,9 +43,6 @@
     "instructions": "Put your registered E-mail, there you will get instructions.",
     "enterEmail": "Please insert your email"
   },
-  "eventPage": {
-    "date": "Date"
-  },
   "createSponzor": {
     "firstName": "First Name",
     "lastName": "Last Name",
@@ -147,10 +144,11 @@
     "sponzorshipTypes": "Sponzorship Types",
     "writeToOrganizer": "Write to Organizer",
     "location": "Location",
-    "date": "Date",
     "organizer": "Organizer",
     "speaker": "Speaker",
-    "taskForThisEvent": "Tasks for this event"
+    "taskForThisEvent": "Tasks for this event",
+    "date": "Date",
+    "sponzorIt": "Sponzor!"
   },
   "settings":{
     "profile": "Profile",

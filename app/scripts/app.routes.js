@@ -13,35 +13,47 @@
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginController'
-      })
-      
+      })      
       .when('/sponzors/dashboard', {
         templateUrl: 'scripts/sponzors-main/main.html',
-        controller: 'SponzorsMasterController'
+        controller: 'SponzorsMainController',
+        controllerAs: 'smc'
       })
       .when('/sponzors/outstanding', {
         templateUrl: 'scripts/sponzors-outstanding/outstanding.html',
-        controller: 'SponzorsMasterController'
+        controller: 'SponzorsOutstandingController',
+        controllerAs: 'soc'
       })
       .when('/sponzors/saved', {
         templateUrl: 'scripts/sponzors-saved/saved.html',
-        controller: 'SponzorsMasterController'
+        controller: 'SponzorsSavedController',
+        controllerAs: 'ssc'
       })
-      
       .when('/sponzors/settings/profile', {
         templateUrl: 'scripts/sponzors-settings/profile.html',
-        controller: 'SponzorsMasterController'
+        controller: 'SponzorsProfileController',
+        controllerAs: 'spc'
       })
       .when('/sponzors/settings/preferences', {
         templateUrl: 'scripts/sponzors-settings/preferences.html',
-        controller: 'SponzorsMasterController'
+        controller: 'SponzorsPreferencesController',
+        controllerAs: 'spc'
       })
       .when('/sponzors/settings/ratings', {
         templateUrl: 'scripts/sponzors-settings/ratings.html',
-        controller: 'SponzorsMasterController'
+        controller: 'SponzorsRatingsController',
+        controllerAs: 'src'
+      })      
+      .when('/sponzors/sponzoring', {
+        templateUrl: 'scripts/sponzors-sponzoring/sponzorships.html',
+        controller: 'SponzorsSponzorshipsController',
+        controllerAs: 'ssc'
       })
-      
-      
+      .when('/sponzors/sponzoring/:id', {
+        templateUrl: 'scripts/sponzors-sponzoring/sponzorshipsId.html',
+        controller: 'SponzorsSponzorshipsController',
+        controllerAs: 'ssc'
+      })
       .when('/sponzors/tasks', {
         templateUrl: 'scripts/sponzors-tasks/tasks.html',
         controller: 'SponzorsTasksController',
@@ -78,6 +90,12 @@
         controller: 'SponzorsNotificationsController',
         controllerAs: 'snc'
       })
+      .when('/sponzors/event/:eventId', {
+        templateUrl: 'scripts/sponzors-event/event.html',
+        controller: 'SponzorsEventController',
+        controllerAs: 'sec'
+      })
+      
       
       
       
@@ -187,19 +205,6 @@
       .when('/sponzors/friend', {
         templateUrl: 'views/sponzors/dashboard/friend.html',
         controller: 'SponzorsFriendController'
-      })
-      .when('/sponzors/sponzoring', {
-        templateUrl: 'views/sponzors/dashboard/sponzorships.html',
-        controller: 'SponzorsMasterController'
-      })
-      .when('/sponzors/event/:eventId', {
-        templateUrl: 'views/sponzors/dashboard/event.html',
-        controller: 'SponzorsEventPageController'
-      })
-
-      .when('/sponzors/sponzoring/:id', {
-        templateUrl: 'views/sponzors/dashboard/sponzorshipsId.html',
-        controller: 'SponzorsMasterController'
       })
       
       .when('/event/:eventId', {

@@ -6,7 +6,7 @@ angular
 function sponzorsNavbar() {
     var directive = {
         link: link,
-        templateUrl: 'scripts/sponzors-navbar/navbar.html',
+        templateUrl: 'scripts/sponzors-navbar/navbar-icons.html',
         restrict: 'EA',
         replace: true
     };
