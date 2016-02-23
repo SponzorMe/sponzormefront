@@ -190,7 +190,8 @@
                           color: $color_fuchsia;
                           
                           &>ul li{
-                            font-weight: bold;                            
+                            font-weight: bold;
+                            padding-top:1em;                       
                           }
                           
                           &>ul li span {

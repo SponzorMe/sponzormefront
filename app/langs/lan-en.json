@@ -143,12 +143,19 @@
   "eventPage":{
     "sponzorshipTypes": "Sponzorship Types",
     "writeToOrganizer": "Write to Organizer",
+    "chatWithOrganizer": "Chat With the Organizer",
     "location": "Location",
     "organizer": "Organizer",
     "speaker": "Speaker",
-    "taskForThisEvent": "Tasks for this event",
+    "taskForThisEvent": "Tasks for this event: ",
     "date": "Date",
-    "sponzorIt": "Sponzor!"
+    "sponzorIt": "Sponzor!",
+    "type": "Sponzorship Type: ",
+    "actions": "Actions: ",
+    "taskStatus0": "Completed",
+    "taskStatus1":  "Pending",
+    "taskOwner0": "Organizer",
+    "taskOwner1":  "Sponzor"
   },
   "settings":{
     "profile": "Profile",

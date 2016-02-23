@@ -2,24 +2,31 @@
 (function() {
   function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, ngDialog) {
     if ($rootScope.userValidation('1')) {
-      $scope.todayDate = new Date().getTime(); //To compare
-      $scope.user = JSON.parse($localStorage.user); //Restoring the user
-      console.log($scope.user.sponzorships);
-      $scope.statuses = SPONZORSHIPSTATUSES; //Status of the Sponzorships
-      if ($routeParams.id) { //If we are in Sponzorship Detail
-        $scope.currentSponzorship = $scope.user.sponzorships[$routeParams.id];
+      var vm = this;
+      vm.todayDate = new Date().getTime();
+      vm.user = JSON.parse($localStorage.user);
+      vm.statuses = SPONZORSHIPSTATUSES;
+      
+      if($routeParams.id){
+        vm.currentSponzorship = vm.user.sponzorships[$routeParams.id];
+        vm.currentSponzorship.event.ends = new Date(vm.currentSponzorship.event.ends).getTime();
+        console.log(vm.currentSponzorship);
       }
+      
+      
+      
+      
 
       //This function open the Payment Details Dialog
-      $scope.doPayment = function(sponzorship) {
-        $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
-        $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
-        $scope.SANDBOX = $rootScope.getConstants().PAYPALSANDBOX;
-        $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
-        $scope.sponzorship = sponzorship;
-        $scope.paymentValue = sponzorship.perk.usd;
-        $scope.fee = parseFloat((sponzorship.perk.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
-        $scope.paymentTotal = parseFloat(sponzorship.perk.usd) + parseFloat($scope.fee);
+      vm.doPayment = function(sponzorship) {
+        vm.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
+        vm.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
+        vm.SANDBOX = $rootScope.getConstants().PAYPALSANDBOX;
+        vm.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
+        vm.sponzorship = sponzorship;
+        vm.paymentValue = sponzorship.perk.usd;
+        vm.fee = parseFloat((sponzorship.perk.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
+        vm.paymentTotal = parseFloat(sponzorship.perk.usd) + parseFloat(vm.fee);
         ngDialog.open({
           scope: $scope,
           template: 'views/templates/prePaymentInfo.html',
@@ -28,12 +35,12 @@
       };
 
       //This function displays a popup to Show Download calendar
-      $scope.downloadCalendar = function(sponzorship) {
-        $scope.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
-        $scope.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
-        $scope.ends = $scope.ends.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
-        $scope.starts = $scope.starts.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
-        $scope.currentSponzorship = sponzorship;
+      vm.downloadCalendar = function(sponzorship) {
+        vm.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
+        vm.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
+        vm.ends = vm.ends.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
+        vm.starts = vm.starts.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
+        vm.currentSponzorship = sponzorship;
         ngDialog.open({
           template: 'views/templates/addToCalendarDialog.html',
           showClose: false,
@@ -42,9 +49,9 @@
       };
 
       //This function shows SpoonzorShipCause
-      $scope.seeCause = function(sponzorship) {
-        $scope.cause = sponzorship.cause;
-        $scope.status = sponzorship.status;
+      vm.seeCause = function(sponzorship) {
+        vm.cause = sponzorship.cause;
+        vm.status = sponzorship.status;
         ngDialog.open({
           template: 'views/templates/sponzorshipCauseDialog.html',
           showClose: false,

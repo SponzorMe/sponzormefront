@@ -17,7 +17,7 @@
             <img src="../../images/home-bkg.jpg" alt="image">
             <div class="imageTexts">
               <h3>{{sec.currentEvent.title}}</h3>
-              <p>{{sec.currentEvent.description}}</p>
+              <p ng-bind-html="sec.currentEvent.description"></p>
             </div>
 
             <div class="textsContainer">

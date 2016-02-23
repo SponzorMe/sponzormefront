@@ -12,9 +12,9 @@
 
       <sponzors-navbar></sponzors-navbar>
       <!-- Content starts -->
-      <div class="contentContainer" flex ng-controller="SponzorsSponzorshipsController">
+      <div class="contentContainer" flex>
         <div class="notifyDetailContainer" layout="column">
-          <div class="eventTitles" layout="row" hide show-lg flex="100">
+          <div class="eventTitles" layout="row" hide show-gt-xs flex="100">
             <div layout="row" flex="100">
               <p flex="30" layout="row" layout-align="center center" translate>sponzorsSponzorships.title</p>
               <p flex="20" layout="row" layout-align="center center" translate>sponzorsSponzorships.date</p>
@@ -23,13 +23,13 @@
             </div>
             <p layout="row" layout-align="center center" flex="25" translate>sponzorsSponzorships.actions</p>
           </div>
-          <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in user.sponzorships">
+          <div class="eventItem" layout="column" layout-gt-xs="row" ng-repeat="item in ssc.user.sponzorships">
             <a class="eventInfo" href="#/sponzors/sponzoring/{{$index}}" layout="row" flex="100">
               <p class="eventTitle" flex="30" layout="row" layout-align="center center" translate>{{item.event.title}}</p>
               <p class="eventDate" flex="20" layout="row" layout-align="center center">{{item.event.starts|date:'MMM dd, yyyy h:mma'}}</p>
               <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.perk.kind}}</p>
               <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
-                {{statuses[item.status]}}
+                {{ssc.statuses[item.status]}}
               </p>
             </a>
             <div class="actionSponzor" layout="row" layout-align="center center" flex="25">
@@ -39,31 +39,31 @@
                 </md-tooltip>
                 <md-icon>timer</md-icon>
               </a>
-              <a ng-if="item.status>0 && item.status<3" href="" ng-click="doPayment(item)">
+              <a ng-if="item.status>0 && item.status<3" href="" ng-click="ssc.doPayment(item)">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.doPayment'|translate}}
                 </md-tooltip>
                 <md-icon>payment</md-icon>
               </a>
-              <a ng-if="item.status==3" href="" ng-click="doPayment()">
+              <a ng-if="item.status==3" href="" ng-click="ssc.doPayment()">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.paid'|translate}}
                 </md-tooltip>
                 <md-icon><i class="material-icons">verified_user</i></md-icon>
               </a>
-              <a ng-if="item.status>3" href="" ng-click="doPayment()">
+              <a ng-if="item.status>3" href="" ng-click="ssc.doPayment()">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.verifyingPayment'|translate}}
                 </md-tooltip>
                 <md-icon><i class="material-icons"><i class="material-icons">settings_backup_restore</i></i></md-icon>
               </a>
-              <a href="" ng-click="downloadCalendar(item)">
+              <a href="" ng-click="ssc.downloadCalendar(item)">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.addToCalendar'|translate}}
                 </md-tooltip>
                 <md-icon>event</md-icon>
               </a>
-              <a href="" ng-click="seeCause(item)">
+              <a href="" ng-click="ssc.seeCause(item)">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.seeCause'|translate}}
                 </md-tooltip>

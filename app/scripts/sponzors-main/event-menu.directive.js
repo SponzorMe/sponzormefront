@@ -12,6 +12,9 @@ function eventMenu() {
     return directive;
 
     function link(scope, element, attrs) {
-      /* */
+      scope.openMenu = function ($mdOpenMenu, $event) {
+        scope.originatorEv = $event;
+        $mdOpenMenu($event);
+      };
     }
 }

@@ -22,9 +22,13 @@
 }
 
 .allContainer .superContainer .cont .contentContainer.eventTasks {
-    padding: 2.5em;
+    padding: 1em 2.5em 2.5em 2.5em;
     @media screen and (max-width: $media_step1_bottom) {
         padding: 0;
+    }
+    
+    .addTask, .addTask md-icon {
+      color: $color_active;
     }
 
     &>.notifyDetailContainer.eventTasks {
@@ -35,10 +39,12 @@
         }
         
         &>.eventItem {
+          
+            cursor: pointer;
             padding-left: 0.5em;
             &>.eventInfo {
                 background: $color_gray1;
-                padding: 0 0 0 0.5em;
+                padding: 0.5em 0.5em ;
 
                  &:hover {
                    background: $color_active;
