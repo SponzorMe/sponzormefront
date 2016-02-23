@@ -1,12 +1,17 @@
 md-dialog {
-    min-height: 300px;
+    min-height: 200px;
+    &>md-toolbar .top-loading{
+      background-color: $color_blue_dialog;
+      padding-left: 8px;
+    }
     &>md-dialog-content {
+        padding: 1em 1em;
         &>.close {
             background: $color_blue_brighter;
             width: 100%;
             height: 70px;
             position: relative;
-
+            
             md-icon {
                 color: $color_white;
             }

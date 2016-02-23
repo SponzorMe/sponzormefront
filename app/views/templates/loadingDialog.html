@@ -1,11 +1,11 @@
-<div class="dialog-container loading">
-  <div class="dialog-top top-loading"><img width="48px" height="48px" ng-src="images/loading.GIF"/><div>
-  <div class="content">
-    <h1>Loading</h1>
-    <p>{{'dialog.loadingMessage'|translate}}</p>
-    <p ng-if="delayed">{{'dialog.delayedRequest'|translate}}
-      <a ng-click="closeLoading()">{{'dialog.takeMeOut'|translate}}</a>
-    </p>
+<md-dialog aria-label="dialog">
+  <md-toolbar>
+    <div class="md-toolbar-tools top-loading"><img width="48px" height="48px" ng-src="images/loading.GIF" />
     </div>
-  </div>
-</div>
+  </md-toolbar>
+  <md-dialog-content>
+    <h2 translate>dialog.loadingTitle</h2>
+    <p translate>dialog.loadingMessage</p>
+    <p ng-if="delayed" translate>dialog.delayedRequest</p>
+  </md-dialog-content>
+</md-dialog>

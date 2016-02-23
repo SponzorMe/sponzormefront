@@ -24,7 +24,8 @@
     "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
     "passwordNoMatch": "Passwords not Match",
     "invalidNewPassword": "Invalid new Password",
-    "passwordChangedSuccesfully": "Password Changed Successfuly"
+    "passwordChangedSuccesfully": "Password Changed Successfuly",
+    "loadingTitle": "Loading..."
   },
   "footer": {
     "testimonials": "Testimonials",
