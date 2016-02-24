@@ -664,7 +664,7 @@
   "sponzorshipDeleteSuccesfully":"The Sponzorship has been deleted succesfuly",
   "weresendingandemail":"We have sent you an E-mail to activate your account",
   "errorDeletingSponzorship":"The Sponzorship can not be deleted",
-  "maxLimitPerk": "The Maximum amount for sponsorships is 200 USD",
+  "maxLimitPerk": "The Maximum amount for sponsorships is 70 USD on free plan",
   "accountProfile": "Account Profile",
   "accountPreferences": "Account Preferences",
   "currentPassword": "Current Password",
