@@ -910,5 +910,6 @@
     "Conference":"Conference",
     "Networking Event":"Networking Event",
     "Other": "Other"
-  }
+  },
+  "canNotDeletePerk": "You can not delete a perk after event is published"
 }
