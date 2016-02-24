@@ -93,7 +93,7 @@
                         <h2 class="text-center">{{'noSponzorsEventsMessage'| translate}}</h2>
                       </td>
                     </tr>
-                    <tr data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading" class="row-hover">
+                    <tr data-ng-repeat="e in search | filter:searchevents" ng-show="!searchLoading" class="row-hover" ng-if="e.privacy==0">
                       <td class="text-center"><i ng-if="e.privacy==0" tooltip="{{'publicEvent'|translate}}" class="fa fa-unlock"></i>
                       <i ng-if="e.privacy==1" tooltip="{{'privateEvent'|translate}}" class="fa fa-lock"></i></td>
                       <td class="text-center">{{ e.title }}</td>
