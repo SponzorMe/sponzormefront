@@ -4,9 +4,8 @@
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
     vm.currentEvent = vm.events[$routeParams.eventId];
-    console.log(vm.currentEvent);
     vm.formCreateSponzorship = function (perk) {
-      vm.newSponzorship = {
+      $scope.newSponzorship = { // Review why is not possible with vm instead of $scope
         'organizer_id': vm.currentEvent.user_organizer.id,
         'sponzor_id': $localStorage.id,
         'event_id': vm.currentEvent.id,
@@ -15,7 +14,10 @@
         'status': 0
       };
       $mdDialog.show({
-        templateUrl: 'views/templates/formCreateSponzorship.html',
+        templateUrl: 'scripts/sponzors-event/create-sponzorship.html',
+        controller: 'SponzorsEventController',
+        controllerAs: 'sec',
+        scope: $scope,
         clickOutsideToClose: true
       });
     };
@@ -23,12 +25,13 @@
       dialogRequest.closeLoading();
       dialogRequest.showLoading();
       vm.user = JSON.parse($localStorage.user);
-      vm.user.pendingSponzorships = vm.user.sponzorships.filter(function (e) {
+      vm.user.sponzorships = vm.user.sponzorships.filter(function (e) {
         if (e.status === '0') {
           return e;
         }
       });
-      sponzorshipRequest.createSponzorship(vm.newSponzorship).then(function successCallback(response) {
+      sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
+        console.log('ok', response);
         vm.user.sponzorships.push(response.data.Sponzorship);
         $localStorage.user = JSON.stringify(vm.user);
         vm.firebaseNotification = {
@@ -40,6 +43,7 @@
         dialogRequest.closeLoading();
         $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {
+        console.log('err', err);
         dialogRequest.closeLoading();
         if (err.status === 409) {
           $rootScope.showDialog('error', 'alreadySponzoring', false);

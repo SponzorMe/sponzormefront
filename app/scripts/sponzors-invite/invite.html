@@ -10,25 +10,22 @@
       <div class="contentContainer">
 
         <div class=" invitefriendContainer" layout="column" flex>
-          <h2 translate>invite.title</h2>
-          <p translate>invite.subtitle</p>
-          <p translate>invite.instructions</p>
-          <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
-            <div class="createLeftContainer" flex="70">
-              <form ng-submit="sic.inviteFriend()" id="inviteFriend" name="inviteFriend">
-                <div class="company">
-                  <md-input-container class="sponzors">
-                    <label translate>invite.friendEmail</label>
-                    <input type="email" name="friendEmail" data-ng-model="sic.friend.email">
-                  </md-input-container>
-                </div>
-                <md-button type="submit" class="md-raised md-cornered md-primary" form="inviteFriend">{{'invite.button'|translate}}</md-button>
-              </form>
-            </div>
+          <h1 class="color-blue-brighter" translate>invite.title</h1>
+          <div>
+            <p class="color-blue-brighter text-bold" translate>invite.subtitle</p>
+            <p translate>invite.instructions</p>
           </div>
+          <form class="form" layout="column" layout-align="start start" ng-submit="sic.inviteFriend()" id="inviteFriend" name="inviteFriend">
+            <md-input-container class="organizers">
+              <label translate>invite.friendEmail</label>
+              <input type="email" name="email" data-ng-model="sic.friend.email" required>
+            </md-input-container>
+            <md-button class="md-raised bg-blue-brighter color-white" type="submit">{{'invite.button'|translate}}</md-button>
+          </form>
         </div>
       </div>
     </div>
-  </md-content>
-  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
+</md-content>
+<div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>

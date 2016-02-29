@@ -102,7 +102,10 @@
     "paid": "Paid",
     "doPayment": "Start the payment Process",
     "wait": "Wait until Organizer approve",
-    "ratedOrganizer":"Rated"
+    "ratedOrganizer":"Rated",
+    "causeForm": "Why do you want sponsor this event?",
+    "submitButton": "Sponzor!",
+    "causePlaceholder": "It is an amazing opportunity"
   },
   "sidenav": {
     "settings": "Settings",
