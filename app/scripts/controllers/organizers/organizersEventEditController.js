@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams) {
+  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Events / Edit',
@@ -9,7 +9,7 @@
       $scope.user = JSON.parse($localStorage.user);
       $scope.setEventData();
       $scope.doEditEvent = function(idevent) {
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         $scope.eventData.organizer = $localStorage.id;
         if ($scope.eventData.location !== $scope.locationEvent) {
           $scope.eventData.location = $scope.locationEvent.formatted_address;
@@ -21,10 +21,10 @@
         eventRequest.editEventPut(idevent, $scope.eventData).then(function successCallback(response) {
           $scope.user.events[$routeParams.id] = response.data.event;
           $localStorage.user = JSON.stringify($scope.user);
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('success', 'eventEditedSuccesfully', false);
         }, function errorCallback(response) {
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('error', 'eventNoEdited', false);
         });
       };

@@ -259,5 +259,12 @@
     "shareEvent": "Share Event",
     "seeTasks": "See Tasks",
     "deleteEvent": "Delete Event"
+  },
+  "invite":{
+    "title": "Invite a Friend",
+    "subtitle": "We know you want share SponzorMe",
+    "instructions": "If you had a gorgeous experience using SponsorMe help us share us with your friends",
+    "button": "Invite!",
+    "friendEmail": "Friend's Email"
   }
 }

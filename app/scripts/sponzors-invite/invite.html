@@ -1,26 +1,30 @@
 <div layout-fill class="allContainer">
-
- <!-- navbar 1 -->
+  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-
   <md-content class="superContainer" layout="row">
-
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
-
     <div class="cont" flex>
-
       <sponzors-navbar></sponzors-navbar>
 
-    <!-- Content starts -->
+      <div class="contentContainer">
 
-      <div class="contentContainer" ng-controller="SponzorsMainController as smc">
-
-      <!-- Events Results -->
-        <div class="eventsContainer">
-          <div>
-            Hola
-            </md-content>
+        <div class=" invitefriendContainer" layout="column" flex>
+          <h2 translate>invite.title</h2>
+          <p translate>invite.subtitle</p>
+          <p translate>invite.instructions</p>
+          <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
+            <div class="createLeftContainer" flex="70">
+              <form ng-submit="sic.inviteFriend()" id="inviteFriend" name="inviteFriend">
+                <div class="company">
+                  <md-input-container class="sponzors">
+                    <label translate>invite.friendEmail</label>
+                    <input type="email" name="friendEmail" data-ng-model="sic.friend.email">
+                  </md-input-container>
+                </div>
+                <md-button type="submit" class="md-raised md-cornered md-primary" form="inviteFriend">{{'invite.button'|translate}}</md-button>
+              </form>
+            </div>
           </div>
         </div>
       </div>

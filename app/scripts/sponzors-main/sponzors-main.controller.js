@@ -4,8 +4,7 @@
    First show all Events
    Second allows make a filter based on the interests*/
   function SponzorsMainController($scope, $localStorage, $rootScope, dialogRequest) {
-    if ($rootScope.userValidation('1')) {     
-      
+    if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.events = [];
       vm.filter = [];

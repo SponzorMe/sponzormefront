@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSponzorshipsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope) {
+  function OrganizersSponzorshipsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, ngDialog, $rootScope, dialogRequest) {
     //mock starts
 
     $scope.openSidenavLeft = function(){
@@ -52,7 +52,7 @@
         }
       ]
   $scope.typeOfSponzor = 'gold';
-    
+
     //mock ends
 
     if ($rootScope.userValidation('0')) {
@@ -135,7 +135,7 @@
       };
       //this function deletes an sponzorship if the status is 0
       $scope.deleteSponzorship = function(sponzorshipId, i) {
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         $scope.currentSponzorship = $scope.user.sponzorships_like_organizer[i];
         sponzorshipRequest.deleteSponzorship(sponzorshipId).then(function successCallback() {
           firebaseNotification = {
@@ -147,10 +147,10 @@
           $scope.user.sponzorships_like_organizer.splice(i, 1);
           $localStorage.user = JSON.stringify($scope.user);
           $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('success', 'successDeletingSponzorship', false);
         }, function errorCallback() {
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
         });
       };

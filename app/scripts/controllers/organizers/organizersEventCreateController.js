@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $mdDialog, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest) {
+  function OrganizersEventCreateController($scope, $mdDialog, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest, dialogRequest) {
     //mock starts
     $scope.date = new Date();
     $scope.eventProviderSelected = '';
@@ -94,16 +94,16 @@
           $localStorage.user = JSON.stringify($scope.user);
           $scope.newEvent = {};
           $scope.locationevent = {};
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('success', 'eventCreatedSuccesfully', false);
         }, function errorCallback() {
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('error', 'errorCreatingEvent', false);
         });
       };
       //this function upload or create the event Image
       $scope.imageVerification = function() {
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         $scope.loadingNewEvent = true;
         $scope.errorNewEvent = false;
         if ($scope.file) {
@@ -279,7 +279,7 @@
             $scope.newEvent.starts = data.start.local;
             $scope.newEvent.ends = data.end.local;
             $scope.newEvent.privacy = 0;
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
           });
       };
       $scope.prefilEventFormMeetup = function(e) {
@@ -291,7 +291,7 @@
         var dataExpDate = new Date(dataTime.getTime() + timer);
         $scope.newEvent.ends = new Date(dataExpDate);
         $scope.privacyevent = 0;
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
       };
       $scope.menuprincipal = 'views/organizers/menu.html';
     }

@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function LoginController($scope, $translate, loginRequest, $localStorage, $location, ngDialog, $routeParams, $rootScope, userRequest){
+  function LoginController($scope, $translate, loginRequest, $localStorage, $location, dialogRequest, $routeParams, $rootScope, userRequest, dialogRequest){
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
@@ -10,9 +10,8 @@
     $scope.doLogin = function() {
       if ($scope.login.email && $scope.login.password) { //Just Check the values are defined
         $scope.login.lang = $rootScope.currentLanguage();
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         loginRequest.login($scope.login).then(function successCallback(response) {
-          console.log(response);
           if (response.data.user.activated === '1') { // If account activated
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 1);
@@ -27,7 +26,7 @@
             $localStorage.rating = response.data.rating;
             $translate.use(response.data.user.lang);
             $localStorage.lastUpdate = new Date().getTime();
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             if(response.data.user.sponzorships){
               response.data.user.sponzorships = response.data.user.sponzorships.filter(function(e){
                 e.event.starts = new Date(e.event.starts).getTime();
@@ -65,7 +64,7 @@
               }
             }
           } else {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             ngDialog.open({
               template: 'views/templates/unactivatedAccountDialog.html',
               showClose: false
@@ -73,18 +72,18 @@
           }
         }, function errorCallback() {
           $scope.loagind = false;
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('error', 'dialog.invalidCredentials', false);
         });
       }
     };
     $scope.tryActivation = function(){
-      $rootScope.showLoading();
+      dialogRequest.showLoading();
       loginRequest.tryActivation($routeParams.token).success(function() {
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
         $rootScope.showDialog('success', 'dialog.activationSuccess', false);
       }).error(function() {
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
         ngDialog.open({
           template: 'views/templates/errorActivationDialog.html',
           showClose: false,

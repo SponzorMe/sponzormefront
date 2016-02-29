@@ -38,10 +38,6 @@
 
         'saved': [
           'scripts/sponzors-saved/saved.html'
-        ],
-
-        'invite': [
-          'scripts/invite/invite.html'
         ]
     };
 
@@ -206,22 +202,6 @@
       } else if (side === 'sponzors') {
         for (var i = 0; i < statesSponzors.saved.length; i++) {
           if (statesSponzors.saved[i] === route) {
-            return true
-          }
-        };
-      }
-    }
-
-    $scope.invite = function(side){
-      if (side === 'organizers') {
-        for (var i = 0; i < statesOrganizers.invite.length; i++) {
-          if (statesOrganizers.invite[i] === route) {
-            return true
-          }
-        };
-      } else if (side === 'sponzors') {
-        for (var i = 0; i < statesSponzors.invite.length; i++) {
-          if (statesSponzors.invite[i] === route) {
             return true
           }
         };

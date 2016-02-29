@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  function SponzorsPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, $log, allInterestsServiceRequest) {
+  function SponzorsPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, $log, allInterestsServiceRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -14,7 +14,7 @@
       };
       vm.file = false;
       $scope.updateDetails = function() {
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         if (vm.file) {
           AWS.config.update({
             accessKeyId: $rootScope.getConstants().AMAZONKEY,
@@ -41,10 +41,10 @@
               userRequest.editUserPatch($localStorage.id, vm.user).success(function(adata) {
                 vm.user = adata.User;
                 vm.file = false;
-                $rootScope.closeAllDialogs();
+                dialogRequest.closeLoading();
                 $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
               }).error(function(eData) {
-                $rootScope.closeAllDialogs();
+                dialogRequest.closeLoading();
                 $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
               });
             }
@@ -53,14 +53,14 @@
           userRequest.editUserPatch($localStorage.id, vm.user).then(function successCallback(response) {
             $localStorage.user = JSON.stringify(vm.user);
             vm.file = false;
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
           }, function errorCallback() {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
           });
         }
-      };      
+      };
       vm.querySearch = function(query) {
         return vm.interests.filter(function(e){
           if(e.name.indexOf(query)>-1){

@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function OrganizersFriendController($scope, $translate, $localStorage, userRequest, $rootScope) {
+  function OrganizersFriendController($scope, $translate, $localStorage, userRequest, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       //Vars initialization
       $scope.section = {
@@ -17,7 +17,7 @@
       //This function invites to a friend to use our platform.
       $scope.invitefriend = function() {
         $scope.loadingInvite = true;
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         $scope.objuserinv = {};
         $scope.objuserinv.user_id = $localStorage.id;
         $scope.objuserinv.email = $scope.friend.email;
@@ -27,10 +27,10 @@
           $scope.friend.email = '';
           $scope.friend.message = '';
           if (adata.code === '200') {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('success', 'inviteFiendEmailSent', false);
           } else {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('error', 'problem', false);
           }
           $scope.loadingInvite = false;

@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsCreateTasksController($scope, $localStorage, $routeParams, taskSponzorRequest, $rootScope) {
+  function SponzorsCreateTasksController($scope, $localStorage, $routeParams, taskSponzorRequest, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -26,14 +26,14 @@
           });
         }
         else {
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $localStorage.user = JSON.stringify(vm.user);
           $rootScope.showDialog('success', 'dialog.taskAddedSuccessfuly', '/sponzors/tasks');
         }
       };
       vm.addNewTask = function () {
         if(vm.task.title && vm.task.description){
-          $rootScope.showLoading();
+          dialogRequest.showLoading();
           vm.addNextTask(0);
         }
         else{

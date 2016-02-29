@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $rootScope, allInterestsServiceRequest, loginRequest, userInterestRequest) {
+  function OrganizersSettingsController($scope, $translate, userRequest, $localStorage, $rootScope, allInterestsServiceRequest, loginRequest, userInterestRequest, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Settings',
@@ -47,7 +47,7 @@
       };
       $scope.file = false; //By default no file to update.
       $scope.editAccount = function() {
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         if ($scope.user.location !== $scope.locationUser) {
           $scope.user.location = $scope.locationUser.formatted_address;
           $scope.user.location_reference = $scope.locationUser.place_id;
@@ -84,10 +84,10 @@
               userRequest.editUserPatch($localStorage.id, $scope.user).then(function successCallback(response) {
                 $localStorage.user = JSON.stringify($scope.user);
                 $scope.file = false;
-                $rootScope.closeAllDialogs();
+                dialogRequest.closeLoading();
                 $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
               }, function errorCallback() {
-                $rootScope.closeAllDialogs();
+                dialogRequest.closeLoading();
                 $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
               });
             }
@@ -96,30 +96,30 @@
           userRequest.editUserPatch($localStorage.id, $scope.user).then(function successCallback(response) {
             $localStorage.user = JSON.stringify($scope.user);
             $scope.file = false;
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
           }, function errorCallback() {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
           });
         }
       };
       $scope.resetPassword = function() {
         if ($scope.password === $scope.passwordConfirmation) {
-          $rootScope.showLoading();
+          dialogRequest.showLoading();
           var formData = {
             'email': $localStorage.email,
             'password': $scope.password,
             'password_confirmation': $scope.passwordConfirmation
           };
           loginRequest.changePassword(formData, $localStorage.token).then(function successCallback(response) {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
             $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
             $scope.password = '';
             $scope.passwordConfirmation = '';
           }, function errorCallback() {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('error', 'InvalidNewPassword', false);
           });
         } else {

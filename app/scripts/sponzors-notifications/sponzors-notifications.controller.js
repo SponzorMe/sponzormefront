@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location) {
+  function SponzorsNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       if ($routeParams.id) {
@@ -23,8 +23,9 @@
             });
           }
         });
+
       }
-      
+
       vm.markAsImportant = function (index) {
         console.log(index);
         vm.notificationRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id + '/' + index);

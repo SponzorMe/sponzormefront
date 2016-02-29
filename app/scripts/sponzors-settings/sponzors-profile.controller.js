@@ -1,13 +1,13 @@
 (function() {
   'use strict';
-  function SponzorsProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest) {
+  function SponzorsProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
       console.log(vm.user);
       vm.file = false;
       vm.editAccount = function(){
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         if (vm.user.location !== vm.locationUser) {
           vm.user.location = vm.locationUser.formatted_address;
           vm.user.location_reference = vm.locationUser.place_id;
@@ -39,10 +39,10 @@
               userRequest.editUserPatch($localStorage.id, vm.user).then(function successCallback(response) {
                 $localStorage.user = JSON.stringify(vm.user);
                 vm.file = false;
-                $rootScope.closeAllDialogs();
+                dialogRequest.closeLoading();
                 $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
               }, function errorCallback(err) {
-                $rootScope.closeAllDialogs();
+                dialogRequest.closeLoading();
                 $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
               });
             }
@@ -52,10 +52,10 @@
           userRequest.editUserPatch($localStorage.id, vm.user).then(function successCallback(response) {
             $localStorage.user = JSON.stringify(vm.user);
             vm.file = false;
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
           }, function errorCallback(err) {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
           });
         }

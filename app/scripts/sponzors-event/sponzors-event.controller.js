@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  function SponzorsEventController($scope, $mdSidenav, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope) {
+  function SponzorsEventController($scope, $mdSidenav, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope, dialogRequest) {
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
     vm.currentEvent = vm.events[$routeParams.eventId];
@@ -20,8 +20,8 @@
       });
     };
     vm.createSponzorship = function () {
-      $rootScope.closeAllDialogs();
-      $rootScope.showLoading();
+      dialogRequest.closeLoading();
+      dialogRequest.showLoading();
       vm.user = JSON.parse($localStorage.user);
       vm.user.pendingSponzorships = vm.user.sponzorships.filter(function (e) {
         if (e.status === '0') {
@@ -37,10 +37,10 @@
           link: '#/organizers/sponzors'
         };
         $rootScope.sendFirebaseNotification(firebaseNotification, vm.currentEvent.user_organizer.id);
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
         $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
         if (err.status === 409) {
           $rootScope.showDialog('error', 'alreadySponzoring', false);
         } else {

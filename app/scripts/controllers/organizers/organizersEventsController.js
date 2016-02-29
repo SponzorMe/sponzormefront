@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function OrganizersEventsController($scope, $translate, $localStorage, eventRequest, ngDialog, perkTaskRequest, $rootScope) {
+  function OrganizersEventsController($scope, $translate, $localStorage, eventRequest, ngDialog, perkTaskRequest, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Events',
@@ -46,9 +46,9 @@
         return false;
       };
       $scope.removeEvent = function(index) {
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         if ($scope.hasSponzorship($scope.user.events[index].id)) {
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('error', 'eventDeletingEventHasSponzorship', false);
         } else {
           eventRequest.deleteEvent($scope.user.events[index].id).then(function successCallback(response) {
@@ -61,10 +61,10 @@
               $scope.currentEvent = {};
               $scope.currentPerk = {};
             }
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('success', 'eventDeleteSuccesfully', false);
           }, function errorCallback(response) {
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             $rootScope.showDialog('error', 'errorDeletingEvent', false);
           });
         }
@@ -87,8 +87,8 @@
       /*this function takes the current perk and the current event, and add a task for the
         selected perk.*/
       $scope.addTask = function() {
-        $rootScope.closeAllDialogs();
-        $rootScope.showLoading();
+        dialogRequest.closeLoading();
+        dialogRequest.showLoading();
         perkTaskRequest.createPerkTask($scope.todo).then(function successCallback(response) {
           $scope.todo.id = response.data.PerkTask.id;
           for (var i = 0; i < $scope.user.events.length; i++) {
@@ -104,10 +104,10 @@
           }
           $scope.user.sponzorships_like_organizer = response.data.sponzorships_like_organizer;
           $localStorage.user = JSON.stringify($scope.user);
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $scope.todo = {};
         }, function errorCallback(response) {
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('error', 'errorCreatingTask', false);
         });
       };
@@ -120,7 +120,7 @@
           $localStorage.user = JSON.stringify($scope.user);
         }, function errorCallback() {
           $scope.currentPerk.tasks[index].loading = false;
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
           $rootScope.showDialog('error', 'errorDeletingTask', false);
         });
       };

@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersRatingController($scope, $translate, $rootScope, $localStorage, $routeParams, ratingRequest) {
+  function OrganizersRatingController($scope, $translate, $rootScope, $localStorage, $routeParams, ratingRequest, dialogRequest) {
     if ($rootScope.userValidation('0') && $routeParams.sponzorshipId) {
       $scope.section = {
         route: 'Sponzorships / Rating',
@@ -24,7 +24,7 @@
       }
 
       $scope.saveRating = function() { //Finally we save the rating information
-        $rootScope.showLoading();
+        dialogRequest.showLoading();
         if ($scope.rating.other) {
           $scope.rating.question5 = 'Other: ' + $scope.rating.other;
         }
@@ -38,11 +38,11 @@
           };
           $rootScope.sendFirebaseNotification(firebaseNotification, response.data.Rating.sponzor_id);
           $scope.rating = {};
-          $rootScope.closeAllDialogs(); //Close Loading
+          dialogRequest.closeLoading(); //Close Loading
           $rootScope.showDialog('success', 'ratingOrganizerSuccess', '/organizers/sponzors');
         }, function errorCallback(response) {
           $scope.loadingForm = false; //Loading
-          $rootScope.closeAllDialogs(); //Close Loading
+          dialogRequest.closeLoading(); //Close Loading
           $rootScope.showDialog('error', 'invalidRateInfo', false);
         });
       };

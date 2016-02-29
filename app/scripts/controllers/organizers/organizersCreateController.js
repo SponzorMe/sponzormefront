@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
+  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope, dialogRequest) {
     //mock starts
 
     $scope.pages = {
@@ -24,7 +24,7 @@
 
     $scope.toggleCreateForm = function() {
       if($scope.firstPage === true){
-        $scope.firstPage = false;  
+        $scope.firstPage = false;
       } else {
         $scope.firstPage = true;
       }
@@ -47,7 +47,7 @@
           $scope.objuser.type = 0;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;
-          $rootScope.showLoading();
+          dialogRequest.showLoading();
           userRequest.createUser($scope.objuser).then(function successCallback(response) {
             $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
             $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);
@@ -59,7 +59,7 @@
             $localStorage.newUser = true;
             $scope.loagind = false;
             $location.path('/customization');
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
           }, function errorCallback(response) {
             $scope.errorMessages = [];
             if (response.data.error.email) {
@@ -80,7 +80,7 @@
               $scope.errorMessages.push('errorRegisterPassword');
             }
             $scope.loagind = false;
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             ngDialog.open({
               template: 'views/templates/multipleErrorDialog.html',
               showClose: false,

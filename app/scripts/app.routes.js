@@ -68,8 +68,7 @@
         templateUrl: 'scripts/sponzors-tasks/tasks_create.html',
         controller: 'SponzorsCreateTasksController',
         controllerAs: 'sctc'
-      })
-      
+      })      
       .when('/sponzors/notifications', {
         templateUrl: 'scripts/sponzors-notifications/notifications.html',
         controller: 'SponzorsNotificationsController',
@@ -94,6 +93,11 @@
         templateUrl: 'scripts/sponzors-event/event.html',
         controller: 'SponzorsEventController',
         controllerAs: 'sec'
+      })      
+      .when('/sponzors/invite', {
+        templateUrl: 'scripts/sponzors-invite/invite.html',
+        controller: 'SponzorsInviteController',
+        controllerAs: 'sic'
       })
       
       
@@ -262,9 +266,6 @@
       })
       .when('/testimonials', {
         templateUrl: 'views/testimonials.html'
-      })
-      .when('/invitefriend', {
-        templateUrl: 'views/inviteFriend.html'
       })
       
 

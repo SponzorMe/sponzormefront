@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $rootScope) {
+  function CustomizationController($scope, $translate, $localStorage, userRequest, allInterestsServiceRequest, categoryRequest, userInterestRequest, $location, $rootScope, dialogRequest) {
     $scope.steps = [false, false, false]; //Number of steps in customization proccess
     $scope.startCustomization = function() {
       //We check if localStorage is seeted.
@@ -31,7 +31,7 @@
       $scope.steps[stepToShow] = true;
     };
     $scope.sendfrom = function() {
-      $rootScope.showLoading();
+      dialogRequest.showLoading();
       $scope.objuser = {};
       $scope.objuser.age = $scope.userData.age;
       $scope.objuser.sex = $scope.userData.sex;
@@ -44,7 +44,7 @@
         if (adata.message === 'Updated') {
           $scope.showStep(1);
         }
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
       });
     };
     $scope.showInterests = function(categoryid) {
@@ -63,12 +63,12 @@
       }
     };
     $scope.submitCategoryInfo = function() {
-      $rootScope.showLoading();
+      dialogRequest.showLoading();
       var data = {
         interests: $scope.interestselectarray
       };
       userInterestRequest.bulkUserInterest(data).then(function successCallback(response) {
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
         $scope.showStep(2);
       });
     };
