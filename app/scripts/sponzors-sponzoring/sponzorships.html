@@ -45,13 +45,13 @@
                 </md-tooltip>
                 <md-icon>payment</md-icon>
               </a>
-              <a ng-if="item.status==3" href="" ng-click="ssc.doPayment()">
+              <a ng-if="item.status==3" href="">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.paid'|translate}}
                 </md-tooltip>
                 <md-icon><i class="material-icons">verified_user</i></md-icon>
               </a>
-              <a ng-if="item.status>3" href="" ng-click="ssc.doPayment()">
+              <a ng-if="item.status>3" href="">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.verifyingPayment'|translate}}
                 </md-tooltip>
@@ -69,7 +69,7 @@
                 </md-tooltip>
                 <md-icon>help</md-icon>
               </a>
-              <a href="#/sponzors/chat/sponzorship/{{$index}}">
+              <a href="#/sponzors/chat/sponzorship/{{item.id}}">
                 <md-tooltip md-direction="bottom">
                   {{'sponzorsSponzorships.chatWithOrganizer'|translate}}
                 </md-tooltip>

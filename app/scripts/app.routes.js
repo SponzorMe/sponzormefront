@@ -13,7 +13,7 @@
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginController'
-      })      
+      })
       .when('/sponzors/dashboard', {
         templateUrl: 'scripts/sponzors-main/main.html',
         controller: 'SponzorsMainController',
@@ -43,7 +43,7 @@
         templateUrl: 'scripts/sponzors-settings/ratings.html',
         controller: 'SponzorsRatingsController',
         controllerAs: 'src'
-      })      
+      })
       .when('/sponzors/sponzoring', {
         templateUrl: 'scripts/sponzors-sponzoring/sponzorships.html',
         controller: 'SponzorsSponzorshipsController',
@@ -68,7 +68,7 @@
         templateUrl: 'scripts/sponzors-tasks/tasks_create.html',
         controller: 'SponzorsCreateTasksController',
         controllerAs: 'sctc'
-      })      
+      })
       .when('/sponzors/notifications', {
         templateUrl: 'scripts/sponzors-notifications/notifications.html',
         controller: 'SponzorsNotificationsController',
@@ -93,16 +93,21 @@
         templateUrl: 'scripts/sponzors-event/event.html',
         controller: 'SponzorsEventController',
         controllerAs: 'sec'
-      })      
+      })
       .when('/sponzors/invite', {
         templateUrl: 'scripts/sponzors-invite/invite.html',
         controller: 'SponzorsInviteController',
         controllerAs: 'sic'
       })
-      
-      
-      
-      
+      .when('/sponzors/chat/sponzorship/:sponzorshipId', {
+        templateUrl: 'scripts/sponzors-chat/chat.html',
+        controller: 'SponzorsChatController',
+        controllerAs: 'scc'
+      })
+
+
+
+
 
 
       .when('/organizers/tasks', {
@@ -128,15 +133,6 @@
       .when('/organizers/news', {
         templateUrl: 'views/organizers/dashboard/news.html',
         controller: 'OrganizersNotificationsController'
-      })
-
-      .when('/organizers/chat', {
-        templateUrl: 'views/organizers/chat.html',
-        controller: 'ChatController'
-      })
-      .when('/sponzors/chat', {
-        templateUrl: 'views/sponzors/chat.html',
-        controller: 'ChatController'
       })
 
       .when('/activation/:token', {
@@ -210,7 +206,7 @@
         templateUrl: 'views/sponzors/dashboard/friend.html',
         controller: 'SponzorsFriendController'
       })
-      
+
       .when('/event/:eventId', {
         templateUrl: 'views/event.html',
         controller: 'EventPageController'
@@ -247,10 +243,7 @@
         templateUrl: 'views/organizers/dashboard/rateSponzorship.html',
         controller: 'OrganizersRatingController'
       })
-      .when('/sponzors/chat/sponzorship/:sponzorshipId', {
-        templateUrl: 'views/chat.html',
-        controller: 'ChatController'
-      })
+
       .when('/profile/:userId', {
         templateUrl: 'views/profile.html',
         controller: 'ProfileController'
@@ -267,7 +260,7 @@
       .when('/testimonials', {
         templateUrl: 'views/testimonials.html'
       })
-      
+
 
 
 

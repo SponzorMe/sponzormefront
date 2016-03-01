@@ -271,5 +271,8 @@
     "instructions": "If you had a gorgeous experience using SponsorMe help us share us with your friends",
     "button": "Invite!",
     "friendEmail": "Friend's Email"
+  },
+  "chat": {
+    "writeMessage": "Write message"
   }
 }
