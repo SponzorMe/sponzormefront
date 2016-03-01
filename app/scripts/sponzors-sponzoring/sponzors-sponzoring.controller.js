@@ -36,19 +36,22 @@
 
       //This function open the Payment Details Dialog
       vm.doPayment = function(sponzorship) {
-        vm.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
-        vm.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
-        vm.SANDBOX = $rootScope.getConstants().PAYPALSANDBOX;
-        vm.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
-        vm.sponzorship = sponzorship;
-        vm.paymentValue = sponzorship.perk.usd;
-        vm.fee = parseFloat((sponzorship.perk.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
-        vm.paymentTotal = parseFloat(sponzorship.perk.usd) + parseFloat(vm.fee);
+        $scope.PAYPALCOMPLETERETURNURL = $rootScope.getConstants().PAYPALCOMPLETERETURNURL;
+        $scope.PAYPALIPNRETURNURL = $rootScope.getConstants().PAYPALIPNRETURNURL;
+        $scope.SANDBOX = $rootScope.getConstants().PAYPALSANDBOX;
+        $scope.PAYPALEMAIL = $rootScope.getConstants().PAYPALEMAIL;
+        $scope.sponzorship = sponzorship;
+        $scope.paymentValue = sponzorship.perk.usd;
+        $scope.fee = parseFloat((sponzorship.perk.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
+        $scope.paymentTotal = parseFloat(sponzorship.perk.usd) + parseFloat($scope.fee);
 
-        ngDialog.open({
+        $mdDialog.show({
+          templateUrl: 'scripts/sponzors-sponzoring/payment-info.html',
+          controller: 'SponzorsSponzorshipsController',
+          controllerAs: 'ssc',
           scope: $scope,
-          template: 'views/templates/prePaymentInfo.html',
-          showClose: true
+          preserveScope: true,
+          clickOutsideToClose: true
         });
       };
 
