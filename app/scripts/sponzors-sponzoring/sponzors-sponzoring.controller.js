@@ -1,21 +1,38 @@
-'use strict';
 (function() {
-  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, ngDialog) {
+  'use strict';
+  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, ngDialog, $mdDialog) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.todayDate = new Date().getTime();
       vm.user = JSON.parse($localStorage.user);
       vm.statuses = SPONZORSHIPSTATUSES;
-      
+
       if($routeParams.id){
         vm.currentSponzorship = vm.user.sponzorships[$routeParams.id];
         vm.currentSponzorship.event.ends = new Date(vm.currentSponzorship.event.ends).getTime();
         console.log(vm.currentSponzorship);
       }
-      
-      
-      
-      
+
+      //This function displays a popup to Show Download calendar
+      vm.downloadCalendar = function(sponzorship) {
+        $scope.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
+        $scope.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
+        $scope.ends = $scope.ends.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
+        $scope.starts = $scope.starts.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
+        $scope.currentSponzorship = sponzorship;
+        $mdDialog.show({
+          templateUrl: 'scripts/sponzors-sponzoring/add-calendar.html',
+          controller: 'SponzorsSponzorshipsController',
+          controllerAs: 'ssc',
+          scope: $scope,
+          preserveScope: true,
+          clickOutsideToClose: true
+        });
+      };
+
+
+
+
 
       //This function open the Payment Details Dialog
       vm.doPayment = function(sponzorship) {
@@ -27,6 +44,7 @@
         vm.paymentValue = sponzorship.perk.usd;
         vm.fee = parseFloat((sponzorship.perk.usd * $rootScope.getConstants().FEE) + $rootScope.getConstants().XOOMRATE);
         vm.paymentTotal = parseFloat(sponzorship.perk.usd) + parseFloat(vm.fee);
+
         ngDialog.open({
           scope: $scope,
           template: 'views/templates/prePaymentInfo.html',
@@ -34,28 +52,19 @@
         });
       };
 
-      //This function displays a popup to Show Download calendar
-      vm.downloadCalendar = function(sponzorship) {
-        vm.starts = new Date(sponzorship.event.starts).toISOString().replace(':', '').replace('-', '').replace('.', '');
-        vm.ends = new Date(sponzorship.event.ends).toISOString().replace(':', '').replace('-', '').replace('.', '');
-        vm.ends = vm.ends.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
-        vm.starts = vm.starts.replace(':', '').replace('-', '').replace('.', '').replace('000Z', '');
-        vm.currentSponzorship = sponzorship;
-        ngDialog.open({
-          template: 'views/templates/addToCalendarDialog.html',
-          showClose: false,
-          scope: $scope
-        });
-      };
+
 
       //This function shows SpoonzorShipCause
       vm.seeCause = function(sponzorship) {
-        vm.cause = sponzorship.cause;
-        vm.status = sponzorship.status;
-        ngDialog.open({
-          template: 'views/templates/sponzorshipCauseDialog.html',
-          showClose: false,
-          scope: $scope
+        $scope.cause = sponzorship.cause;
+        $scope.status = sponzorship.status;
+        $mdDialog.show({
+          templateUrl: 'scripts/sponzors-sponzoring/cause-dialog.html',
+          controller: 'SponzorsSponzorshipsController',
+          controllerAs: 'ssc',
+          scope: $scope,
+          preserveScope: true,
+          clickOutsideToClose: true
         });
       };
     }

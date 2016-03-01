@@ -100,12 +100,14 @@
     "addToCalendar": "Add to Calendar",
     "verifyingPayment": "We are verifying the payment",
     "paid": "Paid",
+    "currentStatus": "Current Status",
     "doPayment": "Start the payment Process",
     "wait": "Wait until Organizer approve",
     "ratedOrganizer":"Rated",
     "causeForm": "Why do you want sponsor this event?",
     "submitButton": "Sponzor!",
-    "causePlaceholder": "It is an amazing opportunity"
+    "causePlaceholder": "It is an amazing opportunity",
+    "calendarInstructions": "Please choose a calendar to import: "
   },
   "sidenav": {
     "settings": "Settings",
