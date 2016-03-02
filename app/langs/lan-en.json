@@ -274,5 +274,35 @@
   },
   "chat": {
     "writeMessage": "Write message"
+  },
+  "rate": {
+    "organizerName": "Organizer Name: ",
+    "rateOrganizer": "Rate Organizer",
+    "rateDescription": "In this form you will have the opportunity to assign a tate to event's organizer, based on the experience during this sponzorship. Likewise you can make suggests and comments",
+    "event" : "Event/Sponzorship",
+    "chooseOneOption": "Choose an option"
+  },
+  "ratingSponzor":{
+    "question0":"In general, What is your score for this Organizer?",
+    "question1":"Overall, how was your experience with us?*",
+    "question2":"How did you find out about our events?",
+    "question3":"How do you perceive the way organizers handled your brand? *",
+    "question4":"Did you got what was promised? *",
+    "question5":"How much would you invest in sponsoring in the future? *",
+    "question6":"Did you feel accomplished? *",
+    "question7":"Would you sponsor us in the future? *",
+    "question8":"Which is the audience you're looking for?",
+    "question9":"Events on targeted to which developers would you like to sponsor? *",
+    "question10":"Write a Comment"
+  },
+  "ratingOrganizer":{
+    "question0":"Overall, how was your experience with your sponsor?",
+    "question1":"Who manages sponsoring in your Group?*",
+    "question2":"How do you perceive the Sponsor's commitment to you ? *",
+    "question3":"Did you got what was promised?*",
+    "question4":"Do you going to use us again in the future?*",
+    "question5":"Which is your audience? *",
+    "question6":"Write a Comment"
   }
+
 }

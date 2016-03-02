@@ -1,0 +1,170 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <sponzors-navbar></sponzors-navbar>
+
+      <div class="contentContainer">
+
+        <div class="formRateContainer">
+          <h2 translate>rate.rateOrganizer</h2>
+          <p translate>rate.rateDescription</p>
+          <form class="form" layout-align="start start" ng-submit="src.saveRate()" id="inviteFriend" name="inviteFriend">
+            <div layout="row" flex>
+              <figure flex="50" layout="column" layout-align="center center">
+                <img ng-src="{{src.currentSponzorship.organizer.image}}"/>
+              </figure>
+              <div class="userInfo" layout="column" layout-align="center start" flex="50">
+                <label translate>rate.organizerName</label>
+                <span>{{src.currentSponzorship.organizer.name}}</span>
+                <label translate>rate.event</label>
+                <span>{{src.currentSponzorship.event.title}} /
+                  {{src.currentSponzorship.perk.kind}}
+                  - ${{src.currentSponzorship.perk.usd}}</span>
+              </div>
+            </div>
+
+            <div layout="row" flex>
+              <div layout="column" flex="50" layout-align="center center">
+                <input-stars max="5" data-ng-model="rating.question0" required></input-stars>
+              </div>
+              <div layout="column" flex="50" layout-align="center start">
+                <label translate>ratingSponzor.question0</label>
+              </div>
+            </div>
+
+            <div class="paddint-top-10" layout="row" flex>
+              <div  layout="column" layout-align="center center">
+                {{ 'ratingSponzor.question1' | translate}}
+              </div>
+              <div layout="column" layout-align="center center">
+                <input-stars max="5" data-ng-model="rating.question1"></input-stars>
+              </div>
+            </div>
+
+            <md-input-container layout="column" flex>
+              <div flex="50" layout="column" layout-align="center center">
+                <label for="label">
+                  {{ 'ratingSponzor.question2' | translate}}
+                </label>
+                <input type="text" data-ng-model="rating.question2"/>
+              </div>
+            </md-input-container>
+
+            <div class="md-input-container" layout="row" flex>
+              <div  layout="column" layout-align="center center">
+                {{ 'ratingSponzor.question3' | translate}}
+              </div>
+              <div layout="column" layout-align="center center">
+                <input-stars max="5" data-ng-model="rating.question3"></input-stars>
+              </div>
+            </div>
+
+            <div class="md-input-container" layout="column" flex>
+              <div  layout="column" layout-align="center start">
+                {{ 'ratingSponzor.question4' | translate}}
+              </div>
+              <div layout="column" layout-align="center start">
+                <md-select data-ng-model="rating.question4" required>
+                  <md-option value="" selected="selected">{{'rate.chooseOneOption'|translate}}</md-option>
+                  <md-option value="1">{{'yes'|translate}}</md-option>
+                  <md-option value="0">{{'no'|translate}}</md-option>
+                </md-select>
+              </div>
+            </div>
+
+
+
+
+
+              <!--md-input-container layout="column" layout-align="start start">
+                <label for="label">
+                  {{ 'ratingSponzor.question4' | translate}}
+                </label>
+                <md-select data-ng-model="rating.question4" required>
+                  <md-option value="">{{'rate.chooseOneOption'|translate}}</md-option>
+                  <md-option value="1">{{'yes'|translate}}</md-option>
+                  <md-option value="0">{{'no'|translate}}</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container layout="column" layout-align="start start">
+                <label for="label">
+                  {{ 'ratingSponzor.question5' | translate}}
+                </label>
+                <md-select data-ng-model="rating.question5" required="">
+                  <md-option value="">{{'rate.chooseOneOption'|translate}}</md-option>
+                  <md-option value="USD 50 - USD 150">USD 50 - USD 150</md-option>
+                  <md-option value="USD 151 - USD 300">USD 151 - USD 300</md-option>
+                  <md-option value="USD 301 - USD 500">USD 301 - USD 500</md-option>
+                  <md-option value="USD 501 - USD 1000">USD 501 - USD 1000</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container layout="column" layout-align="start start">
+                <label for="label">
+                  {{ 'ratingSponzor.question6' | translate}}
+                </label>
+
+                <md-select data-ng-model="rating.question6" required>
+                  <md-option value="">{{'rate.chooseOneOption'|translate}}</md-option>
+                  <md-option value="1">{{'yes'|translate}}</md-option>
+                  <md-option value="0">{{'no'|translate}}</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container layout="column" layout-align="start start">
+                <label for="label">
+                  {{ 'ratingSponzor.question7' | translate}}
+                </label>
+
+                <md-select data-ng-model="rating.question7" required>
+                  <md-option value="">{{'rate.chooseOneOption'|translate}}</md-option>
+                  <md-option value="1">{{'yes'|translate}}</md-option>
+                  <md-option value="0">{{'no'|translate}}</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container layout="column" layout-align="start start">
+                <label for="label">
+                  {{ 'ratingSponzor.question8' | translate}}
+                </label>
+
+                <md-select data-ng-model="rating.question8" required>
+                  <md-option value="">{{'rate.chooseOneOption'|translate}}</md-option>
+                  <md-option value="developers">{{'developers'|translate}}</md-option>
+                  <md-option value="designers">{{'designers'|translate}}</md-option>
+                  <md-option value="entrepeneurs">{{'entrepeneurs'|translate}}</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container layout="column" layout-align="start start">
+                <label for="label">
+                  {{ 'ratingSponzor.question9' | translate}}
+                </label>
+
+                <md-select data-ng-model="rating.question9">
+                  <md-option value="">{{'rate.chooseOneOption'|translate}}</md-option>
+                  <md-option value="PHP">PHP</md-option>
+                  <md-option value="IOS">IOS</md-option>
+                  <md-option value="Android">Android</md-option>
+                  <md-option value="Phonegap">Phonegap</md-option>
+                  <md-option value="Ruby">Ruby</md-option>
+                  <md-option value="Python">Python</md-option>
+                  <md-option value="Java J2EE">Java J2EE</md-option>
+                  <md-option value="Javascript">Javascript</md-option>
+                  <md-option value="other">{{'Other'|translate}}</md-option>
+                </md-select>
+                <input ng-if="rating.question9 == 'other'" type="text" data-ng-model="rating.other" required/>
+              </md-input-container>
+              <md-input-container layout="column" layout-align="start start">
+                <label for="label">
+                  {{ 'ratingSponzor.question10' | translate}}
+                </label>
+                <textarea ng-mode="rating.question10"></textarea>
+              </md-input-container-->
+          </form>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>

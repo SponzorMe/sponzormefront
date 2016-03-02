@@ -104,6 +104,11 @@
         controller: 'SponzorsChatController',
         controllerAs: 'scc'
       })
+      .when('/sponzors/rate/sponzorship/:sponzorshipId', {
+        templateUrl: 'scripts/sponzors-rate/rate-form.html',
+        controller: 'SponzorsRateController',
+        controllerAs: 'src'
+      })
 
 
 
