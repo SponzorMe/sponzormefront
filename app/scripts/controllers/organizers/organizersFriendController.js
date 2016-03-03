@@ -28,10 +28,10 @@
           $scope.friend.message = '';
           if (adata.code === '200') {
             dialogRequest.closeLoading();
-            $rootScope.showDialog('success', 'inviteFiendEmailSent', false);
+            dialogRequest.showDialog('success', 'inviteFiendEmailSent', false);
           } else {
             dialogRequest.closeLoading();
-            $rootScope.showDialog('error', 'problem', false);
+            dialogRequest.showDialog('error', 'problem', false);
           }
           $scope.loadingInvite = false;
         });

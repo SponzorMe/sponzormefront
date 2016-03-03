@@ -22,10 +22,10 @@
           $scope.user.events[$routeParams.id] = response.data.event;
           $localStorage.user = JSON.stringify($scope.user);
           dialogRequest.closeLoading();
-          $rootScope.showDialog('success', 'eventEditedSuccesfully', false);
+          dialogRequest.showDialog('success', 'eventEditedSuccesfully', false);
         }, function errorCallback(response) {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'eventNoEdited', false);
+          dialogRequest.showDialog('error', 'eventNoEdited', false);
         });
       };
       $scope.addPerk = function() {

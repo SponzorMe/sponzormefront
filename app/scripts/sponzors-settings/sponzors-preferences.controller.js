@@ -42,10 +42,10 @@
                 vm.user = adata.User;
                 vm.file = false;
                 dialogRequest.closeLoading();
-                $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
+                dialogRequest.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
               }).error(function(eData) {
                 dialogRequest.closeLoading();
-                $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
+                dialogRequest.showDialog('error', 'dialog.errorEditingAccountInfo', false);
               });
             }
           });
@@ -54,10 +54,10 @@
             $localStorage.user = JSON.stringify(vm.user);
             vm.file = false;
             dialogRequest.closeLoading();
-            $rootScope.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
+            dialogRequest.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
           }, function errorCallback() {
             dialogRequest.closeLoading();
-            $rootScope.showDialog('error', 'dialog.errorEditingAccountInfo', false);
+            dialogRequest.showDialog('error', 'dialog.errorEditingAccountInfo', false);
           });
         }
       };

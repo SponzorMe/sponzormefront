@@ -106,7 +106,7 @@
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
         }, function errorCallback() {
           $scope.user.sponzorships_like_organizer[i].loading = false;
-          $rootScope.showDialog('error', 'problem', false);
+          dialogRequest.showDialog('error', 'problem', false);
         });
       };
       //This function changes to 0 the sponzorship status
@@ -130,7 +130,7 @@
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
         }, function errorCallback(response) {
           $scope.user.sponzorships_like_organizer[i].loading = false;
-          $rootScope.showDialog('error', 'problem', false);
+          dialogRequest.showDialog('error', 'problem', false);
         });
       };
       //this function deletes an sponzorship if the status is 0
@@ -148,10 +148,10 @@
           $localStorage.user = JSON.stringify($scope.user);
           $scope.getTasks($scope.user.sponzorships_like_organizer[0]);
           dialogRequest.closeLoading();
-          $rootScope.showDialog('success', 'successDeletingSponzorship', false);
+          dialogRequest.showDialog('success', 'successDeletingSponzorship', false);
         }, function errorCallback() {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'errorDeletingSponzorship', false);
+          dialogRequest.showDialog('error', 'errorDeletingSponzorship', false);
         });
       };
       $scope.changeStatus = function(index, status) {
@@ -175,7 +175,7 @@
 
         }, function errorCallback() {
           $scope.currentSponzorship.task_sponzor[index].loading = false;
-          $rootScope.showDialog('error', 'errorUpdatingTaskStatus', false);
+          dialogRequest.showDialog('error', 'errorUpdatingTaskStatus', false);
         });
       };
       $scope.seeCause = function(sponzorship) {

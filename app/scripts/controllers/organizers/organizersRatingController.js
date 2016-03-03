@@ -12,7 +12,7 @@
           $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].organizer_id === $localStorage.id && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[0].type === '0'
         ) || ($scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1] &&
           $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].organizer_id === $localStorage.id && $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings[1].type === '0')) {
-        $rootScope.showDialog('error', 'ratingAlreadyRated', '/organizers/sponzors');
+        dialogRequest.showDialog('error', 'ratingAlreadyRated', '/organizers/sponzors');
       } else {
         $scope.rating = {
           'sponzorship_id': $scope.user.sponzorships_like_organizer[$routeParams.sponzorshipId].id,
@@ -39,11 +39,11 @@
           $rootScope.sendFirebaseNotification(firebaseNotification, response.data.Rating.sponzor_id);
           $scope.rating = {};
           dialogRequest.closeLoading(); //Close Loading
-          $rootScope.showDialog('success', 'ratingOrganizerSuccess', '/organizers/sponzors');
+          dialogRequest.showDialog('success', 'ratingOrganizerSuccess', '/organizers/sponzors');
         }, function errorCallback(response) {
           $scope.loadingForm = false; //Loading
           dialogRequest.closeLoading(); //Close Loading
-          $rootScope.showDialog('error', 'invalidRateInfo', false);
+          dialogRequest.showDialog('error', 'invalidRateInfo', false);
         });
       };
       $scope.menuprincipal = 'views/organizers/menu.html';

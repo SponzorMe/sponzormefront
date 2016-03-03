@@ -73,7 +73,7 @@
         }, function errorCallback() {
           $scope.loagind = false;
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'dialog.invalidCredentials', false);
+          dialogRequest.showDialog('error', 'dialog.invalidCredentials', false);
         });
       }
     };
@@ -81,7 +81,7 @@
       dialogRequest.showLoading();
       loginRequest.tryActivation($routeParams.token).success(function() {
         dialogRequest.closeLoading();
-        $rootScope.showDialog('success', 'dialog.activationSuccess', false);
+        dialogRequest.showDialog('success', 'dialog.activationSuccess', false);
       }).error(function() {
         dialogRequest.closeLoading();
         ngDialog.open({

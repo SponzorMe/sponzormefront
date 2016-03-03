@@ -1,11 +1,18 @@
-<div class="dialog-container success">
-  <div class="dialog-top top-success"><i class="material-icons md-48 md-light">done</i><div>
-  <div class="content">
-    <h1>Congratulations</h1>
-    <p>{{pseudoScope.message|translate}}</p>
-  </div>
-  <div class="botonera">
-    <a ng-if="pseudoScope.redirectOnClose" href="" ng-click="close(pseudoScope.redirectOnClose)">Continue</a>
-    <a ng-if="!pseudoScope.redirectOnClose" href="" ng-click="closeThisDialog()">Continue</a>
-  </div>
-</div>
+<md-dialog aria-label="dialog">
+  <md-toolbar>
+    <div class="md-toolbar-tools top-info">
+      <i class="material-icons md-48 md-light">info</i>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div layout="column" layout-align="center center">
+      <h1 translate>dialog.success.congratulations</h1>
+      <p translate>{{'dialog.success.'+message}}</p>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="closeDialog()" class="md-primary">
+      {{'Ok'}}
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

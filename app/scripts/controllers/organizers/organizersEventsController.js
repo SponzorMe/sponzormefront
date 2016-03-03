@@ -49,7 +49,7 @@
         dialogRequest.showLoading();
         if ($scope.hasSponzorship($scope.user.events[index].id)) {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'eventDeletingEventHasSponzorship', false);
+          dialogRequest.showDialog('error', 'eventDeletingEventHasSponzorship', false);
         } else {
           eventRequest.deleteEvent($scope.user.events[index].id).then(function successCallback(response) {
             $scope.user.events.splice(index, 1);
@@ -62,10 +62,10 @@
               $scope.currentPerk = {};
             }
             dialogRequest.closeLoading();
-            $rootScope.showDialog('success', 'eventDeleteSuccesfully', false);
+            dialogRequest.showDialog('success', 'eventDeleteSuccesfully', false);
           }, function errorCallback(response) {
             dialogRequest.closeLoading();
-            $rootScope.showDialog('error', 'errorDeletingEvent', false);
+            dialogRequest.showDialog('error', 'errorDeletingEvent', false);
           });
         }
       };
@@ -108,7 +108,7 @@
           $scope.todo = {};
         }, function errorCallback(response) {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'errorCreatingTask', false);
+          dialogRequest.showDialog('error', 'errorCreatingTask', false);
         });
       };
 
@@ -121,7 +121,7 @@
         }, function errorCallback() {
           $scope.currentPerk.tasks[index].loading = false;
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'errorDeletingTask', false);
+          dialogRequest.showDialog('error', 'errorDeletingTask', false);
         });
       };
       $scope.user = JSON.parse($localStorage.user);

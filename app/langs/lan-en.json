@@ -25,7 +25,15 @@
     "passwordNoMatch": "Passwords not Match",
     "invalidNewPassword": "Invalid new Password",
     "passwordChangedSuccesfully": "Password Changed Successfuly",
-    "loadingTitle": "Loading..."
+    "loadingTitle": "Loading...",
+    "success": {
+      "congratulations": "Congratulations",
+      "organizerRateSuccesfuly": "You have rated the organizer successfuly"
+    },
+    "error": {
+      "title": "We've got a litte problem",
+      "invalidRate": "The given information is valid, please fill out all field and try again"
+    }
   },
   "footer": {
     "testimonials": "Testimonials",
@@ -280,7 +288,17 @@
     "rateOrganizer": "Rate Organizer",
     "rateDescription": "In this form you will have the opportunity to assign a tate to event's organizer, based on the experience during this sponzorship. Likewise you can make suggests and comments",
     "event" : "Event/Sponzorship",
-    "chooseOneOption": "Choose an option"
+    "chooseOneOption": "Choose an option",
+    "whichOther": "Which other?",
+    "submit": "Send",
+    "answers": {
+      "yes" : "Yes",
+      "no": "No",
+      "developers": "Developers",
+      "designers": "Designers",
+      "entrepeneurs": "Entrepeneurs",
+      "other": "Other"
+    }
   },
   "ratingSponzor":{
     "question0":"In general, What is your score for this Organizer?",

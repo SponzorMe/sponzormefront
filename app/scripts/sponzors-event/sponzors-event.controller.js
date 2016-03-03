@@ -41,14 +41,14 @@
         };
         $rootScope.sendFirebaseNotification(firebaseNotification, vm.currentEvent.user_organizer.id);
         dialogRequest.closeLoading();
-        $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
+        dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {
         console.log('err', err);
         dialogRequest.closeLoading();
         if (err.status === 409) {
-          $rootScope.showDialog('error', 'alreadySponzoring', false);
+          dialogRequest.showDialog('error', 'alreadySponzoring', false);
         } else {
-          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
+          dialogRequest.showDialog('error', 'youCanNotSponzorThisEvent', false);
         }
       });
     };

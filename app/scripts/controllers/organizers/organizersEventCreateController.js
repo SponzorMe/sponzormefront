@@ -95,10 +95,10 @@
           $scope.newEvent = {};
           $scope.locationevent = {};
           dialogRequest.closeLoading();
-          $rootScope.showDialog('success', 'eventCreatedSuccesfully', false);
+          dialogRequest.showDialog('success', 'eventCreatedSuccesfully', false);
         }, function errorCallback() {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'errorCreatingEvent', false);
+          dialogRequest.showDialog('error', 'errorCreatingEvent', false);
         });
       };
       //this function upload or create the event Image

@@ -51,13 +51,13 @@
           });
         } else {
           if($scope.passwordtwo.length > 6) {
-            $rootScope.showDialog('error', 'errorRegisterPasswordNoMatch', false);
+            dialogRequest.showDialog('error', 'errorRegisterPasswordNoMatch', false);
           } else {
-            $rootScope.showDialog('error', 'errorRegisterShortPassword', false);
+            dialogRequest.showDialog('error', 'errorRegisterShortPassword', false);
           }
         }
       }else {
-        $rootScope.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
+        dialogRequest.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
       }
     };
     $scope.doCustomization = function () {
@@ -65,7 +65,7 @@
       $scope.create.location_reference = 'Fake';
       $scope.create.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/user_default.jpg';
       userRequest.editUserPatch($localStorage.id, $scope.create).success(function (adata) {
-        $rootScope.showDialog('success', 'success.registerCompleted', '/login');
+        dialogRequest.showDialog('success', 'success.registerCompleted', '/login');
         dialogRequest.closeLoading();
       });
       //Code to save the interests

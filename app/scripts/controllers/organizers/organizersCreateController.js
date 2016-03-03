@@ -89,13 +89,13 @@
           });
         } else {
           if ($scope.passwordtwo.length > 6) {
-            $rootScope.showDialog('error', 'errorRegisterPasswordNoMatch', false);
+            dialogRequest.showDialog('error', 'errorRegisterPasswordNoMatch', false);
           } else {
-            $rootScope.showDialog('error', 'errorRegisterShortPassword', false);
+            dialogRequest.showDialog('error', 'errorRegisterShortPassword', false);
           }
         }
       } else {
-        $rootScope.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
+        dialogRequest.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
       }
     };
   }

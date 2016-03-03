@@ -41,7 +41,7 @@
           }
         } else {
           $scope.loadingSaveInterest = false;
-          $rootScope.showDialog('error', 'invalidInterestSelection', false);
+          dialogRequest.showDialog('error', 'invalidInterestSelection', false);
           $scope.selected = '';
         }
       };
@@ -85,10 +85,10 @@
                 $localStorage.user = JSON.stringify($scope.user);
                 $scope.file = false;
                 dialogRequest.closeLoading();
-                $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
+                dialogRequest.showDialog('success', 'accountInfoEditedSuccessfuly', false);
               }, function errorCallback() {
                 dialogRequest.closeLoading();
-                $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
+                dialogRequest.showDialog('error', 'errorEditingAccountInfo', false);
               });
             }
           });
@@ -97,10 +97,10 @@
             $localStorage.user = JSON.stringify($scope.user);
             $scope.file = false;
             dialogRequest.closeLoading();
-            $rootScope.showDialog('success', 'accountInfoEditedSuccessfuly', false);
+            dialogRequest.showDialog('success', 'accountInfoEditedSuccessfuly', false);
           }, function errorCallback() {
             dialogRequest.closeLoading();
-            $rootScope.showDialog('error', 'errorEditingAccountInfo', false);
+            dialogRequest.showDialog('error', 'errorEditingAccountInfo', false);
           });
         }
       };
@@ -115,15 +115,15 @@
           loginRequest.changePassword(formData, $localStorage.token).then(function successCallback(response) {
             dialogRequest.closeLoading();
             $localStorage.token = btoa($localStorage.email + ':' + $scope.passwordConfirmation);
-            $rootScope.showDialog('success', 'PasswordChangedSuccesfully', false);
+            dialogRequest.showDialog('success', 'PasswordChangedSuccesfully', false);
             $scope.password = '';
             $scope.passwordConfirmation = '';
           }, function errorCallback() {
             dialogRequest.closeLoading();
-            $rootScope.showDialog('error', 'InvalidNewPassword', false);
+            dialogRequest.showDialog('error', 'InvalidNewPassword', false);
           });
         } else {
-          $rootScope.showDialog('error', 'PasswordNoMatch', false);
+          dialogRequest.showDialog('error', 'PasswordNoMatch', false);
         }
       };
       $scope.menuprincipal = 'views/organizers/menu.html';

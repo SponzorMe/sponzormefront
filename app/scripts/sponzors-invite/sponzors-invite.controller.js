@@ -9,11 +9,11 @@
         dialogRequest.showLoading();
         userRequest.invitedUser(vm.friend).then(function successCallback(adata) {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('success', 'inviteFiendEmailSent', false);
+          dialogRequest.showDialog('success', 'inviteFiendEmailSent', false);
           vm.friend = { 'email': '', 'message': 'no-message', 'user_id': $localStorage.id };
         }, function errorCallback(err) {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'problem', false);
+          dialogRequest.showDialog('error', 'problem', false);
         });
       };
     }

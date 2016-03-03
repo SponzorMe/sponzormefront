@@ -5,10 +5,10 @@
       dialogRequest.showLoading();
       loginRequest.resetPassword($scope.email).then(function successCallback1() {
         dialogRequest.closeLoading();
-        $rootScope.showDialog('success','PasswordResetLinkSent', false);
+        dialogRequest.showDialog('success','PasswordResetLinkSent', false);
       }, function errorCallback1() {
         dialogRequest.closeLoading();
-        $rootScope.showDialog('error','InvalidEmail', false);
+        dialogRequest.showDialog('error','InvalidEmail', false);
       });
     };
     $scope.resetPassword = function() {
@@ -21,14 +21,14 @@
         };
         loginRequest.updatePassword($routeParams.tokenReset, formData).then(function successCallback2(response) {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('success','PasswordChangedSuccesfully', '/login');
+          dialogRequest.showDialog('success','PasswordChangedSuccesfully', '/login');
         }, function errorCallback2(err) {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'InvalidData' , false);
+          dialogRequest.showDialog('error', 'InvalidData' , false);
         });
       } else {
         dialogRequest.closeLoading();
-        $rootScope.showDialog('error', 'PasswordNoMatch' , false);
+        dialogRequest.showDialog('error', 'PasswordNoMatch' , false);
       }
     };
   }

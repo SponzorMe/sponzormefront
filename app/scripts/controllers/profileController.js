@@ -14,7 +14,7 @@
           dialogRequest.closeLoading();
         }).error(function() {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'problem', '/');
+          dialogRequest.showDialog('error', 'problem', '/');
         });
       } else if (userData.data.user.type === '1') {
         ratingRequest.ratingsBySponzor($routeParams.userId).success(function(ratingsData) {
@@ -23,15 +23,15 @@
           dialogRequest.closeLoading();
         }).error(function() {
           dialogRequest.closeLoading();
-          $rootScope.showDialog('error', 'problem', '/');
+          dialogRequest.showDialog('error', 'problem', '/');
         });
       } else {
         dialogRequest.closeLoading();
-        $rootScope.showDialog('error', 'problem', '/');
+        dialogRequest.showDialog('error', 'problem', '/');
       }
     }).error(function() {
       dialogRequest.closeLoading();
-      $rootScope.showDialog('error', 'problem', '/');
+      dialogRequest.showDialog('error', 'problem', '/');
     });
   }
   angular.module('sponzorme').controller('ProfileController', ProfileController);

@@ -28,7 +28,7 @@
     $scope.verifyPerkLimit = function(s) {
       if (s.usd > MAXPERKLIMIT || typeof s.usd === 'undefined') {
         s.usd = MAXPERKLIMIT;
-        $rootScope.showDialog('error', 'maxLimitPerk', false);
+        dialogRequest.showDialog('error', 'maxLimitPerk', false);
       }
     };
     $scope.menuprincipal = 'views/organizers/menu.html';

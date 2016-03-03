@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   angular.module('sponzorme').run(
-    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', '$firebaseArray', 
+    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', '$firebaseArray',
       function ($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog, $firebaseArray, EXPIRATIONTIME) {
           var host = window.location.href;
           if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
@@ -34,42 +34,6 @@
             return $translate.use();
           };
 
-          $rootScope.showLoading = function () {
-            ngDialog.open({
-              template: 'views/templates/loadingDialog.html',
-              showClose: false,
-              controller: 'DialogController'
-            });
-          };
-
-          $rootScope.showDialog = function (kind, message, redirectOnClose) {
-            $rootScope.pseudoScope = {
-              'message': message,
-              'redirectOnClose': redirectOnClose
-            };
-            var selectedTemplate;
-            if (kind === 'error') {
-              selectedTemplate = 'views/templates/errorDialog.html';
-            } else if (kind === 'success') {
-              selectedTemplate = 'views/templates/successDialog.html';
-            } else {
-              selectedTemplate = 'views/templates/infoDialog.html';
-            }
-            $rootScope.pseudoScope.message = message;
-            $rootScope.pseudoScope.redirectOnClose = redirectOnClose;
-            ngDialog.open({
-              template: selectedTemplate,
-              showClose: false,
-              closeByEscape: false,
-              closeByDocument: false,
-              controller: 'DialogController',
-              scope: $rootScope
-            });
-          };
-
-          $rootScope.closeAllDialogs = function () {
-            ngDialog.closeAll();
-          };
           $rootScope.isExpiredData = function () {
             if ($localStorage.startDate) {
               var dataTime = new Date($localStorage.startDate);
