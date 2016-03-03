@@ -49,7 +49,7 @@ gulp.task('styles', function(){
     endtag: '// endinjector',
     addRootSlash: false
   };
-  
+
   return gulp.src('./scss/index.scss')
     .pipe(inject(injectFiles, injectOptions))
     .pipe(sourcemaps.init())
@@ -137,7 +137,7 @@ gulp.task('clean', function () {
     .pipe(clean({ force: true }));
 });
 
-gulp.task('build', ['styles'/*, 'main', 'views', 'images', 'langs', 'fonts', 'extras', 'extras1', 'extras2'*/]);
+gulp.task('build', ['styles', 'main', 'views', 'images', 'langs', 'fonts', 'extras', 'extras1', 'extras2']);
 
 gulp.task('success', ['clean'], function () {
   gulp.start('build');

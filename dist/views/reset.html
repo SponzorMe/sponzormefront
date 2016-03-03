@@ -1,0 +1,26 @@
+<section class="white-background">
+  <div class="navbar white-background navbar-fixed-top" ng-include src="'views/header.html'"></div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row" style="margin-top:145px">
+        <div class="content col-md-6 col-md-offset-3">
+          <form class="form-reset" role="form" name="reset" ng-submit="reset.$valid && resetPassword()">
+            <h2>{{'ResetPasswordText' | translate }}</h2><br>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="{{'email' | translate }}" autofocus required data-ng-model="email"><br>
+              <input type="password" class="form-control margintop10" placeholder="{{'newPassword' | translate }}" autofocus required data-ng-model="password"><br>
+              <input type="password" class="form-control margintop10" placeholder="{{'newPasswordConfirm' | translate }}" autofocus required data-ng-model="passwordConfirmation"><br>
+            </div>
+            <div ng-show="loagind">
+              <span us-spinner="{radius:15, width:8, length: 16}" spinner-key="spinner-2" spinner-start-active="true"></span>
+            </div>
+            <div ng-show="!loagind">
+              <input class="btn btn-block btn-primary" type="submit" value="{{'send' | translate }}">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer white-background navbar-fixed-bottom" ng-include src="'views/footer.html'"></div>
+</section>

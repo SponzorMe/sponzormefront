@@ -115,7 +115,7 @@
 
 
 
-      .when('/organizers/tasks', {
+      /*.when('/organizers/tasks', {
         templateUrl: 'views/organizers/dashboard/tasks/tasks.html',
         controller: 'OrganizersTasksController'
       })
@@ -264,7 +264,7 @@
       })
       .when('/testimonials', {
         templateUrl: 'views/testimonials.html'
-      })
+      })*/
 
 
 
