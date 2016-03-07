@@ -110,6 +110,12 @@
         controllerAs: 'src'
       })
 
+      .when('/organizers/dashboard', {
+        templateUrl: 'scripts/organizers-main/main.html',
+        controller: 'OrganizersMainController',
+        controllerAs: 'omc'
+      })
+
 
 
 

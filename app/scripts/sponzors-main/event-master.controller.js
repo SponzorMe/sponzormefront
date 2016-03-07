@@ -4,7 +4,6 @@
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
-      console.log(vm.user);
       vm.saveEvent = function(eventId){
         var aux = vm.user.saved_events.filter(function(e){
           if(e.event.id === eventId){
@@ -32,14 +31,12 @@
       vm.saveRemoveEvent = function(eventId, index){
         dialogRequest.showLoading();
         eventRequest.saveRemoveEvent(eventId).then(function(response){
-          console.log(response);
           vm.user.saved_events.splice(index, 1);
           $localStorage.user = JSON.stringify(vm.user);
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'removeSuccessfully', '/sponzors/dashboard');
 
         }, function(err){
-          console.log(err);
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'invalidEvent', false);
         });

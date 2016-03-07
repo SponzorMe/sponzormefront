@@ -124,9 +124,9 @@
                   </a>
                 </div>
               </div>
-              <div class="event md-whiteframe-2dp" ng-repeat="event in user.events" flex-gt-sm="30">
+              <div class="event md-whiteframe-2dp" ng-repeat="event in omc.user.events" flex-gt-sm="30">
                 <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
-                  <img src="{{event.image}}" alt="event">
+                  <img ng-src="{{event.image}}" alt="event">
                   <p>{{event.title}}</p>
                 </div>
                 <div class="textContainer">
