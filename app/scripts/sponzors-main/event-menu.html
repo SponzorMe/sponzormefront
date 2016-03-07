@@ -10,9 +10,13 @@
       </md-button>
     </md-menu-item>
     <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
-      <md-button>
+      <md-button ng-click="semc.saveEvent(event.id)" ng-hide="inSave">
         <md-icon aria-label="b">save</md-icon>
         {{'sponzorsMain.saveEvent'|translate}}
+      </md-button>
+      <md-button ng-click="semc.saveRemoveEvent(event.saved_id, $index)" ng-show="inSave">
+        <md-icon aria-label="b">delete</md-icon>
+        {{'sponzorsMain.removeSave'|translate}}
       </md-button>
     </md-menu-item>
     <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">

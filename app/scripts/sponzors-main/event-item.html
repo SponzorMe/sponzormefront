@@ -9,4 +9,5 @@
     {{event.description|limitTo:100}}
   </p>
 </div>
-<event-menu></event-menu>
+<event-menu active="save" ng-if="active"></event-menu>
+<event-menu ng-if="!active"></event-menu>

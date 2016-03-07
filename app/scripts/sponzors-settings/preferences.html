@@ -54,24 +54,25 @@
         <div class="chipContainer">
           <span translate>settings.interests</span>
           <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
-            <span class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in spc.user.interests" layout-wrap>
+            <span class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in spc.user.interests track by $index" layout-wrap>
               {{item.interest.name}} <a href=""
-              ng-click="spc.removeInterest(item)"><md-icon aria-label="a">cancel</md-icon></a>
+              ng-click="spc.removeUserInterest($index, item.id)"><md-icon aria-label="a">cancel</md-icon></a>
             </span>
           </div>
           <md-divider></md-divider>
-          <form ng-submit="$event.preventDefault()">
+          <form name="chipForm" ng-submit="$event.preventDefault()">
             <md-autocomplete
             md-search-text-change="searchTextChange(search)"
             md-search-text="search"
             md-items="i in spc.querySearch(search)" md-item-text="i.name"
-            md-selected-item="newItem"
+            md-selected-item="spc.newItem"
             md-min-length="0"
             placeholder="{{'settings.chooseInterest'|translate}}">
               <md-item-template>
                 <span md-highlight-text="search" md-highlight-flags="^i">{{i.name}}</span>
               </md-item-template>
             </md-autocomplete>
+            <md-button form="chipForm" ng-click="spc.addUserInterests(spc.newItem)" class="color-active">{{'preferences.save'|translate}}</md-button>
           </form>
         </div>
         <div class="companyDescription" layout="column" layout-align="center">

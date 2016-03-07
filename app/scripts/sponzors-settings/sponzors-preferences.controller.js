@@ -1,19 +1,19 @@
 (function() {
   'use strict';
+
   function SponzorsPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, $log, allInterestsServiceRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
-      vm.file = false; //By default no file to update.
-      vm.getAllInterests = function(){
-        allInterestsServiceRequest.allInterestsCategoriesId().then(function successCallback(response){
+      vm.getAllInterests = function() {
+        allInterestsServiceRequest.allInterestsCategoriesId().then(function successCallback(response) {
           vm.interests = response.data.InterestCategory;
-        }, function errorCallback(err){
+        }, function errorCallback(err) {
           vm.noInterestsLoaded = true;
         });
       };
       vm.file = false;
-      $scope.updateDetails = function() {
+      vm.updateDetails = function() {
         dialogRequest.showLoading();
         if (vm.file) {
           AWS.config.update({
@@ -37,7 +37,7 @@
           bucket.putObject(params, function(err, data) {
             if (!err) {
               vm.user.logo = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-              $scope.$digest();// What is happened here?
+              $scope.$digest(); // What is happened here?
               userRequest.editUserPatch($localStorage.id, vm.user).success(function(adata) {
                 vm.user = adata.User;
                 vm.file = false;
@@ -54,19 +54,55 @@
             $localStorage.user = JSON.stringify(vm.user);
             vm.file = false;
             dialogRequest.closeLoading();
-            dialogRequest.showDialog('success', 'dialog.accountInfoEditedSuccessfuly', false);
+            dialogRequest.showDialog('success', 'accountInfoEditedSuccessfuly', false);
           }, function errorCallback() {
             dialogRequest.closeLoading();
-            dialogRequest.showDialog('error', 'dialog.errorEditingAccountInfo', false);
+            dialogRequest.showDialog('error', 'errorEditingAccountInfo', false);
           });
         }
       };
       vm.querySearch = function(query) {
-        return vm.interests.filter(function(e){
-          if(e.name.indexOf(query)>-1){
+        return vm.interests.filter(function(e) {
+          if (e.name.indexOf(query) > -1) {
             return e;
           }
         });
+      };
+      vm.removeUserInterest = function(index, id) {
+        vm.user.interests.splice(index, 1);
+        userInterestRequest.deleteUserInterest(id).then(function(response) {
+          $localStorage.user = JSON.stringify(vm.user);
+        });
+      };
+      vm.addUserInterests = function(interest) {
+        if (interest && interest.name) {
+          var flag = false;
+          if (vm.user.interests) {
+            for (var i = 0; i < vm.user.interests.length; i++) {
+              if (vm.user.interests[i].interest_id === interest.id_interest) {
+                flag = true;
+                break;
+              }
+            }
+          }
+          if (!flag) {
+            var dataInterest = {
+              user_id: $localStorage.id,
+              interest_id: interest.id_interest
+            };
+            dialogRequest.showLoading();
+            userInterestRequest.createUserInterest(dataInterest).then(function successCallback(response) {
+              vm.user.interests.push(response.data.UserInterest);
+              $localStorage.user = JSON.stringify(vm.user);
+              dialogRequest.closeLoading();
+            }, function (err){
+              dialogRequest.closeLoading();
+              dialogRequest.showDialog('error', 'invalidInterestSelection', false);
+            });
+          }
+        } else {
+          dialogRequest.showDialog('error', 'invalidInterestSelection', false);
+        }
       };
       vm.getAllInterests();
       vm.newItem = '';

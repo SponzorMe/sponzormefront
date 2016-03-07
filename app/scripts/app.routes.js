@@ -16,18 +16,18 @@
       })
       .when('/sponzors/dashboard', {
         templateUrl: 'scripts/sponzors-main/main.html',
-        controller: 'SponzorsMainController',
-        controllerAs: 'smc'
+        controller: 'SponzorsEventMainController',
+        controllerAs: 'semc'
       })
       .when('/sponzors/outstanding', {
         templateUrl: 'scripts/sponzors-outstanding/outstanding.html',
-        controller: 'SponzorsOutstandingController',
-        controllerAs: 'soc'
+        controller: 'SponzorsEventMainController',
+        controllerAs: 'semc'
       })
       .when('/sponzors/saved', {
         templateUrl: 'scripts/sponzors-saved/saved.html',
-        controller: 'SponzorsSavedController',
-        controllerAs: 'ssc'
+        controller: 'SponzorsEventMainController',
+        controllerAs: 'semc'
       })
       .when('/sponzors/settings/profile', {
         templateUrl: 'scripts/sponzors-settings/profile.html',

@@ -1,7 +1,5 @@
 /* recommended */
-angular
-    .module('sponzorme')
-    .directive('eventMenu', eventMenu);
+angular.module('sponzorme').directive('eventMenu', eventMenu);
 
 function eventMenu() {
     var directive = {
@@ -12,6 +10,10 @@ function eventMenu() {
     return directive;
 
     function link(scope, element, attrs) {
+      scope.active = attrs.active;
+      if(scope.active==='save'){
+        scope.inSave = true;
+      }
       scope.openMenu = function ($mdOpenMenu, $event) {
         scope.originatorEv = $event;
         $mdOpenMenu($event);

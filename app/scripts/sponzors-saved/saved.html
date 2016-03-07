@@ -14,7 +14,7 @@
 
     <!-- Content starts -->
 
-      <div class="contentContainer">
+      <div class="contentContainer" ng-controller="SponzorsSavedController as ssc">
       <div class="texts" layout="row" layout-align="space-between">
         <h3  translate>sponzorsMain.savedEvents</h3>
       </div>
@@ -24,7 +24,7 @@
           <div>
             <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
               <div class="event md-whiteframe-2dp" ng-repeat="event in ssc.events" flex-gt-xs="30">
-                <event-item></event-item>
+                <event-item active="save"></event-item>
               </div>
             </md-content>
           </div>

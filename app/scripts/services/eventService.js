@@ -17,6 +17,12 @@
         return $http.get($rootScope.getConstants().URL + 'events/' + eventId);
 
       },
+      saveEvent: function(eventId, userId) {
+        return $http.get($rootScope.getConstants().URL + 'events/save/' + eventId + '/' + userId);
+      },
+      saveRemoveEvent: function(eventId) {
+        return $http.get($rootScope.getConstants().URL + 'events/remove_saved/' + eventId);
+      },
       createEvent: function(data) {
         return $http({
           method: 'POST',

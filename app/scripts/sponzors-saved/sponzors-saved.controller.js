@@ -6,6 +6,7 @@
       vm.user = JSON.parse($localStorage.user);
       vm.events = [];
       vm.user.saved_events.filter(function (e) {
+        e.event.saved_id = e.id;
         vm.events.push(e.event);
       });
     }

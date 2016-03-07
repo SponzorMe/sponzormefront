@@ -20,9 +20,9 @@
         </div>
 
       <!-- Events Results -->
-        <div class="eventsContainer">
+        <div class="eventsContainer" ng-controller="SponzorsOutstandingController as soc">
           <div>
-            <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
+            <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap flex >
           <div class="event md-whiteframe-2dp" ng-repeat="event in soc.events" flex-gt-xs="30">
             <event-item></event-item>
           </div>
