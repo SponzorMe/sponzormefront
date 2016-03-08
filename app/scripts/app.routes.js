@@ -14,6 +14,8 @@
         templateUrl: 'views/login.html',
         controller: 'LoginController'
       })
+
+      //Sponzors
       .when('/sponzors/dashboard', {
         templateUrl: 'scripts/sponzors-main/main.html',
         controller: 'SponzorsEventMainController',
@@ -110,10 +112,16 @@
         controllerAs: 'src'
       })
 
+      //Organizers
       .when('/organizers/dashboard', {
         templateUrl: 'scripts/organizers-main/main.html',
         controller: 'OrganizersMainController',
         controllerAs: 'omc'
+      })
+      .when('/organizers/sponzors', {
+        templateUrl: 'scripts/organizers-sponzors/sponzors.html',
+        controller: 'OrganizersSponzorsController',
+        controllerAs: 'osc'
       })
 
 

@@ -33,6 +33,13 @@
                 return e;
               });
             }
+            if(response.data.user.events){
+              response.data.user.events = response.data.user.events.filter(function(e){
+                e.starts = new Date(e.starts).getTime();
+                return e;
+              });
+            }
+
             //Generating firstName, lastName for the user
             var tempName = response.data.user.name.split(' ');
             response.data.user.firstName = tempName[0];
