@@ -29,12 +29,14 @@
             dialogRequest.closeLoading();
             if(response.data.user.sponzorships){
               response.data.user.sponzorships = response.data.user.sponzorships.filter(function(e){
+                e.event.starts = e.event.starts.replace(' ', 'T');
                 e.event.starts = new Date(e.event.starts).getTime();
                 return e;
               });
             }
             if(response.data.user.events){
               response.data.user.events = response.data.user.events.filter(function(e){
+                e.starts = e.starts.replace(' ', 'T');
                 e.starts = new Date(e.starts).getTime();
                 return e;
               });
@@ -50,6 +52,8 @@
             /* End user vars initialization */
             if(response.data.events){
               var parsedEvents = response.data.events.filter(function(e){
+                e.starts = e.starts.replace(' ', 'T');
+                e.ends = e.ends.replace(' ', 'T');
                 e.starts = new Date(e.starts).getTime();
                 e.ends = new Date(e.ends).getTime();
                 return e;
