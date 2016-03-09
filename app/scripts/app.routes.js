@@ -123,6 +123,11 @@
         controller: 'OrganizersSponzorsController',
         controllerAs: 'osc'
       })
+      .when('/organizers/event/record', {
+        templateUrl: 'scripts/organizers-main/record.html',
+        controller: 'OrganizersMainController',
+        controllerAs: 'omc'
+      })
 
 
 
@@ -283,8 +288,6 @@
 
 
 
-      .otherwise({
-        redirectTo: '/login'
-      });
+      ;
   }]);
 })();

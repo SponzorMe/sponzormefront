@@ -275,7 +275,9 @@
     "editEvent": "Edit Event",
     "shareEvent": "Share Event",
     "seeTasks": "See Tasks",
-    "deleteEvent": "Delete Event"
+    "deleteEvent": "Delete Event",
+    "record": "Record",
+    "recordDescription": "Here you can find the past events, sortered cronologically"
   },
   "invite":{
     "title": "Invite a Friend",
@@ -326,5 +328,4 @@
     "question5":"Which is your audience? *",
     "question6":"Write a Comment"
   }
-
 }

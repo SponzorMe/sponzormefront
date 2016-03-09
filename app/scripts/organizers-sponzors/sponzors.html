@@ -28,7 +28,7 @@
           <div class="eventItem organizerSponzors" layout="column" layout-gt-xs="row" ng-repeat="item in osc.user.sponzorships_like_organizer" flex="100">
             <a class="eventInfo" href="#/sponzors/sponzoring/{{$index}}" layout="row" layout-align="start" flex="70">
               <p class="eventTitle sponzorOrganizer" flex="30" layout="row" layout-align="center center" translate>{{item.sponzor.name}}</p>
-              <p class="eventDate" flex="30" layout="row" layout-align="start center">{{item.event.title}}</p>
+              <p class="eventDate" flex="30" layout="row" layout-align="center center">{{item.event.title}}</p>
               <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.perk.kind+' - $'+item.perk.usd}}</p>
               <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
                 {{osc.statuses[item.status]}}

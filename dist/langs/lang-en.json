@@ -20,19 +20,20 @@
     "takeMeOut": "Click Here to Cancel your Request",
     "pleaseCompleteAllFields": "Please complete all fields",
     "taskAddedSuccessfuly": "Task Added Succesfuly",
-    "errorEditingAccountInfo": "We can not update the info",
-    "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
     "passwordNoMatch": "Passwords not Match",
     "invalidNewPassword": "Invalid new Password",
     "passwordChangedSuccesfully": "Password Changed Successfuly",
     "loadingTitle": "Loading...",
     "success": {
       "congratulations": "Congratulations",
+      "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
       "organizerRateSuccesfuly": "You have rated the organizer successfuly"
     },
     "error": {
       "title": "We've got a litte problem",
-      "invalidRate": "The given information is valid, please fill out all field and try again"
+      "invalidRate": "The given information is valid, please fill out all field and try again",
+      "errorEditingAccountInfo": "We can not update the info",
+      "invalidInterestSelection": "Invalid interest Selection"
     }
   },
   "footer": {
@@ -94,7 +95,8 @@
     "shareEvent": "Share Event",
     "featuredEvents": "Featured Events",
     "saveEvent": "Save Event",
-    "savedEvents": "Your Saved Events"
+    "savedEvents": "Your Saved Events",
+    "removeSave": "Remove Event"
   },
   "sponzorsSponzorships":{
     "title": "Title",
@@ -195,7 +197,8 @@
     "movil": "Movil",
     "edit": "Edit",
     "changePassword": "Change Password",
-    "chooseInterest": "Choose Interest"
+    "chooseInterest": "Choose Interest",
+    "interests": "List of Interests"
   },
   "preferences":{
     "profile": "Profile",
@@ -210,7 +213,8 @@
     "companyPitch": "Company Pitch",
     "edit": "Edit",
     "movil": "Movil",
-    "companyNewsletter": "Newsletter"
+    "companyNewsletter": "Newsletter",
+    "save": "Save Interest"
   },
   "ratings":{
     "profile": "Profile",

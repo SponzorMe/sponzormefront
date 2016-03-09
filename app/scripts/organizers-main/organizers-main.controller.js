@@ -23,13 +23,13 @@
       };
 
       vm.shareEvent = function(eventIndex){
-        console.log("Let's Share the Event");
+        console.log("Let\'s Share the Event");
       };
 
       vm.deleteEvent = function(eventIndex){
-        console.log("Let's Delete Event");
+        console.log("Let\'s Delete Event");
       };
-
+      vm.todayDate = new Date().getTime();
       vm.user = JSON.parse($localStorage.user);
       vm.user.balance = 0;
       angular.forEach(vm.user.sponzorships_like_organizer, function(value) {
