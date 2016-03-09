@@ -21,6 +21,7 @@
       $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
         if (e.status > 0) {
           $scope.balance = parseInt(e.perk.usd) + parseInt($scope.balance);
+          e.event.ends = e.event.ends.replace(' ', 'T');
           e.event.ends = new Date(e.event.ends).getTime();
           return e;
         }
@@ -28,6 +29,7 @@
       if ($localStorage.events) {
         var events = JSON.parse($localStorage.events);
         $scope.search = events.filter(function(e) {
+          e.starts = e.starts.replace(' ', 'T');
           if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
             return e;
           }
@@ -43,6 +45,7 @@
           $localStorage.events = JSON.stringify(response.data.data.events);
           $scope.search = [];
           $scope.search = response.data.data.events.filter(function(e) {
+            e.starts = e.starts.replace(' ', 'T');
             if (e.location_reference !== 'ljsadljf3289uojklfhasd' && new Date(e.starts).getTime() > new Date().getTime()) {
               return e;
             }

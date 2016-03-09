@@ -12,6 +12,7 @@
       if (!$scope.user.acceptedSponzorships) {
         $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
           if (e.status > '0') {
+            e.event.ends = e.event.ends.replace(' ', 'T');
             e.event.ends = new Date(e.event.ends).getTime();
             return e;
           }
