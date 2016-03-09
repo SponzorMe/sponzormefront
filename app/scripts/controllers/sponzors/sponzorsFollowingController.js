@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-  function SponzorsFollowingController($scope, $localStorage, sponzorshipRequest, $rootScope) {
+  function SponzorsFollowingController($scope, $translate, $localStorage, sponzorshipRequest, $rootScope) {
     if ($rootScope.userValidation('1')) {
       $scope.section = {
         route: 'Events / Follwing',
