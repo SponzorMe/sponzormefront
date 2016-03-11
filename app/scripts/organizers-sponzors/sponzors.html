@@ -18,12 +18,12 @@
         <div class="notifyDetailContainer" layout="column">
           <div class="eventTitles" layout="row" hide show-lg flex="100">
             <div layout="row" flex="70">
-              <p flex="30" layout="row" layout-align="center center" translate>nombre</p>
-              <p flex="30" layout="row" layout-align="center center" translate>evento</p>
-              <p flex="20" layout="row" layout-align="center center" translate>tipo de patrocinio</p>
-              <p flex="20" layout="row" layout-align="center center" translate>estado</p>
+              <p flex="30" layout="row" layout-align="center center" translate>organizersSponzors.sponzorName</p>
+              <p flex="30" layout="row" layout-align="center center" translate>organizersSponzors.event</p>
+              <p flex="20" layout="row" layout-align="center center" translate>organizersSponzors.sponzorshipType</p>
+              <p flex="20" layout="row" layout-align="center center" translate>organizersSponzors.status</p>
             </div>
-            <p layout="row" layout-align="center center" flex="30" translate>sponzorsSponzorships.actions</p>
+            <p layout="row" layout-align="center center" flex="30" translate>organizersSponzors.actions</p>
           </div>
           <div class="eventItem organizerSponzors" layout="column" layout-gt-xs="row" ng-repeat="item in osc.user.sponzorships_like_organizer" flex="100">
             <a class="eventInfo" href="#/sponzors/sponzoring/{{$index}}" layout="row" layout-align="start" flex="70">
@@ -37,37 +37,37 @@
             <div class="actionSponzor" layout="row" layout-align="center center" flex="30">
               <a href="#/organizers/sponzor/profile/{{item.sponzor.id}}">
                 <md-tooltip md-direction="bottom">
-                  {{'organizerSponzors.seeSponzorProfile'|translate}}
+                  {{'organizersSponzors.seeSponzorProfile'|translate}}
                 </md-tooltip>
                 <md-icon>person</md-icon>
               </a>
               <a href="#/organizers/event/tasks/{{item.event.id}}">
                 <md-tooltip md-direction="bottom">
-                  {{'organizerSponzors.seeEventTasks'|translate}}
+                  {{'organizersSponzors.seeEventTasks'|translate}}
                 </md-tooltip>
                 <md-icon>assignment</md-icon>
               </a>
               <a href="" ng-click="seeCause(item)">
                 <md-tooltip md-direction="bottom">
-                  {{'organizerSponzors.seeCause'|translate}}
+                  {{'organizersSponzors.seeCause'|translate}}
                 </md-tooltip>
                 <md-icon>help</md-icon>
               </a>
               <a href="#/organizers/chat/sponzorship/{{$index}}">
                 <md-tooltip md-direction="bottom">
-                  {{'organizerSponzors.chatWithSponzor'|translate}}
+                  {{'organizersSponzors.chatWithSponzor'|translate}}
                 </md-tooltip>
                 <md-icon>comment</md-icon>
               </a>
               <a href="" ng-if="item.rated_organizer == 0">
                 <md-tooltip md-direction="bottom">
-                  {{'organizerSponzors.rateSponzor'|translate}}
+                  {{'organizersSponzors.rateSponzor'|translate}}
                 </md-tooltip>
                 <md-icon>stars</md-icon>
               </a>
               <a href="" ng-if="item.rated_organizer == 1">
                 <md-tooltip md-direction="bottom">
-                  {{'organizerSponzors.rateSponzor'|translate}}
+                  {{'organizersSponzors.rateSponzor'|translate}}
                 </md-tooltip>
                 <md-icon>playlist_add_check</md-icon>
               </a>

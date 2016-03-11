@@ -280,6 +280,18 @@
     "record": "Record",
     "recordDescription": "Here you can find the past events, sortered cronologically"
   },
+  "organizersSponzors":{
+    "seeSponzorProfile": "See the sponsor's profile.",
+    "seeEventTasks": "See event's tasks",
+    "seeCause": "See the Sponsonrship Cause",
+    "chatWithSponzor": "Chat with the Sponsor",
+    "rateSponzor": "Rate the Sponzor",
+    "sponzorName": "Sponsor",
+    "event": "Event",
+    "sponzorshipType": "Type",
+    "status": "Status",
+    "actions": "Actions"
+  },
   "invite":{
     "title": "Invite a Friend",
     "subtitle": "We know you want share SponzorMe",
