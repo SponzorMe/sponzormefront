@@ -129,7 +129,8 @@
     "sponzorDashboard": "Sponzor",
     "saved": "Saved Events",
     "interests": "Selected Interests",
-    "invite":"Invite Friend"
+    "invite":"Invite Friend",
+    "news": "News"
   },
   "categories":{
     "Outdoor": "Outdoor",

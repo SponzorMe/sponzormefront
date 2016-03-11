@@ -123,11 +123,17 @@
         controller: 'OrganizersSponzorsController',
         controllerAs: 'osc'
       })
+      .when('/organizers/balance', {
+        templateUrl: 'scripts/organizers-balance/balance.html',
+        controller: 'OrganizersBalanceController',
+        controllerAs: 'obc'
+      })
       .when('/organizers/event/record', {
         templateUrl: 'scripts/organizers-main/record.html',
         controller: 'OrganizersMainController',
         controllerAs: 'omc'
       })
+
 
 
 
