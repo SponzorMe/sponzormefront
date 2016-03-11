@@ -40,18 +40,17 @@
       </div>
       <!-- Content starts -->
       <div class="contentContainer">
-{{onc.rss}}
         <div layout="column" class="notifyContainer">
           <md-content class="notifyElement organizersNotifyElement" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="r in onc.rss">
-            <a href="#/organizers/notification/:id" layout="row" layout-align="start center" flex="grow">
+            <a href="{{r.link}}" layout="row" layout-align="start center" flex="grow">
               <md-button class="md-icon-button" aria-label="b">
                 <md-icon>feedback</md-icon>
               </md-button>
               <p class="md-body-1">{{r.title}}</p>
             </a>
             <div class="texts" layout="row" layout-align="end center" flex="30">
-              <p class="date md-body-2">{{r.date|date:'MMM dd, yyyy h:mma'}}</p>
-              <a href="#/organizers/notification/:id" class="link" md-ink-ripple="#faaf3a" hide-xs hide-sm translate>{{'notifications.see'|translate}}</a>
+              <p class="date md-body-2">{{r.publishedDate|date:'MMM dd, yyyy h:mma'}}</p>
+              <a href="{{r.link}}" class="link" md-ink-ripple="#faaf3a" hide-xs hide-sm translate>{{'notifications.see'|translate}}</a>
             </div>
           </md-content>
         </div>

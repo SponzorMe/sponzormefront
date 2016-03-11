@@ -133,6 +133,12 @@
         controller: 'OrganizersMainController',
         controllerAs: 'omc'
       })
+      .when('/organizers/news', {
+        templateUrl: 'scripts/organizers-news/news.html',
+        controller: 'OrganizersNewsController',
+        controllerAs: 'onc'
+      })
+
 
 
 
