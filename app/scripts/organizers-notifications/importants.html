@@ -1,6 +1,6 @@
 <div layout-fill class="allContainer">
 
- <!-- navbar 1 -->
+  <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
 
   <md-content class="superContainer" layout="row">
@@ -9,61 +9,21 @@
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
 
     <div class="cont" flex>
-
-    <!-- navbar -->
-    <!-- navbar -->
+      <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
-        <div class="menuItemContainer" layout="row">
-          <div class="menuItem">
-            <a href="#/organizers/notifications" md-ink-ripple translate>notifications.inbox</a>
-            <div class="border"></div>
-          </div>
-          <div class="menuItem">
-            <a href="#/organizers/notifications/readed" class="textActive" md-ink-ripple translate>notifications.read</a>
-            <div class="border active"></div>
-          </div>
-          <div class="menuItem">
-            <a href="#/organizers/notifications/importants" class="textActive" md-ink-ripple translate>notifications.important</a>
-            <div class="border active"></div>
-          </div>
-        </div>
-        <div class="buttons" layout="row" layout-align="start center">
-          <a href="#/organizers/notifications">
-            <md-icon aria-label="b">notifications</md-icon>
-          </a>
-          <a href="" class="md-icon-button">
-            <md-icon aria-label="b">send</md-icon>
-          </a>
-           <a href="" class="md-icon-button">
-            <md-icon aria-label="b">person</md-icon>
-          </a>
-        </div>
+        <organizers-notifications-navbar active="important"></organizers-notifications-navbar>
+        <organizers-navbar></organizers-navbar>
       </div>
 
-    <!-- navbar ("menu") when xs -->
-      <div class="menuXsContainer">
-        <md-menu hide-gt-sm>
-          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
-            <md-icon>person</md-icon>
-          </md-button>
-          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
-            <md-menu-item class="menuXsItem ">
-              <a href="#/organizers/dashboard" md-ink-ripple translate>notifications.inbox</a>
-            </md-menu-item>
-            <md-menu-item class="menuXsItem active">
-              <a href="#/organizers/notifications" md-ink-ripple translate>notifications.important</a>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-      </div>
+      <responsive-nav></responsive-nav>
 
 
-    <!-- Content starts -->
+      <!-- Content starts -->
 
       <div class="contentContainer">
-       <div layout="column" class="notifyContainer" >
-         <md-content class="notifyElement importants" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="notify in onc.notifications | filter: onc.filter" ng-if="notify.important == true">
+        <div layout="column" class="notifyContainer">
+          <md-content class="notifyElement importants" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="notify in onc.notifications | filter: onc.filter" ng-if="notify.important == true">
             <a href="#/organizers/notification/{{notify.$id}}" layout="row" layout-align="start center" flex="grow">
               <md-button class="md-icon-button" aria-label="b">
                 <md-icon>notifications</md-icon>

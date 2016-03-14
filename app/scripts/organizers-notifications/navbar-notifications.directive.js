@@ -1,22 +1,23 @@
 /* recommended */
 angular
     .module('sponzorme')
-    .directive('navbarNotifications', navbarNotifications);
+    .directive('organizersNotificationsNavbar', organizersNotificationsNavbar);
 
-function navbarNotifications() {
+function organizersNotificationsNavbar() {
     var directive = {
         link: link,
-        controller: navbarController,
-        templateUrl: 'scripts/sponzors-notifications/navbar.html',
-        restrict: 'EA'
+        controller: organizersNotificationsNavbarController,
+        templateUrl: 'scripts/organizers-notifications/navbar.html',
+        restrict: 'EA',
+        replace: true
     };
     return directive;
 
     function link(scope, element, attrs) {
         scope.active = attrs.active;
     }
-    
-    function navbarController($scope){
+
+    function organizersNotificationsNavbarController($scope){
       $scope.openMenu = function($mdOpenMenu, $event) {
         $scope.originatorEv = $event;
         $mdOpenMenu($event);
