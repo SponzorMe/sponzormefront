@@ -126,7 +126,6 @@
           dialogRequest.showDialog('error', 'PasswordNoMatch', false);
         }
       };
-      $scope.menuprincipal = 'views/organizers/menu.html';
     }
   }
   angular.module('sponzorme').controller('OrganizersSettingsController', OrganizersSettingsController);

@@ -340,5 +340,30 @@
     "question4":"Do you going to use us again in the future?*",
     "question5":"Which is your audience? *",
     "question6":"Write a Comment"
+  },
+  "categories":{
+    "Outdoor": "Outdoor",
+    "Art & Culture": "Art & Culture",
+    "Dancing": "Dancing",
+    "Wellness": "Wellness",
+    "Career & Business": "Career & Business",
+    "Eat & Foods": "Eat & Foods",
+    "Belief": "Belief",
+    "Sports & Fitness": "Sports & Fitness",
+    "Education": "Education",
+    "Photography": "Photography",
+    "Languages": "Languages",
+    "Books": "Books",
+    "Music": "Music",
+    "Technology": "Technology"
+  },
+  "eventTypes":{
+    "Charity": "Charity",
+    "Recruitment": "Recruitment",
+    "Training or Workshop":"Training or Workshop",
+    "Perfomance":"Perfomance",
+    "Conference":"Conference",
+    "Networking Event":"Networking Event",
+    "Other": "Other"
   }
 }

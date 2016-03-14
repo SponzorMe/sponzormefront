@@ -8,7 +8,7 @@
         if (vm.sponzorshipsToAdd[index] > -1) {
           var cont = vm.sponzorshipsToAdd[index];
           vm.todo = {
-            type: 1, //Because is created by the Sponzor
+            type: 0, //Because is created by the Organizer
             status: 0, //By default is not complete
             perk_id: vm.user.sponzorships[cont].perk.id,
             event_id: vm.user.sponzorships[cont].event_id,
@@ -28,7 +28,7 @@
         else {
           dialogRequest.closeLoading();
           $localStorage.user = JSON.stringify(vm.user);
-          dialogRequest.showDialog('success', 'dialog.taskAddedSuccessfuly', '/sponzors/tasks');
+          dialogRequest.showDialog('success', 'dialog.taskAddedSuccessfuly', '/organizers/tasks');
         }
       };
       vm.addNewTask = function () {
