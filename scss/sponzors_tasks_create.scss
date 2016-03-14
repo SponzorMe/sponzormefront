@@ -10,7 +10,7 @@
 
             &>md-checkbox {
                 margin-bottom: 0;
-                color: $color_active;   
+                color: $color_active;
             }
 
             &>div a {
@@ -18,8 +18,27 @@
                 text-transform: uppercase;
             }
         }
+        &>div {
+          &>.task {
+              background: $color_white;
+              padding: 0.5em 1em;
+              margin-top: 0.5em;
+              box-shadow: 3px -1px 3px 0px rgba(0, 0, 0, 0.2),
+                          1px 1px 1px -1px rgba(0, 0, 0, 0.12);
+
+              &>md-checkbox {
+                  margin-bottom: 0;
+                  color: $color_active;
+              }
+
+              &>div a {
+                  color: $color_active;
+                  text-transform: uppercase;
+              }
+          }
+        }
     }
-    
+
     &>md-divider {
         margin-top: 1em;
         border-top-color: rgba(116, 114, 114, 0.25);
@@ -33,11 +52,11 @@
 
         &>a {
             margin-right: 2.5em;
-            color: $color_gray_text; 
+            color: $color_gray_text;
 
             &>p {
                 margin-left: 0.5em;
-            }             
+            }
 
             &:hover {
                 &>p {
@@ -50,7 +69,7 @@
         }
     }
 
-    &>.notifyDetailContainer {                    
+    &>.notifyDetailContainer {
         &>.replyElement.newTask {
             padding: 1em;
 
@@ -60,7 +79,7 @@
 
 
             &>.titleInput {
-                font-size: 14px; 
+                font-size: 14px;
                 margin-bottom: 0.5em;
 
                 &>md-input-container {
@@ -93,16 +112,3 @@
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

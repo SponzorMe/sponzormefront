@@ -3,7 +3,7 @@
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
   <md-content class="superContainer" layout="row">
     <!-- sidenav -->
-    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
     <div class="cont" flex>
     <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
@@ -11,34 +11,9 @@
         <a href="#/organizers/tasks" md-ink-ripple>
           <md-icon aria-label="b">reply</md-icon>
         </a>
-        <div class="buttons" layout="row" layout-align="start center">
-          <a href="#organizers/notifications">
-            <md-icon aria-label="b">notifications</md-icon>
-          </a>
-          <a href="" class="md-icon-button">
-            <md-icon aria-label="b">send</md-icon>
-          </a>
-           <a href="" class="md-icon-button">
-            <md-icon aria-label="b">person</md-icon>
-          </a>
-        </div>
+        <organizers-navbar></organizers-navbar>
       </div>
-      <!-- navbar ("menu") when xs -->
-        <div class="menuXsContainer">
-          <md-menu hide-gt-sm>
-            <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
-              <md-icon>person</md-icon>
-            </md-button>
-            <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
-               <md-menu-item class="menuXsItem">
-                <a href="#/organizers/tasks" md-ink-ripple><md-icon>reply</md-icon></a>
-              </md-menu-item>
-              <md-menu-item class="menuXsItem">
-                <a href="#/organizers/notifications" md-ink-ripple translate>notifications.notifications</a>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
-        </div>
+      <responsive-nav></responsive-nav>
     <!-- Content starts -->
       <div class="contentContainer">
       <!-- Events Results -->
@@ -47,9 +22,9 @@
             <div class="detailHeader" layout="row" layout-align="space-between center">
               <div class="title" layout="column" layout-align="start start">
                 <div class="subhead" layout="row">
-                  <p>{{'tasks.event'|translate}}: concierto tributo Charly Garcia</p>
+                  <p>{{'tasks.event'|translate}}: {{otc.tasks[otc.currentTaskIndex].event.title}}</p>
                 </div>
-                <p class="head color-blue-brighter"> ENVIAR BOLETIN POR CORREO A LOS ASISTENTES</p>
+                <p class="head color-blue-brighter">  {{otc.tasks[otc.currentTaskIndex].task.title}}</p>
               </div>
             </div>
 
@@ -57,12 +32,12 @@
 
             <div class="message">
               <p class="subheadMessage" translate>tasks.description</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates illo dolorum nisi nesciunt, voluptas voluptatum quibusdam alias debitis est dolore. Nam, corporis sequi. Ex iusto cumque magnam soluta dolorem enim.</p>
+              <p>{{otc.tasks[otc.currentTaskIndex].task.description}}</p>
             </div>
 
             <div class="status" layou="column">
               <p translate>tasks.status</p>
-              <md-checkbox class="organizers" ng-model="taskDetail.status">
+              <md-checkbox class="organizers" ng-model="otc.taskDetail.status">
                 <span translate>tasks.complete</span>
               </md-checkbox>
             </div>

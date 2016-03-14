@@ -58,37 +58,21 @@
                 <textarea ng-model="task.description" md-maxlength="250"></textarea>
               </md-input-container>
             </div>
-            <div class="taskItems">
-                <p>_items de la tarea_</p>
-                <div class="task" layout="row" layout-align="space-between center">
-                    <md-checkbox class="organizers" ng-model="task.sponzorship[$index]" ng-change="changeSponzorship($index)">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque corrupti quisquam minima, iste. Natus voluptate porro quae amet, magnam maiores quis sapiente in fugit deleniti tempora quasi perspiciatis veniam vero!
-                    </md-checkbox>
-                    <div>
-                        <a href="" translate>_editar_</a>
-                    </div>
-                </div>
-                <md-input-container class="organizers">
-                    <label>_introduce el titulo del item_</label>
-                    <input type="text" ng-model="user.name">
-                </md-input-container>
-            </div>
-            <div class="newTaskOrgDate">
-                <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker>
-            </div>
             <div class="taskEditButton" layout="row" layout-align="end end">
-                <md-button>_edit_</md-button>
+                <md-button>{{'tasks.send'| translate}}</md-button>
             </div>
           </md-content>
         </div>
         <div class="tasksAsign">
           <p class="color-gray-text" translate>tasks.assignTo</p>
-          <div class="task" layout="row" layout-align="space-between center" ng-repeat="t in user.sponzorships">
-            <md-checkbox class="organizers" ng-model="task.sponzorship[$index]" ng-change="changeSponzorship($index)">
-              {{t.event.title}} - {{t.perk.kind}}
-            </md-checkbox>
-            <div>
-                <a href="" translate>tasks.seeEvent</a>
+          <div ng-repeat="e in octc.user.events">
+            <div class="task" layout="row" layout-align="space-between center"  ng-repeat="p in e.perks">
+              <md-checkbox class="organizers" ng-model="task.sponzorship[$index]" ng-change="changeSponzorship($index)">
+                {{e.title}} - {{p.kind}}/{{p.usd|currency}}
+              </md-checkbox>
+              <div>
+                  <a href="" translate>tasks.seeEvent</a>
+              </div>
             </div>
           </div>
         </div>

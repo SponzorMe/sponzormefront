@@ -138,6 +138,7 @@
         controller: 'OrganizersNewsController',
         controllerAs: 'onc'
       })
+      //Organizers Notifications
       .when('/organizers/notifications', {
         templateUrl: 'scripts/organizers-notifications/notifications.html',
         controller: 'OrganizersNotificationsController',
@@ -157,6 +158,22 @@
         templateUrl: 'scripts/organizers-notifications/detail.html',
         controller: 'OrganizersNotificationsController',
         controllerAs: 'onc'
+      })
+      //Organizers Tasks
+      .when('/organizers/tasks', {
+        templateUrl: 'scripts/organizers-tasks/tasks.html',
+        controller: 'OrganizersTasksController',
+        controllerAs: 'otc'
+      })
+      .when('/organizers/task/:id', {
+        templateUrl: 'scripts/organizers-tasks/taskId.html',
+        controller: 'OrganizersTasksController',
+        controllerAs: 'otc'
+      })
+      .when('/organizers/tasks/create', {
+        templateUrl: 'scripts/organizers-tasks/tasks_create.html',
+        controller: 'OrganizersCreateTasksController',
+        controllerAs: 'octc'
       })
 
 

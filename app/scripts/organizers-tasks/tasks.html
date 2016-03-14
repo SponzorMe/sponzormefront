@@ -8,18 +8,9 @@
       <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
         </div>
-        <div class="buttons" layout="row" layout-align="start center">
-          <a href="#sponzors/notifications">
-            <md-icon aria-label="b">notifications</md-icon>
-          </a>
-          <a href="" class="md-icon-button">
-            <md-icon aria-label="b">send</md-icon>
-          </a>
-          <a href="" class="md-icon-button">
-            <md-icon aria-label="b">person</md-icon>
-          </a>
-        </div>
+        <organizers-navbar></organizers-navbar>
       </div>
+      <responsive-nav></responsive-nav>
       <!-- Content starts -->
       <div class="contentContainer" flex>
         <div class="notifyDetailContainer organizersTasks" layout="column">
@@ -30,37 +21,30 @@
             <p translate>tasks.add</p>
           </a>
           <div class="eventTitles" layout="row" hide-xs>
-            <div flex="40" layout="row" layout-align="center center">
-                <p>EVENTO / TÍTULO DE LA TAREA</p>
+            <div flex="60" layout="row" layout-align="center center">
+              <p>{{'tasks.event'|translate}} / {{'tasks.taskTitle'|translate}}</p>
             </div>
-            <div flex="30"  layout="row" layout-align="center center">
-                <p translate>RESPONSABLE</p>
-            </div>
-            <div flex="30" layout="row" layout-align="center center">
-                <p translate>STATUS</p>
+            <div flex="30" layout="row" layout-align="center center" >
+              <p translate>tasks.status</p>
             </div>
           </div>
-          <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in tasks">
-            <a class="eventInfo" href="#/organizers/task/:id" layout="row" flex="40">
+          <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in otc.tasks" ng-if="item.task.type == 0">
+            <a class="eventInfo" href="#/organizers/task/{{$index}}" layout="row" flex="40">
               <div class="taskIcon" flex="5" flex-xs="10" layout="row" layout-align="start center">
                 <md-icon>timer</md-icon>
-                <!-- <md-icon ng-if="item.status == 0">timer</md-icon>
-                <md-icon ng-if="item.status == 1">done_all</md-icon> -->
               </div>
-              <div class="eventTitle" flex="35" flex-xs="60" layout="column" layout-align="center start">
+              <div class="eventTitle" flex="60" flex-xs="60" layout="column" layout-align="center start">
                 <div>
                   <span class="taskSubtitle" translate>{{'tasks.event'|translate}}:</span>
-                  <span>{{item.title}}</span>
+                  <span>{{item.event.title}}</span>
                 </div>
                 <div>
                   <span class="taskSubtitle" translate>{{'tasks.task'|translate}}:</span>
-                  <span>{{item.taskTitle}}</span>
+                  <span>{{item.task.title}}</span>
                 </div>
               </div>
-              <p class="eventSponzorType" flex="30" layout="row" layout-align="center center" translate>tasks.owner</p>
-              <p class="eventSponzorType" flex="30" layout="row" layout-align="center center" ng-if="item.task.type == 0" translate>tasks.organizer</p>
               <p class="eventStatus" flex="30" layout="row" layout-align="center center">
-                tasks.status
+                {{'tasks.status'+item.status|translate}}
               </p>
             </a>
           </div>
