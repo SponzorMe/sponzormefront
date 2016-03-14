@@ -138,6 +138,26 @@
         controller: 'OrganizersNewsController',
         controllerAs: 'onc'
       })
+      .when('/organizers/notifications', {
+        templateUrl: 'scripts/organizers-notifications/notifications.html',
+        controller: 'OrganizersNotificationsController',
+        controllerAs: 'onc'
+      })
+      .when('/organizers/notifications/importants', {
+        templateUrl: 'scripts/organizers-notifications/importants.html',
+        controller: 'OrganizersNotificationsController',
+        controllerAs: 'onc'
+      })
+      .when('/organizers/notifications/readed', {
+        templateUrl: 'scripts/organizers-notifications/readed.html',
+        controller: 'OrganizersNotificationsController',
+        controllerAs: 'onc'
+      })
+      .when('/organizers/notification/:id', {
+        templateUrl: 'scripts/organizers-notifications/detail.html',
+        controller: 'OrganizersNotificationsController',
+        controllerAs: 'onc'
+      })
 
 
 
