@@ -9,7 +9,7 @@
         'dashboard': [
           'scripts/sponzors-main/main.html',
           'scripts/sponzors-outstanding/outstanding.html',
-          'views/event.html'
+          'scripts/event.html'
         ],
 
         'sponzoring': [
@@ -43,40 +43,42 @@
 
     var statesOrganizers = {
         'dashboard': [
-          'views/organizers/dashboard/main.html', 'views/organizers/dashboard/add_event.html', 'views/event.html', 'views/organizers/dashboard/sponzorships.html', 'views/organizers/dashboard/historical.html', 'views/organizers/chat.html'
+          'scripts/organizers-main/main.html', 
+          'scripts/organizers-balance/balance.html', 
+          'scripts/organizers-sponzors/sponzors.html', 
+          'scripts/organizers-main/record.html'
         ],
 
         'sponzoring': [
-          'views/organizers/dashboard/organizerships.html',
-          'views/organizers/dashboard/organizershipsId.html'
+          'scripts/organizers/dashboard/organizerships.html',
+          'scripts/organizers/dashboard/organizershipsId.html'
         ],
 
         'following': [
-          'views/organizers/dashboard/following.html'
+          'scripts/organizers/dashboard/following.html'
         ],
 
         'news': [
-          'views/organizers/dashboard/news.html'
+          'scripts/organizers-news/news.html'
         ],
 
         'tasks': [
-          'views/organizers/dashboard/tasks/tasks.html',
-          'views/organizers/dashboard/tasks/taskId.html',
-          'views/organizers/dashboard/tasks/tasks_create.html'
+          'scripts/organizers-tasks/tasks.html',
+          'scripts/organizers-tasks/tasks_create.html',
+          'scripts/organizers-tasks/taskId.html'
         ],
 
         'notifications': [
-          'views/organizers/notifications/notifications.html',
-          'views/organizers/notifications/notification_detail.html',
-          'views/organizers/notifications/notification_reply.html',
-          'views/organizers/notifications/notifications_readed.html',
-          'views/organizers/notifications/notifications_importants.html'
+          'scripts/organizers-notifications/detail.html',
+          'scripts/organizers-notifications/importants.html',
+          'scripts/organizers-notifications/notifications.html',
+          'scripts/organizers-notifications/readed.html'
         ],
 
         'settings': [
-          'views/organizers/dashboard/settings_profile.html',
-          'views/organizers/dashboard/settings_preferences.html',
-          'views/organizers/dashboard/settings_ratings.html'
+          'scripts/organizers-settings/profile.html',
+          'scripts/organizers-settings/preferences.html',
+          'scripts/organizers-settings/rate.html'
         ]
     };
 

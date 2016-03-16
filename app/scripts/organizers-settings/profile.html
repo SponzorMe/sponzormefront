@@ -57,6 +57,7 @@
                   </div>
                 </md-input-container>
               </div>
+              {{opc.user.location}}
               <div class="location" layout="column" layout-align="center stretch">
                 <md-input-container class="sponzors">
                   <label translate>settings.location</label>
@@ -126,7 +127,7 @@
           <md-button class="color-active" type="submit" form="changePassword">{{'settings.changePassword'|translate}}</md-button>
         </form>
       </div>
-
+    </div>
   </md-content>
   <div ng-include src="'./views/components/footer/footer.html'"></div>
-  </div>
+</div>

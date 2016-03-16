@@ -1,11 +1,11 @@
-'use strict';
 (function() {
+  'use strict';
   function LoginController($scope, $translate, loginRequest, $localStorage, $location, dialogRequest, $routeParams, $rootScope, userRequest){
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
     var redirectTo = $localStorage.redirectTo;
-    //$localStorage.$reset();
+    $localStorage.$reset();
     $scope.login = {};
     $scope.doLogin = function() {
       if ($scope.login.email && $scope.login.password) { //Just Check the values are defined

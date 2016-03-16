@@ -10,7 +10,6 @@
     'pascalprecht.translate',
     'ngResource',
     'ngRoute',
-    'ngDialog',
     'base64',
     'ngCookies',
     'ngStorage',

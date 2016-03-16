@@ -6,13 +6,15 @@
   'use strict';
   angular.module('sponzorme').config(['$routeProvider', function ($routeProvider) {
     $routeProvider
-      .when('/', {
-        templateUrl: 'views/login.html',
+      
+      .when('/login', {
+        templateUrl: 'scripts/login/login.html',
         controller: 'LoginController'
       })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginController'
+      
+      .when('/logout', {
+        templateUrl: 'scripts/login/login.html',
+        controller: 'LogoutController'
       })
 
       //Sponzors
@@ -190,6 +192,9 @@
         templateUrl: 'scripts/organizers-tasks/tasks_create.html',
         controller: 'OrganizersCreateTasksController',
         controllerAs: 'octc'
+      })
+      .otherwise({
+          redirect:'/login'
       });
   }]);
 })();

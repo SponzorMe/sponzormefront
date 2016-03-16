@@ -23,79 +23,30 @@
       <!-- Content starts -->
 
       <div class="createContainer settings settingsOrganizers" layout="column" flex>
-        <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
-          <div class="createLeftContainer" flex="50">
-            <form ng-submit="updateDetails()" id="createForm" name="createForm" novalidate>
-              <div class="company">
-                <md-input-container class="organizers">
-                  <label translate>preferences.company</label>
-                  <input type="text" name="companyName" ng-model="user.company">
-                </md-input-container>
-              </div>
-              <div class="companyWeb" layout="column" layout-align="center stretch">
-                <md-input-container class="organizers">
-                  <label translate>preferences.companyWebsite</label>
-                  <input type="text" name="companyWeb" ng-model="user.website">
-                </md-input-container>
-              </div>
-            </form>
-          </div>
-          <div flex="10"></div>
-          <div class="createRightContainer" flex="40">
-            <div class="userImageContainer" layout="column" layout-align="center center">
-              <div class="userImage" layout="column" layout="center center">
-                <img ng-src="{{user.logo}}" ng-if="user.logo" height="170px"/>
-                <div class="iconPreview" layout="column" layout-align="center center" ng-if="!user.logo">
-                  <md-icon>stars</md-icon>
-                </div>
-              </div>
-              <div class="userSubmitImage">
-                <input id="imageInput" name="userImage" type="file" ng-hide="true" class="upload" data-ng-model="logo" name="logo" maxsize="500" accept="image/*" logo>
-                <md-button class="submitButton">
-                  <label for="imageInput" layout="row" layout-align="center center">
-                    <md-icon>add_a_photo</md-icon>
-                    <span translate>preferences.loadPhoto</span>
-                  </label>
-                </md-button>
-              </div>
-            </div>
-          </div>
-        </div>
+        
         <div class="chipContainer">
           <span translate>settings.interests</span>
           <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
-            <span class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in user.interests" layout-wrap>
+            <span class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in opc.user.interests" layout-wrap>
               {{item.interest.name}} <a href=""
-              ng-click="removeInterest(item)"><md-icon aria-label="a">cancel</md-icon></a>
+              ng-click="opc.removeInterest(item)"><md-icon aria-label="a">cancel</md-icon></a>
             </span>
           </div>
           <md-divider></md-divider>
-          <form ng-submit="$event.preventDefault()">
+          <form name="chipForm" ng-submit="$event.preventDefault()">
             <md-autocomplete
             md-search-text-change="searchTextChange(search)"
             md-search-text="search"
-            md-items="i in querySearch(search)" md-item-text="i.name"
-            md-selected-item="newItem"
+            md-items="i in opc.querySearch(search)" md-item-text="i.name"
+            md-selected-item="opc.newItem"
             md-min-length="0"
             placeholder="{{'settings.chooseInterest'|translate}}">
               <md-item-template>
                 <span md-highlight-text="search" md-highlight-flags="^i">{{i.name}}</span>
               </md-item-template>
             </md-autocomplete>
+            <md-button form="chipForm" ng-click="opc.addUserInterests(opc.newItem)" class="color-active">{{'preferences.save'|translate}}</md-button>
           </form>
-        </div>
-        <div class="companyDescription" layout="column" layout-align="center">
-          <md-input-container class="organizers">
-            <label translate>preferences.companyPitch</label>
-            <textarea form="createForm" ng-model="user.pitch" md-maxlength="250"></textarea>
-          </md-input-container>
-          <md-input-container class="organizers">
-            <label translate>preferences.companyNewsletter</label>
-            <textarea form="createForm" ng-model="user.newsletter" md-maxlength="250"></textarea>
-          </md-input-container>
-          <div class="createFormSubmit" layout="row" layout-align="end center">
-            <md-button form="createForm" type="submit" class="color-blue-brighter">{{'preferences.edit'|translate}}</md-button>
-          </div>
         </div>
       </div>
     </div>

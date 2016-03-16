@@ -5,8 +5,8 @@
 (function () {
   'use strict';
   angular.module('sponzorme').run(
-    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', 'ngDialog', '$firebaseArray',
-      function ($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, ngDialog, $firebaseArray, EXPIRATIONTIME) {
+    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', '$firebaseArray',
+      function ($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, $firebaseArray, EXPIRATIONTIME) {
           var host = window.location.href;
           if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
             var aux = host.replace('http:', 'https:');

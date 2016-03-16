@@ -1,10 +1,9 @@
 (function() {
   'use strict';
-  function OrganizersProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, dialogRequest) {
+  function OrganizersProfileController($scope, $log, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
-      console.log(vm.user);
       vm.file = false;
       vm.editAccount = function(){
         dialogRequest.showLoading();
@@ -36,6 +35,7 @@
               $localStorage.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
               vm.user.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
               vm.user.name = vm.user.firstName +' '+ vm.user.lastName;
+              $log.error(vm.user);
               userRequest.editUserPatch($localStorage.id, vm.user).then(function successCallback(response) {
                 $localStorage.user = JSON.stringify(vm.user);
                 vm.file = false;
