@@ -13,40 +13,26 @@
       <responsive-nav></responsive-nav>
       <!-- Content starts -->
       <div class="contentContainer" flex>
-        <div class="notifyDetailContainer organizersTasks" layout="column">
-          <a href="#/organizers/tasks/create" class="addTask" layout="row" layout-align="start center">
-            <md-button class="md-fab">
-              <md-icon>add</md-icon>
-            </md-button>
-            <p translate>tasks.add</p>
-          </a>
-          <div class="eventTitles" layout="row" hide-xs>
-            <div flex="60" layout="row" layout-align="center center">
-              <p>{{'tasks.event'|translate}} / {{'tasks.taskTitle'|translate}}</p>
-            </div>
-            <div flex="30" layout="row" layout-align="center center" >
-              <p translate>tasks.status</p>
+        <div class="eventItem tasks" layout="column" layout-gt-xs="column" ng-repeat="item in otc.user.sponzorships_like_organizer">
+          <div ng-class="{'blueEvent normal':!item.show, 'blueEvent toggle': item.show}" layout="row" flex="100">
+            <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">format_list_bulleted</md-icon>
+            <span class="leftText" flex="85" flex-gt-xs="85">{{item.event.title}}</span>
+            <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">add</md-icon>
+          </div>
+          <div class="toggeable" layout="row" ng-show="item.show" layout-align="start center" flex="100">
+            <div class="menuItemContainer" layout="row" flex="100">
+              <div class="menuItem" layout="column" ng-repeat="p in item.event.perks">
+                <a href="" ng-click="otc.activePerk(p, item.event)" md-ink-ripple translate>{{p.kind}}</a>
+                <div class="border" ng-class="{'active': p.active}"></div>
+              </div>
             </div>
           </div>
-          <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in otc.tasks" ng-if="item.task.type == 0">
-            <a class="eventInfo" href="#/organizers/task/{{$index}}" layout="row" flex="40">
-              <div class="taskIcon" flex="5" flex-xs="10" layout="row" layout-align="start center">
-                <md-icon>timer</md-icon>
-              </div>
-              <div class="eventTitle" flex="60" flex-xs="60" layout="column" layout-align="center start">
-                <div>
-                  <span class="taskSubtitle" translate>{{'tasks.event'|translate}}:</span>
-                  <span>{{item.event.title}}</span>
-                </div>
-                <div>
-                  <span class="taskSubtitle" translate>{{'tasks.task'|translate}}:</span>
-                  <span>{{item.task.title}}</span>
-                </div>
-              </div>
-              <p class="eventStatus" flex="30" layout="row" layout-align="center center">
-                {{'tasks.status'+item.status|translate}}
-              </p>
-            </a>
+          <div class="tasksContent" ng-show="p.active" ng-repeat="p in item.event.perks">
+            <div ng-repeat="t in item.task_sponzor" layout="row" flex="100" ng-if="t.perk_id == p.id">
+              <div layout="column" flex="33">{{t.task.title}}</div>
+              <div layout="column" flex="33" ng-if="t.sponzorship_id == item.sponzor.id">{{item.sponzor.name}}</div>
+              <div layout="column" flex="33">{{t.status}}</div>
+            </div>
           </div>
         </div>
       </div>
