@@ -13,24 +13,24 @@
       <responsive-nav></responsive-nav>
       <!-- Content starts -->
       <div class="contentContainer" flex>
-        <div class="eventItem tasks" layout="column" layout-gt-xs="column" ng-repeat="item in otc.user.sponzorships_like_organizer">
+        <div class="eventItem tasks" layout="column" layout-gt-xs="column" ng-repeat="item in otc.user.eventTasks.events">
           <div ng-class="{'blueEvent normal':!item.show, 'blueEvent toggle': item.show}" layout="row" flex="100">
             <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">format_list_bulleted</md-icon>
-            <span class="leftText" flex="85" flex-gt-xs="85">{{item.event.title}}</span>
+            <span class="leftText" flex="85" flex-gt-xs="85">{{item.title}}</span>
             <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">add</md-icon>
           </div>
           <div class="toggeable" layout="row" ng-show="item.show" layout-align="start center" flex="100">
             <div class="menuItemContainer" layout="row" flex="100">
-              <div class="menuItem" layout="column" ng-repeat="p in item.event.perks">
-                <a href="" ng-click="otc.activePerk(p, item.event)" md-ink-ripple translate>{{p.kind}}</a>
+              <div class="menuItem" layout="column" ng-repeat="p in item.perks">
+                <a href="" ng-click="otc.activePerk(p, item)" md-ink-ripple translate>{{p.kind}}</a>
                 <div class="border" ng-class="{'active': p.active}"></div>
               </div>
             </div>
           </div>
-          <div class="tasksContent" ng-show="p.active" ng-repeat="p in item.event.perks">
-            <div ng-repeat="t in item.task_sponzor" layout="row" flex="100" ng-if="t.perk_id == p.id">
+          <div class="tasksContent" ng-show="p.active" ng-repeat="p in item.perks">
+            <div ng-repeat="t in p.sponzor_tasks" layout="row" flex="100">
               <div layout="column" flex="33">{{t.task.title}}</div>
-              <div layout="column" flex="33" ng-if="t.sponzorship_id == item.sponzor.id">{{item.sponzor.name}}</div>
+              <div layout="column" flex="33">{{t.sponzor.name}}</div>
               <div layout="column" flex="33">{{t.status}}</div>
             </div>
           </div>
