@@ -35,11 +35,12 @@
             </div>
           </div>
           <div class="tasksContent" ng-show="p.active && item.show" ng-repeat="p in item.perks">
-            <div ng-repeat="t in p.sponzor_tasks" layout="row" flex="100">
+            <div ng-repeat="t in p.sponzor_tasks" ng-if="t.task.type == 0" layout="row" flex="100">
               <div layout="column" flex="33" layout-align="center center">{{t.task.title}}</div>
               <div layout="column" flex="33" layout-align="center center">{{t.sponzor.name}}</div>
               <div layout="column" flex="33" layout-align="center center">
-                <md-checkbox ng-click="changeStatus(t.id)" ng-model="t.status" class="md-primary" checked="true"></md-checkbox>{{t.status}}
+                <md-progress-linear md-mode="indeterminate" ng-if="t.loading"></md-progress-linear>
+                <md-checkbox ng-click="otc.changeStatus(t)" class="md-primary" ng-checked="t.status == 1" aria-label="{{t.title}}" ng-if="!t.loading"></md-checkbox>
               </div>
             </div>
           </div>
