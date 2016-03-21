@@ -275,30 +275,28 @@
                                 width: 100%;
                             }
 
-                            &:hover {
-                                &>a {
-                                    background-color: $color_white;
-                                }
+                            &>a {
+                                background-color: $color_white;
+                            }
 
-                                &>.tableTitle {
-                                    color: $color_white;
-                                }
+                            &>.tableTitle {
+                                color: $color_white;
+                            }
 
-                                &>.sponzorWith {
-                                    visibility: visible;
-                                }
+                            &>.sponzorWith {
+                                visibility: visible;
+                            }
 
-                                &>.addItem {
-                                    visibility: visible;
-                                }
+                            &>.addItem {
+                                visibility: visible;
+                            }
 
-                                &>.tablePrice {
-                                    opacity: 1;
-                                }
+                            &>.tablePrice {
+                                opacity: 1;
+                            }
 
-                                &>.border {
-                                    visibility: visible;
-                                }
+                            &>.border {
+                                visibility: visible;
                             }
                         }
                     }

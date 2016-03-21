@@ -370,5 +370,17 @@
     "task":"Task",
     "sponzor":"Sponzor",
     "status":"Status"
+  },
+  "editEvent": {
+    "perkInstructions": "In the Sponzorship types you will have the chance to put the  amounts for each one and you can put the taks included.",
+    "seePerks": "Sponzorship Types and Perks",
+    "category": "Category",
+    "type": "Type",
+    "locateOnMap": "Locate on Map",
+    "location": "Location",
+    "description": "Description",
+    "title": "Title",
+    "removeEvent": "Remove Event",
+    "addTask": "Add Task"
   }
 }

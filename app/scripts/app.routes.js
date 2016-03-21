@@ -198,6 +198,11 @@
         controller: 'OrganizersEventEditController',
         controllerAs: 'oeec'
       })
+      .when('/organizers/add/event', {
+        templateUrl: 'scripts/organizers-event-add/add.html',
+        controller: 'OrganizersEventAddController',
+        controllerAs: 'oeac'
+      })
       .otherwise({
           redirect:'/login'
       });
