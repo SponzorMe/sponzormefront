@@ -6,12 +6,12 @@
   'use strict';
   angular.module('sponzorme').config(['$routeProvider', function ($routeProvider) {
     $routeProvider
-      
+
       .when('/login', {
         templateUrl: 'scripts/login/login.html',
         controller: 'LoginController'
       })
-      
+
       .when('/logout', {
         templateUrl: 'scripts/login/login.html',
         controller: 'LogoutController'
@@ -192,6 +192,11 @@
         templateUrl: 'scripts/organizers-tasks/tasks_create.html',
         controller: 'OrganizersCreateTasksController',
         controllerAs: 'octc'
+      })
+      .when('/organizers/event/:eventId', {
+        templateUrl: 'scripts/organizers-event-edit/edit.html',
+        controller: 'OrganizersEventEditController',
+        controllerAs: 'oeec'
       })
       .otherwise({
           redirect:'/login'
