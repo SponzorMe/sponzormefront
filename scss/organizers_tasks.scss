@@ -9,31 +9,31 @@
         }
     }
 
-    &>.eventItem.tasks {     
+    &>.eventItem.tasks {
         &>.blueEvent.normal{
           background-color: $color_blue;
           color: white;
-          padding: 1em 1em;            
+          padding: 1em 1em;
           margin: 0.2em 0 0.7em 0;
           &>md-icon {
             color: white;
             cursor: pointer;
-          }          
+          }
         }
         &>.blueEvent.toggle{
           background-color: $color_blue;
           color: white;
-          padding: 1em 1em;            
+          padding: 1em 1em;
           margin: 0.2em 0 0em 0;
           &>md-icon {
             color: white;
             cursor: pointer;
-          }          
+          }
         }
         &>.toggeable{
             background-color: white;
             color: $color_blue;
-            padding: 1em 1em;            
+            padding: 1em 1em;
             margin: 0em 0 0.7em 0;
             &>.menuItemContainer {
                 &>.menuItem {
@@ -72,7 +72,19 @@
                 }
             }
           }
-          
+          &>.tasksHead{
+            padding: 0.5em 0.5em;
+          }
+          &>.tasksContent{
+            padding: 1em 1em;
+            &>div{
+              background-color: white;
+              padding: 1em 1em;
+              margin: 0.5em 0 0.5em 0;
+              text-align: center;
+            }
+          }
+
         &>.eventInfo {
             &>.eventTitle > div {
                 &>.taskSubtitle {

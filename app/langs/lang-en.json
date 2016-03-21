@@ -365,5 +365,10 @@
     "Conference":"Conference",
     "Networking Event":"Networking Event",
     "Other": "Other"
+  },
+  "organizersTasks": {
+    "task":"Task",
+    "sponzor":"Sponzor",
+    "status":"Status"
   }
 }

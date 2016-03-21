@@ -9,6 +9,7 @@
           e.perks[i].active = false;
         }
         p.active = true;
+        vm.showHeader = true;
       }
       console.log(vm.user.eventTasks);
       vm.currentTaskIndex = $routeParams.id;

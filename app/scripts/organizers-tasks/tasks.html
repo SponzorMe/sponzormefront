@@ -27,11 +27,20 @@
               </div>
             </div>
           </div>
-          <div class="tasksContent" ng-show="p.active" ng-repeat="p in item.perks">
+          <div class="tasksHead" ng-show="item.show && otc.showHeader">
+            <div layout="row" flex="100">
+              <div layout="column" flex="33" translate layout-align="center center">organizersTasks.task</div>
+              <div layout="column" flex="33" translate layout-align="center center">organizersTasks.sponzor</div>
+              <div layout="column" flex="33" translate layout-align="center center">organizersTasks.status</div>
+            </div>
+          </div>
+          <div class="tasksContent" ng-show="p.active && item.show" ng-repeat="p in item.perks">
             <div ng-repeat="t in p.sponzor_tasks" layout="row" flex="100">
-              <div layout="column" flex="33">{{t.task.title}}</div>
-              <div layout="column" flex="33">{{t.sponzor.name}}</div>
-              <div layout="column" flex="33">{{t.status}}</div>
+              <div layout="column" flex="33" layout-align="center center">{{t.task.title}}</div>
+              <div layout="column" flex="33" layout-align="center center">{{t.sponzor.name}}</div>
+              <div layout="column" flex="33" layout-align="center center">
+                <md-checkbox ng-click="changeStatus(t.id)" ng-model="t.status" class="md-primary" checked="true"></md-checkbox>{{t.status}}
+              </div>
             </div>
           </div>
         </div>
