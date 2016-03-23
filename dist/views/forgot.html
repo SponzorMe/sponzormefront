@@ -4,9 +4,9 @@
     
     <div ng-include src="'./views/components/navbar/navbar.html'"></div>
 
-    <md-content class="home-content" layout="column" layout-align="start center">
+    <md-content  class="home-content" layout="column" layout-align="start center">
       <h1 class="home-header text-center" translate>general.getting</h1>
-      <md-button class="md-raised color-green md-cornered">{{'general.howItWorks'|translate}}</md-button>
+      <md-button class="md-raised color-green md-cornered" >{{'general.howItWorks'|translate}}</md-button>
       <md-tabs class="login-tabs">
         <md-tab label="{{'general.sponzor'|translate}}">
           <md-content>              
@@ -20,7 +20,7 @@
                     <div ng-message="required">{{'forgot.enterEmail'|translate}}</div>
                   </div>
                 </md-input-container>
-                <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"> <span translate>send</span> </md-button>
+                <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center" > <span translate>send</span> </md-button>
               </form>
             </div>
           </md-content>
@@ -38,14 +38,14 @@
                     <div ng-message="required">{{'forgot.enterEmail'|translate}}</div>
                   </div>
                 </md-input-container>
-                <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"><span translate>send</span></md-button>
+                <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center" ><span translate>send</span></md-button>
               </form>
             </div>             
           </md-content>
         </md-tab>
       </md-tabs>
     </md-content>
-</md-content></div>
+</div>
 <div>
 <div class="footerFixed" ng-include src="'./views/components/footer/footer.html'" hide-xs></div>
 </div>
@@ -53,6 +53,10 @@
 <div class="video-container">
   <video loop muted autoplay poster="../images/home-bkg.jpg" class="the-video">
       <source src="../video/video1.mp4" type="video/mp4">
-      </source><source src="../video/video1.webm" type="video/webm">
-  </source></video>
+      <source src="../video/video1.webm" type="video/webm">
+  </video>
 </div>
+
+
+
+            

@@ -1,0 +1,31 @@
+<div class="text-center background-white ng-dialog-container">
+<h3>{{'toCreateNewTask' | translate }}</h3><hr/>
+<form class="form-horizontal" name="formTask" role="form">
+<!--form field-->
+  <div class="form-group" id="name">
+    <label for="label" class="col-sm-5 control-label">
+      {{'todoTitle' | translate }}
+    </label>
+    <div class="col-sm-7">
+      <input  type="text" data-ng-model="todo.title" name="title" class="form-control" required/>
+    </div>
+  </div>
+  <!--form field-->
+  <div class="form-group" id="description">
+    <label for="label" class="col-sm-5 control-label">
+      {{'todoDescription' | translate }}
+    </label>
+    <div class="col-sm-7">
+      <textarea rows="5" data-ng-model="todo.description" name="message" class="form-control" required></textarea>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <!--form field-->
+  <div class="form-group">
+    <div class="col-sm-12 text-center">
+      <button class="btn btn-danger" ng-click="closeThisDialog()"><i class="fa fa-times"></i> {{'Close' | translate}}</button>
+      <button data-ng-click="formTask.$valid && addTask()" class="btn btn-info"><i class="fa fa-send"></i> {{'submitbutton' | translate}}</button>
+    </div>
+  </div>
+</form>
+</div>

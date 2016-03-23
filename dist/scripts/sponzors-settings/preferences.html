@@ -1,0 +1,95 @@
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+    <navbar-settings active="preferences"></navbar-settings>
+
+
+      <!-- Content starts -->
+
+      <div class="createContainer settings" layout="column" flex>
+        <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
+          <div class="createLeftContainer" flex="50">
+            <form ng-submit="spc.updateDetails()" id="createForm" name="createForm" novalidate>
+              <div class="company">
+                <md-input-container class="sponzors">
+                  <label translate>preferences.company</label>
+                  <input type="text" name="companyName" data-ng-model="spc.user.company">
+                </md-input-container>
+              </div>
+              <div class="companyWeb" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                  <label translate>preferences.companyWebsite</label>
+                  <input type="text" name="companyWeb" data-ng-model="spc.user.website">
+                </md-input-container>
+              </div>
+            </form>
+          </div>
+          <div flex="10"></div>
+          <div class="createRightContainer" flex="40">
+            <div class="userImageContainer" layout="column" layout-align="center center">
+              <div class="userImage" layout="column" layout="center center">
+                <img ng-src="{{spc.user.logo}}" ng-if="spc.user.logo" height="170px"/>
+                <div class="iconPreview" layout="column" layout-align="center center" ng-if="!spc.user.logo">
+                  <md-icon>stars</md-icon>
+                </div>
+              </div>
+              <div class="userSubmitImage">
+                <input id="imageInput" name="userImage" type="file" ng-hide="true" class="upload" data-ng-model="spc.file" name="logo" maxsize="500" accept="image/*" file>
+                <md-button class="submitButton">
+                  <label for="imageInput" layout="row" layout-align="center center">
+                    <md-icon>add_a_photo</md-icon>
+                    <span translate>preferences.loadPhoto</span>
+                  </label>
+                </md-button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chipContainer">
+          <span translate>settings.interests</span>
+          <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
+            <span class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in spc.user.interests track by $index" layout-wrap>
+              {{item.interest.name}} <a href=""
+              ng-click="spc.removeUserInterest($index, item.id)"><md-icon aria-label="a">cancel</md-icon></a>
+            </span>
+          </div>
+          <md-divider></md-divider>
+          <form name="chipForm" ng-submit="$event.preventDefault()">
+            <md-autocomplete
+            md-search-text-change="searchTextChange(search)"
+            md-search-text="search"
+            md-items="i in spc.querySearch(search)" md-item-text="i.name"
+            md-selected-item="spc.newItem"
+            md-min-length="0"
+            placeholder="{{'settings.chooseInterest'|translate}}">
+              <md-item-template>
+                <span md-highlight-text="search" md-highlight-flags="^i">{{i.name}}</span>
+              </md-item-template>
+            </md-autocomplete>
+            <md-button form="chipForm" ng-click="spc.addUserInterests(spc.newItem)" class="color-active">{{'preferences.save'|translate}}</md-button>
+          </form>
+        </div>
+        <div class="companyDescription" layout="column" layout-align="center">
+          <md-input-container class="sponzors">
+            <label translate>preferences.companyPitch</label>
+            <textarea form="createForm" data-ng-model="spc.user.pitch" md-maxlength="250"></textarea>
+          </md-input-container>
+          <md-input-container class="sponzors">
+            <label translate>preferences.companyNewsletter</label>
+            <textarea form="createForm" data-ng-model="spc.user.newsletter" md-maxlength="250"></textarea>
+          </md-input-container>
+          <div class="createFormSubmit" layout="row" layout-align="end center">
+            <md-button form="createForm" type="submit" class="color-active">{{'preferences.edit'|translate}}</md-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>

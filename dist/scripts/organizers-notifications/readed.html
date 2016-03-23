@@ -1,0 +1,41 @@
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <organizers-notifications-navbar active="readed"></organizers-notifications-navbar>
+        <organizers-navbar></organizers-navbar>
+      </div>
+      <responsive-nav></responsive-nav>
+      
+      <!-- Content starts -->
+
+      <div class="contentContainer">
+        <div layout="column" class="notifyContainer">
+          <md-content class="notifyElement importants" md-ink-ripple="#faaf3a" layout="row" layout-align="start center" ng-repeat="notify in onc.notifications" ng-if="notify.read == true">
+            <a href="#/organizers/notification/{{notify.$id}}" layout="row" layout-align="start center" flex="grow">
+              <md-button class="md-icon-button" aria-label="b">
+                <md-icon>notifications</md-icon>
+              </md-button>
+              <p class="md-body-1">{{notify.text}}</p>
+            </a>
+            <div class="texts" layout="row" layout-align="end center" flex="30">
+              <p class="date md-body-2">{{notify.date|date:'medium'}}</p>
+              <a href="#/organizers/notification/{{notify.$id}}" class="link" md-ink-ripple="#faaf3a" hide-xs hide-sm translate translate>notifications.see</a>
+            </div>
+          </md-content>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>

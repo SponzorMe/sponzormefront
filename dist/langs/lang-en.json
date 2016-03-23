@@ -129,7 +129,8 @@
     "sponzorDashboard": "Sponzor",
     "saved": "Saved Events",
     "interests": "Selected Interests",
-    "invite":"Invite Friend"
+    "invite":"Invite Friend",
+    "news": "News"
   },
   "categories":{
     "Outdoor": "Outdoor",
@@ -275,7 +276,21 @@
     "editEvent": "Edit Event",
     "shareEvent": "Share Event",
     "seeTasks": "See Tasks",
-    "deleteEvent": "Delete Event"
+    "deleteEvent": "Delete Event",
+    "record": "Record",
+    "recordDescription": "Here you can find the past events, sortered cronologically"
+  },
+  "organizersSponzors":{
+    "seeSponzorProfile": "See the sponsor's profile.",
+    "seeEventTasks": "See event's tasks",
+    "seeCause": "See the Sponsonrship Cause",
+    "chatWithSponzor": "Chat with the Sponsor",
+    "rateSponzor": "Rate the Sponzor",
+    "sponzorName": "Sponsor",
+    "event": "Event",
+    "sponzorshipType": "Type",
+    "status": "Status",
+    "actions": "Actions"
   },
   "invite":{
     "title": "Invite a Friend",
@@ -325,6 +340,65 @@
     "question4":"Do you going to use us again in the future?*",
     "question5":"Which is your audience? *",
     "question6":"Write a Comment"
+  },
+  "categories":{
+    "Outdoor": "Outdoor",
+    "Art & Culture": "Art & Culture",
+    "Dancing": "Dancing",
+    "Wellness": "Wellness",
+    "Career & Business": "Career & Business",
+    "Eat & Foods": "Eat & Foods",
+    "Belief": "Belief",
+    "Sports & Fitness": "Sports & Fitness",
+    "Education": "Education",
+    "Photography": "Photography",
+    "Languages": "Languages",
+    "Books": "Books",
+    "Music": "Music",
+    "Technology": "Technology"
+  },
+  "eventTypes":{
+    "Charity": "Charity",
+    "Recruitment": "Recruitment",
+    "Training or Workshop":"Training or Workshop",
+    "Perfomance":"Perfomance",
+    "Conference":"Conference",
+    "Networking Event":"Networking Event",
+    "Other": "Other"
+  },
+  "organizersTasks": {
+    "task":"Task",
+    "sponzor":"Sponzor",
+    "status":"Status"
+  },
+  "editEvent": {
+    "perkInstructions": "In the Sponzorship types you will have the chance to put the  amounts for each one and you can put the taks included.",
+    "seePerks": "Sponzorship Types and Perks",
+    "category": "Category",
+    "type": "Type",
+    "locateOnMap": "Locate on Map",
+    "location": "Location",
+    "description": "Description",
+    "title": "Title",
+    "removeEvent": "Remove Event",
+    "addTask": "Add Task"
+  },
+  "addEvent":{
+    "selectMonth": "Month",
+    "selectDay": "Day",
+    "selectYear": "Year",
+    "selectHour": "Hour",
+    "location": "Location",
+    "starts": "Date and Hour when event starts",
+    "ends": "Date and Hour when event ends",
+    "eventType": "Event Types",
+    "eventCategory": "Event Category",
+    "privacy": "Privacy",
+    "importEvent": "Import Event",
+    "saveNewEvent": "Save and See Event's page",
+    "setSponzorshipTypes": "Set Sponzorship Types and Tasks",
+    "perkInstructions": "In the Sponzorship types you will have the chance to put the  amounts for each one and you can put the taks included.",
+    "addTask": "Add Task",
+    "addNewSponzorshipType": "Add New Sponzorship Type"
   }
-
 }

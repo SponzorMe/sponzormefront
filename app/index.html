@@ -10,7 +10,7 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- build:cendorCss styles/vendor.css -->
+  <!-- build:vendorCss styles/vendor.css -->
   <link rel="stylesheet" href="../bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" />
   <link rel="stylesheet" href="../bower_components/intro.js/minified/introjs.min.css" />
 
@@ -64,7 +64,6 @@
 <!-- endbuild -->
 
   <!-- build:appJs scripts/scripts.js -->
-  <!--App Initialization -->
   <script src="scripts/app.modules.js"></script>
   <script src="scripts/app.constants.js"></script>
   <script src="scripts/app.providers.js"></script>
@@ -72,7 +71,6 @@
   <script src="scripts/app.enviroments.js"></script>
   <script src="scripts/app.run.js"></script>
   <script src="scripts/app.directives.js"></script>
-  <!--App Services -->
   <script src="scripts/services/categoryService.js"></script>
   <script src="scripts/services/eventService.js"></script>
   <script src="scripts/services/eventTypesService.js"></script>
@@ -89,133 +87,60 @@
   <script src="scripts/services/eventbriteService.js"></script>
   <script src="scripts/services/demoService.js"></script>
   <script src="scripts/services/dialogService.js"></script>
-
-  <!--App Controllers -->
-    <script src="scripts/sponzors-main/event-master.controller.js"></script>
+  <script src="scripts/sponzors-main/event-master.controller.js"></script>
   <script src="scripts/sponzors-main/sponzors-main.controller.js"></script>
   <script src="scripts/sponzors-main/event-menu.directive.js"></script>
   <script src="scripts/sponzors-main/event-item.directive.js"></script>
   <script src="scripts/sponzors-main/navbar-events.directive.js"></script>
-
   <script src="scripts/sponzors-navbar/navbar.directive.js"></script>
   <script src="scripts/sponzors-outstanding/sponzors-outstanding.controller.js"></script>
   <script src="scripts/sponzors-saved/sponzors-saved.controller.js"></script>
-
   <script src="scripts/sponzors-settings/sponzors-preferences.controller.js"></script>
   <script src="scripts/sponzors-settings/sponzors-profile.controller.js"></script>
   <script src="scripts/sponzors-settings/sponzors-ratings.controller.js"></script>
   <script src="scripts/sponzors-settings/navbar-settings.directive.js"></script>
   <script src="scripts/sponzors-settings/sponzors-change.controller.js"></script>
-
   <script src="scripts/sponzors-tasks/sponzors-tasks.controller.js"></script>
   <script src="scripts/sponzors-tasks/sponzors-create-task.controller.js"></script>
-
   <script src="scripts/sponzors-notifications/sponzors-notifications.controller.js"></script>
   <script src="scripts/sponzors-notifications/navbar-notifications.directive.js"></script>
-
   <script src="scripts/sponzors-sponzoring/sponzors-sponzoring.controller.js"></script>
   <script src="scripts/sponzors-sponzoring/add-calendar.controller.js"></script>
-
   <script src="scripts/sponzors-create/sponzors-create.controller.js"></script>
-
   <script src="scripts/sponzors-invite/sponzors-invite.controller.js"></script>
-
   <script src="scripts/sponzors-event/sponzors-event.controller.js"></script>
-
   <script src="scripts/sponzors-chat/sponzors-chat.controller.js"></script>
-
   <script src="scripts/sponzors-rate/sponzors-rate.controller.js"></script>
-
-
   <script src="scripts/organizers-main/organizers-main.controller.js"></script>
   <script src="scripts/organizers-main/head-nav.directive.js"></script>
   <script src="scripts/organizers-main/responsive-nav.directive.js"></script>
   <script src="scripts/organizers-main/event-body.directive.js"></script>
   <script src="scripts/organizers-navbar/navbar.directive.js"></script>
-
   <script src="scripts/organizers-sponzors/organizers-sponzors.controller.js"></script>
-
   <script src="scripts/organizers-balance/organizers-balance.controller.js"></script>
-
   <script src="scripts/organizers-news/organizers-news.controller.js"></script>
-
   <script src="scripts/organizers-notifications/organizers-notifications.controller.js"></script>
   <script src="scripts/organizers-notifications/navbar-notifications.directive.js"></script>
-
   <script src="scripts/organizers-tasks/organizers-tasks.controller.js"></script>
-
   <script src="scripts/organizers-tasks/organizers-create-task.controller.js"></script>
-
   <script src="scripts/organizers-settings/organizers-preferences.controller.js"></script>
   <script src="scripts/organizers-settings/organizers-rate.controller.js"></script>
   <script src="scripts/organizers-settings/organizers-profile.controller.js"></script>
   <script src="scripts/organizers-settings/organizers-change.controller.js"></script>
   <script src="scripts/organizers-settings/settings-nav.directive.js"></script>
-
   <script src="scripts/organizers-event-edit/organizers-event-edit.controller.js"></script>
-
   <script src="scripts/organizers-event-add/organizers-event-add.controller.js"></script>
-
   <script src="scripts/login/login.controller.js"></script>
-
-
-
-
   <script src="scripts/controllers/activationController.js"></script>
   <script src="scripts/controllers/eventPageController.js"></script>
   <script src="scripts/controllers/forgotController.js"></script>
   <script src="scripts/controllers/activationController.js"></script>
   <script src="scripts/controllers/homeController.js"></script>
-
   <script src="scripts/controllers/logoutController.js"></script>
   <script src="scripts/controllers/resendController.js"></script>
   <script src="scripts/controllers/customizationController.js"></script>
-
-
-
-
-
   <script src="views/components/sidenav/SidenavController.js"></script>
   <!-- endbuild -->
-
-  <!-- Google Analytics: change UA-54490148-1 to be your site's ID. -->
-  <script>
-    (function(i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r;
-      i[r] = i[r] || function() {
-        (i[r].q = i[r].q || []).push(arguments)
-      }, i[r].l = 1 * new Date();
-      a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-54490148-1', 'auto');
-    ga('send', 'pageview');
-  </script>
-  <!-- Start of sponzorme Zendesk Widget script
-  <script>
-    /*<![CDATA[*/
-    window.zEmbed || function(e, t) {
-      var n, o, d, i, s, a = [],
-        r = document.createElement("iframe");
-      window.zEmbed = function() {
-          a.push(arguments)
-        }, window.zE = window.zE || window.zEmbed, r.src = "javascript:false", r.title = "", r.role = "presentation", (r.frameElement || r).style.cssText = "display: none", d = document.getElementsByTagName("script"), d = d[d.length - 1], d.parentNode
-        .insertBefore(r, d), i = r.contentWindow, s = i.document;
-      try {
-        o = s
-      } catch (c) {
-        n = document.domain, r.src = 'javascript:var d=document.open();d.domain="' + n + '";void(0);', o = s
-      }
-      o.open()._l = function() {
-        var o = this.createElement("script");
-        n && (this.domain = n), o.id = "js-iframe-async", o.src = e, this.t = +new Date, this.zendeskHost = t, this.zEQueue = a, this.body.appendChild(o)
-      }, o.write('<body onload="document._l();">'), o.close()
-    }("https://assets.zendesk.com/embeddable_framework/main.js", "sponzorme.zendesk.com"); /*]]>*/
-  </script>
-  <!-- End of sponzorme Zendesk Widget script -->
 </body>
 
 </html>

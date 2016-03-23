@@ -1,0 +1,284 @@
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    <div class="cont" flex>
+    
+    <!-- Content starts -->    
+      <div class="createContainer" class="md-whiteframe-24dp" layout="column" flex> 
+        <div class="logo">
+          <figure layout="row" layout-align="center center">
+            <img src="../images/organizer.png" alt="">
+          </figure>
+        </div>
+        <div class="createTitle" layout="column" layout-align="center center" ng-show="firstPage">
+          <h1>_Diligencia los siguientes espacios, así podrás empezar a usar  SponzorMe_</h1>
+          <span class="organizer" translate>_organizador_</span>
+        </div>
+        <div class="createTitle" layout="column" layout-align="center center" ng-hide="firstPage">
+          <h1>_Cuéntanos un poco acerca de ti_</h1>
+        </div>
+        <form ng-submit="create()"
+          id="createForm"
+          name="createForm"
+          novalidate
+          class="formContainer"
+          layout-align="center center"
+          layout="column">
+
+          <div flex="50" layout="column" layout-align="center center">
+            <div class="firstPageContainer" ng-show="firstPage">
+              <div class="fullname" layout="row">
+                <md-input-container class="organizers
+                ">
+                  <label translate>editarname</label>
+                  <input type="text" name="name" ng-model="create.name.firstname" required>
+                  <div ng-messages="createForm.name.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="organizers
+                ">
+                  <label translate>editarlasname</label>
+                  <input type="text" name="lastName" ng-model="create.name.lastName" required>
+                  <div ng-messages="createForm.lastName.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="email" layout="column" layout-align="center stretch">
+                <md-input-container class="organizers
+                ">                
+                  <label translate>email</label>
+                  <input type="email" name="email" ng-model="create.email" required>
+                  <div ng-messages="createForm.email.$error">
+                    <div ng-message="email">_escriba un email correcto_</div>
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="password" layout="column" layout-align="center stretch">
+                <md-input-container class="organizers
+                ">                
+                  <label translate>attributes_password</label>
+                  <input type="password" name="password" ng-model="create.password" required>
+                  <div ng-messages="createForm.password.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="passwordConfirm" layout="column" layout-align="center stretch">
+                <md-input-container class="organizers
+                ">                
+                  <label translate>attributes_confirmpassword</label>
+                  <input type="password" name="passwordConfirm" ng-model="create.passwordConfirm" required>
+                  <div ng-messages="createForm.passwordConfirm.$error">
+                    <div ng-message="required">_campo requerido_</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="btnCont" layout="row" layout-align="center center">
+                <md-button class="md-raised sendButton next" ng-click="toggleCreateForm()"><span translate>_siguiente_</span></md-button>
+              </div>
+            </div>
+
+            
+            <div class="secondPageContainer" ng-hide="firstPage" layout="column" layout-align="center center">
+              <div class="backButton">
+                <md-button ng-click="toggleCreateForm()"><md-icon>reply</md-icon></md-button>
+              </div>
+              
+              <div class="supCont" layout="column" layout-align="center stretch">
+                <div class="ageGender" layout="row">
+                  <md-input-container class="organizers
+                  ">
+                    <label translate>editaccountage</label>
+                    <md-select class="organizers
+                    " name="userAge" ng-model="create.age" required>
+                      <md-option value="1">1</md-option>
+                      <md-option value="2">2</md-option>
+                      <md-option value="3">3</md-option>
+                      <md-option value="4">4</md-option>
+                      <md-option value="5">5</md-option>
+                      <md-option value="6">6</md-option>
+                    </md-select>
+                    <div ng-messages="createForm.userAge.$error" createForm.$dirty>
+                      <div ng-message="required">Required</div>
+                    </div>
+                  </md-input-container> 
+                  <md-input-container class="organizers
+                  ">
+                    <label translate>chooseSex</label>
+                    <md-select class="organizers
+                    " name="userGender" ng-model="create.gender" required>
+                      <md-option value="man"><span translate>man</span></md-option>
+                      <md-option value="woman"><span translate>woman</span></md-option>
+                    </md-select>
+                     <div ng-messages="createForm.userGender.$error" createForm.$dirty>
+                      <div ng-message="required">Required</div>
+                    </div>
+                  </md-input-container>  
+                </div>
+
+                <div class="userLanguage"  layout="column" layout-align="center stretch">
+                  <md-input-container class="organizers
+                  ">
+                    <label>_idioma predilecto_</label>
+                    <md-select class="organizers
+                    " name="userLanguage" ng-model="create.language" required>
+                      <md-option value="spanish">spanish</md-option>
+                      <md-option value="english">english</md-option>
+                      <md-option value="portugesse">portuguese</md-option>
+                    </md-select>
+                    <div ng-messages="createForm.userLanguage.$error" createForm.$dirty>
+                      <div ng-message="required">Required</div>
+                    </div>
+                  </md-input-container> 
+                </div>
+                <div class="userLocation" layout="column" layout-align="center stretch">
+                  <md-input-container class="organizers
+                  ">
+                    <label translate>neweventlocation</label>
+                    <md-select class="organizers
+                    " name="userLocation" ng-model="create.userLocation" required>
+                      <md-option value="spanish">Bogotá</md-option>
+                      <md-option value="english">Cali</md-option>
+                      <md-option value="portugesse">Medellin</md-option>
+                    </md-select>
+                    <div ng-messages="createForm.userLocation.$error" createForm.$dirty>
+                      <div ng-message="required">Required</div>
+                    </div>
+                  </md-input-container> 
+                </div>
+              </div>        
+              <div>
+                <div class="createTitle" layout="column" layout-align="center center">
+                  <h1>_Estás interesado en_</h1>
+                </div>
+                <div class="interests" layout="column" layout-gt-xs="row" layout-align="center center" layout-wrap>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Arte y Cultura_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate> _Tecnología_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Educación_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Salud_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Gastronomía_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Idiomas_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Música_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container  flex-gt-xs="25">
+                    <label translate>_Emprendimiento_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container >
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Gastronomía_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Idiomas_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Música_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                  <md-input-container flex-gt-xs="25">
+                    <label translate>_Emprendimiento_</label>
+                    <md-select name="" ng-model="someModel"required>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                      <md-option value=""></md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+              </div>
+            </div>
+            <md-button class="md-raised sendButton send" type="submit" ng-hide="firstPage"><span translate>send</span></md-button>
+          </div>          
+        </form>
+        <div class="createFormSubmit" layout="row" layout-align="center center" ng-show="isSuccess() === false">
+        
+        </div>
+        <div class="confirmText" layout="column" layout-align="center center" ng-show="submitSucces()">
+          <h1 translate>emailconfirm</h1>
+        </div>
+      </div>
+    </div> 
+  </md-content>  
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
