@@ -1,6 +1,34 @@
 'use strict';
 (function() {
-  function EventPageController($scope, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope) {
+  function EventPageController($scope, $mdSidenav,$routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope, dialogRequest) {
+    //mock starts
+
+   $scope.openSidenavLeft = function(){
+        $mdSidenav('left').toggle();
+   };
+
+   $scope.isOpenLeft = function () {
+     var isOpen = true;
+     return isOpen = $mdSidenav('left').isOpen();
+   };
+
+   $scope.openMenu = function($mdOpenMenu, $event) {
+       $scope.originatorEv = $event;
+       $mdOpenMenu($event);
+     };
+
+    $scope.hideValue = false;
+
+    $scope.toggle = function() {
+      if ($scope.hideValue) {
+        $scope.hideValue = false;
+      } else {
+        $scope.hideValue = true;
+      }
+    };
+
+   //mock ends
+
     $scope.eventLoaded = false;
     var firebaseNotification;
     $scope.todayDate = new Date().getTime();
@@ -43,8 +71,8 @@
       });
     };
     $scope.createSponzorship = function() {
-      $rootScope.closeAllDialogs();
-      $rootScope.showLoading();
+      dialogRequest.closeLoading();
+      dialogRequest.showLoading();
       $scope.user = JSON.parse($localStorage.user);
       $scope.user.pendingSponzorships = $scope.user.sponzorships.filter(function(e) {
         if (e.status === '0') {
@@ -61,14 +89,14 @@
           link: '#/organizers/sponzors'
         };
         $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentEvent.user_organizer.id);
-        $rootScope.closeAllDialogs();
-        $rootScope.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
+        dialogRequest.closeLoading();
+        dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {
-        $rootScope.closeAllDialogs();
+        dialogRequest.closeLoading();
         if (err.status === 409) {
-          $rootScope.showDialog('error', 'alreadySponzoring', false);
+          dialogRequest.showDialog('error', 'alreadySponzoring', false);
         } else {
-          $rootScope.showDialog('error', 'youCanNotSponzorThisEvent', false);
+          dialogRequest.showDialog('error', 'youCanNotSponzorThisEvent', false);
         }
       });
     };

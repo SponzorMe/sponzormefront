@@ -34,9 +34,9 @@
     "mockfirebase": "~0.11.0",
     "components-font-awesome": "~4.5.0",
     "downloadjs": "*",
-    "angular-addtocalendar": "~1.1.4"
+    "angular-material": "^1.0.3"
   },
   "resolutions": {
-    "angular": "1.4.9"
+    "angular": "1.5.2"
   }
 }

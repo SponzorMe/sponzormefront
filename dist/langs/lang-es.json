@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "dashboard": "Dashboard",
   "events": "Eventos",
   "settings": "Configuración",
@@ -737,5 +738,10 @@
     "Conference”:"Conferencias",
     "Networking Event”:"Eventos",
     "Other": "Otros",
+=======
+  "login": {
+      "howitworks": "¿How Do It Works?",
+      "getting": "Welcome"
+>>>>>>> development
   }
 }

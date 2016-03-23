@@ -3,7 +3,10 @@
   "description": "We connect Events With Sponzors",
   "version": "1.1.0",
   "homepage": "https://github.com/carlosrojaso/sponzormefront",
-  "keywords": ["events","Sponzors"],
+  "keywords": [
+    "events",
+    "Sponzors"
+  ],
   "bugs": "https://github.com/carlosrojaso/sponzormefront/issues",
   "repository": {
     "type": "git",
@@ -17,11 +20,13 @@
   "main": "app/index.html",
   "private": true,
   "license": "Propietary Software",
-  "contributors": [{
-    "name": "Sebastian Gomez",
-    "email": "sebastian.gomez@sponzor.me ",
-    "url": "http://www.sebastian-gomez.com/"
-  }],
+  "contributors": [
+    {
+      "name": "Sebastian Gomez",
+      "email": "sebastian.gomez@sponzor.me ",
+      "url": "http://www.sebastian-gomez.com/"
+    }
+  ],
   "engines": {
     "node": ">=0.10.33"
   },
@@ -30,20 +35,24 @@
     "browser-sync": "^2.11.1",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-concat-css": "^2.2.0",
     "gulp-cssnano": "^2.1.0",
     "gulp-eslint": "^1.1.1",
     "gulp-htmlmin": "^1.3.0",
     "gulp-imagemin": "^2.4.0",
+    "gulp-inject": "^3.0.0",
     "gulp-ng-annotate": "^1.1.0",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-rimraf": "^0.2.0",
     "gulp-sass": "^2.1.1",
     "gulp-serve": "^1.2.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "gulp-usemin": "^0.3.20",
+    "gulp-util": "^3.0.7",
     "gulp-webserver": "^0.9.1",
     "jasmine-core": "^2.4.1",
     "jasmine-expect": "^2.0.0-beta2",

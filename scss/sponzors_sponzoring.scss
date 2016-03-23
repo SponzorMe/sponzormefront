@@ -1,0 +1,46 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer {
+
+//
+//for sponzors/sponzoring
+//
+    &>.eventTitles {
+        text-transform: uppercase;
+        color: $color_gray3;
+        font-size: 14px;
+        //padding: 0.5em 1em;
+        text-align: center;
+    }
+
+    &>.eventItem {
+        &>.eventInfo {
+            background: $color_white;
+            box-shadow: 3px -1px 3px 0px rgba(0, 0, 0, 0.2),
+                        1px 1px 1px -1px rgba(0, 0, 0, 0.12);
+            padding: 0.1em 1em;
+            margin: 0.2em 0 0.7em 0;
+            text-transform: uppercase;
+            font-size: 12px;
+
+            &>.eventTitle {
+                text-transform: initial;
+            }
+
+            &>.eventSponzorType {
+                text-transform: uppercase;
+            }
+
+            &:hover {
+                background: $color_active;
+                color: $color_white;
+            }
+        }
+
+        &>.actionSponzor {
+            &>a md-icon {
+                margin: 0 5px;
+                color: $color_active;
+                font-size: 24px;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+.allContainer .superContainer .cont .contentContainer {
+
+    &>md-divider {
+        margin-top: 1em;
+        border-top-color: rgba(116, 114, 114, 0.25);
+    }
+
+    &>.notifyDetailContainer {
+        &>.replyElement.newTask {
+            &>.taskEditButton {
+                &>.md-button {
+                    color: $color_blue_brighter;
+                }
+            }
+
+            &>.taskItems {
+                &>p {
+                    color: $color_gray_text;
+                }
+
+                &>.task {
+                    &>div a {
+                        color: $color_blue_brighter;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+}

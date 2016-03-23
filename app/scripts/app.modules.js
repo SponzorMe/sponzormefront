@@ -10,19 +10,19 @@
     'pascalprecht.translate',
     'ngResource',
     'ngRoute',
-    'ngDialog',
     'base64',
     'ngCookies',
     'ngStorage',
-    'ui.bootstrap',
     'google.places',
     'angularSpinner',
-    'jshor.angular-addtocalendar',
     'angularUtils.directives.dirPagination',
-    'ui.bootstrap.datetimepicker',
     'firebase',
     'textAngular',
     'angular-input-stars',
-    'luegg.directives'
+    'luegg.directives',
+    'ngMaterial',
+    'ngAria',
+    'ngAnimate',
+    'ngMessages'
   ]);
 })();

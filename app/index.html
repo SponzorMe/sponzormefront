@@ -10,21 +10,18 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <!-- build:cendorCss styles/vendor.css -->
-  <link rel="stylesheet" href="../bower_components/ngDialog/css/ngDialog.css" />
-  <link rel="stylesheet" href="../bower_components/ngDialog/css/ngDialog-theme-default.css" />
+  <!-- build:vendorCss styles/vendor.css -->
   <link rel="stylesheet" href="../bower_components/angular-google-places-autocomplete/dist/autocomplete.min.css" />
-  <link rel="stylesheet" href="../bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css" />
   <link rel="stylesheet" href="../bower_components/intro.js/minified/introjs.min.css" />
-  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+
   <link rel='stylesheet' href='../bower_components/textAngular/dist/textAngular.css'>
   <link rel='stylesheet' href='../bower_components/angular-input-stars-directive/angular-input-stars.css'>
   <link rel='stylesheet' href='../bower_components/font-awesome/css/font-awesome.min.css'>
+   <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css">
   <!-- endbuild -->
 
   <!-- build:AppCss styles/app.css -->
-  <link rel="stylesheet" href="styles/main.min.css">
+  <link rel="stylesheet" href="styles/index.css">
   <!-- endbuild -->
 
 </head>
@@ -35,27 +32,22 @@
 
   <!-- build:vendorJs scripts/vendor.js -->
   <script src="../bower_components/jquery/dist/jquery.js"></script>
-  <script src="../bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
   <script src="../bower_components/modernizr/modernizr.js"></script>
   <script src="../bower_components/angular/angular.js"></script>
   <script src="../bower_components/angular-translate/angular-translate.js"></script>
   <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
   <script src="../bower_components/angular-resource/angular-resource.js"></script>
   <script src="../bower_components/angular-route/angular-route.js"></script>
-  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <script src="../bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
   <script src="../bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-  <script src="../bower_components/ngDialog/js/ngDialog.js"></script>
   <script src="../bower_components/angular-base64/angular-base64.js"></script>
   <script src="../bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
   <script src="../bower_components/ngstorage/ngStorage.js"></script>
   <script src="../bower_components/spin.js/spin.min.js"></script>
   <script src="../bower_components/angular-spinner/angular-spinner.js"></script>
   <script src="../bower_components/angular-utils-pagination/dirPagination.js"></script>
-  <script src="../bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
   <script src="../bower_components/moment/moment.js"></script>
   <script src="../bower_components/intro.js/minified/intro.min.js"></script>
-  <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="../bower_components/firebase/firebase.js"></script>
   <script src="../bower_components/angularfire/dist/angularfire.min.js"></script>
   <script src='../bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
@@ -65,11 +57,13 @@
   <script src='../bower_components/aws-sdk/dist/aws-sdk.min.js'></script>
   <script src='../bower_components/angular-input-stars-directive/angular-input-stars.js'></script>
   <script src="../bower_components/downloadjs/download.min.js"></script>
-  <script src='../bower_components/angular-addtocalendar/addtocalendar.min.js'></script>
-  <!-- endbuild -->
+  <script src="../bower_components/angular-aria/angular-aria.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.js"></script>
+  <script src="../bower_components/angular-material/angular-material.js"></script>
+  <script src="../bower_components/angular-messages/angular-messages.js"></script>
+<!-- endbuild -->
 
   <!-- build:appJs scripts/scripts.js -->
-  <!--App Initialization -->
   <script src="scripts/app.modules.js"></script>
   <script src="scripts/app.constants.js"></script>
   <script src="scripts/app.providers.js"></script>
@@ -77,8 +71,6 @@
   <script src="scripts/app.enviroments.js"></script>
   <script src="scripts/app.run.js"></script>
   <script src="scripts/app.directives.js"></script>
-  <script src="scripts/app.filters.js"></script>
-  <!--App Services -->
   <script src="scripts/services/categoryService.js"></script>
   <script src="scripts/services/eventService.js"></script>
   <script src="scripts/services/eventTypesService.js"></script>
@@ -94,39 +86,67 @@
   <script src="scripts/services/ratingService.js"></script>
   <script src="scripts/services/eventbriteService.js"></script>
   <script src="scripts/services/demoService.js"></script>
+<<<<<<< HEAD
   <script src="scripts/services/notificationService.js"></script>
   <!--App Controllers -->
+=======
+  <script src="scripts/services/dialogService.js"></script>
+  <script src="scripts/sponzors-main/event-master.controller.js"></script>
+  <script src="scripts/sponzors-main/sponzors-main.controller.js"></script>
+  <script src="scripts/sponzors-main/event-menu.directive.js"></script>
+  <script src="scripts/sponzors-main/event-item.directive.js"></script>
+  <script src="scripts/sponzors-main/navbar-events.directive.js"></script>
+  <script src="scripts/sponzors-navbar/navbar.directive.js"></script>
+  <script src="scripts/sponzors-outstanding/sponzors-outstanding.controller.js"></script>
+  <script src="scripts/sponzors-saved/sponzors-saved.controller.js"></script>
+  <script src="scripts/sponzors-settings/sponzors-preferences.controller.js"></script>
+  <script src="scripts/sponzors-settings/sponzors-profile.controller.js"></script>
+  <script src="scripts/sponzors-settings/sponzors-ratings.controller.js"></script>
+  <script src="scripts/sponzors-settings/navbar-settings.directive.js"></script>
+  <script src="scripts/sponzors-settings/sponzors-change.controller.js"></script>
+  <script src="scripts/sponzors-tasks/sponzors-tasks.controller.js"></script>
+  <script src="scripts/sponzors-tasks/sponzors-create-task.controller.js"></script>
+  <script src="scripts/sponzors-notifications/sponzors-notifications.controller.js"></script>
+  <script src="scripts/sponzors-notifications/navbar-notifications.directive.js"></script>
+  <script src="scripts/sponzors-sponzoring/sponzors-sponzoring.controller.js"></script>
+  <script src="scripts/sponzors-sponzoring/add-calendar.controller.js"></script>
+  <script src="scripts/sponzors-create/sponzors-create.controller.js"></script>
+  <script src="scripts/sponzors-invite/sponzors-invite.controller.js"></script>
+  <script src="scripts/sponzors-event/sponzors-event.controller.js"></script>
+  <script src="scripts/sponzors-chat/sponzors-chat.controller.js"></script>
+  <script src="scripts/sponzors-rate/sponzors-rate.controller.js"></script>
+  <script src="scripts/organizers-main/organizers-main.controller.js"></script>
+  <script src="scripts/organizers-main/head-nav.directive.js"></script>
+  <script src="scripts/organizers-main/responsive-nav.directive.js"></script>
+  <script src="scripts/organizers-main/event-body.directive.js"></script>
+  <script src="scripts/organizers-navbar/navbar.directive.js"></script>
+  <script src="scripts/organizers-sponzors/organizers-sponzors.controller.js"></script>
+  <script src="scripts/organizers-balance/organizers-balance.controller.js"></script>
+  <script src="scripts/organizers-news/organizers-news.controller.js"></script>
+  <script src="scripts/organizers-notifications/organizers-notifications.controller.js"></script>
+  <script src="scripts/organizers-notifications/navbar-notifications.directive.js"></script>
+  <script src="scripts/organizers-tasks/organizers-tasks.controller.js"></script>
+  <script src="scripts/organizers-tasks/organizers-create-task.controller.js"></script>
+  <script src="scripts/organizers-settings/organizers-preferences.controller.js"></script>
+  <script src="scripts/organizers-settings/organizers-rate.controller.js"></script>
+  <script src="scripts/organizers-settings/organizers-profile.controller.js"></script>
+  <script src="scripts/organizers-settings/organizers-change.controller.js"></script>
+  <script src="scripts/organizers-settings/settings-nav.directive.js"></script>
+  <script src="scripts/organizers-event-edit/organizers-event-edit.controller.js"></script>
+  <script src="scripts/organizers-event-add/organizers-event-add.controller.js"></script>
+  <script src="scripts/login/login.controller.js"></script>
+>>>>>>> development
   <script src="scripts/controllers/activationController.js"></script>
   <script src="scripts/controllers/eventPageController.js"></script>
   <script src="scripts/controllers/forgotController.js"></script>
   <script src="scripts/controllers/activationController.js"></script>
-  <script src="scripts/controllers/loginController.js"></script>
+  <script src="scripts/controllers/homeController.js"></script>
   <script src="scripts/controllers/logoutController.js"></script>
   <script src="scripts/controllers/resendController.js"></script>
   <script src="scripts/controllers/customizationController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsMasterController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsCreateController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsFollowingController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsFriendController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsMainController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsSettingsController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsSponzorshipsController.js"></script>
-  <script src="scripts/controllers/sponzors/sponzorsRatingController.js"></script>
-  <script src="scripts/controllers/organizers/organizersCreateController.js"></script>
-  <script src="scripts/controllers/organizers/organizersEventsController.js"></script>
-  <script src="scripts/controllers/organizers/organizersFriendController.js"></script>
-  <script src="scripts/controllers/organizers/organizersMainController.js"></script>
-  <script src="scripts/controllers/organizers/organizersSettingsController.js"></script>
-  <script src="scripts/controllers/organizers/organizersSponzorshipsController.js"></script>
-  <script src="scripts/controllers/organizers/organizersEventEditController.js"></script>
-  <script src="scripts/controllers/organizers/organizersEventCreateController.js"></script>
-  <script src="scripts/controllers/organizers/organizersRatingController.js"></script>
-  <script src="scripts/controllers/organizers/organizersMasterController.js"></script>
-  <script src="scripts/controllers/notificationsController.js"></script>
-  <script src="scripts/controllers/chatController.js"></script>
-  <script src="scripts/controllers/profileController.js"></script>
-  <script src="scripts/controllers/dialogController.js"></script>
+  <script src="views/components/sidenav/SidenavController.js"></script>
   <!-- endbuild -->
+<<<<<<< HEAD
 
   <!-- Google Analytics: change UA-54490148-1 to be your site's ID. -->
   <script>
@@ -166,6 +186,8 @@
     }("https://assets.zendesk.com/embeddable_framework/main.js", "sponzorme.zendesk.com"); /*]]>*/
   </script>
   <!-- End of sponzorme Zendesk Widget script -->
+=======
+>>>>>>> development
 </body>
 
 </html>

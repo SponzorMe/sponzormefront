@@ -1,0 +1,39 @@
+.allContainer .superContainer .cont .contentContainer .notifyContainer {                    
+    &>.notifyElement.organizersNotifyElement {
+        &>.texts {
+            &>.link {
+                color: $color_blue_brighter;
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+        }
+
+        &:hover {
+            box-shadow: 
+                3px -1px 3px 0px rgba(0, 0, 0, 0.2),
+                1px 1px 1px -1px rgba(0, 0, 0, 0.12);
+
+            &>a {
+                color: $color_blue_brighter;
+
+                &>.md-button md-icon {
+                    color: $color_blue_brighter;
+                }
+            }
+        }
+    }
+
+     &>.notifyElement.importants.organizersNotifyElement {
+    
+        &>a {
+            color: $color_blue_brighter;
+            
+            &>.md-button md-icon {
+                color: $color_blue_brighter;
+            }
+        }          
+    }
+}
+
+
+

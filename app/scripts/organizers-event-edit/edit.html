@@ -1,0 +1,116 @@
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems menuItemsOrganizer" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <a href="#/organizers/dashboard" md-ink-ripple>
+          <md-icon aria-label="b">reply</md-icon>
+        </a>
+        <organizers-navbar></organizers-navbar>
+      </div>
+
+      <div class="actions" layout="row" layout-align="space-between center">
+        <md-button>{{'editEvent.removeEvent'|translate}}</md-button>
+      </div>
+
+      <!-- Content starts -->
+
+      <div class="contentContainer organizer" flex>
+        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
+          <div class="eventContainer" layout="column">
+            <div class="shareButton">
+              <md-button class="md-fab">
+                <md-icon>share</md-icon>
+              </md-button>
+            </div>
+            <img ng-src="{{oeec.event.image}}" alt="image">
+            <div class="imageTexts" layout="column" layout-align="stretch center">
+              <md-input-container class="white" flex="100">
+                <label translate>editEvent.title</label>
+                <input type="text" name="place" ng-model="oeec.event.title" required>
+              </md-input-container>
+              <md-input-container class="white" flex="100">
+                <label translate>editEvent.description</label>
+                <textarea type="text" name="title" md-maxlength="250" ng-model="oeec.event.description" required></textarea>
+              </md-input-container>
+            </div>
+
+            <form ng-submit="submit()" id="createEventForm" name="createEventForm" novalidate class="createEventForm" layout="column">
+
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-datepicker ng-model="oeec.event.starts" md-placeholder="Enter date" flex="40">
+                </md-datepicker>
+                <md-input-container class="organizers" flex="60">
+                  <label translate>editEvent.location</label>
+                  <input type="text" name="place" ng-model="oeec.event.location" required>
+                  <md-button>
+                    <md-icon>location_on</md-icon>
+                    {{'editEvent.locateOnMap'|translate}}
+                  </md-button>
+                </md-input-container>
+              </div>
+
+              <div class="eventType" layout="row">
+
+                <md-input-container class="organizers" flex="40">
+                  <label translate>editEvent.type</label>
+                  <md-select class="organizers" name="userGender" ng-model="oeec.event.type" required>
+                    <md-option ng-repeat="et in oeec.eventTypes track by $index" ng-value="et.id">{{et.name}}</md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+              <div class="chipContainer">
+                <span translate>editEvent.category</span>
+                <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
+                  <a class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in oeec.categories track by $index" layout-wrap>
+                    {{item.title}}
+                  </a>
+                </div>
+                <md-divider></md-divider>
+                <div class="chipsFilter">
+                  <md-chips></md-chips>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <md-content class="createEventTable">
+            <h4 class="color-blue-brighter" translate>editEvent.setSponzorshipTypes</h4>
+            <p translate>editEvent.perkInstructions</p>
+            <div href="" class="table" layout-padding flex="grow">
+
+              <div class="tableContent" layout="row" layout-wrap layout-align="space-around center">
+                <div class="columnContainer" flex="50" flex-gt-xs="25" ng-repeat="p in oeec.event.perks">
+                  <div class="tableTitle">{{p.kind}}</div>
+                  <div class="border"></div>
+                  <a href="" class="toSponzorWith" layout="column" layout-align="center center">
+                    <p ng-repeat="t in p.tasks">{{t.title}}</p>
+                  </a>
+
+                  <md-button class="addItem" layout="row">
+                    <md-icon>add</md-icon>
+                    {{'editEvent.addTask'|translate}}
+                  </md-button>
+
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">{{p.usd}} USD</a></p>
+                </div>
+              </div>
+            </div>
+          </md-content>
+          <md-button class="md-raised md-cornered saveButton">guardar y ver landing page</md-button>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>

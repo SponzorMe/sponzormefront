@@ -1,9 +1,9 @@
 'use strict';
 (function() {
-  function ProfileController($scope, $routeParams, userRequest, ratingRequest, $rootScope) {
-    $rootScope.closeAllDialogs();
+  function ProfileController($scope, $routeParams, userRequest, ratingRequest, $rootScope, dialogRequest) {
+    dialogRequest.closeLoading();
     $scope.loading = true;
-    $rootScope.showLoading();
+    dialogRequest.showLoading();
     userRequest.oneUser($routeParams.userId).success(function(userData) {
       $scope.user = userData.data.user;
       $scope.user.rating = userData.data.rating;
@@ -11,27 +11,27 @@
         ratingRequest.ratingsByOrganizer($routeParams.userId).success(function(ratingsData) {
           $scope.ratings = ratingsData.data.Rating;
           $scope.loading = false;
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
         }).error(function() {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'problem', '/');
+          dialogRequest.closeLoading();
+          dialogRequest.showDialog('error', 'problem', '/');
         });
       } else if (userData.data.user.type === '1') {
         ratingRequest.ratingsBySponzor($routeParams.userId).success(function(ratingsData) {
           $scope.ratings = ratingsData.data.Rating;
           $scope.loading = false;
-          $rootScope.closeAllDialogs();
+          dialogRequest.closeLoading();
         }).error(function() {
-          $rootScope.closeAllDialogs();
-          $rootScope.showDialog('error', 'problem', '/');
+          dialogRequest.closeLoading();
+          dialogRequest.showDialog('error', 'problem', '/');
         });
       } else {
-        $rootScope.closeAllDialogs();
-        $rootScope.showDialog('error', 'problem', '/');
+        dialogRequest.closeLoading();
+        dialogRequest.showDialog('error', 'problem', '/');
       }
     }).error(function() {
-      $rootScope.closeAllDialogs();
-      $rootScope.showDialog('error', 'problem', '/');
+      dialogRequest.closeLoading();
+      dialogRequest.showDialog('error', 'problem', '/');
     });
   }
   angular.module('sponzorme').controller('ProfileController', ProfileController);

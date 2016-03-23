@@ -1,0 +1,50 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer.taskContainer {                         
+    &>.notifyDetailElement {    
+        &>.detailHeader {
+            &>.title {
+                &>.head {
+                    font-size: 1.4em;
+                    text-transform: uppercase;
+                }
+
+                &>.subhead {
+                    font-size: 14px;
+                    color: $color_gray3;
+                }
+            }
+        }
+
+        &>.message {
+           &>.subheadMessage {
+                font-size: 12px;
+                color: $color_gray3;
+           }
+        }
+
+        &>.status {
+            &>p {
+                font-size: 12px;
+                color: $color_gray3;
+            }
+        }
+
+        &>.actions {
+            &>a {
+                color: $color_active; 
+
+                &>p {
+                    margin-left: 0.5em;
+                } 
+                &>md-icon {
+                    color: $color_active;
+                }            
+            }
+        }
+    }
+}
+
+
+
+
+
+

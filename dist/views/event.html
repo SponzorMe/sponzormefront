@@ -1,98 +1,176 @@
-<div class="container" style="height:50px">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="" href="#/">
-      <img class="padding-left-10 padding-top-7" src="images/logo.png" alt="sponzorme" height="40px">
-    </a>
-  </div>
-  <ul class="nav navbar-nav navbar-right">
-    <section ng-show="isNoLogged">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#/login" style="color:#00838d !important">{{ 'login' | translate }}</a></li>
-        <li><a href="#/sponzors/create" style="color:#00838d !important">{{ 'sponsorreg' | translate }}</a></li>
-        <li><a href="#/organizers/create" style="color:#00838d !important">{{ 'organizerreg' | translate }}</a></li>
-      </ul>
-    </section>
-    <section ng-show="!isNoLogged">
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-show="!isNoLogged && !isSponzor"><a href="#/organizers/dashboard" style="color:#00838d !important">{{ 'dashboard' | translate }}</a></li>
-        <li ng-show="!isNoLogged && isSponzor" style="color:#00838d !important"><a href="#/sponzors/dashboard">{{ 'dashboard' | translate }}</a></li>
-        <li><a href="#/logout" style="color:#00838d !important">{{ 'logout' | translate }}</a></li>
-      </ul>
-    </section>
-  </ul>
-</div>
-
-<link rel="stylesheet" href="styles/event-page.min.css">
-<div id="page-wrapper" ng-cloak ng-if="eventLoaded">
-  <!-- Banner -->
-  <section id="banner" ng-cloak>
-    <div class="inner">
-      <header>
-        <h2 ng-cloak>{{currentEvent.title}}</h2>
-      </header>
-      <p styles="width:25%;" ng-bind-html="currentEvent.description"></p>
-    </div>
-
-  </section>
-
-  <!-- Main -->
-  <article class="padding-top-10">
-    <section class="wrapper style1 container special">
-      <header class="major">
-        <h2>{{'sponzorshipTypes'|translate}}</h2>
-      </header>
-      <div class="row">
-        <div class="4u 12u" ng-repeat="p in currentEvent.perks">
-          <section class="font-size-14 bordered text-center">
-            <span class="icon fa-heart"></span>
-            <header>
-              <h3>{{p.kind}}</h3>
-              <h4>${{p.usd}} USD</h4>
-            </header>
-            <strong ng-if="p.tasks.length">{{'perkTasks'|translate}}:</strong>
-            <strong ng-if="!p.tasks.length" class="font-size-10">*({{'NoPerkTasks'|translate}})</strong>
-            <ul class="text-center no-list-style" ng-if="p.tasks.length">
-              <li ng-repeat="t in p.tasks" ng-if="t.type==0"><i class="fa fa-check"></i>&nbsp;{{t.title}}</li>
-            </ul>
-            <span ng-if="!isNoLogged && !isSponzor">({{'noSponzor'|translate}})</span>
-            <span ng-if="p.reserved_quantity >= p.total_quantity">({{'sponzorshipsComplete'|translate}})</span>
-            <span ng-if="todayDate>= currentEvent.starts">({{'sponzorshipsClose'|translate}})</span>
-            <a href="" ng-if="!isNoLogged && isSponzor && p.reserved_quantity < p.total_quantity && todayDate < currentEvent.starts" class="button fit scrolly" ng-click="formCreateSponzorship(p)">{{'sponzor'|translate}}&nbsp;<i class="fa fa-arrow-right"></i></a>
-            <a href="" ng-click="sendToLogin()" ng-if="isNoLogged && !isSponzor" class="button fit scrolly">{{'logginToSPonzor'|translate}}</a>
-          </section>
+<div layout-fill class="allContainer">
+  
+ <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  
+  <md-content class="superContainer" layout="row"> 
+    
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+  
+    <div class="cont" flex>
+    
+    <!-- navbar -->      
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <a href="#/sponzors/dashboard" md-ink-ripple>
+          <md-icon aria-label="b">reply</md-icon>
+        </a>
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#/sponzors/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+          <a class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
         </div>
       </div>
-    </section>
 
-  </article>
-  <hr>
-  <!-- Footer -->
-  <footer id="footer">
 
-    <ul class="icons">
-      <li>
-        <a href="https://twitter.com/home?status={{eventURL}}" class="icon circle fa-twitter">
-          <span class="label">Twitter</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{eventURL}}" target="_blank" onclick="window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false" class="icon circle fa-facebook">
-          <span class="label">Facebook</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://plus.google.com/share?url={{eventURL}}" class="icon circle fa-google-plus">
-          <span class="label">Google+</span>
-        </a>
-      </li>
-    </ul>
-    <ul class="copyright">
-      <li>&copy; Sponzorme 2015</li>
-    </ul>
-  </footer>
+      <div class="contentContainer" >
+        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
+          <div class="eventContainer" layout="column">
+            <div class="shareButton">
+              <md-button class="md-fab">
+                <md-icon>share</md-icon>
+              </md-button>
+            </div>
+            <img src="../../images/home-bkg.jpg" alt="image">
+            <div class="imageTexts">
+              <h3>Un vistazo a IONIC 1.2.X</h3>
+              <p>_El equipo de Ionic anuncio hace poco una nueva version de Ionic 1 la cual trae muchas cosas interesantes. Este meetup es sobre explorar esos cambios y como puedo mejorar mis apps._</p>
+              <a href="https://github.com/driftyco/ionic/releases/tag/v1.2.1">Github</a>
+            </div>
+            
+            <div class="textsContainer">
+              <h3 class="color-blue-brighter">_Speaker:_</h3>
+              <p>Carlos Rojas <span class="color-blue-brighter">@carlosrojas_o</span></p>         
+              <p class="description">
+                _Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex adipisci ab assumenda consequuntur necessitatibus dolores, minus unde dicta. Id possimus placeat non. Neque consectetur quidem._
+              </p>
+              <md-divider></md-divider>
+              
+              <div class="eventInfo" layout="row" layout-wrap>
+                <div class="item">
+                  <p class="color-blue-brighter" translate>Organizer</p>
+                  <div layout="row" layout-align="start center">
+                    <img src="../../images/pic.png" alt="">
+                    <div>
+                      <p>Mike Cunningham</p>
+                      <div layout="row" layout-align="start center">
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon class="color-active">star</md-icon>
+                        <md-icon>star_border</md-icon>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <p class="color-blue-brighter" translate>_Fecha_</p>
+                  <div layout="row" layout-align="start center">
+                    <md-icon>access_time</md-icon>
+                    <div>
+                      <p>Domingo, Enero 10</p>
+                      <p>09:00 PM - 03:00 AM</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <p class="color-blue-brighter" translate>_Lugar_</p>
+                  <div layout="row" layout-align="start center">
+                    <md-icon>location_on</md-icon>
+                    <div>
+                      <p>_Por confirmar_</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a href="" class="contact" md-ink-ripple layout="row" layout-align="start center" flex="25">
+                <md-icon>email</md-icon>
+                <p>_Escribir al organizador_</p>
+              </a> 
+            </div>
+          </div>          
+          <md-content class="sponsorAnEvent">
+            <h4 class="color-blue-brighter" translate>seePerks</h4>
+            <div href="" class="table" layout-padding flex="grow">
+              <div class="tableContent" layout-wrap layout="row" layout-align="space-around center">
+                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                 <div class="tableTitle">gold</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="start center">
+                    <p>_T-Shirt_</p>
+                    <p>_Escarapelas_</p>
+                    <p>_Volantes_</p>
+                    <p>_Logística_</p>
+                    <p>_Presencia_</p>
+                    <p>_Medios_</p>
+                  </a>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <div class="tableLikeButton" layout="row" layout-align="center center">
+                    <a href=""><md-icon>thumb_up</md-icon></a>
+                  </div>
+                </div> 
+                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                 <div class="tableTitle">silver</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="start center">
+                    <p>_T-Shirt_</p>
+                    <p>_Escarapelas_</p>
+                    <p>_Volantes_</p>
+                  </a>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <div class="tableLikeButton" layout="row" layout-align="center center">
+                    <a href=""><md-icon>thumb_up</md-icon></a>
+                  </div>
+                </div> 
+                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                 <div class="tableTitle">bronze</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="start center">
+                    <p>_T-Shirt_</p>
+                    <p>_Escarapelas_</p>
+                  </a>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <div class="tableLikeButton" layout="row" layout-align="center center">
+                    <a href=""><md-icon>thumb_up</md-icon></a>
+                  </div>
+                </div> 
+                <div class="columnContainer" flex="50" flex-gt-xs="25">
+                 <div class="tableTitle">voluntary</div>
+                 <div class="border"></div>
+                 <a href="" class="toSponzorWith" layout="column" layout-align="start center">
+                    <p>_T-Shirt_</p>
+                  </a>
+                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">12000 usd</a></p>              
+                  <div class="tableLikeButton" layout="row" layout-align="center center">
+                    <a href=""><md-icon>thumb_up</md-icon></a>
+                  </div>
+
+                </div> 
+              </div>            
+            </div>                     
+          </md-content>
+        </div>
+      </div>
+
+    </div>
+  </md-content>  
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
 </div>
+
+
+
+
+
+
+
+
+
+
+

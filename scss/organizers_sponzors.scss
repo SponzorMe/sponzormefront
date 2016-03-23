@@ -1,0 +1,23 @@
+.allContainer > .superContainer > .cont > .contentContainer > .notifyDetailContainer {
+
+    &>.eventItem.organizerSponzors {
+        &>.eventInfo {
+            &>.eventTitle {
+                text-transform: uppercase;
+            }
+
+            &:hover {
+                background: $color_blue_brighter;
+                color: $color_white;
+            }
+        }
+
+        &>.actionSponzor {
+            &>a md-icon {
+                margin: 0 5px;
+                color: $color_blue_brighter;
+                font-size: 24px;
+            }
+        }
+    }
+}

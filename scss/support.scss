@@ -1,0 +1,26 @@
+.allContainer .superContainer .cont .supportContainer {        
+    margin: 0 1em 2em 1em;
+    background-color: $color_white;
+    padding: 2em 15em 3em 3em;
+    min-height: 100vh;
+    
+    @media screen and (max-width: $media_step1_bottom) {
+        padding: 2em;
+        text-align: justify;
+        margin: 0;
+    }
+
+    &>.backButton {
+        &>a > md-icon {
+            font-size: 3em;
+        }
+    }
+
+    &>.texts {
+        &>.contact {
+            margin-top: 2em;
+            color: $color_blue_brighter;
+            font-weight: bold;
+        }
+    }
+}

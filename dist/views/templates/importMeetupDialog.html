@@ -4,17 +4,17 @@
         <h3>{{'ConnectingToMeetup' | translate}}
           <i ng-if="!meetupLoadingGetToken && meetupConectionDone" class="fa fa-check"></i>
           <i ng-if="!meetupLoadingGetToken && !meetupConectionDone" class="fa fa-times"></i>
-            <a ng-if="!meetupLoadingGetToken && !meetupConectionDone" href="https://secure.meetup.com/oauth2/authorize?client_id={{MEETUPAPIKEY}}&response_type=code&redirect_uri={{MEETUPREDIRECTURL}}"> {{'RetryMeetupConection' | translate}}</a>
+            <a ng-if="!meetupLoadingGetToken && !meetupConectionDone"  href="https://secure.meetup.com/oauth2/authorize?client_id={{MEETUPAPIKEY}}&response_type=code&redirect_uri={{MEETUPREDIRECTURL}}"> {{'RetryMeetupConection' | translate}}</a>
         </h3>
         <rd-loading ng-if="meetupLoadingGetToken"></rd-loading>
         <h3 ng-if="!meetupLoadingGetToken && meetupConectionDone">{{'GettingYourMeetupEvents' | translate}}
           <i ng-if="!loadingGetMeetupEvents && meetupEvents.length" class="fa fa-check"></i>
-          <i class="fa fa-times" ng-if="!loadingGetMeetupEvents && !meetupEvents.length"></i><a ng-if="!loadingGetMeetupEvents && !meetupEvents.length" href="https://secure.meetup.com/oauth2/authorize?client_id={{MEETUPAPIKEY}}&response_type=code&redirect_uri={{MEETUPREDIRECTURL}}">{{'RetryGetEvents' | translate}}</a>
+          <i class="fa fa-times" ng-if="!loadingGetMeetupEvents && !meetupEvents.length"></i><a ng-if="!loadingGetMeetupEvents && !meetupEvents.length"  href="https://secure.meetup.com/oauth2/authorize?client_id={{MEETUPAPIKEY}}&response_type=code&redirect_uri={{MEETUPREDIRECTURL}}">{{'RetryGetEvents' | translate}}</a>
         </h3>
         <rd-loading ng-if="loadingGetMeetupEvents"></rd-loading>
         <h3 ng-if="!loadingGetMeetupEvents && meetupEvents.length && !meetupLoadingGetToken && meetupConectionDone">{{'ChooseEventToImport' | translate}}</h3>
         <div class="table-responsive" ng-if="!loadingGetMeetupEvents && meetupEvents.length">
-          <input id="search" data-ng-model="searchevents" type="text" value="" placeholder="{{'typeyourtesthere'|translate}}">
+          <input id="search" data-ng-model="searchevents" type="text" value="" placeholder="{{'typeyourtesthere'|translate}}"/>
           <table class="table table-striped">
             <thead>
               <th class="text-center">{{ 'neweventtitle' | translate }}</th>

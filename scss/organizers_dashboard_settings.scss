@@ -1,0 +1,12 @@
+.allContainer .superContainer .cont .createContainer.settings.settingsOrganizers {
+    &>.chipContainer {
+        &>.chipSelect {
+            &>.toSelect {
+                &:hover {
+                    background-color: $color_blue_brighter;
+                    color: $color_white;
+                }
+            }
+        }
+    }
+}

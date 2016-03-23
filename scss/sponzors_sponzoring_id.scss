@@ -1,0 +1,55 @@
+.allContainer .superContainer .cont .contentContainer {
+    &>.notifyDetailContainer {
+        &>.eventTitles {
+            padding-right: 0;
+        }  
+        &>.eventContainer {
+            &>.textsContainer {
+                &>.sponzoringActions {
+                    padding: 1em 0;
+
+
+                    &>div:nth-child(1) {
+                        margin: 1em 0;
+                    }
+                    &>.sponzorringButtons > div > a > md-icon{
+                        margin-left: 0.5em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.allContainer .superContainer .cont .contentContainer.eventTasks {
+    padding: 1em 2.5em 2.5em 2.5em;
+    @media screen and (max-width: $media_step1_bottom) {
+        padding: 0;
+    }
+    
+    .addTask, .addTask md-icon {
+      color: $color_active;
+    }
+
+    &>.notifyDetailContainer.eventTasks {
+        background: $color_white;
+        padding: 0 3em 1em 0em;
+        @media screen and (max-width: $media_step1_bottom) {
+            padding: 0;
+        }
+        
+        &>.eventItem {
+          
+            cursor: pointer;
+            padding-left: 0.5em;
+            &>.eventInfo {
+                background: $color_gray1;
+                padding: 0.5em 0.5em ;
+
+                 &:hover {
+                   background: $color_active;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+<md-dialog flex="80" flex-gt-xs="30">
+    <md-dialog-content layout="column" layout-align="center center">
+        <div class="close" layout="row" layout-align="end">
+            <div class="downloadIcon">
+                <md-icon class="md-48">file_download</md-icon>
+            </div>
+            <md-button class="md-icon-button">
+                <md-icon ng-click="closeDialog()">exit_to_app</md-icon>
+            </md-button>
+        </div>
+        <div class="content" layout="column" layout-align="start start">
+            <h1>_importar evento_</h1>
+            <p ng-show="firstPage === true">_Selecciona desde donde importar tu evento_</p>
+            <p ng-show="firstPage === false">_Estableciendo conexion con EventBrite_</p>
+            <md-checkbox class="organizers" ng-checked="existsInEventProv(eventProv)" aria-label="{{ eventProv }}" ng-click="existsInEventProv.toggleSelection(eventProv)"  ng-repeat="eventProv in eventProviders" ng-show="firstPage === true">
+                {{ eventProv }}
+            </md-checkbox>
+        </div>
+        <md-dialog-actions>
+            <div class="dialogBtn" layout="row" layout-align="end end" ng-show="firstPage === true">
+                <md-button ng-click="toggleDialog()">
+                    Ok
+                </md-button>
+            </div>
+            <div class="dialogBtn" layout="row" layout-align="end end" ng-show="firstPage === false">
+                <md-button ng-click="closeDialog()">
+                    Cancel
+                </md-button>
+            </div>
+        </md-dialog-actions>
+    </md-dialog-content>
+</md-dialog>

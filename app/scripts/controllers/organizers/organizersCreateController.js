@@ -1,6 +1,38 @@
 'use strict';
 (function() {
-  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope) {
+  function OrganizersCreateController($scope, $translate, userRequest, ngDialog, $location, $localStorage, eventRequest, perkRequest, $routeParams, $rootScope, dialogRequest) {
+    //mock starts
+
+    $scope.pages = {
+      'firstPage': '',
+      'secondPage': '',
+      'thirdPage': ''
+    }
+
+    $scope.submitSucces = function() {
+      return false;
+    };
+
+    $scope.create = {
+      'date' : new Date(),
+      'image' : '',
+      'success' : false,
+      'age': ''
+    };
+
+    $scope.firstPage = true;
+
+    $scope.toggleCreateForm = function() {
+      if($scope.firstPage === true){
+        $scope.firstPage = false;
+      } else {
+        $scope.firstPage = true;
+      }
+    };
+
+    //mock ends
+
+
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
     }
@@ -15,7 +47,7 @@
           $scope.objuser.type = 0;
           $scope.objuser.name = $scope.name + ' ' + $scope.lastname;
           $scope.loagind = true;
-          $rootScope.showLoading();
+          dialogRequest.showLoading();
           userRequest.createUser($scope.objuser).then(function successCallback(response) {
             $localStorage.cookiesponzorme = btoa($scope.email + ':' + $scope.passwordone);
             $localStorage.token = btoa($scope.email + ':' + $scope.passwordone);
@@ -27,7 +59,7 @@
             $localStorage.newUser = true;
             $scope.loagind = false;
             $location.path('/customization');
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
           }, function errorCallback(response) {
             $scope.errorMessages = [];
             if (response.data.error.email) {
@@ -48,7 +80,7 @@
               $scope.errorMessages.push('errorRegisterPassword');
             }
             $scope.loagind = false;
-            $rootScope.closeAllDialogs();
+            dialogRequest.closeLoading();
             ngDialog.open({
               template: 'views/templates/multipleErrorDialog.html',
               showClose: false,
@@ -57,13 +89,13 @@
           });
         } else {
           if ($scope.passwordtwo.length > 6) {
-            $rootScope.showDialog('error', 'errorRegisterPasswordNoMatch', false);
+            dialogRequest.showDialog('error', 'errorRegisterPasswordNoMatch', false);
           } else {
-            $rootScope.showDialog('error', 'errorRegisterShortPassword', false);
+            dialogRequest.showDialog('error', 'errorRegisterShortPassword', false);
           }
         }
       } else {
-        $rootScope.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
+        dialogRequest.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
       }
     };
   }

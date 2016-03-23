@@ -1,0 +1,78 @@
+<div layout-fill>
+
+  <md-content class="home-container" layout="column">
+
+    <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+
+    <md-content class="home-content" layout="column" layout-align="start center">
+      <h1 class="home-header text-center" translate>general.getting</h1>
+      <md-button class="md-raised color-green md-cornered">{{'general.howItWorks'|translate}}</md-button>
+      <md-tabs class="login-tabs">
+        <md-tab label="{{'general.sponzor'|translate}}">
+          <md-content>
+            <div class="loginForm" layout="column" layout-align="center center" layout-padding>
+              <form class="sponzorForm" name="sponzorForm" ng-submit="sponzorForm.$valid && doLogin()"  novalidate layout="column" layout-align="center stretch">
+                <md-input-container>
+                  <label translate>general.email</label>
+                  <input type="email" name="email" data-ng-model="login.email" required>
+                  <div ng-messages="sponzorForm.email.$error">
+                    <div ng-message="required">{{'login.pleaseEnterYourEmail'|translate}}</div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label translate>login.password</label>
+                  <input type="password" name="password" data-ng-model="login.password" required>
+                  <div ng-messages="sponzorForm.password.$error">
+                    <div ng-message="required">{{'login.pleaseEnteraPassword'|translate}}</div>
+                  </div>
+                </md-input-container>
+                <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"> <span translate>login.login</span> </md-button>
+                <md-divider></md-divider>
+              </form>
+              <div class="forgotSponzor">
+                <a href="#/forgot" translate>login.forgot</a>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+
+        <md-tab label="{{'general.organizer'|translate}}" md-active="true">
+          <md-content>
+            <div class="loginForm" layout="column" layout-align="center center" layout-padding>
+              <form class="organizerForm" ng-submit="organizerForm.$valid && doLogin()" name="organizerForm" novalidate layout="column" layout-align="center stretch">
+                <md-input-container>
+                  <label translate>general.email</label>
+                  <input type="email" name="email" data-ng-model="login.email" required>
+                  <div ng-messages="organizerForm.email.$error">
+                    <div ng-message="required">{{'login.pleaseEnterYourEmail'|translate}}</div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label translate>login.password</label>
+                  <input type="password" name="password" data-ng-model="login.password" required>
+                  <div ng-messages="organizerForm.password.$error">
+                    <div ng-message="required">{{'login.pleaseEnteraPassword'|translate}}</div>
+                  </div>
+                </md-input-container>
+                <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"><span translate>login.login</span></md-button>
+                <md-divider></md-divider>
+              </form>
+              <div class="forgotOrganizer">
+                <a href="#/forgot" translate>login.forgot</a>
+              </div>
+            </div>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-content>
+</div>
+<div>
+  <div class="footerFixed" ng-include src="'./views/components/footer/footer.html'" hide-xs></div>
+</div>
+
+<div class="video-container">
+  <video loop muted autoplay poster="../images/home-bkg.jpg" class="the-video">
+    <source src="../video/video1.mp4" type="video/mp4">
+    <source src="../video/video1.webm" type="video/webm">
+  </video>
+</div>

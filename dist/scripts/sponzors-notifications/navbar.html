@@ -1,0 +1,48 @@
+<!-- show-gt-xs don't work ¿? -->
+<div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+  <div class="menuItemContainer" layout="row">
+    <div class="menuItem">
+      <a href="#/sponzors/notifications" ng-class="{'textActive':active == 'list'}" md-ink-ripple translate>notifications.inbox</a>
+      <div class="border" ng-class="{'active':active == 'list'}"></div>
+    </div>
+    <div class="menuItem">
+      <a href="#/sponzors/notifications/readed" ng-class="{'textActive':active == 'readed'}" md-ink-ripple translate>notifications.read</a>
+      <div class="border" ng-class="{'active':active == 'readed'}"></div>
+    </div>
+    <div class="menuItem">
+      <a href="#/sponzors/notifications/importants" ng-class="{'textActive':active == 'importants'}" md-ink-ripple translate>notifications.important</a>
+      <div class="border" ng-class="{'active':active == 'importants'}"></div>
+    </div>
+  </div>
+  <div class="buttons" layout="row" layout-align="start center">
+    <a href="#sponzors/notifications">
+      <md-icon aria-label="b">notifications</md-icon>
+    </a>
+    <a href="#/sponzors/invite" class="md-icon-button">
+      <md-icon aria-label="b">favorite</md-icon>
+    </a>
+    <a href="#/logout" class="md-icon-button">
+      <md-icon aria-label="b">exit_to_app</md-icon>
+    </a>
+  </div>
+</div>
+
+<!-- navbar ("menu") when xs -->
+<div class="menuXsContainer">
+  <md-menu hide-gt-sm>
+    <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+      <md-icon>person</md-icon>
+    </md-button>
+    <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+      <md-menu-item class="menuXsItem" ng-class="{'active':active == 'list'}">
+        <a href="#/sponzors/notifications" md-ink-ripple translate>notifications.inbox</a>
+      </md-menu-item>
+      <md-menu-item class="menuXsItem" ng-class="{'active':active == 'readed'}">
+        <a href="#/sponzors/notifications/readed" md-ink-ripple translate>notifications.read</a>
+      </md-menu-item>
+      <md-menu-item class="menuXsItem" ng-class="{'active':active == 'importants'}">
+        <a href="#/sponzors/notifications/importants" md-ink-ripple translate>notifications.important</a>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+</div>

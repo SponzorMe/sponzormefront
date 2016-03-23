@@ -1,0 +1,29 @@
+<md-menu>
+  <md-button class="md-fab md-mini iconMenu" ng-click="openMenu($mdOpenMenu, $event)">
+    <md-icon aria-label="b">add</md-icon>
+  </md-button>
+  <md-menu-content class="menuContent" width="4">
+    <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+      <md-button href="#/sponzors/event/{{$index}}">
+        <md-icon aria-label="b">remove_red_eye</md-icon>
+        {{'sponzorsMain.seeSponzorshipTypes'|translate}}
+      </md-button>
+    </md-menu-item>
+    <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+      <md-button ng-click="semc.saveEvent(event.id)" ng-hide="inSave">
+        <md-icon aria-label="b">save</md-icon>
+        {{'sponzorsMain.saveEvent'|translate}}
+      </md-button>
+      <md-button ng-click="semc.saveRemoveEvent(event.saved_id, $index)" ng-show="inSave">
+        <md-icon aria-label="b">delete</md-icon>
+        {{'sponzorsMain.removeSave'|translate}}
+      </md-button>
+    </md-menu-item>
+    <md-menu-item class="searchMenuItem" layout="row" layout-align="center center">
+      <md-button>
+        <md-icon aria-label="b">share</md-icon>
+        {{'sponzorsMain.shareEvent'|translate}}
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>
