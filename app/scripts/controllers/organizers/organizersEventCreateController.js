@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventCreateController($scope, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest) {
+  function OrganizersEventCreateController($scope, $translate, $localStorage, eventRequest, ngDialog, $rootScope, $routeParams, eventbriteRequest, $firebaseArray) {
     //Function to parse JSON strings in JSON objects
     function jsonize(str) {
       return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
@@ -36,6 +36,15 @@
           $localStorage.user = JSON.stringify($scope.user);
           $scope.newEvent = {};
           $scope.locationevent = {};
+
+          var notification = {};
+          notification.date = new Date().getTime();
+          notification.fromApp = 'webApp';
+          notification.toApp = 'all';
+          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/events');
+          var notifications = $firebaseArray(notificationsRef);
+          notifications.$add(notification);
+
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'eventCreatedSuccesfully', false);
         }, function errorCallback() {

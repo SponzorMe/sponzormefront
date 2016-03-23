@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams) {
+  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams, $firebaseArray) {
     if ($rootScope.userValidation('0')) {
       $scope.section = {
         route: 'Events / Edit',
@@ -21,6 +21,15 @@
         eventRequest.editEventPut(idevent, $scope.eventData).then(function successCallback(response) {
           $scope.user.events[$routeParams.id] = response.data.event;
           $localStorage.user = JSON.stringify($scope.user);
+
+          var notification = {};
+          notification.date = new Date().getTime();
+          notification.fromApp = 'webApp';
+          notification.toApp = 'all';
+          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/events');
+          var notifications = $firebaseArray(notificationsRef);
+          notifications.$add(notification);
+
           $rootScope.closeAllDialogs();
           $rootScope.showDialog('success', 'eventEditedSuccesfully', '/organizers/events');
         }, function errorCallback(response) {
