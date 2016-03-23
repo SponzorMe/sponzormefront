@@ -21,8 +21,10 @@
       $scope.user.acceptedSponzorships = $scope.user.sponzorships.filter(function(e) {
         if (e.status > 0) {
           $scope.balance = parseInt(e.perk.usd) + parseInt($scope.balance);
-          e.event.ends = e.event.ends.replace(' ', 'T');
-          e.event.ends = new Date(e.event.ends).getTime();
+          if (typeof e.event.ends === 'string') {
+            e.event.ends = e.event.ends.replace(' ', 'T');
+            e.event.ends = new Date(e.event.ends).getTime();
+          }
           return e;
         }
       });
