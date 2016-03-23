@@ -90,7 +90,7 @@
 
         vm.event = {
           sponzorshipTypes: [{
-            kind: "sadasdasd",
+            kind: 'sadasdass',
             usd: 10,
             tasks: [{
               title: 'ACNCAC'

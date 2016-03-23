@@ -23,11 +23,11 @@
       };
 
       vm.shareEvent = function(eventIndex){
-        console.log("Let\'s Share the Event");
+        //something to do
       };
 
       vm.deleteEvent = function(eventIndex){
-        console.log("Let\'s Delete Event");
+        //something to do
       };
       vm.todayDate = new Date().getTime();
       vm.user = JSON.parse($localStorage.user);
