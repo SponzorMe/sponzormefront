@@ -47,7 +47,11 @@
           firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
-            link: '#/sponzors/sponzoring'
+            link: '#/sponzors/sponzoring',
+            title: $scope.currentSponzorship.event.title,
+            typeNotification: 'acceptSponsorship',
+            modelId: $scope.currentSponzorshipId,
+            type: 'sponsorship'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
         }, function errorCallback() {
@@ -71,7 +75,11 @@
           firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipRejected') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
-            link: '#/sponzors/sponzoring'
+            link: '#/sponzors/sponzoring',
+            title: $scope.currentSponzorship.event.title,
+            typeNotification: 'rejectSponsorship',
+            modelId: $scope.currentSponzorshipId,
+            type: 'sponsorship'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
         }, function errorCallback(response) {
@@ -87,7 +95,11 @@
           firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipDeleted') + $scope.currentSponzorship.event.title + ' - ' + $scope.currentSponzorship.perk.kind,
-            link: '#/sponzors/sponzoring'
+            link: '#/sponzors/sponzoring',
+            title: $scope.currentSponzorship.event.title,
+            typeNotification: 'deleteSponsorship',
+            modelId: sponzorshipId,
+            type: 'sponsorship'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
           $scope.user.sponzorships_like_organizer.splice(i, 1);
@@ -113,7 +125,11 @@
           firebaseNotification = {
             to: $scope.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.TaskChanged1') + $scope.currentSponzorship.task_sponzor[index].task.title + $translate.instant('NOTIFICATIONS.TaskChanged2') + $scope.currentSponzorship.event.title+$translate.instant('NOTIFICATIONS.TaskChanged3'),
-            link: '#/sponzors/sponzoring'
+            link: '#/sponzors/sponzoring',
+            title: $scope.currentSponzorship.event.title,
+            typeNotification: 'updateTaskOrganizer',
+            modelId: taskSponzorId,
+            type: 'task'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentSponzorship.sponzor.id);
 

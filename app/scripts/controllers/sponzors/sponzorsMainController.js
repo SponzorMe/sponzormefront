@@ -98,7 +98,11 @@
           var firebaseNotification = {
             to: $scope.currentEvent.user_organizer.id,
             text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + $scope.currentEvent.title,
-            link: '#/organizers/sponzors'
+            link: '#/organizers/sponzors',
+            title: $scope.currentEvent.title,
+            typeNotification: 'newSponsorship',
+            modelId: response.data.Sponzorship.id,
+            type: 'sponsorship'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.currentEvent.user_organizer.id);
           $rootScope.closeAllDialogs();

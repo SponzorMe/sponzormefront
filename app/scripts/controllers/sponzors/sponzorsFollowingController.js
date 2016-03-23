@@ -32,7 +32,11 @@
           var firebaseNotification = {
             to: $scope.user.pendingSponzorships[index].organizer.id,
             text: $scope.user.name + $translate.instant('NOTIFICATIONS.SponzorshipCancell') + $scope.user.pendingSponzorships[index].event.title,
-            link: '#/organizers/sponzors'
+            link: '#/organizers/sponzors',
+            title: $scope.currentSponzorship.event.title,
+            typeNotification: 'deleteSponzorship',
+            modelId: sponzorshipId,
+            type: 'sponsorship'
           };
           $rootScope.sendFirebaseNotification(firebaseNotification, $scope.user.pendingSponzorships[index].organizer.id);
           $scope.user.pendingSponzorships.splice(index, 1);
