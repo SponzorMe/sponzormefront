@@ -24,7 +24,6 @@
       vm.user = JSON.parse($localStorage.user);
       vm.setEventData();
       vm.event = vm.user.events[$routeParams.eventId];
-      console.log(vm.event);
       vm.event.starts = new Date(vm.event.starts);
       vm.doEditEvent = function(idevent) {
         dialogRequest.showLoading();

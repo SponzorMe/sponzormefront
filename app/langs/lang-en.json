@@ -382,5 +382,23 @@
     "title": "Title",
     "removeEvent": "Remove Event",
     "addTask": "Add Task"
+  },
+  "addEvent":{
+    "selectMonth": "Month",
+    "selectDay": "Day",
+    "selectYear": "Year",
+    "selectHour": "Hour",
+    "location": "Location",
+    "starts": "Date and Hour when event starts",
+    "ends": "Date and Hour when event ends",
+    "eventType": "Event Types",
+    "eventCategory": "Event Category",
+    "privacy": "Privacy",
+    "importEvent": "Import Event",
+    "saveNewEvent": "Save and See Event's page",
+    "setSponzorshipTypes": "Set Sponzorship Types and Tasks",
+    "perkInstructions": "In the Sponzorship types you will have the chance to put the  amounts for each one and you can put the taks included.",
+    "addTask": "Add Task",
+    "addNewSponzorshipType": "Add New Sponzorship Type"
   }
 }

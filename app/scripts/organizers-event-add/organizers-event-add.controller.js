@@ -1,118 +1,140 @@
 'use strict';
 (function() {
-  function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest) {
+    function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest) {
 
-    var vm = this;
-    vm.setEventData = function() {
-      if (!$localStorage.eventTypes) {
-        eventTypeRequest.allEventTypes().then(function successCallback1(response) {
-          $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
-          vm.eventTypes = response.data.eventTypes;
-        });
-      } else {
-        vm.eventTypes = JSON.parse($localStorage.eventTypes);
-      }
-      if (!$localStorage.categories) {
-        categoryRequest.allCategories().then(function successCallback2(response) {
-          $localStorage.categories = JSON.stringify(response.data.categories);
-          vm.categories = response.data.categories;
-        });
-      } else {
-        vm.categories = JSON.parse($localStorage.categories);
-      }
-    }
-    //mock starts
-    vm.date = new Date();
-    vm.eventProviderSelected = '';
+      var vm = this;
+      vm.setEventData = function() {
+          if (!$localStorage.eventTypes) {
+            eventTypeRequest.allEventTypes().then(function successCallback1(response) {
+              $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
+              vm.eventTypes = response.data.eventTypes;
+            });
+          } else {
+            vm.eventTypes = JSON.parse($localStorage.eventTypes);
+          }
+          if (!$localStorage.categories) {
+            categoryRequest.allCategories().then(function successCallback2(response) {
+              $localStorage.categories = JSON.stringify(response.data.categories);
+              vm.categories = response.data.categories;
+            });
+          } else {
+            vm.categories = JSON.parse($localStorage.categories);
+          }
+        }
+        //mock starts
+      vm.date = new Date();
+      vm.eventProviderSelected = '';
 
-    vm.filterClick = function(id) {
-      vm.filter.push(id);
-    };
+      vm.filterClick = function(id) {
+        vm.filter.push(id);
+      };
 
-    vm.filter = ['New York'];
-    vm.chips = ['Rock', 'Música', 'Conferencia', 'Tecnología', 'Emprendimiento', 'Bogotá', 'Rock2', 'Música2', 'Confer', 'Tecnía', 'Emprento', 'Bogotá2'];
-
-//dialog starts
-    vm.showDialog = function() {
-      $mdDialog.show({
+      //dialog starts
+      vm.showDialog = function() {
+        $mdDialog.show({
           clickOutsideToClose: true,
           templateUrl: 'views/components/dialogs/dialogs.html',
           controller: dialogs_Ctrl,
-          locals: {parent: $scope},
+          locals: {
+            parent: $scope
+          },
           bindToController: true
-      });
-    }
+        });
+      }
 
-    function dialogs_Ctrl($scope, $mdDialog, parent){
-      parent.eventProviderSelected = '';
-      vm.eventProviders = ['MeetUp', 'EventBrite'];
-      vm.firstPage = true;
+      function dialogs_Ctrl($scope, $mdDialog, parent) {
+        parent.eventProviderSelected = '';
+        vm.eventProviders = ['MeetUp', 'EventBrite'];
+        vm.firstPage = true;
 
-      vm.toggleDialog = function () {
-        if (vm.firstPage === true) {
-          vm.firstPage = false;
-        } else {
-          vm.firstPage = true;
-        }
-      };
+        vm.toggleDialog = function() {
+          if (vm.firstPage === true) {
+            vm.firstPage = false;
+          } else {
+            vm.firstPage = true;
+          }
+        };
 
-      vm.closeDialog = function() {
+        vm.closeDialog = function() {
           $mdDialog.hide();
-      };
+        };
 
-      vm.existsInEventProv = function(sede) {
+        vm.existsInEventProv = function(sede) {
           return parent.eventProviderSelected.indexOf(sede) > -1;
-      };
+        };
 
-      vm.existsInEventProv.toggleSelection = function (sede) {
+        vm.existsInEventProv.toggleSelection = function(sede) {
           var idx = parent.eventProviderSelected.indexOf(sede);
-           //is currently selected
+          //is currently selected
           if (idx > -1) {
-              parent.eventProviderSelected.splice(idx, 1);
+            parent.eventProviderSelected.splice(idx, 1);
           } //is newly selected
           else {
-             parent.eventProviderSelected = sede;
+            parent.eventProviderSelected = sede;
           }
-      };
-    }
-//dialog ends
+        };
+      }
+      //dialog ends
 
-    //mock ends
+      //mock ends
 
-    //Function to parse JSON strings in JSON objects
-    function jsonize(str) {
-      return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
-        return '"' + $1 + '":';
-      }).replace(/'([^']+)'/g, function(_, $1) {
-        return '"' + $1 + '"';
-      });
-    }
-    if ($rootScope.userValidation('0')) {
-      vm.section = {
-        route: 'Events / Add',
-        title: 'Event Add'
+      //Function to parse JSON strings in JSON objects
+      function jsonize(str) {
+        return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
+          return '"' + $1 + '":';
+        }).replace(/'([^']+)'/g, function(_, $1) {
+          return '"' + $1 + '"';
+        });
+      }
+      if ($rootScope.userValidation('0')) {
+
+        vm.event = {
+          sponzorshipTypes: [{
+            kind: "sadasdasd",
+            usd: 10,
+            tasks: [{
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }, {
+              title: "ACNCAC"
+            }]
+          }]
       };
-      vm.newEvent = {
-        perks: []
-      };
-      vm.newEvent.starts = new Date().getTime();
-      vm.newEvent.ends = new Date().getTime();
       vm.setEventData();
       //End vars Initialization
 
       //This function creates an event
       vm.createNewEvent = function() {
-        vm.newEvent.location = vm.locationevent.formatted_address;
-        vm.newEvent.location_reference = vm.locationevent.place_id;
-        vm.newEvent.starts = moment(vm.newEvent.starts).format('YYYY-MM-DD HH:mm:ss');
-        vm.newEvent.ends = moment(vm.newEvent.ends).format('YYYY-MM-DD HH:mm:ss');
-        vm.newEvent.lang = $rootScope.currentLanguage();
-        vm.newEvent.organizer = $localStorage.id;
-        eventRequest.createEvent(vm.newEvent).then(function successCallback(response) {
+        vm.event.location = vm.locationevent.formatted_address;
+        vm.event.location_reference = vm.locationevent.place_id;
+        vm.event.starts = moment(vm.event.starts).format('YYYY-MM-DD HH:mm:ss');
+        vm.event.ends = moment(vm.event.ends).format('YYYY-MM-DD HH:mm:ss');
+        vm.event.lang = $rootScope.currentLanguage();
+        vm.event.organizer = $localStorage.id;
+        eventRequest.createEvent(vm.event).then(function successCallback(response) {
           vm.user = JSON.parse($localStorage.user);
           vm.user.events.push(response.data.event);
           $localStorage.user = JSON.stringify(vm.user);
-          vm.newEvent = {};
+          vm.event = {};
           vm.locationevent = {};
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'eventCreatedSuccesfully', false);
@@ -152,19 +174,19 @@
           };
           bucket.putObject(params, function(err, data) {
             if (!err) {
-              vm.newEvent.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
               vm.createNewEvent();
             }
           });
         } else {
           //If no Image we set here some image
-          vm.newEvent.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
+          vm.event.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
           vm.createNewEvent();
         }
       };
       //this function adds a SponzorshipType to the new event form
       vm.addSponzorshipType = function() {
-        vm.newEvent.perks.push({
+        vm.event.perks.push({
           kind: '',
           usd: 0,
           total_quantity: 1,
@@ -173,7 +195,7 @@
       };
       //this function removes a SponzorshipType to the new event form
       vm.removeSponzorshipType = function(index) {
-        vm.newEvent.perks.splice(index, 1);
+        vm.event.perks.splice(index, 1);
       };
       if ($routeParams.eventBriteCode) {
         eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
@@ -294,22 +316,22 @@
       vm.prefilEventForm = function(url) {
         eventbriteRequest.getEventbriteEvent(url, $localStorage.eventBriteBeared)
           .success(function(data) {
-            vm.newEvent.title = data.name.text;
-            vm.newEvent.description = data.description.html;
-            vm.newEvent.starts = data.start.local;
-            vm.newEvent.ends = data.end.local;
-            vm.newEvent.privacy = 0;
+            vm.event.title = data.name.text;
+            vm.event.description = data.description.html;
+            vm.event.starts = data.start.local;
+            vm.event.ends = data.end.local;
+            vm.event.privacy = 0;
             dialogRequest.closeLoading();
           });
       };
       vm.prefilEventFormMeetup = function(e) {
-        vm.newEvent.title = e.name;
-        vm.newEvent.description = e.description;
-        vm.newEvent.starts = new Date(e.time);
+        vm.event.title = e.name;
+        vm.event.description = e.description;
+        vm.event.starts = new Date(e.time);
         var dataTime = new Date(e.time);
         var timer = parseInt(1 * 2 * 60 * 60 * 1000);
         var dataExpDate = new Date(dataTime.getTime() + timer);
-        vm.newEvent.ends = new Date(dataExpDate);
+        vm.event.ends = new Date(dataExpDate);
         vm.privacyevent = 0;
         dialogRequest.closeLoading();
       };
