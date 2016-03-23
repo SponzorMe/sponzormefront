@@ -7,6 +7,15 @@
   angular.module('sponzorme').config(['$routeProvider', function ($routeProvider) {
     $routeProvider
 
+    .when('', {
+      templateUrl: 'scripts/login/login.html',
+      controller: 'LoginController'
+      })
+      .when('/', {
+        templateUrl: 'scripts/login/login.html',
+        controller: 'LoginController'
+      })
+
       .when('/login', {
         templateUrl: 'scripts/login/login.html',
         controller: 'LoginController'

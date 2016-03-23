@@ -93,29 +93,29 @@
             kind: "sadasdasd",
             usd: 10,
             tasks: [{
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }, {
-              title: "ACNCAC"
+              title: 'ACNCAC'
             }]
           }]
       };
