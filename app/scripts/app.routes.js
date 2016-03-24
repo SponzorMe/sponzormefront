@@ -112,24 +112,10 @@
         controller: 'SponzorsInviteController',
         controllerAs: 'sic'
       })
-<<<<<<< HEAD
-      .when('/sponzors/payment_complete/:sponzorship_id/:sponzor_id', {
-        templateUrl: 'views/sponzors/dashboard/sponzorships.html',
-        controller: 'SponzorsSponzorshipsController'
-      })
-      .when('/eventbrite/:eventBriteCode', {
-        templateUrl: 'views/organizers/dashboard/add_event.html',
-        controller: 'OrganizersMasterController'
-      })
-      .when('/meetup/:meetupCode', {
-        templateUrl: 'views/organizers/dashboard/add_event.html',
-        controller: 'OrganizersMasterController'
-=======
       .when('/sponzors/chat/sponzorship/:sponzorshipId', {
         templateUrl: 'scripts/sponzors-chat/chat.html',
         controller: 'SponzorsChatController',
         controllerAs: 'scc'
->>>>>>> development
       })
       .when('/sponzors/rate/sponzorship/:sponzorshipId', {
         templateUrl: 'scripts/sponzors-rate/rate-form.html',

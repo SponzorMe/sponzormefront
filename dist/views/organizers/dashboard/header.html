@@ -3,8 +3,8 @@
     <div class="item dropdown" dropdown="" is-open="status.isopen">
       <a href="" class="dropdown-toggle" dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
         <input type="hidden" data-ng-init="viewUserInfoheader()">
-        <img ng-if="$storage.image" data-ng-src="{{$storage.image}}" style="border-radius:50%">
-        <img ng-if="!$storage.image" data-ng-src="http://www.sponzor.me/images/photo.png" style="border-radius:50%">
+        <img ng-if="$storage.image" data-ng-src="{{$storage.image}}" style="border-radius:50%;" >
+        <img ng-if="!$storage.image" data-ng-src="http://www.sponzor.me/images/photo.png" style="border-radius:50%;" />
       </a>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <li class="dropdown-header">{{$storage.email}}</li>
@@ -23,14 +23,14 @@
         <section class="numalert" ng-if="notifications.length">{{notifications.length}}</section>
         <i class="fa fa-bell-o"></i>
       </a>
-      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <ul class="dropdown-menu dropdown-menu-right" role="menu" >
         <div ng-repeat="n in notifications| limitTo:5 | orderBy:-date" ng-if="notifications.length">
-          <li class="" style="padding:0 0.5em 0 0.5em">
-            <p>{{n.text}} <a style="display: inline-block !important; color:blue !important" href="{{n.link}}">{{'see'|translate}}</a>&nbsp;<a style="display: inline-block !important; color:red !important" href="" ng-click="notifications.$remove(n)">X</a></p></li>
+          <li class="" style="padding:0 0.5em 0 0.5em;">
+            <p>{{n.text}} <a style="display: inline-block !important; color:blue !important;" href="{{n.link}}">{{'see'|translate}}</a>&nbsp;<a style="display: inline-block !important; color:red !important;" href="" ng-click="notifications.$remove(n)">X</a></p></li>
           <li class="divider"></li>
         </div>
         <div ng-if="notifications.length < 1">
-          <li class="" style="padding:0 0.5em 0 0.5em">
+          <li class="" style="padding:0 0.5em 0 0.5em;">
             <p style="text-align:center">{{'noNewNotifications'|translate}}</p></li>
           <li class="divider"></li>
         </div>

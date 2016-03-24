@@ -25,7 +25,7 @@
                 <i class="fa fa-clock-o"></i>
               </div>
               <div class="widget-content pull-left">
-                <div class="title">{{user.pendingSponzorships.length}}</div>
+                <div class="title" >{{user.pendingSponzorships.length}}</div>
                 <div class="comment">{{ 'PendingSponzorships' | translate }}</div>
               </div>
               <div class="clearfix"></div>
@@ -67,7 +67,7 @@
           <div class="widget">
             <div class="widget-header">
               <i class="fa fa-tasks"></i>&nbsp;{{'searchtitle' | translate}}&nbsp;<a href="" ng-click="getAllEvents()" ng-if="!searchLoading"><i class="fa fa-refresh"></i></a><i ng-if="searchLoading" class="fa fa-cog fa-spin"></i>
-              <input class="pull-right input-sm" data-ng-model="searchevents" type="text" value="" placeholder="{{'typeyourtesthere'|translate}}">
+              <input class="pull-right input-sm" data-ng-model="searchevents" type="text" value="" placeholder="{{'typeyourtesthere'|translate}}" />
             </div>
             <div class="widget-body large no-padding">
               <div class="table-responsive">

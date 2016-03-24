@@ -10,7 +10,7 @@
               <i class="fa fa-plus"></i>{{ 'editEvent' | translate }}
               <div class="clearfix"></div>
             </div>
-            <br>
+            <br/>
             <form class="form-horizontal" name="eventEditForm" role="form">
               <!--form field-->
               <div class="form-group" id="title">
@@ -18,10 +18,10 @@
                   {{ 'neweventtitle' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <input class="form-control" name="title" data-ng-model="eventData.title" placeholder="{{'neweventtitledescription'| translate}}" required type="text">
+                  <input class="form-control" name="title" data-ng-model="eventData.title" placeholder="{{'neweventtitledescription'| translate}}" required type="text"/>
                 </div>
-                <br>
-                <br>
+                <br/>
+                <br/>
               </div>
               <!--form field-->
               <div class="form-group" id="location">
@@ -29,7 +29,7 @@
                   {{ 'neweventlocation' | translate }}
                 </label>
                 <div class="col-sm-7">
-                  <input class="form-control" g-places-autocomplete name="location" data-ng-model="locationEvent" ng-init="locationEvent = eventData.location" placeholder="{{'neweventlocationdescription' | translate }}" required type="text" autocomplete="off">
+                  <input class="form-control" g-places-autocomplete name="location" data-ng-model="locationEvent" ng-init="locationEvent = eventData.location" placeholder="{{'neweventlocationdescription' | translate }}" required type="text" autocomplete="off"/>
                 </div>
               </div>
 
@@ -57,13 +57,13 @@
                 </label>
                 <div class="col-sm-7">
                   <datetimepicker date-options="dateOptions" min-date="eventData.starts" data-ng-model="eventData.ends" show-meridian="false"></datetimepicker>
-                  <input data-ng-model="eventData.organizer" name="organizer" type="hidden">
+                  <input data-ng-model="eventData.organizer" name="organizer" type="hidden"/>
                 </div>
               </div>
               <!--form field-->
               <div class="form-group" id="public">
                 <div class="col-sm-4 control-label">
-                  <input id="privacy0" name="privacy" data-ng-model="eventData.privacy" type="radio" value="0">
+                  <input id="privacy0" name="privacy" data-ng-model="eventData.privacy" type="radio" value="0"/>
                 </div>
                 <label class="col-sm-7" for="privacy0">
                   <strong>{{ 'privacyoption0' | translate }}
@@ -74,7 +74,7 @@
                 </label>
 
                 <div class="col-sm-4 control-label">
-                  <input id="privacy1" name="privacy" data-ng-model="eventData.privacy" type="radio" value="1">
+                  <input id="privacy1" name="privacy" data-ng-model="eventData.privacy" type="radio" value="1"/>
                 </div>
 
                 <label class="col-sm-7" for="privacy1">
@@ -116,7 +116,7 @@
                   </select>
                 </div>
               </div>
-              <hr>
+              <hr/>
               <!--form field-->
               <div class="table-responsive">
                 <table class="table table-striped">
@@ -136,15 +136,15 @@
                   </thead>
                   <tr data-ng-show="eventData.perks.length" ng-repeat="s in eventData.perks">
                     <td class="text-center">
-                      <input class="form-control" data-ng-model="s.kind" placeholder="" type="text">
+                      <input class="form-control" data-ng-model="s.kind" placeholder="" type="text"/>
                     </td>
                     <td class="text-center">
-                      <input class="form-control" data-ng-model="s.total_quantity" placeholder="" type="text">
+                      <input class="form-control" data-ng-model="s.total_quantity" placeholder="" type="text"/>
                     </td>
                     <td class="text-center">
-                      <input class="form-control" data-ng-model="s.usd" placeholder="" ng-keyup="verifyPerkLimit(s)" type="text">
-                      <input class="form-control" ng-if="s.id" data-ng-model="s.id" placeholder="" type="hidden">
-                      <input class="form-control" ng-if="!s.id" ng-init="s.id=-1" data-ng-model="s.id" placeholder="" type="hidden">
+                      <input class="form-control" data-ng-model="s.usd" placeholder="" ng-keyup="verifyPerkLimit(s)" type="text"/>
+                      <input class="form-control" ng-if="s.id" data-ng-model="s.id" placeholder="" type="hidden"/>
+                      <input class="form-control" ng-if="!s.id" ng-init="s.id=-1" data-ng-model="s.id" placeholder="" type="hidden"/>
                     </td>
                     <td class="text-center" ng-if="s.id==-1">
                       <a href="" ng-click="removePerk($index)">
@@ -152,7 +152,7 @@
                       </a>
                     </td>
                     <td class="text-center" ng-if="s.id!=-1">
-                        <i class="fa fa-ban" tooltip="{{'canNotDeletePerk'|translate}}"></i>
+                        <i class="fa fa-ban"  tooltip="{{'canNotDeletePerk'|translate}}"></i>
                     </td>
                   </tr>
                 </table>
@@ -162,7 +162,7 @@
                   + Add</button>
               </div>
               <div class="clearfix"></div>
-              <hr>
+              <hr/>
               <!--form field-->
               <div class="form-group">
                 <div class="col-sm-6 col-sm-offset-3">
@@ -186,4 +186,4 @@
       <div class="dialog-container text-center">
         <rd-loading></rd-loading>
       </div>
-    </script></div></div>
+    </script>
