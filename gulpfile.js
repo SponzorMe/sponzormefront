@@ -122,8 +122,13 @@ gulp.task('images', function() {
 });
 
 gulp.task('extras', function() {
-  return gulp.src(['app/favicon.ico', 'app/robots.txt', 'app.yaml', 'video/*.*'])
+  return gulp.src(['app/favicon.ico', 'app/robots.txt', 'app.yaml', 'app/video/*.*'])
     .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('videos', function() {
+  return gulp.src(['app/video/*.*'])
+    .pipe(gulp.dest('dist/video'));
 });
 
 gulp.task('langs', function() {
