@@ -134,16 +134,17 @@
 
             </form>
           </div>
+
           <md-content class="createEventTable">
             <h4 class="color-blue-brighter" translate>addEvent.setSponzorshipTypes</h4>
             <p translate>addEvent.perkInstructions</p>
-            <div href="" class="table" layout-padding flex="grow">
+            <div class="table" layout-padding flex="grow">
               <div class="tableContent" layout-wrap layout="row" layout-align="space-around center">
                 <div class="columnContainer" flex="100" flex-gt-xs="100" ng-repeat="s in oeac.event.sponzorshipTypes">
                   <div class="tableTitle" layout="row">
                     <span class="leftText" flex="40" flex-gt-xs="40">{{s.kind}}</span>
                     <span class="rightText" flex="45" flex-gt-xs="45">{{s.usd}} USD</span>
-                    <md-icon flex="12" flex-gt-xs="12" ng-click="s.show = !s.show">add</md-icon>
+                    <a href="" ng-click="oeac.aa(s)" flex="12" flex-gt-xs="12">aaaaa</a>
                   </div>
                   <div class="toggeable" layout="row" layout-align="start center" ng-show="s.show">
                     <ul flex="65" flex-gt-xs="65">
@@ -156,7 +157,7 @@
             </div>
             <div class="" flex="100">
               <div layout="row" layout-align="space-around center" flex-gt-xs="40">
-                <a href="#/organizers/add/event" layout="row" layout-align="start center">
+                <a href="" ng-click="oeac.addSponzorshipTypeForm()" layout="row" layout-align="start center">
                   <md-button class="md-icon-button">
                     <md-icon>add</md-icon>
                   </md-button>

@@ -11,7 +11,6 @@
           });
         },
         showDialog: function(type, message, redirect){
-          console.log(message);
           var parentEl = angular.element(document.body);
           if(type === 'error'){
             var template = 'views/templates/errorDialog.html';

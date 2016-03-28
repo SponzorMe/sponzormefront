@@ -1,7 +1,8 @@
 'use strict';
 (function() {
-    function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest) {
+  function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
 
+    if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.setEventData = function() {
           if (!$localStorage.eventTypes) {
@@ -25,102 +26,16 @@
       vm.date = new Date();
       vm.eventProviderSelected = '';
 
-      vm.filterClick = function(id) {
-        vm.filter.push(id);
-      };
-
-      //dialog starts
-      vm.showDialog = function() {
-        $mdDialog.show({
-          clickOutsideToClose: true,
-          templateUrl: 'views/components/dialogs/dialogs.html',
-          controller: dialogs_Ctrl,
-          locals: {
-            parent: $scope
-          },
-          bindToController: true
-        });
-      }
-
-      function dialogs_Ctrl($scope, $mdDialog, parent) {
-        parent.eventProviderSelected = '';
-        vm.eventProviders = ['MeetUp', 'EventBrite'];
-        vm.firstPage = true;
-
-        vm.toggleDialog = function() {
-          if (vm.firstPage === true) {
-            vm.firstPage = false;
-          } else {
-            vm.firstPage = true;
-          }
-        };
-
-        vm.closeDialog = function() {
-          $mdDialog.hide();
-        };
-
-        vm.existsInEventProv = function(sede) {
-          return parent.eventProviderSelected.indexOf(sede) > -1;
-        };
-
-        vm.existsInEventProv.toggleSelection = function(sede) {
-          var idx = parent.eventProviderSelected.indexOf(sede);
-          //is currently selected
-          if (idx > -1) {
-            parent.eventProviderSelected.splice(idx, 1);
-          } //is newly selected
-          else {
-            parent.eventProviderSelected = sede;
-          }
-        };
-      }
-      //dialog ends
-
-      //mock ends
-
-      //Function to parse JSON strings in JSON objects
-      function jsonize(str) {
-        return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
-          return '"' + $1 + '":';
-        }).replace(/'([^']+)'/g, function(_, $1) {
-          return '"' + $1 + '"';
-        });
-      }
-      if ($rootScope.userValidation('0')) {
-
-        vm.event = {
-          sponzorshipTypes: [{
-            kind: 'sadasdass',
-            usd: 10,
-            tasks: [{
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }, {
-              title: 'ACNCAC'
-            }]
-          }]
+      vm.event = {
+        sponzorshipTypes: []
       };
       vm.setEventData();
       //End vars Initialization
+      //
+
+      vm.aa = function() {
+        console.log("hola");
+      };
 
       //This function creates an event
       vm.createNewEvent = function() {
@@ -184,19 +99,33 @@
           vm.createNewEvent();
         }
       };
-      //this function adds a SponzorshipType to the new event form
-      vm.addSponzorshipType = function() {
-        vm.event.perks.push({
-          kind: '',
-          usd: 0,
-          total_quantity: 1,
-          reserved_quantity: 0
+      console.log("estoy");
+      vm.addSponzorshipTypeForm = function() {
+        console.log("test");
+        var parentEl = angular.element(document.body);
+        $mdDialog.show({
+          parent: parentEl,
+          clickOutsideToClose: true,
+          templateUrl: 'views/components/dialogs/sponzorshipTypeForm.html',
+          bindToController: true,
+          scope: $scope
         });
+      };
+      //this function adds a SponzorshipType to the new event form
+      $scope.addSponzorshipType = function() {
+        vm.event.sponzorshipTypes.push({
+          kind: $scope.newSponzorshipType.kind,
+          usd: $scope.newSponzorshipType.usd,
+          total_quantity: $scope.newSponzorshipType.totalQuantity,
+          reserved_quantity: $scope.newSponzorshipType.reservedQuantity
+        });
+        $mdDialog.hide();
       };
       //this function removes a SponzorshipType to the new event form
       vm.removeSponzorshipType = function(index) {
         vm.event.perks.splice(index, 1);
       };
+/*
       if ($routeParams.eventBriteCode) {
         eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
           var response = JSON.parse(jsonize(data.response));
@@ -335,7 +264,7 @@
         vm.privacyevent = 0;
         dialogRequest.closeLoading();
       };
-      vm.menuprincipal = 'views/organizers/menu.html';
+*/      
     }
   }
   angular.module('sponzorme').controller('OrganizersEventAddController', OrganizersEventAddController);
