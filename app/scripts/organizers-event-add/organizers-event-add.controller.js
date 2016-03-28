@@ -99,20 +99,21 @@
                 kind: $scope.newSponzorshipType.kind,
                 usd: $scope.newSponzorshipType.usd,
                 total_quantity: $scope.newSponzorshipType.totalQuantity,
-                reserved_quantity: $scope.newSponzorshipType.reservedQuantity
+                reserved_quantity: $scope.newSponzorshipType.reservedQuantity,
+                perkTasks: []
               });
               $mdDialog.hide();
             };
           }
         });
       };
-      vm.addTaskForm = function($index){
+      vm.addTaskForm = function(s){
         $mdDialog.show({
           clickOutsideToClose: true,
           templateUrl: 'scripts/organizers-event-add/taskForm.html',
           controller: function($scope){
             $scope.addTask = function() {
-              vm.event.sponzorshipTypes[$index].perkTasks.push({
+              s.perkTasks.push({
                 title: $scope.newTask.title,
                 description: $scope.newTask.title
               });
