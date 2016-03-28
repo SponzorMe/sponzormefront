@@ -1,0 +1,22 @@
+<md-dialog aria-label="dialog">
+  <md-toolbar>
+    <div class="md-toolbar-tools top-info">
+      <i class="material-icons md-48 md-light">info</i>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div layout="column" layout-align="center center">
+      <form name="addTaskForm" layout="column" novalidate>
+        <md-input-container >
+          <label>{{'addEvent.title'|translate}}</label>
+          <input type="text" ng-model="newTask.title" />
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button type="submit" form="addSponzorshipTypeForm" ng-click="addTask()" class="md-primary">
+      {{'addEvent.saveTask'|translate}}
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
