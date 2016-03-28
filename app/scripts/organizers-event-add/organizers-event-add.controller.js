@@ -24,11 +24,9 @@
           vm.categories = JSON.parse($localStorage.categories);
         }
       };
-
       vm.showSponzorshipType = function(s) {
         s.show = !s.show;
       };
-
       //This function creates an event
       vm.createNewEvent = function() {
         vm.event.location = vm.locationevent.formatted_address;
@@ -108,7 +106,6 @@
           }
         });
       };
-
       vm.addTaskForm = function($index){
         $mdDialog.show({
           clickOutsideToClose: true,
@@ -125,8 +122,6 @@
         });
       };
       //this function adds a SponzorshipType to the new event form
-
-      //this function removes a SponzorshipType to the new event form
       vm.removeSponzorshipType = function(index) {
         vm.event.sponzorshipTypes.splice(index, 1);
       };
