@@ -1,9 +1,9 @@
 .allContainer .superContainer .cont {
   .actions {
-    &>.md-button {
+    & > .md-button {
       color: $color_blue_brighter;
       font-size: 12px;
-      &>md-icon {
+      & > md-icon {
         color: $color_blue_brighter;
         font-size: 36px;
         width: 36px;
@@ -14,18 +14,18 @@
   .contentContainer.organizer {
     margin: 0;
     .notifyDetailContainer {
-      &>.eventContainer {
+      & > .eventContainer {
         padding: 0;
         background: $color_white;
         @media screen and (max-width: $media_step1_bottom) {
           width: 100vw;
         }
-        &>img {
+        & > img {
           min-width: 100%;
           width: 100%;
           max-height: 300px!important;
         }
-        &>.imageTexts {
+        & > .imageTexts {
           background: $color_blue_brighter;
           margin: 0;
           min-height: 180px;
@@ -39,41 +39,38 @@
             margin: 0;
             padding: 1em;
           }
-          &>md-input-container textarea {
+          & > md-input-container textarea {
             min-height: 100px;
           }
-          &>h3 {
+          & > h3 {
             font-weight: normal;
             font-style: italic;
           }
-          &>p {
+          & > p {
             color: $color_white;
             font-size: 14px;
             font-weight: bold;
           }
-          &>a {
+          & > a {
             color: $color_blue_darker;
             text-decoration: underline;
           }
         }
-        &>.createEventForm {
-          padding: 1em 2em;
-          &>.dateAndplace {
-            width: 100%;
-            margin: 0.5em;
-            &>md-input-container {
-              &>.md-button {
-                text-transform: initial;
+        & > .dateAndplace {
+          width: 100%;
+          margin: 0.5em;
+          & > md-input-container {
+            & > .md-button {
+              text-transform: initial;
+              color: $color_blue_brighter;
+              & > md-icon {
                 color: $color_blue_brighter;
-                &>md-icon {
-                  color: $color_blue_brighter;
-                }
               }
             }
           }
         }
       }
-      &>.createEventTable {
+      & > .createEventTable {
         border-top: 1px solid $color_gray1;
         color: $color_gray3;
         background: $color_white;
@@ -84,58 +81,58 @@
         @media screen and (max-width: $media_step1_bottom) {
           margin: 0;
         }
-        &>.add{
-          &>a {
+        & > .add {
+          & > a {
             font-size: 1.5em;
             color: $color_blue_brighter;
-            &>md-icon {
+            & > md-icon {
               color: $color_blue_brighter;
             }
           }
         }
-        &>.table {
-          &>.tableContent {
+        & > .table {
+          & > .tableContent {
             padding: 1.5em;
-            &>.deleteColumn{
+            & > .deleteColumn {
               padding: 0.5em;
               font-size: 1.5em;
-              &>a{
+              & > a {
                 color: $color_blue_brighter;
               }
             }
-            &>.columnContainer {
+            & > .columnContainer {
               margin-bottom: 1em;
-              &>.tableTitle {
+              & > .tableTitle {
                 background: $color_fuchsia;
                 color: $color_white;
                 padding: 0.5em;
                 font-size: 2em;
                 font-weight: bolder;
-                &>a {
-                  &>md-icon {
+                & > a {
+                  & > md-icon {
                     color: $color_white;
                   }
                 }
               }
-              &>.toggeable {
+              & > .toggeable {
                 background: $color_gray1;
-                &>ul {
-                  &>li {
+                & > ul {
+                  & > li {
                     font-size: 1em;
                     list-style: none;
-                    &>div {
-                      &>span {
+                    & > div {
+                      & > span {
                         color: $color-black;
                         font-weight: bold;
                       }
-                      &>span::before {
+                      & > span::before {
                         color: $color_fuchsia;
                         content: '\2022';
                         margin-right: 1em;
                       }
-                      &>a {
+                      & > a {
                         margin-left: 1em;
-                        &>md-icon {
+                        & > md-icon {
                           font-size: 1.4em;
                           color: $color_blue_brighter;
                         }
@@ -143,11 +140,11 @@
                     }
                   }
                 }
-                &>div {
-                  &>a {
+                & > div {
+                  & > a {
                     color: $color_blue_brighter;
                     font-size: 1.5em;
-                    &>md-icon {
+                    & > md-icon {
                       color: $color_blue_brighter;
                     }
                   }
@@ -157,7 +154,7 @@
           }
         }
       }
-      &>.saveButton {
+      & > .saveButton {
         width: 300px;
         background: $color_fuchsia;
         color: $color_white;

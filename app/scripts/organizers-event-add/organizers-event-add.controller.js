@@ -17,11 +17,7 @@
       [{number:'01', text:'January'}, {number:'02', text:'February'}, {number:'03', text:'March'}, {number:'04', text:'April'}, {number:'05', text:'May'}, {number:'06', text:'June'}, {number:'07', text:'July'}, {number:'08', text:'August'}, {number:'09', text:'September'}, {number:'10', text:'October'}, {number:'11', text: 'November'}, {number:'12', text: 'December'}];
       vm.days = [];
       for(var i=0; i<=31; i++){vm.days.push(i)};//Days
-
-
-      vm.event = {
-        sponzorshipTypes: [{kind: 'Amateur', usd: "100"}]
-      };
+      vm.event = {sponzorshipTypes: [], lang: $rootScope.currentLanguage(), organizer: $localStorage.id, image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'};
       vm.setEventData = function() {
         if (!$localStorage.eventTypes) {
           eventTypeRequest.allEventTypes().then(function successCallback1(response) {
@@ -43,8 +39,46 @@
       vm.showSponzorshipType = function(s) {
         s.show = !s.show;
       };
+
       //This function creates an event
       vm.createNewEvent = function() {
+
+        function verification() {
+          dialogRequest.showLoading();
+          vm.event.location_reference = vm.event.location;
+          vm.event.starts = vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour;
+          vm.event.ends = vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour;
+          vm.event.perks = vm.event.sponzorshipTypes;
+          eventRequest.createEvent(vm.event).then(function successCallback(response) {
+            vm.user = JSON.parse($localStorage.user);
+            vm.user.events.push(response.data.event);
+            $localStorage.user = JSON.stringify(vm.user);
+            vm.event = {};
+            dialogRequest.closeLoading();
+            dialogRequest.showDialog('success', 'eventCreatedSuccesfully', '/organizers/dashboard');
+
+          }, function errorCallback(err) {
+            dialogRequest.closeLoading();
+            dialogRequest.showDialog('error', 'errorCreatingEvent', false);
+          });
+        };
+
+        if(!vm.event.sponzorshipTypes.length){
+          $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('Incomplete Information')
+            .textContent('Please create Sponsorship Types.')
+            .ok('Ok!'));
+        }
+        else{
+          verification();
+        }
+
+
+
+        console.log(vm.event);
+        /*
         vm.event.location = vm.locationevent.formatted_address;
         vm.event.location_reference = vm.locationevent.place_id;
         vm.event.starts = moment(vm.event.starts).format('YYYY-MM-DD HH:mm:ss');
@@ -63,6 +97,7 @@
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'errorCreatingEvent', false);
         });
+        */
       };
       //this function upload or create the event Image
       vm.imageVerification = function() {
