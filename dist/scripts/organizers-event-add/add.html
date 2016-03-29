@@ -148,8 +148,8 @@
                   </div>
                   <div class="toggeable" layout="row" layout-align="start center" ng-show="s.show">
                     <ul flex="65" flex-gt-xs="65">
-                      <li ng-repeat="t in s.tasks"><span>{{t.title}}</span><md-icon flex="12" flex-gt-xs="12" ng-click="oeac.removeTask($index)">clse</md-icon></li>
-                      <li><a href="" ng-click="oeac.addTaskForm()">{{'addEvent.addTask'|translate}}</a></li>
+                      <li ng-repeat="t in s.perkTasks"><span>{{t.title}}</span><md-icon flex="12" flex-gt-xs="12" ng-click="oeac.removeTask($index)">clse</md-icon></li>
+                      <li><a href="" ng-click="oeac.addTaskForm(s)">{{'addEvent.addTask'|translate}}</a></li>
                     </ul>
                   </div>
                 </div>

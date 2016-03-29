@@ -1,15 +1,10 @@
 <div layout-fill class="allContainer">
-
   <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-
   <md-content class="superContainer" layout="row">
-
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
-
     <div class="cont" flex>
-
       <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems menuItemsOrganizer" layout="row" layout-align="space-between center" hide-xs hide-sm>
@@ -18,19 +13,15 @@
         </a>
         <organizers-navbar></organizers-navbar>
       </div>
-
       <div class="actions" layout="row" layout-align="space-between center">
         <md-button layout="row" ng-click="showDialog()" layout-align="start center">
           <md-icon>file_download</md-icon>
           {{'addEvent.importEvent'|translate}}
         </md-button>
       </div>
-
       <!-- Content starts -->
-
       <div class="contentContainer organizer" flex>
         <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
-
           <div class="eventContainer" layout="column">
             <img src="../../images/home-bkg.jpg" alt="image">
             <div class="imageTexts" layout="column" layout-align="stretch center">
@@ -43,31 +34,30 @@
                 <textarea type="text" name="title" md-maxlength="250" ng-model="oeac.event.description" required></textarea>
               </md-input-container>
             </div>
-
             <form ng-submit="submit()" id="createEventForm" name="createEventForm" novalidate class="createEventForm" layout="column">
-
               <div class="dateAndplace" layout="row" flex="100">
-                <md-input-container >
+                <md-input-container>
                   <label translate>addEvent.location</label>
                   <input type="text" name="place" ng-model="oeac.event.location" required>
                 </md-input-container>
               </div>
-
+              <div class="dateAndplace" layout="row" flex="100">
+                <label>{{'addEvent.starts'|translate}}</label>
+              </div>
               <div class="dateAndplace" layout="row" flex="100">
                 <md-input-container>
-                  <label>{{'addEvent.starts'|translate}}</label>
                   <md-select ng-model="oeac.event.starts.year" placeholder="{{'addEvent.selectYear'|translate}}">
-                    <md-option  ng-repeat="y in oeac.years" ng-value="y">{{y}}</md-option>
+                    <md-option ng-repeat="y in oeac.years" ng-value="y">{{y}}</md-option>
                   </md-select>
                 </md-input-container>
                 <md-input-container>
                   <md-select ng-model="oeac.event.starts.month" placeholder="{{'addEvent.selectMonth'|translate}}">
-                    <md-option  ng-repeat="m in oeac.months" ng-value="{{m.number}}">{{m.text}}</md-option>
+                    <md-option ng-repeat="m in oeac.months" ng-value="{{m.number}}">{{'months.'+m.text|translate}}</md-option>
                   </md-select>
                 </md-input-container>
                 <md-input-container>
                   <md-select ng-model="oeac.event.starts.day" placeholder="{{'addEvent.selectDay'|translate}}">
-                    <md-option  ng-repeat="d in oeac.days" ng-value="d">{{d}}</md-option>
+                    <md-option ng-repeat="d in oeac.days" ng-value="d">{{d}}</md-option>
                   </md-select>
                 </md-input-container>
                 <md-input-container>
@@ -76,23 +66,23 @@
                   </md-select>
                 </md-input-container>
               </div>
-
+              <div class="dateAndplace" layout="row" flex="100">
+                <label>{{'addEvent.ends'|translate}}</label>
+              </div>
               <div class="dateAndplace" layout="row" flex="100">
                 <md-input-container>
-                  <label>{{'addEvent.ends'|translate}}</label>
                   <md-select ng-model="oeac.event.ends.year" placeholder="{{'addEvent.selectYear'|translate}}">
-                    <md-option  ng-repeat="y in oeac.years" ng-value="y">{{y}}</md-option>
-                  </md-select>
-
-                </md-input-container>
-                <md-input-container>
-                  <md-select ng-model="oeac.event.ends.day" placeholder="{{'addEvent.selectDay'|translate}}">
-                    <md-option  ng-repeat="d in oeac.days" ng-value="d">{{d}}</md-option>
+                    <md-option ng-repeat="y in oeac.years" ng-value="y">{{y}}</md-option>
                   </md-select>
                 </md-input-container>
                 <md-input-container>
                   <md-select ng-model="oeac.event.ends.month" placeholder="{{'addEvent.selectMonth'|translate}}">
-                    <md-option  ng-repeat="m in oeac.months" ng-value="{{m.number}}">{{m.text}}</md-option>
+                    <md-option ng-repeat="m in oeac.months" ng-value="{{m.number}}">{{'months.'+m.text|translate}}</md-option>
+                  </md-select>
+                </md-input-container>
+                <md-input-container>
+                  <md-select ng-model="oeac.event.ends.day" placeholder="{{'addEvent.selectDay'|translate}}">
+                    <md-option ng-repeat="d in oeac.days" ng-value="d">{{d}}</md-option>
                   </md-select>
                 </md-input-container>
                 <md-input-container>
@@ -101,29 +91,22 @@
                   </md-select>
                 </md-input-container>
               </div>
-
-
-
               <div class="dateAndplace" layout="row" flex="100">
-
-                <md-input-container >
+                <md-input-container>
                   <label>{{'addEvent.eventType'|translate}}</label>
                   <md-select ng-model="oeac.event.type" placeholder="{{'addEvent.eventType'|translate}}" required>
-                    <md-option  ng-repeat="et in oeac.eventTypes" ng-value="et.id">{{et.name}}</md-option>
+                    <md-option ng-repeat="et in oeac.eventTypes" ng-value="et.id">{{et.name}}</md-option>
                   </md-select>
                 </md-input-container>
-
-                <md-input-container >
+                <md-input-container>
                   <label>{{'addEvent.eventCategory'|translate}}</label>
                   <md-select ng-model="oeac.event.category" placeholder="{{'addEvent.eventCategory'|translate}}" required>
-                    <md-option  ng-repeat="c in oeac.categories" ng-value="c.id">{{c.title}}</md-option>
+                    <md-option ng-repeat="c in oeac.categories" ng-value="c.id">{{c.title}}</md-option>
                   </md-select>
                 </md-input-container>
               </div>
-
               <div class="dateAndplace" layout="row" flex="100">
-
-                <md-input-container >
+                <md-input-container>
                   <label>{{'addEvent.privacy'|translate}}</label>
                   <md-select ng-model="oeac.event.privacy" placeholder="{{'addEvent.privacy'|translate}}" required>
                     <md-option ng-value="0">{{'addEvent.public'|translate}}</md-option>
@@ -131,42 +114,55 @@
                   </md-select>
                 </md-input-container>
               </div>
-
             </form>
           </div>
-
           <md-content class="createEventTable">
             <h4 class="color-blue-brighter" translate>addEvent.setSponzorshipTypes</h4>
             <p translate>addEvent.perkInstructions</p>
             <div class="table" layout-padding flex="grow">
-              <div class="tableContent" layout-wrap layout="row" layout-align="space-around center">
-                <div class="columnContainer" flex="100" flex-gt-xs="100" ng-repeat="s in oeac.event.sponzorshipTypes">
-                  <div class="tableTitle" layout="row">
-                    <span class="leftText" flex="40" flex-gt-xs="40">{{s.kind}}</span>
-                    <span class="rightText" flex="45" flex-gt-xs="45">{{s.usd}} USD</span>
-                    <a href="" ng-click="oeac.showSponzorshipType(s)" flex="12" flex-gt-xs="12"><md-icon>add</md-icon></a>
+              <div class="tableContent" layout-wrap layout="row" layout-align="start start">
+                <div class="columnContainer" layout="column" flex="70" flex-gt-xs="70" ng-repeat-start="s in oeac.event.sponzorshipTypes">
+                  <div class="tableTitle" layout="row" layout-align="start start">
+                    <span class="leftText" layout="column" flex="40" flex-gt-xs="40">{{s.kind}}</span>
+                    <span class="rightText" layout="column" flex="45" flex-gt-xs="45">{{s.usd}} USD</span>
+                    <a href="" layout="column" ng-click="oeac.showSponzorshipType(s)" flex="15" flex-gt-xs="15" layout-align="end start">
+                      <md-icon ng-show="!s.show">expand_more</md-icon>
+                      <md-icon ng-show="s.show">expand_less</md-icon>
+                    </a>
                   </div>
-                  <div class="toggeable" layout="row" layout-align="start center" ng-show="s.show">
-                    <ul flex="65" flex-gt-xs="65">
-                      <li ng-repeat="t in s.perkTasks"><span>{{t.title}}</span><md-icon flex="12" flex-gt-xs="12" ng-click="oeac.removeTask($index)">clse</md-icon></li>
-                      <li><a href="" ng-click="oeac.addTaskForm(s)">{{'addEvent.addTask'|translate}}</a></li>
+                  <div class="toggeable" layout="column" flex="100" flex-gt-xs="100" layout-align="start start" ng-show="s.show">
+                    <ul flex="100" flex-gt-xs="100">
+                      <li ng-repeat="t in s.perkTasks">
+                        <div flex="100" flex-gt-xs="100" layout="row">
+                          <span flex="70" flex-gt-xs="70">{{t.title}}</span>
+                          <a href="" ng-click="oeac.removeTask($parent.$index, $index)">
+                            <md-icon flex="12" flex-gt-xs="12" >close</md-icon>
+                          </a>
+                        </div>
+                      </li>
                     </ul>
+                    <div flex="100" flex-gt-xs="100" layout="row" layout-align="start start">
+                      <a href="" ng-click="oeac.addTaskForm(s)">
+                        <md-icon>add</md-icon>{{'addEvent.addTask'|translate}}</a>
+                    </div>
                   </div>
+                </div>
+
+                <div ng-repeat-end class="deleteColumn" layout="column" flex="25" layout-align="start start">
+                  <a href="" ng-click="oeac.removeSponzorshipType($index)">{{'addEvent.removeSponzorshipType'|translate}}</a>
                 </div>
               </div>
             </div>
-            <div class="" flex="100">
-              <div layout="row" layout-align="space-around center" flex-gt-xs="40">
-                <a href="" ng-click="oeac.addSponzorshipTypeForm()" layout="row" layout-align="start center">
-                  <md-button class="md-icon-button">
-                    <md-icon>add</md-icon>
-                  </md-button>
-                  <p flex-xs="50" translate>addEvent.addNewSponzorshipType</p>
-                </a>
-              </div>
+            <div class="add" flex="100" layout="row" layout-align="start center">
+              <a href="" ng-click="oeac.addSponzorshipTypeForm()">
+                <md-icon>add_circle</md-icon>
+                {{'addEvent.addNewSponzorshipType'|translate}}
+              </a>
             </div>
           </md-content>
-          <md-button class="md-raised md-cornered saveButton">{{'addEvent.saveNewEvent'|translate}}</md-button>
+          <md-button class="md-raised md-cornered saveButton">
+            <strong>{{'addEvent.saveNewEvent'|translate}}</strong>
+          </md-button>
         </div>
       </div>
     </div>

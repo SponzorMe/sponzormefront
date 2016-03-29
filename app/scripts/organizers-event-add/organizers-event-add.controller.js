@@ -3,8 +3,24 @@
   function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
+      //List of preseted items to populate event Dates
+      vm.hours = [];
+      for(var i=0; i<24; i++){
+        var string;
+        if(i<10){string = '0'+ i;}
+        else{string = i;}
+        vm.hours.push({number: string+':00:00', text: string+':00:00'});
+        vm.hours.push({number: string+':30:00', text: string+':30:00'});
+      }
+      vm.years = [new Date().getUTCFullYear()-1, new Date().getUTCFullYear(), new Date().getUTCFullYear()+1, new Date().getUTCFullYear()+2];  //One year down, two years up.
+      vm.months =
+      [{number:'01', text:'January'}, {number:'02', text:'February'}, {number:'03', text:'March'}, {number:'04', text:'April'}, {number:'05', text:'May'}, {number:'06', text:'June'}, {number:'07', text:'July'}, {number:'08', text:'August'}, {number:'09', text:'September'}, {number:'10', text:'October'}, {number:'11', text: 'November'}, {number:'12', text: 'December'}];
+      vm.days = [];
+      for(var i=0; i<=31; i++){vm.days.push(i)};//Days
+
+
       vm.event = {
-        sponzorshipTypes: []
+        sponzorshipTypes: [{kind: 'Amateur', usd: "100"}]
       };
       vm.setEventData = function() {
         if (!$localStorage.eventTypes) {
@@ -122,10 +138,15 @@
           }
         });
       };
+      vm.removeTask = function(indexSponzorship, indexTask){
+        vm.event.sponzorshipTypes[indexSponzorship].perkTasks.splice(indexTask, 1);
+      };
       //this function adds a SponzorshipType to the new event form
       vm.removeSponzorshipType = function(index) {
         vm.event.sponzorshipTypes.splice(index, 1);
       };
+
+      vm.setEventData();//Here Starts the Callback
     }
   }
   angular.module('sponzorme').controller('OrganizersEventAddController', OrganizersEventAddController);
