@@ -406,6 +406,37 @@
     "usd": "USD",
     "totalQuantity": "Total Quantity",
     "reservedQuantity": "Reserved Quantity",
-    "saveSponzorshipType": "Save Sponzorship Type"
+    "saveSponzorshipType": "Save Sponzorship Type",
+    "taskInputRequest": "Please type the task here",
+    "saveTask": "Save the task",
+    "removeSponzorshipType": "Remove",
+    "locationRequired": "Location is Required, because is important to know where is the held!",
+    "titleRequired": "You need define a title for the event!",
+    "descriptionRequired": "Tell us more about your event, it increase the opportunity to find better Sponsors",
+    "startsYearRequired": "Year is Required",
+    "startsMonthRequired": "Month is Required",
+    "startsDayRequired": "Day is Required",
+    "startsHourRequired": "Hour is Required",
+    "endsYearRequired": "Year is Required",
+    "endsMonthRequired": "Month is Required",
+    "endsDayRequired": "Day is Required",
+    "endsHourRequired": "Hour is Required",
+    "eventTypeRequired": "Event Type is Required",
+    "eventCategoryRequired": "Event Category is Required",
+    "eventPrivacyRequired": "Event Privacy is Required"
+  },
+  "months":{
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December"
   }
 }
