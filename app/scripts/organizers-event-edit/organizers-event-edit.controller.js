@@ -1,8 +1,24 @@
-'use strict';
 (function() {
-  function OrganizersEventEditController($scope, $translate, $localStorage, eventTypeRequest, eventRequest, categoryRequest, $rootScope, $routeParams, dialogRequest) {
+  'use strict';
+  function
+OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
+      //List of preseted items to populate event Dates
+      vm.hours = [];
+      for(var i=0; i<24; i++){
+        var string;
+        if(i<10){string = '0'+ i;}
+        else{string = i;}
+        vm.hours.push({number: string+':00:00', text: string+':00:00'});
+        vm.hours.push({number: string+':30:00', text: string+':30:00'});
+      }
+      vm.years = [new Date().getUTCFullYear()-1, new Date().getUTCFullYear(), new Date().getUTCFullYear()+1, new Date().getUTCFullYear()+2];  //One year down, two years up.
+      vm.months =
+      [{number:'01', text:'January'}, {number:'02', text:'February'}, {number:'03', text:'March'}, {number:'04', text:'April'}, {number:'05', text:'May'}, {number:'06', text:'June'}, {number:'07', text:'July'}, {number:'08', text:'August'}, {number:'09', text:'September'}, {number:'10', text:'October'}, {number:'11', text: 'November'}, {number:'12', text: 'December'}];
+      vm.days = [];
+      for(var i=0; i<=31; i++){vm.days.push(i)};//Days
+      vm.event = {sponzorshipTypes: [], lang: $rootScope.currentLanguage(), organizer: $localStorage.id, image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'};
       vm.setEventData = function() {
         if (!$localStorage.eventTypes) {
           eventTypeRequest.allEventTypes().then(function successCallback1(response) {
@@ -20,40 +36,146 @@
         } else {
           vm.categories = JSON.parse($localStorage.categories);
         }
-      }
+      };
+      vm.showSponzorshipType = function(s) {
+        s.show = !s.show;
+      };
+
+      //This function creates an event
+      vm.createNewEvent = function() {
+
+        function verification() {
+          dialogRequest.showLoading();
+          vm.event.location_reference = vm.event.location;
+          vm.event.starts = vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour;
+          vm.event.ends = vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour;
+          vm.event.perks = vm.event.sponzorshipTypes;
+          eventRequest.createEvent(vm.event).then(function successCallback(response) {
+            vm.user = JSON.parse($localStorage.user);
+            response.data.event.starts = new Date(response.data.event.starts).getTime();
+            response.data.event.ends = new Date(response.data.event.ends).getTime();
+            vm.user.events.push(response.data.event);
+            $localStorage.user = JSON.stringify(vm.user);
+            dialogRequest.closeLoading();
+            dialogRequest.showDialog('success', 'eventCreatedSuccesfully', '/organizers/dashboard');
+            vm.event = {};
+
+          }, function errorCallback(err) {
+            dialogRequest.closeLoading();
+            dialogRequest.showDialog('error', 'errorCreatingEvent', false);
+          });
+        };
+
+        vm.event.startsAux2 = new Date(vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour).getTime();
+        vm.event.endsAux2 = new Date(vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour).getTime();
+
+
+
+        if(vm.event.endsAux2<=vm.event.startsAux2){
+          $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title($translate.instant('addEvent.invalidDatesTitle'))
+            .textContent($translate.instant('addEvent.invalidDatesText'))
+            .ok('Ok!'));
+        }
+        else if(!vm.event.sponzorshipTypes.length){
+          $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title($translate.instant('addEvent.noSponzorshupTypesTitle'))
+            .textContent($translate.instant('addEvent.noSponzorshupTypesText'))
+            .ok('Ok!'));
+        }
+        else{
+          verification();
+        }
+      };
+      //this function upload or create the event Image
+      vm.imageVerification = function() {
+        dialogRequest.showLoading();
+        vm.loadingNewEvent = true;
+        vm.errorNewEvent = false;
+        if (vm.file) {
+          vm.creds = {
+            bucket: $rootScope.getConstants().AMAZONBUCKET,
+            access_key: $rootScope.getConstants().AMAZONKEY,
+            secret_key: $rootScope.getConstants().AMAZONSECRET
+          };
+          AWS.config.update({
+            accessKeyId: vm.creds.access_key,
+            secretAccessKey: vm.creds.secret_key
+          });
+          AWS.config.region = $rootScope.getConstants().AMAZONBUCKETREGION;
+          var bucket = new AWS.S3({
+            params: {
+              Bucket: vm.creds.bucket
+            }
+          });
+          // Prepend Unique String To Prevent Overwrites
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension(vm.file.name);
+          var params = {
+            Key: uniqueFileName,
+            ContentType: vm.file.type,
+            Body: vm.file,
+            ServerSideEncryption: 'AES256'
+          };
+          bucket.putObject(params, function(err, data) {
+            if (!err) {
+              vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
+              vm.createNewEvent();
+            }
+          });
+        } else {
+          //If no Image we set here some image
+          vm.event.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
+          vm.createNewEvent();
+        }
+      };
+      vm.addSponzorshipTypeForm = function() {
+        $mdDialog.show({
+          clickOutsideToClose: true,
+          templateUrl: 'scripts/organizers-event-add/sponzorshipTypeForm.html',
+          controller: function($scope){
+            $scope.addSponzorshipType = function() {
+              vm.event.sponzorshipTypes.push({
+                kind: $scope.newSponzorshipType.kind,
+                usd: $scope.newSponzorshipType.usd,
+                total_quantity: $scope.newSponzorshipType.totalQuantity,
+                reserved_quantity: $scope.newSponzorshipType.reservedQuantity,
+                perkTasks: []
+              });
+              $mdDialog.hide();
+            };
+          }
+        });
+      };
+      vm.addTaskForm = function(s){
+        $mdDialog.show({
+          clickOutsideToClose: true,
+          templateUrl: 'scripts/organizers-event-add/taskForm.html',
+          controller: function($scope){
+            $scope.addTask = function() {
+              s.perkTasks.push({
+                title: $scope.newTask.title,
+                description: $scope.newTask.title
+              });
+              $mdDialog.hide();
+            };
+          }
+        });
+      };
+      vm.removeTask = function(indexSponzorship, indexTask){
+        vm.event.sponzorshipTypes[indexSponzorship].perkTasks.splice(indexTask, 1);
+      };
+      //this function adds a SponzorshipType to the new event form
+      vm.removeSponzorshipType = function(index) {
+        vm.event.sponzorshipTypes.splice(index, 1);
+      };
       vm.user = JSON.parse($localStorage.user);
       vm.setEventData();
       vm.event = vm.user.events[$routeParams.eventId];
-      vm.event.starts = new Date(vm.event.starts);
-      vm.doEditEvent = function(idevent) {
-        dialogRequest.showLoading();
-        vm.eventData.organizer = $localStorage.id;
-        if (vm.eventData.location !== vm.locationEvent) {
-          vm.eventData.location = vm.locationEvent.formatted_address;
-          vm.eventData.location_reference = vm.locationEvent.place_id;
-        }
-        vm.eventData.organizer = $localStorage.id;
-        eventRequest.editEventPut(idevent, vm.eventData).then(function successCallback(response) {
-          vm.user.events[$routeParams.id] = response.data.event;
-          $localStorage.user = JSON.stringify(vm.user);
-          dialogRequest.closeLoading();
-          dialogRequest.showDialog('success', 'eventEditedSuccesfully', false);
-        }, function errorCallback(response) {
-          dialogRequest.closeLoading();
-          dialogRequest.showDialog('error', 'eventNoEdited', false);
-        });
-      };
-      vm.addPerk = function() {
-        vm.eventData.perks.push({
-          kind: '',
-          usd: 0,
-          total_quantity: 1,
-          reserved_quantity: 0
-        });
-      };
-      vm.removePerk = function(index) {
-        vm.eventData.perks.splice(index, 1);
-      };
+      vm.event.sponzorshipTypes = vm.event.perks;
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);

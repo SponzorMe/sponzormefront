@@ -51,11 +51,13 @@
           vm.event.perks = vm.event.sponzorshipTypes;
           eventRequest.createEvent(vm.event).then(function successCallback(response) {
             vm.user = JSON.parse($localStorage.user);
+            response.data.event.starts = new Date(response.data.event.starts).getTime();
+            response.data.event.ends = new Date(response.data.event.ends).getTime();
             vm.user.events.push(response.data.event);
             $localStorage.user = JSON.stringify(vm.user);
-            vm.event = {};
             dialogRequest.closeLoading();
             dialogRequest.showDialog('success', 'eventCreatedSuccesfully', '/organizers/dashboard');
+            vm.event = {};
 
           }, function errorCallback(err) {
             dialogRequest.closeLoading();
@@ -63,41 +65,30 @@
           });
         };
 
-        if(!vm.event.sponzorshipTypes.length){
+        vm.event.startsAux2 = new Date(vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour).getTime();
+        vm.event.endsAux2 = new Date(vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour).getTime();
+
+
+
+        if(vm.event.endsAux2<=vm.event.startsAux2){
           $mdDialog.show(
             $mdDialog.alert()
             .clickOutsideToClose(true)
-            .title('Incomplete Information')
-            .textContent('Please create Sponsorship Types.')
+            .title($translate.instant('addEvent.invalidDatesTitle'))
+            .textContent($translate.instant('addEvent.invalidDatesText'))
+            .ok('Ok!'));
+        }
+        else if(!vm.event.sponzorshipTypes.length){
+          $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title($translate.instant('addEvent.noSponzorshupTypesTitle'))
+            .textContent($translate.instant('addEvent.noSponzorshupTypesText'))
             .ok('Ok!'));
         }
         else{
           verification();
         }
-
-
-
-        console.log(vm.event);
-        /*
-        vm.event.location = vm.locationevent.formatted_address;
-        vm.event.location_reference = vm.locationevent.place_id;
-        vm.event.starts = moment(vm.event.starts).format('YYYY-MM-DD HH:mm:ss');
-        vm.event.ends = moment(vm.event.ends).format('YYYY-MM-DD HH:mm:ss');
-        vm.event.lang = $rootScope.currentLanguage();
-        vm.event.organizer = $localStorage.id;
-        eventRequest.createEvent(vm.event).then(function successCallback(response) {
-          vm.user = JSON.parse($localStorage.user);
-          vm.user.events.push(response.data.event);
-          $localStorage.user = JSON.stringify(vm.user);
-          vm.event = {};
-          vm.locationevent = {};
-          dialogRequest.closeLoading();
-          dialogRequest.showDialog('success', 'eventCreatedSuccesfully', false);
-        }, function errorCallback() {
-          dialogRequest.closeLoading();
-          dialogRequest.showDialog('error', 'errorCreatingEvent', false);
-        });
-        */
       };
       //this function upload or create the event Image
       vm.imageVerification = function() {

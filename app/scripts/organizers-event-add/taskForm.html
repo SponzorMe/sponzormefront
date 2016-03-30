@@ -6,16 +6,21 @@
   </md-toolbar>
   <md-dialog-content>
     <div layout="column" layout-align="center center">
-      <form name="addTaskForm" layout="column" novalidate>
-        <md-input-container >
+      <form name="addTaskForm" id="addTaskForm" layout="column" ng-submit="addTaskForm.$valid && addTask()" novalidate>
+        <md-input-container>
           <label>{{'addEvent.taskInputRequest'|translate}}</label>
-          <input type="text" ng-model="newTask.title" />
+          <input type="text"  form="addTaskForm" ng-model="newTask.title" name="title" required/>
+          <div ng-messages="addTaskForm.title.$error">
+            <div ng-message="required">
+              {{'addEvent.taskRequired'|translate}}
+            </div>
+          </div>
         </md-input-container>
       </form>
     </div>
   </md-dialog-content>
   <md-dialog-actions>
-    <md-button type="submit" form="addSponzorshipTypeForm" ng-click="addTask()" class="md-primary">
+    <md-button type="submit" form="addTaskForm" class="md-primary">
       {{'addEvent.saveTask'|translate}}
     </md-button>
   </md-dialog-actions>

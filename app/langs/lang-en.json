@@ -27,13 +27,15 @@
     "success": {
       "congratulations": "Congratulations",
       "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
-      "organizerRateSuccesfuly": "You have rated the organizer successfuly"
+      "organizerRateSuccesfuly": "You have rated the organizer successfuly",
+      "eventCreatedSuccesfully": "The event was created succesfuly"
     },
     "error": {
       "title": "We've got a litte problem",
       "invalidRate": "The given information is valid, please fill out all field and try again",
       "errorEditingAccountInfo": "We can not update the info",
-      "invalidInterestSelection": "Invalid interest Selection"
+      "invalidInterestSelection": "Invalid interest Selection",
+      "errorCreatingEvent": "The event can not be created"
     }
   },
   "footer": {
@@ -423,7 +425,24 @@
     "endsHourRequired": "Hour is Required",
     "eventTypeRequired": "Event Type is Required",
     "eventCategoryRequired": "Event Category is Required",
-    "eventPrivacyRequired": "Event Privacy is Required"
+    "eventPrivacyRequired": "Event Privacy is Required",
+    "taskRequired": "Task Title is required",
+    "invalidDatesText": "The starts date should be before than ends date.",
+    "invalidDatesTitle": "Invalid Dates",
+    "noSponzorshupTypesTitle": "Incomplete Information",
+    "noSponzorshupTypesText":"Please create Sponsorship Types.",
+    "sponzorshipTypeForm": {
+      "kindRequired": "Kind Required",
+      "usdRequired": "USD amount is required",
+      "usdMaxExceeded": "The limit is 50 USD, updgrade your account to allow more Amount",
+      "usdMinExceeded": "Values under 0 are not allowed",
+      "totalQuantityRequired": "Total Quantity is required",
+      "totalQuantityMaxExceeded": "The limit is 10, updgrade your account to allow more sponzorships",
+      "totalQuantityMinExceeded": "Values under 0 are not allowed",
+      "reservedQuantityRequired": "Reserved Quantity is required",
+      "reservedQuantityMaxExceeded": "The reserved Quantity should not be greater than total Quantity.",
+      "reservedQuantityMinExceeded": "Values under 0 are not allowed"
+    }
   },
   "months":{
     "January": "January",
