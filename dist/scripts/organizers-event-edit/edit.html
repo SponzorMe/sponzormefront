@@ -1,15 +1,10 @@
 <div layout-fill class="allContainer">
-
   <!-- navbar 1 -->
   <div ng-include src="'./views/components/navbar/navbar.html'"></div>
-
   <md-content class="superContainer" layout="row">
-
     <!-- sidenav -->
     <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
-
     <div class="cont" flex>
-
       <!-- navbar -->
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems menuItemsOrganizer" layout="row" layout-align="space-between center" hide-xs hide-sm>
@@ -18,97 +13,229 @@
         </a>
         <organizers-navbar></organizers-navbar>
       </div>
-
       <div class="actions" layout="row" layout-align="space-between center">
-        <md-button>{{'editEvent.removeEvent'|translate}}</md-button>
+        <md-button layout="row" ng-click="showDialog()" layout-align="start center">
+          <md-icon>file_download</md-icon>
+          {{'addEvent.importEvent'|translate}}
+        </md-button>
       </div>
-
       <!-- Content starts -->
-
       <div class="contentContainer organizer" flex>
-        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
-          <div class="eventContainer" layout="column">
-            <div class="shareButton">
-              <md-button class="md-fab">
-                <md-icon>share</md-icon>
-              </md-button>
-            </div>
-            <img ng-src="{{oeec.event.image}}" alt="image">
-            <div class="imageTexts" layout="column" layout-align="stretch center">
-              <md-input-container class="white" flex="100">
-                <label translate>editEvent.title</label>
-                <input type="text" name="place" ng-model="oeec.event.title" required>
-              </md-input-container>
-              <md-input-container class="white" flex="100">
-                <label translate>editEvent.description</label>
-                <textarea type="text" name="title" md-maxlength="250" ng-model="oeec.event.description" required></textarea>
-              </md-input-container>
-            </div>
-
-            <form ng-submit="submit()" id="createEventForm" name="createEventForm" novalidate class="createEventForm" layout="column">
+        <form ng-submit="createEventForm.$valid && oeec.createNewEvent()" id="createEventForm" name="createEventForm" class="createEventForm" novalidate>
+          <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
+            <div class="eventContainer" layout="column">
+              <img src="../../images/home-bkg.jpg" alt="image" />
+              <div class="imageTexts" layout="column" layout-align="stretch center">
+                <md-input-container class="white" flex="100">
+                  <label translate>editEvent.title</label>
+                  <input type="text" name="title" ng-model="oeec.event.title" form="createEventForm" required />
+                  <div ng-messages="createEventForm.title.$error">
+                    <div ng-message="required">
+                      {{'addEvent.titleRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="white" flex="100">
+                  <label translate>editEvent.description</label>
+                  <textarea type="text" name="description" form="createEventForm" md-maxlength="250" ng-model="oeec.event.description" required></textarea>
+                  <div ng-messages="createEventForm.description.$error">
+                    <div ng-message="required">
+                      {{'addEvent.descriptionRequired'|translate}}
+                    </div>
+                    <div ng-message="md-maxlength">
+                      {{'addEvent.descriptionTooLong'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+              </div>
 
               <div class="dateAndplace" layout="row" flex="100">
-                <md-datepicker ng-model="oeec.event.starts" md-placeholder="Enter date" flex="40">
-                </md-datepicker>
-                <md-input-container class="organizers" flex="60">
-                  <label translate>editEvent.location</label>
-                  <input type="text" name="place" ng-model="oeec.event.location" required>
-                  <md-button>
-                    <md-icon>location_on</md-icon>
-                    {{'editEvent.locateOnMap'|translate}}
-                  </md-button>
+                <md-input-container>
+                  <label translate>addEvent.location</label>
+                  <input type="text" name="location" ng-model="oeec.event.location" required/>
+                  <div ng-messages="createEventForm.location.$error">
+                    <div ng-message="required">
+                      {{'addEvent.locationRequired'|translate}}
+                    </div>
+                  </div>
                 </md-input-container>
               </div>
-
-              <div class="eventType" layout="row">
-
-                <md-input-container class="organizers" flex="40">
-                  <label translate>editEvent.type</label>
-                  <md-select class="organizers" name="userGender" ng-model="oeec.event.type" required>
-                    <md-option ng-repeat="et in oeec.eventTypes track by $index" ng-value="et.id">{{et.name}}</md-option>
+              <div class="dateAndplace" layout="row" flex="100">
+                <label>{{'addEvent.starts'|translate}}</label>
+              </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container>
+                  <md-select ng-model="oeec.event.startsAux.year" placeholder="{{'addEvent.selectYear'|translate}}" form="createEventForm" name="startsYear" required>
+                    <md-option ng-repeat="y in oeec.years" ng-value="y">{{y}}</md-option>
                   </md-select>
+                  <div ng-messages="createEventForm.startsYear.$error">
+                    <div ng-message="required">
+                      {{'addEvent.startsYearRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <md-select ng-model="oeec.event.startsAux.month" placeholder="{{'addEvent.selectMonth'|translate}}" name="startsMonth" form="createEventForm" required>
+                    <md-option ng-repeat="m in oeec.months" ng-value="{{m.number}}">{{'months.'+m.text|translate}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.startsMonth.$error">
+                    <div ng-message="required">
+                      {{'addEvent.startsMonthRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <md-select ng-model="oeec.event.startsAux.day" placeholder="{{'addEvent.selectDay'|translate}}" name="startsDay" form="createEventForm" required>
+                    <md-option ng-repeat="d in oeec.days" ng-value="d">{{d}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.startsDay.$error">
+                    <div ng-message="required">
+                      {{'addEvent.startsDayRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <md-select ng-model="oeec.event.startsAux.hour" placeholder="{{'addEvent.selectHour'|translate}}" name="startsHour" form="createEventForm" required>
+                    <md-option ng-repeat="h in oeec.hours" ng-value="h.number">{{h.text}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.startsHour.$error">
+                    <div ng-message="required">
+                      {{'addEvent.startsHourRequired'|translate}}
+                    </div>
+                  </div>
                 </md-input-container>
               </div>
-              <div class="chipContainer">
-                <span translate>editEvent.category</span>
-                <div class="chipSelect" layout="row" layout-wrap layout-align="start center">
-                  <a class="md-chip inset toSelect" md-ink-ripple layout="row" layout-align="center center" ng-repeat="item in oeec.categories track by $index" layout-wrap>
-                    {{item.title}}
-                  </a>
-                </div>
-                <md-divider></md-divider>
-                <div class="chipsFilter">
-                  <md-chips></md-chips>
-                </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <label>{{'addEvent.ends'|translate}}</label>
               </div>
-            </form>
-          </div>
-
-          <md-content class="createEventTable">
-            <h4 class="color-blue-brighter" translate>editEvent.setSponzorshipTypes</h4>
-            <p translate>editEvent.perkInstructions</p>
-            <div href="" class="table" layout-padding flex="grow">
-
-              <div class="tableContent" layout="row" layout-wrap layout-align="space-around center">
-                <div class="columnContainer" flex="50" flex-gt-xs="25" ng-repeat="p in oeec.event.perks">
-                  <div class="tableTitle">{{p.kind}}</div>
-                  <div class="border"></div>
-                  <a href="" class="toSponzorWith" layout="column" layout-align="center center">
-                    <p ng-repeat="t in p.tasks">{{t.title}}</p>
-                  </a>
-
-                  <md-button class="addItem" layout="row">
-                    <md-icon>add</md-icon>
-                    {{'editEvent.addTask'|translate}}
-                  </md-button>
-
-                  <p class="tablePrice" layout="row" layout-align="center center"><a href="">{{p.usd}} USD</a></p>
-                </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container>
+                  <md-select ng-model="oeec.event.endsAux.year" form="createEventForm" name="endsYear" placeholder="{{'addEvent.selectYear'|translate}}" required>
+                    <md-option ng-repeat="y in oeec.years" ng-value="y">{{y}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.endsYear.$error">
+                    <div ng-message="required">
+                      {{'addEvent.endsYearRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <md-select ng-model="oeec.event.endsAux.month" form="createEventForm" name="endsMonth" placeholder="{{'addEvent.selectMonth'|translate}}" required>
+                    <md-option ng-repeat="m in oeec.months" ng-value="{{m.number}}">{{'months.'+m.text|translate}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.endsMonth.$error">
+                    <div ng-message="required">
+                      {{'addEvent.endsMonthRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <md-select ng-model="oeec.event.endsAux.day" placeholder="{{'addEvent.selectDay'|translate}}" form="createEventForm" name="endsDay" required>
+                    <md-option ng-repeat="d in oeec.days" ng-value="d">{{d}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.endsDay.$error">
+                    <div ng-message="required">
+                      {{'addEvent.endsDayRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <md-select ng-model="oeec.event.endsAux.hour" placeholder="{{'addEvent.selectHour'|translate}}" form="createEventForm" name="endsHour" required>
+                    <md-option ng-repeat="h in oeec.hours" ng-value="h.number">{{h.text}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.endsHour.$error">
+                    <div ng-message="required">
+                      {{'addEvent.endsHourRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container>
+                  <label>{{'addEvent.eventType'|translate}}</label>
+                  <md-select ng-model="oeec.event.type" placeholder="{{'addEvent.eventType'|translate}}" form="createEventForm" name="eventType" required>
+                    <md-option ng-repeat="et in oeec.eventTypes" ng-value="et.id">{{et.name}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.eventType.$error">
+                    <div ng-message="required">
+                      {{'addEvent.eventTypeRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label>{{'addEvent.eventCategory'|translate}}</label>
+                  <md-select ng-model="oeec.event.category" placeholder="{{'addEvent.eventCategory'|translate}}" form="createEventForm" name="eventCategory" required>
+                    <md-option ng-repeat="c in oeec.categories" ng-value="c.id">{{c.title}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.eventCategory.$error">
+                    <div ng-message="required">
+                      {{'addEvent.eventCategoryRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container>
+                  <label>{{'addEvent.privacy'|translate}}</label>
+                  <md-select ng-model="oeec.event.privacy" placeholder="{{'addEvent.privacy'|translate}}" form="createEventForm" name="eventPrivacy" required>
+                    <md-option ng-value="0">{{'addEvent.public'|translate}}</md-option>
+                    <md-option ng-value="1">{{'addEvent.private'|translate}}</md-option>
+                  </md-select>
+                  <div ng-messages="createEventForm.eventPrivacy.$error">
+                    <div ng-message="required">
+                      {{'addEvent.eventPrivacyRequired'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
               </div>
             </div>
-          </md-content>
-          <md-button class="md-raised md-cornered saveButton">guardar y ver landing page</md-button>
-        </div>
+            <md-content class="createEventTable">
+              <h4 class="color-blue-brighter" translate>addEvent.setSponzorshipTypes</h4>
+              <p translate>addEvent.perkInstructions</p>
+              <div class="table" layout-padding flex="grow">
+                <div class="tableContent" layout-wrap layout="row" layout-align="start start">
+                  <div class="columnContainer" layout="column" flex="70" flex-gt-xs="70" ng-repeat-start="s in oeec.event.sponzorshipTypes">
+                    <div class="tableTitle" layout="row" layout-align="start start">
+                      <span class="leftText" layout="column" flex="40" flex-gt-xs="40">{{s.kind}}</span>
+                      <span class="rightText" layout="column" flex="45" flex-gt-xs="45">{{s.usd}} USD</span>
+                      <a href="" layout="column" ng-click="oeec.showSponzorshipType(s)" flex="15" flex-gt-xs="15" layout-align="end start">
+                        <md-icon ng-show="!s.show">expand_more</md-icon>
+                        <md-icon ng-show="s.show">expand_less</md-icon>
+                      </a>
+                    </div>
+                    <div class="toggeable" layout="column" flex="100" flex-gt-xs="100" layout-align="start start" ng-show="s.show">
+                      <ul flex="100" flex-gt-xs="100">
+                        <li ng-repeat="t in s.tasks">
+                          <div flex="100" flex-gt-xs="100" layout="row">
+                            <span flex="70" flex-gt-xs="70">{{t.title}}</span>
+                            <a href="" ng-click="oeec.removeTask($parent.$index, $index)">
+                              <md-icon flex="12" flex-gt-xs="12">close</md-icon>
+                            </a>
+                          </div>
+                        </li>
+                      </ul>
+                      <div flex="100" flex-gt-xs="100" layout="row" layout-align="start start">
+                        <a href="" ng-click="oeec.addTaskForm(s)">
+                          <md-icon>add</md-icon>{{'addEvent.addTask'|translate}}</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div ng-repeat-end class="deleteColumn" layout="column" flex="25" layout-align="start start">
+                    <a href="" ng-click="oeec.removeSponzorshipType($index)">{{'addEvent.removeSponzorshipType'|translate}}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="add" flex="100" layout="row" layout-align="start center">
+                <a href="" ng-click="oeec.addSponzorshipTypeForm()">
+                  <md-icon>add_circle</md-icon>
+                  {{'addEvent.addNewSponzorshipType'|translate}}
+                </a>
+              </div>
+            </md-content>
+            <md-button type="submit" form="createEventForm" class="md-raised md-cornered saveButton"><strong>{{'addEvent.saveNewEvent'|translate}}</strong></md-button>
+          </div>
+        </form>
       </div>
     </div>
   </md-content>

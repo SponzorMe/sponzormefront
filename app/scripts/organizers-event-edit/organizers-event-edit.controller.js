@@ -42,7 +42,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       };
 
       //This function creates an event
-      vm.createNewEvent = function() {
+      vm.editNewEvent = function() {
 
         function verification() {
           dialogRequest.showLoading();
@@ -143,7 +143,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
                 usd: $scope.newSponzorshipType.usd,
                 total_quantity: $scope.newSponzorshipType.totalQuantity,
                 reserved_quantity: $scope.newSponzorshipType.reservedQuantity,
-                perkTasks: []
+                tasks: []
               });
               $mdDialog.hide();
             };
@@ -156,7 +156,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           templateUrl: 'scripts/organizers-event-add/taskForm.html',
           controller: function($scope){
             $scope.addTask = function() {
-              s.perkTasks.push({
+              s.tasks.push({
                 title: $scope.newTask.title,
                 description: $scope.newTask.title
               });
@@ -166,7 +166,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         });
       };
       vm.removeTask = function(indexSponzorship, indexTask){
-        vm.event.sponzorshipTypes[indexSponzorship].perkTasks.splice(indexTask, 1);
+        vm.event.sponzorshipTypes[indexSponzorship].tasks.splice(indexTask, 1);
       };
       //this function adds a SponzorshipType to the new event form
       vm.removeSponzorshipType = function(index) {
@@ -175,6 +175,27 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       vm.user = JSON.parse($localStorage.user);
       vm.setEventData();
       vm.event = vm.user.events[$routeParams.eventId];
+      var auxDate = new Date(vm.event.starts);
+      var parseMinutes = auxDate.getMinutes()>9 ? auxDate.getMinutes(): '0'+auxDate.getMinutes();
+      var parseSeconds = auxDate.getSeconds()>9 ? auxDate.getSeconds(): '0'+auxDate.getSeconds();
+      var parseHours = auxDate.getHours()>9 ? auxDate.getHours(): '0'+auxDate.getHours();
+      vm.event.startsAux={
+        year: auxDate.getUTCFullYear(),
+        month: auxDate.getMonth(),
+        day:auxDate.getDate(),
+        hour:parseHours+':'+ parseMinutes +':'+parseSeconds
+      };
+      vm.event = vm.user.events[$routeParams.eventId];
+      var auxDate2 = new Date(vm.event.ends);
+      var parseMinutes2 = auxDate2.getMinutes()>9 ? auxDate2.getMinutes(): '0'+auxDate2.getMinutes();
+      var parseSeconds2 = auxDate2.getSeconds()>9 ? auxDate2.getSeconds(): '0'+auxDate2.getSeconds();
+      var parseHours2 = auxDate2.getHours()>9 ? auxDate2.getHours(): '0'+auxDate2.getHours();
+      vm.event.endsAux={
+        year: auxDate2.getUTCFullYear(),
+        month: auxDate2.getMonth(),
+        day:auxDate2.getDate(),
+        hour:parseHours2+':'+ parseMinutes2 +':'+parseSeconds2
+      };
       vm.event.sponzorshipTypes = vm.event.perks;
     }
   }
