@@ -34,7 +34,10 @@
                 return e;
               });
             }
-            response.data.user.eventTasks = response.data.eventTasks[0];
+            if(response.data.eventTasks){
+              response.data.user.eventTasks = response.data.eventTasks[0];
+            }
+
             if(response.data.user.events){
               response.data.user.events = response.data.user.events.filter(function(e){
                 e.starts = e.starts.replace(' ', 'T');
