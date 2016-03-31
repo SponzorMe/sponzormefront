@@ -25,6 +25,11 @@
           width: 100%;
           max-height: 300px!important;
         }
+        & >label{
+          position: absolute;
+          top: 10px;
+          left: 10px;
+        }
         & > .imageTexts {
           background: $color_blue_brighter;
           margin: 0;

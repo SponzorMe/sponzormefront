@@ -90,12 +90,11 @@
           verification();
         }
       };
+      $scope.file=false;
       //this function upload or create the event Image
-      vm.imageVerification = function() {
-        dialogRequest.showLoading();
-        vm.loadingNewEvent = true;
-        vm.errorNewEvent = false;
-        if (vm.file) {
+      $scope.imageVerification = function() {
+        console.log($scope.file);
+        if($scope.file){
           vm.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
             access_key: $rootScope.getConstants().AMAZONKEY,
@@ -112,23 +111,25 @@
             }
           });
           // Prepend Unique String To Prevent Overwrites
-          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension(vm.file.name);
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
           var params = {
             Key: uniqueFileName,
-            ContentType: vm.file.type,
-            Body: vm.file,
+            ContentType: $scope.file.type,
+            Body: $scope.file,
             ServerSideEncryption: 'AES256'
           };
+          dialogRequest.showLoading();
           bucket.putObject(params, function(err, data) {
             if (!err) {
+              dialogRequest.closeLoading();
+              console.log(data);
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-              vm.createNewEvent();
+            }
+            else{
+              dialogRequest.closeLoading();
+              console.log("error", err);
             }
           });
-        } else {
-          //If no Image we set here some image
-          vm.event.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
-          vm.createNewEvent();
         }
       };
       vm.addSponzorshipTypeForm = function() {

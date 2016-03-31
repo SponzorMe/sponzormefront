@@ -18,7 +18,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       [{number:'01', text:'January'}, {number:'02', text:'February'}, {number:'03', text:'March'}, {number:'04', text:'April'}, {number:'05', text:'May'}, {number:'06', text:'June'}, {number:'07', text:'July'}, {number:'08', text:'August'}, {number:'09', text:'September'}, {number:'10', text:'October'}, {number:'11', text: 'November'}, {number:'12', text: 'December'}];
       vm.days = [];
       for(var i=0; i<=31; i++){vm.days.push(i)};//Days
-      vm.event = {sponzorshipTypes: [], lang: $rootScope.currentLanguage(), organizer: $localStorage.id, image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'};
+      vm.event = {sponzorshipTypes: [], lang: $rootScope.currentLanguage(), organizer: $localStorage.id};
       vm.setEventData = function() {
         if (!$localStorage.eventTypes) {
           eventTypeRequest.allEventTypes().then(function successCallback1(response) {
@@ -92,12 +92,11 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           verification();
         }
       };
+      $scope.file=false;
       //this function upload or create the event Image
-      vm.imageVerification = function() {
-        dialogRequest.showLoading();
-        vm.loadingNewEvent = true;
-        vm.errorNewEvent = false;
-        if (vm.file) {
+      $scope.imageVerification = function() {
+        console.log($scope.file);
+        if($scope.file){
           vm.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
             access_key: $rootScope.getConstants().AMAZONKEY,
@@ -114,23 +113,25 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
             }
           });
           // Prepend Unique String To Prevent Overwrites
-          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension(vm.file.name);
+          var uniqueFileName = btoa($rootScope.uniqueString() + new Date().getTime() + $rootScope.uniqueString()).replace('=', $rootScope.uniqueString()) + '.' + $rootScope.getExtension($scope.file.name);
           var params = {
             Key: uniqueFileName,
-            ContentType: vm.file.type,
-            Body: vm.file,
+            ContentType: $scope.file.type,
+            Body: $scope.file,
             ServerSideEncryption: 'AES256'
           };
+          dialogRequest.showLoading();
           bucket.putObject(params, function(err, data) {
             if (!err) {
+              dialogRequest.closeLoading();
+              console.log(data);
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-              vm.createNewEvent();
+            }
+            else{
+              dialogRequest.closeLoading();
+              console.log("error", err);
             }
           });
-        } else {
-          //If no Image we set here some image
-          vm.event.image = 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg';
-          vm.createNewEvent();
         }
       };
       vm.addSponzorshipTypeForm = function() {
