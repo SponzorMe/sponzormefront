@@ -25,6 +25,11 @@
           <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
             <div class="eventContainer" layout="column">
               <img src="{{oeec.event.image}}" alt="image" />
+              <label for="imageInput" class="imageLabel">
+                <md-icon>add_a_photo</md-icon>
+              </label>
+              <input id="imageInput" type="file" data-ng-model="file" name="file" maxsize="500" ng-hide="true" accept="image/*" filea>
+
               <div class="imageTexts" layout="column" layout-align="stretch center">
                 <md-input-container class="white" flex="100">
                   <label translate>editEvent.title</label>
