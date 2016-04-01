@@ -12,7 +12,7 @@
   "dialog": {
     "loadingMessage": "Please wait, We are proccessing your request.",
     "unactivatedAccount": "Your account has not been activated yet, please verify you E-mail inbox or go to ",
-    "resendActivationPage":"Resend Activation Page",
+    "resendActivationPage": "Resend Activation Page",
     "activationSuccess": "Activation Success!",
     "activationSuccessMessage": "Your account has been activated and now you can login",
     "invalidCredentials": "Invalid E-mail or Password, please try again",
@@ -100,7 +100,7 @@
     "savedEvents": "Your Saved Events",
     "removeSave": "Remove Event"
   },
-  "sponzorsSponzorships":{
+  "sponzorsSponzorships": {
     "title": "Title",
     "date": "Date",
     "type": "Type",
@@ -115,7 +115,7 @@
     "currentStatus": "Current Status",
     "doPayment": "Start the payment Process",
     "wait": "Wait until Organizer approve",
-    "ratedOrganizer":"Rated",
+    "ratedOrganizer": "Rated",
     "causeForm": "Why do you want sponsor this event?",
     "submitButton": "Sponzor!",
     "causePlaceholder": "It is an amazing opportunity",
@@ -131,10 +131,10 @@
     "sponzorDashboard": "Sponzor",
     "saved": "Saved Events",
     "interests": "Selected Interests",
-    "invite":"Invite Friend",
+    "invite": "Invite Friend",
     "news": "News"
   },
-  "categories":{
+  "categories": {
     "Outdoor": "Outdoor",
     "Art & Culture": "Art & Culture",
     "Dancing": "Dancing",
@@ -150,16 +150,16 @@
     "Music": "Music",
     "Technology": "Technology"
   },
-  "eventTypes":{
+  "eventTypes": {
     "Charity": "Charity",
     "Recruitment": "Recruitment",
-    "Training or Workshop":"Training or Workshop",
-    "Perfomance":"Perfomance",
-    "Conference":"Conference",
-    "Networking Event":"Networking Event",
+    "Training or Workshop": "Training or Workshop",
+    "Perfomance": "Perfomance",
+    "Conference": "Conference",
+    "Networking Event": "Networking Event",
     "Other": "Other"
   },
-  "eventPage":{
+  "eventPage": {
     "sponzorshipTypes": "Sponzorship Types",
     "writeToOrganizer": "Write to Organizer",
     "chatWithOrganizer": "Chat With the Organizer",
@@ -172,11 +172,11 @@
     "type": "Sponzorship Type: ",
     "actions": "Actions: ",
     "taskStatus0": "Completed",
-    "taskStatus1":  "Pending",
+    "taskStatus1": "Pending",
     "taskOwner0": "Organizer",
-    "taskOwner1":  "Sponzor"
+    "taskOwner1": "Sponzor"
   },
-  "settings":{
+  "settings": {
     "profile": "Profile",
     "preferences": "Preferences",
     "ratings": "Ratings",
@@ -203,7 +203,7 @@
     "chooseInterest": "Choose Interest",
     "interests": "List of Interests"
   },
-  "preferences":{
+  "preferences": {
     "profile": "Profile",
     "preferences": "Preferences",
     "ratings": "Ratings",
@@ -219,7 +219,7 @@
     "companyNewsletter": "Newsletter",
     "save": "Save Interest"
   },
-  "ratings":{
+  "ratings": {
     "profile": "Profile",
     "preferences": "Preferences",
     "ratings": "Ratings",
@@ -247,7 +247,7 @@
     "replyTitle": "Title",
     "replyMessage": "Write Message"
   },
-  "tasks":{
+  "tasks": {
     "add": "Add Task",
     "event": "Event",
     "taskTitle": "Title",
@@ -268,7 +268,7 @@
     "status0": "Pending",
     "status1": "Completed"
   },
-  "organizersMain":{
+  "organizersMain": {
     "events": "Events",
     "sponsors": "Sponsors",
     "balance": "Balance",
@@ -282,7 +282,7 @@
     "record": "Record",
     "recordDescription": "Here you can find the past events, sortered cronologically"
   },
-  "organizersSponzors":{
+  "organizersSponzors": {
     "seeSponzorProfile": "See the sponsor's profile.",
     "seeEventTasks": "See event's tasks",
     "seeCause": "See the Sponsonrship Cause",
@@ -294,7 +294,7 @@
     "status": "Status",
     "actions": "Actions"
   },
-  "invite":{
+  "invite": {
     "title": "Invite a Friend",
     "subtitle": "We know you want share SponzorMe",
     "instructions": "If you had a gorgeous experience using SponsorMe help us share us with your friends",
@@ -308,12 +308,12 @@
     "organizerName": "Organizer Name: ",
     "rateOrganizer": "Rate Organizer",
     "rateDescription": "In this form you will have the opportunity to assign a tate to event's organizer, based on the experience during this sponzorship. Likewise you can make suggests and comments",
-    "event" : "Event/Sponzorship",
+    "event": "Event/Sponzorship",
     "chooseOneOption": "Choose an option",
     "whichOther": "Which other?",
     "submit": "Send",
     "answers": {
-      "yes" : "Yes",
+      "yes": "Yes",
       "no": "No",
       "developers": "Developers",
       "designers": "Designers",
@@ -321,29 +321,29 @@
       "other": "Other"
     }
   },
-  "ratingSponzor":{
-    "question0":"In general, What is your score for this Organizer?",
-    "question1":"Overall, how was your experience with us?*",
-    "question2":"How did you find out about our events?",
-    "question3":"How do you perceive the way organizers handled your brand? *",
-    "question4":"Did you got what was promised? *",
-    "question5":"How much would you invest in sponsoring in the future? *",
-    "question6":"Did you feel accomplished? *",
-    "question7":"Would you sponsor us in the future? *",
-    "question8":"Which is the audience you're looking for?",
-    "question9":"Events on targeted to which developers would you like to sponsor? *",
-    "question10":"Write a Comment"
+  "ratingSponzor": {
+    "question0": "In general, What is your score for this Organizer?",
+    "question1": "Overall, how was your experience with us?*",
+    "question2": "How did you find out about our events?",
+    "question3": "How do you perceive the way organizers handled your brand? *",
+    "question4": "Did you got what was promised? *",
+    "question5": "How much would you invest in sponsoring in the future? *",
+    "question6": "Did you feel accomplished? *",
+    "question7": "Would you sponsor us in the future? *",
+    "question8": "Which is the audience you're looking for?",
+    "question9": "Events on targeted to which developers would you like to sponsor? *",
+    "question10": "Write a Comment"
   },
-  "ratingOrganizer":{
-    "question0":"Overall, how was your experience with your sponsor?",
-    "question1":"Who manages sponsoring in your Group?*",
-    "question2":"How do you perceive the Sponsor's commitment to you ? *",
-    "question3":"Did you got what was promised?*",
-    "question4":"Do you going to use us again in the future?*",
-    "question5":"Which is your audience? *",
-    "question6":"Write a Comment"
+  "ratingOrganizer": {
+    "question0": "Overall, how was your experience with your sponsor?",
+    "question1": "Who manages sponsoring in your Group?*",
+    "question2": "How do you perceive the Sponsor's commitment to you ? *",
+    "question3": "Did you got what was promised?*",
+    "question4": "Do you going to use us again in the future?*",
+    "question5": "Which is your audience? *",
+    "question6": "Write a Comment"
   },
-  "categories":{
+  "categories": {
     "Outdoor": "Outdoor",
     "Art & Culture": "Art & Culture",
     "Dancing": "Dancing",
@@ -359,19 +359,19 @@
     "Music": "Music",
     "Technology": "Technology"
   },
-  "eventTypes":{
+  "eventTypes": {
     "Charity": "Charity",
     "Recruitment": "Recruitment",
-    "Training or Workshop":"Training or Workshop",
-    "Perfomance":"Perfomance",
-    "Conference":"Conference",
-    "Networking Event":"Networking Event",
+    "Training or Workshop": "Training or Workshop",
+    "Perfomance": "Perfomance",
+    "Conference": "Conference",
+    "Networking Event": "Networking Event",
     "Other": "Other"
   },
   "organizersTasks": {
-    "task":"Task",
-    "sponzor":"Sponzor",
-    "status":"Status"
+    "task": "Task",
+    "sponzor": "Sponzor",
+    "status": "Status"
   },
   "editEvent": {
     "perkInstructions": "In the Sponzorship types you will have the chance to put the  amounts for each one and you can put the taks included.",
@@ -385,7 +385,7 @@
     "removeEvent": "Remove Event",
     "addTask": "Add Task"
   },
-  "addEvent":{
+  "addEvent": {
     "selectMonth": "Month",
     "selectDay": "Day",
     "selectYear": "Year",
@@ -412,7 +412,7 @@
     "taskInputRequest": "Please type the task here",
     "saveTask": "Save the task",
     "removeSponzorshipType": "Remove",
-    "locationRequired": "Location is Required, because is important to know where is the held!",
+    "locationRequired": "Location is Required, because is important to know where is the event!",
     "titleRequired": "You need define a title for the event!",
     "descriptionRequired": "Tell us more about your event, it increase the opportunity to find better Sponsors",
     "startsYearRequired": "Year is Required",
@@ -430,7 +430,9 @@
     "invalidDatesText": "The starts date should be before than ends date.",
     "invalidDatesTitle": "Invalid Dates",
     "noSponzorshupTypesTitle": "Incomplete Information",
-    "noSponzorshupTypesText":"Please create Sponsorship Types.",
+    "noSponzorshupTypesText": "Please create Sponsorship Types.",
+    "importFromEventbrite": "Import from Eventbrite",
+    "importFromMeetup": "Import from Meetup",
     "sponzorshipTypeForm": {
       "kindRequired": "Kind Required",
       "usdRequired": "USD amount is required",
@@ -442,9 +444,32 @@
       "reservedQuantityRequired": "Reserved Quantity is required",
       "reservedQuantityMaxExceeded": "The reserved Quantity should not be greater than total Quantity.",
       "reservedQuantityMinExceeded": "Values under 0 are not allowed"
+    },
+    "eventbrite": {
+      "connectingToEventbrite": "Trying connection to Eventbrite ...",
+      "connectedToEventbrite": "Connected to eventbrite",
+      "connectToEventbrite": "Click here to connect to Eventbrite",
+      "loadingEventbriteEvents": "Fetching Eventbrite Events",
+      "eventbriteEventsLoaded": "List of events from Eventbrite",
+      "title": "Event",
+      "date": "Starts - Ends",
+      "import": "Import",
+      "from": "From: ",
+      "to": "To: "
+    },
+    "meetup": {
+      "connectingToMeetup": "Trying connection to Meetup ...",
+      "connectedToMeetup": "Connected to Meetup",
+      "connectToMeetup": "Click here to connect to Meetup",
+      "loadingMeetupEvents": "Fetching Meetup Events",
+      "meetupEventsLoaded": "List of events from Meetup",
+      "title": "Event",
+      "date": "Starts - Ends",
+      "import": "Import",
+      "group": "Group "
     }
   },
-  "months":{
+  "months": {
     "January": "January",
     "February": "February",
     "March": "March",

@@ -1,23 +1,82 @@
 (function() {
   'use strict';
+
   function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
     if ($rootScope.userValidation('0')) {
+      function jsonize(str) {
+        return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
+          return '"' + $1 + '":';
+        }).replace(/'([^']+)'/g, function(_, $1) {
+          return '"' + $1 + '"';
+        });
+      }
       var vm = this;
       //List of preseted items to populate event Dates
       vm.hours = [];
-      for(var i=0; i<24; i++){
+      for (var i = 0; i < 24; i++) {
         var string;
-        if(i<10){string = '0'+ i;}
-        else{string = i;}
-        vm.hours.push({number: string+':00:00', text: string+':00:00'});
-        vm.hours.push({number: string+':30:00', text: string+':30:00'});
+        if (i < 10) {
+          string = '0' + i;
+        } else {
+          string = i;
+        }
+        vm.hours.push({
+          number: string + ':00:00',
+          text: string + ':00:00'
+        });
+        vm.hours.push({
+          number: string + ':30:00',
+          text: string + ':30:00'
+        });
       }
-      vm.years = [new Date().getUTCFullYear()-1, new Date().getUTCFullYear(), new Date().getUTCFullYear()+1, new Date().getUTCFullYear()+2];  //One year down, two years up.
-      vm.months =
-      [{number:'01', text:'January'}, {number:'02', text:'February'}, {number:'03', text:'March'}, {number:'04', text:'April'}, {number:'05', text:'May'}, {number:'06', text:'June'}, {number:'07', text:'July'}, {number:'08', text:'August'}, {number:'09', text:'September'}, {number:'10', text:'October'}, {number:'11', text: 'November'}, {number:'12', text: 'December'}];
+      vm.years = [new Date().getUTCFullYear() - 1, new Date().getUTCFullYear(), new Date().getUTCFullYear() + 1, new Date().getUTCFullYear() + 2]; //One year down, two years up.
+      vm.months = [{
+        number: '01',
+        text: 'January'
+      }, {
+        number: '02',
+        text: 'February'
+      }, {
+        number: '03',
+        text: 'March'
+      }, {
+        number: '04',
+        text: 'April'
+      }, {
+        number: '05',
+        text: 'May'
+      }, {
+        number: '06',
+        text: 'June'
+      }, {
+        number: '07',
+        text: 'July'
+      }, {
+        number: '08',
+        text: 'August'
+      }, {
+        number: '09',
+        text: 'September'
+      }, {
+        number: '10',
+        text: 'October'
+      }, {
+        number: '11',
+        text: 'November'
+      }, {
+        number: '12',
+        text: 'December'
+      }];
       vm.days = [];
-      for(var i=0; i<=31; i++){vm.days.push(i)};//Days
-      vm.event = {sponzorshipTypes: [], lang: $rootScope.currentLanguage(), organizer: $localStorage.id, image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'};
+      for (var i = 0; i <= 31; i++) {
+        vm.days.push(i)
+      }; //Days
+      vm.event = {
+        sponzorshipTypes: [],
+        lang: $rootScope.currentLanguage(),
+        organizer: $localStorage.id,
+        image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'
+      };
       vm.setEventData = function() {
         if (!$localStorage.eventTypes) {
           eventTypeRequest.allEventTypes().then(function successCallback1(response) {
@@ -46,8 +105,8 @@
         function verification() {
           dialogRequest.showLoading();
           vm.event.location_reference = vm.event.location;
-          vm.event.starts = vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour;
-          vm.event.ends = vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour;
+          vm.event.starts = vm.event.startsAux.year + '-' + vm.event.startsAux.month + '-' + vm.event.startsAux.day + ' ' + vm.event.startsAux.hour;
+          vm.event.ends = vm.event.endsAux.year + '-' + vm.event.endsAux.month + '-' + vm.event.endsAux.day + ' ' + vm.event.endsAux.hour;
           vm.event.perks = vm.event.sponzorshipTypes;
           eventRequest.createEvent(vm.event).then(function successCallback(response) {
             vm.user = JSON.parse($localStorage.user);
@@ -65,36 +124,34 @@
           });
         };
 
-        vm.event.startsAux2 = new Date(vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour).getTime();
-        vm.event.endsAux2 = new Date(vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour).getTime();
+        vm.event.startsAux2 = new Date(vm.event.startsAux.year + '-' + vm.event.startsAux.month + '-' + vm.event.startsAux.day + ' ' + vm.event.startsAux.hour).getTime();
+        vm.event.endsAux2 = new Date(vm.event.endsAux.year + '-' + vm.event.endsAux.month + '-' + vm.event.endsAux.day + ' ' + vm.event.endsAux.hour).getTime();
 
 
 
-        if(vm.event.endsAux2<=vm.event.startsAux2){
+        if (vm.event.endsAux2 <= vm.event.startsAux2) {
           $mdDialog.show(
             $mdDialog.alert()
             .clickOutsideToClose(true)
             .title($translate.instant('addEvent.invalidDatesTitle'))
             .textContent($translate.instant('addEvent.invalidDatesText'))
             .ok('Ok!'));
-        }
-        else if(!vm.event.sponzorshipTypes.length){
+        } else if (!vm.event.sponzorshipTypes.length) {
           $mdDialog.show(
             $mdDialog.alert()
             .clickOutsideToClose(true)
             .title($translate.instant('addEvent.noSponzorshupTypesTitle'))
             .textContent($translate.instant('addEvent.noSponzorshupTypesText'))
             .ok('Ok!'));
-        }
-        else{
+        } else {
           verification();
         }
       };
-      $scope.file=false;
+      $scope.file = false;
       //this function upload or create the event Image
       $scope.imageVerification = function() {
         console.log($scope.file);
-        if($scope.file){
+        if ($scope.file) {
           vm.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
             access_key: $rootScope.getConstants().AMAZONKEY,
@@ -124,10 +181,8 @@
               dialogRequest.closeLoading();
               console.log(data);
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
-            }
-            else{
+            } else {
               dialogRequest.closeLoading();
-              console.log("error", err);
             }
           });
         }
@@ -136,7 +191,7 @@
         $mdDialog.show({
           clickOutsideToClose: true,
           templateUrl: 'scripts/organizers-event-add/sponzorshipTypeForm.html',
-          controller: function($scope){
+          controller: function($scope) {
             $scope.addSponzorshipType = function() {
               vm.event.sponzorshipTypes.push({
                 kind: $scope.newSponzorshipType.kind,
@@ -150,11 +205,11 @@
           }
         });
       };
-      vm.addTaskForm = function(s){
+      vm.addTaskForm = function(s) {
         $mdDialog.show({
           clickOutsideToClose: true,
           templateUrl: 'scripts/organizers-event-add/taskForm.html',
-          controller: function($scope){
+          controller: function($scope) {
             $scope.addTask = function() {
               s.perkTasks.push({
                 title: $scope.newTask.title,
@@ -165,7 +220,7 @@
           }
         });
       };
-      vm.removeTask = function(indexSponzorship, indexTask){
+      vm.removeTask = function(indexSponzorship, indexTask) {
         vm.event.sponzorshipTypes[indexSponzorship].perkTasks.splice(indexTask, 1);
       };
       //this function adds a SponzorshipType to the new event form
@@ -173,7 +228,192 @@
         vm.event.sponzorshipTypes.splice(index, 1);
       };
 
-      vm.setEventData();//Here Starts the Callback
+      //-----------------------------------------------------------//
+      //EVENTBRITE FUNCTIONALITY
+      //-----------------------------------------------------------//
+
+      vm.connectEventbrite = function() {
+        $mdDialog.show({
+          clickOutsideToClose: true,
+          templateUrl: 'scripts/organizers-event-add/eventbrite-dialog.html',
+          controller: function($scope) {
+            $scope.getEventbriteEvents = function(accessToken) {
+              $scope.loadingEventbriteEvents = true;
+              eventbriteRequest.getEventbriteEvents(accessToken)
+                .success(function(data, head) {
+                  $scope.loadingEventbriteEvents = false;
+                  $scope.eventbriteEvents = data.events;
+                }).error(function(data) {
+                  $scope.loadingEventbriteEvents = false;
+                  $scope.errorLoadingEventbriteEvents = true;
+                });
+            };
+            $scope.prefillEventFromEvenbrite = function(e) {
+              vm.event.title = e.name.text;
+              vm.event.description = e.description.text;
+              vm.event.starts = new Date(e.start.local).getTime();
+              vm.event.ends = new Date(e.end.local).getTime();
+              vm.event.privacy = 0;
+              vm.event.image = e.logo.url;
+              //----------------------------------------------
+              var auxDate = new Date(vm.event.starts);
+              var parseMinutes = auxDate.getMinutes() > 9 ? auxDate.getMinutes() : '0' + auxDate.getMinutes();
+              var parseSeconds = auxDate.getSeconds() > 9 ? auxDate.getSeconds() : '0' + auxDate.getSeconds();
+              var parseHours = auxDate.getHours() > 9 ? auxDate.getHours() : '0' + auxDate.getHours();
+              vm.event.startsAux = {
+                year: auxDate.getUTCFullYear(),
+                month: auxDate.getMonth() + 1,
+                day: auxDate.getDate(),
+                hour: parseHours + ':' + parseMinutes + ':' + parseSeconds
+              };
+              var auxDate2 = new Date(vm.event.ends);
+              var parseMinutes2 = auxDate2.getMinutes() > 9 ? auxDate2.getMinutes() : '0' + auxDate2.getMinutes();
+              var parseSeconds2 = auxDate2.getSeconds() > 9 ? auxDate2.getSeconds() : '0' + auxDate2.getSeconds();
+              var parseHours2 = auxDate2.getHours() > 9 ? auxDate2.getHours() : '0' + auxDate2.getHours();
+              vm.event.endsAux = {
+                year: auxDate2.getUTCFullYear(),
+                month: auxDate2.getMonth() + 1,
+                day: auxDate2.getDate(),
+                hour: parseHours2 + ':' + parseMinutes2 + ':' + parseSeconds2
+              };
+              $mdDialog.hide();
+            };
+            $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
+            $scope.connectingToEventbrite = true;
+            var currentTime = new Date().getTime();
+            if ($localStorage.eventBriteBearedExpirationTime && currentTime < $localStorage.eventBriteBearedExpirationTime) {
+              $scope.connectedToEventbrite = true;
+              $scope.connectingToEventbrite = false;
+              $scope.errorConnectingToEventbrite = false;
+              $scope.getEventbriteEvents($localStorage.eventBriteBeared);
+            } else {
+              eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
+                var response = JSON.parse(jsonize(data.response));
+                if (response.error) {
+                  $scope.connectedToEventbrite = false;
+                  $scope.connectingToEventbrite = false;
+                  $scope.errorConnectingToEventbrite = true;
+                } else {
+                  $scope.connectedToEventbrite = true;
+                  $scope.connectingToEventbrite = false;
+                  $scope.errorConnectingToEventbrite = false;
+                  $localStorage.eventBriteBeared = response.access_token;
+                  $localStorage.eventBriteBearedExpirationTime = new Date().getTime() + 3600000;
+                  $scope.getEventbriteEvents($localStorage.eventBriteBeared);
+                }
+              });
+            }
+          }
+        });
+      };
+
+      //-----------------------------------------------------------//
+      //MEETUP FUNCTIONALITY
+      //-----------------------------------------------------------//
+
+      vm.connectMeetup = function() {
+        $mdDialog.show({
+          clickOutsideToClose: true,
+          templateUrl: 'scripts/organizers-event-add/meetup-dialog.html',
+          controller: function($scope) {
+
+            $scope.getMeetupGroups = function(accessToken) {
+              $scope.loadingMeetupEvents = true;
+              eventbriteRequest.getMeetupGroups(accessToken)
+                .success(function(data) {
+                  $scope.loadingMeetupEvents = false;
+                  $scope.meetupEvents = JSON.parse(data.response);
+                  console.log($scope.meetupEvents);
+                }).error(function(data) {
+                  $scope.loadingMeetupEvents = false;
+                  $scope.errorLoadingMeetupEvents = true;
+                });
+            };
+
+            $scope.prefillEventFromMeetup = function(e) {
+              vm.event.title = e.name;
+              vm.event.description = e.description;
+              vm.event.starts = new Date(e.time);
+              var dataTime = new Date(e.time);
+              var timer = parseInt(1 * 2 * 60 * 60 * 1000);
+              var dataExpDate = new Date(dataTime.getTime() + timer);
+              vm.event.ends = new Date(dataExpDate);
+              vm.event.privacy = 0;
+              var auxDate = new Date(vm.event.starts);
+              var parseMinutes = auxDate.getMinutes() > 9 ? auxDate.getMinutes() : '0' + auxDate.getMinutes();
+              var parseSeconds = auxDate.getSeconds() > 9 ? auxDate.getSeconds() : '0' + auxDate.getSeconds();
+              var parseHours = auxDate.getHours() > 9 ? auxDate.getHours() : '0' + auxDate.getHours();
+              vm.event.startsAux = {
+                year: auxDate.getUTCFullYear(),
+                month: auxDate.getMonth() + 1,
+                day: auxDate.getDate(),
+                hour: parseHours + ':' + parseMinutes + ':' + parseSeconds
+              };
+              var auxDate2 = new Date(vm.event.ends);
+              var parseMinutes2 = auxDate2.getMinutes() > 9 ? auxDate2.getMinutes() : '0' + auxDate2.getMinutes();
+              var parseSeconds2 = auxDate2.getSeconds() > 9 ? auxDate2.getSeconds() : '0' + auxDate2.getSeconds();
+              var parseHours2 = auxDate2.getHours() > 9 ? auxDate2.getHours() : '0' + auxDate2.getHours();
+              vm.event.endsAux = {
+                year: auxDate2.getUTCFullYear(),
+                month: auxDate2.getMonth() + 1,
+                day: auxDate2.getDate(),
+                hour: parseHours2 + ':' + parseMinutes2 + ':' + parseSeconds2
+              };
+              $mdDialog.hide();
+            };
+
+            $scope.MEETUPAPIKEY = $rootScope.getConstants().MEETUPAPIKEY;
+            $scope.MEETUPREDIRECTURL = $rootScope.getConstants().MEETUPREDIRECTURL;
+            $scope.connectingToMeetup = true;
+            var currentTime = new Date().getTime();
+
+            if ($localStorage.meetupBeared && $localStorage.meetupBearedExpirationTime > currentTime) {
+              $scope.connectedToMeetup = true;
+              $scope.connectingToMeetup = false;
+              $scope.errorConnectingToMeetup = false;
+              $scope.getMeetupGroups($localStorage.meetupBeared);
+            } else {
+              eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
+                var response = JSON.parse(jsonize(data.response));
+                if (response.error) {
+                  $scope.connectedToMeetup = false;
+                  $scope.connectingToMeetup = false;
+                  $scope.errorConnectingToMeetup = true;
+                } else {
+                  $scope.connectedToMeetup = true;
+                  $scope.connectingToMeetup = false;
+                  $scope.errorConnectingToMeetup = false;
+                  $localStorage.meetupBeared = response.access_token;
+                  $localStorage.meetupBearedExpirationTime = new Date().getTime() + 3600000;
+                  $scope.getMeetupGroups(response.access_token);
+                }
+              });
+            }
+          }
+        });
+      };
+      vm.importSelection = function() {
+        $mdDialog.show({
+          clickOutsideToClose: true,
+          templateUrl: 'scripts/organizers-event-add/import-dialog.html',
+          controller: function($scope) {
+            $scope.a = function() {
+              vm.connectEventbrite();
+              $mdDialog.hide();
+            }
+            $scope.b = function() {
+              vm.connectMeetup();
+              $mdDialog.hide();
+            };
+          }
+        });
+      }
+      vm.setEventData(); //Here Starts the Callback
+      if ($routeParams.eventBriteCode) {
+        vm.connectEventbrite();
+      } else if ($routeParams.meetupCode) {
+        vm.connectMeetup();
+      }
     }
   }
   angular.module('sponzorme').controller('OrganizersEventAddController', OrganizersEventAddController);

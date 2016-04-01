@@ -212,6 +212,16 @@
         controller: 'OrganizersEventAddController',
         controllerAs: 'oeac'
       })
+      .when('/eventbrite/:eventBriteCode', {
+        templateUrl: 'scripts/organizers-event-add/add.html',
+        controller: 'OrganizersEventAddController',
+        controllerAs: 'oeac'
+      })
+      .when('/meetup/:meetupCode', {
+        templateUrl: 'scripts/organizers-event-add/add.html',
+        controller: 'OrganizersEventAddController',
+        controllerAs: 'oeac'
+      })
       .otherwise({
           redirect:'/login'
       });

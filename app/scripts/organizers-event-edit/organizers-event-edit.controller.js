@@ -129,7 +129,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
             }
             else{
               dialogRequest.closeLoading();
-              console.log("error", err);
             }
           });
         }
