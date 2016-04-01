@@ -9,8 +9,8 @@
       var host = window.location.hostname; // Get the host
       if (host.indexOf('localhost') > -1) { //Localhost
         return {
-          //'URL': 'http://local.api.com/',
-          'URL': 'https://apilocal.sponzor.me/',
+          'URL': 'http://local.api.com/',
+          //'URL': 'https://apilocal.sponzor.me/',
           'XOOMRATE': parseFloat(4.99),
           'FEE': parseFloat(0.1),
           'PAYPALCOMPLETERETURNURL': 'http://www.sponzor.me/thank-you/',
