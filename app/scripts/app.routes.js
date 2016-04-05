@@ -227,6 +227,11 @@
         controller: 'OrganizersSponzorProfileController',
         controllerAs: 'ospc'
       })
+      .when('/organizers/chat/sponzorship/:sponzorshipId',{
+        templateUrl: 'scripts/organizers-chat/chat.html',
+        controller: 'OrganizersChatController',
+        controllerAs: 'occ'
+      })
       .otherwise({
           redirect:'/login'
       });

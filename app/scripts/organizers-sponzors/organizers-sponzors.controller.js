@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES) {
+  function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES, $mdDialog) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.statuses = SPONZORSHIPSTATUSES;
@@ -101,12 +101,12 @@
         });
       };
       vm.seeCause = function(sponzorship) {
-        vm.cause = sponzorship.cause;
-        ngDialog.open({
-          template: 'views/templates/sponzorshipCauseDialog.html',
-          showClose: false,
-          scope: $scope
-        });
+        $mdDialog.show(
+          $mdDialog.alert()
+          .clickOutsideToClose(true)
+          .title($translate.instant('organizersSponzors.sponsorshipCause'))
+          .textContent(sponzorship.cause)
+          .ok('Ok!'));
       };
     }
   }

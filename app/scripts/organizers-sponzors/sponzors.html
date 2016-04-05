@@ -47,13 +47,13 @@
                 </md-tooltip>
                 <md-icon>assignment</md-icon>
               </a>
-              <a href="" ng-click="seeCause(item)">
+              <a href="" ng-click="osc.seeCause(item)">
                 <md-tooltip md-direction="bottom">
                   {{'organizersSponzors.seeCause'|translate}}
                 </md-tooltip>
                 <md-icon>help</md-icon>
               </a>
-              <a href="#/organizers/chat/sponzorship/{{$index}}">
+              <a href="#/organizers/chat/sponzorship/{{item.id}}">
                 <md-tooltip md-direction="bottom">
                   {{'organizersSponzors.chatWithSponzor'|translate}}
                 </md-tooltip>

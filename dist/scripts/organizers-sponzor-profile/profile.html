@@ -45,16 +45,16 @@
               </figcaption>
             </figure>
           </div>
-          <div flex="100" layout="row">
-            <md-input-container layout="column" flex="100" layout-align="center center">
+          <div flex="100" layout="row" layout-align="start center">
+            <md-input-container layout="column" flex="40" layout-align="center center">
               <label translate>organizerSponsorProfile.sponsorAmount</label>
               <img src="images/balance-blue.svg" />
               <span><strong>${{ospc.amount}} USD</strong></span>
             </md-input-container>
-            <md-input-container layout="column" flex="100" layout-align="center center">
+            <md-input-container layout="column"  flex="40" layout-align="center center">
               <label translate>organizerSponsorProfile.sponsorshipQuantity</label>
               <img src="images/event-blue.svg" />
-              <span><strong>{{ospc.sponsor.user.sponzorships.length}} {{'organizerSponsorProfile.sponsorshipQuantity'|translate}}</strong></span>
+              <span><strong>{{ospc.sponsor.user.sponzorships.length}} {{'organizerSponsorProfile.sponsorships'|translate}}</strong></span>
             </md-input-container>
           </div>
           <div flex="100" layout="row" layout-align="start center">
@@ -66,7 +66,7 @@
             </md-input-container>
           </div>
           <div flex="100" layout="row" layout-align="start center">
-            <md-input-container>
+            <md-input-container flex="100" layout="column" layout-align="start center">
               <label translate>organizerSponsorProfile.events</label>
             </md-input-container>
           </div>
@@ -77,7 +77,7 @@
               <p>{{s.event.title}}</p>
             </div>
             <div class="textContainer">
-              <strong>{{s.perk.usd}} USD</strong>
+              <strong>{{s.perk.usd|currency}} USD</strong>
             </div>
           </div>
         </md-content>
