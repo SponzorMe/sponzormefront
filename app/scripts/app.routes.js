@@ -222,6 +222,11 @@
         controller: 'OrganizersEventAddController',
         controllerAs: 'oeac'
       })
+      .when('/organizers/sponzor/profile/:idSponsor',{
+        templateUrl: 'scripts/organizers-sponzor-profile/profile.html',
+        controller: 'OrganizersSponzorProfileController',
+        controllerAs: 'ospc'
+      })
       .otherwise({
           redirect:'/login'
       });

@@ -10,7 +10,7 @@
       if($routeParams.id){
         vm.currentSponzorship = vm.user.sponzorships[$routeParams.id];
         vm.currentSponzorship.event.ends = new Date(vm.currentSponzorship.event.ends).getTime();
-        console.log(vm.currentSponzorship);
+
       }
 
       //This function displays a popup to Show Download calendar

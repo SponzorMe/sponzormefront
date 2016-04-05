@@ -57,7 +57,7 @@ a.no-style {
 }
 /**
  *  Background & Color classes
- *  
+ *
  */
 
 .bg-white {
@@ -115,7 +115,7 @@ a.no-style {
 
 /**
  *  Helper classes
- *  
+ *
  */
 .text-bold {
   font-weight: bold;
@@ -143,7 +143,7 @@ html {
 
 /**
  *  Helper classes for inputs
- *  
+ *
  */
 
 md-input-container.organizers:not(.md-input-invalid).md-input-focused label {
@@ -214,7 +214,7 @@ md-checkbox.sponzors.md-checked {
     .md-icon {
         background: $color_active;
     }
-}        
+}
 
 md-checkbox.sponzors.md-default-theme.md-checked.md-focused .md-container:before, md-checkbox.md-checked.md-focused .md-container:before {
     background-color: rgba(240, 146, 0, 0.26);
@@ -240,6 +240,23 @@ md-checkbox.organizers.md-default-theme.md-checked.md-focused .md-container:befo
 
 md-checkbox.organizers.md-default-theme .md-icon, md-checkbox .md-icon {
   border-color: $color_blue_brighter!important;
+}
+
+.stars2 i{
+  width: 24px !important;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+.material-icons.md-128 {
+  font-size: 128px;
+}
+.material-icons.md-12 {
+  font-size: 24px;
+}
+.material-icons.orange600 {
+  color: #FB8C00;
 }
 
 

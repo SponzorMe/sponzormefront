@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  function SponzorsEventController($scope, $mdSidenav, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, ngDialog, sponzorshipRequest, $rootScope, dialogRequest) {
+  function SponzorsEventController($scope, $mdSidenav, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest) {
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
     vm.currentEvent = vm.events[$routeParams.eventId];
