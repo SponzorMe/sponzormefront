@@ -1,6 +1,6 @@
 # Sponzor.Me FrontEnd Project
 
-[![Circle CI](https://circleci.com/gh/carlosrojaso/sponzormefront/tree/master.svg?style=svg)](https://circleci.com/gh/carlosrojaso/sponzormefront/tree/master)
+[![Circle CI](https://circleci.com/gh/carlosrojaso/sponzormefront/tree/master.svg?style=svg&circle-token=834b06a11eb0c6514d0ac04ace0fd1b0fce10c5b)](https://circleci.com/gh/carlosrojaso/sponzormefront/tree/master)
 
 ## Getting Started Development
 
