@@ -1,67 +1,132 @@
-.contentContainer {
-    .chatContainer {
-        background: $color_gray2;
-        height: 600px;
-        padding: 2em;
-        overflow-y: scroll;
+.cont {
+  .chatContainer {
+    background: $color_gray2;
+    padding: 2em;
 
-        &>.texts {
-            &>h2 {
-                text-transform: uppercase;
-                margin-right: 0.3em;
-            }
-            &>p {
-                color: $color_blue_brighter;
-            }
-        }
-
-        &>.messagesContainer {
-            &>.messageOrg {
-                margin: 1em 0;
-                background: $color_white;
-                padding: 0.5em 1em;
-                border-radius: 0.5em;
-                box-shadow: 2px 2px 2px 2px #888888;
-
-                &>.userImage  {
-                    margin: 0 1em 0 0;
-
-                    &>div{
-                      text-align: center;
-                        &>img {
-                            border-radius: 50%;
-                            border: 3px solid $color_blue_darker;
-                            max-width: 50px;
-                            max-height: 50px;
-                            width: 50px;
-                            height: 50px;
-                        }
-
-                        &>p {
-                            margin: 0;
-                            color: $color_gray_text;
-                        }
-                    }
-                }
-            }
-
-            &>.messageOrg.messageSponzor {
-                &>.userImage  {
-                    &>div{
-                        &>img {
-                            border: 3px solid $color_active;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    &>md-input-container{
-      background-color: $color_white;
-      margin: 0 auto;
-      &>md-icon {
-          color: $color_blue_brighter;
+    & > .messagesContainer {
+      margin: 1em 0;
+      background: $color_white;
+      padding: 0.5em 1em;
+      overflow-y: scroll;
+      height: 600px;
+      &>md-input-container{
+        &>md-icon{
           cursor: pointer;
+        }
+        &>md-icon:hover{
+          color: $color_blue_darker;
+        }
+      }
+      &>div{
+        margin: 1em 0;
+        background: $color_white;
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        box-shadow: 2px 2px 2px 2px #888888;
+        & > .userImage {
+          margin: 0 1em 0 0;
+          & > .imageOrg {
+            text-align: center;
+            & > img {
+              border-radius: 50%;
+              border: 3px solid $color_blue_darker;
+              max-width: 50px;
+              max-height: 50px;
+              width: 50px;
+              height: 50px;
+            }
+            & > p {
+              margin: 0;
+              color: $color_gray_text;
+            }
+          }
+          & > .imageSpo {
+            text-align: center;
+            & > img {
+              border-radius: 50%;
+              border: 3px solid $color-orange;
+              max-width: 50px;
+              max-height: 50px;
+              width: 50px;
+              height: 50px;
+            }
+            & > p {
+              margin: 0;
+              color: $color_gray_text;
+            }
+          }
+        }
       }
     }
+    & > .texts {
+      & > h2 {
+        text-transform: uppercase;
+        margin-right: 0.3em;
+      }
+      & > p {
+        color: $color_blue_brighter;
+      }
+    }
+  }
+}
+.contentContainer {
+  .chatContainer {
+    background: $color_gray2;
+    height: 600px;
+    padding: 2em;
+    overflow-y: scroll;
+    & > .texts {
+      & > h2 {
+        text-transform: uppercase;
+        margin-right: 0.3em;
+      }
+      & > p {
+        color: $color_blue_brighter;
+      }
+    }
+    & > .messagesContainer {
+      & > .messageOrg {
+        margin: 1em 0;
+        background: $color_white;
+        padding: 0.5em 1em;
+        border-radius: 0.5em;
+        box-shadow: 2px 2px 2px 2px #888888;
+        & > .userImage {
+          margin: 0 1em 0 0;
+          & > div {
+            text-align: center;
+            & > img {
+              border-radius: 50%;
+              border: 3px solid $color_blue_darker;
+              max-width: 50px;
+              max-height: 50px;
+              width: 50px;
+              height: 50px;
+            }
+            & > p {
+              margin: 0;
+              color: $color_gray_text;
+            }
+          }
+        }
+      }
+      & > .messageOrg.messageSponzor {
+        & > .userImage {
+          & > div {
+            & > img {
+              border: 3px solid $color_active;
+            }
+          }
+        }
+      }
+    }
+  }
+  & > md-input-container {
+    background-color: $color_white;
+    margin: 0 auto;
+    & > md-icon {
+      color: $color_blue_brighter;
+      cursor: pointer;
+    }
+  }
 }

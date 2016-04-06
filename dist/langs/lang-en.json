@@ -292,7 +292,8 @@
     "event": "Event",
     "sponzorshipType": "Type",
     "status": "Status",
-    "actions": "Actions"
+    "actions": "Actions",
+    "sponsorshipCause":"Cause of Sponsorship"
   },
   "invite": {
     "title": "Invite a Friend",

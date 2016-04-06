@@ -26,6 +26,11 @@
         controller: 'LogoutController'
       })
 
+      .when('/sign', {
+        templateUrl: 'scripts/sponzors-create/create.html',
+        controller: 'SponzorsCreateController'
+      })
+
       //Sponzors
       .when('/sponzors/dashboard', {
         templateUrl: 'scripts/sponzors-main/main.html',
