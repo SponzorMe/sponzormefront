@@ -237,6 +237,11 @@
         controller: 'OrganizersChatController',
         controllerAs: 'occ'
       })
+      .when('/organizers/sponsor/rating/:sponzorshipId',{
+        templateUrl: 'scripts/organizers-sponzor-rating/rating.html',
+        controller: 'OrganizersSponsorRatingController',
+        controllerAs: 'osrc'
+      })
       .otherwise({
           redirect:'/login'
       });

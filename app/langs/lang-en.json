@@ -308,7 +308,8 @@
   "rate": {
     "organizerName": "Organizer Name: ",
     "rateOrganizer": "Rate Organizer",
-    "rateDescription": "In this form you will have the opportunity to assign a tate to event's organizer, based on the experience during this sponzorship. Likewise you can make suggests and comments",
+    "rateDescription": "In this form you will have the opportunity to assign a rate to event's organizer, based on the experience during this sponzorship. Likewise you can make suggests and comments",
+    "sponzorName": "Sponsor Name",
     "event": "Event/Sponzorship",
     "chooseOneOption": "Choose an option",
     "whichOther": "Which other?",
