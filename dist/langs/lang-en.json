@@ -293,7 +293,9 @@
     "sponzorshipType": "Type",
     "status": "Status",
     "actions": "Actions",
-    "sponsorshipCause":"Cause of Sponsorship"
+    "sponsorshipCause":"Cause of Sponsorship",
+    "acceptSponzorship": "Accept this Sponzorship Request",
+    "unacceptSponzorship": "Unnacept the Sponzorship Request"
   },
   "invite": {
     "title": "Invite a Friend",
@@ -373,7 +375,8 @@
   "organizersTasks": {
     "task": "Task",
     "sponzor": "Sponzor",
-    "status": "Status"
+    "status": "Status",
+    "addOrEditTasks": "Add or Edit Tasks"
   },
   "editEvent": {
     "perkInstructions": "In the Sponzorship types you will have the chance to put the  amounts for each one and you can put the taks included.",

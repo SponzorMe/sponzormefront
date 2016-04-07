@@ -20,12 +20,12 @@
           vm.user.sponzorships_like_organizer[i].loading = false;
           vm.currentSponzorship = vm.user.sponzorships_like_organizer[i];
           $localStorage.user = JSON.stringify(vm.user);
-          firebaseNotification = {
+          vm.firebaseNotification = {
             to: vm.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, vm.currentSponzorship.sponzor.id);
+          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
         }, function errorCallback() {
           vm.user.sponzorships_like_organizer[i].loading = false;
           dialogRequest.showDialog('error', 'problem', false);
@@ -44,12 +44,12 @@
           vm.user.sponzorships_like_organizer[i].loading = false;
           vm.currentSponzorship = vm.user.sponzorships_like_organizer[i];
           $localStorage.user = JSON.stringify(vm.user);
-          firebaseNotification = {
+          vm.firebaseNotification = {
             to: vm.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipRejected') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, vm.currentSponzorship.sponzor.id);
+          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
         }, function errorCallback(response) {
           vm.user.sponzorships_like_organizer[i].loading = false;
           dialogRequest.showDialog('error', 'problem', false);
@@ -60,12 +60,12 @@
         dialogRequest.showLoading();
         vm.currentSponzorship = vm.user.sponzorships_like_organizer[i];
         sponzorshipRequest.deleteSponzorship(sponzorshipId).then(function successCallback() {
-          firebaseNotification = {
+          vm.firebaseNotification = {
             to: vm.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.SponzorshipDeleted') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, vm.currentSponzorship.sponzor.id);
+          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
           vm.user.sponzorships_like_organizer.splice(i, 1);
           $localStorage.user = JSON.stringify(vm.user);
           vm.getTasks(vm.user.sponzorships_like_organizer[0]);
@@ -86,12 +86,12 @@
           vm.currentSponzorship.task_sponzor[index].loading = false;
           vm.currentSponzorship.task_sponzor[index].status = status;
 
-          firebaseNotification = {
+          vm.firebaseNotification = {
             to: vm.currentSponzorship.sponzor.id,
             text: $translate.instant('NOTIFICATIONS.TaskChanged1') + vm.currentSponzorship.task_sponzor[index].task.title + $translate.instant('NOTIFICATIONS.TaskChanged2') + vm.currentSponzorship.event.title+$translate.instant('NOTIFICATIONS.TaskChanged3'),
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, vm.currentSponzorship.sponzor.id);
+          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
 
           $localStorage.user = JSON.stringify(vm.user);
 

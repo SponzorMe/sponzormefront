@@ -18,7 +18,7 @@
       <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
         <md-button>
           <md-icon aria-label="b">mode_edit</md-icon>
-          <a href="#/organizers/event/{{$index}}" translate>organizersMain.editEvent</a>
+          <a href="#/organizers/event/{{event.id}}" translate>organizersMain.editEvent</a>
         </md-button>
       </md-menu-item>
       <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
@@ -30,7 +30,7 @@
       <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
         <md-button>
           <md-icon aria-label="b">assignment</md-icon>
-          <a href="#/organizers/event/tasks/{{$index}}" translate>organizersMain.seeTasks</a>
+          <a href="#/organizers/event/tasks/{{event.id}}" translate>organizersMain.seeTasks</a>
         </md-button>
       </md-menu-item>
       <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">

@@ -35,6 +35,19 @@
               </p>
             </a>
             <div class="actionSponzor" layout="row" layout-align="center center" flex="30">
+              <a href="" ng-click="osc.acceptSponzorship(item.id, $index)" ng-if="item.status < 1 && !item.loading">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.acceptSponzorship'|translate}}
+                </md-tooltip>
+                <md-icon>thumb_up</md-icon>
+              </a>
+              <a href="" ng-if="item.loading"> <md-progress-circular md-mode="indeterminate"></md-progress-circular></a>
+              <a href="" ng-click="osc.unacceptSponzorship(item.id, $index)" ng-if="item.status >= 1 && !item.loading">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.unacceptSponzorship'|translate}}
+                </md-tooltip>
+                <md-icon>thumb_down</md-icon>
+              </a>
               <a href="#/organizers/sponzor/profile/{{item.sponzor.id}}">
                 <md-tooltip md-direction="bottom">
                   {{'organizersSponzors.seeSponzorProfile'|translate}}
@@ -59,7 +72,7 @@
                 </md-tooltip>
                 <md-icon>comment</md-icon>
               </a>
-              <a href="#/organizers/sponsor/rating/{{item.id}}" ng-if="item.rated_organizer == 0">
+              <a href="#/organizers/sponsor/rating/{{$index}}" ng-if="item.rated_organizer == 0">
                 <md-tooltip md-direction="bottom">
                   {{'organizersSponzors.rateSponzor'|translate}}
                 </md-tooltip>

@@ -6,6 +6,7 @@
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
       vm.activePerk = function(p, e) {
+        console.log(e);
         for (var i = 0; i < e.perks.length; i++) {
           e.perks[i].active = false;
         }
@@ -35,7 +36,6 @@
       vm.currentTaskIndex = $routeParams.id;
     }
   }
-  angular.module('sponzorme')
-    .controller('OrganizersTasksController', OrganizersTasksController);
+  angular.module('sponzorme').controller('OrganizersTasksController', OrganizersTasksController);
 
 })();

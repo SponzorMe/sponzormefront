@@ -55,7 +55,12 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
             vm.user = JSON.parse($localStorage.user);
             response.data.event.starts = new Date(response.data.event.starts).getTime();
             response.data.event.ends = new Date(response.data.event.ends).getTime();
-            vm.user.events[$routeParams.eventId]=response.data.event;
+            vm.user.events = vm.user.events.filter(function(e){
+              if(e.id === $routeParams.eventId){
+                e = response.data.event;
+              }
+              return e;
+            });
             $localStorage.user = JSON.stringify(vm.user);
             dialogRequest.closeLoading();
             dialogRequest.showDialog('success', 'eventCreatedSuccesfully', '/organizers/dashboard');
@@ -183,7 +188,11 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       };
       vm.user = JSON.parse($localStorage.user);
       vm.setEventData();
-      vm.event = vm.user.events[$routeParams.eventId];
+      vm.event = vm.user.events.filter(function(e){
+        if(e.id === $routeParams.eventId){
+          return e;
+        }
+      })[0];
       vm.event.tasksToDelete = [];
       vm.event.sponzorshipTypesToDelete = [];
       var auxDate = new Date(vm.event.starts);
@@ -196,7 +205,12 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         day:auxDate.getDate(),
         hour:parseHours+':'+ parseMinutes +':'+parseSeconds
       };
-      vm.event = vm.user.events[$routeParams.eventId];
+      vm.event = vm.user.events.filter(function(e){
+        if(e.id === $routeParams.eventId){
+          return e;
+        }
+      })[0];
+
       var auxDate2 = new Date(vm.event.ends);
       var parseMinutes2 = auxDate2.getMinutes()>9 ? auxDate2.getMinutes(): '0'+auxDate2.getMinutes();
       var parseSeconds2 = auxDate2.getSeconds()>9 ? auxDate2.getSeconds(): '0'+auxDate2.getSeconds();

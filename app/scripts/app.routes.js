@@ -242,6 +242,11 @@
         controller: 'OrganizersSponsorRatingController',
         controllerAs: 'osrc'
       })
+      .when('/organizers/event/tasks/:eventId',{
+        templateUrl: 'scripts/organizers-event-tasks/tasks.html',
+        controller: 'OrganizersEventTasksController',
+        controllerAs: 'oetc'
+      })
       .otherwise({
           redirect:'/login'
       });
