@@ -176,7 +176,7 @@ gulp.task('serve', function() {
     'app/views/*.html',
     'app/views/**/*.html',
     'app/**/*.html',
-    'langs/*.json',
+    'app/langs/*.json',
     'app/*.js',
     'app/**/*.js',
     'app/**/**/*.js',

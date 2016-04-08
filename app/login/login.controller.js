@@ -80,15 +80,12 @@
             }
           } else {
             dialogRequest.closeLoading();
-            ngDialog.open({
-              template: 'views/templates/unactivatedAccountDialog.html',
-              showClose: false
-            });
+            dialogRequest.showDialog('error', 'unactivatedAccount', false);
           }
         }, function errorCallback() {
           $scope.loagind = false;
           dialogRequest.closeLoading();
-          dialogRequest.showDialog('error', 'dialog.invalidCredentials', false);
+          dialogRequest.showDialog('error', 'invalidCredentials', false);
         });
       }
     };
@@ -96,14 +93,10 @@
       dialogRequest.showLoading();
       loginRequest.tryActivation($routeParams.token).success(function() {
         dialogRequest.closeLoading();
-        dialogRequest.showDialog('success', 'dialog.activationSuccess', false);
+        dialogRequest.showDialog('success', 'activationSuccess', false);
       }).error(function() {
         dialogRequest.closeLoading();
-        ngDialog.open({
-          template: 'views/templates/errorActivationDialog.html',
-          showClose: false,
-          scope: $scope
-        });
+        dialogRequest.showDialog('error', 'errorActivation', false);
       });
     };
     if($routeParams.token){

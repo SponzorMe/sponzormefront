@@ -28,14 +28,19 @@
       "congratulations": "Congratulations",
       "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
       "organizerRateSuccesfuly": "You have rated the organizer successfuly",
-      "eventCreatedSuccesfully": "The event was created succesfuly"
+      "eventCreatedSuccesfully": "The event was created succesfuly",
+      "activationSuccess": "Your account has been successfuly activated"
     },
     "error": {
       "title": "We've got a litte problem",
       "invalidRate": "The given information is valid, please fill out all field and try again",
       "errorEditingAccountInfo": "We can not update the info",
       "invalidInterestSelection": "Invalid interest Selection",
-      "errorCreatingEvent": "The event can not be created"
+      "errorCreatingEvent": "The event can not be created",
+      "alreadySponzoring": "You are already Sponzoring this event.",
+      "unactivatedAccount": "You can not login because your account is not activated yet.",
+      "invalidCredentials": "The entered credentials are wrong, please try again.",
+      "errorActivation": "We can not activated your account"
     }
   },
   "footer": {
