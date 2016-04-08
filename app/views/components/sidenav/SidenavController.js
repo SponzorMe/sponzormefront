@@ -7,78 +7,78 @@
     
     var statesSponzors = {
         'dashboard': [
-          'scripts/sponzors-main/main.html',
-          'scripts/sponzors-outstanding/outstanding.html',
-          'scripts/event.html'
+          'sponzors-main/main.html',
+          'sponzors-outstanding/outstanding.html',
+          'event.html'
         ],
 
         'sponzoring': [
-          'scripts/sponzors-sponzoring/sponzorships.html',
-          'scripts/sponzors-sponzoring/sponzorshipsId.html'
+          'sponzors-sponzoring/sponzorships.html',
+          'sponzors-sponzoring/sponzorshipsId.html'
         ],
 
         'tasks': [
-          'scripts/sponzors-tasks/tasks.html',
-          'scripts/sponzors-tasks/taskId.html',
-          'scripts/sponzors-tasks/tasks_create.html'
+          'sponzors-tasks/tasks.html',
+          'sponzors-tasks/taskId.html',
+          'sponzors-tasks/tasks_create.html'
         ],
 
         'notifications': [
-          'scripts/sponzors-notifications/notifications.html',
-          'scripts/sponzors-notifications/detail.html',
-          'scripts/sponzors-notifications/readed.html',
-          'scripts/sponzors-notifications/importants.html'
+          'sponzors-notifications/notifications.html',
+          'sponzors-notifications/detail.html',
+          'sponzors-notifications/readed.html',
+          'sponzors-notifications/importants.html'
         ],
 
         'settings': [
-          'scripts/sponzors-settings/profile.html',
-          'scripts/sponzors-settings/preferences.html',
-          'scripts/sponzors-settings/ratings.html'
+          'sponzors-settings/profile.html',
+          'sponzors-settings/preferences.html',
+          'sponzors-settings/ratings.html'
         ],
 
         'saved': [
-          'scripts/sponzors-saved/saved.html'
+          'sponzors-saved/saved.html'
         ]
     };
 
     var statesOrganizers = {
         'dashboard': [
-          'scripts/organizers-main/main.html', 
-          'scripts/organizers-balance/balance.html', 
-          'scripts/organizers-sponzors/sponzors.html', 
-          'scripts/organizers-main/record.html'
+          'organizers-main/main.html', 
+          'organizers-balance/balance.html', 
+          'organizers-sponzors/sponzors.html', 
+          'organizers-main/record.html'
         ],
 
         'sponzoring': [
-          'scripts/organizers/dashboard/organizerships.html',
-          'scripts/organizers/dashboard/organizershipsId.html'
+          'organizers/dashboard/organizerships.html',
+          'organizers/dashboard/organizershipsId.html'
         ],
 
         'following': [
-          'scripts/organizers/dashboard/following.html'
+          'organizers/dashboard/following.html'
         ],
 
         'news': [
-          'scripts/organizers-news/news.html'
+          'organizers-news/news.html'
         ],
 
         'tasks': [
-          'scripts/organizers-tasks/tasks.html',
-          'scripts/organizers-tasks/tasks_create.html',
-          'scripts/organizers-tasks/taskId.html'
+          'organizers-tasks/tasks.html',
+          'organizers-tasks/tasks_create.html',
+          'organizers-tasks/taskId.html'
         ],
 
         'notifications': [
-          'scripts/organizers-notifications/detail.html',
-          'scripts/organizers-notifications/importants.html',
-          'scripts/organizers-notifications/notifications.html',
-          'scripts/organizers-notifications/readed.html'
+          'organizers-notifications/detail.html',
+          'organizers-notifications/importants.html',
+          'organizers-notifications/notifications.html',
+          'organizers-notifications/readed.html'
         ],
 
         'settings': [
-          'scripts/organizers-settings/profile.html',
-          'scripts/organizers-settings/preferences.html',
-          'scripts/organizers-settings/rate.html'
+          'organizers-settings/profile.html',
+          'organizers-settings/preferences.html',
+          'organizers-settings/rate.html'
         ]
     };
 

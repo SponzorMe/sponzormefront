@@ -110,7 +110,7 @@ gulp.task('templates', function(){
    conditionals: true,
    spare: true
  };
- return gulp.src(['app/scripts/**/*.html'])
+ return gulp.src(['app/**/*.html'])
    .pipe(gulp.dest('dist/scripts'));
 });
 
@@ -145,7 +145,8 @@ gulp.task('clean', function() {
       force: true
     }));
 });
-gulp.task('build', ['styles', 'main', 'views', 'templates', 'images', 'langs', 'extras']);
+
+gulp.task('build', ['styles', 'videos', 'main', 'views', 'templates', 'images', 'langs', 'extras']);
 
 gulp.task('success', ['clean'], function() {
   gulp.start('build');
@@ -175,9 +176,9 @@ gulp.task('serve', function() {
     'app/views/*.html',
     'app/views/**/*.html',
     'langs/*.json',
-    'app/scripts/*.js',
-    'app/scripts/**/*.js',
-    'app/scripts/**/**/*.js',
+    'app/*.js',
+    'app/**/*.js',
+    'app/**/**/*.js',
     'app/styles/*.css',
     'bower_components/*'
   ]).on('change', browserSync.reload);
@@ -196,7 +197,7 @@ gulp.task('serve:dist', function() {
   });
 });
 gulp.task('lint', function() {
-  return gulp.src(['app/scripts/**/*.js', 'app/scripts/**/**/*.js', 'app/scripts/*.js'])
+  return gulp.src(['app/**/*.js', 'app/**/**/*.js', 'app/*.js'])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());

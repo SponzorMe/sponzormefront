@@ -1,0 +1,52 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+        </div>
+        <organizers-navbar></organizers-navbar>
+      </div>
+      <responsive-nav></responsive-nav>
+      <!-- Content starts -->
+      <div class="contentContainer" flex>
+        <div class="eventItem tasks" layout="column" layout-gt-xs="column" ng-repeat="item in otc.user.eventTasks.events">
+          <div ng-class="{'blueEvent normal':!item.show, 'blueEvent toggle': item.show}" layout="row" flex="100">
+            <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">format_list_bulleted</md-icon>
+            <span class="leftText" flex="85" flex-gt-xs="85">{{item.title}}</span>
+            <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">add</md-icon>
+          </div>
+          <div class="toggeable" layout="row" ng-show="item.show" layout-align="start center" flex="100">
+            <div class="menuItemContainer" layout="row" flex="100">
+              <div class="menuItem" layout="column" ng-repeat="p in item.perks">
+                <a href="" ng-click="otc.activePerk(p, item)" md-ink-ripple translate>{{p.kind}}</a>
+                <div class="border" ng-class="{'active': p.active}"></div>
+              </div>
+            </div>
+          </div>
+          <div class="tasksHead" ng-show="item.show && otc.showHeader">
+            <div layout="row" flex="100">
+              <div layout="column" flex="33" translate layout-align="center center">organizersTasks.task</div>
+              <div layout="column" flex="33" translate layout-align="center center">organizersTasks.sponzor</div>
+              <div layout="column" flex="33" translate layout-align="center center">organizersTasks.status</div>
+            </div>
+          </div>
+          <div class="tasksContent" ng-show="p.active && item.show" ng-repeat="p in item.perks">
+            <div ng-repeat="t in p.sponzor_tasks" ng-if="t.task.type == 0" layout="row" flex="100">
+              <div layout="column" flex="33" layout-align="center center">{{t.task.title}}</div>
+              <div layout="column" flex="33" layout-align="center center">{{t.sponzor.name}}</div>
+              <div layout="column" flex="33" layout-align="center center">
+                <md-progress-circular md-mode="indeterminate" ng-if="t.loading"></md-progress-circular>
+                <md-checkbox ng-click="otc.changeStatus(t)" class="md-primary" ng-checked="t.status == 1" aria-label="{{t.title}}" ng-if="!t.loading"></md-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
