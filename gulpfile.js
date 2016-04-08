@@ -172,9 +172,10 @@ gulp.task('serve', function() {
   });
 
   gulp.watch([
-    'app/*.html',
+    'app/index.html',
     'app/views/*.html',
     'app/views/**/*.html',
+    'app/**/*.html',
     'langs/*.json',
     'app/*.js',
     'app/**/*.js',
@@ -183,7 +184,6 @@ gulp.task('serve', function() {
     'bower_components/*'
   ]).on('change', browserSync.reload);
   gulp.watch(paths.sass, ['styles']);
-  gulp.watch('app/fonts/**/*', ['fonts']);
   gulp.watch('bower.json');
 });
 

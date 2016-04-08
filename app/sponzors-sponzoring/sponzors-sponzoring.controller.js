@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog) {
+  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $sce) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.todayDate = new Date().getTime();
@@ -8,9 +8,10 @@
       vm.statuses = SPONZORSHIPSTATUSES;
 
       if($routeParams.id){
+
         vm.currentSponzorship = vm.user.sponzorships[$routeParams.id];
         vm.currentSponzorship.event.ends = new Date(vm.currentSponzorship.event.ends).getTime();
-
+        vm.currentSponzorship.event.description = $sce.trustAsHtml(vm.currentSponzorship.event.description);
       }
 
       //This function displays a popup to Show Download calendar

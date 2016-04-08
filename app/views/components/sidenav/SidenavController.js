@@ -3,8 +3,7 @@
   function SidenavController($scope, $mdSidenav, $route) {
     //mock starts
     var route = $route.current.loadedTemplateUrl;
-    console.log('This is the route:', route);
-    
+
     var statesSponzors = {
         'dashboard': [
           'sponzors-main/main.html',
@@ -43,9 +42,9 @@
 
     var statesOrganizers = {
         'dashboard': [
-          'organizers-main/main.html', 
-          'organizers-balance/balance.html', 
-          'organizers-sponzors/sponzors.html', 
+          'organizers-main/main.html',
+          'organizers-balance/balance.html',
+          'organizers-sponzors/sponzors.html',
           'organizers-main/record.html'
         ],
 
