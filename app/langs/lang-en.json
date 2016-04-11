@@ -24,12 +24,15 @@
     "invalidNewPassword": "Invalid new Password",
     "passwordChangedSuccesfully": "Password Changed Successfuly",
     "loadingTitle": "Loading...",
+    "registerCompleted": "Your account has been created, please check your E-mail",
     "success": {
       "congratulations": "Congratulations",
       "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
       "organizerRateSuccesfuly": "You have rated the organizer successfuly",
       "eventCreatedSuccesfully": "The event was created succesfuly",
-      "activationSuccess": "Your account has been successfuly activated"
+      "activationSuccess": "Your account has been successfuly activated",
+      "inviteFiendEmailSent": "We have invited your friend successfuly"
+
     },
     "error": {
       "title": "We've got a litte problem",
@@ -40,7 +43,14 @@
       "alreadySponzoring": "You are already Sponzoring this event.",
       "unactivatedAccount": "You can not login because your account is not activated yet.",
       "invalidCredentials": "The entered credentials are wrong, please try again.",
-      "errorActivation": "We can not activated your account"
+      "errorActivation": "We can not activated your account",
+      "errorRegisterPasswordNoEmpty": "The password can not be empty",
+      "errorRegisterShortPassword": "Password is too short",
+      "errorRegisterPasswordNoMatch": "Passwords does not match",
+      "errorRegisterName": "Firstname needs to be completed",
+      "errorRegisterLastname": "Lastname needs to be completed",
+      "errorRegisterPassword": "Invalid password",
+      "errorEmailAlreadyTaken": "The entered email is already taken"
     }
   },
   "footer": {
@@ -68,6 +78,34 @@
     "confirmPassword": "Confirm Password",
     "completeFields": "Please complete the info below",
     "asSponzor": "Sponzor",
+    "tellUsAboutYou": "Tell us something about you",
+    "pleaseEnterYourEmail": "Please enter your E-mail",
+    "pleaseEnterYourFirstName": "Please enter your First Name",
+    "pleaseEnterYourLastName": "Please enter your Last Name",
+    "pleaseEnterPassword": "Please enter a password",
+    "pleaseConfirmPassword": "Please confirm the password",
+    "next": "Next",
+    "age": "Age",
+    "gender": "Gender",
+    "men": "Male",
+    "woman": "Female",
+    "other": "Other",
+    "preferLanguage": "Prefer Language",
+    "location": "Location",
+    "areYouInterestedIn": "Are you interested in?",
+    "pleaseEnterYourAge": "Please enter your Age",
+    "pleaseChooseASex": "Please choose your Sex",
+    "pleaseChooseLanguage": "Please choose a prefer language",
+    "pleaseEnterLocation": "Plase enter a location"
+  },
+  "createOrganizer": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "E-mail",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "completeFields": "Please complete the info below",
+    "asOrganizer": "Organizer",
     "tellUsAboutYou": "Tell us something about you",
     "pleaseEnterYourEmail": "Please enter your E-mail",
     "pleaseEnterYourFirstName": "Please enter your First Name",

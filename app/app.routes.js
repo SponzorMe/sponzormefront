@@ -2,37 +2,55 @@
  * @author Sebastian Gomez
  * @version 0.1
  */
-(function () {
+(function() {
   'use strict';
-  angular.module('sponzorme').config(['$routeProvider', function ($routeProvider) {
+  angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
     $routeProvider
 
-    .when('', {
+      .when('', {
       templateUrl: 'login/login.html',
-      controller: 'LoginController'
-      })
-      .when('/', {
-        templateUrl: 'login/login.html',
-        controller: 'LoginController'
-      })
+      controller: 'LoginController',
+      controllerAs: 'lc'
+    })
 
-      .when('/login', {
-        templateUrl: 'login/login.html',
-        controller: 'LoginController'
-      })
+    .when('/', {
+      templateUrl: 'login/login.html',
+      controller: 'LoginController',
+      controllerAs: 'lc'
+    })
 
-      .when('/logout', {
-        templateUrl: 'login/login.html',
-        controller: 'LogoutController'
-      })
+    .when('/login', {
+      templateUrl: 'login/login.html',
+      controller: 'LoginController',
+      controllerAs: 'lc'
+    })
 
-      .when('/sign', {
-        templateUrl: 'sponzors-create/create.html',
-        controller: 'SponzorsCreateController'
-      })
+    .when('/logout', {
+      templateUrl: 'login/login.html',
+      controller: 'LogoutController',
+      controllerAs: 'lc'
+    })
 
-      //Sponzors
-      .when('/sponzors/dashboard', {
+    .when('/sign-up/sponsor', {
+      templateUrl: 'sponzors-create/create.html',
+      controller: 'SponzorsCreateController',
+      controllerAs: 'scc'
+    })
+
+    .when('/sign-up/organizer', {
+      templateUrl: 'organizers-create/create.html',
+      controller: 'OrganizersCreateController',
+      controllerAs: 'occ'
+    })
+
+    .when('/activation/:token', {
+      templateUrl: 'login/login.html',
+      controller: 'LoginController',
+      controllerAs: 'lc'
+    })
+
+    //Sponzors
+    .when('/sponzors/dashboard', {
         templateUrl: 'sponzors-main/main.html',
         controller: 'SponzorsEventMainController',
         controllerAs: 'semc'
@@ -128,8 +146,8 @@
         controllerAs: 'src'
       })
 
-      //Organizers
-      .when('/organizers/dashboard', {
+    //Organizers
+    .when('/organizers/dashboard', {
         templateUrl: 'organizers-main/main.html',
         controller: 'OrganizersMainController',
         controllerAs: 'omc'
@@ -176,20 +194,20 @@
         controllerAs: 'onc'
       })
       //Organizers Settings
-      .when('/organizers/settings/profile',{
-          templateUrl: 'organizers-settings/profile.html',
-          controller: 'OrganizersProfileController',
-          controllerAs: 'opc'
+      .when('/organizers/settings/profile', {
+        templateUrl: 'organizers-settings/profile.html',
+        controller: 'OrganizersProfileController',
+        controllerAs: 'opc'
       })
-      .when('/organizers/settings/preferences',{
-          templateUrl: 'organizers-settings/preferences.html',
-          controller: 'OrganizersPreferencesController',
-          controllerAs: 'opc'
+      .when('/organizers/settings/preferences', {
+        templateUrl: 'organizers-settings/preferences.html',
+        controller: 'OrganizersPreferencesController',
+        controllerAs: 'opc'
       })
-      .when('/organizers/settings/rate',{
-          templateUrl: 'organizers-settings/rate.html',
-          controller: 'OrganizersRateController',
-          controllerAs: 'orc'
+      .when('/organizers/settings/rate', {
+        templateUrl: 'organizers-settings/rate.html',
+        controller: 'OrganizersRateController',
+        controllerAs: 'orc'
       })
       //Organizers Tasks
       .when('/organizers/tasks', {
@@ -227,28 +245,33 @@
         controller: 'OrganizersEventAddController',
         controllerAs: 'oeac'
       })
-      .when('/organizers/sponzor/profile/:idSponsor',{
+      .when('/organizers/sponzor/profile/:idSponsor', {
         templateUrl: 'organizers-sponzor-profile/profile.html',
         controller: 'OrganizersSponzorProfileController',
         controllerAs: 'ospc'
       })
-      .when('/organizers/chat/sponzorship/:sponzorshipId',{
+      .when('/organizers/chat/sponzorship/:sponzorshipId', {
         templateUrl: 'organizers-chat/chat.html',
         controller: 'OrganizersChatController',
         controllerAs: 'occ'
       })
-      .when('/organizers/sponsor/rating/:sponzorshipId',{
+      .when('/organizers/sponsor/rating/:sponzorshipId', {
         templateUrl: 'organizers-sponzor-rating/rating.html',
         controller: 'OrganizersSponsorRatingController',
         controllerAs: 'osrc'
       })
-      .when('/organizers/event/tasks/:eventId',{
+      .when('/organizers/event/tasks/:eventId', {
         templateUrl: 'organizers-event-tasks/tasks.html',
         controller: 'OrganizersEventTasksController',
         controllerAs: 'oetc'
       })
+      .when('/organizers/invite', {
+        templateUrl: 'organizers-invite/invite.html',
+        controller: 'OrganizersInviteController',
+        controllerAs: 'oic'
+      })
       .otherwise({
-          redirect:'/login'
+        redirect: '/login'
       });
   }]);
 })();
