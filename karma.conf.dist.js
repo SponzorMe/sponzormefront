@@ -2,13 +2,13 @@ module.exports = function(config) {
   config.set({
     basePath: './',
     files: [
-      'dist/scripts/vendor.js',
-      'dist/scripts/scripts.js',
+      'dist/vendor.js',
+      'dist/scripts.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'tests/**/*.js'
     ],
     preprocessors: {
-      'dist/scripts/*.js': 'coverage'
+      'dist/*.js': 'coverage'
     },
     singleRun: true,
     autowatch: false,

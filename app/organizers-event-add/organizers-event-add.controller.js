@@ -68,7 +68,7 @@
         text: 'December'
       }];
       vm.days = [];
-      for (var i = 0; i <= 31; i++) {
+      for (var i = 1; i <= 31; i++) {
         vm.days.push(i)
       }; //Days
       vm.event = {
