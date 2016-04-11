@@ -41,7 +41,6 @@ module.exports = function(config) {
       'app/app.constants.js',
       'app/app.enviroments.js',
       'app/app.directives.js',
-      'app/app.filters.js',
       'app/app.routes.js',
       'app/app.run.js',
       'app/app.providers.js',

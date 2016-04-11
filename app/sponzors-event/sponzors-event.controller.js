@@ -40,7 +40,7 @@
           text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + vm.currentEvent.title,
           link: '#/organizers/sponzors'
         };
-        $rootScope.sendFirebaseNotification(firebaseNotification, vm.currentEvent.user_organizer.id);
+        $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
         dialogRequest.closeLoading();
         dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {

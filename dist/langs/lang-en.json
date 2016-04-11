@@ -30,7 +30,9 @@
       "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
       "organizerRateSuccesfuly": "You have rated the organizer successfuly",
       "eventCreatedSuccesfully": "The event was created succesfuly",
-      "activationSuccess": "Your account has been successfuly activated"
+      "activationSuccess": "Your account has been successfuly activated",
+      "inviteFiendEmailSent": "We have invited your friend successfuly"
+
     },
     "error": {
       "title": "We've got a litte problem",
