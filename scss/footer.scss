@@ -6,13 +6,17 @@
     position: relative;
     width: 100%;
     z-index: 61;
-    
+
+
     @media screen and (max-width: $media_step1_bottom) {
         position: relative;
     }
 
     div.lang-buttons {
+        padding-left:7%;
         margin-bottom: 0.5em;
+        width: 100%;
+        display: inline-block;
         &>button.lang-button {
             background: $color_white;
             border-radius: 50%;
@@ -28,7 +32,7 @@
                 margin-right: 0;
             }
         }
-        
+
         button.lang-button-active {
             @extend button.lang-button;
                 background: $color_green;
@@ -38,8 +42,8 @@
 
     .footer-links {
         margin-bottom: 0.5em;
-
-        &>a {
+        padding-right: 7%;
+        &>div a {
             margin-right: 1.5em;
             &:last-child {
                 margin-right: 0;
