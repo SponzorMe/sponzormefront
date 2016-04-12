@@ -268,9 +268,14 @@ body {
 
                 &>.event {
                     padding: 0;
-                    margin-bottom: 5%;
+                    margin-bottom: 2.5%;
                     position: relative;
+                    margin-left: 2.5%;
                     top: 0;
+
+                    &:last-child {
+                      margin-left: 0;
+                    }
 
                     &>.eventImage {
                         background-color: $color_active;
