@@ -1,25 +1,25 @@
 <md-content class="footerContainer">
-  <div layout-gt-sm="row" layout="column" layout-align="space-around center">
-    <div class="lang-buttons" layout="row">
+  <div layout-gt-sm="row" layout="row">
+    <div class="lang-buttons" layout="row" layout-align="start center" layout-gt-xs="column" flex="50">
       <button ng-class="{'lang-button button-light':currentLanguage()!=='es', 'lang-button-active button-light':currentLanguage()=='es'}" md-ink-ripple ng-click="changeLanguage('es')">ES</button>
       <button ng-class="{'lang-button button-light':currentLanguage()!=='en', 'lang-button-active button-light':currentLanguage()=='en'}" md-ink-ripple ng-click="changeLanguage('en')">EN</button>
       <button ng-class="{'lang-button button-light':currentLanguage()!=='pt', 'lang-button-active button-light':currentLanguage()=='pt'}" md-ink-ripple ng-click="changeLanguage('pt')">PT</button>
     </div>
-    <div class="footer-links" layout="column" layout-gt-xs="row" layout-align="center center">
+    <div class="footer-links" layout="row" layout-gt-xs="column" layout-align="end center" flex="50">
         <div>
           <a href="http://www.sponzor.me/testimonials-3/?lang=es" ng-if="currentLanguage()=='es'" class="no-style color-black" md-ink-ripple translate>footer.testimonials</a>
           <a href="http://www.sponzor.me/testimonials-3/" ng-if="currentLanguage()=='en'" class="no-style color-black" md-ink-ripple translate>footer.testimonials</a>
           <a href="http://www.sponzor.me/testimonials-3/?lang=pt-br" ng-if="currentLanguage()=='pt'" class="no-style color-black" md-ink-ripple translate>footer.testimonials</a>
-        
+
 
         <a href="http://www.sponzor.me/support-3/" ng-if="currentLanguage()=='en'" target="_blank" class="no-style color-black" md-ink-ripple translate>footer.support</a>
         <a href="http://www.sponzor.me/support-3/?lang=es" ng-if="currentLanguage()=='es'" target="_blank" class="no-style color-black" md-ink-ripple translate>footer.support</a>
         <a href="http://www.sponzor.me/support-3/?lang=pt-br" ng-if="currentLanguage()=='pt'" target="_blank" class="no-style color-black" md-ink-ripple translate>footer.support</a>
-        
+
         <a href="http://blogen.sponzor.me/" target="_blank" ng-if="currentLanguage()=='en'" class="no-style color-black" md-ink-ripple translate>footer.blog</a>
         <a href="http://bloges.sponzor.me/" target="_blank" ng-if="currentLanguage()=='es'" class="no-style color-black" md-ink-ripple translate>footer.blog</a>
         <a href="http://blogpt.sponzor.me/" target="_blank" ng-if="currentLanguage()=='pt'" class="no-style color-black" md-ink-ripple translate>footer.blog</a>
-        
+
         <a href="http://www.sponzor.me/privacy/?lang=es" target="_blank" ng-if="currentLanguage()=='es'" class="no-style color-black" md-ink-ripple translate>footer.privacy</a>
         <a href="http://www.sponzor.me/privacy/" target="_blank" ng-if="currentLanguage()=='en'" class="no-style color-black" md-ink-ripple translate>footer.privacy</a>
         <a href="http://www.sponzor.me/privacy/?lang=pt-br" target="_blank" ng-if="currentLanguage()=='pt'" class="no-style color-black" md-ink-ripple translate>footer.privacy</a>

@@ -32,7 +32,9 @@
             $scope.redirect = redirect;
             $scope.closeDialog = function(){
               $mdDialog.hide();
+              $mdDialog.cancel();
               if(redirect){
+                console.log('Con redirect', redirect);
                 $location.path(redirect);
               }
             };

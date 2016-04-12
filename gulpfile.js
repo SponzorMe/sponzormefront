@@ -88,7 +88,7 @@ gulp.task('sass', function(done) {
 gulp.task('main', function() {
   gulp.src(['app/index.html'])
     .pipe(usemin({
-      vendorCss: [minifyCSS(), 'concat'],
+      vendorCss: [minifyCSS({zindex: false}), 'concat'],
       appCss: [minifyCSS(), 'concat'],
       vendorJs: [ngAnnotate(), uglify(), 'concat'],
       appJs: [ngAnnotate(), uglify(), 'concat'],
@@ -111,7 +111,7 @@ gulp.task('templates', function(){
    spare: true
  };
  return gulp.src(['app/**/*.html'])
-   .pipe(gulp.dest('dist/scripts'));
+   .pipe(gulp.dest('dist/'));
 });
 
 
@@ -122,7 +122,7 @@ gulp.task('images', function() {
 });
 
 gulp.task('extras', function() {
-  return gulp.src(['app/favicon.ico', 'app/robots.txt', 'app.yaml', 'app/video/*.*'])
+  return gulp.src(['app/favicon.ico', 'app/robots.txt', 'app.yaml'])
     .pipe(gulp.dest('dist/'));
 });
 
@@ -170,7 +170,6 @@ gulp.task('serve', function() {
       }
     }
   });
-
   gulp.watch([
     'app/index.html',
     'app/views/*.html',

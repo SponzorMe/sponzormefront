@@ -13,8 +13,8 @@
       <responsive-nav></responsive-nav>
       <!-- Content starts -->
       <div class="contentContainer" flex>
-        <div class="eventItem tasks" layout="column" layout-gt-xs="column" ng-repeat="item in otc.user.eventTasks.events">
-          <div ng-class="{'blueEvent normal':!item.show, 'blueEvent toggle': item.show}" layout="row" flex="100">
+        <div class="eventItem tasks" layout="column" layout-gt-xs="column" ng-repeat="item in otc.user.eventTasks.events" ng-if="!item.noShow">
+          <div ng-if="item" ng-class="{'blueEvent normal':!item.show, 'blueEvent toggle': item.show}" layout="row" flex="100">
             <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">format_list_bulleted</md-icon>
             <span class="leftText" flex="85" flex-gt-xs="85">{{item.title}}</span>
             <md-icon flex="12" flex-gt-xs="12" ng-click="item.show = !item.show">add</md-icon>

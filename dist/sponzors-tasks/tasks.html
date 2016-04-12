@@ -1,0 +1,57 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <sponzors-navbar></sponzors-navbar>
+      <!-- Content starts -->
+      <div class="contentContainer" flex>
+        <div class="notifyDetailContainer" layout="column">
+          <a href="#/sponzors/tasks/create" class="addTask" layout="row" layout-align="start center">
+            <md-button class="md-fab">
+              <md-icon>add</md-icon>
+            </md-button>
+            <p translate>tasks.add</p>
+          </a>
+          <div class="eventTitles" layout="row" hide-xs>
+            <div flex="40" layout="row" layout-align="center center">
+              <p>{{'tasks.event'|translate}} / {{'tasks.taskTitle'|translate}}</p>
+            </div>
+            <div flex="30" layout="row" layout-align="center center" >
+              <p translate>tasks.owner</p>
+            </div>
+            <div flex="30" layout="row" layout-align="center center" >
+              <p translate>tasks.status</p>
+            </div>
+          </div>
+          <div class="eventItem tasks" layout="column" layout-gt-xs="row" ng-repeat="item in stc.tasks">
+            <a class="eventInfo" href="#/sponzors/task/{{$index}}" layout="row" flex="100">
+              <div class="taskIcon" flex="5" layout="row" layout-align="start center">
+                <md-icon ng-if="item.status == 0">timer</md-icon>
+                <md-icon ng-if="item.status == 1">done_all</md-icon>
+                </div>
+                <div class="eventTitle" flex="35" layout="column" layout-align="center start">
+                  <div>
+                    <span class="taskSubtitle" translate>{{'tasks.event'|translate}}:</span>
+                    <span>{{item.event.title}}</span>
+                  </div>
+                <div>
+                  <span class="taskSubtitle" translate>{{'tasks.task'|translate}}:</span>
+                  <span>{{item.task.title}}</span>
+                </div>
+              </div>
+              <p class="eventSponzorType" flex="30" layout="row" layout-align="center center" ng-if="item.task.type == 1" translate>tasks.you</p>
+              <p class="eventSponzorType" flex="30" layout="row" layout-align="center center" ng-if="item.task.type == 0" translate>tasks.organizer</p>
+              <p class="eventStatus" flex="30" layout="row" layout-align="center center">
+                {{'tasks.status'+item.status|translate}}
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./views/components/footer/footer.html'"></div>
+</div>
