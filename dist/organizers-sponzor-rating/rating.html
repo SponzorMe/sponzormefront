@@ -1,9 +1,9 @@
 <div layout-fill class="allContainer">
   <!-- navbar 1 -->
-  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
   <md-content class="superContainer" layout="row">
     <!-- sidenav -->
-    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
     <div class="cont" flex>
       <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <div class="menuItemContainer" layout="row">
@@ -126,5 +126,5 @@
       </div>
     </div>
   </md-content>
-  <div ng-include src="'./views/components/footer/footer.html'"></div>
+  <div ng-include src="'./components/footer/footer.html'"></div>
   </div

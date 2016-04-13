@@ -1,10 +1,10 @@
 <div layout-fill class="allContainer">
 
   <!-- navbar 1 -->
-  <div ng-include src="'./views/components/navbar/navbar.html'"></div>
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
   <md-content class="superContainer" layout="row">
     <!-- sidenav -->
-    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./views/components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
 
     <div class="cont" flex>
     <navbar-settings active="preferences"></navbar-settings>
@@ -91,5 +91,5 @@
       </div>
     </div>
   </md-content>
-  <div ng-include src="'./views/components/footer/footer.html'"></div>
+  <div ng-include src="'./components/footer/footer.html'"></div>
 </div>
