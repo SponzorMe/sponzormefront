@@ -7,16 +7,16 @@
           var parentEl = angular.element(document.body);
           $mdDialog.show({
             parent: parentEl,
-            templateUrl: 'views/templates/loadingDialog.html'
+            templateUrl: 'dialogs/loadingDialog.html'
           });
         },
         showDialog: function(type, message, redirect){
           var parentEl = angular.element(document.body);
           if(type === 'error'){
-            var template = 'views/templates/errorDialog.html';
+            var template = 'dialogs/errorDialog.html';
           }
           else if(type === 'success'){
-            var template = 'views/templates/successDialog.html';
+            var template = 'dialogs/successDialog.html';
           }
           $mdDialog.show({
             parent: parentEl,
