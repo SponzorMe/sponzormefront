@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersMainController($scope, $translate, $localStorage, $rootScope) {
+  function OrganizersMainController($scope, $translate, $localStorage, $rootScope, $location) {
 
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -29,6 +29,11 @@
       vm.deleteEvent = function(eventIndex){
         //something to do
       };
+
+      vm.toEdit = function(eventId){
+        $location.path('/organizers/event/'+eventId);
+      };
+
       vm.todayDate = new Date().getTime();
       vm.user = JSON.parse($localStorage.user);
       vm.user.balance = 0;
