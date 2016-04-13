@@ -46,21 +46,6 @@
             </div>
           </div>
         </md-input-container>
-        <md-input-container layout="column" layout-align="center center" flex="100" ng-show="newSponzorshipType.totalQuantity">
-          <label>{{'addEvent.reservedQuantity'|translate}}</label>
-          <input type="number" form="addSponzorshipTypeForm" ng-model="newSponzorshipType.reservedQuantity" min="0" max="{{newSponzorshipType.totalQuantity}}" name="reservedQuantity" required/>
-          <div ng-messages="addSponzorshipTypeForm.reservedQuantity.$error">
-            <div ng-message="required">
-              {{'addEvent.sponzorshipTypeForm.reservedQuantityRequired'|translate}}
-            </div>
-            <div ng-message="max">
-              {{'addEvent.sponzorshipTypeForm.reservedQuantityMaxExceeded'|translate}}
-            </div>
-            <div ng-message="min">
-              {{'addEvent.sponzorshipTypeForm.reservedQuantityMinExceeded'|translate}}
-            </div>
-          </div>
-        </md-input-container>
       </form>
     </div>
   </md-dialog-content>

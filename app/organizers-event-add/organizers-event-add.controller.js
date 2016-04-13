@@ -197,7 +197,7 @@
                 kind: $scope.newSponzorshipType.kind,
                 usd: $scope.newSponzorshipType.usd,
                 total_quantity: $scope.newSponzorshipType.totalQuantity,
-                reserved_quantity: $scope.newSponzorshipType.reservedQuantity,
+                reserved_quantity: 0,
                 perkTasks: []
               });
               $mdDialog.hide();

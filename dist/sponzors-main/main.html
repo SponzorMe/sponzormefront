@@ -50,8 +50,11 @@
         <div class="eventsContainer">
           <div>
             <md-content class="events md-whiteframe-2dp" layout="row" layout-align="start center" layout-padding layout-wrap flex>
-              <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events | filter: smc.search" flex-gt-xs="30">
+              <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events | filter: smc.search" flex-gt-xs="30" ng-if="smc.events.length">
                 <event-item></event-item>
+              </div>
+              <div ng-if="!smc.events.length">
+                  <h3>{{smc.events.length}} {{'sponzorsMain.foundEvents'|translate}}</h3>
               </div>
             </md-content>
           </div>
