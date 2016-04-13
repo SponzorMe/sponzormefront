@@ -1,6 +1,6 @@
 <div class="event md-whiteframe-2dp" flex-gt-sm="30">
   <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
-    <img ng-src="{{event.image}}" alt="event">
+    <img ng-src="{{event.image}}" alt="event" ng-click="omc.toEdit(event.id)"/>
     <p>{{event.title}}</p>
   </div>
   <div class="textContainer">
