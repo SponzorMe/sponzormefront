@@ -150,7 +150,8 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
                 total_quantity: $scope.newSponzorshipType.totalQuantity,
                 reserved_quantity: 0,
                 id: '-1',
-                tasks: []
+                tasks: [],
+                show: true
               });
               $mdDialog.hide();
             };
