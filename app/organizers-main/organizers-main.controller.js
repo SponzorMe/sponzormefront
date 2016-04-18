@@ -28,6 +28,7 @@
 
       vm.hasSponzorship = function(idEvent) {
         for (var i = 0; i < vm.user.sponzorships_like_organizer.length; i++) {
+          console.log(idEvent, vm.user.sponzorships_like_organizer[i].event.id);
           if (vm.user.sponzorships_like_organizer[i].event.id === idEvent) {
             return true;
           }
@@ -35,25 +36,31 @@
         return false;
       };
 
-      vm.deleteEvent = function(eventIndex){
+      vm.deleteEvent = function(eventId){
         dialogRequest.showLoading();
-        if (vm.hasSponzorship(vm.user.events[eventIndex].id)) {
+        var i = 0;
+        var eventIndex = vm.user.events.filter(function(e){
+          if(e.id === eventId){
+            console.log(e, eventIndex, vm.user.events[i].id);
+            console.log(vm.hasSponzorship(vm.user.events[i].id));
+            return i;
+          }
+          else{
+            i++;
+          }
+        });
+        if (vm.hasSponzorship(eventId)) {
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'eventDeletingEventHasSponzorship', false);
         } else {
-          eventRequest.deleteEvent(vm.user.events[eventIndex].id).then(function successCallback(response) {
+          console.log('antesDeBorrar', eventId);
+          eventRequest.deleteEvent(eventId).then(function successCallback(response) {
             vm.user.events.splice(eventIndex, 1);
             $localStorage.user = JSON.stringify(vm.user);
-            if (vm.user.events[0]) {
-              vm.currentEvent = vm.user.events[0];
-              vm.currentPerk = vm.user.events[0].perks[0];
-            } else {
-              vm.currentEvent = {};
-              vm.currentPerk = {};
-            }
+            vm.user = JSON.parse($localStorage.user);
             dialogRequest.closeLoading();
-            dialogRequest.showDialog('success', 'eventDeleteSuccesfully', false);
-          }, function errorCallback(response) {
+            dialogRequest.showDialog('success', 'eventDeleteSuccesfully',false);
+          }, function errorCallback() {
             dialogRequest.closeLoading();
             dialogRequest.showDialog('error', 'errorDeletingEvent', false);
           });
