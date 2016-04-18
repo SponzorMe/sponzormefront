@@ -1,6 +1,6 @@
 'use strict';
 (function() {
-  function OrganizersMainController($scope, $translate, $localStorage, $rootScope, $location) {
+  function OrganizersMainController($scope, $translate, $localStorage, $rootScope, $location, dialogRequest, eventRequest) {
 
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -26,8 +26,38 @@
         //something to do
       };
 
+      vm.hasSponzorship = function(idEvent) {
+        for (var i = 0; i < vm.user.sponzorships_like_organizer.length; i++) {
+          if (vm.user.sponzorships_like_organizer[i].event.id === idEvent) {
+            return true;
+          }
+        }
+        return false;
+      };
+
       vm.deleteEvent = function(eventIndex){
-        //something to do
+        dialogRequest.showLoading();
+        if (vm.hasSponzorship(vm.user.events[eventIndex].id)) {
+          dialogRequest.closeLoading();
+          dialogRequest.showDialog('error', 'eventDeletingEventHasSponzorship', false);
+        } else {
+          eventRequest.deleteEvent(vm.user.events[eventIndex].id).then(function successCallback(response) {
+            vm.user.events.splice(eventIndex, 1);
+            $localStorage.user = JSON.stringify(vm.user);
+            if (vm.user.events[0]) {
+              vm.currentEvent = vm.user.events[0];
+              vm.currentPerk = vm.user.events[0].perks[0];
+            } else {
+              vm.currentEvent = {};
+              vm.currentPerk = {};
+            }
+            dialogRequest.closeLoading();
+            dialogRequest.showDialog('success', 'eventDeleteSuccesfully', false);
+          }, function errorCallback(response) {
+            dialogRequest.closeLoading();
+            dialogRequest.showDialog('error', 'errorDeletingEvent', false);
+          });
+        }
       };
 
       vm.toEdit = function(eventId){
