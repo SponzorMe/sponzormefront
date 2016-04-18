@@ -52,20 +52,16 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           vm.event.perks = vm.event.sponzorshipTypes;
           vm.event.organizer = $localStorage.id;
           eventRequest.editEventPut(vm.event.id, vm.event).then(function successCallback(response) {
-            vm.user = JSON.parse($localStorage.user);
             response.data.event.starts = new Date(response.data.event.starts).getTime();
             response.data.event.ends = new Date(response.data.event.ends).getTime();
-            vm.user.events = vm.user.events.filter(function(e){
-              if(e.id === $routeParams.eventId){
-                e = response.data.event;
+            for(var i=0; i<vm.user.events.length;i++){
+              if(vm.user.events[i].id === $routeParams.eventId){
+                vm.user.events[i] = response.data.event;
               }
-              return e;
-            });
+            }
             $localStorage.user = JSON.stringify(vm.user);
             dialogRequest.closeLoading();
-            dialogRequest.showDialog('success', 'eventCreatedSuccesfully', '/organizers/dashboard');
-            vm.event = {};
-
+            dialogRequest.showDialog('success', 'eventEditedSuccesfully', '/organizers/dashboard');
           }, function errorCallback(err) {
             dialogRequest.closeLoading();
             dialogRequest.showDialog('error', 'errorCreatingEvent', false);
@@ -223,7 +219,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         hour:parseHours2+':'+ parseMinutes2 +':'+parseSeconds2
       };
       vm.event.sponzorshipTypes = vm.event.perks;
-      console.log(vm.event);
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);

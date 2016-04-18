@@ -73,6 +73,7 @@
 
       vm.todayDate = new Date().getTime();
       vm.user = JSON.parse($localStorage.user);
+      console.log(vm.user);
       vm.user.balance = 0;
       angular.forEach(vm.user.sponzorships_like_organizer, function(value) {
         if (value.status === '1') {
