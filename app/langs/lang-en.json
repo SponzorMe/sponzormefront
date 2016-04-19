@@ -27,12 +27,13 @@
     "registerCompleted": "Your account has been created, please check your E-mail",
     "success": {
       "congratulations": "Congratulations",
-      "accountInfoEditedSuccessfuly": "Your info has been updated succesfuly",
+      "accountInfoEditedSuccessfuly": "Your info has been updated successfuly",
       "organizerRateSuccesfuly": "You have rated the organizer successfuly",
-      "eventCreatedSuccesfully": "The event was created succesfuly",
+      "eventCreatedSuccesfully": "The event was created successfuly",
       "activationSuccess": "Your account has been successfuly activated",
       "inviteFiendEmailSent": "We have invited your friend successfuly",
-      "eventDeleteSuccesfully": "The event was deleted successfuly"
+      "eventDeleteSuccesfully": "The event was deleted successfuly",
+      "eventEditedSuccesfully": "The event has been updated successfuly"
     },
     "error": {
       "title": "We've got a litte problem",
