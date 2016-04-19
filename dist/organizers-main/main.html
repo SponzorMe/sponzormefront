@@ -72,7 +72,7 @@
                 </div>
               </div>
                 <organizer-event-body
-                ng-repeat="event in omc.user.events | filter: omc.filter" ng-if="event.starts >= omc.todayDate"></organizer-event-body>
+                ng-repeat="event in omc.user.events | filter: omc.filter| orderBy:'starts'" ng-if="event.starts >= omc.todayDate"></organizer-event-body>
             </md-content>
           </div>
         </div>

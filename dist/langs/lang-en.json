@@ -31,8 +31,8 @@
       "organizerRateSuccesfuly": "You have rated the organizer successfuly",
       "eventCreatedSuccesfully": "The event was created succesfuly",
       "activationSuccess": "Your account has been successfuly activated",
-      "inviteFiendEmailSent": "We have invited your friend successfuly"
-
+      "inviteFiendEmailSent": "We have invited your friend successfuly",
+      "eventDeleteSuccesfully": "The event was deleted successfuly"
     },
     "error": {
       "title": "We've got a litte problem",
@@ -50,7 +50,9 @@
       "errorRegisterName": "Firstname needs to be completed",
       "errorRegisterLastname": "Lastname needs to be completed",
       "errorRegisterPassword": "Invalid password",
-      "errorEmailAlreadyTaken": "The entered email is already taken"
+      "errorEmailAlreadyTaken": "The entered email is already taken",
+      "errorDeletingEvent": "We can not delete this event",
+      "eventDeletingEventHasSponzorship": "This event has sponsorships and can not be deleted"
     }
   },
   "footer": {

@@ -35,7 +35,18 @@
               });
             }
             if(response.data.eventTasks){
-              response.data.user.eventTasks = response.data.eventTasks[0];
+              var filteredEvents = [];
+              response.data.eventTasks.filter(function(e){
+                if(e.sponzorship.length){
+                  return e.perks.filter(function(p){
+                    if(p.sponzor_tasks.length){
+                      filteredEvents.push(e);
+                      return e;
+                    }
+                  });
+                }
+              });
+              response.data.user.eventTasks = filteredEvents;
             }
 
             if(response.data.user.events){

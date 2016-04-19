@@ -45,7 +45,7 @@
           <div>
             <md-content class="events" layout="row" layout-align="space-around center" layout-padding layout-wrap flex>
               <organizer-event-body
-              ng-repeat="event in omc.user.events | filter: omc.filter | orderBy: starts" ng-if="event.starts < omc.todayDate"></organizer-event-body>
+              ng-repeat="event in omc.user.events | filter: omc.filter | orderBy: starts| orderBy:'starts'" ng-if="event.starts < omc.todayDate"></organizer-event-body>
             </md-content>
           </div>
         </div>

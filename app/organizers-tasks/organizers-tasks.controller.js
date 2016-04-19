@@ -25,14 +25,13 @@
         };
         taskSponzorRequest.editTaskSponzorPatch(t.id, data).then(function successCallBack(response) {
           t.loading = false;
-          $localStorage.user = JSON.stringify($scope.user);
+          $localStorage.user = JSON.stringify(vm.user);
         }, function errorCallback() {
           t.status = savedStatus;
           t.loading = false;
           dialogRequest.showDialog('error', 'errorUpdatingTaskStatus', false);
         });
       };
-      vm.currentTaskIndex = $routeParams.id;
     }
   }
   angular.module('sponzorme').controller('OrganizersTasksController', OrganizersTasksController);
