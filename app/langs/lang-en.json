@@ -542,5 +542,16 @@
     "sponsorships":"Sponsorships",
     "interests":"Interests",
     "events": "Sponsored Events"
+  },
+  "NOTIFICATIONS":{
+    "NewSponzorshipRequestfor": "You have a new Sponsorship request for the event: ",
+    "SponzorRated": "You have been rated by an Organizer. ",
+    "SponzorshipAproved": "Congratulations, Your Sponsorship has been approved. ",
+    "SponzorshipRejected": "Your Sponsorship has been rejected.",
+    "SponzorshipDeleted": "Your Sponsorship has been deleted. ",
+    "TaskChanged1": "The Status of the task: ",
+    "TaskChanged2": " on the event: ",
+    "TaskChanged3": " has been changed",
+    "OrganizerRated": "You have been rated by an Sponsor. "
   }
 }
