@@ -1,0 +1,80 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <div class="menuItemContainer" layout="row">
+          <a href="#/organizers/notifications" md-ink-ripple>
+            <md-icon aria-label="b">reply</md-icon>
+          </a>
+        </div>
+        <organizers-navbar></organizers-navbar>
+      </div>
+      <responsive-nav></responsive-nav>
+      <!-- Content starts -->
+      <div class="contentContainer">
+
+
+        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
+          <md-content class="notifyDetailElement" layout="column">
+            <div class="detailHeader" layout="row" layout-align="space-between center">
+              <div class="title" layout="column" layout-align="start start">
+                <p class="md-title"> {{onc.currentNotification.text}}</p>
+              </div>
+              <p class="time"> {{onc.currentNotification.date|date:'medium'}} </p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <div class="message">
+              <p>{{onc.currentNotification.text}}</p>
+            </div>
+
+            <md-divider></md-divider>
+
+            <div class="actions" layout="row" layout-align="start center" flex="row" hide-xs hide-sm>
+              <a href="" ng-click="onc.delete(onc.currentNotification.$id)" md-ink-ripple="#f09200" layout="row">
+                <md-icon>delete</md-icon>
+                <p translate>notifications.delete</p>
+              </a>
+              <a href="" ng-click="onc.markAsImportant(onc.currentNotification.$id)" md-ink-ripple="#f09200" layout="row">
+                <md-icon>flag</md-icon>
+                <p translate>notifications.markAsImportant</p>
+              </a>
+            </div>
+
+            <!-- Menu Xs for notification actions -->
+
+            <div class="menuXsNotificationContainer" hide-gt-xs>
+              <md-menu hide-gt-sm>
+                <md-button class="md-icon-button" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+                  <md-icon>dashboard</md-icon>
+                </md-button>
+                <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+                  <md-menu-item class="menuXsItem">
+                    <a href="" ng-click="onc.delete(onc.currentNotification.$id)" md-ink-ripple="#f09200" layout="row">
+                      <md-icon>delete</md-icon>
+                      <p translate>notifications.delete</p>
+                    </a>
+                  </md-menu-item>
+                  <md-menu-item class="menuXsItem">
+                    <a href="" ng-click="onc.markAsImportant(onc.currentNotification.$id)" md-ink-ripple="#f09200" layout="row">
+                      <md-icon>flag</md-icon>
+                      <p translate>notifications.markAsImportant</p>
+                    </a>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+            </div>
+          </md-content>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

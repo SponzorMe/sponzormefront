@@ -1,0 +1,175 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <sponzors-navbar></sponzors-navbar>
+
+      <div class="contentContainer">
+
+        <div class="formRateContainer">
+          <h2 translate>rate.rateOrganizer</h2>
+          <p translate>rate.rateDescription</p>
+          <form class="form" layout-align="start start" id="inviteFriend" name="rateOrganizer">
+            <div layout="row" flex>
+              <figure flex="50" layout="column" layout-align="center center">
+                <img ng-src="{{src.currentSponzorship.organizer.image}}"/>
+              </figure>
+              <div class="userInfo" layout="column" layout-align="center start" flex="50">
+                <label translate>rate.organizerName</label>
+                <span>{{src.currentSponzorship.organizer.name}}</span>
+                <label translate>rate.event</label>
+                <span>{{src.currentSponzorship.event.title}} /
+                  {{src.currentSponzorship.perk.kind}}
+                  - ${{src.currentSponzorship.perk.usd}}</span>
+              </div>
+            </div>
+
+            <div layout="row" flex>
+              <div layout="column" flex="50" layout-align="center center">
+                <input-stars max="5" data-ng-model="src.rating.question0" required></input-stars>
+              </div>
+              <div layout="column" flex="50" layout-align="center start">
+                <label translate>ratingSponzor.question0</label>
+              </div>
+            </div>
+
+            <div class="paddint-top-10" layout="row" flex>
+              <div  layout="column" layout-align="center center">
+                {{ 'ratingSponzor.question1' | translate}}
+              </div>
+              <div layout="column" layout-align="center center">
+                <input-stars max="5" data-ng-model="src.rating.question1"></input-stars>
+              </div>
+            </div>
+
+            <md-input-container layout="column" flex>
+              <div flex="50" layout="column" layout-align="center center">
+                <label for="label">
+                  {{ 'ratingSponzor.question2' | translate}}
+                </label>
+                <input type="text" data-ng-model="src.rating.question2"/>
+              </div>
+            </md-input-container>
+
+            <div class="md-input-container" layout="row" flex>
+              <div  layout="column" layout-align="center center">
+                {{ 'ratingSponzor.question3' | translate}}
+              </div>
+              <div layout="column" layout-align="center center">
+                <input-stars max="5" data-ng-model="src.rating.question3"></input-stars>
+              </div>
+            </div>
+
+            <div class="md-input-container" layout="column" flex>
+              <div  layout="column" layout-align="center start">
+                {{ 'ratingSponzor.question4' | translate}}
+              </div>
+              <div layout="column" layout-align="center start">
+                <md-select data-ng-model="src.rating.question4"  placeholder="{{'rate.chooseOneOption'|translate}}" required>
+                  <md-option value="1">{{'rate.answers.yes'|translate}}</md-option>
+                  <md-option value="0">{{'rate.answers.no'|translate}}</md-option>
+                </md-select>
+              </div>
+            </div>
+
+            <div class="md-input-container" layout="column" flex>
+              <div  layout="column" layout-align="center start">
+                {{ 'ratingSponzor.question5' | translate}}
+              </div>
+              <div layout="column" layout-align="center start">
+                <md-select data-ng-model="src.rating.question5" placeholder="{{'rate.chooseOneOption'|translate}}" required>
+                  <md-option value="USD 50 - USD 150">USD 50 - USD 150</md-option>
+                  <md-option value="USD 151 - USD 300">USD 151 - USD 300</md-option>
+                  <md-option value="USD 301 - USD 500">USD 301 - USD 500</md-option>
+                  <md-option value="USD 501 - USD 1000">USD 501 - USD 1000</md-option>
+                </md-select>
+              </div>
+            </div>
+
+            <div class="md-input-container" layout="column" flex>
+              <div  layout="column" layout-align="center start">
+                {{ 'ratingSponzor.question6' | translate}}
+              </div>
+              <div layout="column" layout-align="center start">
+                <md-select data-ng-model="src.rating.question6" placeholder="{{'rate.chooseOneOption'|translate}}" required>
+                  <md-option value="1">{{'rate.answers.yes'|translate}}</md-option>
+                  <md-option value="0">{{'rate.answers.no'|translate}}</md-option>
+                </md-select>
+              </div>
+            </div>
+
+            <div class="md-input-container" layout="column" flex>
+              <div  layout="column" layout-align="center start">
+                {{ 'ratingSponzor.question7' | translate}}
+              </div>
+              <div layout="column" layout-align="center start">
+                <md-select data-ng-model="src.rating.question7" placeholder="{{'rate.chooseOneOption'|translate}}" required>
+                  <md-option value="1">{{'rate.answers.yes'|translate}}</md-option>
+                  <md-option value="0">{{'rate.answers.no'|translate}}</md-option>
+                </md-select>
+              </div>
+            </div>
+
+            <div class="md-input-container" layout="column" flex>
+              <div  layout="column" layout-align="center start">
+                {{ 'ratingSponzor.question8' | translate}}
+              </div>
+              <div layout="column" layout-align="center start">
+                <md-select data-ng-model="src.rating.question8" placeholder="{{'rate.chooseOneOption'|translate}}" required>
+                  <md-option value="developers">{{'rate.answers.developers'|translate}}</md-option>
+                  <md-option value="designers">{{'rate.answers.designers'|translate}}</md-option>
+                  <md-option value="entrepeneurs">{{'rate.answers.entrepeneurs'|translate}}</md-option>
+                </md-select>
+              </div>
+            </div>
+
+            <div class="md-input-container" layout="column" flex>
+              <div  layout="column" layout-align="center start">
+                {{ 'ratingSponzor.question9' | translate}}
+              </div>
+              <div layout="column" layout-align="center start">
+                <md-select data-ng-model="src.rating.question9"  placeholder="{{'rate.chooseOneOption'|translate}}" required>
+                  <md-option value="PHP">PHP</md-option>
+                  <md-option value="IOS">IOS</md-option>
+                  <md-option value="Android">Android</md-option>
+                  <md-option value="Phonegap">Phonegap</md-option>
+                  <md-option value="Ruby">Ruby</md-option>
+                  <md-option value="Python">Python</md-option>
+                  <md-option value="Java J2EE">Java J2EE</md-option>
+                  <md-option value="Javascript">Javascript</md-option>
+                  <md-option value="other">{{'rate.answers.other'|translate}}</md-option>
+                </md-select>
+                <md-input-container ng-if="src.rating.question9 == 'other'" layout="column" flex>
+                  <div flex="50" layout="column" layout-align="center center">
+                    <label for="label">
+                      {{ 'rate.whichOther' | translate}}
+                    </label>
+                    <input type="text" data-ng-model="src.rating.other" required/>
+                  </div>
+                </md-input-container>
+              </div>
+            </div>
+
+            <md-input-container layout="column" flex>
+              <div flex="50" layout="column" layout-align="center center">
+                <label for="label">
+                  {{ 'ratingSponzor.question10' | translate}}
+                </label>
+                <textarea ng-model="src.rating.question10" md-maxlength="250"></textarea>
+              </div>
+            </md-input-container>
+
+            <div class="createFormSubmit" layout="row" layout-align="end center">
+              <md-button class="color-active" type="submit" ng-click="src.saveRating()" form="rateOrganizer">{{'rate.submit'|translate}}</md-button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

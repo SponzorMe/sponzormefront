@@ -1,0 +1,47 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <sponzors-navbar></sponzors-navbar>
+
+      <div class="contentContainer">
+
+        <div class="chatContainer" layout="column" flex >
+          <h2>{{scc.sponzorshipInfo.Event.title}}
+            {{scc.sponzorshipInfo.Perk.kind}}
+            ${{scc.sponzorshipInfo.Perk.usd}}USD</h2>
+          <div class="messagesContainer">
+            <div ng-repeat="m in scc.chatMessages| orderBy: - time" class="messageOrg" ng-class="{'messageSponzor': m.color == '#F6CECE'}" flex layout="row">
+              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.color == '#F6CECE'">
+                <div>
+                  <img ng-src="{{m.userImage}}"/>
+                  <p layout-align="center center">{{m.timedate|date:'medium'}}</p>
+                </div>
+              </div>
+              <div flex="80" layout="column" layout-align="center start" ng-if="m.color == '#F6CECE'">{{m.text}}</div>
+              <div flex="80" layout="column" layout-align="center start" ng-if="m.color == '#5DDECF'">{{m.text}}</div>
+              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.color == '#5DDECF'">
+                <div>
+                  <img ng-src="{{m.userImage}}"/>
+                  <p layout-align="center center">{{m.timedate|date:'medium'}}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <md-input-container class="md-block inputMessage" layout="row" flex>
+          <label translate>chat.writeMessage</label>
+          <input required name="description" ng-model="scc.newMessage.text" flex="85">
+          <md-button aria-label="send" ng-click="scc.addMessage()" flex="10">
+            <md-icon>send</md-icon>
+          </md-button>
+        </md-input-container>
+      </div>
+    </md-content>
+    <div ng-include src="'./components/footer/footer.html'"></div>
+  </div>
+</div></div>

@@ -1,0 +1,46 @@
+<md-dialog aria-label="dialog">
+  <md-toolbar>
+    <div class="md-toolbar-tools top-info">
+      <i class="material-icons md-48 md-light">info</i>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div layout="column" layout-align="center center">
+      <label ng-show="connectingToEventbrite">
+        <p>{{'addEvent.eventbrite.connectingToEventbrite' | translate}}</p>
+        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+      </label>
+      <label ng-show="connectedToEventbrite">
+        {{'addEvent.eventbrite.connectedToEventbrite' | translate}}
+        <md-icon>check</md-icon>
+      </label>
+      <a ng-show="!connectingToEventbrite && !connectedToEventbrite"  href="https://www.eventbrite.com/oauth/authorize?response_type=code&client_id={{EVENTBRITEAPYKEY}}">
+        <label>
+          <p>{{'addEvent.eventbrite.connectToEventbrite' | translate}}
+          <md-icon>rss_feed</md-icon></p>
+        </label>
+      </a>
+      <label ng-show="loadingEventbriteEvents">
+        <p>{{'addEvent.eventbrite.loadingEventbriteEvents' | translate}}</p>
+        <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+      </label>
+      <label ng-show="!loadingEventbriteEvents && eventbriteEvents.length">
+        <p>{{'addEvent.eventbrite.eventbriteEventsLoaded' | translate}}<md-icon>check</md-icon></p>
+      </label>
+      <div ng-show="!loadingEventbriteEvents && eventbriteEvents.length">
+        <div class="eventbriteHeader" layout="row" flex="100" layout-align="center center">
+          <p flex="50" layout="column" layout-align="center center">{{'addEvent.eventbrite.title' | translate }}</p>
+          <p flex="40" layout="column" layout-align="center center">{{'addEvent.eventbrite.date'| translate}}</p>
+          <p flex="10" layout="column" layout-align="center center">{{'addEvent.eventbrite.import'| translate}}</p>
+        </div>
+        <div class="eventbriteEventItem" layout="row" flex="100" layout-align="center center" ng-repeat="e in eventbriteEvents">
+          <p flex="50" layout="column" layout-align="center center">{{ e.name.text }}</p>
+          <p flex="40" layout="column" layout-align="center center">
+            {{'addEvent.eventbrite.from'|translate}}{{ e.start.local | date:'medium'}}<br/>
+            {{'addEvent.eventbrite.to'|translate}}{{ e.end.local | date:'medium'}}</p>
+          <a href="" ng-click="prefillEventFromEvenbrite(e)" flex="10" layout="column" layout-align="center center"><md-icon>file_download</md-icon></a>
+        </div>
+      </div>
+    </div>
+  </md-dialog-content>
+</md-dialog>
