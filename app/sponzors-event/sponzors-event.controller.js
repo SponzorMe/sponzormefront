@@ -1,9 +1,14 @@
 'use strict';
 (function () {
-  function SponzorsEventController($scope, $mdSidenav, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
+  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
-    vm.currentEvent = vm.events[$routeParams.eventId];
+    vm.events.filter(function (e) {
+      if (e.id === $routeParams.eventId) {
+        console.log(e);
+        vm.currentEvent = e;
+      }
+    });
     vm.currentEvent.description = $sce.trustAsHtml(vm.currentEvent.description);
     vm.formCreateSponzorship = function (perk) {
       $scope.newSponzorship = { // Review why is not possible with vm instead of $scope
