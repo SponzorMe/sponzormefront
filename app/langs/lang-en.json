@@ -33,7 +33,9 @@
       "activationSuccess": "Your account has been successfuly activated",
       "inviteFiendEmailSent": "We have invited your friend successfuly",
       "eventDeleteSuccesfully": "The event was deleted successfuly",
-      "eventEditedSuccesfully": "The event has been updated successfuly"
+      "eventEditedSuccesfully": "The event has been updated successfuly",
+      "PasswordChangedSuccesfully": "Your password has been updated successfuly",
+      "PasswordResetLinkSent": "We have sent an Email with Instructions"
     },
     "error": {
       "title": "We've got a litte problem",
@@ -53,7 +55,9 @@
       "errorRegisterPassword": "Invalid password",
       "errorEmailAlreadyTaken": "The entered email is already taken",
       "errorDeletingEvent": "We can not delete this event",
-      "eventDeletingEventHasSponzorship": "This event has sponsorships and can not be deleted"
+      "eventDeletingEventHasSponzorship": "This event has sponsorships and can not be deleted",
+      "InvalidData": "The entered information is incorrect",
+      "InvalidEmail": "The entered email is not valid"
     }
   },
   "footer": {
@@ -71,7 +75,11 @@
   },
   "forgot": {
     "instructions": "Put your registered E-mail, there you will get instructions.",
-    "enterEmail": "Please insert your email"
+    "enterEmail": "Please insert your email",
+    "resetInstructions": "Complete the info below to get your new password",
+    "password": "Password",
+    "passwordConfirmation": "Confirm Password"
+    
   },
   "createSponzor": {
     "firstName": "First Name",

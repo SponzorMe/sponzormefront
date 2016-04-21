@@ -1,9 +1,10 @@
-'use strict';
 (function() {
-  function ForgotController($scope, $rootScope, $translate, $routeParams, loginRequest, dialogRequest) {
-    $scope.forgotPassword = function() {
+  'use strict';
+  function ForgotController($scope, $rootScope, $routeParams, loginRequest, dialogRequest) {
+    var vm = this;
+    vm.forgotPassword = function() {
       dialogRequest.showLoading();
-      loginRequest.resetPassword($scope.email).then(function successCallback1() {
+      loginRequest.resetPassword(vm.email).then(function successCallback1() {
         dialogRequest.closeLoading();
         dialogRequest.showDialog('success','PasswordResetLinkSent', false);
       }, function errorCallback1() {
@@ -11,13 +12,13 @@
         dialogRequest.showDialog('error','InvalidEmail', false);
       });
     };
-    $scope.resetPassword = function() {
+    vm.resetPassword = function() {
       dialogRequest.showLoading();
-      if ($scope.password === $scope.passwordConfirmation) {
+      if (vm.password === vm.passwordConfirmation) {
         var formData = {
-          'email': $scope.email,
-          'password': $scope.password,
-          'password_confirmation': $scope.passwordConfirmation
+          'email': vm.email,
+          'password': vm.password,
+          'password_confirmation': vm.passwordConfirmation
         };
         loginRequest.updatePassword($routeParams.tokenReset, formData).then(function successCallback2(response) {
           dialogRequest.closeLoading();
@@ -28,7 +29,7 @@
         });
       } else {
         dialogRequest.closeLoading();
-        dialogRequest.showDialog('error', 'PasswordNoMatch' , false);
+        dialogRequest.showDialog('error', 'errorRegisterPasswordNoMatch' , false);
       }
     };
   }

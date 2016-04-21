@@ -2,7 +2,6 @@ module.exports = function(config) {
   config.set({
     basePath: './',
     files: [
-      'bower_components/modernizr/modernizr.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-translate/angular-translate.js',
       'bower_components/angular-cookies/angular-cookies.js',

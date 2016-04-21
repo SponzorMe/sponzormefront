@@ -48,6 +48,18 @@
       controller: 'LoginController',
       controllerAs: 'lc'
     })
+    
+    .when('/forgot', {
+      templateUrl: 'forgot/forgot.html',
+      controller: 'ForgotController',
+      controllerAs: 'fc'
+    })
+    
+    .when('/reset/:tokenReset', {
+      templateUrl: 'forgot/reset.html',
+      controller: 'ForgotController',
+      controllerAs: 'fc'
+    })
 
     //Sponzors
     .when('/sponzors/dashboard', {

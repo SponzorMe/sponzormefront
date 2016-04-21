@@ -5,7 +5,6 @@
   "private": true,
   "dependencies": {
     "angular": "~1.5.x",
-    "modernizr": "~3.3.1",
     "angular-translate": "~2.11.0",
     "angular-cookies": "~1.5",
     "angular-resource": "~1.5.5",
