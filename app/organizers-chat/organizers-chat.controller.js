@@ -15,7 +15,7 @@
         } else if (response.data.data.Sponzor.id === $localStorage.id) {
           vm.newMessage = {
             'author': response.data.data.Sponzor.name,
-            'color': '#F6CECE',
+            'type': '#F6CECE',
             'sponzorshipId': $routeParams.sponzorshipId
           };
         } else {

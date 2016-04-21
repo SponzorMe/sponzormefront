@@ -11,11 +11,11 @@
         <md-tab label="{{'general.sponzor'|translate}}">
           <md-content>              
             <div class="loginForm" layout="column" layout-align="center center" layout-padding>
-              <form class="sponzorForm resendForm" name="sponzorForm" novalidate layout="column" ng-submit="sponzorForm.$valid && forgotPassword()" layout-align="center stretch">
+              <form class="sponzorForm resendForm" name="sponzorForm" novalidate layout="column" ng-submit="sponzorForm.$valid && fc.forgotPassword()" layout-align="center stretch">
                 <div class="resendText"><p translate>forgot.instructions</p></div>
                 <md-input-container>
                   <label translate>general.email</label>
-                  <input type="email" name="email" data-ng-model="email" required>
+                  <input type="email" name="email" data-ng-model="fc.email" required>
                   <div ng-messages="sponzorForm.email.$error">
                     <div ng-message="required">{{'forgot.enterEmail'|translate}}</div>
                   </div>
@@ -29,11 +29,11 @@
         <md-tab label="{{'general.organizer'|translate}}" md-active="true">
           <md-content>              
             <div class="loginForm" layout="column" layout-align="center center" layout-padding>
-              <form class="organizerForm resendForm" name="organizerForm" novalidate layout="column" ng-submit="organizerForm.$valid && forgotPassword()" layout-align="center stretch">
+              <form class="organizerForm resendForm" name="organizerForm" novalidate layout="column" ng-submit="organizerForm.$valid && fc.forgotPassword()" layout-align="center stretch">
                 <div class="resendText"><p translate>forgot.instructions</p></div>
                 <md-input-container>
                   <label translate>general.email</label>
-                  <input type="email" name="email" data-ng-model="email" required>
+                  <input type="email" name="email" data-ng-model="fc.email" required>
                   <div ng-messages="organizerForm.email.$error">
                     <div ng-message="required">{{'forgot.enterEmail'|translate}}</div>
                   </div>
@@ -52,8 +52,10 @@
 
 <div class="video-container">
   <video loop muted autoplay poster="../images/home-bkg.jpg" class="the-video">
-      <source src="../video/video1.mp4" type="video/mp4">
-      <source src="../video/video1.webm" type="video/webm">
+    <source src="../video/video1.mp4" type="video/mp4">
+    <source src="../video/video1.webm" type="video/webm">
+      <source src="../video/video2.mp4" type="video/mp4">
+      <source src="../video/video2.webm" type="video/webm">
   </video>
 </div>
 
