@@ -1,5 +1,5 @@
 <div class="eventImage" layout="column" layout-align="center center">
-  <img ng-src="{{event.image}}" alt="event">
+  <img ng-src="{{event.image}}" alt="event" ng-click="smc.goEvent(event.id)">
   <p>{{event.title}}</p>
 </div>
 <div class="textContainer">

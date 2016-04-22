@@ -3,7 +3,7 @@
   /*This controller has two responsabilities
    First show all Events
    Second allows make a filter based on the interests*/
-  function SponzorsMainController($scope, $localStorage, $rootScope, dialogRequest) {
+  function SponzorsMainController($scope, $localStorage, $rootScope, dialogRequest, $location) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.events = [];
@@ -23,6 +23,10 @@
             }
           }
         });
+      };
+      
+      vm.goEvent = function(eventId){
+          $location.path('/sponzors/event/'+eventId);
       };
 
       vm.filterClick = function (interest) {        
