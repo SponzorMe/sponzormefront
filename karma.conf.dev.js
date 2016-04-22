@@ -53,6 +53,7 @@ module.exports = function(config) {
       type: 'html',
       dir: 'test-reports/'
     },
+    plugins:['karma-phantomjs-launcher'],
     htmlReporter: {
       outputFile: 'test-reports/units.html',
       pageTitle: 'Unit Tests',
