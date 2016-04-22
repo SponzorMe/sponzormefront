@@ -24,11 +24,10 @@
     "aws-sdk": "aws-sdk-js#~2.2.21",
     "angular-input-stars-directive": "angular-input-stars#*",
     "angular-scroll-glue": "~2.0.6",
-    "mockfirebase": "~0.11.0",
     "downloadjs": "*",
     "angular-material": "^1.0.3"
   },
   "resolutions": {
-    "angular": "1.5.5"
+    "angular-translate": "2.11.0"
   }
 }
