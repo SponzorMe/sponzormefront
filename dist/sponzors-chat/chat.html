@@ -14,16 +14,16 @@
             {{scc.sponzorshipInfo.Perk.kind}}
             ${{scc.sponzorshipInfo.Perk.usd}}USD</h2>
           <div class="messagesContainer">
-            <div ng-repeat="m in scc.chatMessages| orderBy: - time" class="messageOrg" ng-class="{'messageSponzor': m.color == '#F6CECE'}" flex layout="row">
-              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.color == '#F6CECE'">
+            <div ng-repeat="m in scc.chatMessages| orderBy: - time" class="messageOrg" ng-class="{'messageSponzor': m.type == '#F6CECE'}" flex layout="row">
+              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.type == '#F6CECE'">
                 <div>
                   <img ng-src="{{m.userImage}}"/>
                   <p layout-align="center center">{{m.timedate|date:'medium'}}</p>
                 </div>
               </div>
-              <div flex="80" layout="column" layout-align="center start" ng-if="m.color == '#F6CECE'">{{m.text}}</div>
-              <div flex="80" layout="column" layout-align="center start" ng-if="m.color == '#5DDECF'">{{m.text}}</div>
-              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.color == '#5DDECF'">
+              <div flex="80" layout="column" layout-align="center start" ng-if="m.type == '#F6CECE'">{{m.text}}</div>
+              <div flex="80" layout="column" layout-align="center start" ng-if="m.type == '#5DDECF'">{{m.text}}</div>
+              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.type == '#5DDECF'">
                 <div>
                   <img ng-src="{{m.userImage}}"/>
                   <p layout-align="center center">{{m.timedate|date:'medium'}}</p>
