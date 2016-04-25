@@ -34,7 +34,7 @@
           <p flex="25" layout="column" layout-align="center center">{{'addEvent.meetup.group'| translate}}</p>
           <p flex="10" layout="column" layout-align="center center">{{'addEvent.meetup.import'| translate}}</p>
         </div>
-        <div class="meetupEventItem" layout="row" flex="100" layout-align="center center" ng-repeat="e in meetupEvents">
+        <div class="meetupEventItem" layout="row" flex="100" layout-align="center center" ng-repeat="e in meetupEvents | orderBy:'-time'">
           <p flex="40" layout="column" layout-align="center center">{{ e.name }}</p>
           <p flex="25" layout="column" layout-align="center center">
             {{ e.time | date:'medium'}}</p>

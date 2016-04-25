@@ -27,18 +27,24 @@
               <p>{{stc.tasks[stc.currentTaskIndex].task.description}}</p>
             </div>
 
-            <div class="status" layou="column">
+            <div class="status" layou="column" ng-if="stc.tasks[stc.currentTaskIndex].task.type == '1'">
               <p translate>tasks.status</p>
-              <md-checkbox class="sponzors" ng-model="stc.taskDetail.status">
+              <md-progress-circular md-mode="indeterminate" ng-if="stc.tasks[stc.currentTaskIndex].loading"></md-progress-circular>
+              <md-checkbox 
+                ng-click="stc.changeStatus(stc.tasks[stc.currentTaskIndex])" 
+                class="md-primary" 
+                ng-checked="stc.tasks[stc.currentTaskIndex].status == 1" 
+                aria-label="{{stc.tasks[stc.currentTaskIndex].task.title}}" 
+                ng-if="!stc.tasks[stc.currentTaskIndex].loading">
                 <span translate>tasks.complete</span>
               </md-checkbox>
             </div>
             <md-divider></md-divider>
 
             <div class="actions" layout="row" layout-align="start center" flex="row" hide-xs hide-sm>
-              <a href="" md-ink-ripple="#f09200" layout="row">
-                <md-icon >send</md-icon>
-                <p translate>tasks.send</p>
+              <a href="#/sponzors/tasks" md-ink-ripple="#f09200" layout="row">
+                <md-icon >reply</md-icon>
+                <p translate>tasks.back</p>
               </a>
               <a href="" md-ink-ripple="#f09200" layout="row">
                 <md-icon>delete</md-icon>

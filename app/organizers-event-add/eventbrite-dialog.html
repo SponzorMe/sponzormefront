@@ -33,7 +33,7 @@
           <p flex="40" layout="column" layout-align="center center">{{'addEvent.eventbrite.date'| translate}}</p>
           <p flex="10" layout="column" layout-align="center center">{{'addEvent.eventbrite.import'| translate}}</p>
         </div>
-        <div class="eventbriteEventItem" layout="row" flex="100" layout-align="center center" ng-repeat="e in eventbriteEvents">
+        <div class="eventbriteEventItem" layout="row" flex="100" layout-align="center center" ng-repeat="e in eventbriteEvents | orderBy:'-start.local'">
           <p flex="50" layout="column" layout-align="center center">{{ e.name.text }}</p>
           <p flex="40" layout="column" layout-align="center center">
             {{'addEvent.eventbrite.from'|translate}}{{ e.start.local | date:'medium'}}<br/>
