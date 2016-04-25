@@ -18,7 +18,7 @@
         <div class="filter">
           <md-input-container class="md-block md-accent inputContainer md-whiteframe-1dp" md-no-float md-ink-ripple="false" >
             <md-icon>search</md-icon>
-            <input type="text" placeholder="{{ 'sponzorsMain.typeYourSearchHere' | translate }}" ng-model="smc.search"/>
+            <input type="text" ng-change="smc.filterEventsByText()" placeholder="{{ 'sponzorsMain.typeYourSearchHere' | translate }}" ng-model="smc.search" />
           </md-input-container>
 
           <div class="chipContainer">
@@ -50,7 +50,7 @@
         <div class="eventsContainer">
           <div class="scrollableContent">
             <md-content class="events md-whiteframe-2dp" layout="row" layout-align="start center" layout-padding layout-wrap flex>
-                <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events | filter: smc.search" flex-gt-xs="30" ng-if="smc.events.length">
+                <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events" flex-gt-xs="30" ng-if="smc.events.length">
                   <event-item></event-item>
                 </div>
                 <div ng-if="!smc.events.length">

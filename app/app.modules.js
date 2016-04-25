@@ -21,6 +21,7 @@
     'ngMaterial',
     'ngAria',
     'ngAnimate',
-    'ngMessages'
+    'ngMessages',
+    'textAngular'
   ]);
 })();
