@@ -159,14 +159,7 @@
             .title($translate.instant('addEvent.invalidDatesTitle'))
             .textContent($translate.instant('addEvent.invalidDatesText'))
             .ok('Ok!'));
-        } else if (!vm.event.sponzorshipTypes.length) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.noSponzorshupTypesTitle'))
-            .textContent($translate.instant('addEvent.noSponzorshupTypesText'))
-            .ok('Ok!'));
-        }else {
+        } else {
           verification();
         }
       };

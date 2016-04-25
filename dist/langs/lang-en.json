@@ -492,6 +492,10 @@
     "noSponzorshupTypesText": "Please create Sponsorship Types.",
     "importFromEventbrite": "Import from Eventbrite",
     "importFromMeetup": "Import from Meetup",
+      "eventWithoutSponsorshipTypeTitle": "No Sponsorship type added",
+      "eventWithoutSponsorshipTypeText": "You can not create an Event without Sponsorship Types",
+      "sponsorshipTypeWithoutTasksTitle": "No tasks detected for an Sponsorship Type",
+      "sponsorshipTypeWithoutTasksText": "All Sponsorship types must have one task minimum",
     "sponzorshipTypeForm": {
       "kindRequired": "Kind Required",
       "usdRequired": "USD amount is required",
