@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsTasksController($scope, $localStorage, $rootScope, $routeParams) {
+  function SponzorsTasksController($scope, $localStorage, $rootScope, $routeParams, taskSponzorRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -13,6 +13,28 @@
             vm.tasks.push(currentTask);
           }
         }
+      };
+      vm.changeStatus = function(t) {
+        console.log(t);
+        t.loading = true;
+        var savedStatus = t.status;
+        if (t.status === '1' || t.status === 1) {
+          t.status = 0;
+        } else {
+          t.status = 1;
+        }
+        var data = {
+          status: t.status
+        };
+        taskSponzorRequest.editTaskSponzorPatch(t.id, data).then(function successCallBack(response) {
+          t.loading = false;
+          $localStorage.user = JSON.stringify(vm.user);
+          vm.regenerateTasks();
+        }, function errorCallback() {
+          t.status = savedStatus;
+          t.loading = false;
+          dialogRequest.showDialog('error', 'errorUpdatingTaskStatus', false);
+        });
       };
       vm.regenerateTasks();
       vm.currentTaskIndex = $routeParams.id;
