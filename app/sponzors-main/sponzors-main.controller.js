@@ -18,18 +18,32 @@
             if (
               e.title.indexOf(vm.filter[j]) > -1 ||
               e.description.indexOf(vm.filter[j]) > -1
-              ) {
+            ) {
               return e;
             }
           }
         });
       };
-      
-      vm.goEvent = function(eventId){
-          $location.path('/sponzors/event/'+eventId);
+
+      vm.filterEventsByText = function () {
+        vm.events = [];
+        var reg = new RegExp(vm.search, 'i');
+        vm.events = events.filter(function (e) {
+          if (
+            
+            e.title.search(reg) > -1 ||
+            e.description.search(reg) > -1
+          ) {
+            return e;
+          }
+        });
       };
 
-      vm.filterClick = function (interest) {        
+      vm.goEvent = function (eventId) {
+        $location.path('/sponzors/event/' + eventId);
+      };
+
+      vm.filterClick = function (interest) {
         vm.filter.push(interest);
         vm.filterEvents();
       };
@@ -42,7 +56,7 @@
           vm.restoreEvents();
         }
       };
-      
+
       vm.restoreEvents = function () {
         vm.events = [];
         if ($localStorage.events) {//If events, Should ever exist events?
