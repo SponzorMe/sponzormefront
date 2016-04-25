@@ -59,13 +59,11 @@
                 }
 
                 md-tab-item:nth-child(1).md-active {
-                    @extend .login-tab;
                     background: $color_active;
                     color: $color_white;
                 }
 
                 md-tab-item:nth-child(2).md-active {
-                    @extend .login-tab;
                     background: $color_blue;
                     color: $color_white;
                 }

@@ -1,11 +1,14 @@
 {
-  "name": "Sponzorme",
+  "name": "SponzorMe",
   "description": "We connect Events With Sponzors",
   "version": "1.1.1",
-  "homepage": "https://github.com/carlosrojaso/sponzormefront",
+  "homepage": "https://app.sponzor.me",
   "keywords": [
     "events",
-    "Sponzors"
+    "Sponzors",
+    "Sponsors",
+    "Organizers",
+    "MasterPage"
   ],
   "bugs": "https://github.com/carlosrojaso/sponzormefront/issues",
   "repository": {
@@ -28,11 +31,11 @@
     }
   ],
   "engines": {
-    "node": ">=0.10.33"
+    "node": ">=4.4.33"
   },
   "devDependencies": {
     "bower": "^1.7.9",
-    "browser-sync": "^2.12.3",
+    "browser-sync": "^2.12.4",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
@@ -64,11 +67,11 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "main-bower-files": "^2.11.1",
     "ng-annotate": "^1.2.1",
-    "phantomjs": "^2.1.7"
+    "phantomjs-prebuilt": "^2.1.7"
   },
   "dependencies": {
     "install": "^0.6.1",
-    "npm": "^3.5.3"
+    "npm": "^3.8.7"
   },
   "scripts": {
     "postinstall": "bower install",

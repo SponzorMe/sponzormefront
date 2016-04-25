@@ -126,10 +126,33 @@
 
         vm.event.startsAux2 = new Date(vm.event.startsAux.year + '-' + vm.event.startsAux.month + '-' + vm.event.startsAux.day + ' ' + vm.event.startsAux.hour).getTime();
         vm.event.endsAux2 = new Date(vm.event.endsAux.year + '-' + vm.event.endsAux.month + '-' + vm.event.endsAux.day + ' ' + vm.event.endsAux.hour).getTime();
-
-
-
-        if (vm.event.endsAux2 <= vm.event.startsAux2) {
+        var noTasks = false;
+        if(vm.event.sponzorshipTypes.length){//Analysis of the Sponsorship Types
+          for(var i=0; i < vm.event.sponzorshipTypes.length; i++){
+            if(!vm.event.sponzorshipTypes[i].perkTasks.length){
+              noTasks = true; //It means we found a Sponsorship type with no tasks
+              break; //To optimize we skip of the for
+            }
+          }
+        }
+        if(!vm.event.sponzorshipTypes.length){
+          $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title($translate.instant('addEvent.eventWithoutSponsorshipTypeTitle'))
+            .textContent($translate.instant('addEvent.eventWithoutSponsorshipTypeText'))
+            .ok('Ok!'));
+        }
+        else if(noTasks){
+          $mdDialog.show(
+            $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title($translate.instant('addEvent.sponsorshipTypeWithoutTasksTitle'))
+            .textContent($translate.instant('addEvent.sponsorshipTypeWithoutTasksText'))
+            .ok('Ok!'));
+        }
+        //Here is the dates verification
+        else if (vm.event.endsAux2 <= vm.event.startsAux2) {
           $mdDialog.show(
             $mdDialog.alert()
             .clickOutsideToClose(true)
@@ -143,7 +166,7 @@
             .title($translate.instant('addEvent.noSponzorshupTypesTitle'))
             .textContent($translate.instant('addEvent.noSponzorshupTypesText'))
             .ok('Ok!'));
-        } else {
+        }else {
           verification();
         }
       };
