@@ -136,29 +136,14 @@
           }
         }
         if(!vm.event.sponzorshipTypes.length){
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.eventWithoutSponsorshipTypeTitle'))
-            .textContent($translate.instant('addEvent.eventWithoutSponsorshipTypeText'))
-            .ok('Ok!'));
+          dialogRequest.showDialog('error', 'addEvent.eventWithoutSponsorshipTypeText', false);
         }
         else if(noTasks){
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.sponsorshipTypeWithoutTasksTitle'))
-            .textContent($translate.instant('addEvent.sponsorshipTypeWithoutTasksText'))
-            .ok('Ok!'));
+          dialogRequest.showDialog('error', 'addEvent.sponsorshipTypeWithoutTasksText', false);
         }
         //Here is the dates verification
         else if (vm.event.endsAux2 <= vm.event.startsAux2) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.invalidDatesTitle'))
-            .textContent($translate.instant('addEvent.invalidDatesText'))
-            .ok('Ok!'));
+          dialogRequest.showDialog('error', 'addEvent.invalidDatesText', false);
         } else {
           verification();
         }
@@ -204,7 +189,9 @@
         }
       };
       vm.addSponzorshipTypeForm = function() {
+        var parentEl = angular.element(document.body);
         $mdDialog.show({
+         parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/sponzorshipTypeForm.html',
           controller: function($scope) {
@@ -223,7 +210,9 @@
         });
       };
       vm.addTaskForm = function(s) {
+        var parentEl = angular.element(document.body);
         $mdDialog.show({
+         parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/taskForm.html',
           controller: function($scope) {
@@ -250,7 +239,9 @@
       //-----------------------------------------------------------//
 
       vm.connectEventbrite = function() {
+        var parentEl = angular.element(document.body);
         $mdDialog.show({
+         parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/eventbrite-dialog.html',
           controller: function($scope) {
@@ -329,7 +320,9 @@
       //-----------------------------------------------------------//
 
       vm.connectMeetup = function() {
+        var parentEl = angular.element(document.body);
         $mdDialog.show({
+         parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/meetup-dialog.html',
           controller: function($scope) {
@@ -410,7 +403,9 @@
         });
       };
       vm.importSelection = function() {
+        var parentEl = angular.element(document.body);
         $mdDialog.show({
+         parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/import-dialog.html',
           controller: function($scope) {

@@ -31,7 +31,7 @@
               <input id="imageInput" type="file" data-ng-model="file" name="file" maxsize="500" ng-hide="true" accept="image/*" filea>
               <div class="imageTexts" layout="column" layout-align="stretch center">
                 <md-input-container class="white" flex="100">
-                  <label translate>editEvent.title</label>
+                  <label translate>addEvent.title</label>
                   <input type="text" name="title" ng-model="oeac.event.title" form="createEventForm" required />
                   <div ng-messages="createEventForm.title.$error">
                     <div ng-message="required">
@@ -40,8 +40,22 @@
                   </div>
                 </md-input-container>
                 <md-input-container class="white" flex="100">
-                  <label translate>editEvent.description</label>
-                  <textarea type="text" name="description" form="createEventForm" md-maxlength="250" ng-model="oeac.event.description" required></textarea>
+                  <label translate>addEvent.summary</label>
+                  <textarea type="text" name="summary" form="createEventForm" md-maxlength="100" ng-model="oeac.event.summary" required></textarea>
+                  <div ng-messages="createEventForm.summary.$error">
+                    <div ng-message="required">
+                      {{'addEvent.summaryRequired'|translate}}
+                    </div>
+                    <div ng-message="md-maxlength">
+                      {{'addEvent.summaryTooLong'|translate}}
+                    </div>
+                  </div>
+                </md-input-container>
+              </div>
+              
+              <div class="" layout="row" flex="100">
+                <md-input-container>
+                  <text-angular  ng-model="oeac.event.description"></text-angular>
                   <div ng-messages="createEventForm.description.$error">
                     <div ng-message="required">
                       {{'addEvent.descriptionRequired'|translate}}

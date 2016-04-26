@@ -12,7 +12,7 @@
         $scope.login.lang = $rootScope.currentLanguage();
         dialogRequest.showLoading();
         loginRequest.login($scope.login).then(function successCallback(response) {
-          if (response.data.user.activated === '1') { // If account activated
+          if (response.data.user.activated === '1' || response.data.user.activated === 1) { // If account activated
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 1);
             /* User Vars initialization */
@@ -75,7 +75,7 @@
               })
               $localStorage.events = JSON.stringify(parsedEvents);
             }
-            if (response.data.user.type === '1') {
+            if (response.data.user.type === '1' || response.data.user.type === 1) {
               if ((redirectTo && redirectTo.indexOf('/#/login') === -1 && redirectTo.indexOf('sponzors') > -1) || (redirectTo && redirectTo.indexOf('/#/event/') > -1)) {
                 window.location.href = redirectTo;
               } else {
