@@ -81,37 +81,14 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           }
         }
         if(!vm.event.sponzorshipTypes.length){
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.eventWithoutSponsorshipTypeTitle'))
-            .textContent($translate.instant('addEvent.eventWithoutSponsorshipTypeText'))
-            .ok('Ok!'));
+          dialogRequest.showDialog('error', 'eventWithoutSponsorshipTypeText', false);
         }
         else if(noTasks){
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.sponsorshipTypeWithoutTasksTitle'))
-            .textContent($translate.instant('addEvent.sponsorshipTypeWithoutTasksText'))
-            .ok('Ok!'));
+          dialogRequest.showDialog('error', 'sponsorshipTypeWithoutTasksText', false);
         }
         //Here is the dates verification
         else if(vm.event.endsAux2<=vm.event.startsAux2){
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.invalidDatesTitle'))
-            .textContent($translate.instant('addEvent.invalidDatesText'))
-            .ok('Ok!'));
-        }
-        else if(!vm.event.sponzorshipTypes.length){
-          $mdDialog.show(
-            $mdDialog.alert()
-            .clickOutsideToClose(true)
-            .title($translate.instant('addEvent.noSponzorshupTypesTitle'))
-            .textContent($translate.instant('addEvent.noSponzorshupTypesText'))
-            .ok('Ok!'));
+          dialogRequest.showDialog('error', 'invalidDatesText', false);
         }
         else{
           verification();
@@ -120,7 +97,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       $scope.file=false;
       //this function upload or create the event Image
       $scope.imageVerification = function() {
-        console.log($scope.file);
         if($scope.file){
           vm.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
@@ -159,7 +135,9 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         }
       };
       vm.addSponzorshipTypeForm = function() {
+        var parentEl = angular.element(document.body);
         $mdDialog.show({
+         parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/sponzorshipTypeForm.html',
           controller: function($scope){
@@ -179,7 +157,9 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         });
       };
       vm.addTaskForm = function(s){
+        var parentEl = angular.element(document.body);
         $mdDialog.show({
+         parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/taskForm.html',
           controller: function($scope){

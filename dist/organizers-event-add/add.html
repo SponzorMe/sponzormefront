@@ -41,7 +41,7 @@
                 </md-input-container>
                 <md-input-container class="white" flex="100">
                   <label translate>addEvent.summary</label>
-                  <textarea type="text" name="summary" form="createEventForm" md-maxlength="100" ng-model="oeac.event.summary" required></textarea>
+                  <textarea type="text" name="summary" form="createEventForm" md-maxlength="100" ng-model="oeac.event.sumary" required></textarea>
                   <div ng-messages="createEventForm.summary.$error">
                     <div ng-message="required">
                       {{'addEvent.summaryRequired'|translate}}
@@ -53,9 +53,13 @@
                 </md-input-container>
               </div>
               
+              <div class="dateAndplace" layout="row" flex="100">
+                <label>{{'addEvent.description'|translate}}</label>
+              </div>
+              
               <div class="" layout="row" flex="100">
                 <md-input-container>
-                  <text-angular  ng-model="oeac.event.description"></text-angular>
+                  <text-angular ng-model="oeac.event.description"></text-angular>
                   <div ng-messages="createEventForm.description.$error">
                     <div ng-message="required">
                       {{'addEvent.descriptionRequired'|translate}}

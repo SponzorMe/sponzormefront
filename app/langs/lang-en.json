@@ -57,7 +57,11 @@
       "errorDeletingEvent": "We can not delete this event",
       "eventDeletingEventHasSponzorship": "This event has sponsorships and can not be deleted",
       "InvalidData": "The entered information is incorrect",
-      "InvalidEmail": "The entered email is not valid"
+      "InvalidEmail": "The entered email is not valid",
+      "invalidDatesText": "The starts date should be before than ends date.",
+      "noSponzorshipTypesText": "Please create Sponsorship Types.",
+      "eventWithoutSponsorshipTypeText": "You can not create an Event without Sponsorship Types",
+      "sponsorshipTypeWithoutTasksText": "All Sponsorship types must have one task minimum"
     }
   },
   "footer": {
@@ -297,7 +301,6 @@
     "report": "Report",
     "from": "From",
     "send": "Send",
-    "delete": "Delete",
     "replyTitle": "Title",
     "replyMessage": "Write Message"
   },
@@ -418,15 +421,6 @@
     "Music": "Music",
     "Technology": "Technology"
   },
-  "eventTypes": {
-    "Charity": "Charity",
-    "Recruitment": "Recruitment",
-    "Training or Workshop": "Training or Workshop",
-    "Perfomance": "Perfomance",
-    "Conference": "Conference",
-    "Networking Event": "Networking Event",
-    "Other": "Other"
-  },
   "organizersTasks": {
     "task": "Task",
     "sponzor": "Sponzor",
@@ -438,6 +432,7 @@
     "seePerks": "Sponzorship Types and Perks",
     "category": "Category",
     "type": "Type",
+    "summary": "Summary",
     "locateOnMap": "Locate on Map",
     "location": "Location",
     "description": "Description",
@@ -491,16 +486,8 @@
     "eventCategoryRequired": "Event Category is Required",
     "eventPrivacyRequired": "Event Privacy is Required",
     "taskRequired": "Task Title is required",
-    "invalidDatesText": "The starts date should be before than ends date.",
-    "invalidDatesTitle": "Invalid Dates",
-    "noSponzorshupTypesTitle": "Incomplete Information",
-    "noSponzorshupTypesText": "Please create Sponsorship Types.",
     "importFromEventbrite": "Import from Eventbrite",
     "importFromMeetup": "Import from Meetup",
-      "eventWithoutSponsorshipTypeTitle": "No Sponsorship type added",
-      "eventWithoutSponsorshipTypeText": "You can not create an Event without Sponsorship Types",
-      "sponsorshipTypeWithoutTasksTitle": "No tasks detected for an Sponsorship Type",
-      "sponsorshipTypeWithoutTasksText": "All Sponsorship types must have one task minimum",
     "sponzorshipTypeForm": {
       "kindRequired": "Kind Required",
       "usdRequired": "USD amount is required",

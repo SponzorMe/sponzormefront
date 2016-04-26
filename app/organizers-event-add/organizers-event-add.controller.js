@@ -136,14 +136,14 @@
           }
         }
         if(!vm.event.sponzorshipTypes.length){
-          dialogRequest.showDialog('error', 'addEvent.eventWithoutSponsorshipTypeText', false);
+          dialogRequest.showDialog('error', 'eventWithoutSponsorshipTypeText', false);
         }
         else if(noTasks){
-          dialogRequest.showDialog('error', 'addEvent.sponsorshipTypeWithoutTasksText', false);
+          dialogRequest.showDialog('error', 'sponsorshipTypeWithoutTasksText', false);
         }
         //Here is the dates verification
         else if (vm.event.endsAux2 <= vm.event.startsAux2) {
-          dialogRequest.showDialog('error', 'addEvent.invalidDatesText', false);
+          dialogRequest.showDialog('error', 'invalidDatesText', false);
         } else {
           verification();
         }
@@ -151,7 +151,6 @@
       $scope.file = false;
       //this function upload or create the event Image
       $scope.imageVerification = function() {
-        console.log($scope.file);
         if ($scope.file) {
           vm.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
