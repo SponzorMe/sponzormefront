@@ -60,6 +60,12 @@
       controller: 'ForgotController',
       controllerAs: 'fc'
     })
+    
+    .when('/event/:eventId', {
+      templateUrl: 'event-landing/landing.html',
+      controller: 'LandingController',
+      controllerAs: 'lc'
+    })
 
     //Sponzors
     .when('/sponzors/dashboard', {

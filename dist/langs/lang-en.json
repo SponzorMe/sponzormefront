@@ -421,15 +421,6 @@
     "Music": "Music",
     "Technology": "Technology"
   },
-  "eventTypes": {
-    "Charity": "Charity",
-    "Recruitment": "Recruitment",
-    "Training or Workshop": "Training or Workshop",
-    "Perfomance": "Perfomance",
-    "Conference": "Conference",
-    "Networking Event": "Networking Event",
-    "Other": "Other"
-  },
   "organizersTasks": {
     "task": "Task",
     "sponzor": "Sponzor",
@@ -441,6 +432,7 @@
     "seePerks": "Sponzorship Types and Perks",
     "category": "Category",
     "type": "Type",
+    "summary": "Summary",
     "locateOnMap": "Locate on Map",
     "location": "Location",
     "description": "Description",
