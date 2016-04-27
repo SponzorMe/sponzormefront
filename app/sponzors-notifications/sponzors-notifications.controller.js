@@ -3,6 +3,7 @@
   function SponzorsNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
+      $localStorage.help = false;
       if ($routeParams.id) {
         vm.notificationRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id + '/' + $routeParams.id);
         vm.currentNotification = $firebaseObject(vm.notificationRef);
