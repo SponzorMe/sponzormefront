@@ -230,17 +230,15 @@ body {
           position: relative;
           margin-left: 2.5%;
           top: 0;
-          &:last-child {
-            margin-left: 0;
-          }
           & > .eventImage {
             background-color: $color_active;
             max-height: 100%;
             max-width: 100%;
             & > p {
               color: $color_white;
-              font-size: 13px;
-              padding: 0.5em;
+              font-size: 18px;
+              padding: 0.1em;
+              font-weight: bold;
             }
             & > img {
               max-height: 130px;
