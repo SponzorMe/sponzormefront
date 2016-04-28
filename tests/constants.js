@@ -1,4 +1,4 @@
-var apiUrl = 'http://local.api.com/';
+var apiUrl = 'https://apilocal.sponzor.me/';
 var cookiesponzorme = "XYZ";
 var email = "test@test.com";
 var id = 1;
