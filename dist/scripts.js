@@ -444,8 +444,8 @@
 (function () {
   'use strict';
   angular.module('sponzorme').run(
-    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', '$firebaseArray',
-      function ($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, $firebaseArray, EXPIRATIONTIME) {
+    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', '$firebaseArray', '$firebaseObject',
+      function ($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, $firebaseArray, $firebaseObject, EXPIRATIONTIME) {
         var host = window.location.href;
         if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
           var aux = host.replace('http:', 'https:');
@@ -2928,8 +2928,8 @@ function navbarNotifications() {
 
 (function () {
   'use strict';
-  OrganizersNotificationsController.$inject = ["$scope", "$rootScope", "$localStorage", "$firebaseArray", "$firebaseObject", "userRequest", "$routeParams", "$location", "dialogRequest"];
-  function OrganizersNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, dialogRequest) {
+  OrganizersNotificationsController.$inject = ["$scope", "$rootScope", "$localStorage", "$firebaseArray", "$firebaseObject", "userRequest", "$routeParams", "$location", "$translate"];
+  function OrganizersNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, $translate) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       $localStorage.help = false;

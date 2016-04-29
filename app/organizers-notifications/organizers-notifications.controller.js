@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function OrganizersNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, dialogRequest) {
+  function OrganizersNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, $translate) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       $localStorage.help = false;
