@@ -90,8 +90,10 @@ gulp.task('main', function() {
     .pipe(usemin({
       vendorCss: [minifyCSS({zindex: false}), 'concat'],
       appCss: [minifyCSS(), 'concat'],
-      vendorJs: [ngAnnotate(), uglify(), 'concat'],
-      appJs: [ngAnnotate(), uglify(), 'concat'],
+      //vendorJs: [ngAnnotate(), uglify(), 'concat'],
+      //appJs: [ngAnnotate(), uglify(), 'concat'],
+      vendorJs: [ngAnnotate(), 'concat'],
+      appJs: [ngAnnotate(), 'concat'],
     }))
     .pipe(gulp.dest('dist'));
 });
