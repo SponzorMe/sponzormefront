@@ -1,4 +1,4 @@
-.allContainer .superContainer .cont .formRateContainer {
+.allContainer .superContainer .cont .formRateContainerOrg {
     margin: 0 1em 2em 1em;
     background-color: $color_white;
     padding: 2em 3em 3em 3em;
@@ -32,15 +32,15 @@
           }
         }
         &>.userInfo label{
-          color: $color_active;
+          color: $color-blue-brighter !important;
         }
 
       }
         &>md-input-container, .md-input-container{
-            color: $color_active;
+            color: $color-blue-brighter !important;
 
             &>label{
-              color: $color_active;
+              color: $color-blue-brighter !important;
             }
         }
     }
