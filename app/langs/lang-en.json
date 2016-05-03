@@ -329,6 +329,7 @@
   "organizersMain": {
     "events": "Events",
     "sponsors": "Sponsors",
+    "seeLanding":"See Landing Page",
     "balance": "Balance",
     "community": "Community",
     "addNewEvent": "Add New Event",
