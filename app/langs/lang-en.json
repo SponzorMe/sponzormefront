@@ -455,6 +455,8 @@
     "description": "Description",
     "summary": "Summary",
     "title": "Title",
+    "titlePlaceholder": "Enter Event Title Here",
+    "sumaryPlaceholder": "Type your Event Summary Here",
     "importEvent": "Import Event",
     "saveNewEvent": "Save and See Event's page",
     "setSponzorshipTypes": "Set Sponzorship Types and Tasks",

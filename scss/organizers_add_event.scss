@@ -40,13 +40,40 @@
           margin-left: 15%;
           margin-right: 15%;
           text-align: justify;
+          & > .black-input{
+            margin-bottom: 0;
+            &>input{
+              color: $color_black;
+              font-size:2em;
+              font-style: italic;
+              border-width: 0 0 0 0;
+            }
+            &>input::-webkit-input-placeholder {
+              color: $color_black;
+            }
+          }
+          & > .white-text{
+            margin-top: 0;
+            color: $color_white;
+            &>input{
+              color: $color_white;
+              border-width: 0 0 0 0;
+            }
+            &>input::-webkit-input-placeholder {
+              color: $color_white;
+            }
+          }
           @media screen and (max-width: $media_step1_bottom) {
             margin: 0;
             padding: 1em;
           }
           & > md-input-container textarea {
+            color: $color_white;
             min-height: 100px;
           }
+          &>md-input-container textarea::-webkit-input-placeholder {
+              color: $color_white;
+            }
           & > h3 {
             font-weight: normal;
             font-style: italic;

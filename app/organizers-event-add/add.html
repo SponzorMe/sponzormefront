@@ -30,18 +30,16 @@
               </label>
               <input id="imageInput" type="file" data-ng-model="file" name="file" maxsize="500" ng-hide="true" accept="image/*" filea>
               <div class="imageTexts" layout="column" layout-align="stretch center">
-                <md-input-container class="white" flex="100">
-                  <label translate>addEvent.title</label>
-                  <input type="text" name="title" ng-model="oeac.event.title" form="createEventForm" required />
+                <md-input-container class="black-input" flex="100" md-no-float>
+                  <input type="text" name="title" ng-model="oeac.event.title" form="createEventForm" placeholder="{{'addEvent.titlePlaceholder'|translate}}" required/>
                   <div ng-messages="createEventForm.title.$error">
                     <div ng-message="required">
                       {{'addEvent.titleRequired'|translate}}
                     </div>
                   </div>
                 </md-input-container>
-                <md-input-container class="white" flex="100">
-                  <label translate>addEvent.summary</label>
-                  <textarea type="text" name="summary" form="createEventForm" md-maxlength="100" ng-model="oeac.event.sumary" required></textarea>
+                <md-input-container class="white-text" flex="100" md-no-float>
+                  <textarea type="text" name="summary" form="createEventForm" md-maxlength="100" placeholder="{{'addEvent.sumaryPlaceholder'|translate}}" ng-model="oeac.event.sumary" required></textarea>
                   <div ng-messages="createEventForm.summary.$error">
                     <div ng-message="required">
                       {{'addEvent.summaryRequired'|translate}}
