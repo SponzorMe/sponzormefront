@@ -50,7 +50,7 @@
         <div class="eventsContainer">
           <div class="scrollableContent">
             <md-content class="events md-whiteframe-2dp" layout="row" layout-align="start center" layout-padding layout-wrap flex>
-                <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events" flex-gt-xs="30" ng-if="smc.events.length">
+                <div class="event md-whiteframe-2dp" ng-repeat="event in smc.events | orderBy: 'starts'" flex-gt-xs="30" ng-if="smc.events.length">
                   <event-item></event-item>
                 </div>
                 <div ng-if="!smc.events.length">
