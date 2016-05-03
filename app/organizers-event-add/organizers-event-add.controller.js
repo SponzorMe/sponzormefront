@@ -73,7 +73,7 @@
       }; //Days
       vm.event = {
         sponzorshipTypes: [],
-        lang: $rootScope.currentLanguage(),
+        lang: $rootScope.currentLanguage()||vm.user.lang||'en',
         organizer: $localStorage.id,
         image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'
       };
