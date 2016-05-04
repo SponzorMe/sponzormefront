@@ -36,6 +36,12 @@
       </md-menu-item>
       <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
         <md-button>
+          <md-icon aria-label="b">remove_red_eye</md-icon>
+          <a href="#/event/{{event.id}}" translate>organizersMain.seeLanding</a>
+        </md-button>
+      </md-menu-item>
+      <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center">
+        <md-button>
           <md-icon aria-label="b">delete</md-icon>
           <a href="" ng-click="omc.deleteEvent(event.id)" translate>organizersMain.deleteEvent</a>
         </md-button>

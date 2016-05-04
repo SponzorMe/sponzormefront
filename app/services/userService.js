@@ -31,6 +31,7 @@
         });
       },
       editUserPatch: function(userId, data) {
+        console.log('data before send', data);
         var token = $localStorage.token;
         return $http({
           method: 'PATCH',

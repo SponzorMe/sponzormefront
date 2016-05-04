@@ -6,7 +6,7 @@
   <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
   <md-divider></md-divider>
   <p>
-    {{event.description|limitTo:100}}
+    {{event.sumary|limitTo:100}}
   </p>
 </div>
 <event-menu active="save" ng-if="active"></event-menu>
