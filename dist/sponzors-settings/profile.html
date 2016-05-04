@@ -47,7 +47,7 @@
                 <md-input-container class="sponzors">
                   <label translate>settings.location</label>
                   <input type="text" name="location" g-places-autocomplete data-ng-model="spc.locationUser" ng-init="spc.locationUser = spc.user.location"
-                  autocomplete="off" required/>
+                    autocomplete="off" required/>
                   <div ng-messages="createForm.location.$error">
                     <div ng-message="location">{{'settings.invalidLocation'|translate}}</div>
                   </div>
@@ -57,24 +57,19 @@
           </div>
           <div flex="20"></div>
           <div class="createRightContainer" flex="30">
-            <div class="userImageContainer" layout="column" layout-align="center center">
+            <div class="" layout="column" layout-align="center center">
               <div class="userImage" layout="column" layout="center center">
                 <img ng-src="{{spc.user.image}}" ng-if="spc.user.image" height="190px" />
-                <div class="iconPreview" layout="column" layout-align="center center" ng-if="!spc.user.image">
-                  <md-icon>person</md-icon>
-                </div>
               </div>
-              <div class="userSubmitImage">
-                <input id="imageInput" name="userImage" type="file" ng-hide="true" type="file" data-ng-model="spc.file" name="file" maxsize="500"
-                accept="image/*" file>
-
-                <md-button class="upload">
-                  <label for="imageInput" layout="row" layout-align="center center">
+            </div>
+            <div class="">
+              <input id="imageInput" type="file" ng-hide="true" data-ng-model="file" name="file" maxsize="500" accept="image/*" file>
+              <md-button class="upload">
+                <label for="imageInput" layout="row" layout-align="center center">
                     <md-icon>add_a_photo</md-icon>
                     <span translate>settings.loadPhoto</span>
                   </label>
-                </md-button>
-              </div>
+              </md-button>
             </div>
             <div class="phoneNumber">
               <md-input-container class="sponzors" layout="row" layout-align="start stretch">
@@ -89,7 +84,7 @@
         </div>
       </div>
       <div class="formContainer createContainer settings" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column"
-      ng-controller="SponzorsChangePasswordController as scpc">
+        ng-controller="SponzorsChangePasswordController as scpc">
         <form name="changePassword" ng-submit="scpc.resetPassword()" id="changePassword" novalidate>
           <div class="password" layout="column" layout-align="center stretch">
             <md-input-container class="sponzors">
