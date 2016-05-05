@@ -1,10 +1,5 @@
-/**
- * @Servicio de Rating (Beneficios)
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function ratingRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -28,4 +23,5 @@
     };
   }
   angular.module('sponzorme').factory('ratingRequest', ratingRequest);
+  ratingRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

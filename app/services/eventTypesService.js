@@ -1,11 +1,5 @@
-/**
- * @Servicio de event_types
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function eventTypeService($http, $rootScope) {
     return {
       allEventTypes: function() {
@@ -14,4 +8,5 @@
     };
   }
   angular.module('sponzorme').factory('eventTypeRequest', eventTypeService);
+  eventTypeService.$inject = ['$http', '$rootScope'];
 })();

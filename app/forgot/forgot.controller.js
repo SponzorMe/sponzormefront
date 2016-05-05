@@ -34,4 +34,5 @@
     };
   }
   angular.module('sponzorme').controller('ForgotController', ForgotController);
+  ForgotController.$inject = ['$scope', '$rootScope', '$routeParams', 'loginRequest', 'dialogRequest'];
 })();

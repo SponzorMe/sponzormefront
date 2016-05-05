@@ -4,9 +4,9 @@
  */
 (function () {
   'use strict';
-  angular.module('sponzorme').run(
-    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', '$firebaseArray', '$firebaseObject',
-      function ($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, $firebaseArray, $firebaseObject, EXPIRATIONTIME) {
+  angular.module('sponzorme').run(AppRun);
+  AppRun.$inject = ['$rootScope', '$translate', '$location', '$filter', '$localStorage', 'userRequest', '$firebaseArray', '$firebaseObject', 'EXPIRATIONTIME'];
+      function AppRun($rootScope, $translate, $location, $filter, $localStorage, userRequest, $firebaseArray, $firebaseObject, EXPIRATIONTIME) {
         var host = window.location.href;
         if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
           var aux = host.replace('http:', 'https:');
@@ -72,24 +72,5 @@
             return false;
           }
         };
-      }]).controller('NotificationController', function ($scope, $translate, $localStorage, $firebaseArray, $rootScope, userRequest) {
-        if ($localStorage.id) {
-          $scope.help = $localStorage.help;
-          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id);
-          $scope.notifications = $firebaseArray(notificationsRef);
-          notificationsRef.on('child_added', function (snapshot) {
-            var current = snapshot.val();
-            if ($localStorage.lastUpdate < current.date) {
-              $localStorage.help = true;
-              $scope.help = true;
-              userRequest.home($localStorage.id).then(function successCallback(response) {
-                $localStorage.lastUpdate = new Date().getTime();
-                $scope.user = response.data.data.user;
-                $localStorage.user = JSON.stringify($scope.user);
-                $localStorage.$apply();
-              });
-            }
-          });
-        }
-      });
+      };
 })();

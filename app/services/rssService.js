@@ -1,11 +1,5 @@
-/**
- * @Servicio de retorn de rss de los diferentes blogs
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function rssRequest($http) {
     return {
       rss: function(lang) {
@@ -15,4 +9,5 @@
     };
   }
   angular.module('sponzorme').factory('rssRequest', rssRequest);
+  rssRequest.$inject = ['$http'];
 })();

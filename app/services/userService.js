@@ -1,11 +1,5 @@
-/**
- * @Servicio de Usuarios
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function userRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     return {
       oneUser: function(userId) {
@@ -58,4 +52,5 @@
     };
   }
   angular.module('sponzorme').factory('userRequest', userRequest);
+  userRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

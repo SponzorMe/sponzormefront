@@ -79,5 +79,6 @@
 
   }
   angular.module('sponzorme').controller('LandingController', LandingController);
+  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce']
 
 })();

@@ -1,5 +1,5 @@
-'use strict';
 (function() {
+  'use strict';
   function OrganizersBalanceController($scope, $translate, $localStorage, $rootScope) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -24,4 +24,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersBalanceController', OrganizersBalanceController);
+  OrganizersBalanceController.$inject = ['$scope', '$translate', '$localStorage', '$rootScope'];
 })();

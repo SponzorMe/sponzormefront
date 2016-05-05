@@ -1,11 +1,5 @@
-/**
- * @Servicio de Categories
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function categoryRequest($http, $rootScope) {
     return {
       /**
@@ -18,4 +12,5 @@
     };
   }
   angular.module('sponzorme').factory('categoryRequest', categoryRequest);
+  categoryRequest.$inject = ['$http', '$rootScope'];
 })();

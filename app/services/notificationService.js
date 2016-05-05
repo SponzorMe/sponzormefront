@@ -18,4 +18,5 @@
     };
   }
   angular.module('sponzorme').factory('notificationRequest', notificationRequest);
+  notificationRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

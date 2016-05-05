@@ -1,5 +1,5 @@
-'use strict';
 (function() {
+  'use strict';
   function SidenavController($scope, $mdSidenav, $route) {
     //mock starts
     var route = $route.current.loadedTemplateUrl;
@@ -224,7 +224,7 @@
     };
 
 }
-  angular.module('sponzorme')
-    .controller('SidenavController', SidenavController);
+  angular.module('sponzorme').controller('SidenavController', SidenavController);
+  SidenavController.$inject = ['$scope', '$mdSidenav', '$route'];
 
 })();

@@ -115,4 +115,5 @@
     }
   }
   angular.module('sponzorme').controller('LoginController', LoginController);
+  LoginController.$inject=['$scope', '$translate', 'loginRequest', '$localStorage', '$location', 'dialogRequest', '$routeParams', '$rootScope', 'userRequest'];
 })();

@@ -1,11 +1,5 @@
-/**
- * @Servicio de Eventos
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     return {
       getEventbriteAuth: function(code) {
@@ -38,4 +32,5 @@
     };
   }
   angular.module('sponzorme').factory('eventbriteRequest', eventbriteRequest);
+  eventbriteRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

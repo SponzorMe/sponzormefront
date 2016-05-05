@@ -1,11 +1,5 @@
-'use strict';
 (function() {
-  /**
-   * Login Service factory
-   * @autor  Sebastian Gomez
-   * @email  seagomezar@gmail.com
-   * @date   2015-11-16
-   */
+  'use strict';
   function loginRequest($http, $httpParamSerializerJQLike, $rootScope) {
     return {
       /**
@@ -81,4 +75,5 @@
     };
   }
   angular.module('sponzorme').factory('loginRequest', loginRequest);
+  loginRequest.$inject = ['$http', '$httpParamSerializerJQLike', '$rootScope'];
 })();

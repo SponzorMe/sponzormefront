@@ -37,6 +37,6 @@
     }
   }
 
-  angular.module('sponzorme')
-    .controller('OrganizersChatController', OrganizersChatController);
+  angular.module('sponzorme').controller('OrganizersChatController', OrganizersChatController);
+  OrganizersChatController.$inject=['$scope', '$firebaseArray', '$localStorage', '$location', '$routeParams', 'sponzorshipRequest', '$rootScope'];
 })();

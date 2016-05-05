@@ -47,4 +47,5 @@
     };
   }
   angular.module('sponzorme').factory('dialogRequest', dialogRequest);
+  dialogRequest.$inject = ['$mdDialog'];
 })();

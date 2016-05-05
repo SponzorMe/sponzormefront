@@ -1,11 +1,5 @@
-/**
- * @Servicio de Perks (Beneficios)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function perkRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -33,4 +27,5 @@
     };
   }
   angular.module('sponzorme').factory('perkRequest', perkRequest);
+  perkRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

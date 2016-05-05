@@ -1,11 +1,5 @@
-/**
- * @Servicio de TaskSponzor (Tareas de los patrocinadores)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -43,6 +37,6 @@
       }
     };
   }
-  angular.module('sponzorme')
-    .factory('taskSponzorRequest', taskSponzorRequest);
+  angular.module('sponzorme').factory('taskSponzorRequest', taskSponzorRequest);
+  taskSponzorRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

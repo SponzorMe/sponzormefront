@@ -1,11 +1,5 @@
-/**
- * @Servicio de Eventos
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function eventRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -69,4 +63,5 @@
     };
   }
   angular.module('sponzorme').factory('eventRequest', eventRequest);
+  eventRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

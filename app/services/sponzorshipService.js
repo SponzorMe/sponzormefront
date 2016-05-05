@@ -1,11 +1,5 @@
-/**
- * @Servicio de Sponzorships (Beneficios)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
+  'use strict';
   function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -58,4 +52,5 @@
     };
   }
   angular.module('sponzorme').factory('sponzorshipRequest', sponzorshipRequest);
+  sponzorshipRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();

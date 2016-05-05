@@ -1,12 +1,5 @@
-/**
- * @Servicio de TaskSponzor (Tareas de los patrocinadores)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-
+  'use strict';
   function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -45,4 +38,5 @@
     };
   }
   angular.module('sponzorme').factory('userInterestRequest', userInterestRequest);
+  userInterestRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope']
 })();
