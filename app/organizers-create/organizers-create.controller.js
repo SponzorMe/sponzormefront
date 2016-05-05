@@ -156,4 +156,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersCreateController', OrganizersCreateController);
+  OrganizersCreateController.$inject=['$scope', '$translate', 'userRequest', '$location', '$localStorage', '$routeParams', '$rootScope', 'MINAGE', 'MAXAGE', 'categoryRequest', 'userInterestRequest', 'dialogRequest', '$mdDialog'];
 })();

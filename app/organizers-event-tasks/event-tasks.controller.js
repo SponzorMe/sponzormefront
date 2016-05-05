@@ -36,4 +36,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersEventTasksController', OrganizersEventTasksController);
+  OrganizersEventTasksController.$inject=['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', '$routeParams', 'SPONZORSHIPSTATUSES', '$mdDialog'];
 })();

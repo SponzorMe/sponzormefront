@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  function OrganizersNewsController($scope, $translate, $localStorage, $rootScope, rssRequest) {
+  function OrganizersNewsController($scope, $localStorage, $rootScope, rssRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.rss = [];
@@ -16,4 +16,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersNewsController', OrganizersNewsController);
+  OrganizersNewsController('$scope', '$localStorage', '$rootScope', 'rssRequest'];
 })();

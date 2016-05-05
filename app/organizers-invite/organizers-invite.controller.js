@@ -19,4 +19,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersInviteController', OrganizersInviteController);
+  OrganizersInviteController.$inject=['$scope', '$translate', 'userRequest', '$rootScope', '$localStorage', 'dialogRequest'];
 })();

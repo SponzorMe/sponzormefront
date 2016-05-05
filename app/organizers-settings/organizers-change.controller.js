@@ -29,4 +29,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersChangePasswordController', OrganizersChangePasswordController);
+  OrganizersChangePasswordController.$inject = ['$scope', '$localStorage', '$rootScope', 'loginRequest', 'dialogRequest'];
 })();

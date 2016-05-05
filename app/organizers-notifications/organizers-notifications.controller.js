@@ -46,4 +46,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersNotificationsController', OrganizersNotificationsController);
+  OrganizersNotificationsController.$inject=['$scope', '$rootScope', '$localStorage', '$firebaseArray', '$firebaseObject', 'userRequest', '$routeParams', '$location', '$translate'];
 })();

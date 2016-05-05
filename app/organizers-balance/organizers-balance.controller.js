@@ -8,7 +8,6 @@
         $mdOpenMenu($event);
       };
       vm.user = JSON.parse($localStorage.user);
-      console.log(vm.user.events);
       for (var i = 0; i < vm.user.events.length; i++) {
         vm.user.events[i].sponzorships = [];
         vm.user.events[i].raised = 0;

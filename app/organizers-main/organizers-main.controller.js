@@ -1,5 +1,5 @@
-'use strict';
 (function() {
+  'use strict';
   function OrganizersMainController($scope, $translate, $localStorage, $rootScope, $location, dialogRequest, eventRequest) {
 
     if ($rootScope.userValidation('0')) {
@@ -74,4 +74,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersMainController', OrganizersMainController);
+  OrganizersMainController.$inject=['$scope', '$translate', '$localStorage', '$rootScope', '$location', 'dialogRequest', 'eventRequest'];
 })();

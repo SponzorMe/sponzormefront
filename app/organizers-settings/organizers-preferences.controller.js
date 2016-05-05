@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function OrganizersPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, $log, allInterestsServiceRequest, dialogRequest) {
+  function OrganizersPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, allInterestsServiceRequest, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -60,4 +60,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersPreferencesController', OrganizersPreferencesController);
+  OrganizersPreferencesController.$inject = ['$scope', '$translate', 'userRequest', '$localStorage', '$rootScope', 'loginRequest', 'userInterestRequest', 'allInterestsServiceRequest', 'dialogRequest'];
 })();

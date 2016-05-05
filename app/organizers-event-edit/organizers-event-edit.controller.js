@@ -226,4 +226,5 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);
+  OrganizersEventEditController.$inject=['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
 })();
