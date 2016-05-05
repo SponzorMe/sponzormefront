@@ -5,8 +5,11 @@
     vm.events = JSON.parse($localStorage.events);
     vm.events.filter(function (e) {
       if (e.id === $routeParams.eventId) {
-        console.log(e);
         vm.currentEvent = e;
+        vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+            a.show = true;
+            return a;
+          });
       }
     });
     vm.currentEvent.description = $sce.trustAsHtml(vm.currentEvent.description);
