@@ -291,5 +291,7 @@
       .otherwise({
         redirect: '/login'
       });
-  }]);
+  }]).config(['$compileProvider', function ($compileProvider) {
+  $compileProvider.debugInfoEnabled(false);
+}]);
 })();

@@ -9,7 +9,10 @@
       vm.events = JSON.parse($localStorage.events);
       vm.events.filter(function (e) {
         if (e.id === $routeParams.eventId) {
-          console.log(e);
+          vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+            a.show = true;
+            return a;
+          });
           vm.currentEvent = e;
         }
       });
@@ -53,7 +56,6 @@
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
         }, function errorCallback(err) {
-          console.log('err', err);
           dialogRequest.closeLoading();
           if (err.status === 409) {
             dialogRequest.showDialog('error', 'alreadySponzoring', false);
@@ -66,6 +68,10 @@
     else{
       eventRequest.oneEvent($routeParams.eventId).then(function(response){
         vm.currentEvent = response.data.event;
+        vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+            a.show = true;
+            return a;
+          });
       }, function(err){
         $location.path('#/login');
       });
