@@ -15,14 +15,11 @@
       </div>
 
       <md-content class="chatContainer md-whiteframe-2dp">
-        <div>
-          <h2>{{occ.sponzorshipInfo.Event.title}}
-              {{occ.sponzorshipInfo.Perk.kind}}
-              ${{occ.sponzorshipInfo.Perk.usd}}USD
-          </h2>
-        </div>
-
         <div class="messagesContainer">
+          <p><strong>{{'chat.eventChat'|translate}}</strong><span class="color-blue-brighter">{{occ.sponzorshipInfo.Event.title}}
+              {{occ.sponzorshipInfo.Perk.kind}}
+              ${{occ.sponzorshipInfo.Perk.usd}}USD</span>
+          </p>
           <div ng-repeat="m in occ.chatMessages| orderBy: - timedate"  flex="100" layout="row">
             <div class="userImage" flex="30" layout-align="center start" layout="column" ng-if=" m.type == '#5DDECF'">
               <div class="imageOrg">
@@ -42,10 +39,9 @@
 
 
           </div>
-          <md-input-container class="md-icon-right md-block">
-            <label translate>chat.writeMessage</label>
-            <input ng-model="occ.newMessage.text" type="text">
-            <md-icon ng-click="occ.addMessage()">send</md-icon>
+          <md-input-container class="md-icon-right md-block" md-no-float>
+            <input ng-model="occ.newMessage.text" type="text" placeholder="{{'chat.writeMessage'|translate}}">
+            <md-icon class="color-blue-brighter" ng-click="occ.addMessage()">send</md-icon>
           </md-input-container>
         </div>
       </md-content>

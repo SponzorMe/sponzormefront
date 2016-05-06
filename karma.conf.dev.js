@@ -3,6 +3,7 @@ module.exports = function(config) {
     basePath: './',
     files: [
       'bower_components/angular/angular.js',
+      'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-translate/angular-translate.js',
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resource/angular-resource.js',
@@ -18,9 +19,6 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/firebase/firebase.js',
       'bower_components/angularfire/dist/angularfire.min.js',
-      'bower_components/textAngular/dist/textAngular-rangy.min.js',
-      'bower_components/textAngular/dist/textAngular-sanitize.min.js',
-      'bower_components/textAngular/dist/textAngular.min.js',
       'bower_components/angular-scroll-glue/src/scrollglue.js',
       'bower_components/aws-sdk/dist/aws-sdk.min.js',
       'bower_components/angular-input-stars-directive/angular-input-stars.js',

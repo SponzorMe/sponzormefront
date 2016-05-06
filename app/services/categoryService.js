@@ -1,5 +1,7 @@
 (function() {
   'use strict';
+  angular.module('sponzorme').factory('categoryRequest', categoryRequest);
+  categoryRequest.$inject = ['$http', '$rootScope'];
   function categoryRequest($http, $rootScope) {
     return {
       /**
@@ -11,6 +13,4 @@
       }
     };
   }
-  angular.module('sponzorme').factory('categoryRequest', categoryRequest);
-  categoryRequest.$inject = ['$http', '$rootScope'];
 })();

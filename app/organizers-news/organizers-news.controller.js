@@ -16,5 +16,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersNewsController', OrganizersNewsController);
-  OrganizersNewsController('$scope', '$localStorage', '$rootScope', 'rssRequest'];
+  OrganizersNewsController.$inject = ['$scope', '$localStorage', '$rootScope', 'rssRequest'];
 })();

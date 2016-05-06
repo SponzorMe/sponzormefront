@@ -53,21 +53,13 @@
               
               <div class="dateAndplace" layout="row" flex="100">
                 <label>{{'addEvent.description'|translate}}</label>
+                
               </div>
+              <md-input-container class="white-text" flex="100" md-no-float>
+                <ng-wig ng-model="oeac.event.description"></ng-wig>
+              </md-input-container>
               
-              <div class="" layout="row" flex="100">
-                <md-input-container>
-                  <text-angular ng-model="oeac.event.description"></text-angular>
-                  <div ng-messages="createEventForm.description.$error">
-                    <div ng-message="required">
-                      {{'addEvent.descriptionRequired'|translate}}
-                    </div>
-                    <div ng-message="md-maxlength">
-                      {{'addEvent.descriptionTooLong'|translate}}
-                    </div>
-                  </div>
-                </md-input-container>
-              </div>
+              
 
               <div class="dateAndplace" layout="row" flex="100">
                 <md-input-container>

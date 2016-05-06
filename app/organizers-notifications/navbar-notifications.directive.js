@@ -1,7 +1,6 @@
-/* recommended */
-angular
-    .module('sponzorme')
-    .directive('organizersNotificationsNavbar', organizersNotificationsNavbar);
+(function(){
+    'use strict';
+    angular.module('sponzorme').directive('organizersNotificationsNavbar', organizersNotificationsNavbar);
 
 function organizersNotificationsNavbar() {
     var directive = {
@@ -15,12 +14,14 @@ function organizersNotificationsNavbar() {
 
     function link(scope, element, attrs) {
         scope.active = attrs.active;
-    }
-
-    function organizersNotificationsNavbarController($scope){
+    }  
+}
+function organizersNotificationsNavbarController($scope){
       $scope.openMenu = function($mdOpenMenu, $event) {
         $scope.originatorEv = $event;
         $mdOpenMenu($event);
       };
-    }
-}
+    } 
+organizersNotificationsNavbarController.$inject = ['$scope'];
+})();
+

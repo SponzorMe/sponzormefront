@@ -22,7 +22,7 @@
     'ngAria',
     'ngAnimate',
     'ngMessages',
-    'textAngular'
+    'ngWig'
   ]);
 })();
 
@@ -356,7 +356,9 @@
       .otherwise({
         redirect: '/login'
       });
-  }]);
+  }]).config(['$compileProvider', function ($compileProvider) {
+  $compileProvider.debugInfoEnabled(false);
+}]);
 })();
 
 /**
@@ -443,9 +445,9 @@
  */
 (function () {
   'use strict';
-  angular.module('sponzorme').run(
-    ['$rootScope', '$translate', '$location', 'allInterestsServiceRequest', '$filter', '$localStorage', 'userRequest', '$firebaseArray', '$firebaseObject',
-      function ($rootScope, $translate, $location, allInterestsServiceRequest, $filter, $localStorage, userRequest, $firebaseArray, $firebaseObject, EXPIRATIONTIME) {
+  angular.module('sponzorme').run(AppRun);
+  AppRun.$inject = ['$rootScope', '$translate', '$location', '$filter', '$localStorage', 'userRequest', '$firebaseArray', '$firebaseObject', 'EXPIRATIONTIME'];
+      function AppRun($rootScope, $translate, $location, $filter, $localStorage, userRequest, $firebaseArray, $firebaseObject, EXPIRATIONTIME) {
         var host = window.location.href;
         if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
           var aux = host.replace('http:', 'https:');
@@ -511,26 +513,7 @@
             return false;
           }
         };
-      }]).controller('NotificationController', ["$scope", "$translate", "$localStorage", "$firebaseArray", "$rootScope", "userRequest", function ($scope, $translate, $localStorage, $firebaseArray, $rootScope, userRequest) {
-        if ($localStorage.id) {
-          $scope.help = $localStorage.help;
-          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id);
-          $scope.notifications = $firebaseArray(notificationsRef);
-          notificationsRef.on('child_added', function (snapshot) {
-            var current = snapshot.val();
-            if ($localStorage.lastUpdate < current.date) {
-              $localStorage.help = true;
-              $scope.help = true;
-              userRequest.home($localStorage.id).then(function successCallback(response) {
-                $localStorage.lastUpdate = new Date().getTime();
-                $scope.user = response.data.data.user;
-                $localStorage.user = JSON.stringify($scope.user);
-                $localStorage.$apply();
-              });
-            }
-          });
-        }
-      }]);
+      };
 })();
 
 /**
@@ -623,15 +606,8 @@
     });
 })();
 
-/**
- * @Servicio de Categories
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  categoryRequest.$inject = ["$http", "$rootScope"];
+  'use strict';
   function categoryRequest($http, $rootScope) {
     return {
       /**
@@ -644,17 +620,11 @@
     };
   }
   angular.module('sponzorme').factory('categoryRequest', categoryRequest);
+  categoryRequest.$inject = ['$http', '$rootScope'];
 })();
 
-/**
- * @Servicio de Eventos
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  eventRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function eventRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -718,17 +688,11 @@
     };
   }
   angular.module('sponzorme').factory('eventRequest', eventRequest);
+  eventRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de event_types
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  eventTypeService.$inject = ["$http", "$rootScope"];
+  'use strict';
   function eventTypeService($http, $rootScope) {
     return {
       allEventTypes: function() {
@@ -737,37 +701,25 @@
     };
   }
   angular.module('sponzorme').factory('eventTypeRequest', eventTypeService);
+  eventTypeService.$inject = ['$http', '$rootScope'];
 })();
 
-/**
- * @Servicio de interests_category
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
-(function() {
-  allInterestsServiceRequest.$inject = ["$http", "$rootScope"];
+(function () {
+  'use strict';
   function allInterestsServiceRequest($http, $rootScope) {
     return {
-      allInterestsCategoriesId: function() {
+      allInterestsCategoriesId: function () {
         return $http.get($rootScope.getConstants().URL + 'interests_category');
 
       }
     };
   }
   angular.module('sponzorme').factory('allInterestsServiceRequest', allInterestsServiceRequest);
+  allInterestsServiceRequest.$inject = ['$http', '$rootScope'];
 })();
 
-'use strict';
 (function() {
-  /**
-   * Login Service factory
-   * @autor  Sebastian Gomez
-   * @email  seagomezar@gmail.com
-   * @date   2015-11-16
-   */
-  loginRequest.$inject = ["$http", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function loginRequest($http, $httpParamSerializerJQLike, $rootScope) {
     return {
       /**
@@ -843,17 +795,11 @@
     };
   }
   angular.module('sponzorme').factory('loginRequest', loginRequest);
+  loginRequest.$inject = ['$http', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de Perks (Beneficios)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  perkRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function perkRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -881,17 +827,11 @@
     };
   }
   angular.module('sponzorme').factory('perkRequest', perkRequest);
+  perkRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de Perks (Beneficios)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  perkTaskRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function perkTaskRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -919,17 +859,11 @@
     };
   }
   angular.module('sponzorme').factory('perkTaskRequest', perkTaskRequest);
+  perkTaskRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de Sponzorships (Beneficios)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  sponzorshipRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function sponzorshipRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -982,17 +916,11 @@
     };
   }
   angular.module('sponzorme').factory('sponzorshipRequest', sponzorshipRequest);
+  sponzorshipRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de TaskSponzor (Tareas de los patrocinadores)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  taskSponzorRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function taskSponzorRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -1030,20 +958,12 @@
       }
     };
   }
-  angular.module('sponzorme')
-    .factory('taskSponzorRequest', taskSponzorRequest);
+  angular.module('sponzorme').factory('taskSponzorRequest', taskSponzorRequest);
+  taskSponzorRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de TaskSponzor (Tareas de los patrocinadores)
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-
-  userInterestRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function userInterestRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -1082,17 +1002,11 @@
     };
   }
   angular.module('sponzorme').factory('userInterestRequest', userInterestRequest);
+  userInterestRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope']
 })();
 
-/**
- * @Servicio de Usuarios
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  userRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function userRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     return {
       oneUser: function(userId) {
@@ -1145,17 +1059,11 @@
     };
   }
   angular.module('sponzorme').factory('userRequest', userRequest);
+  userRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de retorn de rss de los diferentes blogs
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  rssRequest.$inject = ["$http"];
+  'use strict';
   function rssRequest($http) {
     return {
       rss: function(lang) {
@@ -1165,16 +1073,11 @@
     };
   }
   angular.module('sponzorme').factory('rssRequest', rssRequest);
+  rssRequest.$inject = ['$http'];
 })();
 
-/**
- * @Servicio de Rating (Beneficios)
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  ratingRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function ratingRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -1198,17 +1101,11 @@
     };
   }
   angular.module('sponzorme').factory('ratingRequest', ratingRequest);
+  ratingRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
-/**
- * @Servicio de Eventos
- *
- * @author Sebastian
- * @version 0.1
- */
-'use strict';
 (function() {
-  eventbriteRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
+  'use strict';
   function eventbriteRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     return {
       getEventbriteAuth: function(code) {
@@ -1241,12 +1138,12 @@
     };
   }
   angular.module('sponzorme').factory('eventbriteRequest', eventbriteRequest);
+  eventbriteRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
 
 (function () {
   'use strict';
-  notificationRequest.$inject = ["$http", "$localStorage", "$httpParamSerializerJQLike", "$rootScope"];
   function notificationRequest($http, $localStorage, $httpParamSerializerJQLike, $rootScope) {
     var token = $localStorage.token;
     return {
@@ -1264,12 +1161,12 @@
     };
   }
   angular.module('sponzorme').factory('notificationRequest', notificationRequest);
+  notificationRequest.$inject = ['$http', '$localStorage', '$httpParamSerializerJQLike', '$rootScope'];
 })();
 
 
 (function() {
   'use strict';
-  dialogRequest.$inject = ["$mdDialog"];
     function dialogRequest($mdDialog) {
       return {
         showLoading: function(){
@@ -1317,11 +1214,38 @@
     };
   }
   angular.module('sponzorme').factory('dialogRequest', dialogRequest);
+  dialogRequest.$inject = ['$mdDialog'];
 })();
 
-'use strict';
+(function () {
+    'use strict';
+
+    function NotificationController($scope, userRequest, $localStorage, $rootScope, $firebaseArray) {
+
+        if ($localStorage.id) {
+            $scope.help = $localStorage.help;
+            var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id);
+            $scope.notifications = $firebaseArray(notificationsRef);
+            notificationsRef.on('child_added', function (snapshot) {
+                var current = snapshot.val();
+                if ($localStorage.lastUpdate < current.date) {
+                    $localStorage.help = true;
+                    $scope.help = true;
+                    userRequest.home($localStorage.id).then(function successCallback(response) {
+                        $localStorage.lastUpdate = new Date().getTime();
+                        $scope.user = response.data.data.user;
+                        $localStorage.user = JSON.stringify($scope.user);
+                        $localStorage.$apply();
+                    });
+                }
+            });
+        }
+    }
+    angular.module('sponzorme').controller('NotificationController', NotificationController);
+    NotificationController.$inject = ['$scope', 'userRequest', '$localStorage', '$rootScope', '$firebaseArray'];
+})();
 (function() {
-  SponzorsEventMainController.$inject = ["$scope", "$localStorage", "$rootScope", "eventRequest", "$location", "dialogRequest"];
+  'use strict';
   function SponzorsEventMainController($scope, $localStorage, $rootScope, eventRequest, $location, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
@@ -1366,6 +1290,7 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsEventMainController', SponzorsEventMainController);
+  SponzorsEventMainController.$inject = ['$scope', '$localStorage', '$rootScope', 'eventRequest', '$location', 'dialogRequest'];
 })();
 
 (function () {
@@ -1373,7 +1298,6 @@
   /*This controller has two responsabilities
    First show all Events
    Second allows make a filter based on the interests*/
-  SponzorsMainController.$inject = ["$scope", "$localStorage", "$rootScope", "dialogRequest", "$location"];
   function SponzorsMainController($scope, $localStorage, $rootScope, dialogRequest, $location) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
@@ -1440,6 +1364,7 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsMainController', SponzorsMainController);
+  SponzorsMainController.$inject = ['$scope', '$localStorage', '$rootScope', 'dialogRequest', '$location'];
 })();
 
 /* recommended */
@@ -1516,9 +1441,7 @@ function navbarEvents() {
 }
 
 /* recommended */
-angular
-    .module('sponzorme')
-    .directive('sponzorsNavbar', sponzorsNavbar);
+angular.module('sponzorme').directive('sponzorsNavbar', sponzorsNavbar);
 
 function sponzorsNavbar() {
     var directive = {
@@ -1529,16 +1452,13 @@ function sponzorsNavbar() {
     };
     return directive;
 
-    function link(scope, element, attrs) {
-    }
+    function link(scope, element, attrs) {/*Nothing implemented Here*/}
 }
-'use strict';
 (function() {
-  SponzorsOutstandingController.$inject = ["$scope", "$localStorage", "$rootScope", "eventRequest", "$location", "dialogRequest"];
-  function SponzorsOutstandingController($scope, $localStorage, $rootScope, eventRequest, $location, dialogRequest) {
+  'use strict';
+  function SponzorsOutstandingController($scope, $localStorage, $rootScope) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
-      console.log(vm.user);
       /*This function generate the events from the localStorage*/
       vm.restoreEvents = function() {
         vm.events = [];
@@ -1555,11 +1475,11 @@ function sponzorsNavbar() {
     }
   }
   angular.module('sponzorme').controller('SponzorsOutstandingController', SponzorsOutstandingController);
+  SponzorsOutstandingController.$inject = ['$scope', '$localStorage', '$rootScope'];
 })();
 
 (function () {
   'use strict';
-  SponzorsSavedController.$inject = ["$scope", "$localStorage", "$rootScope"];
   function SponzorsSavedController($scope, $localStorage, $rootScope) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
@@ -1572,13 +1492,13 @@ function sponzorsNavbar() {
     }
   }
   angular.module('sponzorme').controller('SponzorsSavedController', SponzorsSavedController);
+  SponzorsSavedController.$inject = ['$scope', '$localStorage', '$rootScope'];
 })();
 
 (function() {
   'use strict';
 
-  SponzorsPreferencesController.$inject = ["$scope", "$translate", "userRequest", "$localStorage", "$rootScope", "loginRequest", "userInterestRequest", "$log", "allInterestsServiceRequest", "dialogRequest"];
-  function SponzorsPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, $log, allInterestsServiceRequest, dialogRequest) {
+  function SponzorsPreferencesController($scope, userRequest, $localStorage, $rootScope, userInterestRequest, allInterestsServiceRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -1686,12 +1606,12 @@ function sponzorsNavbar() {
     }
   }
   angular.module('sponzorme').controller('SponzorsPreferencesController', SponzorsPreferencesController);
+  SponzorsPreferencesController.$inject = ['$scope', 'userRequest', '$localStorage', '$rootScope', 'userInterestRequest', 'allInterestsServiceRequest', 'dialogRequest'];
 })();
 
 (function () {
   'use strict';
-  SponzorsProfileController.$inject = ["$scope", "$translate", "userRequest", "$localStorage", "$rootScope", "loginRequest", "userInterestRequest", "dialogRequest"];
-  function SponzorsProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, dialogRequest) {
+  function SponzorsProfileController($scope, userRequest, $localStorage, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -1770,20 +1690,20 @@ function sponzorsNavbar() {
     }
   }
   angular.module('sponzorme').controller('SponzorsProfileController', SponzorsProfileController);
+  SponzorsProfileController.$inject = ['$scope', 'userRequest', '$localStorage', '$rootScope', 'dialogRequest'];
 })();
 
 (function() {
   'use strict';
-  SponzorsRatingsController.$inject = ["$scope", "$localStorage", "$rootScope", "$log"];
-  function SponzorsRatingsController($scope, $localStorage, $rootScope, $log) {
+  function SponzorsRatingsController($scope, $localStorage, $rootScope) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
-      console.log(vm.user);
       vm.ratings = []; //here is necessary assign the ratings
     }
   }
   angular.module('sponzorme').controller('SponzorsRatingsController', SponzorsRatingsController);
+  SponzorsRatingsController.$inject = ['$scope', '$localStorage', '$rootScope'];
 })();
 
 /* recommended */
@@ -1819,7 +1739,6 @@ function navbarSettings() {
 
 (function() {
   'use strict';
-  SponzorsChangePasswordController.$inject = ["$scope", "$localStorage", "$rootScope", "loginRequest", "dialogRequest"];
   function SponzorsChangePasswordController($scope, $localStorage, $rootScope, loginRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
@@ -1849,11 +1768,11 @@ function navbarSettings() {
     }
   }
   angular.module('sponzorme').controller('SponzorsChangePasswordController', SponzorsChangePasswordController);
+  SponzorsChangePasswordController.$inject = ['$scope', '$localStorage', '$rootScope', 'loginRequest', 'dialogRequest'];
 })();
 
 (function () {
   'use strict';
-  SponzorsTasksController.$inject = ["$scope", "$localStorage", "$rootScope", "$routeParams", "taskSponzorRequest", "dialogRequest"];
   function SponzorsTasksController($scope, $localStorage, $rootScope, $routeParams, taskSponzorRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
@@ -1895,12 +1814,12 @@ function navbarSettings() {
     }
   }
   angular.module('sponzorme').controller('SponzorsTasksController', SponzorsTasksController);
+  SponzorsTasksController.$inject = ['$scope', '$localStorage', '$rootScope', '$routeParams', 'taskSponzorRequest', 'dialogRequest'];
 })();
 
 (function () {
   'use strict';
-  SponzorsCreateTasksController.$inject = ["$scope", "$localStorage", "$routeParams", "taskSponzorRequest", "$rootScope", "dialogRequest"];
-  function SponzorsCreateTasksController($scope, $localStorage, $routeParams, taskSponzorRequest, $rootScope, dialogRequest) {
+  function SponzorsCreateTasksController($scope, $localStorage, taskSponzorRequest, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -1953,12 +1872,12 @@ function navbarSettings() {
     }
   }
   angular.module('sponzorme').controller('SponzorsCreateTasksController', SponzorsCreateTasksController);
+  SponzorsCreateTasksController.$inject = ['$scope', '$localStorage', 'taskSponzorRequest', '$rootScope', 'dialogRequest'];
 })();
 
 (function () {
   'use strict';
-  SponzorsNotificationsController.$inject = ["$scope", "$rootScope", "$localStorage", "$firebaseArray", "$firebaseObject", "userRequest", "$routeParams", "$location", "dialogRequest"];
-  function SponzorsNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, dialogRequest) {
+  function SponzorsNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       $localStorage.help = false;
@@ -2005,6 +1924,7 @@ function navbarSettings() {
     }
   }
   angular.module('sponzorme').controller('SponzorsNotificationsController', SponzorsNotificationsController);
+  SponzorsNotificationsController.$inject = ['$scope', '$rootScope', '$localStorage', '$firebaseArray', '$firebaseObject', 'userRequest', '$routeParams', '$location'];
 })();
 
 /* recommended */
@@ -2034,8 +1954,7 @@ function navbarNotifications() {
 }
 (function() {
   'use strict';
-  SponzorsSponzorshipsController.$inject = ["$scope", "$localStorage", "$rootScope", "ratingRequest", "SPONZORSHIPSTATUSES", "$routeParams", "$mdDialog", "$sce"];
-  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $sce) {
+  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $sce) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.todayDate = new Date().getTime();
@@ -2109,12 +2028,12 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
+  SponzorsSponzorshipsController.$inject = ['$scope', '$localStorage', '$rootScope', 'SPONZORSHIPSTATUSES', '$routeParams', '$mdDialog', '$sce'];
 })();
 
 (function() {
   'use strict';
 
-  addCalendarController.$inject = ["$scope"];
   function addCalendarController($scope) {
     $scope.currentSponzorship.event.description = $scope.currentSponzorship.event.description || '';
 
@@ -2228,14 +2147,13 @@ function navbarNotifications() {
       icalendar: getIcsCalendar(),
       dlIcal: dlIcal
     };
-
   }
   angular.module('sponzorme').controller('addCalendarController', addCalendarController);
+  addCalendarController.$inject = ['$scope'];
 })();
 
-'use strict';
 (function () {
-  SponzorsCreateController.$inject = ["$scope", "$translate", "userRequest", "$location", "$localStorage", "$routeParams", "$rootScope", "MINAGE", "MAXAGE", "categoryRequest", "userInterestRequest", "dialogRequest", "$mdDialog"];
+  'use strict';
   function SponzorsCreateController($scope, $translate, userRequest, $location, $localStorage, $routeParams, $rootScope, MINAGE, MAXAGE, categoryRequest, userInterestRequest, dialogRequest, $mdDialog) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
@@ -2391,12 +2309,12 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('SponzorsCreateController', SponzorsCreateController);
+  SponzorsCreateController.$inject = ['$scope', '$translate', 'userRequest', '$location', '$localStorage', '$routeParams', '$rootScope', 'MINAGE', 'MAXAGE', 'categoryRequest', 'userInterestRequest', 'dialogRequest', '$mdDialog'];
 })();
 
 (function () {
   'use strict';
-  SponzorsInviteController.$inject = ["$scope", "$translate", "userRequest", "$rootScope", "$localStorage", "dialogRequest"];
-  function SponzorsInviteController($scope, $translate, userRequest, $rootScope, $localStorage, dialogRequest) {
+  function SponzorsInviteController($scope, userRequest, $rootScope, $localStorage, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.friend = { 'email': '', 'message': 'no-message', 'user_id': $localStorage.id }; //Define the object to be used.
@@ -2415,18 +2333,21 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('SponzorsInviteController', SponzorsInviteController);
+  SponzorsInviteController.$inject = ['$scope', 'userRequest', '$rootScope', '$localStorage', 'dialogRequest'];
 })();
 
-'use strict';
 (function () {
-  SponzorsEventController.$inject = ["$scope", "$mdDialog", "$routeParams", "$translate", "$localStorage", "$location", "eventRequest", "sponzorshipRequest", "$rootScope", "dialogRequest", "$sce"];
-  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
+  'use strict';
+  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
     vm.events.filter(function (e) {
       if (e.id === $routeParams.eventId) {
-        console.log(e);
         vm.currentEvent = e;
+        vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+            a.show = true;
+            return a;
+          });
       }
     });
     vm.currentEvent.description = $sce.trustAsHtml(vm.currentEvent.description);
@@ -2480,13 +2401,13 @@ function navbarNotifications() {
     };
   }
   angular.module('sponzorme').controller('SponzorsEventController', SponzorsEventController);
+  SponzorsEventController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce'];
 })();
 
 (function() {
   'use strict';
 
-  SponzorsChatController.$inject = ["$scope", "$firebaseArray", "$localStorage", "$location", "$routeParams", "sponzorshipRequest", "$rootScope"];
-  function SponzorsChatController($scope, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
+  function SponzorsChatController($scope, $firebaseArray, $localStorage, $location, sponzorshipRequest, $rootScope) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).then(function successCallback(response) {
@@ -2521,15 +2442,14 @@ function navbarNotifications() {
     }
   }
 
-  angular.module('sponzorme')
-    .controller('SponzorsChatController', SponzorsChatController);
+  angular.module('sponzorme').controller('SponzorsChatController', SponzorsChatController);
+  SponzorsChatController.$inject = ['$scope', '$firebaseArray', '$localStorage', '$location', 'sponzorshipRequest', '$rootScope'];
 })();
 
 (function() {
   'use strict';
 
-  SponzorsRateController.$inject = ["$scope", "$localStorage", "$rootScope", "ratingRequest", "SPONZORSHIPSTATUSES", "$routeParams", "$mdDialog", "$translate", "dialogRequest"];
-  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $translate, dialogRequest) {
+  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -2590,11 +2510,11 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('SponzorsRateController', SponzorsRateController);
+  SponzorsRateController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
 })();
 
-'use strict';
 (function() {
-  OrganizersMainController.$inject = ["$scope", "$translate", "$localStorage", "$rootScope", "$location", "dialogRequest", "eventRequest"];
+  'use strict';
   function OrganizersMainController($scope, $translate, $localStorage, $rootScope, $location, dialogRequest, eventRequest) {
 
     if ($rootScope.userValidation('0')) {
@@ -2669,6 +2589,7 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('OrganizersMainController', OrganizersMainController);
+  OrganizersMainController.$inject=['$scope', '$translate', '$localStorage', '$rootScope', '$location', 'dialogRequest', 'eventRequest'];
 })();
 
 (function() {
@@ -2775,9 +2696,8 @@ function navbarNotifications() {
   }
 })();
 
-'use strict';
 (function() {
-  OrganizersSponzorsController.$inject = ["$scope", "$translate", "taskSponzorRequest", "sponzorshipRequest", "$localStorage", "$rootScope", "dialogRequest", "SPONZORSHIPSTATUSES", "$mdDialog"];
+  'use strict';
   function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES, $mdDialog) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -2888,14 +2808,12 @@ function navbarNotifications() {
       };
     }
   }
-  angular.module('sponzorme')
-    .controller('OrganizersSponzorsController', OrganizersSponzorsController);
-
+  angular.module('sponzorme').controller('OrganizersSponzorsController', OrganizersSponzorsController);
+  OrganizersSponzorsController.$inject = ['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', 'SPONZORSHIPSTATUSES', '$mdDialog'];
 })();
 
-'use strict';
 (function() {
-  OrganizersBalanceController.$inject = ["$scope", "$translate", "$localStorage", "$rootScope"];
+  'use strict';
   function OrganizersBalanceController($scope, $translate, $localStorage, $rootScope) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -2904,7 +2822,6 @@ function navbarNotifications() {
         $mdOpenMenu($event);
       };
       vm.user = JSON.parse($localStorage.user);
-      console.log(vm.user.events);
       for (var i = 0; i < vm.user.events.length; i++) {
         vm.user.events[i].sponzorships = [];
         vm.user.events[i].raised = 0;
@@ -2920,12 +2837,12 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('OrganizersBalanceController', OrganizersBalanceController);
+  OrganizersBalanceController.$inject = ['$scope', '$translate', '$localStorage', '$rootScope'];
 })();
 
 (function() {
   'use strict';
-  OrganizersNewsController.$inject = ["$scope", "$translate", "$localStorage", "$rootScope", "rssRequest"];
-  function OrganizersNewsController($scope, $translate, $localStorage, $rootScope, rssRequest) {
+  function OrganizersNewsController($scope, $localStorage, $rootScope, rssRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.rss = [];
@@ -2941,11 +2858,11 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('OrganizersNewsController', OrganizersNewsController);
+  OrganizersNewsController.$inject = ['$scope', '$localStorage', '$rootScope', 'rssRequest'];
 })();
 
 (function () {
   'use strict';
-  OrganizersNotificationsController.$inject = ["$scope", "$rootScope", "$localStorage", "$firebaseArray", "$firebaseObject", "userRequest", "$routeParams", "$location", "$translate"];
   function OrganizersNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, $translate) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -2992,12 +2909,12 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('OrganizersNotificationsController', OrganizersNotificationsController);
+  OrganizersNotificationsController.$inject=['$scope', '$rootScope', '$localStorage', '$firebaseArray', '$firebaseObject', 'userRequest', '$routeParams', '$location', '$translate'];
 })();
 
-/* recommended */
-angular
-    .module('sponzorme')
-    .directive('organizersNotificationsNavbar', organizersNotificationsNavbar);
+(function(){
+    'use strict';
+    angular.module('sponzorme').directive('organizersNotificationsNavbar', organizersNotificationsNavbar);
 
 function organizersNotificationsNavbar() {
     var directive = {
@@ -3011,21 +2928,22 @@ function organizersNotificationsNavbar() {
 
     function link(scope, element, attrs) {
         scope.active = attrs.active;
-    }
-
-    function organizersNotificationsNavbarController($scope){
+    }  
+}
+function organizersNotificationsNavbarController($scope){
       $scope.openMenu = function($mdOpenMenu, $event) {
         $scope.originatorEv = $event;
         $mdOpenMenu($event);
       };
-    }
-}
+    } 
+organizersNotificationsNavbarController.$inject = ['$scope'];
+})();
+
 
 (function() {
   'use strict';
 
-  OrganizersTasksController.$inject = ["$scope", "$localStorage", "$rootScope", "$routeParams", "taskSponzorRequest"];
-  function OrganizersTasksController($scope, $localStorage, $rootScope, $routeParams, taskSponzorRequest) {
+  function OrganizersTasksController($scope, $localStorage, $rootScope, taskSponzorRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -3066,13 +2984,12 @@ function organizersNotificationsNavbar() {
     }
   }
   angular.module('sponzorme').controller('OrganizersTasksController', OrganizersTasksController);
-
+  OrganizersTasksController.$inject = ['$scope', '$localStorage', '$rootScope', 'taskSponzorRequest'];
 })();
 
 (function () {
   'use strict';
-  OrganizersCreateTasksController.$inject = ["$scope", "$localStorage", "$routeParams", "taskSponzorRequest", "$rootScope", "dialogRequest"];
-  function OrganizersCreateTasksController($scope, $localStorage, $routeParams, taskSponzorRequest, $rootScope, dialogRequest) {
+  function OrganizersCreateTasksController($scope, $localStorage, taskSponzorRequest, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -3125,13 +3042,13 @@ function organizersNotificationsNavbar() {
     }
   }
   angular.module('sponzorme').controller('OrganizersCreateTasksController', OrganizersCreateTasksController);
+  OrganizersCreateTasksController.$inject = ['$scope', '$localStorage', 'taskSponzorRequest', '$rootScope', 'dialogRequest'];
 })();
 
 (function() {
   'use strict';
 
-  OrganizersPreferencesController.$inject = ["$scope", "$translate", "userRequest", "$localStorage", "$rootScope", "loginRequest", "userInterestRequest", "$log", "allInterestsServiceRequest", "dialogRequest"];
-  function OrganizersPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, $log, allInterestsServiceRequest, dialogRequest) {
+  function OrganizersPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, allInterestsServiceRequest, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -3190,14 +3107,13 @@ function organizersNotificationsNavbar() {
     }
   }
   angular.module('sponzorme').controller('OrganizersPreferencesController', OrganizersPreferencesController);
+  OrganizersPreferencesController.$inject = ['$scope', '$translate', 'userRequest', '$localStorage', '$rootScope', 'loginRequest', 'userInterestRequest', 'allInterestsServiceRequest', 'dialogRequest'];
 })();
 
 
 (function() {
     'use strict';
-    OrganizersRateController.$inject = ["$scope", "$translate", "userRequest", "$localStorage", "$rootScope", "allInterestsServiceRequest", "loginRequest", "userInterestRequest", "dialogRequest"];
-    function OrganizersRateController($scope, $translate, userRequest,
-        $localStorage, $rootScope, allInterestsServiceRequest, loginRequest, userInterestRequest, dialogRequest) {
+    function OrganizersRateController($scope, $localStorage, $rootScope) {
         if ($rootScope.userValidation('0')) {
             var vm = this;
             vm.user = JSON.parse($localStorage.user);
@@ -3206,12 +3122,12 @@ function organizersNotificationsNavbar() {
         }
     }
     angular.module('sponzorme').controller('OrganizersRateController', OrganizersRateController);
+    OrganizersRateController.$inject = ['$scope', '$localStorage', '$rootScope'];
 })();
 
 (function () {
   'use strict';
-  OrganizersProfileController.$inject = ["$scope", "$log", "$translate", "userRequest", "$localStorage", "$rootScope", "loginRequest", "userInterestRequest", "dialogRequest"];
-  function OrganizersProfileController($scope, $log, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, dialogRequest) {
+  function OrganizersProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -3290,11 +3206,11 @@ function organizersNotificationsNavbar() {
     }
   }
   angular.module('sponzorme').controller('OrganizersProfileController', OrganizersProfileController);
+  OrganizersProfileController.$inject = ['$scope', '$translate', 'userRequest', '$localStorage', '$rootScope', 'loginRequest', 'userInterestRequest', 'dialogRequest'];
 })();
 
 (function() {
   'use strict';
-  OrganizersChangePasswordController.$inject = ["$scope", "$localStorage", "$rootScope", "loginRequest", "dialogRequest"];
   function OrganizersChangePasswordController($scope, $localStorage, $rootScope, loginRequest, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -3324,6 +3240,7 @@ function organizersNotificationsNavbar() {
     }
   }
   angular.module('sponzorme').controller('OrganizersChangePasswordController', OrganizersChangePasswordController);
+  OrganizersChangePasswordController.$inject = ['$scope', '$localStorage', '$rootScope', 'loginRequest', 'dialogRequest'];
 })();
 
 (function() {
@@ -3360,7 +3277,6 @@ function organizersNotificationsNavbar() {
 
 (function() {
   'use strict';
-  OrganizersEventEditController.$inject = ["$scope", "$mdDialog", "$translate", "$localStorage", "eventRequest", "$rootScope", "$routeParams", "eventbriteRequest", "dialogRequest", "eventTypeRequest", "categoryRequest"];
   function
 OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
     if ($rootScope.userValidation('0')) {
@@ -3587,12 +3503,12 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);
+  OrganizersEventEditController.$inject=['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
 })();
 
 (function() {
   'use strict';
 
-  OrganizersEventAddController.$inject = ["$scope", "$mdDialog", "$translate", "$localStorage", "eventRequest", "$rootScope", "$routeParams", "eventbriteRequest", "dialogRequest", "eventTypeRequest", "categoryRequest"];
   function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
     if ($rootScope.userValidation('0')) {
       function jsonize(str) {
@@ -4020,41 +3936,41 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersEventAddController', OrganizersEventAddController);
+  OrganizersEventAddController.$inject = ['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
 })();
 
-(function() {
+(function () {
   'use strict';
-  OrganizersSponzorProfileController.$inject = ["$scope", "$translate", "userRequest", "$localStorage", "$rootScope", "loginRequest", "$routeParams", "userInterestRequest", "dialogRequest"];
-  function OrganizersSponzorProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, $routeParams, userInterestRequest, dialogRequest) {
+  function OrganizersSponzorProfileController($scope, userRequest, $rootScope, $routeParams, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       dialogRequest.showLoading();
       vm.sponsor = false;
-      userRequest.oneUser($routeParams.idSponsor).then(function(response){
+      userRequest.oneUser($routeParams.idSponsor).then(function (response) {
         vm.sponsor = response.data.data;
         vm.sponsor.rating = vm.sponsor.rating || 0;
         vm.amount = 0.00;
-        if(vm.sponsor.user.sponzorships){
+        if (vm.sponsor.user.sponzorships) {
           for (var i = 0; i < vm.sponsor.user.sponzorships.length; i++) {
-            if(vm.sponsor.user.sponzorships[i].status){
+            if (vm.sponsor.user.sponzorships[i].status) {
               vm.amount = parseFloat(vm.amount + parseFloat(vm.sponsor.user.sponzorships[i].perk.usd));
             }
           }
         }
         dialogRequest.closeLoading();
 
-      }, function (err){
+      }, function (err) {
         console.log(err);
       });
     }
   }
   angular.module('sponzorme').controller('OrganizersSponzorProfileController', OrganizersSponzorProfileController);
+  OrganizersSponzorProfileController.$inject = ['$scope', 'userRequest', '$rootScope', '$routeParams', 'dialogRequest'];
 })();
 
 (function() {
   'use strict';
 
-  OrganizersChatController.$inject = ["$scope", "$firebaseArray", "$localStorage", "$location", "$routeParams", "sponzorshipRequest", "$rootScope"];
   function OrganizersChatController($scope, $firebaseArray, $localStorage, $location, $routeParams, sponzorshipRequest, $rootScope) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -4091,15 +4007,13 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
 
-  angular.module('sponzorme')
-    .controller('OrganizersChatController', OrganizersChatController);
+  angular.module('sponzorme').controller('OrganizersChatController', OrganizersChatController);
+  OrganizersChatController.$inject=['$scope', '$firebaseArray', '$localStorage', '$location', '$routeParams', 'sponzorshipRequest', '$rootScope'];
 })();
 
 (function() {
   'use strict';
-
-  OrganizersSponsorRatingController.$inject = ["$scope", "$localStorage", "$rootScope", "ratingRequest", "SPONZORSHIPSTATUSES", "$routeParams", "$mdDialog", "$translate", "dialogRequest"];
-  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $translate, dialogRequest) {
+  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -4124,11 +4038,9 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           dialogRequest.showDialog('success', 'sponzorRateSuccesfuly', '/organizers/sponzors');
           //success and redirect
           console.log(response);
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'invalidRate', false);
-          //bad and stay there
-          console.log(err);
         });
       };
 
@@ -4156,13 +4068,12 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
 
-  angular.module('sponzorme')
-    .controller('OrganizersSponsorRatingController', OrganizersSponsorRatingController);
+  angular.module('sponzorme').controller('OrganizersSponsorRatingController', OrganizersSponsorRatingController);
+  OrganizersSponsorRatingController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
 })();
 
 (function() {
   'use strict';
-  OrganizersEventTasksController.$inject = ["$scope", "$translate", "taskSponzorRequest", "sponzorshipRequest", "$localStorage", "$rootScope", "dialogRequest", "$routeParams", "SPONZORSHIPSTATUSES", "$mdDialog"];
   function OrganizersEventTasksController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, $routeParams, SPONZORSHIPSTATUSES, $mdDialog) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -4199,12 +4110,12 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersEventTasksController', OrganizersEventTasksController);
+  OrganizersEventTasksController.$inject=['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', '$routeParams', 'SPONZORSHIPSTATUSES', '$mdDialog'];
 })();
 
 (function() {
   'use strict';
 
-  OrganizersCreateController.$inject = ["$scope", "$translate", "userRequest", "$location", "$localStorage", "$routeParams", "$rootScope", "MINAGE", "MAXAGE", "categoryRequest", "userInterestRequest", "dialogRequest", "$mdDialog"];
   function OrganizersCreateController($scope, $translate, userRequest, $location, $localStorage, $routeParams, $rootScope, MINAGE, MAXAGE, categoryRequest, userInterestRequest, dialogRequest, $mdDialog) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
@@ -4360,11 +4271,11 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersCreateController', OrganizersCreateController);
+  OrganizersCreateController.$inject=['$scope', '$translate', 'userRequest', '$location', '$localStorage', '$routeParams', '$rootScope', 'MINAGE', 'MAXAGE', 'categoryRequest', 'userInterestRequest', 'dialogRequest', '$mdDialog'];
 })();
 
 (function () {
   'use strict';
-  OrganizersInviteController.$inject = ["$scope", "$translate", "userRequest", "$rootScope", "$localStorage", "dialogRequest"];
   function OrganizersInviteController($scope, $translate, userRequest, $rootScope, $localStorage, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -4384,11 +4295,11 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersInviteController', OrganizersInviteController);
+  OrganizersInviteController.$inject=['$scope', '$translate', 'userRequest', '$rootScope', '$localStorage', 'dialogRequest'];
 })();
 
 (function() {
   'use strict';
-  LoginController.$inject = ["$scope", "$translate", "loginRequest", "$localStorage", "$location", "dialogRequest", "$routeParams", "$rootScope", "userRequest"];
   function LoginController($scope, $translate, loginRequest, $localStorage, $location, dialogRequest, $routeParams, $rootScope, userRequest){
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
@@ -4504,21 +4415,21 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('LoginController', LoginController);
+  LoginController.$inject=['$scope', '$translate', 'loginRequest', '$localStorage', '$location', 'dialogRequest', '$routeParams', '$rootScope', 'userRequest'];
 })();
 
 (function(){
   'use strict';
-  LogoutController.$inject = ["$scope", "$translate", "$location", "$localStorage", "$rootScope"];
-  function LogoutController($scope, $translate, $location, $localStorage, $rootScope) {
+  function LogoutController($location, $localStorage) {
     $localStorage.$reset();
     $location.path('/login');
   }
 angular.module('sponzorme').controller('LogoutController', LogoutController);
+LogoutController.$inject = ['$location', '$localStorage'];
 })();
 
 (function() {
   'use strict';
-  ForgotController.$inject = ["$scope", "$rootScope", "$routeParams", "loginRequest", "dialogRequest"];
   function ForgotController($scope, $rootScope, $routeParams, loginRequest, dialogRequest) {
     var vm = this;
     vm.forgotPassword = function() {
@@ -4553,12 +4464,12 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
     };
   }
   angular.module('sponzorme').controller('ForgotController', ForgotController);
+  ForgotController.$inject = ['$scope', '$rootScope', '$routeParams', 'loginRequest', 'dialogRequest'];
 })();
 
 'use strict';
 (function () {
 
-  LandingController.$inject = ["$scope", "$mdDialog", "$routeParams", "$translate", "$localStorage", "$location", "eventRequest", "sponzorshipRequest", "$rootScope", "dialogRequest", "$sce"];
   function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
     var vm = this;
     vm.sponsoreable = false;
@@ -4567,7 +4478,10 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
       vm.events = JSON.parse($localStorage.events);
       vm.events.filter(function (e) {
         if (e.id === $routeParams.eventId) {
-          console.log(e);
+          vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+            a.show = true;
+            return a;
+          });
           vm.currentEvent = e;
         }
       });
@@ -4611,7 +4525,6 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
         }, function errorCallback(err) {
-          console.log('err', err);
           dialogRequest.closeLoading();
           if (err.status === 409) {
             dialogRequest.showDialog('error', 'alreadySponzoring', false);
@@ -4624,6 +4537,10 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
     else{
       eventRequest.oneEvent($routeParams.eventId).then(function(response){
         vm.currentEvent = response.data.event;
+        vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+            a.show = true;
+            return a;
+          });
       }, function(err){
         $location.path('#/login');
       });
@@ -4631,12 +4548,12 @@ angular.module('sponzorme').controller('LogoutController', LogoutController);
 
   }
   angular.module('sponzorme').controller('LandingController', LandingController);
+  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce']
 
 })();
 
-'use strict';
 (function() {
-SidenavController.$inject = ["$scope", "$mdSidenav", "$route"];
+  'use strict';
   function SidenavController($scope, $mdSidenav, $route) {
     //mock starts
     var route = $route.current.loadedTemplateUrl;
@@ -4861,7 +4778,7 @@ SidenavController.$inject = ["$scope", "$mdSidenav", "$route"];
     };
 
 }
-  angular.module('sponzorme')
-    .controller('SidenavController', SidenavController);
+  angular.module('sponzorme').controller('SidenavController', SidenavController);
+  SidenavController.$inject = ['$scope', '$mdSidenav', '$route'];
 
 })();

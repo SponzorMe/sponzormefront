@@ -364,7 +364,8 @@
     "friendEmail": "Friend's Email"
   },
   "chat": {
-    "writeMessage": "Write message"
+    "writeMessage": "Write message",
+    "eventChat": "Event Chat: "
   },
   "rate": {
     "organizerName": "Organizer Name: ",

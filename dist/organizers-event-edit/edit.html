@@ -59,7 +59,7 @@
               </div>
               <div class="" layout="row" flex="100">
                 <md-input-container>
-                  <text-angular ng-model="oeec.event.description"></text-angular>
+                  <textarea ng-wig="oeec.event.description" ng-model="oeec.event.description"></textarea>
                   <div ng-messages="createEventForm.description.$error">
                     <div ng-message="required">
                       {{'addEvent.descriptionRequired'|translate}}

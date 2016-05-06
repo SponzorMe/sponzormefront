@@ -428,5 +428,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersEventAddController', OrganizersEventAddController);
-  OrganizersEventAddController.$inject=['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest']
+  OrganizersEventAddController.$inject = ['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
 })();

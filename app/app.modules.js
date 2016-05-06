@@ -22,6 +22,7 @@
     'ngAria',
     'ngAnimate',
     'ngMessages',
-    'textAngular'
+    'ngWig',
+    'ngSanitize'
   ]);
 })();

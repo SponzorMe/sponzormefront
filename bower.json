@@ -19,13 +19,14 @@
     "angular-mocks": "~1.5.x",
     "angularfire": "~1.2.0",
     "firebase": "~2.4.2",
-    "textAngular": "^1.5.1",
     "moment": "~2.13.0",
     "aws-sdk": "aws-sdk-js#~2.2.21",
     "angular-input-stars-directive": "angular-input-stars#*",
     "angular-scroll-glue": "~2.0.6",
     "downloadjs": "*",
-    "angular-material": "^1.0.7"
+    "angular-material": "^1.0.7",
+    "ng-wig": "~3.0.0-rc1",
+    "angular-sanitize": "^1.5.5"
   },
   "resolutions": {
     "angular": "1.5.5",
