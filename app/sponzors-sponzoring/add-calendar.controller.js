@@ -114,7 +114,7 @@
       icalendar: getIcsCalendar(),
       dlIcal: dlIcal
     };
-
   }
   angular.module('sponzorme').controller('addCalendarController', addCalendarController);
+  addCalendarController.$inject = ['$scope'];
 })();

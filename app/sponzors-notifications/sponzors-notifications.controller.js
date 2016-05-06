@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location, dialogRequest) {
+  function SponzorsNotificationsController($scope, $rootScope, $localStorage, $firebaseArray, $firebaseObject, userRequest, $routeParams, $location) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       $localStorage.help = false;
@@ -47,4 +47,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsNotificationsController', SponzorsNotificationsController);
+  SponzorsNotificationsController.$inject = ['$scope', '$rootScope', '$localStorage', '$firebaseArray', '$firebaseObject', 'userRequest', '$routeParams', '$location'];
 })();

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $translate, dialogRequest) {
+  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -62,4 +62,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsRateController', SponzorsRateController);
+  SponzorsRateController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
 })();

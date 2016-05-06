@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsCreateTasksController($scope, $localStorage, $routeParams, taskSponzorRequest, $rootScope, dialogRequest) {
+  function SponzorsCreateTasksController($scope, $localStorage, taskSponzorRequest, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -53,4 +53,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsCreateTasksController', SponzorsCreateTasksController);
+  SponzorsCreateTasksController.$inject = ['$scope', '$localStorage', 'taskSponzorRequest', '$rootScope', 'dialogRequest'];
 })();

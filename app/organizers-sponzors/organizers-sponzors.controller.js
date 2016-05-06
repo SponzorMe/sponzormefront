@@ -1,5 +1,5 @@
-'use strict';
 (function() {
+  'use strict';
   function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES, $mdDialog) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
@@ -110,7 +110,6 @@
       };
     }
   }
-  angular.module('sponzorme')
-    .controller('OrganizersSponzorsController', OrganizersSponzorsController);
-
+  angular.module('sponzorme').controller('OrganizersSponzorsController', OrganizersSponzorsController);
+  OrganizersSponzorsController.$inject = ['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', 'SPONZORSHIPSTATUSES', '$mdDialog'];
 })();

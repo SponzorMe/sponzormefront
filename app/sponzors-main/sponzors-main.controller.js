@@ -69,4 +69,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsMainController', SponzorsMainController);
+  SponzorsMainController.$inject = ['$scope', '$localStorage', '$rootScope', 'dialogRequest', '$location'];
 })();

@@ -1,9 +1,8 @@
-'use strict';
 (function() {
-  function SponzorsOutstandingController($scope, $localStorage, $rootScope, eventRequest, $location, dialogRequest) {
+  'use strict';
+  function SponzorsOutstandingController($scope, $localStorage, $rootScope) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
-      console.log(vm.user);
       /*This function generate the events from the localStorage*/
       vm.restoreEvents = function() {
         vm.events = [];
@@ -20,4 +19,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsOutstandingController', SponzorsOutstandingController);
+  SponzorsOutstandingController.$inject = ['$scope', '$localStorage', '$rootScope'];
 })();

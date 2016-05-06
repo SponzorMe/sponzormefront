@@ -1,6 +1,6 @@
-'use strict';
 (function () {
-  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
+  'use strict';
+  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
     vm.events.filter(function (e) {
@@ -63,4 +63,5 @@
     };
   }
   angular.module('sponzorme').controller('SponzorsEventController', SponzorsEventController);
+  SponzorsEventController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce'];
 })();

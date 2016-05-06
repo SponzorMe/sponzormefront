@@ -29,4 +29,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsChangePasswordController', SponzorsChangePasswordController);
+  SponzorsChangePasswordController.$inject = ['$scope', '$localStorage', '$rootScope', 'loginRequest', 'dialogRequest'];
 })();

@@ -41,4 +41,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsTasksController', SponzorsTasksController);
+  SponzorsTasksController.$inject = ['$scope', '$localStorage', '$rootScope', '$routeParams', 'taskSponzorRequest', 'dialogRequest'];
 })();

@@ -1,5 +1,5 @@
-'use strict';
 (function () {
+  'use strict';
   function SponzorsCreateController($scope, $translate, userRequest, $location, $localStorage, $routeParams, $rootScope, MINAGE, MAXAGE, categoryRequest, userInterestRequest, dialogRequest, $mdDialog) {
     if ($routeParams.lang === 'en' || $routeParams.lang === 'es' || $routeParams.lang === 'pt') {
       $translate.use($routeParams.lang);
@@ -155,4 +155,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsCreateController', SponzorsCreateController);
+  SponzorsCreateController.$inject = ['$scope', '$translate', 'userRequest', '$location', '$localStorage', '$routeParams', '$rootScope', 'MINAGE', 'MAXAGE', 'categoryRequest', 'userInterestRequest', 'dialogRequest', '$mdDialog'];
 })();

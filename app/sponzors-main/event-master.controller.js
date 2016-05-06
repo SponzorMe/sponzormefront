@@ -1,5 +1,5 @@
-'use strict';
 (function() {
+  'use strict';
   function SponzorsEventMainController($scope, $localStorage, $rootScope, eventRequest, $location, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
@@ -44,4 +44,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsEventMainController', SponzorsEventMainController);
+  SponzorsEventMainController.$inject = ['$scope', '$localStorage', '$rootScope', 'eventRequest', '$location', 'dialogRequest'];
 })();

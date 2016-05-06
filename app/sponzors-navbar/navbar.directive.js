@@ -1,7 +1,5 @@
 /* recommended */
-angular
-    .module('sponzorme')
-    .directive('sponzorsNavbar', sponzorsNavbar);
+angular.module('sponzorme').directive('sponzorsNavbar', sponzorsNavbar);
 
 function sponzorsNavbar() {
     var directive = {
@@ -12,6 +10,5 @@ function sponzorsNavbar() {
     };
     return directive;
 
-    function link(scope, element, attrs) {
-    }
+    function link(scope, element, attrs) {/*Nothing implemented Here*/}
 }

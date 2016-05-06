@@ -12,4 +12,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsSavedController', SponzorsSavedController);
+  SponzorsSavedController.$inject = ['$scope', '$localStorage', '$rootScope'];
 })();

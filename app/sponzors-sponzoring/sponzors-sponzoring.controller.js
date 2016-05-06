@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $sce) {
+  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $sce) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.todayDate = new Date().getTime();
@@ -74,4 +74,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
+  SponzorsSponzorshipsController.$inject = ['$scope', '$localStorage', '$rootScope', 'SPONZORSHIPSTATUSES', '$routeParams', '$mdDialog', '$sce'];
 })();

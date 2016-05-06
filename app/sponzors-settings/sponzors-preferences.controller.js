@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function SponzorsPreferencesController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, $log, allInterestsServiceRequest, dialogRequest) {
+  function SponzorsPreferencesController($scope, userRequest, $localStorage, $rootScope, userInterestRequest, allInterestsServiceRequest, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -109,4 +109,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsPreferencesController', SponzorsPreferencesController);
+  SponzorsPreferencesController.$inject = ['$scope', 'userRequest', '$localStorage', '$rootScope', 'userInterestRequest', 'allInterestsServiceRequest', 'dialogRequest'];
 })();

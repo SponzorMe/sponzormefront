@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsProfileController($scope, $translate, userRequest, $localStorage, $rootScope, loginRequest, userInterestRequest, dialogRequest) {
+  function SponzorsProfileController($scope, userRequest, $localStorage, $rootScope, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -79,4 +79,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsProfileController', SponzorsProfileController);
+  SponzorsProfileController.$inject = ['$scope', 'userRequest', '$localStorage', '$rootScope', 'dialogRequest'];
 })();

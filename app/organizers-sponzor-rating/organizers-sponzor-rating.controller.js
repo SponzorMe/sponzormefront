@@ -1,7 +1,6 @@
 (function() {
   'use strict';
-
-  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $translate, dialogRequest) {
+  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -26,11 +25,9 @@
           dialogRequest.showDialog('success', 'sponzorRateSuccesfuly', '/organizers/sponzors');
           //success and redirect
           console.log(response);
-        }, function errorCallback(err) {
+        }, function errorCallback() {
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'invalidRate', false);
-          //bad and stay there
-          console.log(err);
         });
       };
 
@@ -58,6 +55,6 @@
     }
   }
 
-  angular.module('sponzorme')
-    .controller('OrganizersSponsorRatingController', OrganizersSponsorRatingController);
+  angular.module('sponzorme').controller('OrganizersSponsorRatingController', OrganizersSponsorRatingController);
+  OrganizersSponsorRatingController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
 })();

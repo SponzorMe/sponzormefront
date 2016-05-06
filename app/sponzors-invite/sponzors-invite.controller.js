@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsInviteController($scope, $translate, userRequest, $rootScope, $localStorage, dialogRequest) {
+  function SponzorsInviteController($scope, userRequest, $rootScope, $localStorage, dialogRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.friend = { 'email': '', 'message': 'no-message', 'user_id': $localStorage.id }; //Define the object to be used.
@@ -19,4 +19,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsInviteController', SponzorsInviteController);
+  SponzorsInviteController.$inject = ['$scope', 'userRequest', '$rootScope', '$localStorage', 'dialogRequest'];
 })();
