@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     basePath: './',
     files: [
@@ -19,15 +19,14 @@ module.exports = function(config) {
       'bower_components/moment/moment.js',
       'bower_components/firebase/firebase.js',
       'bower_components/angularfire/dist/angularfire.min.js',
-      'bower_components/angular-scroll-glue/src/scrollglue.js',
       'bower_components/aws-sdk/dist/aws-sdk.min.js',
       'bower_components/angular-input-stars-directive/angular-input-stars.js',
       'bower_components/downloadjs/download.min.js',
       'bower_components/angular-aria/angular-aria.js',
       'bower_components/angular-animate/angular-animate.js',
       'bower_components/angular-material/angular-material.js',
-      'bower_components/angular-material/angular-material.js',
       'bower_components/angular-messages/angular-messages.js',
+      'bower_components/ng-wig/dist/ng-wig.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'app/app.modules.js',
       'app/app.constants.js',
