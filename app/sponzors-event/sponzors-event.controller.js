@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
+  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest) {
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
     vm.events.filter(function (e) {
@@ -47,7 +47,7 @@
           text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + vm.currentEvent.title,
           link: '#/organizers/sponzors'
         };
-        $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
+        firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
         dialogRequest.closeLoading();
         dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {
@@ -61,5 +61,5 @@
     };
   }
   angular.module('sponzorme').controller('SponzorsEventController', SponzorsEventController);
-  SponzorsEventController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce'];
+  SponzorsEventController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest'];
 })();

@@ -1,7 +1,7 @@
 'use strict';
 (function () {
 
-  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
+  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest) {
     var vm = this;
     vm.sponsoreable = false;
     if ($localStorage.id && $localStorage.type === '1' && $localStorage.user) {
@@ -51,7 +51,7 @@
             text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + vm.currentEvent.title,
             link: '#/organizers/sponzors'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
         }, function errorCallback(err) {
@@ -78,6 +78,6 @@
 
   }
   angular.module('sponzorme').controller('LandingController', LandingController);
-  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce']
+  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest']
 
 })();

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
+  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest, firebaseRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -20,7 +20,7 @@
             text: $translate.instant('NOTIFICATIONS.OrganizerRated') + vm.user.name,
             link: '#/profile/' + response.data.Rating.organizer_id
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, response.data.Rating.organizer_id);
+          firebaseRequest.sendNotification(firebaseNotification, response.data.Rating.organizer_id);
           vm.initForm();
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'organizerRateSuccesfuly', '/sponzors/sponzoring');
@@ -57,5 +57,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsRateController', SponzorsRateController);
-  SponzorsRateController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
+  SponzorsRateController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest', 'firebaseRequest'];
 })();

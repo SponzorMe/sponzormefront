@@ -1,23 +1,13 @@
-/**
- * @author Sebastian Gomez
- * @version 0.1
- */
 (function () {
   'use strict';
   angular.module('sponzorme').run(AppRun);
-  AppRun.$inject = ['$rootScope', '$translate', '$location', '$filter', '$localStorage', 'userRequest', '$firebaseArray', '$firebaseObject', 'EXPIRATIONTIME'];
-      function AppRun($rootScope, $translate, $location, $filter, $localStorage, userRequest, $firebaseArray, $firebaseObject, EXPIRATIONTIME) {
+  AppRun.$inject = ['$rootScope', '$translate', '$location', '$filter', '$localStorage', 'userRequest', 'EXPIRATIONTIME'];
+      function AppRun($rootScope, $translate, $location, $filter, $localStorage, userRequest, EXPIRATIONTIME) {
         var host = window.location.href;
         if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
           var aux = host.replace('http:', 'https:');
           window.location.href = aux;
         }
-        $rootScope.sendFirebaseNotification = function (notification, to) {
-          notification.date = new Date().getTime();
-          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + to);
-          var notifications = $firebaseArray(notificationsRef);
-          notifications.$add(notification);
-        };
         /*
          * Author: Sebastian Gomez
          * This function allows change the language whatever be the route

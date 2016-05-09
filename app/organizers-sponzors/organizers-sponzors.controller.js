@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES, $mdDialog) {
+  function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES, $mdDialog, firebaseRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.statuses = SPONZORSHIPSTATUSES;
@@ -25,7 +25,7 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
         }, function errorCallback() {
           vm.user.sponzorships_like_organizer[i].loading = false;
           dialogRequest.showDialog('error', 'problem', false);
@@ -49,7 +49,7 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipRejected') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
         }, function errorCallback(response) {
           vm.user.sponzorships_like_organizer[i].loading = false;
           dialogRequest.showDialog('error', 'problem', false);
@@ -65,7 +65,7 @@
             text: $translate.instant('NOTIFICATIONS.SponzorshipDeleted') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
           vm.user.sponzorships_like_organizer.splice(i, 1);
           $localStorage.user = JSON.stringify(vm.user);
           vm.getTasks(vm.user.sponzorships_like_organizer[0]);
@@ -91,7 +91,7 @@
             text: $translate.instant('NOTIFICATIONS.TaskChanged1') + vm.currentSponzorship.task_sponzor[index].task.title + $translate.instant('NOTIFICATIONS.TaskChanged2') + vm.currentSponzorship.event.title+$translate.instant('NOTIFICATIONS.TaskChanged3'),
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
 
           $localStorage.user = JSON.stringify(vm.user);
 
@@ -111,5 +111,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersSponzorsController', OrganizersSponzorsController);
-  OrganizersSponzorsController.$inject = ['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', 'SPONZORSHIPSTATUSES', '$mdDialog'];
+  OrganizersSponzorsController.$inject = ['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', 'SPONZORSHIPSTATUSES', '$mdDialog', 'firebaseRequest'];
 })();
