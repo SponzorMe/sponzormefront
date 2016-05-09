@@ -35,7 +35,9 @@
       "eventDeleteSuccesfully": "The event was deleted successfuly",
       "eventEditedSuccesfully": "The event has been updated successfuly",
       "PasswordChangedSuccesfully": "Your password has been updated successfuly",
-      "PasswordResetLinkSent": "We have sent an Email with Instructions"
+      "PasswordResetLinkSent": "We have sent an Email with Instructions",
+      "sponzorRatedSuccesfuly": "Your Rate has been saved successfuly, Thank you!",
+      "organizerRatedSuccesfuly": "Your Rate has been saved successfuly, Thank you!"
     },
     "error": {
       "title": "We've got a litte problem",

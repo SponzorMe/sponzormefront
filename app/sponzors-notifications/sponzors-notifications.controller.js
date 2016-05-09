@@ -28,7 +28,6 @@
       }
 
       vm.markAsImportant = function (index) {
-        console.log(index);
         vm.notificationRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id + '/' + index);
         vm.currentNotification = $firebaseObject(vm.notificationRef);
         vm.currentNotification.$loaded(function () {

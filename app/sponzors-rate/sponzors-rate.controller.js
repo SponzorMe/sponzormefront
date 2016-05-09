@@ -24,13 +24,9 @@
           vm.initForm();
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'organizerRateSuccesfuly', '/sponzors/sponzoring');
-          //success and redirect
-          console.log(response);
         }, function errorCallback(err) {
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'invalidRate', false);
-          //bad and stay there
-          console.log(err);
         });
       };
 
@@ -56,7 +52,6 @@
 
       if ($routeParams.sponzorshipId) {
         vm.currentSponzorship = vm.user.sponzorships[$routeParams.sponzorshipId];
-        console.log(vm.currentSponzorship);
         vm.initForm();
       }
     }

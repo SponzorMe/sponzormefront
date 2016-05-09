@@ -6,7 +6,6 @@
       vm.user = JSON.parse($localStorage.user);
       vm.eventId = $routeParams.eventId;
       vm.activePerk = function(p, e) {
-        console.log(e);
         for (var i = 0; i < e.perks.length; i++) {
           e.perks[i].active = false;
         }

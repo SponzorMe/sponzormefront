@@ -1,10 +1,9 @@
 (function() {
   'use strict';
-  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
+  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest, firebaseRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
-
       vm.saveRating = function() { //Finally we save the rating information
         dialogRequest.showLoading();
         if (vm.rating.other) {
@@ -12,19 +11,19 @@
         }
         ratingRequest.createRating(vm.rating).then(function successCallback(response) {
           vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings.push(response.data.Rating);
-          vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId].rated_organizer = true;
+          vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId].rated_organizer = '1';
           $localStorage.user = JSON.stringify(vm.user);
+          $localStorage.$apply();
+          dialogRequest.closeLoading();
+          dialogRequest.showDialog('success', 'sponzorRatedSuccesfuly', '/organizers/sponzors');
+
           var firebaseNotification = {
             to: response.data.Rating.sponzor_id,
             text: $translate.instant('NOTIFICATIONS.SponzorRated') + vm.user.name,
             link: '#/profile/' + response.data.Rating.organizer_id
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, response.data.Rating.organizer_id);
-          vm.initForm();
-          dialogRequest.closeLoading();
-          dialogRequest.showDialog('success', 'sponzorRateSuccesfuly', '/organizers/sponzors');
-          //success and redirect
-          console.log(response);
+          firebaseRequest.sendNotification(firebaseNotification, response.data.Rating.sponzor_id);
+          
         }, function errorCallback() {
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'invalidRate', false);
@@ -49,12 +48,11 @@
 
       if ($routeParams.sponzorshipId) {
         vm.currentSponzorship = vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId];
-        console.log(vm.currentSponzorship);
         vm.initForm();
       }
     }
   }
 
   angular.module('sponzorme').controller('OrganizersSponsorRatingController', OrganizersSponsorRatingController);
-  OrganizersSponsorRatingController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
+  OrganizersSponsorRatingController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest', 'firebaseRequest'];
 })();

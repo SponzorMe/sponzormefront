@@ -16,13 +16,11 @@
         else{
           dialogRequest.showLoading();
           eventRequest.saveEvent(eventId, $localStorage.id).then(function(response){
-            console.log(response);
             vm.user.saved_events.push(response.data.event);
             $localStorage.user = JSON.stringify(vm.user);
             dialogRequest.closeLoading();
             $location.path('/sponzors/saved');
           }, function(err){
-            console.log(response);
             dialogRequest.closeLoading();
             dialogRequest.showDialog('error', 'invalidEvent', false);
           });

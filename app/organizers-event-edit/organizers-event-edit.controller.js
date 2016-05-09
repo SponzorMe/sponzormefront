@@ -125,7 +125,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           bucket.putObject(params, function(err, data) {
             if (!err) {
               dialogRequest.closeLoading();
-              console.log(data);
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             }
             else{

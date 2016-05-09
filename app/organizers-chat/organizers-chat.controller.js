@@ -30,7 +30,6 @@
           vm.newMessage.userImage = $localStorage.image;
           vm.newMessage.timedate = new Date().getTime();
           vm.chatMessages.$add(vm.newMessage);
-          console.log(vm.chatMessages);
           vm.newMessage.text = '';
         }
       };

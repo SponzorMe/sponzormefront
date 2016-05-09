@@ -44,7 +44,6 @@
           }
         });
         sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
-          console.log('ok', response);
           vm.user.sponzorships.push(response.data.Sponzorship);
           $localStorage.user = JSON.stringify(vm.user);
           vm.firebaseNotification = {

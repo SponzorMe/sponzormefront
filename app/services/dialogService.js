@@ -27,6 +27,7 @@
             },
             controller: DialogController
           });
+          DialogController.$inject = ['$scope', '$mdDialog', 'message', 'redirect', '$location'];
           function DialogController($scope, $mdDialog, message, redirect, $location) {
             $scope.message = message;
             $scope.redirect = redirect;
@@ -34,7 +35,6 @@
               $mdDialog.hide();
               $mdDialog.cancel();
               if(redirect){
-                console.log('Con redirect', redirect);
                 $location.path(redirect);
               }
             };

@@ -179,7 +179,6 @@
           bucket.putObject(params, function(err, data) {
             if (!err) {
               dialogRequest.closeLoading();
-              console.log(data);
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             } else {
               dialogRequest.closeLoading();
@@ -332,7 +331,6 @@
                 .success(function(data) {
                   $scope.loadingMeetupEvents = false;
                   $scope.meetupEvents = JSON.parse(data.response);
-                  console.log($scope.meetupEvents);
                 }).error(function(data) {
                   $scope.loadingMeetupEvents = false;
                   $scope.errorLoadingMeetupEvents = true;

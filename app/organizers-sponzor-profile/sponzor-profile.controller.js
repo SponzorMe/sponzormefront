@@ -18,8 +18,6 @@
         }
         dialogRequest.closeLoading();
 
-      }, function (err) {
-        console.log(err);
       });
     }
   }

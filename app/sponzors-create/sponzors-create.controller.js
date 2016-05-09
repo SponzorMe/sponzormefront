@@ -45,7 +45,6 @@
             dialogRequest.closeLoading();
             dialogRequest.closeLoading();
             var parentEl = angular.element(document.body);
-            console.log($scope.errorMessages);
             $mdDialog.show({
               parent: parentEl,
               template: '<md-dialog aria-label="dialog">'+

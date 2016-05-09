@@ -10,7 +10,6 @@
           e.publishedDate = new Date(e.publishedDate).getTime();
           return e;
         });
-        console.log(vm.rss);
         vm.loadingrss = false;
       });
     }

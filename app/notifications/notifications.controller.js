@@ -15,6 +15,13 @@
                     userRequest.home($localStorage.id).then(function successCallback(response) {
                         $localStorage.lastUpdate = new Date().getTime();
                         $scope.user = response.data.data.user;
+                        if($scope.user.events){
+                            $scope.user.events = $scope.user.events.filter(function(e){
+                                e.starts = e.starts.replace(' ', 'T');
+                                e.starts = new Date(e.starts).getTime();
+                                return e;
+                            });
+                        }
                         $localStorage.user = JSON.stringify($scope.user);
                         $localStorage.$apply();
                     });

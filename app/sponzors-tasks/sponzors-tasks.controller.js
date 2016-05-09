@@ -15,7 +15,6 @@
         }
       };
       vm.changeStatus = function(t) {
-        console.log(t);
         t.loading = true;
         var savedStatus = t.status;
         if (t.status === '1' || t.status === 1) {
