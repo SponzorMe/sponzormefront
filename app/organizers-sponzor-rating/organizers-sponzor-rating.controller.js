@@ -22,7 +22,7 @@
             text: $translate.instant('NOTIFICATIONS.SponzorRated') + vm.user.name,
             link: '#/profile/' + response.data.Rating.organizer_id
           };
-          firebaseRequest.sendNotification(firebaseNotification, response.data.Rating.sponzor_id);
+          firebaseRequest.sendNotification(firebaseNotification, response.data.Rating.organizer_id);
           
         }, function errorCallback() {
           dialogRequest.closeLoading();

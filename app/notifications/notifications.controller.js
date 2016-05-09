@@ -14,15 +14,50 @@
                     $scope.help = true;
                     userRequest.home($localStorage.id).then(function successCallback(response) {
                         $localStorage.lastUpdate = new Date().getTime();
-                        $scope.user = response.data.data.user;
-                        if($scope.user.events){
-                            $scope.user.events = $scope.user.events.filter(function(e){
+
+                        if (response.data.user.events.length) {
+                            response.data.user.events = response.data.user.events.filter(function (e) {
                                 e.starts = e.starts.replace(' ', 'T');
                                 e.starts = new Date(e.starts).getTime();
                                 return e;
                             });
                         }
-                        $localStorage.user = JSON.stringify($scope.user);
+
+                        if (response.data.events.length) {
+                            var parsedEvents = response.data.events.filter(function (e) {
+                                e.starts = e.starts.replace(' ', 'T');
+                                e.ends = e.ends.replace(' ', 'T');
+                                e.starts = new Date(e.starts).getTime();
+                                e.ends = new Date(e.ends).getTime();
+                                return e;
+                            })
+                            $localStorage.events = JSON.stringify(parsedEvents);
+                        }
+
+                        if (response.data.user.sponzorships.length) {
+                            response.data.user.sponzorships = response.data.user.sponzorships.filter(function (e) {
+                                e.event.starts = e.event.starts.replace(' ', 'T');
+                                e.event.starts = new Date(e.event.starts).getTime();
+                                return e;
+                            });
+                        }
+
+                        if (response.data.eventTasks.length) {
+                            var filteredEvents = [];
+                            response.data.eventTasks.filter(function (e) {
+                                if (e.sponzorship.length) {
+                                    return e.perks.filter(function (p) {
+                                        if (p.sponzor_tasks.length) {
+                                            filteredEvents.push(e);
+                                            return e;
+                                        }
+                                    });
+                                }
+                            });
+                            response.data.user.eventTasks = filteredEvents;
+                        }
+
+                        $localStorage.user = JSON.stringify(response.data.user);
                         $localStorage.$apply();
                     });
                 }
