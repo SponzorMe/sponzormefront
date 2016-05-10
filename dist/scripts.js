@@ -3359,7 +3359,8 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
 
         function verification() {
           dialogRequest.showLoading();
-          vm.event.location_reference = vm.event.location;
+          vm.event.location = vm.locationEvent.formatted_address;
+          vm.event.location_reference = vm.locationEvent.place_id;
           vm.event.starts = vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour;
           vm.event.ends = vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour;
           vm.event.perks = vm.event.sponzorshipTypes;
@@ -3535,21 +3536,25 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         hour:parseHours2+':'+ parseMinutes2 +':'+parseSeconds2
       };
       vm.event.sponzorshipTypes = vm.event.perks;
+      vm.locationEvent = {
+        formatted_address:vm.event.location,
+        place_id:vm.event.location_reference
+      };
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);
   OrganizersEventEditController.$inject=['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
 })();
 
-(function() {
+(function () {
   'use strict';
 
   function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
     if ($rootScope.userValidation('0')) {
       function jsonize(str) {
-        return str.replace(/([\$\w]+)\s*:/g, function(_, $1) {
+        return str.replace(/([\$\w]+)\s*:/g, function (_, $1) {
           return '"' + $1 + '":';
-        }).replace(/'([^']+)'/g, function(_, $1) {
+        }).replace(/'([^']+)'/g, function (_, $1) {
           return '"' + $1 + '"';
         });
       }
@@ -3577,50 +3582,50 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         number: '01',
         text: 'January'
       }, {
-        number: '02',
-        text: 'February'
-      }, {
-        number: '03',
-        text: 'March'
-      }, {
-        number: '04',
-        text: 'April'
-      }, {
-        number: '05',
-        text: 'May'
-      }, {
-        number: '06',
-        text: 'June'
-      }, {
-        number: '07',
-        text: 'July'
-      }, {
-        number: '08',
-        text: 'August'
-      }, {
-        number: '09',
-        text: 'September'
-      }, {
-        number: '10',
-        text: 'October'
-      }, {
-        number: '11',
-        text: 'November'
-      }, {
-        number: '12',
-        text: 'December'
-      }];
+          number: '02',
+          text: 'February'
+        }, {
+          number: '03',
+          text: 'March'
+        }, {
+          number: '04',
+          text: 'April'
+        }, {
+          number: '05',
+          text: 'May'
+        }, {
+          number: '06',
+          text: 'June'
+        }, {
+          number: '07',
+          text: 'July'
+        }, {
+          number: '08',
+          text: 'August'
+        }, {
+          number: '09',
+          text: 'September'
+        }, {
+          number: '10',
+          text: 'October'
+        }, {
+          number: '11',
+          text: 'November'
+        }, {
+          number: '12',
+          text: 'December'
+        }];
       vm.days = [];
       for (var i = 1; i <= 31; i++) {
         vm.days.push(i)
       }; //Days
       vm.event = {
         sponzorshipTypes: [],
-        lang: $rootScope.currentLanguage()||vm.user.lang||'en',
+        lang: $rootScope.currentLanguage() || vm.user.lang || 'en',
         organizer: $localStorage.id,
         image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'
       };
-      vm.setEventData = function() {
+      vm.setEventData = function () {
         if (!$localStorage.eventTypes) {
           eventTypeRequest.allEventTypes().then(function successCallback1(response) {
             $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
@@ -3638,16 +3643,17 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           vm.categories = JSON.parse($localStorage.categories);
         }
       };
-      vm.showSponzorshipType = function(s) {
+      vm.showSponzorshipType = function (s) {
         s.show = !s.show;
       };
 
       //This function creates an event
-      vm.createNewEvent = function() {
+      vm.createNewEvent = function () {
 
         function verification() {
           dialogRequest.showLoading();
-          vm.event.location_reference = vm.event.location;
+          vm.event.location = vm.locationEvent.formatted_address;
+          vm.event.location_reference = vm.locationEvent.place_id;
           vm.event.starts = vm.event.startsAux.year + '-' + vm.event.startsAux.month + '-' + vm.event.startsAux.day + ' ' + vm.event.startsAux.hour;
           vm.event.ends = vm.event.endsAux.year + '-' + vm.event.endsAux.month + '-' + vm.event.endsAux.day + ' ' + vm.event.endsAux.hour;
           vm.event.perks = vm.event.sponzorshipTypes;
@@ -3670,18 +3676,18 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         vm.event.startsAux2 = new Date(vm.event.startsAux.year + '-' + vm.event.startsAux.month + '-' + vm.event.startsAux.day + ' ' + vm.event.startsAux.hour).getTime();
         vm.event.endsAux2 = new Date(vm.event.endsAux.year + '-' + vm.event.endsAux.month + '-' + vm.event.endsAux.day + ' ' + vm.event.endsAux.hour).getTime();
         var noTasks = false;
-        if(vm.event.sponzorshipTypes.length){//Analysis of the Sponsorship Types
-          for(var i=0; i < vm.event.sponzorshipTypes.length; i++){
-            if(!vm.event.sponzorshipTypes[i].perkTasks.length){
+        if (vm.event.sponzorshipTypes.length) {//Analysis of the Sponsorship Types
+          for (var i = 0; i < vm.event.sponzorshipTypes.length; i++) {
+            if (!vm.event.sponzorshipTypes[i].perkTasks.length) {
               noTasks = true; //It means we found a Sponsorship type with no tasks
               break; //To optimize we skip of the for
             }
           }
         }
-        if(!vm.event.sponzorshipTypes.length){
+        if (!vm.event.sponzorshipTypes.length) {
           dialogRequest.showDialog('error', 'eventWithoutSponsorshipTypeText', false);
         }
-        else if(noTasks){
+        else if (noTasks) {
           dialogRequest.showDialog('error', 'sponsorshipTypeWithoutTasksText', false);
         }
         //Here is the dates verification
@@ -3693,7 +3699,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       };
       $scope.file = false;
       //this function upload or create the event Image
-      $scope.imageVerification = function() {
+      $scope.imageVerification = function () {
         if ($scope.file) {
           vm.creds = {
             bucket: $rootScope.getConstants().AMAZONBUCKET,
@@ -3719,7 +3725,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
             ServerSideEncryption: 'AES256'
           };
           dialogRequest.showLoading();
-          bucket.putObject(params, function(err, data) {
+          bucket.putObject(params, function (err, data) {
             if (!err) {
               dialogRequest.closeLoading();
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
@@ -3729,14 +3735,17 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           });
         }
       };
-      vm.addSponzorshipTypeForm = function() {
+      vm.addSponzorshipTypeForm = function () {
         var parentEl = angular.element(document.body);
         $mdDialog.show({
-         parent: parentEl,
+          parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/sponzorshipTypeForm.html',
-          controller: ["$scope", function($scope) {
-            $scope.addSponzorshipType = function() {
+          controller: AddSponzorshipDialogController
+        });
+        AddSponzorshipDialogController.$inject = ['$scope'];
+        function AddSponzorshipDialogController($scope) {
+            $scope.addSponzorshipType = function () {
               vm.event.sponzorshipTypes.push({
                 kind: $scope.newSponzorshipType.kind,
                 usd: $scope.newSponzorshipType.usd,
@@ -3747,31 +3756,32 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
               });
               $mdDialog.hide();
             };
-          }]
-        });
+          };
       };
-      vm.addTaskForm = function(s) {
+      vm.addTaskForm = function (s) {
         var parentEl = angular.element(document.body);
         $mdDialog.show({
-         parent: parentEl,
+          parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/taskForm.html',
-          controller: ["$scope", function($scope) {
-            $scope.addTask = function() {
-              s.perkTasks.push({
-                title: $scope.newTask.title,
-                description: $scope.newTask.title
-              });
-              $mdDialog.hide();
-            };
-          }]
+          controller: AddTaskFormController
         });
+        function AddTaskFormController($scope) {
+          $scope.addTask = function () {
+            s.perkTasks.push({
+              title: $scope.newTask.title,
+              description: $scope.newTask.title
+            });
+            $mdDialog.hide();
+          };
+        };
+        AddTaskFormController.$inject = ['$scope'];
       };
-      vm.removeTask = function(indexSponzorship, indexTask) {
+      vm.removeTask = function (indexSponzorship, indexTask) {
         vm.event.sponzorshipTypes[indexSponzorship].perkTasks.splice(indexTask, 1);
       };
       //this function adds a SponzorshipType to the new event form
-      vm.removeSponzorshipType = function(index) {
+      vm.removeSponzorshipType = function (index) {
         vm.event.sponzorshipTypes.splice(index, 1);
       };
 
@@ -3779,108 +3789,113 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       //EVENTBRITE FUNCTIONALITY
       //-----------------------------------------------------------//
 
-      vm.connectEventbrite = function() {
+      vm.connectEventbrite = function () {
         var parentEl = angular.element(document.body);
         $mdDialog.show({
-         parent: parentEl,
+          parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/eventbrite-dialog.html',
-          controller: ["$scope", function($scope) {
-            $scope.getEventbriteEvents = function(accessToken) {
-              $scope.loadingEventbriteEvents = true;
-              eventbriteRequest.getEventbriteEvents(accessToken)
-                .success(function(data, head) {
-                  $scope.loadingEventbriteEvents = false;
-                  $scope.eventbriteEvents = data.events;
-                }).error(function(data) {
-                  $scope.loadingEventbriteEvents = false;
-                  $scope.errorLoadingEventbriteEvents = true;
-                });
-            };
-            $scope.prefillEventFromEvenbrite = function(e) {
-              vm.event.title = e.name.text;
-              vm.event.description = e.description.text;
-              vm.event.starts = new Date(e.start.local).getTime();
-              vm.event.ends = new Date(e.end.local).getTime();
-              vm.event.privacy = 0;
-              vm.event.image = e.logo.url;
-              //----------------------------------------------
-              var auxDate = new Date(vm.event.starts);
-              var parseMinutes = auxDate.getMinutes() > 9 ? auxDate.getMinutes() : '0' + auxDate.getMinutes();
-              var parseSeconds = auxDate.getSeconds() > 9 ? auxDate.getSeconds() : '0' + auxDate.getSeconds();
-              var parseHours = auxDate.getHours() > 9 ? auxDate.getHours() : '0' + auxDate.getHours();
-              vm.event.startsAux = {
-                year: auxDate.getUTCFullYear(),
-                month: auxDate.getMonth() + 1,
-                day: auxDate.getDate(),
-                hour: parseHours + ':' + parseMinutes + ':' + parseSeconds
-              };
-              var auxDate2 = new Date(vm.event.ends);
-              var parseMinutes2 = auxDate2.getMinutes() > 9 ? auxDate2.getMinutes() : '0' + auxDate2.getMinutes();
-              var parseSeconds2 = auxDate2.getSeconds() > 9 ? auxDate2.getSeconds() : '0' + auxDate2.getSeconds();
-              var parseHours2 = auxDate2.getHours() > 9 ? auxDate2.getHours() : '0' + auxDate2.getHours();
-              vm.event.endsAux = {
-                year: auxDate2.getUTCFullYear(),
-                month: auxDate2.getMonth() + 1,
-                day: auxDate2.getDate(),
-                hour: parseHours2 + ':' + parseMinutes2 + ':' + parseSeconds2
-              };
-              $mdDialog.hide();
-            };
-            $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
-            $scope.connectingToEventbrite = true;
-            var currentTime = new Date().getTime();
-            if ($localStorage.eventBriteBearedExpirationTime && currentTime < $localStorage.eventBriteBearedExpirationTime) {
-              $scope.connectedToEventbrite = true;
-              $scope.connectingToEventbrite = false;
-              $scope.errorConnectingToEventbrite = false;
-              $scope.getEventbriteEvents($localStorage.eventBriteBeared);
-            } else {
-              eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function(data) {
-                var response = JSON.parse(jsonize(data.response));
-                if (response.error) {
-                  $scope.connectedToEventbrite = false;
-                  $scope.connectingToEventbrite = false;
-                  $scope.errorConnectingToEventbrite = true;
-                } else {
-                  $scope.connectedToEventbrite = true;
-                  $scope.connectingToEventbrite = false;
-                  $scope.errorConnectingToEventbrite = false;
-                  $localStorage.eventBriteBeared = response.access_token;
-                  $localStorage.eventBriteBearedExpirationTime = new Date().getTime() + 3600000;
-                  $scope.getEventbriteEvents($localStorage.eventBriteBeared);
-                }
-              });
-            }
-          }]
+          controller: EventbriteDialogController
         });
+        EventbriteDialogController.$inject = ['$scope'];
+        function EventbriteDialogController($scope) {
+          $scope.getEventbriteEvents = function (accessToken) {
+            $scope.loadingEventbriteEvents = true;
+            eventbriteRequest.getEventbriteEvents(accessToken)
+              .success(function (data, head) {
+                $scope.loadingEventbriteEvents = false;
+                $scope.eventbriteEvents = data.events;
+              }).error(function (data) {
+                $scope.loadingEventbriteEvents = false;
+                $scope.errorLoadingEventbriteEvents = true;
+              });
+          };
+          $scope.prefillEventFromEvenbrite = function (e) {
+            vm.event.title = e.name.text;
+            vm.event.description = e.description.text;
+            vm.event.starts = new Date(e.start.local).getTime();
+            vm.event.ends = new Date(e.end.local).getTime();
+            vm.event.privacy = 0;
+            vm.event.image = e.logo.url;
+            //----------------------------------------------
+            var auxDate = new Date(vm.event.starts);
+            var parseMinutes = auxDate.getMinutes() > 9 ? auxDate.getMinutes() : '0' + auxDate.getMinutes();
+            var parseSeconds = auxDate.getSeconds() > 9 ? auxDate.getSeconds() : '0' + auxDate.getSeconds();
+            var parseHours = auxDate.getHours() > 9 ? auxDate.getHours() : '0' + auxDate.getHours();
+            vm.event.startsAux = {
+              year: auxDate.getUTCFullYear(),
+              month: auxDate.getMonth() + 1,
+              day: auxDate.getDate(),
+              hour: parseHours + ':' + parseMinutes + ':' + parseSeconds
+            };
+            var auxDate2 = new Date(vm.event.ends);
+            var parseMinutes2 = auxDate2.getMinutes() > 9 ? auxDate2.getMinutes() : '0' + auxDate2.getMinutes();
+            var parseSeconds2 = auxDate2.getSeconds() > 9 ? auxDate2.getSeconds() : '0' + auxDate2.getSeconds();
+            var parseHours2 = auxDate2.getHours() > 9 ? auxDate2.getHours() : '0' + auxDate2.getHours();
+            vm.event.endsAux = {
+              year: auxDate2.getUTCFullYear(),
+              month: auxDate2.getMonth() + 1,
+              day: auxDate2.getDate(),
+              hour: parseHours2 + ':' + parseMinutes2 + ':' + parseSeconds2
+            };
+            $mdDialog.hide();
+          };
+          $scope.EVENTBRITEAPYKEY = $rootScope.getConstants().EVENTBRITEAPYKEY;
+          $scope.connectingToEventbrite = true;
+          var currentTime = new Date().getTime();
+          if ($localStorage.eventBriteBearedExpirationTime && currentTime < $localStorage.eventBriteBearedExpirationTime) {
+            $scope.connectedToEventbrite = true;
+            $scope.connectingToEventbrite = false;
+            $scope.errorConnectingToEventbrite = false;
+            $scope.getEventbriteEvents($localStorage.eventBriteBeared);
+          } else {
+            eventbriteRequest.getEventbriteAuth($routeParams.eventBriteCode).success(function (data) {
+              var response = JSON.parse(jsonize(data.response));
+              if (response.error) {
+                $scope.connectedToEventbrite = false;
+                $scope.connectingToEventbrite = false;
+                $scope.errorConnectingToEventbrite = true;
+              } else {
+                $scope.connectedToEventbrite = true;
+                $scope.connectingToEventbrite = false;
+                $scope.errorConnectingToEventbrite = false;
+                $localStorage.eventBriteBeared = response.access_token;
+                $localStorage.eventBriteBearedExpirationTime = new Date().getTime() + 3600000;
+                $scope.getEventbriteEvents($localStorage.eventBriteBeared);
+              }
+            });
+          }
+        };
       };
 
       //-----------------------------------------------------------//
       //MEETUP FUNCTIONALITY
       //-----------------------------------------------------------//
 
-      vm.connectMeetup = function() {
+      vm.connectMeetup = function () {
         var parentEl = angular.element(document.body);
         $mdDialog.show({
-         parent: parentEl,
+          parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/meetup-dialog.html',
-          controller: ["$scope", function($scope) {
+          controller: MeetupDialogController
+        });
+        MeetupDialogController.$inject = ['$scope'];
+        function MeetupDialogController($scope) {
 
-            $scope.getMeetupGroups = function(accessToken) {
+            $scope.getMeetupGroups = function (accessToken) {
               $scope.loadingMeetupEvents = true;
               eventbriteRequest.getMeetupGroups(accessToken)
-                .success(function(data) {
+                .success(function (data) {
                   $scope.loadingMeetupEvents = false;
                   $scope.meetupEvents = JSON.parse(data.response);
-                }).error(function(data) {
+                }).error(function (data) {
                   $scope.loadingMeetupEvents = false;
                   $scope.errorLoadingMeetupEvents = true;
                 });
             };
 
-            $scope.prefillEventFromMeetup = function(e) {
+            $scope.prefillEventFromMeetup = function (e) {
               vm.event.title = e.name;
               vm.event.description = e.description;
               vm.event.starts = new Date(e.time);
@@ -3923,7 +3938,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
               $scope.errorConnectingToMeetup = false;
               $scope.getMeetupGroups($localStorage.meetupBeared);
             } else {
-              eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function(data) {
+              eventbriteRequest.getMeetupAuth($routeParams.meetupCode).success(function (data) {
                 var response = JSON.parse(jsonize(data.response));
                 if (response.error) {
                   $scope.connectedToMeetup = false;
@@ -3939,26 +3954,27 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
                 }
               });
             }
-          }]
-        });
+          };
       };
-      vm.importSelection = function() {
+      vm.importSelection = function () {
         var parentEl = angular.element(document.body);
         $mdDialog.show({
-         parent: parentEl,
+          parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/import-dialog.html',
-          controller: ["$scope", function($scope) {
-            $scope.a = function() {
+          controller: ImportDialogController
+        });
+        ImportDialogController.$inject = ['$scope'];
+        function ImportDialogController($scope) {
+            $scope.a = function () {
               vm.connectEventbrite();
               $mdDialog.hide();
             }
-            $scope.b = function() {
+            $scope.b = function () {
               vm.connectMeetup();
               $mdDialog.hide();
             };
-          }]
-        });
+          };
       }
       vm.setEventData(); //Here Starts the Callback
       if ($routeParams.eventBriteCode) {
