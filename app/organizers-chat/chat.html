@@ -14,36 +14,36 @@
         <organizers-navbar></organizers-navbar>
       </div>
 
-      <md-content class="chatContainer md-whiteframe-2dp">
+      <md-content class="chatContainer2 md-whiteframe-2dp">
         <div class="messagesContainer">
           <p><strong>{{'chat.eventChat'|translate}}</strong><span class="color-blue-brighter">{{occ.sponzorshipInfo.Event.title}}
               {{occ.sponzorshipInfo.Perk.kind}}
               ${{occ.sponzorshipInfo.Perk.usd}}USD</span>
           </p>
           <div ng-repeat="m in occ.chatMessages| orderBy: - timedate"  flex="100" layout="row">
-            <div class="userImage" flex="30" layout-align="center start" layout="column" ng-if=" m.type == '#5DDECF'">
+            <div class="userImage" layout-xs="40" layout="20" layout-align="center start" layout="column" ng-if=" m.type == '#5DDECF'">
               <div class="imageOrg">
                 <img ng-src="{{m.userImage}}" />
-                <p>{{m.timedate|date:'medium'}}</p>
+                <p>{{m.timedate|date:'h:mma'}}</p>
               </div>
             </div>
-            <div ng-if=" m.type == '#5DDECF'" flex="70" layout-align="end end" layout="column">{{m.text}}</div>
+            <div ng-if=" m.type == '#5DDECF'" layout="80" layout-xs="60" layout-align="start start" layout="column">{{m.text}}</div>
 
-            <div flex="70" ng-if=" m.type == '#F6CECE'" layout-align="end start" layout="column">{{m.text}}</div>
-            <div class="userImage" ng-if=" m.type == '#F6CECE'" flex="30" layout-align="center end" layout="column" >
+            <div flex="80" ng-if=" m.type == '#F6CECE'" layout-xs="60" layout-align="start start" layout="column">{{m.text}}</div>
+            <div class="userImage" layout-xs="40" ng-if=" m.type == '#F6CECE'" flex="20" layout-align="center end" layout="column" >
               <div class="imageSpo">
                 <img  ng-src="{{m.userImage}}" />
-                <p>{{m.timedate|date:'medium'}}</p>
+                <p>{{m.timedate|date:'h:mma'}}</p>
               </div>
             </div>
 
-
           </div>
-          <md-input-container class="md-icon-right md-block" md-no-float>
+          
+        </div>
+        <md-input-container class="md-icon-right md-block" md-no-float flex="100">
             <input ng-model="occ.newMessage.text" type="text" placeholder="{{'chat.writeMessage'|translate}}">
             <md-icon class="color-blue-brighter" ng-click="occ.addMessage()">send</md-icon>
           </md-input-container>
-        </div>
       </md-content>
     </div>
   </md-content>

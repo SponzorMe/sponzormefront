@@ -1,28 +1,35 @@
 .cont {
-  .chatContainer {
+  .chatContainer1 {
     background: $color_gray2;
-    padding: 2em;
-
-    & > .messagesContainer {
-      margin: 1em 0;
-      background: $color_white;
-      padding: 0.5em 1em;
-      overflow-y: scroll;
-      height: 600px;
-      &>md-input-container{
+    padding: 0.5em 3em 0.5em 1em;
+    
+    &>md-input-container{
+        background-color: #FFF !important;
+        margin-top: 0px;
         &>md-icon{
           cursor: pointer;
+           margin-right: 1em;
         }
         &>md-icon:hover{
           color: $color_blue_darker;
         }
       }
+
+    & > .messagesContainer {
+      margin: 1em 0;
+      background: $color_white;
+      padding: 0.5em 1em 0 1em;
+      margin-bottom: 0px;
+      overflow-y: scroll;
+      height: 600px;
+      
       &>div{
         margin: 1em 0;
         background: $color_white;
         padding: 0.5em 1em;
-        border-radius: 0.5em;
-        box-shadow: 2px 2px 2px 2px #888888;
+        border-radius: 2px;
+        box-shadow: 1px 1px 1px 1px #888888;
+        min-height: 120px;
         & > .userImage {
           margin: 0 1em 0 0;
           & > .imageOrg {
@@ -30,14 +37,15 @@
             & > img {
               border-radius: 50%;
               border: 3px solid $color_blue_darker;
-              max-width: 50px;
-              max-height: 50px;
-              width: 50px;
-              height: 50px;
+              max-width: 70px;
+              max-height: 70px;
+              width: 70px;
+              height: 70px;
             }
             & > p {
               margin: 0;
               color: $color_gray_text;
+              font-size: 12px;
             }
           }
           & > .imageSpo {
@@ -45,10 +53,10 @@
             & > img {
               border-radius: 50%;
               border: 3px solid $color-orange;
-              max-width: 50px;
-              max-height: 50px;
-              width: 50px;
-              height: 50px;
+              max-width: 70px;
+              max-height: 70px;
+              width: 70px;
+              height: 70px;
             }
             & > p {
               margin: 0;
@@ -58,50 +66,65 @@
         }
       }
     }
-    & > .texts {
-      & > h2 {
-        text-transform: uppercase;
-        margin-right: 0.3em;
-      }
-      & > p {
-        color: $color_blue_brighter;
-      }
-    }
   }
-}
-.contentContainer {
-  .chatContainer {
-    background: $color_gray2;
-    height: 600px;
-    padding: 2em;
-    overflow-y: scroll;
-    & > .texts {
-      & > h2 {
-        text-transform: uppercase;
-        margin-right: 0.3em;
+
+  .chatContainer2 {
+    margin-right: 2em;
+    
+    &>md-input-container{
+        background-color: #FFF !important;
+        margin-top: 0px;
+        &>md-icon{
+          cursor: pointer;
+           margin-right: 1em;
+        }
+        &>md-icon:hover{
+          color: $color_active;
+        }
       }
-      & > p {
-        color: $color_blue_brighter;
-      }
-    }
+
     & > .messagesContainer {
-      & > .messageOrg {
+      margin: 1em 0;
+      background: $color_white;
+      padding: 0.5em 1em 0 1em;
+      margin-bottom: 0px;
+      overflow-y: scroll;
+      height: 600px;
+      
+      &>div{
         margin: 1em 0;
         background: $color_white;
         padding: 0.5em 1em;
-        border-radius: 0.5em;
-        box-shadow: 2px 2px 2px 2px #888888;
+        border-radius: 2px;
+        box-shadow: 1px 1px 1px 1px #888888;
+        min-height: 120px;
         & > .userImage {
           margin: 0 1em 0 0;
-          & > div {
+          & > .imageOrg {
             text-align: center;
             & > img {
               border-radius: 50%;
               border: 3px solid $color_blue_darker;
-              max-width: 50px;
-              max-height: 50px;
-              width: 50px;
-              height: 50px;
+              max-width: 70px;
+              max-height: 70px;
+              width: 70px;
+              height: 70px;
+            }
+            & > p {
+              margin: 0;
+              color: $color_gray_text;
+              font-size: 12px;
+            }
+          }
+          & > .imageSpo {
+            text-align: center;
+            & > img {
+              border-radius: 50%;
+              border: 3px solid $color-orange;
+              max-width: 70px;
+              max-height: 70px;
+              width: 70px;
+              height: 70px;
             }
             & > p {
               margin: 0;
@@ -110,23 +133,6 @@
           }
         }
       }
-      & > .messageOrg.messageSponzor {
-        & > .userImage {
-          & > div {
-            & > img {
-              border: 3px solid $color_active;
-            }
-          }
-        }
-      }
-    }
-  }
-  & > md-input-container {
-    background-color: $color_white;
-    margin: 0 auto;
-    & > md-icon {
-      color: $color_blue_brighter;
-      cursor: pointer;
     }
   }
 }

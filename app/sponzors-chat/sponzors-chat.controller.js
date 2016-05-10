@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function SponzorsChatController($scope, $firebaseArray, $localStorage, $location, sponzorshipRequest, $rootScope) {
+  function SponzorsChatController($scope, $firebaseArray, $localStorage, $location, sponzorshipRequest, $rootScope, $routeParams) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       sponzorshipRequest.oneSponzorship($routeParams.sponzorshipId).then(function successCallback(response) {
@@ -37,5 +37,5 @@
   }
 
   angular.module('sponzorme').controller('SponzorsChatController', SponzorsChatController);
-  SponzorsChatController.$inject = ['$scope', '$firebaseArray', '$localStorage', '$location', 'sponzorshipRequest', '$rootScope'];
+  SponzorsChatController.$inject = ['$scope', '$firebaseArray', '$localStorage', '$location', 'sponzorshipRequest', '$rootScope', '$routeParams'];
 })();
