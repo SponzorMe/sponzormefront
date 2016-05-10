@@ -9,39 +9,38 @@
 
       <div class="contentContainer">
 
-        <div class="chatContainer" layout="column" flex >
-          <h2>{{scc.sponzorshipInfo.Event.title}}
-            {{scc.sponzorshipInfo.Perk.kind}}
-            ${{scc.sponzorshipInfo.Perk.usd}}USD</h2>
-          <div class="messagesContainer">
-            <div ng-repeat="m in scc.chatMessages| orderBy: - time" class="messageOrg" ng-class="{'messageSponzor': m.type == '#F6CECE'}" flex layout="row">
-              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.type == '#F6CECE'">
-                <div>
-                  <img ng-src="{{m.userImage}}"/>
-                  <p layout-align="center center">{{m.timedate|date:'medium'}}</p>
-                </div>
+        <md-content class="chatContainer2 md-whiteframe-2dp">
+        <div class="messagesContainer">
+          <p><strong>{{'chat.eventChat'|translate}}</strong><span class="color-active">{{scc.sponzorshipInfo.Event.title}}
+              {{scc.sponzorshipInfo.Perk.kind}}
+              ${{scc.sponzorshipInfo.Perk.usd}}USD</span>
+          </p>
+          <div ng-repeat="m in scc.chatMessages| orderBy: - timedate"  flex="100" layout="row">
+            <div class="userImage" layout-xs="40" layout="20" layout-align="center start" layout="column" ng-if=" m.type == '#5DDECF'">
+              <div class="imageOrg">
+                <img ng-src="{{m.userImage}}" />
+                <p>{{m.timedate|date:'h:mma'}}</p>
               </div>
-              <div flex="80" layout="column" layout-align="center start" ng-if="m.type == '#F6CECE'">{{m.text}}</div>
-              <div flex="80" layout="column" layout-align="center start" ng-if="m.type == '#5DDECF'">{{m.text}}</div>
-              <div class="userImage" flex="20" layout-align="center center" layout="column" layout-align="center center" ng-if="m.type == '#5DDECF'">
-                <div>
-                  <img ng-src="{{m.userImage}}"/>
-                  <p layout-align="center center">{{m.timedate|date:'medium'}}</p>
-                </div>
-              </div>
-
             </div>
+            <div ng-if=" m.type == '#5DDECF'" layout="80" layout-xs="60" layout-align="start start" layout="column">{{m.text}}</div>
+
+            <div flex="80" ng-if=" m.type == '#F6CECE'" layout-xs="60" layout-align="start start" layout="column">{{m.text}}</div>
+            <div class="userImage" layout-xs="40" ng-if=" m.type == '#F6CECE'" flex="20" layout-align="center end" layout="column" >
+              <div class="imageSpo">
+                <img  ng-src="{{m.userImage}}" />
+                <p>{{m.timedate|date:'h:mma'}}</p>
+              </div>
+            </div>
+
           </div>
+          
         </div>
-        <md-input-container class="md-block inputMessage" layout="row" flex>
-          <label translate>chat.writeMessage</label>
-          <input required name="description" ng-model="scc.newMessage.text" flex="85">
-          <md-button aria-label="send" ng-click="scc.addMessage()" flex="10">
-            <md-icon>send</md-icon>
-          </md-button>
-        </md-input-container>
-      </div>
-    </md-content>
-    <div ng-include src="'./components/footer/footer.html'"></div>
-  </div>
-</div></div>
+        <md-input-container class="md-icon-right md-block" md-no-float flex="100">
+            <input ng-model="scc.newMessage.text" type="text" placeholder="{{'chat.writeMessage'|translate}}">
+            <md-icon class="color-active" ng-click="scc.addMessage()">send</md-icon>
+          </md-input-container>
+      </md-content>
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

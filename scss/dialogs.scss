@@ -14,6 +14,10 @@ md-dialog {
     background-color: $color-green-ligth;
     padding: 0.5em 0 0.5em 0.5em;
   }
+  & > md-toolbar .top-active {
+    background-color: $color-active;
+    padding: 0.5em 0 0.5em 0.5em;
+  }
   & > md-dialog-content {
     padding: 1em;
     & > .close {
