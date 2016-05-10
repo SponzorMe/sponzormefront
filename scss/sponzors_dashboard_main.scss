@@ -241,7 +241,8 @@ body {
               font-weight: bold;
             }
             & > img {
-              max-height: 130px;
+              height: 130px;
+              max-width: 250px;
               width: 100%;
               cursor: pointer;
             }
@@ -256,7 +257,8 @@ body {
               padding: 0.5em;
             }
             & > img {
-              max-height: 130px;
+              height: 130px;
+              max-width: 250px;
               width: 100%;
               cursor: pointer;
             }
@@ -295,7 +297,8 @@ body {
               padding: 0.5em;
             }
             & > img {
-              max-height: 130px;
+             height: 130px;
+              max-width: 250px;
               width: 100%;
             }
           }
@@ -309,7 +312,8 @@ body {
               padding: 0.5em;
             }
             & > img {
-              max-height: 130px;
+              height: 130px;
+              max-width: 250px;
               width: 100%;
             }
           }

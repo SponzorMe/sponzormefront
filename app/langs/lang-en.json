@@ -7,7 +7,8 @@
     "email": "E-mail",
     "english": "English",
     "spanish": "Spanish",
-    "portuguese": "Portuguese"
+    "portuguese": "Portuguese",
+    "noSummary": "No Summary Available"
   },
   "dialog": {
     "loadingMessage": "Please wait, We are proccessing your request.",

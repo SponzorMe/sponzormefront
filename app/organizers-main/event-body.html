@@ -1,6 +1,6 @@
 <div class="event md-whiteframe-2dp" flex-gt-sm="30">
   <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
-    <img ng-src="{{event.image}}" alt="event" ng-click="omc.toEdit(event.id)"/>
+    <img ng-src="{{event.image}}" alt="event" width="250px" height="130px" ng-click="omc.toEdit(event.id)"/>
     <p>{{event.title}}</p>
   </div>
   <div class="textContainer">
@@ -9,6 +9,9 @@
     
     <p ng-if="event.sumary">
       {{event.sumary|limitTo:100}}
+    </p>
+    <p ng-if="!event.sumary">
+      {{'general.noSummary'|translate}}
     </p>
   </div>
   <md-menu>
