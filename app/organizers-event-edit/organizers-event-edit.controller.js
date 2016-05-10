@@ -46,7 +46,8 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
 
         function verification() {
           dialogRequest.showLoading();
-          vm.event.location_reference = vm.event.location;
+          vm.event.location = vm.locationEvent.formatted_address;
+          vm.event.location_reference = vm.locationEvent.place_id;
           vm.event.starts = vm.event.startsAux.year +'-'+ vm.event.startsAux.month+'-'+  vm.event.startsAux.day + ' ' + vm.event.startsAux.hour;
           vm.event.ends = vm.event.endsAux.year +'-'+ vm.event.endsAux.month +'-'+ vm.event.endsAux.day + ' ' + vm.event.endsAux.hour;
           vm.event.perks = vm.event.sponzorshipTypes;
@@ -222,6 +223,10 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         hour:parseHours2+':'+ parseMinutes2 +':'+parseSeconds2
       };
       vm.event.sponzorshipTypes = vm.event.perks;
+      vm.locationEvent = {
+        formatted_address:vm.event.location,
+        place_id:vm.event.location_reference
+      };
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);

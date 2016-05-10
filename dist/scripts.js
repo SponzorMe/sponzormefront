@@ -440,26 +440,16 @@
   }]);
 })();
 
-/**
- * @author Sebastian Gomez
- * @version 0.1
- */
 (function () {
   'use strict';
   angular.module('sponzorme').run(AppRun);
-  AppRun.$inject = ['$rootScope', '$translate', '$location', '$filter', '$localStorage', 'userRequest', '$firebaseArray', '$firebaseObject', 'EXPIRATIONTIME'];
-      function AppRun($rootScope, $translate, $location, $filter, $localStorage, userRequest, $firebaseArray, $firebaseObject, EXPIRATIONTIME) {
+  AppRun.$inject = ['$rootScope', '$translate', '$location', '$filter', '$localStorage', 'userRequest', 'EXPIRATIONTIME'];
+      function AppRun($rootScope, $translate, $location, $filter, $localStorage, userRequest, EXPIRATIONTIME) {
         var host = window.location.href;
         if (window.location.protocol === 'http:' && host.indexOf('localhost') <= -1) {
           var aux = host.replace('http:', 'https:');
           window.location.href = aux;
         }
-        $rootScope.sendFirebaseNotification = function (notification, to) {
-          notification.date = new Date().getTime();
-          var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + to);
-          var notifications = $firebaseArray(notificationsRef);
-          notifications.$add(notification);
-        };
         /*
          * Author: Sebastian Gomez
          * This function allows change the language whatever be the route
@@ -1033,7 +1023,6 @@
         });
       },
       editUserPatch: function(userId, data) {
-        console.log('data before send', data);
         var token = $localStorage.token;
         return $http({
           method: 'PATCH',
@@ -1178,7 +1167,6 @@
           });
         },
         showDialog: function(type, message, redirect){
-          DialogController.$inject = ["$scope", "$mdDialog", "message", "redirect", "$location"];
           var parentEl = angular.element(document.body);
           if(type === 'error'){
             var template = 'dialogs/errorDialog.html';
@@ -1195,6 +1183,7 @@
             },
             controller: DialogController
           });
+          DialogController.$inject = ['$scope', '$mdDialog', 'message', 'redirect', '$location'];
           function DialogController($scope, $mdDialog, message, redirect, $location) {
             $scope.message = message;
             $scope.redirect = redirect;
@@ -1202,7 +1191,6 @@
               $mdDialog.hide();
               $mdDialog.cancel();
               if(redirect){
-                console.log('Con redirect', redirect);
                 $location.path(redirect);
               }
             };
@@ -1216,6 +1204,23 @@
   }
   angular.module('sponzorme').factory('dialogRequest', dialogRequest);
   dialogRequest.$inject = ['$mdDialog'];
+})();
+
+
+(function () {
+    'use strict';
+    angular.module('sponzorme').factory('firebaseRequest', firebaseRequest);
+    firebaseRequest.$inject = ['$firebaseArray', '$rootScope'];
+    function firebaseRequest($firebaseArray, $rootScope) {
+        return {
+            sendNotification: function (notification, to) {
+                notification.date = new Date().getTime();
+                var notificationsRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + to);
+                var notifications = $firebaseArray(notificationsRef);
+                notifications.$add(notification);
+            }
+        }
+    };
 })();
 
 (function () {
@@ -1234,8 +1239,50 @@
                     $scope.help = true;
                     userRequest.home($localStorage.id).then(function successCallback(response) {
                         $localStorage.lastUpdate = new Date().getTime();
-                        $scope.user = response.data.data.user;
-                        $localStorage.user = JSON.stringify($scope.user);
+
+                        if (response.data.user.events.length) {
+                            response.data.user.events = response.data.user.events.filter(function (e) {
+                                e.starts = e.starts.replace(' ', 'T');
+                                e.starts = new Date(e.starts).getTime();
+                                return e;
+                            });
+                        }
+
+                        if (response.data.events.length) {
+                            var parsedEvents = response.data.events.filter(function (e) {
+                                e.starts = e.starts.replace(' ', 'T');
+                                e.ends = e.ends.replace(' ', 'T');
+                                e.starts = new Date(e.starts).getTime();
+                                e.ends = new Date(e.ends).getTime();
+                                return e;
+                            })
+                            $localStorage.events = JSON.stringify(parsedEvents);
+                        }
+
+                        if (response.data.user.sponzorships.length) {
+                            response.data.user.sponzorships = response.data.user.sponzorships.filter(function (e) {
+                                e.event.starts = e.event.starts.replace(' ', 'T');
+                                e.event.starts = new Date(e.event.starts).getTime();
+                                return e;
+                            });
+                        }
+
+                        if (response.data.eventTasks.length) {
+                            var filteredEvents = [];
+                            response.data.eventTasks.filter(function (e) {
+                                if (e.sponzorship.length) {
+                                    return e.perks.filter(function (p) {
+                                        if (p.sponzor_tasks.length) {
+                                            filteredEvents.push(e);
+                                            return e;
+                                        }
+                                    });
+                                }
+                            });
+                            response.data.user.eventTasks = filteredEvents;
+                        }
+
+                        $localStorage.user = JSON.stringify(response.data.user);
                         $localStorage.$apply();
                     });
                 }
@@ -1263,13 +1310,11 @@
         else{
           dialogRequest.showLoading();
           eventRequest.saveEvent(eventId, $localStorage.id).then(function(response){
-            console.log(response);
             vm.user.saved_events.push(response.data.event);
             $localStorage.user = JSON.stringify(vm.user);
             dialogRequest.closeLoading();
             $location.path('/sponzors/saved');
           }, function(err){
-            console.log(response);
             dialogRequest.closeLoading();
             dialogRequest.showDialog('error', 'invalidEvent', false);
           });
@@ -1789,7 +1834,6 @@ function navbarSettings() {
         }
       };
       vm.changeStatus = function(t) {
-        console.log(t);
         t.loading = true;
         var savedStatus = t.status;
         if (t.status === '1' || t.status === 1) {
@@ -1906,7 +1950,6 @@ function navbarSettings() {
       }
 
       vm.markAsImportant = function (index) {
-        console.log(index);
         vm.notificationRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id + '/' + index);
         vm.currentNotification = $firebaseObject(vm.notificationRef);
         vm.currentNotification.$loaded(function () {
@@ -2200,7 +2243,6 @@ function navbarNotifications() {
             dialogRequest.closeLoading();
             dialogRequest.closeLoading();
             var parentEl = angular.element(document.body);
-            console.log($scope.errorMessages);
             $mdDialog.show({
               parent: parentEl,
               template: '<md-dialog aria-label="dialog">'+
@@ -2339,7 +2381,7 @@ function navbarNotifications() {
 
 (function () {
   'use strict';
-  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
+  function SponzorsEventController($scope, $mdDialog, $routeParams, $translate, $localStorage, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest) {
     var vm = this;
     vm.events = JSON.parse($localStorage.events);
     vm.events.filter(function (e) {
@@ -2379,7 +2421,6 @@ function navbarNotifications() {
         }
       });
       sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
-        console.log('ok', response);
         vm.user.sponzorships.push(response.data.Sponzorship);
         $localStorage.user = JSON.stringify(vm.user);
         vm.firebaseNotification = {
@@ -2387,11 +2428,10 @@ function navbarNotifications() {
           text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + vm.currentEvent.title,
           link: '#/organizers/sponzors'
         };
-        $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
+        firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
         dialogRequest.closeLoading();
         dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
       }, function errorCallback(err) {
-        console.log('err', err);
         dialogRequest.closeLoading();
         if (err.status === 409) {
           dialogRequest.showDialog('error', 'alreadySponzoring', false);
@@ -2402,7 +2442,7 @@ function navbarNotifications() {
     };
   }
   angular.module('sponzorme').controller('SponzorsEventController', SponzorsEventController);
-  SponzorsEventController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce'];
+  SponzorsEventController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest'];
 })();
 
 (function() {
@@ -2450,7 +2490,7 @@ function navbarNotifications() {
 (function() {
   'use strict';
 
-  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
+  function SponzorsRateController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest, firebaseRequest) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -2469,17 +2509,13 @@ function navbarNotifications() {
             text: $translate.instant('NOTIFICATIONS.OrganizerRated') + vm.user.name,
             link: '#/profile/' + response.data.Rating.organizer_id
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, response.data.Rating.organizer_id);
+          firebaseRequest.sendNotification(firebaseNotification, response.data.Rating.organizer_id);
           vm.initForm();
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'organizerRateSuccesfuly', '/sponzors/sponzoring');
-          //success and redirect
-          console.log(response);
         }, function errorCallback(err) {
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'invalidRate', false);
-          //bad and stay there
-          console.log(err);
         });
       };
 
@@ -2505,13 +2541,12 @@ function navbarNotifications() {
 
       if ($routeParams.sponzorshipId) {
         vm.currentSponzorship = vm.user.sponzorships[$routeParams.sponzorshipId];
-        console.log(vm.currentSponzorship);
         vm.initForm();
       }
     }
   }
   angular.module('sponzorme').controller('SponzorsRateController', SponzorsRateController);
-  SponzorsRateController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
+  SponzorsRateController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest', 'firebaseRequest'];
 })();
 
 (function() {
@@ -2699,7 +2734,7 @@ function navbarNotifications() {
 
 (function() {
   'use strict';
-  function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES, $mdDialog) {
+  function OrganizersSponzorsController($scope, $translate, taskSponzorRequest, sponzorshipRequest, $localStorage, $rootScope, dialogRequest, SPONZORSHIPSTATUSES, $mdDialog, firebaseRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.statuses = SPONZORSHIPSTATUSES;
@@ -2724,7 +2759,7 @@ function navbarNotifications() {
             text: $translate.instant('NOTIFICATIONS.SponzorshipAproved') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
         }, function errorCallback() {
           vm.user.sponzorships_like_organizer[i].loading = false;
           dialogRequest.showDialog('error', 'problem', false);
@@ -2748,7 +2783,7 @@ function navbarNotifications() {
             text: $translate.instant('NOTIFICATIONS.SponzorshipRejected') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
         }, function errorCallback(response) {
           vm.user.sponzorships_like_organizer[i].loading = false;
           dialogRequest.showDialog('error', 'problem', false);
@@ -2764,7 +2799,7 @@ function navbarNotifications() {
             text: $translate.instant('NOTIFICATIONS.SponzorshipDeleted') + vm.currentSponzorship.event.title + ' - ' + vm.currentSponzorship.perk.kind,
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
           vm.user.sponzorships_like_organizer.splice(i, 1);
           $localStorage.user = JSON.stringify(vm.user);
           vm.getTasks(vm.user.sponzorships_like_organizer[0]);
@@ -2790,7 +2825,7 @@ function navbarNotifications() {
             text: $translate.instant('NOTIFICATIONS.TaskChanged1') + vm.currentSponzorship.task_sponzor[index].task.title + $translate.instant('NOTIFICATIONS.TaskChanged2') + vm.currentSponzorship.event.title+$translate.instant('NOTIFICATIONS.TaskChanged3'),
             link: '#/sponzors/sponzoring'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentSponzorship.sponzor.id);
 
           $localStorage.user = JSON.stringify(vm.user);
 
@@ -2810,7 +2845,7 @@ function navbarNotifications() {
     }
   }
   angular.module('sponzorme').controller('OrganizersSponzorsController', OrganizersSponzorsController);
-  OrganizersSponzorsController.$inject = ['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', 'SPONZORSHIPSTATUSES', '$mdDialog'];
+  OrganizersSponzorsController.$inject = ['$scope', '$translate', 'taskSponzorRequest', 'sponzorshipRequest', '$localStorage', '$rootScope', 'dialogRequest', 'SPONZORSHIPSTATUSES', '$mdDialog', 'firebaseRequest'];
 })();
 
 (function() {
@@ -2853,7 +2888,6 @@ function navbarNotifications() {
           e.publishedDate = new Date(e.publishedDate).getTime();
           return e;
         });
-        console.log(vm.rss);
         vm.loadingrss = false;
       });
     }
@@ -2891,7 +2925,6 @@ function navbarNotifications() {
       }
 
       vm.markAsImportant = function (index) {
-        console.log(index);
         vm.notificationRef = new Firebase($rootScope.getConstants().FURL + 'notifications/' + $localStorage.id + '/' + index);
         vm.currentNotification = $firebaseObject(vm.notificationRef);
         vm.currentNotification.$loaded(function () {
@@ -2955,7 +2988,10 @@ organizersNotificationsNavbarController.$inject = ['$scope'];
         p.active = true;
         vm.showHeader = true;
       };
-      vm.user.eventTasks[0].show = true;
+      if(vm.user.eventTasks.length){
+        vm.user.eventTasks[0].show = true;
+      }
+      
       if(vm.user.eventTasks[0].perks[0].sponzor_tasks.length)
         vm.activePerk(vm.user.eventTasks[0].perks[0],vm.user.eventTasks[0]);
       else if(vm.user.eventTasks[0].perks[1].sponzor_tasks.length)
@@ -3118,7 +3154,6 @@ organizersNotificationsNavbarController.$inject = ['$scope'];
         if ($rootScope.userValidation('0')) {
             var vm = this;
             vm.user = JSON.parse($localStorage.user);
-            console.log(vm.user);
             vm.ratings = []; //here is necessary assign the ratings
         }
     }
@@ -3403,7 +3438,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           bucket.putObject(params, function(err, data) {
             if (!err) {
               dialogRequest.closeLoading();
-              console.log(data);
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             }
             else{
@@ -3688,7 +3722,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           bucket.putObject(params, function(err, data) {
             if (!err) {
               dialogRequest.closeLoading();
-              console.log(data);
               vm.event.image = $rootScope.getConstants().AMAZONBUCKETURL + uniqueFileName;
             } else {
               dialogRequest.closeLoading();
@@ -3841,7 +3874,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
                 .success(function(data) {
                   $scope.loadingMeetupEvents = false;
                   $scope.meetupEvents = JSON.parse(data.response);
-                  console.log($scope.meetupEvents);
                 }).error(function(data) {
                   $scope.loadingMeetupEvents = false;
                   $scope.errorLoadingMeetupEvents = true;
@@ -3960,8 +3992,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         }
         dialogRequest.closeLoading();
 
-      }, function (err) {
-        console.log(err);
       });
     }
   }
@@ -4001,7 +4031,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
           vm.newMessage.userImage = $localStorage.image;
           vm.newMessage.timedate = new Date().getTime();
           vm.chatMessages.$add(vm.newMessage);
-          console.log(vm.chatMessages);
           vm.newMessage.text = '';
         }
       };
@@ -4014,11 +4043,10 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
 
 (function() {
   'use strict';
-  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest) {
+  function OrganizersSponsorRatingController($scope, $localStorage, $rootScope, ratingRequest, $routeParams, $translate, dialogRequest, firebaseRequest) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
-
       vm.saveRating = function() { //Finally we save the rating information
         dialogRequest.showLoading();
         if (vm.rating.other) {
@@ -4026,19 +4054,19 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         }
         ratingRequest.createRating(vm.rating).then(function successCallback(response) {
           vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId].ratings.push(response.data.Rating);
-          vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId].rated_organizer = true;
+          vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId].rated_organizer = '1';
           $localStorage.user = JSON.stringify(vm.user);
+          $localStorage.$apply();
+          dialogRequest.closeLoading();
+          dialogRequest.showDialog('success', 'sponzorRatedSuccesfuly', '/organizers/sponzors');
+
           var firebaseNotification = {
             to: response.data.Rating.sponzor_id,
             text: $translate.instant('NOTIFICATIONS.SponzorRated') + vm.user.name,
             link: '#/profile/' + response.data.Rating.organizer_id
           };
-          $rootScope.sendFirebaseNotification(firebaseNotification, response.data.Rating.organizer_id);
-          vm.initForm();
-          dialogRequest.closeLoading();
-          dialogRequest.showDialog('success', 'sponzorRateSuccesfuly', '/organizers/sponzors');
-          //success and redirect
-          console.log(response);
+          firebaseRequest.sendNotification(firebaseNotification, response.data.Rating.organizer_id);
+          
         }, function errorCallback() {
           dialogRequest.closeLoading();
           dialogRequest.showDialog('error', 'invalidRate', false);
@@ -4063,14 +4091,13 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
 
       if ($routeParams.sponzorshipId) {
         vm.currentSponzorship = vm.user.sponzorships_like_organizer[$routeParams.sponzorshipId];
-        console.log(vm.currentSponzorship);
         vm.initForm();
       }
     }
   }
 
   angular.module('sponzorme').controller('OrganizersSponsorRatingController', OrganizersSponsorRatingController);
-  OrganizersSponsorRatingController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest'];
+  OrganizersSponsorRatingController.$inject = ['$scope', '$localStorage', '$rootScope', 'ratingRequest', '$routeParams', '$translate', 'dialogRequest', 'firebaseRequest'];
 })();
 
 (function() {
@@ -4081,7 +4108,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       vm.user = JSON.parse($localStorage.user);
       vm.eventId = $routeParams.eventId;
       vm.activePerk = function(p, e) {
-        console.log(e);
         for (var i = 0; i < e.perks.length; i++) {
           e.perks[i].active = false;
         }
@@ -4161,7 +4187,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
             }
             dialogRequest.closeLoading();
             var parentEl = angular.element(document.body);
-            console.log($scope.errorMessages);
             $mdDialog.show({
               parent: parentEl,
               template: '<md-dialog aria-label="dialog">'+
@@ -4471,7 +4496,7 @@ LogoutController.$inject = ['$location', '$localStorage'];
 'use strict';
 (function () {
 
-  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce) {
+  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest) {
     var vm = this;
     vm.sponsoreable = false;
     if ($localStorage.id && $localStorage.type === '1' && $localStorage.user) {
@@ -4514,7 +4539,6 @@ LogoutController.$inject = ['$location', '$localStorage'];
           }
         });
         sponzorshipRequest.createSponzorship($scope.newSponzorship).then(function successCallback(response) {
-          console.log('ok', response);
           vm.user.sponzorships.push(response.data.Sponzorship);
           $localStorage.user = JSON.stringify(vm.user);
           vm.firebaseNotification = {
@@ -4522,7 +4546,7 @@ LogoutController.$inject = ['$location', '$localStorage'];
             text: $translate.instant('NOTIFICATIONS.NewSponzorshipRequestfor') + vm.currentEvent.title,
             link: '#/organizers/sponzors'
           };
-          $rootScope.sendFirebaseNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
+          firebaseRequest.sendNotification(vm.firebaseNotification, vm.currentEvent.user_organizer.id);
           dialogRequest.closeLoading();
           dialogRequest.showDialog('success', 'sponzorshipCreatedSuccesfuly', false);
         }, function errorCallback(err) {
@@ -4549,7 +4573,7 @@ LogoutController.$inject = ['$location', '$localStorage'];
 
   }
   angular.module('sponzorme').controller('LandingController', LandingController);
-  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce']
+  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest']
 
 })();
 

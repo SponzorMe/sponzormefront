@@ -39,7 +39,7 @@
                   </div>
                 </md-input-container>
                 <md-input-container class="white-text" flex="100" md-no-float>
-                  <textarea type="text" name="summary" form="createEventForm" md-maxlength="100" placeholder="{{'addEvent.sumaryPlaceholder'|translate}}" ng-model="oeac.event.sumary" required></textarea>
+                  <textarea aria-label="Summary" type="text" name="summary" form="createEventForm" md-maxlength="100" placeholder="{{'addEvent.sumaryPlaceholder'|translate}}" ng-model="oeac.event.sumary" required></textarea>
                   <div ng-messages="createEventForm.summary.$error">
                     <div ng-message="required">
                       {{'addEvent.summaryRequired'|translate}}
@@ -64,7 +64,7 @@
               <div class="dateAndplace" layout="row" flex="100">
                 <md-input-container>
                   <label translate>addEvent.location</label>
-                  <input type="text" name="location" ng-model="oeac.event.location" required/>
+                  <input type="text" name="location" autocomplete="off" g-places-autocomplete ng-model="oeac.locationEvent" required/>
                   <div ng-messages="createEventForm.location.$error">
                     <div ng-message="required">
                       {{'addEvent.locationRequired'|translate}}
