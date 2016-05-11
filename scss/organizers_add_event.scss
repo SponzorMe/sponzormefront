@@ -27,8 +27,22 @@
         }
         & >label{
           position: absolute;
-          top: 10px;
+          top: 265px;
           left: 10px;
+          
+          color: $color_white;
+          &>md-icon{
+            font-size: 32px;
+          }
+          &>span{
+            font-size: 10px;
+            display: block;
+            float: right;
+            max-width: 70px;
+            padding-left: 12px;
+            padding-top: 8px;
+            font-weight: bold;
+          }
         }
         & > .imageTexts {
           background: $color_blue_brighter;
@@ -90,46 +104,53 @@
         }
         & > .dateAndplace {
           width: 100%;
-          margin: 0.5em;
-          & > md-input-container {
-            & > .md-button {
-              text-transform: initial;
-              color: $color_blue_brighter;
-              & > md-icon {
-                color: $color_blue_brighter;
-              }
-            }
+          margin: 0 2em;
+          &>label{
+            color: $color_gray_text;
+            font-size: 12px;
           }
+          & > md-input-container {
+            margin-top: 0.3em;
+          }
+        }
+        & > .descriptionArea {
+          width: 90%;
+          margin: 1em 2em 2em 2em;
+          
         }
       }
       & > .createEventTable {
         border-top: 1px solid $color_gray1;
-        color: $color_gray3;
         background: $color_white;
         font-size: 12px;
-        padding: 0.5em;
-        margin: 1em 2%;
+        padding: 0.5em 4em;
+        margin: 2em 0px;
         overflow: hidden;
         @media screen and (max-width: $media_step1_bottom) {
           margin: 0;
         }
         & > .add {
           & > a {
-            font-size: 1.5em;
-            color: $color_blue_brighter;
+            font-size: 1.2em;
+            color: $color_blue;
+            text-transform: uppercase;
             & > md-icon {
-              color: $color_blue_brighter;
+              color: $color_blue;
+              font-size: 2.5em;
+              height: 1em;
+              margin-right: 0.5em;
             }
           }
         }
         & > .table {
+          padding: 0px 0px;
           & > .tableContent {
-            padding: 1.5em;
+            padding: 1.5em 0px;
             & > .deleteColumn {
               padding: 0.5em;
               font-size: 1.5em;
               & > a {
-                color: $color_blue_brighter;
+                color: $color_blue;
               }
             }
             & > .columnContainer {
@@ -166,7 +187,7 @@
                         margin-left: 1em;
                         & > md-icon {
                           font-size: 1.4em;
-                          color: $color_blue_brighter;
+                          color: $color_blue;
                         }
                       }
                     }
@@ -174,10 +195,12 @@
                 }
                 & > div {
                   & > a {
-                    color: $color_blue_brighter;
-                    font-size: 1.5em;
+                    color: $color_blue;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    margin-left: 2.3em;
                     & > md-icon {
-                      color: $color_blue_brighter;
+                      color: $color_blue;
                     }
                   }
                 }
@@ -187,7 +210,6 @@
         }
       }
       & > .saveButton {
-        width: 300px;
         background: $color_fuchsia;
         color: $color_white;
         margin: 2em auto 3em;

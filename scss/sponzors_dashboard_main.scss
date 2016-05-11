@@ -69,7 +69,7 @@ body {
       }
     }
     & > .menuItems.menuItemsOrganizer {
-      background-color: $color_blue_brighter;
+      background-color: $color_blue;
       height: 50px;
       margin-bottom: 0.3em;
       padding: 0.5em;
@@ -127,7 +127,7 @@ body {
             padding: 0;
           }
           & > md-icon {
-            color: $color_blue_brighter;
+            color: $color_blue;
             line-height: 30px;
           }
         }
@@ -210,13 +210,13 @@ body {
         background-color: $color_white;
         & > .createNewEvent div a {
           & > .md-button {
-            background: $color_blue_brighter;
+            background: $color_blue;
             & > md-icon {
               color: $color_white;
             }
           }
           & > p {
-            color: $color_blue_brighter;
+            color: $color_blue;
             text-transform: uppercase;
           }
         }
@@ -248,7 +248,7 @@ body {
             }
           }
           & > .eventImage.organizerEventImage {
-            background-color: $color_blue_brighter;
+            background-color: $color_blue;
             max-height: 100%;
             max-width: 100%;
             & > p {
@@ -303,7 +303,7 @@ body {
             }
           }
           & > event-item .eventImage.organizerEventImage {
-            background-color: $color_blue_brighter;
+            background-color: $color_blue;
             max-height: 100%;
             max-width: 100%;
             & > p {
@@ -388,9 +388,9 @@ body {
       color: $color_gray_text;
     }
     &:hover {
-      color: $color_blue_brighter;
+      color: $color_blue;
       & > md-icon {
-        color: $color_blue_brighter;
+        color: $color_blue;
       }
     }
   }

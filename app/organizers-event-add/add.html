@@ -9,7 +9,7 @@
       <!-- show-gt-xs don't work ¿? -->
       <div class="menuItems menuItemsOrganizer" layout="row" layout-align="space-between center" hide-xs hide-sm>
         <a href="#/organizers/dashboard" md-ink-ripple>
-          <md-icon aria-label="b">reply</md-icon>
+          <md-icon aria-label="b" class="color-white">keyboard_backspace</md-icon>
         </a>
         <organizers-navbar></organizers-navbar>
       </div>
@@ -21,17 +21,20 @@
       </div>
       <!-- Content starts -->
       <div class="contentContainer organizer" flex>
-        <form ng-submit="createEventForm.$valid && oeac.createNewEvent()" id="createEventForm" name="createEventForm" class="createEventForm" novalidate>
+        <form ng-submit="createEventForm.$valid && oeac.createNewEvent()" id="createEventForm" name="createEventForm" class="createEventForm"
+          novalidate>
           <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
             <div class="eventContainer" layout="column">
-              <img src="{{oeac.event.image}}" alt="image"/>
+              <img src="{{oeac.event.image}}" alt="image" />
               <label for="imageInput" class="imageLabel">
-                <md-icon>add_a_photo</md-icon>
+                <md-icon class="color-white">add_a_photo</md-icon>
+                <span>{{'addEvent.changeImage'|translate|uppercase}}</span>
               </label>
               <input id="imageInput" type="file" data-ng-model="file" name="file" maxsize="500" ng-hide="true" accept="image/*" filea>
               <div class="imageTexts" layout="column" layout-align="stretch center">
                 <md-input-container class="black-input" flex="100" md-no-float>
-                  <input type="text" name="title" ng-model="oeac.event.title" form="createEventForm" placeholder="{{'addEvent.titlePlaceholder'|translate}}" required/>
+                  <input type="text" name="title" ng-model="oeac.event.title" form="createEventForm" placeholder="{{'addEvent.titlePlaceholder'|translate}}"
+                    required/>
                   <div ng-messages="createEventForm.title.$error">
                     <div ng-message="required">
                       {{'addEvent.titleRequired'|translate}}
@@ -39,7 +42,8 @@
                   </div>
                 </md-input-container>
                 <md-input-container class="white-text" flex="100" md-no-float>
-                  <textarea aria-label="Summary" type="text" name="summary" form="createEventForm" md-maxlength="100" placeholder="{{'addEvent.sumaryPlaceholder'|translate}}" ng-model="oeac.event.sumary" required></textarea>
+                  <textarea aria-label="Summary" type="text" name="summary" form="createEventForm" md-maxlength="100" placeholder="{{'addEvent.sumaryPlaceholder'|translate}}"
+                    ng-model="oeac.event.sumary" required></textarea>
                   <div ng-messages="createEventForm.summary.$error">
                     <div ng-message="required">
                       {{'addEvent.summaryRequired'|translate}}
@@ -50,21 +54,23 @@
                   </div>
                 </md-input-container>
               </div>
-              
-              <div class="dateAndplace" layout="row" flex="100">
-                <label>{{'addEvent.description'|translate}}</label>
-                
-              </div>
-              <md-input-container class="white-text" flex="100" md-no-float>
-                <ng-wig ng-model="oeac.event.description"></ng-wig>
-              </md-input-container>
-              
-              
 
               <div class="dateAndplace" layout="row" flex="100">
-                <md-input-container>
-                  <label translate>addEvent.location</label>
-                  <input type="text" name="location" autocomplete="off" g-places-autocomplete ng-model="oeac.locationEvent" required/>
+                <label>{{'addEvent.description'|translate}}</label>
+
+              </div>
+              <md-input-container class="descriptionArea" class="white-text" flex="100" md-no-float>
+                <ng-wig ng-model="oeac.event.description"></ng-wig>
+              </md-input-container>
+
+
+              <div class="dateAndplace" layout="row" flex="100">
+                <label>{{'addEvent.location'|translate}}</label>
+              </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container class="md-block" md-no-float>
+                  <input type="text" name="location" autocomplete="off" placeholder="{{'addEvent.location'|translate}}" g-places-autocomplete
+                    ng-model="oeac.locationEvent" required/>
                   <div ng-messages="createEventForm.location.$error">
                     <div ng-message="required">
                       {{'addEvent.locationRequired'|translate}}
@@ -77,7 +83,8 @@
               </div>
               <div class="dateAndplace" layout="row" flex="100">
                 <md-input-container>
-                  <md-select ng-model="oeac.event.startsAux.year" placeholder="{{'addEvent.selectYear'|translate}}" form="createEventForm" name="startsYear" required>
+                  <md-select ng-model="oeac.event.startsAux.year" placeholder="{{'addEvent.selectYear'|translate}}" form="createEventForm"
+                    name="startsYear" required>
                     <md-option ng-repeat="y in oeac.years" ng-value="y">{{y}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.startsYear.$error">
@@ -86,8 +93,9 @@
                     </div>
                   </div>
                 </md-input-container>
-                <md-input-container>
-                  <md-select ng-model="oeac.event.startsAux.month" placeholder="{{'addEvent.selectMonth'|translate}}" name="startsMonth" form="createEventForm" required>
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.startsAux.month" placeholder="{{'addEvent.selectMonth'|translate}}" name="startsMonth" form="createEventForm"
+                    required>
                     <md-option ng-repeat="m in oeac.months" ng-value="{{m.number}}">{{'months.'+m.text|translate}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.startsMonth.$error">
@@ -96,8 +104,9 @@
                     </div>
                   </div>
                 </md-input-container>
-                <md-input-container>
-                  <md-select ng-model="oeac.event.startsAux.day" placeholder="{{'addEvent.selectDay'|translate}}" name="startsDay" form="createEventForm" required>
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.startsAux.day" placeholder="{{'addEvent.selectDay'|translate}}" name="startsDay" form="createEventForm"
+                    required>
                     <md-option ng-repeat="d in oeac.days" ng-value="d">{{d}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.startsDay.$error">
@@ -106,8 +115,9 @@
                     </div>
                   </div>
                 </md-input-container>
-                <md-input-container>
-                  <md-select ng-model="oeac.event.startsAux.hour" placeholder="{{'addEvent.selectHour'|translate}}" name="startsHour" form="createEventForm" required>
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.startsAux.hour" placeholder="{{'addEvent.selectHour'|translate}}" name="startsHour" form="createEventForm"
+                    required>
                     <md-option ng-repeat="h in oeac.hours" ng-value="h.number">{{h.text}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.startsHour.$error">
@@ -121,8 +131,9 @@
                 <label>{{'addEvent.ends'|translate}}</label>
               </div>
               <div class="dateAndplace" layout="row" flex="100">
-                <md-input-container>
-                  <md-select ng-model="oeac.event.endsAux.year" form="createEventForm" name="endsYear" placeholder="{{'addEvent.selectYear'|translate}}" required>
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.endsAux.year" form="createEventForm" name="endsYear" placeholder="{{'addEvent.selectYear'|translate}}"
+                    required>
                     <md-option ng-repeat="y in oeac.years" ng-value="y">{{y}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.endsYear.$error">
@@ -131,8 +142,9 @@
                     </div>
                   </div>
                 </md-input-container>
-                <md-input-container>
-                  <md-select ng-model="oeac.event.endsAux.month" form="createEventForm" name="endsMonth" placeholder="{{'addEvent.selectMonth'|translate}}" required>
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.endsAux.month" form="createEventForm" name="endsMonth" placeholder="{{'addEvent.selectMonth'|translate}}"
+                    required>
                     <md-option ng-repeat="m in oeac.months" ng-value="{{m.number}}">{{'months.'+m.text|translate}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.endsMonth.$error">
@@ -141,8 +153,9 @@
                     </div>
                   </div>
                 </md-input-container>
-                <md-input-container>
-                  <md-select ng-model="oeac.event.endsAux.day" placeholder="{{'addEvent.selectDay'|translate}}" form="createEventForm" name="endsDay" required>
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.endsAux.day" placeholder="{{'addEvent.selectDay'|translate}}" form="createEventForm" name="endsDay"
+                    required>
                     <md-option ng-repeat="d in oeac.days" ng-value="d">{{d}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.endsDay.$error">
@@ -151,8 +164,9 @@
                     </div>
                   </div>
                 </md-input-container>
-                <md-input-container>
-                  <md-select ng-model="oeac.event.endsAux.hour" placeholder="{{'addEvent.selectHour'|translate}}" form="createEventForm" name="endsHour" required>
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.endsAux.hour" placeholder="{{'addEvent.selectHour'|translate}}" form="createEventForm" name="endsHour"
+                    required>
                     <md-option ng-repeat="h in oeac.hours" ng-value="h.number">{{h.text}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.endsHour.$error">
@@ -162,10 +176,15 @@
                   </div>
                 </md-input-container>
               </div>
+              
+              
               <div class="dateAndplace" layout="row" flex="100">
-                <md-input-container>
-                  <label>{{'addEvent.eventType'|translate}}</label>
-                  <md-select ng-model="oeac.event.type" placeholder="{{'addEvent.eventType'|translate}}" form="createEventForm" name="eventType" required>
+                <label>{{'addEvent.eventType'|translate}}</label>
+              </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.type" placeholder="{{'addEvent.chooseEventType'|translate}}" form="createEventForm" name="eventType"
+                    required>
                     <md-option ng-repeat="et in oeac.eventTypes" ng-value="et.id">{{et.name}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.eventType.$error">
@@ -173,10 +192,16 @@
                       {{'addEvent.eventTypeRequired'|translate}}
                     </div>
                   </div>
+                
                 </md-input-container>
-                <md-input-container>
+               </div>
+                <div class="dateAndplace" layout="row" flex="100">
                   <label>{{'addEvent.eventCategory'|translate}}</label>
-                  <md-select ng-model="oeac.event.category" placeholder="{{'addEvent.eventCategory'|translate}}" form="createEventForm" name="eventCategory" required>
+                </div>
+                <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.category" placeholder="{{'addEvent.chooseEventCategory'|translate}}" form="createEventForm" name="eventCategory"
+                    required>
                     <md-option ng-repeat="c in oeac.categories" ng-value="c.id">{{c.title}}</md-option>
                   </md-select>
                   <div ng-messages="createEventForm.eventCategory.$error">
@@ -186,10 +211,14 @@
                   </div>
                 </md-input-container>
               </div>
+              
               <div class="dateAndplace" layout="row" flex="100">
-                <md-input-container>
-                  <label>{{'addEvent.privacy'|translate}}</label>
-                  <md-select ng-model="oeac.event.privacy" placeholder="{{'addEvent.privacy'|translate}}" form="createEventForm" name="eventPrivacy" required>
+                <label>{{'addEvent.privacy'|translate}}</label>
+              </div>
+              <div class="dateAndplace" layout="row" flex="100">
+                <md-input-container md-no-float>
+                  <md-select ng-model="oeac.event.privacy" placeholder="{{'addEvent.choosePrivacy'|translate}}" form="createEventForm" name="eventPrivacy"
+                    required>
                     <md-option ng-value="0">{{'addEvent.public'|translate}}</md-option>
                     <md-option ng-value="1">{{'addEvent.private'|translate}}</md-option>
                   </md-select>
@@ -202,8 +231,8 @@
               </div>
             </div>
             <md-content class="createEventTable">
-              <h4 class="color-blue-brighter" translate>addEvent.setSponzorshipTypes</h4>
-              <p translate>addEvent.perkInstructions</p>
+              <h4 class="color-black" translate>addEvent.setSponzorshipTypes</h4>
+              <p class="color-gray-text" translate>addEvent.perkInstructions</p>
               <div class="table" layout-padding flex="grow">
                 <div class="tableContent" layout-wrap layout="row" layout-align="start start">
                   <div class="columnContainer" layout="column" flex="70" flex-gt-xs="70" ng-repeat-start="s in oeac.event.sponzorshipTypes">
@@ -211,8 +240,8 @@
                       <span class="leftText" layout="column" flex="40" flex-gt-xs="40">{{s.kind}}</span>
                       <span class="rightText" layout="column" flex="45" flex-gt-xs="45">{{s.usd}} USD</span>
                       <a href="" layout="column" ng-click="oeac.showSponzorshipType(s)" flex="15" flex-gt-xs="15" layout-align="end start">
-                        <md-icon ng-show="!s.show">expand_more</md-icon>
-                        <md-icon ng-show="s.show">expand_less</md-icon>
+                        <md-icon class="md-12" ng-show="!s.show">arrow_drop_down</md-icon>
+                        <md-icon class="md-12" ng-show="s.show">arrow_drop_up</md-icon>
                       </a>
                     </div>
                     <div class="toggeable" layout="column" flex="100" flex-gt-xs="100" layout-align="start start" ng-show="s.show">
