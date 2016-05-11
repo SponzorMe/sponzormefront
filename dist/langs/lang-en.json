@@ -9,7 +9,8 @@
     "spanish": "Spanish",
     "portuguese": "Portuguese",
     "noSummary": "No Summary Available",
-    "payWith": "Pay With"
+    "payWith": "Pay With",
+    "noTasks": "You do not have Sponsors yet"
   },
   "dialog": {
     "loadingMessage": "Please wait, We are proccessing your request.",
@@ -22,9 +23,6 @@
     "takeMeOut": "Click Here to Cancel your Request",
     "pleaseCompleteAllFields": "Please complete all fields",
     "taskAddedSuccessfuly": "Task Added Succesfuly",
-    "passwordNoMatch": "Passwords not Match",
-    "invalidNewPassword": "Invalid new Password",
-    "passwordChangedSuccesfully": "Password Changed Successfuly",
     "loadingTitle": "Loading...",
     "registerCompleted": "Your account has been created, please check your E-mail",
     "success": {
@@ -39,7 +37,13 @@
       "PasswordChangedSuccesfully": "Your password has been updated successfuly",
       "PasswordResetLinkSent": "We have sent an Email with Instructions",
       "sponzorRatedSuccesfuly": "Your Rate has been saved successfuly, Thank you!",
-      "organizerRatedSuccesfuly": "Your Rate has been saved successfuly, Thank you!"
+      "organizerRatedSuccesfuly": "Your Rate has been saved successfuly, Thank you!",
+      "registerCompleted": "Your account has been created successfuly",
+      "sponzorshipCreatedSuccesfuly": "Sponsorship Created Succesfuly",
+      "taskAddedSuccessfuly": "Task added succesfuly",
+      "passwordChangedSuccesfully": "Password Changed Successfuly",
+      "invalidNewPassword": "Invalid new Password",
+      "passwordNoMatch": "Passwords not Match"
     },
     "error": {
       "title": "We've got a litte problem",
@@ -64,6 +68,7 @@
       "InvalidEmail": "The entered email is not valid",
       "invalidDatesText": "The starts date should be before than ends date.",
       "noSponzorshipTypesText": "Please create Sponsorship Types.",
+      "pleaseCompleteAllFields": "Please complete all fields",
       "eventWithoutSponsorshipTypeText": "You can not create an Event without Sponsorship Types",
       "sponsorshipTypeWithoutTasksText": "All Sponsorship types must have one task minimum"
     }
