@@ -326,12 +326,73 @@
       .when('/eventbrite/:eventBriteCode', {
         templateUrl: 'organizers-event-add/add.html',
         controller: 'OrganizersEventAddController',
-        controllerAs: 'oeac'
+        controllerAs: 'oeac',
+        resolve: {
+          eventTypes: ['eventTypeRequest', '$localStorage', '$log', function (eventTypeRequest, $localStorage, $log) {
+            if ($localStorage.eventTypes) { 
+              return JSON.parse($localStorage.eventTypes);
+            }
+            else {
+              return eventTypeRequest.allEventTypes().then(function (response) {
+                $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
+                return response.data.eventTypes;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }],
+          categories: ['categoryRequest', '$localStorage', '$log', function (categoryRequest, $localStorage, $log) {
+            if ($localStorage.categories) {
+              return JSON.parse($localStorage.categories);
+            }
+            else {
+              return categoryRequest.allCategories().then(function (response) {
+                $localStorage.categories = JSON.stringify(response.data.categories);
+                return response.data.categories;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }]
+        }
       })
       .when('/meetup/:meetupCode', {
         templateUrl: 'organizers-event-add/add.html',
         controller: 'OrganizersEventAddController',
-        controllerAs: 'oeac'
+        controllerAs: 'oeac',
+        resolve: {
+          eventTypes: ['eventTypeRequest', '$localStorage', '$log', function (eventTypeRequest, $localStorage, $log) {
+            if ($localStorage.eventTypes) { 
+              return JSON.parse($localStorage.eventTypes);
+            }
+            else {
+              return eventTypeRequest.allEventTypes().then(function (response) {
+                $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
+                return response.data.eventTypes;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }],
+          categories: ['categoryRequest', '$localStorage', '$log', function (categoryRequest, $localStorage, $log) {
+            if ($localStorage.categories) {
+              return JSON.parse($localStorage.categories);
+            }
+            else {
+              return categoryRequest.allCategories().then(function (response) {
+                $localStorage.categories = JSON.stringify(response.data.categories);
+                return response.data.categories;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }]
+        }
+        
       })
       .when('/organizers/sponzor/profile/:idSponsor', {
         templateUrl: 'organizers-sponzor-profile/profile.html',

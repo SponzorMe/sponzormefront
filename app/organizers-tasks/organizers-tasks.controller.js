@@ -16,12 +16,14 @@
         vm.user.eventTasks[0].show = true;
       }
       
-      if(vm.user.eventTasks[0].perks[0].sponzor_tasks.length)
+      if(vm.user.eventTasks.length && vm.user.eventTasks[0].perks.length && vm.user.eventTasks[0].perks[0].sponzor_tasks.length)
         vm.activePerk(vm.user.eventTasks[0].perks[0],vm.user.eventTasks[0]);
-      else if(vm.user.eventTasks[0].perks[1].sponzor_tasks.length)
+      else if(vm.user.eventTasks.length && vm.user.eventTasks[0].perks.length && vm.user.eventTasks[0].perks[1].sponzor_tasks.length)
         vm.activePerk(vm.user.eventTasks[0].perks[1],vm.user.eventTasks[0]);
-      else if(vm.user.eventTasks[0].perks[2].sponzor_tasks.length)
+      else if(vm.user.eventTasks.length && vm.user.eventTasks[0].perks.length && vm.user.eventTasks[0].perks[2].sponzor_tasks.length)
         vm.activePerk(vm.user.eventTasks[0].perks[2],vm.user.eventTasks[0]);
+      else
+        vm.noTasks = true;
       vm.changeStatus = function(t) {
         t.loading = true;
         var savedStatus = t.status;

@@ -11,6 +11,7 @@
           dialogRequest.showLoading();
           $scope.create.lang = $rootScope.currentLanguage();
           $scope.create.type = 0;
+          $scope.create.ionic_id = '';
           $scope.create.name = $scope.create.firstname + ' ' + $scope.create.lastname;
           userRequest.createUser($scope.create).success(function(adata) {
             $localStorage.cookiesponzorme = btoa($scope.create.email + ':' + $scope.create.password);
@@ -70,13 +71,15 @@
               locals: {
                 errorMessages: $scope.errorMessages
               },
-              controller: function DialogController($scope, $mdDialog, errorMessages) {
+              controller: DialogController
+            });
+            function DialogController($scope, $mdDialog, errorMessages) {
                 $scope.errorMessages = errorMessages;
                 $scope.closeDialog = function() {
                   $mdDialog.hide();
                 }
-              }
-            });
+              };
+              DialogController.$inject=['$scope', '$mdDialog', 'errorMessages'];
           });
         } else {
           if ($scope.create.password_confirmation.length > 6) {

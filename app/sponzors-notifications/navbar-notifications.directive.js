@@ -6,7 +6,12 @@ angular
 function navbarNotifications() {
     var directive = {
         link: link,
-        controller: navbarController,
+        controller: ['$scope', function navbarController($scope) {
+            $scope.openMenu = function ($mdOpenMenu, $event) {
+                $scope.originatorEv = $event;
+                $mdOpenMenu($event);
+            };
+        }],
         templateUrl: 'sponzors-notifications/navbar.html',
         restrict: 'EA'
     };
@@ -14,12 +19,5 @@ function navbarNotifications() {
 
     function link(scope, element, attrs) {
         scope.active = attrs.active;
-    }
-    
-    function navbarController($scope){
-      $scope.openMenu = function($mdOpenMenu, $event) {
-        $scope.originatorEv = $event;
-        $mdOpenMenu($event);
-      };
     }
 }

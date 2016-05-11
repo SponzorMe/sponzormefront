@@ -15,15 +15,15 @@
           loginRequest.changePassword(vm.formData, $localStorage.token).then(function successCallback(response) {
             dialogRequest.closeLoading();
             $localStorage.token = btoa($localStorage.email + ':' + vm.passwordConfirmation);
-            dialogRequest.showDialog('success', 'dialog.passwordChangedSuccesfully', false);
+            dialogRequest.showDialog('success', 'passwordChangedSuccesfully', false);
             vm.password = '';
             vm.passwordConfirmation = '';
           }, function errorCallback() {
             dialogRequest.closeLoading();
-            dialogRequest.showDialog('error', 'dialog.invalidNewPassword', false);
+            dialogRequest.showDialog('error', 'invalidNewPassword', false);
           });
         } else {
-          dialogRequest.showDialog('error', 'dialog.passwordNoMatch', false);
+          dialogRequest.showDialog('error', 'passwordNoMatch', false);
         }
       };
     }

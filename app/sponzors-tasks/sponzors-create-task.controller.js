@@ -28,7 +28,7 @@
         else {
           dialogRequest.closeLoading();
           $localStorage.user = JSON.stringify(vm.user);
-          dialogRequest.showDialog('success', 'dialog.taskAddedSuccessfuly', '/sponzors/tasks');
+          dialogRequest.showDialog('success', 'taskAddedSuccessfuly', '/sponzors/tasks');
         }
       };
       vm.addNewTask = function () {
@@ -37,7 +37,7 @@
           vm.addNextTask(0);
         }
         else{
-          dialogRequest.showDialog('error', 'dialog.pleaseCompleteAllFields', false);
+          dialogRequest.showDialog('error', 'pleaseCompleteAllFields', false);
         }
       };
       vm.changeSponzorship = function (i) {

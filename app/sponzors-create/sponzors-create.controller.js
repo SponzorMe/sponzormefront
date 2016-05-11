@@ -10,6 +10,7 @@
           dialogRequest.showLoading();
           $scope.create.lang = $rootScope.currentLanguage();
           $scope.create.type = 1;
+          $scope.create.ionic_id = '';
           $scope.create.name = $scope.create.firstname + ' ' + $scope.create.lastname;
           userRequest.createUser($scope.create).success(function (adata) {
             $localStorage.cookiesponzorme = btoa($scope.create.email + ':' + $scope.create.password);
@@ -47,45 +48,47 @@
             var parentEl = angular.element(document.body);
             $mdDialog.show({
               parent: parentEl,
-              template: '<md-dialog aria-label="dialog">'+
-                '<md-toolbar>'+
-                  '<div class="md-toolbar-tools top-info">'+
-                    '<i class="material-icons md-48 md-light">info</i>'+
-                  '</div>'+
-                '</md-toolbar>'+
-                '<md-dialog-content>'+
-                  '<div layout="column" layout-align="center center">'+
-                    '<h1 translate>dialog.error.title</h1>'+
-                    '<p ng-repeat="m in errorMessages">'+
-                      '{{\'dialog.error.\'+m|translate}}'+
-                    '</p>'+
-                  '</div>'+
-                '</md-dialog-content>'+
-                '<md-dialog-actions>'+
-                  '<md-button ng-click="closeDialog()" class="md-primary">'+
-                    '{{"Ok"}}'+
-                  '</md-button>'+
-                '</md-dialog-actions>'+
+              template: '<md-dialog aria-label="dialog">' +
+              '<md-toolbar>' +
+              '<div class="md-toolbar-tools top-info">' +
+              '<i class="material-icons md-48 md-light">info</i>' +
+              '</div>' +
+              '</md-toolbar>' +
+              '<md-dialog-content>' +
+              '<div layout="column" layout-align="center center">' +
+              '<h1 translate>dialog.error.title</h1>' +
+              '<p ng-repeat="m in errorMessages">' +
+              '{{\'dialog.error.\'+m|translate}}' +
+              '</p>' +
+              '</div>' +
+              '</md-dialog-content>' +
+              '<md-dialog-actions>' +
+              '<md-button ng-click="closeDialog()" class="md-primary">' +
+              '{{"Ok"}}' +
+              '</md-button>' +
+              '</md-dialog-actions>' +
               '</md-dialog>',
               locals: {
                 errorMessages: $scope.errorMessages
               },
-              controller: function DialogController($scope, $mdDialog, errorMessages) {
-                $scope.errorMessages = errorMessages;
-                $scope.closeDialog = function() {
-                  $mdDialog.hide();
-                }
-              }
+              controller: DialogController
             });
+            function DialogController($scope, $mdDialog, errorMessages) {
+              $scope.errorMessages = errorMessages;
+              $scope.closeDialog = function () {
+                $mdDialog.hide();
+              }
+            };
+            DialogController.$inject = ['$scope', '$mdDialog', 'errorMessages'];
           });
         } else {
-          if($scope.create.password_confirmation.length > 6) {
+          if ($scope.create.password_confirmation.length > 6) {
             dialogRequest.showDialog('error', 'errorRegisterPasswordNoMatch', false);
           } else {
             dialogRequest.showDialog('error', 'errorRegisterShortPassword', false);
           }
         }
-      }else {
+      } else {
         dialogRequest.showDialog('error', 'errorRegisterPasswordNoEmpty', false);
       }
     };
@@ -99,7 +102,7 @@
       });
       //Code to save the interests
       var interestsArray = [];
-      for(var i = 0; i< $scope.create.interests.length; i++){
+      for (var i = 0; i < $scope.create.interests.length; i++) {
         var item = {
           'user_id': $localStorage.id,
           'interest_id': $scope.create.interests[i]
@@ -109,7 +112,7 @@
       var data = {
         interests: interestsArray
       };
-      userInterestRequest.bulkUserInterest(data).then(function successCallback(){});
+      userInterestRequest.bulkUserInterest(data).then(function successCallback() { });
       //End the code to save the interests
     };
 
