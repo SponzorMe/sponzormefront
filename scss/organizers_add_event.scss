@@ -170,6 +170,7 @@
               & > .toggeable {
                 background: $color_gray1;
                 & > ul {
+                  width: 100%;
                   & > li {
                     font-size: 1em;
                     list-style: none;

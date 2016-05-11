@@ -1,7 +1,7 @@
 
 (function () {
   'use strict';
-  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest, event) {
+  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest, event) {
     var vm = this;
     vm.sponsoreable = false;
     if ($localStorage.id && $localStorage.type === '1' && $localStorage.user) {
@@ -74,6 +74,6 @@
 
   }
   angular.module('sponzorme').controller('LandingController', LandingController);
-  LandingController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest', 'event']
+  LandingController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest', 'event']
 
 })();

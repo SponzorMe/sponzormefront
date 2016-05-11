@@ -67,9 +67,9 @@
         controllerAs: 'lc',
         resolve: {
           event: ['$route', 'eventRequest', '$log', '$location', function ($route, eventRequest, $log, $location) {
-            return eventRequest.oneEvent($route.current.params.eventId).then(function(response){
+            return eventRequest.oneEvent($route.current.params.eventId).then(function (response) {
               return response.data.event;
-            }, function(err){
+            }, function (err) {
               $log.error(err);
               $location.path('#/login');
             });
@@ -256,12 +256,72 @@
       .when('/organizers/event/:eventId', {
         templateUrl: 'organizers-event-edit/edit.html',
         controller: 'OrganizersEventEditController',
-        controllerAs: 'oeec'
+        controllerAs: 'oeec',
+        resolve: {
+          eventTypes: ['eventTypeRequest', '$localStorage', '$log', function (eventTypeRequest, $localStorage, $log) {
+            if ($localStorage.eventTypes) { 
+              return JSON.parse($localStorage.eventTypes);
+            }
+            else {
+              return eventTypeRequest.allEventTypes().then(function (response) {
+                $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
+                return response.data.eventTypes;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }],
+          categories: ['categoryRequest', '$localStorage', '$log', function (categoryRequest, $localStorage, $log) {
+            if ($localStorage.categories) {
+              return JSON.parse($localStorage.categories);
+            }
+            else {
+              return categoryRequest.allCategories().then(function (response) {
+                $localStorage.categories = JSON.stringify(response.data.categories);
+                return response.data.categories;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }]
+        }
       })
       .when('/organizers/add/event', {
         templateUrl: 'organizers-event-add/add.html',
         controller: 'OrganizersEventAddController',
-        controllerAs: 'oeac'
+        controllerAs: 'oeac',
+        resolve: {
+          eventTypes: ['eventTypeRequest', '$localStorage', '$log', function (eventTypeRequest, $localStorage, $log) {
+            if ($localStorage.eventTypes) { 
+              return JSON.parse($localStorage.eventTypes);
+            }
+            else {
+              return eventTypeRequest.allEventTypes().then(function (response) {
+                $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
+                return response.data.eventTypes;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }],
+          categories: ['categoryRequest', '$localStorage', '$log', function (categoryRequest, $localStorage, $log) {
+            if ($localStorage.categories) {
+              return JSON.parse($localStorage.categories);
+            }
+            else {
+              return categoryRequest.allCategories().then(function (response) {
+                $localStorage.categories = JSON.stringify(response.data.categories);
+                return response.data.categories;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }]
+        }
       })
       .when('/eventbrite/:eventBriteCode', {
         templateUrl: 'organizers-event-add/add.html',

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   function
-OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
+OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypes, categories) {
     if ($rootScope.userValidation('0')) {
       var vm = this;
       //List of preseted items to populate event Dates
@@ -19,24 +19,9 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
       vm.days = [];
       for(var i=1; i<=31; i++){vm.days.push(i)};//Days
       vm.event = {sponzorshipTypes: [], lang: $rootScope.currentLanguage(), organizer: $localStorage.id};
-      vm.setEventData = function() {
-        if (!$localStorage.eventTypes) {
-          eventTypeRequest.allEventTypes().then(function successCallback1(response) {
-            $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
-            vm.eventTypes = response.data.eventTypes;
-          });
-        } else {
-          vm.eventTypes = JSON.parse($localStorage.eventTypes);
-        }
-        if (!$localStorage.categories) {
-          categoryRequest.allCategories().then(function successCallback2(response) {
-            $localStorage.categories = JSON.stringify(response.data.categories);
-            vm.categories = response.data.categories;
-          });
-        } else {
-          vm.categories = JSON.parse($localStorage.categories);
-        }
-      };
+      
+      vm.categories = categories;
+      vm.eventTypes = eventTypes;
       vm.showSponzorshipType = function(s) {
         s.show = !s.show;
       };
@@ -140,7 +125,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
          parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/sponzorshipTypeForm.html',
-          controller: function($scope){
+          controller: ['$scope', function($scope){
             $scope.addSponzorshipType = function() {
               vm.event.sponzorshipTypes.push({
                 kind: $scope.newSponzorshipType.kind,
@@ -153,7 +138,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
               });
               $mdDialog.hide();
             };
-          }
+          }]
         });
       };
       vm.addTaskForm = function(s){
@@ -162,7 +147,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
          parent: parentEl,
           clickOutsideToClose: true,
           templateUrl: 'organizers-event-add/taskForm.html',
-          controller: function($scope){
+          controller: ['$scope', function($scope){
             $scope.addTask = function() {
               s.tasks.push({
                 title: $scope.newTask.title,
@@ -171,7 +156,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
               });
               $mdDialog.hide();
             };
-          }
+          }]
         });
       };
 
@@ -188,7 +173,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         vm.event.sponzorshipTypes.splice(index, 1);
       };
       vm.user = JSON.parse($localStorage.user);
-      vm.setEventData();
       vm.event = vm.user.events.filter(function(e){
         if(e.id === $routeParams.eventId){
           return e;
@@ -230,5 +214,5 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersEventEditController', OrganizersEventEditController);
-  OrganizersEventEditController.$inject=['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
+  OrganizersEventEditController.$inject=['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypes', 'categories'];
 })();

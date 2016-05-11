@@ -68,73 +68,83 @@
  * @author Sebastian Gomez
  * @version 0.1
  */
-(function() {
+(function () {
   'use strict';
-  angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
+  angular.module('sponzorme').config(['$routeProvider', function ($routeProvider) {
     $routeProvider
 
       .when('', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    .when('/', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
+      .when('/', {
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    .when('/login', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
+      .when('/login', {
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    .when('/logout', {
-      templateUrl: 'login/login.html',
-      controller: 'LogoutController',
-      controllerAs: 'lc'
-    })
+      .when('/logout', {
+        templateUrl: 'login/login.html',
+        controller: 'LogoutController',
+        controllerAs: 'lc'
+      })
 
-    .when('/sign-up/sponsor', {
-      templateUrl: 'sponzors-create/create.html',
-      controller: 'SponzorsCreateController',
-      controllerAs: 'scc'
-    })
+      .when('/sign-up/sponsor', {
+        templateUrl: 'sponzors-create/create.html',
+        controller: 'SponzorsCreateController',
+        controllerAs: 'scc'
+      })
 
-    .when('/sign-up/organizer', {
-      templateUrl: 'organizers-create/create.html',
-      controller: 'OrganizersCreateController',
-      controllerAs: 'occ'
-    })
+      .when('/sign-up/organizer', {
+        templateUrl: 'organizers-create/create.html',
+        controller: 'OrganizersCreateController',
+        controllerAs: 'occ'
+      })
 
-    .when('/activation/:token', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
-    
-    .when('/forgot', {
-      templateUrl: 'forgot/forgot.html',
-      controller: 'ForgotController',
-      controllerAs: 'fc'
-    })
-    
-    .when('/reset/:tokenReset', {
-      templateUrl: 'forgot/reset.html',
-      controller: 'ForgotController',
-      controllerAs: 'fc'
-    })
-    
-    .when('/event/:eventId', {
-      templateUrl: 'event-landing/landing.html',
-      controller: 'LandingController',
-      controllerAs: 'lc'
-    })
+      .when('/activation/:token', {
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    //Sponzors
-    .when('/sponzors/dashboard', {
+      .when('/forgot', {
+        templateUrl: 'forgot/forgot.html',
+        controller: 'ForgotController',
+        controllerAs: 'fc'
+      })
+
+      .when('/reset/:tokenReset', {
+        templateUrl: 'forgot/reset.html',
+        controller: 'ForgotController',
+        controllerAs: 'fc'
+      })
+
+      .when('/event/:eventId', {
+        templateUrl: 'event-landing/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'lc',
+        resolve: {
+          event: ['$route', 'eventRequest', '$log', '$location', function ($route, eventRequest, $log, $location) {
+            return eventRequest.oneEvent($route.current.params.eventId).then(function (response) {
+              return response.data.event;
+            }, function (err) {
+              $log.error(err);
+              $location.path('#/login');
+            });
+          }]
+        }
+      })
+
+      //Sponzors
+      .when('/sponzors/dashboard', {
         templateUrl: 'sponzors-main/main.html',
         controller: 'SponzorsEventMainController',
         controllerAs: 'semc'
@@ -230,8 +240,8 @@
         controllerAs: 'src'
       })
 
-    //Organizers
-    .when('/organizers/dashboard', {
+      //Organizers
+      .when('/organizers/dashboard', {
         templateUrl: 'organizers-main/main.html',
         controller: 'OrganizersMainController',
         controllerAs: 'omc'
@@ -317,7 +327,37 @@
       .when('/organizers/add/event', {
         templateUrl: 'organizers-event-add/add.html',
         controller: 'OrganizersEventAddController',
-        controllerAs: 'oeac'
+        controllerAs: 'oeac',
+        resolve: {
+          eventTypes: ['eventTypeRequest', '$localStorage', '$log', function (eventTypeRequest, $localStorage, $log) {
+            if ($localStorage.eventTypes) { 
+              return $localStorage.eventTypes;
+            }
+            else {
+              return eventTypeRequest.allEventTypes().then(function (response) {
+                $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
+                return response.data.eventTypes;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }],
+          categories: ['categoryRequest', '$localStorage', '$log', function (categoryRequest, $localStorage, $log) {
+            if ($localStorage.categories) {
+              return $localStorage.categories;
+            }
+            else {
+              return categoryRequest.allCategories().then(function (response) {
+                $localStorage.categories = JSON.stringify(response.data.categories);
+                return response.data.categories;
+              }, function (err) {
+                $log.error(err);
+                return [];
+              });
+            }
+          }]
+        }
       })
       .when('/eventbrite/:eventBriteCode', {
         templateUrl: 'organizers-event-add/add.html',
@@ -358,8 +398,8 @@
         redirect: '/login'
       });
   }]).config(['$compileProvider', function ($compileProvider) {
-  $compileProvider.debugInfoEnabled(false);
-}]);
+    $compileProvider.debugInfoEnabled(false);
+  }]);
 })();
 
 /**
@@ -3549,7 +3589,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
 (function () {
   'use strict';
 
-  function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
+  function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest) {
     if ($rootScope.userValidation('0')) {
       function jsonize(str) {
         return str.replace(/([\$\w]+)\s*:/g, function (_, $1) {
@@ -3625,24 +3665,8 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
         organizer: $localStorage.id,
         image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'
       };
-      vm.setEventData = function () {
-        if (!$localStorage.eventTypes) {
-          eventTypeRequest.allEventTypes().then(function successCallback1(response) {
-            $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
-            vm.eventTypes = response.data.eventTypes;
-          });
-        } else {
-          vm.eventTypes = JSON.parse($localStorage.eventTypes);
-        }
-        if (!$localStorage.categories) {
-          categoryRequest.allCategories().then(function successCallback2(response) {
-            $localStorage.categories = JSON.stringify(response.data.categories);
-            vm.categories = response.data.categories;
-          });
-        } else {
-          vm.categories = JSON.parse($localStorage.categories);
-        }
-      };
+      vm.eventTypes = eventTypes;
+      vm.categories = categories;
       vm.showSponzorshipType = function (s) {
         s.show = !s.show;
       };
@@ -3976,7 +4000,6 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
             };
           };
       }
-      vm.setEventData(); //Here Starts the Callback
       if ($routeParams.eventBriteCode) {
         vm.connectEventbrite();
       } else if ($routeParams.meetupCode) {
@@ -3985,7 +4008,7 @@ OrganizersEventEditController($scope, $mdDialog, $translate, $localStorage, even
     }
   }
   angular.module('sponzorme').controller('OrganizersEventAddController', OrganizersEventAddController);
-  OrganizersEventAddController.$inject = ['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
+  OrganizersEventAddController.$inject = ['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest'];
 })();
 
 (function () {
@@ -4509,10 +4532,10 @@ LogoutController.$inject = ['$location', '$localStorage'];
   ForgotController.$inject = ['$scope', '$rootScope', '$routeParams', 'loginRequest', 'dialogRequest'];
 })();
 
-'use strict';
-(function () {
 
-  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest) {
+(function () {
+  'use strict';
+  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest, event) {
     var vm = this;
     vm.sponsoreable = false;
     if ($localStorage.id && $localStorage.type === '1' && $localStorage.user) {
@@ -4520,7 +4543,7 @@ LogoutController.$inject = ['$location', '$localStorage'];
       vm.events = JSON.parse($localStorage.events);
       vm.events.filter(function (e) {
         if (e.id === $routeParams.eventId) {
-          vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+          vm.currentEvent.perks = vm.currentEvent.perks.filter(function (a) {
             a.show = true;
             return a;
           });
@@ -4575,21 +4598,17 @@ LogoutController.$inject = ['$location', '$localStorage'];
         });
       };
     }
-    else{
-      eventRequest.oneEvent($routeParams.eventId).then(function(response){
-        vm.currentEvent = response.data.event;
-        vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
-            a.show = true;
-            return a;
-          });
-      }, function(err){
-        $location.path('#/login');
+    else {
+      vm.currentEvent = event;
+      vm.currentEvent.perks = vm.currentEvent.perks.filter(function (a) {
+        a.show = true;
+        return a;
       });
     }
 
   }
   angular.module('sponzorme').controller('LandingController', LandingController);
-  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest']
+  LandingController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest', 'event']
 
 })();
 

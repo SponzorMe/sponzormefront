@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypeRequest, categoryRequest) {
+  function OrganizersEventAddController($scope, $mdDialog, $translate, $localStorage, eventRequest, $rootScope, $routeParams, eventbriteRequest, dialogRequest, eventTypes, categories) {
     if ($rootScope.userValidation('0')) {
       function jsonize(str) {
         return str.replace(/([\$\w]+)\s*:/g, function (_, $1) {
@@ -77,24 +77,8 @@
         organizer: $localStorage.id,
         image: 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/event_default.jpg'
       };
-      vm.setEventData = function () {
-        if (!$localStorage.eventTypes) {
-          eventTypeRequest.allEventTypes().then(function successCallback1(response) {
-            $localStorage.eventTypes = JSON.stringify(response.data.eventTypes);
-            vm.eventTypes = response.data.eventTypes;
-          });
-        } else {
-          vm.eventTypes = JSON.parse($localStorage.eventTypes);
-        }
-        if (!$localStorage.categories) {
-          categoryRequest.allCategories().then(function successCallback2(response) {
-            $localStorage.categories = JSON.stringify(response.data.categories);
-            vm.categories = response.data.categories;
-          });
-        } else {
-          vm.categories = JSON.parse($localStorage.categories);
-        }
-      };
+      vm.eventTypes = eventTypes;
+      vm.categories = categories;
       vm.showSponzorshipType = function (s) {
         s.show = !s.show;
       };
@@ -428,7 +412,6 @@
             };
           };
       }
-      vm.setEventData(); //Here Starts the Callback
       if ($routeParams.eventBriteCode) {
         vm.connectEventbrite();
       } else if ($routeParams.meetupCode) {
@@ -437,5 +420,5 @@
     }
   }
   angular.module('sponzorme').controller('OrganizersEventAddController', OrganizersEventAddController);
-  OrganizersEventAddController.$inject = ['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypeRequest', 'categoryRequest'];
+  OrganizersEventAddController.$inject = ['$scope', '$mdDialog', '$translate', '$localStorage', 'eventRequest', '$rootScope', '$routeParams', 'eventbriteRequest', 'dialogRequest', 'eventTypes', 'categories'];
 })();
