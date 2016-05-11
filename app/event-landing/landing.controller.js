@@ -1,7 +1,7 @@
-'use strict';
-(function () {
 
-  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest) {
+(function () {
+  'use strict';
+  function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, eventRequest, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest, event) {
     var vm = this;
     vm.sponsoreable = false;
     if ($localStorage.id && $localStorage.type === '1' && $localStorage.user) {
@@ -9,7 +9,7 @@
       vm.events = JSON.parse($localStorage.events);
       vm.events.filter(function (e) {
         if (e.id === $routeParams.eventId) {
-          vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
+          vm.currentEvent.perks = vm.currentEvent.perks.filter(function (a) {
             a.show = true;
             return a;
           });
@@ -64,20 +64,16 @@
         });
       };
     }
-    else{
-      eventRequest.oneEvent($routeParams.eventId).then(function(response){
-        vm.currentEvent = response.data.event;
-        vm.currentEvent.perks = vm.currentEvent.perks.filter(function(a){
-            a.show = true;
-            return a;
-          });
-      }, function(err){
-        $location.path('#/login');
+    else {
+      vm.currentEvent = event;
+      vm.currentEvent.perks = vm.currentEvent.perks.filter(function (a) {
+        a.show = true;
+        return a;
       });
     }
 
   }
   angular.module('sponzorme').controller('LandingController', LandingController);
-  LandingController.$inject=['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest']
+  LandingController.$inject = ['$scope', '$mdDialog', '$routeParams', '$translate', '$localStorage', '$location', 'eventRequest', 'sponzorshipRequest', '$rootScope', 'dialogRequest', '$sce', 'firebaseRequest', 'event']
 
 })();

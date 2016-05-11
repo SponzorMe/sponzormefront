@@ -2,73 +2,83 @@
  * @author Sebastian Gomez
  * @version 0.1
  */
-(function() {
+(function () {
   'use strict';
-  angular.module('sponzorme').config(['$routeProvider', function($routeProvider) {
+  angular.module('sponzorme').config(['$routeProvider', function ($routeProvider) {
     $routeProvider
 
       .when('', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    .when('/', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
+      .when('/', {
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    .when('/login', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
+      .when('/login', {
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    .when('/logout', {
-      templateUrl: 'login/login.html',
-      controller: 'LogoutController',
-      controllerAs: 'lc'
-    })
+      .when('/logout', {
+        templateUrl: 'login/login.html',
+        controller: 'LogoutController',
+        controllerAs: 'lc'
+      })
 
-    .when('/sign-up/sponsor', {
-      templateUrl: 'sponzors-create/create.html',
-      controller: 'SponzorsCreateController',
-      controllerAs: 'scc'
-    })
+      .when('/sign-up/sponsor', {
+        templateUrl: 'sponzors-create/create.html',
+        controller: 'SponzorsCreateController',
+        controllerAs: 'scc'
+      })
 
-    .when('/sign-up/organizer', {
-      templateUrl: 'organizers-create/create.html',
-      controller: 'OrganizersCreateController',
-      controllerAs: 'occ'
-    })
+      .when('/sign-up/organizer', {
+        templateUrl: 'organizers-create/create.html',
+        controller: 'OrganizersCreateController',
+        controllerAs: 'occ'
+      })
 
-    .when('/activation/:token', {
-      templateUrl: 'login/login.html',
-      controller: 'LoginController',
-      controllerAs: 'lc'
-    })
-    
-    .when('/forgot', {
-      templateUrl: 'forgot/forgot.html',
-      controller: 'ForgotController',
-      controllerAs: 'fc'
-    })
-    
-    .when('/reset/:tokenReset', {
-      templateUrl: 'forgot/reset.html',
-      controller: 'ForgotController',
-      controllerAs: 'fc'
-    })
-    
-    .when('/event/:eventId', {
-      templateUrl: 'event-landing/landing.html',
-      controller: 'LandingController',
-      controllerAs: 'lc'
-    })
+      .when('/activation/:token', {
+        templateUrl: 'login/login.html',
+        controller: 'LoginController',
+        controllerAs: 'lc'
+      })
 
-    //Sponzors
-    .when('/sponzors/dashboard', {
+      .when('/forgot', {
+        templateUrl: 'forgot/forgot.html',
+        controller: 'ForgotController',
+        controllerAs: 'fc'
+      })
+
+      .when('/reset/:tokenReset', {
+        templateUrl: 'forgot/reset.html',
+        controller: 'ForgotController',
+        controllerAs: 'fc'
+      })
+
+      .when('/event/:eventId', {
+        templateUrl: 'event-landing/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'lc',
+        resolve: {
+          event: ['$route', 'eventRequest', '$log', '$location', function ($route, eventRequest, $log, $location) {
+            return eventRequest.oneEvent($route.current.params.eventId).then(function(response){
+              return response.data.event;
+            }, function(err){
+              $log.error(err);
+              $location.path('#/login');
+            });
+          }]
+        }
+      })
+
+      //Sponzors
+      .when('/sponzors/dashboard', {
         templateUrl: 'sponzors-main/main.html',
         controller: 'SponzorsEventMainController',
         controllerAs: 'semc'
@@ -164,8 +174,8 @@
         controllerAs: 'src'
       })
 
-    //Organizers
-    .when('/organizers/dashboard', {
+      //Organizers
+      .when('/organizers/dashboard', {
         templateUrl: 'organizers-main/main.html',
         controller: 'OrganizersMainController',
         controllerAs: 'omc'
@@ -292,6 +302,6 @@
         redirect: '/login'
       });
   }]).config(['$compileProvider', function ($compileProvider) {
-  $compileProvider.debugInfoEnabled(false);
-}]);
+    $compileProvider.debugInfoEnabled(false);
+  }]);
 })();
