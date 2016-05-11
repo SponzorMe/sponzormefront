@@ -45,6 +45,9 @@
             
             md-tabs-content-wrapper {
                 background-color: $color_white;
+                &>md-tab-content{
+                    overflow: hidden;
+                }
             }
 
             md-pagination-wrapper {

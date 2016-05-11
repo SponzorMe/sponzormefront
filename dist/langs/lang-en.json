@@ -8,7 +8,8 @@
     "english": "English",
     "spanish": "Spanish",
     "portuguese": "Portuguese",
-    "noSummary": "No Summary Available"
+    "noSummary": "No Summary Available",
+    "payWith": "Pay With"
   },
   "dialog": {
     "loadingMessage": "Please wait, We are proccessing your request.",
