@@ -242,7 +242,8 @@
     "taskStatus0": "Completed",
     "taskStatus1": "Pending",
     "taskOwner0": "Organizer",
-    "taskOwner1": "Sponzor"
+    "taskOwner1": "Sponzor",
+    "pastEvent": "Expired for Sponsors"
   },
   "settings": {
     "profile": "Profile",

@@ -6,9 +6,14 @@
     vm.sponsoreable = false;
     if ($localStorage.id && $localStorage.type === '1' && $localStorage.user) {
       vm.sponsoreable = true;
+      //vm.currentEvent = event;
+      console.log(event);
       vm.events = JSON.parse($localStorage.events);
+      $log.info(vm.events, $routeParams.eventId);
       vm.events.filter(function (e) {
-        if (e.id === $routeParams.eventId) {
+        if (e.id == $routeParams.eventId) {
+          
+        $log.info(e);
           vm.currentEvent = e;
           vm.currentEvent.perks = vm.currentEvent.perks.filter(function (a) {
             a.show = true;
@@ -16,7 +21,12 @@
           });
         }
       });
+      if(!vm.currentEvent){
+        vm.currentEvent = event;
+        vm.pastEvent = true;
+      }
       vm.currentEvent.description = $sce.trustAsHtml(vm.currentEvent.description);
+      
       vm.formCreateSponzorship = function (perk) {
         $scope.newSponzorship = { // Review why is not possible with vm instead of $scope
           'organizer_id': vm.currentEvent.user_organizer.id,

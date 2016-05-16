@@ -91,9 +91,7 @@ gulp.task('main', function() {
       vendorCss: [minifyCSS({zindex: false}), 'concat'],
       appCss: [minifyCSS(), 'concat'],
       vendorJs: [ngAnnotate(), uglify(), 'concat'],
-      appJs: [ngAnnotate(), uglify(), 'concat'],
-      // vendorJs: [ngAnnotate(), 'concat'],
-      // appJs: [ngAnnotate(), 'concat'],
+      appJs: [ngAnnotate(), uglify(), 'concat']
     }))
     .pipe(gulp.dest('dist'));
 });
