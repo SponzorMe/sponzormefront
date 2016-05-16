@@ -70,7 +70,8 @@
                       <li ng-repeat="t in p.tasks"><span>{{t.title}}</span></li>
                     </ul>
                     <div flex="33" flex-gt-xs="33">
-                      <a href="" ng-if="lc.sponsoreable" ng-click="lc.formCreateSponzorship(p)" translate>eventPage.sponzorIt</a>
+                      <a href="" ng-if="lc.sponsoreable && !lc.pastEvent" ng-click="lc.formCreateSponzorship(p)" translate>eventPage.sponzorIt</a>
+                      <a href="" ng-if="lc.sponsoreable && lc.pastEvent" translate>eventPage.pastEvent</a>
                      </div>
                   </div>
                 </div>
