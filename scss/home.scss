@@ -45,8 +45,10 @@
             
             md-tabs-content-wrapper {
                 background-color: $color_white;
+                max-height: 300px;
                 &>md-tab-content{
                     overflow: hidden;
+                    
                 }
             }
 

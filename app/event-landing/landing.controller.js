@@ -4,7 +4,9 @@
   function LandingController($scope, $mdDialog, $routeParams, $translate, $localStorage, $location, sponzorshipRequest, $rootScope, dialogRequest, $sce, firebaseRequest, event, $log) {
     var vm = this;
     vm.sponsoreable = false;
+    
     if ($localStorage.id && $localStorage.type === '1' && $localStorage.user) {
+      vm.isSponzor = true;
       vm.sponsoreable = true;
       //vm.currentEvent = event;
       console.log(event);
@@ -75,6 +77,10 @@
       };
     }
     else {
+      if($localStorage.type === '0'){
+        vm.isOrganizer = true;
+      }
+      
       vm.currentEvent = event;
       vm.currentEvent.perks = vm.currentEvent.perks.filter(function (a) {
         a.show = true;
