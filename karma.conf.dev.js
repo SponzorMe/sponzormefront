@@ -27,6 +27,7 @@ module.exports = function (config) {
       'bower_components/angular-material/angular-material.js',
       'bower_components/angular-messages/angular-messages.js',
       'bower_components/ng-wig/dist/ng-wig.min.js',
+      'bower_components/angular-socialshare/dist/angular-socialshare.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'app/app.modules.js',
       'app/app.constants.js',
