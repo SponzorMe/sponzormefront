@@ -43,7 +43,8 @@
       "taskAddedSuccessfuly": "Task added succesfuly",
       "passwordChangedSuccesfully": "Password Changed Successfuly",
       "invalidNewPassword": "Invalid new Password",
-      "passwordNoMatch": "Passwords not Match"
+      "passwordNoMatch": "Passwords not Match",
+      "taskDeletedSuccessfuly": "Task deleted successfuly"
     },
     "error": {
       "title": "We've got a litte problem",
@@ -70,7 +71,8 @@
       "noSponzorshipTypesText": "Please create Sponsorship Types.",
       "pleaseCompleteAllFields": "Please complete all fields",
       "eventWithoutSponsorshipTypeText": "You can not create an Event without Sponsorship Types",
-      "sponsorshipTypeWithoutTasksText": "All Sponsorship types must have one task minimum"
+      "sponsorshipTypeWithoutTasksText": "All Sponsorship types must have one task minimum",
+      "errorUpdatingTaskStatus": "We can not complete the action over this task"
     }
   },
   "footer": {

@@ -13,9 +13,10 @@
                     $localStorage.help = true;
                     $scope.help = true;
                     userRequest.home($localStorage.id).then(function successCallback(response) {
+                        console.log(response);
                         $localStorage.lastUpdate = new Date().getTime();
 
-                        if (response.data.user.events.length) {
+                        if ($localStorage.type !== '1' && response.data.user.events.length) {
                             response.data.user.events = response.data.user.events.filter(function (e) {
                                 e.starts = e.starts.replace(' ', 'T');
                                 e.starts = new Date(e.starts).getTime();
@@ -23,7 +24,7 @@
                             });
                         }
 
-                        if (response.data.events.length) {
+                        if ($localStorage.type === '1' && response.data.events.length) {
                             var parsedEvents = response.data.events.filter(function (e) {
                                 e.starts = e.starts.replace(' ', 'T');
                                 e.ends = e.ends.replace(' ', 'T');
@@ -34,7 +35,7 @@
                             $localStorage.events = JSON.stringify(parsedEvents);
                         }
 
-                        if (response.data.user.sponzorships.length) {
+                        if ($localStorage.type === '1' && response.data.user.sponzorships.length) {
                             response.data.user.sponzorships = response.data.user.sponzorships.filter(function (e) {
                                 e.event.starts = e.event.starts.replace(' ', 'T');
                                 e.event.starts = new Date(e.event.starts).getTime();
@@ -42,7 +43,7 @@
                             });
                         }
 
-                        if (response.data.eventTasks.length) {
+                        if ($localStorage.type !== '1' && response.data.eventTasks.length) {
                             var filteredEvents = [];
                             response.data.eventTasks.filter(function (e) {
                                 if (e.sponzorship.length) {
