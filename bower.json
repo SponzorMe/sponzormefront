@@ -26,7 +26,8 @@
     "downloadjs": "*",
     "angular-material": "^1.0.7",
     "ng-wig": "~3.0.0-rc1",
-    "angular-sanitize": "^1.5.5"
+    "angular-sanitize": "^1.5.5",
+    "angular-socialshare": "angularjs-socialshare#^2.1.5"
   },
   "resolutions": {
     "angular": "1.5.5",

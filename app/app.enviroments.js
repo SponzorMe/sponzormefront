@@ -28,7 +28,8 @@
             'MEETUPREDIRECTURL': 'https://apilocal.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
             'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
-            'EVENTEXPIRATIONDAYS': '2'
+            'EVENTEXPIRATIONDAYS': '2',
+            'EVENTPAGESHARE': 'http://localhost:9000/#/event/'
           };
         } else if (host.indexOf('staging') > -1) { //Staging
           return {
@@ -49,7 +50,8 @@
             'MEETUPREDIRECTURL': 'https://apistaging.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
             'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
-            'EVENTEXPIRATIONDAYS': '2'
+            'EVENTEXPIRATIONDAYS': '2',
+            'EVENTPAGESHARE': 'https://staging.sponzor.me/#/event/'
           };
         } else if (host.indexOf('app') > -1) { //Production
           return {
@@ -70,7 +72,8 @@
             'MEETUPREDIRECTURL': 'https://api.sponzor.me/accept/meetup',
             'AMAZONBUCKETREGION': 'us-west-2',
             'AMAZONBUCKETURL': 'https://s3-us-west-2.amazonaws.com/sponzormewebappimages/',
-            'EVENTEXPIRATIONDAYS': '2'
+            'EVENTEXPIRATIONDAYS': '2',
+            'EVENTPAGESHARE': 'https://app.sponzor.me/#/event/'
           };
         }
       };

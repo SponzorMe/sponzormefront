@@ -247,7 +247,8 @@
     "taskOwner1": "Sponzor",
     "pastEvent": "Expired to sponsor",
     "noLoggedIn": "Log in!",
-    "organizerAccount": "Register as an sponsor!"
+    "organizerAccount": "Register as an sponsor!",
+    "shareEvent": "Share this event in your favorite social Networks!"
   },
   "settings": {
     "profile": "Profile",

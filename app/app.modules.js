@@ -23,6 +23,7 @@
     'ngAnimate',
     'ngMessages',
     'ngWig',
-    'ngSanitize'
+    'ngSanitize',
+    '720kb.socialshare'
   ]);
 })();

@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  function SponzorsEventMainController($scope, $localStorage, $rootScope, eventRequest, $location, dialogRequest) {
+  function SponzorsEventMainController($scope, $localStorage, $rootScope, eventRequest, $location, dialogRequest, $mdDialog) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.user = JSON.parse($localStorage.user);
@@ -39,8 +39,42 @@
           dialogRequest.showDialog('error', 'invalidEvent', false);
         });
       };
+      vm.share = function(event){
+      var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         template:
+           '<md-dialog aria-label="List dialog">' +
+           '  <md-dialog-content>'+
+           '  <h2 translate>eventPage.shareEvent</h2>'+
+           '    <div layout="row" layout-align="center center">'+
+           '      <a href="" socialshare socialshare-provider="facebook" socialshare-text="{{eventTitle}}" socialshare-url="{{url}}"><img width="100px" src="../../images/social/social-fb.svg"></a>'+
+           '      <a href="" socialshare socialshare-provider="twitter" socialshare-text="{{eventTitle}}" socialshare-hashtags="SponzorMe" socialshare-url="{{url}}"><img width="100px" src="../../images/social/social-twttr.svg"></a>'+
+           '      <a href="" socialshare socialshare-provider="google" socialshare-url="{{url}}"><img width="100px" src="../../images/social/social-g.svg"></a>'+
+           '    </div>'+
+           '  </md-dialog-content>' +
+           '  <md-dialog-actions>' +
+           '    <md-button ng-click="closeDialog()" class="md-primary">' +
+           '      Close Dialog' +
+           '    </md-button>' +
+           '  </md-dialog-actions>' +
+           '</md-dialog>',
+         locals: {
+           event: event
+         },
+         controller: DialogController
+      });
+      function DialogController($scope, $mdDialog, event, $rootScope) {
+        $scope.url = $rootScope.getConstants().EVENTPAGESHARE + event.id;
+        $scope.eventTitle = event.title;
+        $scope.closeDialog = function() {
+          $mdDialog.hide();
+        }
+      }
+      DialogController.$inject = ['$scope', '$mdDialog', 'event', '$rootScope'];
+    };
     }
   }
   angular.module('sponzorme').controller('SponzorsEventMainController', SponzorsEventMainController);
-  SponzorsEventMainController.$inject = ['$scope', '$localStorage', '$rootScope', 'eventRequest', '$location', 'dialogRequest'];
+  SponzorsEventMainController.$inject = ['$scope', '$localStorage', '$rootScope', 'eventRequest', '$location', 'dialogRequest', '$mdDialog'];
 })();
