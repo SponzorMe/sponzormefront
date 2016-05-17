@@ -36,6 +36,30 @@
           dialogRequest.showDialog('error', 'errorUpdatingTaskStatus', false);
         });
       };
+      vm.deleteTask = function(taskIndex){
+        dialogRequest.showLoading();
+        $log.info(vm.tasks[taskIndex].id);
+        taskSponzorRequest.deleteTaskSponzor(vm.tasks[taskIndex].id).then(function(response){
+          var ie, jota;
+          for (var i = 0; i < vm.user.sponzorships.length; i++) {
+            for (var j = 0; j < vm.user.sponzorships[i].task_sponzor.length; j++) {
+              if(vm.tasks[taskIndex].id === vm.user.sponzorships[i].task_sponzor[j].id){
+                ie = i;
+                jota = j;
+                break;
+              }
+            }
+          }
+          vm.user.sponzorships[ie].task_sponzor.splice(jota, 1);
+          $localStorage.user = JSON.stringify(vm.user);
+          dialogRequest.closeLoading();
+          dialogRequest.showDialog('success', 'taskDeletedSuccessfuly', '/sponzors/tasks');
+        }, function(err){
+          dialogRequest.closeLoading();
+          dialogRequest.showDialog('error', 'errorUpdatingTaskStatus', false);
+          $log.error(err);
+        });
+      };
       vm.regenerateTasks();
       vm.currentTaskIndex = $routeParams.id;
     }

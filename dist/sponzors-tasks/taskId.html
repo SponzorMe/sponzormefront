@@ -46,7 +46,7 @@
                 <md-icon aria-label="b" class="color-active">keyboard_backspace</md-icon>
                 <p translate>tasks.back</p>
               </a>
-              <a href="" md-ink-ripple="#f09200" layout="row">
+              <a href="" md-ink-ripple="#f09200" layout="row" ng-click="stc.deleteTask(stc.currentTaskIndex)" ng-if="stc.tasks[stc.currentTaskIndex].task.type == '1'" >
                 <md-icon>delete</md-icon>
                 <p translate>tasks.delete</p>
               </a>
