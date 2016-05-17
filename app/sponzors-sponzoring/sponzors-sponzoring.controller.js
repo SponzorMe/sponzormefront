@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $sce) {
+  function SponzorsSponzorshipsController($scope, $localStorage, $rootScope, SPONZORSHIPSTATUSES, $routeParams, $mdDialog, $sce, $log) {
     if ($rootScope.userValidation('1')) {
       var vm = this;
       vm.todayDate = new Date().getTime();
@@ -12,6 +12,7 @@
         vm.currentSponzorship = vm.user.sponzorships[$routeParams.id];
         vm.currentSponzorship.event.ends = new Date(vm.currentSponzorship.event.ends).getTime();
         vm.currentSponzorship.event.description = $sce.trustAsHtml(vm.currentSponzorship.event.description);
+        $log.warn(vm.currentSponzorship);
       }
 
       //This function displays a popup to Show Download calendar
@@ -74,5 +75,5 @@
     }
   }
   angular.module('sponzorme').controller('SponzorsSponzorshipsController', SponzorsSponzorshipsController);
-  SponzorsSponzorshipsController.$inject = ['$scope', '$localStorage', '$rootScope', 'SPONZORSHIPSTATUSES', '$routeParams', '$mdDialog', '$sce'];
+  SponzorsSponzorshipsController.$inject = ['$scope', '$localStorage', '$rootScope', 'SPONZORSHIPSTATUSES', '$routeParams', '$mdDialog', '$sce', '$log'];
 })();

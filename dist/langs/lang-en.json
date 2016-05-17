@@ -243,7 +243,9 @@
     "taskStatus1": "Pending",
     "taskOwner0": "Organizer",
     "taskOwner1": "Sponzor",
-    "pastEvent": "Expired for Sponsors"
+    "pastEvent": "Expired to sponsor",
+    "noLoggedIn": "Log in!",
+    "organizerAccount": "Register as an sponsor!"
   },
   "settings": {
     "profile": "Profile",
