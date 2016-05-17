@@ -20,7 +20,7 @@
           if ($localStorage.lastUpdate < vm.current.date) {
             userRequest.home($localStorage.id).then(function successCallback(response) {
               $localStorage.lastUpdate = new Date().getTime();
-              $localStorage.user = JSON.stringify(response.data.data.user);
+              $localStorage.user = JSON.stringify(response.data.user);
             });
           }
         });
