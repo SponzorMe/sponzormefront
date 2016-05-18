@@ -1,0 +1,27 @@
+deployment:
+  production:
+    branch: master
+    codedeploy:
+      SponzormeFrontMaster:
+        deployment_group: SponzormeFrontMasterGroup
+        application_root: /
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: circledeploy
+            key_pattern: revs/sponzorme-dist-{BRANCH}-{COMMIT}
+        region: us-west-2
+        deployment_config: CodeDeployDefault.AllAtOnce
+  staging:
+    branch: gh-pages
+    codedeploy:
+      SponzormeFrontStaging:
+        deployment_group: SponzormeFrontStaging
+        application_root: /
+        revision_location:
+          revision_type: S3
+          s3_location:
+            bucket: circledeploy
+            key_pattern: revs/sponzorme-staging-{BRANCH}-{COMMIT}
+        region: us-west-2
+        deployment_config: CodeDeployDefault.AllAtOnce

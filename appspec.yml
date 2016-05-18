@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+files:
+  - source: /dist
+    destination: /var/www/html/
+hooks:
+  BeforeInstall:
+    - location: server_scripts/install_dependencies
+      timeout: 300
+      runas: root
+    - location: server_scripts/start_server
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: server_scripts/stop_server
+      timeout: 300
+      runas: root
