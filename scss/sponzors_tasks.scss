@@ -1,0 +1,61 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer { 
+   
+    &>.addTask {
+        &>.md-button.md-fab {
+            background-color: $color_active; 
+        }
+        &>p {
+            color: $color_active;
+            text-transform: uppercase;
+            margin-left: 0.5em;
+        }
+    }
+
+    &>.eventItem.tasks {  
+        &>.eventInfo { 
+            padding: 1em 0em;            
+            margin: 0.2em 0 0.7em 0;
+            
+            &>.eventTitle > div {
+                text-transform: initial;
+                &>.taskSubtitle {
+                    color: $color_active;
+                    margin-left: 0.2em;
+                }
+            }
+            
+            &>.eventSponzorType {
+                text-transform: uppercase;
+            }
+            
+            &>.eventDate {
+                color: $color_gray3;
+            }
+
+            &:hover {
+                background: $color_active;
+                color: $color_white;
+
+                &>.taskIcon {
+                    &>md-icon {
+                        color: $color_white;
+                    }
+                }
+
+                &>.eventTitle > div {
+                    &>.taskSubtitle {
+                        color: $color_white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+

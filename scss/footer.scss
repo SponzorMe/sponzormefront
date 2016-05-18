@@ -1,0 +1,52 @@
+.footerContainer {
+  background: $color_white;
+  bottom: 0;
+  padding-bottom: 0.5em;
+  padding-top: 1em;
+  position: relative;
+  width: 100%;
+  z-index: 61;
+  @media screen and (max-width: $media_step1_bottom) {
+    position: relative;
+  }
+  div.lang-buttons {
+    padding-left: 7%;
+    margin-bottom: 0.5em;
+    width: 100%;
+    display: inline-block;
+    & > button.lang-button {
+      background: $color_white;
+      border-radius: 50%;
+      border: 2px solid $color_green;
+      color: $color_green;
+      font-weight: bold;
+      height: 2.3em;
+      margin-right: 0.5em;
+      width: 2.3em;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    button.lang-button-active {
+      @extend button.lang-button;
+      background: $color_green;
+      color: $color_white;
+    }
+  }
+  .footer-links {
+    margin-bottom: 0.5em;
+    padding-right: 7%;
+    & > div a {
+      margin-right: 1.5em;
+      cursor: pointer;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    & > div {
+      & > a:hover {
+        color: $color_green !important;
+      }
+    }
+  }
+}

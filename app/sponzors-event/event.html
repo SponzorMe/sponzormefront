@@ -1,0 +1,87 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <sponzors-navbar></sponzors-navbar>
+      <div class="contentContainer">
+        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
+          <div class="eventContainer" layout="column">
+            <div class="shareButton">
+              <md-button ng-click="sec.share(sec.currentEvent)" class="md-fab">
+                <md-icon>share</md-icon>
+              </md-button>
+            </div>
+            <img src="../../images/home-bkg.jpg" alt="image">
+            <div class="imageTexts">
+              <h3>{{sec.currentEvent.title}}</h3>
+              <p ng-bind-html="sec.currentEvent.description"></p>
+            </div>
+
+            <div class="textsContainer">
+
+              <md-divider></md-divider>
+
+              <div class="eventInfo" layout="row" layout-wrap>
+                <div class="item">
+                  <p class="color-blue-brighter" translate>Organizer</p>
+                  <div layout="row" layout-align="start center">
+                    <img ng-src="{{sec.currentEvent.user_organizer.image}}" alt="">
+                    <div>
+                      <p>{{sec.currentEvent.user_organizer.name}}</p>
+                      <stars number="{{sec.currentEvent.user_organizer.rating}}"></stars>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <p class="color-blue-brighter" translate>eventPage.date</p>
+                  <div layout="row" layout-align="start center">
+                    <md-icon>access_time</md-icon>
+                    <div>
+                      <p>{{sec.currentEvent.starts|date:'medium'}}</p>
+                      <p>{{sec.currentEvent.ends|date:'medium'}}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <p class="color-blue-brighter" translate>eventPage.location</p>
+                  <div layout="row" layout-align="start center">
+                    <md-icon>location_on</md-icon>
+                    <div>
+                      <p>{{sec.currentEvent.location}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <md-content class="sponsorAnEvent">
+            <h4 class="color-blue-brighter" translate>eventPage.sponzorshipTypes</h4>
+            <div href="" class="table" layout-padding flex="grow">
+              <div class="tableContent" layout-wrap layout="row" layout-align="space-around center">
+                <div class="columnContainer" flex="100" flex-gt-xs="100" ng-repeat="p in sec.currentEvent.perks">
+                  <div class="tableTitle" layout="row">
+                    <span class="leftText" flex="40" flex-gt-xs="40">{{p.kind}}</span>
+                    <span class="rightText" flex="45" flex-gt-xs="45">{{p.usd}} USD</span>
+                    <md-icon flex="12" flex-gt-xs="12" ng-click="p.show = !p.show">add</md-icon>
+                  </div>
+                  <div class="toggeable" layout="row" layout-align="start center" ng-show="p.show">
+                    <ul flex="65" flex-gt-xs="65">
+                      <li ng-repeat="t in p.tasks"><span>{{t.title}}</span></li>
+                    </ul>
+                    <div flex="33" flex-gt-xs="33">
+                      <a href="" ng-click="sec.formCreateSponzorship(p)" translate>eventPage.sponzorIt</a>
+                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

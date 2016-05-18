@@ -1,0 +1,36 @@
+{
+  "name": "sponzorme",
+  "version": "1.1.1",
+  "description": "We connect Events With Sponzors!",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.5.x",
+    "angular-translate": "~2.11.0",
+    "angular-cookies": "~1.5",
+    "angular-resource": "~1.5.5",
+    "angular-route": "~1.5.5",
+    "angular-translate-loader-partial": "~2.11.0",
+    "angular-translate-loader-static-files": "~2.11.0",
+    "angular-base64": "~2.0.5",
+    "angular-google-places-autocomplete": "~0.2.7",
+    "ngstorage": "~0.3.10",
+    "angular-spinner": "~0.8.1",
+    "angular-utils-pagination": "~0.11.1",
+    "angular-mocks": "~1.5.x",
+    "angularfire": "~1.2.0",
+    "firebase": "~2.4.2",
+    "moment": "~2.13.0",
+    "aws-sdk": "aws-sdk-js#~2.2.21",
+    "angular-input-stars-directive": "angular-input-stars#*",
+    "angular-scroll-glue": "~2.0.6",
+    "downloadjs": "*",
+    "angular-material": "^1.0.7",
+    "ng-wig": "~3.0.0-rc1",
+    "angular-sanitize": "^1.5.5",
+    "angular-socialshare": "angularjs-socialshare#^2.1.5"
+  },
+  "resolutions": {
+    "angular": "1.5.5",
+    "angular-translate": "2.11.0"
+  }
+}

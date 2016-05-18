@@ -1,0 +1,16 @@
+<div class="eventImage" layout="column" layout-align="center center">
+  <img ng-src="{{event.image}}" alt="event" height="130px" width="250px" ng-click="smc.goEvent(event.id)">
+  <p>{{event.title}}</p>
+</div>
+<div class="textContainer">
+  <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
+  <md-divider></md-divider>
+  <p ng-if="event.sumary">
+      {{event.sumary|limitTo:100}}
+    </p>
+    <p ng-if="!event.sumary">
+      {{'general.noSummary'|translate}}
+    </p>
+</div>
+<event-menu active="save" ng-if="active"></event-menu>
+<event-menu ng-if="!active"></event-menu>

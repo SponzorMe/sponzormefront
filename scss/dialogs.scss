@@ -1,0 +1,100 @@
+md-dialog {
+  min-height: 200px;
+  border-radius: 0px;
+  & > md-toolbar .top-loading {
+    background-color: $color_blue_dialog;
+    padding: 0.5em 0 0.5em 0.5em;
+  }
+  & > md-toolbar .top-error {
+    background-color: $color-fuchsia;
+    padding: 0.5em 0 0.5em 0.5em;
+  }
+
+  & > md-toolbar .top-sucess {
+    background-color: $color-green-ligth;
+    padding: 0.5em 0 0.5em 0.5em;
+  }
+  & > md-toolbar .top-active {
+    background-color: $color-active;
+    padding: 0.5em 0 0.5em 0.5em;
+  }
+  & > md-dialog-content {
+    padding: 1em;
+    & > .close {
+      background: $color_blue_brighter;
+      width: 100%;
+      height: 70px;
+      position: relative;
+      md-icon {
+        color: $color_white;
+      }
+      & > .downloadIcon {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+    }
+    &>div{
+      &>div {
+        &>.eventbriteEventItem {
+          background: $color_blue_brighter;
+          color: white;
+          padding: 0.5em;
+          border-bottom: 1px solid $color_white;
+          &>p{
+            color: white;
+            &>md-icon{
+              color: white;
+            }
+          }
+        }
+        &>.eventbriteHeader{
+          background: $color_gray_text;
+          color: white;
+          padding: 0.5em;
+          font-size: 1.2;
+          font-weight: bold;
+        }
+        &>.meetupEventItem {
+          background: $color_blue_brighter;
+          color: white;
+          padding: 0.5em;
+          border-bottom: 1px solid $color_white;
+          &>p{
+            color: white;
+            &>md-icon{
+              color: white;
+            }
+          }
+        }
+        &>.meetupHeader{
+          background: $color_gray_text;
+          color: white;
+          padding: 0.5em;
+          font-size: 1.2;
+          font-weight: bold;
+        }
+      }
+    }
+    & > .content {
+      width: 100%;
+      min-height: 175px;
+      padding: 0.5em 1.5em;
+      & > h1 {
+        color: $color_blue_brighter;
+        margin: 0;
+      }
+      & > p {
+        color: $color_gray_text;
+        margin: 0.2em 0 1.5em;
+      }
+    }
+    & > md-dialog-actions {
+      width: 100%;
+      & > .dialogBtn .md-button {
+        color: $color_blue_brighter;
+        font-size: 1em;
+      }
+    }
+  }
+}

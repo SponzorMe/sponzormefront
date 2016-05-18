@@ -1,0 +1,48 @@
+<div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+  <div class="menuItemContainer" layout="row">
+    <div class="menuItem">
+      <a href="#/sponzors/settings/profile" ng-class="{'textActive':active == 'profile'}" md-ink-ripple translate>settings.profile</a>
+      <div class="border" ng-class="{'active':active == 'profile'}"></div>
+    </div>
+    <div class="menuItem">
+      <a href="#/sponzors/settings/preferences" ng-class="{'textActive':active == 'preferences'}" md-ink-ripple translate>settings.preferences</a>
+      <div class="border" ng-class="{'active':active == 'preferences'}"></div>
+    </div>
+    <div class="menuItem">
+      <a href="#/sponzors/settings/ratings" ng-class="{'textActive':active == 'ratings'}" md-ink-ripple translate>settings.ratings</a>
+      <div class="border" ng-class="{'active':active == 'ratings'}"></div>
+    </div>
+  </div>
+  <div class="menuItemContainer" layout="row">
+  </div>
+  <div class="buttons" layout="row" layout-align="start center">
+    <a ng-controller="NotificationController" href="#sponzors/notifications">
+      <md-icon aria-label="b" ng-if="!help">notifications</md-icon>
+      <md-icon aria-label="b" class="color-fuchsia" ng-if="help">notifications_active</md-icon>
+    </a>
+    <a href="#/sponzors/invite" class="md-icon-button">
+      <md-icon aria-label="b">favorite</md-icon>
+    </a>
+    <a href="#/logout" class="md-icon-button">
+      <md-icon aria-label="b">exit_to_app</md-icon>
+    </a>
+  </div>
+</div>
+<div class="menuXsContainer">
+  <md-menu hide-gt-sm>
+    <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+      <md-icon>person</md-icon>
+    </md-button>
+    <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+      <md-menu-item class="menuXsItem" ng-class="{'active':active == 'profile'}">
+        <a href="#/sponzors/settings/profile" md-ink-ripple translate>settings.profile</a>
+      </md-menu-item>
+      <md-menu-item class="menuXsItem" ng-class="{'active':active == 'preferences'}">
+        <a href="#/sponzors/settings/preferences" md-ink-ripple translate>settings.preferences</a>
+      </md-menu-item>
+      <md-menu-item class="menuXsItem" ng-class="{'active':active == 'ratings'}">
+        <a href="#/sponzors/settings/ratings" md-ink-ripple translate>settings.ratings</a>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+</div>

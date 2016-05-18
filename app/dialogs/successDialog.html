@@ -1,0 +1,18 @@
+<md-dialog aria-label="dialog">
+  <md-toolbar>
+    <div class="md-toolbar-tools top-success">
+      <i class="material-icons md-48 md-light">done</i>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div layout="column" layout-align="start start">
+      <h2 translate>dialog.success.congratulations</h2>
+      <p translate>{{'dialog.success.'+message}}</p>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button ng-click="closeDialog()" class="md-primary">
+      {{'Ok'}}
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

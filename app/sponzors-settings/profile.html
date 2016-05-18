@@ -1,0 +1,112 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <navbar-settings active="profile"></navbar-settings>
+      <!-- Content starts -->
+      <div class="createContainer settings" layout="column" flex>
+        <div class="formContainer" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column">
+          <div class="createLeftContainer" flex="50">
+            <form ng-submit="spc.editAccount()" id="createForm" name="createForm" novalidate>
+              <div class="fullname" layout="row">
+                <md-input-container class="sponzors">
+                  <label translate>settings.firstName</label>
+                  <input type="text" name="name" data-ng-model="spc.user.firstName" required>
+                  <div ng-messages="createForm.name.$error">
+                    <div ng-message="required">{{'settings.firstNameRequired'|translate}}</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="sponzors">
+                  <label translate>settings.lastName</label>
+                  <input type="text" name="lastName" data-ng-model="spc.user.lastName" required>
+                  <div ng-messages="createForm.lastName.$error">
+                    <div ng-message="required">{{'settings.lastNameRequired'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="company" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                  <label translate>settings.company</label>
+                  <input type="text" name="compny" data-ng-model="spc.user.company">
+                </md-input-container>
+              </div>
+              <div class="email" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                  <label translate>settings.email</label>
+                  <input type="email" name="email" data-ng-model="spc.user.email" required>
+                  <div ng-messages="createForm.email.$error">
+                    <div ng-message="required">{{'settings.emailRequired'|translate}}</div>
+                    <div ng-message="email">{{'settings.invalidEmail'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="location" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                  <label translate>settings.location</label>
+                  <input type="text" name="location" g-places-autocomplete data-ng-model="spc.locationUser" ng-init="spc.locationUser = spc.user.location"
+                    autocomplete="off" required/>
+                  <div ng-messages="createForm.location.$error">
+                    <div ng-message="location">{{'settings.invalidLocation'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </form>
+          </div>
+          <div flex="20"></div>
+          <div class="createRightContainer" flex="30">
+            <div class="" layout="column" layout-align="center center">
+              <div class="userImage" layout="column" layout="center center">
+                <img ng-src="{{spc.user.image}}" ng-if="spc.user.image" height="190px" />
+              </div>
+            </div>
+            <div class="">
+              <input id="imageInput" type="file" ng-hide="true" data-ng-model="file" name="file" maxsize="500" accept="image/*" file>
+              <md-button class="upload">
+                <label for="imageInput" layout="row" layout-align="center center">
+                    <md-icon>add_a_photo</md-icon>
+                    <span translate>settings.loadPhoto</span>
+                  </label>
+              </md-button>
+            </div>
+            <div class="phoneNumber">
+              <md-input-container class="sponzors" layout="row" layout-align="start stretch">
+                <label translate>settings.movil</label>
+                <input type="tel" name="phoneNumber" data-ng-model="spc.user.phone" required>
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+        <div class="createFormSubmit" layout="row" layout-align="end center">
+          <md-button class="color-active" type="submit" form="createForm">{{'settings.edit'|translate}}</md-button>
+        </div>
+      </div>
+      <div class="formContainer createContainer settings" layout-gt-xs="row" layout-align-gt-xs="center start" layout="column"
+        ng-controller="SponzorsChangePasswordController as scpc">
+        <form name="changePassword" ng-submit="scpc.resetPassword()" id="changePassword" novalidate>
+          <div class="password" layout="column" layout-align="center stretch">
+            <md-input-container class="sponzors">
+              <label translate>settings.password</label>
+              <input type="password" name="password" data-ng-model="scpc.password">
+              <div ng-messages="changePassword.password.$error">
+                <div ng-message="required">{{'settings.passwordRequired'|translate}}</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div class="passwordConfirm" layout="column" layout-align="center stretch">
+            <md-input-container class="sponzors">
+              <label translate>settings.passwordConfirmation</label>
+              <input type="password" name="passwordConfirm" data-ng-model="scpc.passwordConfirmation">
+              <div ng-messages="changePassword.passwordConfirm.$error">
+                <div ng-message="required">{{'settings.passwordConfirmationRequired'|translate}}</div>
+              </div>
+            </md-input-container>
+          </div>
+          <md-button class="color-active" type="submit" form="changePassword">{{'settings.changePassword'|translate}}</md-button>
+        </form>
+      </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+  </div>

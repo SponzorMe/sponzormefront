@@ -1,0 +1,54 @@
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <head-nav active="balance"></head-nav>
+        <organizers-navbar></organizers-navbar>
+      </div>
+      <responsive-nav></responsive-nav>
+
+      <div class="contentContainer">
+        <!-- Events Results -->
+        <div class="eventsContainer">
+          <div>
+            <md-content class="events md-whiteframe-2dp" layout="row" layout-align="space-around center" layout-padding layout-wrap>
+              <div class="event md-whiteframe-2dp" flex-gt-sm="30" ng-repeat="event in obc.user.events" ng-if="event.sponzorships.length">
+                <div class="eventImage organizerEventImage" layout="column" layout-align="center center">
+                  <img ng-src="{{event.image}}" alt="event">
+                  <p>{{event.title}}</p>
+                </div>
+                <div class="textContainer">
+                  <h2>{{event.starts|date:'MMM dd, yyyy h:mma'}}</h2>
+                  <md-divider></md-divider>
+                  <p>
+                    {{event.raised|currency}} USD
+                  </p>
+                </div>
+                <md-menu>
+                  <md-button class="md-fab md-mini iconMenu" ng-click="obc.openMenu($mdOpenMenu, $event)">
+                    <md-icon aria-label="b">add</md-icon>
+                  </md-button>
+                  <md-menu-content class="menuContent" width="4">
+                    <md-menu-item class="searchMenuItemOrganizers" layout="row" layout-align="center center" ng-repeat="s in event.sponzorships">
+                      <md-button>{{s.perk.kind}} {{s.perk.usd|currency}} USD
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
+              </div>
+            </md-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

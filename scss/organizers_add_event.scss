@@ -1,0 +1,220 @@
+.allContainer .superContainer .cont {
+  .actions {
+    & > .md-button {
+      color: $color_blue_brighter;
+      font-size: 12px;
+      & > md-icon {
+        color: $color_blue_brighter;
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+  .contentContainer.organizer {
+    margin: 0;
+    .notifyDetailContainer {
+      & > .eventContainer {
+        padding: 0;
+        background: $color_white;
+        @media screen and (max-width: $media_step1_bottom) {
+          width: 100vw;
+        }
+        & > img {
+          min-width: 100%;
+          width: 100%;
+          max-height: 300px!important;
+        }
+        & >label{
+          position: absolute;
+          top: 265px;
+          left: 10px;
+          
+          color: $color_white;
+          &>md-icon{
+            font-size: 32px;
+          }
+          &>span{
+            font-size: 10px;
+            display: block;
+            float: right;
+            max-width: 70px;
+            padding-left: 12px;
+            padding-top: 8px;
+            font-weight: bold;
+          }
+        }
+        & > .imageTexts {
+          background: $color_blue_brighter;
+          margin: 0;
+          min-height: 180px;
+          position: relative;
+          padding: 0.1em 3em 0;
+          top: -50px;
+          margin-left: 15%;
+          margin-right: 15%;
+          text-align: justify;
+          & > .black-input{
+            margin-bottom: 0;
+            &>input{
+              color: $color_black;
+              font-size:2em;
+              font-style: italic;
+              border-width: 0 0 0 0;
+            }
+            &>input::-webkit-input-placeholder {
+              color: $color_black;
+            }
+          }
+          & > .white-text{
+            margin-top: 0;
+            color: $color_white;
+            &>input{
+              color: $color_white;
+              border-width: 0 0 0 0;
+            }
+            &>input::-webkit-input-placeholder {
+              color: $color_white;
+            }
+          }
+          @media screen and (max-width: $media_step1_bottom) {
+            margin: 0;
+            padding: 1em;
+          }
+          & > md-input-container textarea {
+            color: $color_white;
+            min-height: 100px;
+          }
+          &>md-input-container textarea::-webkit-input-placeholder {
+              color: $color_white;
+            }
+          & > h3 {
+            font-weight: normal;
+            font-style: italic;
+          }
+          & > p {
+            color: $color_white;
+            font-size: 14px;
+            font-weight: bold;
+          }
+          & > a {
+            color: $color_blue_darker;
+            text-decoration: underline;
+          }
+        }
+        & > .dateAndplace {
+          width: 100%;
+          margin: 0 2em;
+          &>label{
+            color: $color_gray_text;
+            font-size: 12px;
+          }
+          & > md-input-container {
+            margin-top: 0.3em;
+          }
+        }
+        & > .descriptionArea {
+          width: 90%;
+          margin: 1em 2em 2em 2em;
+          
+        }
+      }
+      & > .createEventTable {
+        border-top: 1px solid $color_gray1;
+        background: $color_white;
+        font-size: 12px;
+        padding: 0.5em 4em;
+        margin: 2em 0px;
+        overflow: hidden;
+        @media screen and (max-width: $media_step1_bottom) {
+          margin: 0;
+        }
+        & > .add {
+          & > a {
+            font-size: 1.2em;
+            color: $color_blue;
+            text-transform: uppercase;
+            & > md-icon {
+              color: $color_blue;
+              font-size: 2.5em;
+              height: 1em;
+              margin-right: 0.5em;
+            }
+          }
+        }
+        & > .table {
+          padding: 0px 0px;
+          & > .tableContent {
+            padding: 1.5em 0px;
+            & > .deleteColumn {
+              padding: 0.5em;
+              font-size: 1.5em;
+              & > a {
+                color: $color_blue;
+              }
+            }
+            & > .columnContainer {
+              margin-bottom: 1em;
+              & > .tableTitle {
+                background: $color_fuchsia;
+                color: $color_white;
+                padding: 0.5em;
+                font-size: 2em;
+                font-weight: bolder;
+                & > a {
+                  & > md-icon {
+                    color: $color_white;
+                  }
+                }
+              }
+              & > .toggeable {
+                background: $color_gray1;
+                & > ul {
+                  width: 100%;
+                  & > li {
+                    font-size: 1em;
+                    list-style: none;
+                    & > div {
+                      & > span {
+                        color: $color-black;
+                        font-weight: bold;
+                      }
+                      & > span::before {
+                        color: $color_fuchsia;
+                        content: '\2022';
+                        margin-right: 1em;
+                      }
+                      & > a {
+                        margin-left: 1em;
+                        & > md-icon {
+                          font-size: 1.4em;
+                          color: $color_blue;
+                        }
+                      }
+                    }
+                  }
+                }
+                & > div {
+                  & > a {
+                    color: $color_blue;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    margin-left: 2.3em;
+                    & > md-icon {
+                      color: $color_blue;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      & > .saveButton {
+        background: $color_fuchsia;
+        color: $color_white;
+        margin: 2em auto 3em;
+      }
+    }
+  }
+}

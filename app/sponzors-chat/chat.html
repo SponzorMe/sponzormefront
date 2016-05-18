@@ -1,0 +1,46 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenav.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <sponzors-navbar></sponzors-navbar>
+
+      <div class="contentContainer">
+
+        <md-content class="chatContainer2 md-whiteframe-2dp">
+        <div class="messagesContainer">
+          <p><strong>{{'chat.eventChat'|translate}}</strong><span class="color-active">{{scc.sponzorshipInfo.Event.title}}
+              {{scc.sponzorshipInfo.Perk.kind}}
+              ${{scc.sponzorshipInfo.Perk.usd}}USD</span>
+          </p>
+          <div ng-repeat="m in scc.chatMessages| orderBy: - timedate"  flex="100" layout="row">
+            <div class="userImage" layout-xs="40" layout="20" layout-align="center start" layout="column" ng-if=" m.type == '#5DDECF'">
+              <div class="imageOrg">
+                <img ng-src="{{m.userImage}}" />
+                <p>{{m.timedate|date:'h:mma'}}</p>
+              </div>
+            </div>
+            <div ng-if=" m.type == '#5DDECF'" layout="80" layout-xs="60" layout-align="start start" layout="column">{{m.text}}</div>
+
+            <div flex="80" ng-if=" m.type == '#F6CECE'" layout-xs="60" layout-align="start start" layout="column">{{m.text}}</div>
+            <div class="userImage" layout-xs="40" ng-if=" m.type == '#F6CECE'" flex="20" layout-align="center end" layout="column" >
+              <div class="imageSpo">
+                <img  ng-src="{{m.userImage}}" />
+                <p>{{m.timedate|date:'h:mma'}}</p>
+              </div>
+            </div>
+
+          </div>
+          
+        </div>
+        <md-input-container class="md-icon-right md-block" md-no-float flex="100">
+            <input ng-model="scc.newMessage.text" type="text" placeholder="{{'chat.writeMessage'|translate}}">
+            <md-icon class="color-active" ng-click="scc.addMessage()">send</md-icon>
+          </md-input-container>
+      </md-content>
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

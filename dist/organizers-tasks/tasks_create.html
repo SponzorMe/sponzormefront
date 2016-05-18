@@ -1,0 +1,83 @@
+<div layout-fill class="allContainer">
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+  <md-content class="superContainer" layout="row">
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+    <div class="cont" flex>
+      <!-- navbar -->
+      <!-- show-gt-xs don't work ¿? -->
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <a href="#/organizers/tasks" md-ink-ripple>
+          <md-icon aria-label="b" class="color-white">keyboard_backspace</md-icon>
+        </a>
+        <div class="buttons" layout="row" layout-align="start center">
+          <a href="#organizers/notifications">
+            <md-icon aria-label="b">notifications</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">send</md-icon>
+          </a>
+          <a href="" class="md-icon-button">
+            <md-icon aria-label="b">person</md-icon>
+          </a>
+        </div>
+      </div>
+      <!-- navbar ("menu") when xs -->
+      <div class="menuXsContainer">
+        <md-menu hide-gt-sm>
+          <md-button class="md-fab" aria-label="b" ng-click="openMenu($mdOpenMenu, $event)">
+            <md-icon>person</md-icon>
+          </md-button>
+          <md-menu-content class="menuXsItems" width="2" layout="column" layout-align="center start">
+            <md-menu-item class="menuXsItem">
+              <a href="#/organizers/tasks" md-ink-ripple>
+                <md-icon>reply</md-icon>
+              </a>
+            </md-menu-item>
+            <md-menu-item class="menuXsItem">
+              <a href="#/organizers/notifications" md-ink-ripple>_Notificaciones_</a>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+      <!-- Content starts -->
+      <div class="contentContainer">
+        <!-- Events Results -->
+        <div class="notifyDetailContainer md-whiteframe-1dp" layout="column">
+          <md-content class="replyElement newTask" layout="column">
+            <div class="titleInput">
+              <md-input-container class="organizers">
+                <label translate>tasks.title</label>
+                <input type="text" ng-model="task.title" md-maxlength="70">
+              </md-input-container>
+            </div>
+            <div class="messageInput">
+              <md-input-container class="organizers">
+                <label translate>tasks.description</label>
+                <textarea ng-model="task.description" md-maxlength="250"></textarea>
+              </md-input-container>
+            </div>
+            <div class="taskEditButton" layout="row" layout-align="end end">
+                <md-button>{{'tasks.send'| translate}}</md-button>
+            </div>
+          </md-content>
+        </div>
+        <div class="tasksAsign">
+          <p class="color-gray-text" translate>tasks.assignTo</p>
+          <div ng-repeat="e in octc.user.events">
+            <div class="task" layout="row" layout-align="space-between center"  ng-repeat="p in e.perks">
+              <md-checkbox class="organizers" ng-model="task.sponzorship[$index]" ng-change="changeSponzorship($index)">
+                {{e.title}} - {{p.kind}}/{{p.usd|currency}}
+              </md-checkbox>
+              <div>
+                  <a href="" translate>tasks.seeEvent</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

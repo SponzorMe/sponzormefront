@@ -1,0 +1,47 @@
+.allContainer .superContainer .cont .formRateContainerOrg {
+    margin: 0 1em 2em 1em;
+    background-color: $color_white;
+    padding: 2em 3em 3em 3em;
+    min-height: 100vh;
+    text-align: justify;
+    @media screen and (max-width: $media_step1_bottom) {
+        margin: 0;
+        padding: 2em;
+    }
+
+    &>.backButton {
+        &>a > md-icon {
+            font-size: 3em;
+        }
+    }
+
+    &>.form {
+
+      &>.paddint-top-10{
+        margin-top: 3em;
+      }
+
+      &>div{
+        &>figure{
+          margin: 0 0;
+          padding: 0 0;
+          &>img {
+              border-radius: 50%;
+              width: 150px;
+              height: 150px;
+          }
+        }
+        &>.userInfo label{
+          color: $color-blue-brighter !important;
+        }
+
+      }
+        &>md-input-container, .md-input-container{
+            color: $color-blue-brighter !important;
+
+            &>label{
+              color: $color-blue-brighter !important;
+            }
+        }
+    }
+}

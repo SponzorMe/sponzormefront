@@ -1,0 +1,20 @@
+<md-dialog aria-label="dialog">
+  <md-toolbar>
+    <div class="md-toolbar-tools top-info">
+      <i class="material-icons md-48 md-light">info</i>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <form layout="column" layout-align="center center" role="form" name="causeForm" ng-submit="causeForm.$valid && sec.createSponzorship()">
+      <h2>{{'sponzorsSponzorships.causeForm'|translate}}</h2>
+
+      <md-input-container>
+        <textarea name="cause" data-ng-model="newSponzorship.cause"  required md-maxlength="200"></textarea>
+      </md-input-container>
+
+      <md-button class="md-raised bg-blue-brighter color-white" type="submit">
+        {{ 'sponzorsSponzorships.submitButton' | translate }}
+      </md-button>
+    </form>
+  </md-dialog-content>
+</md-dialog>

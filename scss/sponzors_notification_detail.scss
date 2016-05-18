@@ -1,0 +1,93 @@
+.allContainer .superContainer .cont .contentContainer .notifyDetailContainer {                    
+   margin: 0;
+    
+    @media screen and (max-width: $media_step1_bottom) {
+        margin: 0;
+    }
+        
+    &>.notifyDetailElement {
+        padding: 1.5em;
+        padding-right: 4.5em;
+    
+        &>.detailHeader {
+            text-decoration: none;
+
+            &>.title {
+                margin: 0 0 1em 0;
+                &>p {
+                    font-size: 14px;
+                    margin: 0 0 0.2em 0; 
+                }
+                &>.from {
+                    color: $color_gray_text;
+                    font-size: 11px;
+
+                    &>a {
+                        color: $color_active;
+                    }
+                }
+            }
+            &>.time {
+                color: $color_gray_text;
+                margin-top: 0;
+                font-size: 12px;
+            }
+        }
+
+        &>.message {
+            font-size: 14px;
+            margin: 1em 0 1em 0;
+            text-align: justify;
+        }
+
+        &>.actions {
+            margin-top: 1em;
+            font-size: 14px;
+            &>a {
+                margin-right: 1em;
+                color: $color_gray_text; 
+
+                &>p {
+                    margin-left: 0.5em;
+                }             
+
+                &:hover {
+                    &>p {
+                        color: $color_active;
+                    }
+                    &>md-icon {
+                        color: $color_active;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.menuXsNotificationContainer {
+    margin-left: 50%;
+    margin-right: 50%;
+}
+
+.allContainer .superContainer .cont .menuContainer .menuItems .arrow {
+    &>a {
+        margin-left: 1em;
+        &>md-icon {
+            font-size: 48px;
+            color: $color_white;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

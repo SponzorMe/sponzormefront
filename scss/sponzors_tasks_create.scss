@@ -1,0 +1,114 @@
+.allContainer .superContainer .cont .contentContainer {
+
+    &>.tasksAsign {
+        &>.task {
+            background: $color_white;
+            padding: 0.5em 1em;
+            margin-top: 0.5em;
+            box-shadow: 3px -1px 3px 0px rgba(0, 0, 0, 0.2),
+                        1px 1px 1px -1px rgba(0, 0, 0, 0.12);
+
+            &>md-checkbox {
+                margin-bottom: 0;
+                color: $color_active;
+            }
+
+            &>div a {
+                color: $color_active;
+                text-transform: uppercase;
+            }
+        }
+        &>div {
+          &>.task {
+              background: $color_white;
+              padding: 0.5em 1em;
+              margin-top: 0.5em;
+              box-shadow: 3px -1px 3px 0px rgba(0, 0, 0, 0.2),
+                          1px 1px 1px -1px rgba(0, 0, 0, 0.12);
+
+              &>md-checkbox {
+                  margin-bottom: 0;
+                  color: $color_active;
+              }
+
+              &>div a {
+                  color: $color_active;
+                  text-transform: uppercase;
+              }
+          }
+        }
+    }
+
+    &>md-divider {
+        margin-top: 1em;
+        border-top-color: rgba(116, 114, 114, 0.25);
+    }
+
+    &>.actions {
+        font-size: 12px;
+        margin-left: 1.5em;
+        margin-top: 1em;
+
+
+        &>a {
+            margin-right: 2.5em;
+            color: $color_gray_text;
+
+            &>p {
+                margin-left: 0.5em;
+            }
+
+            &:hover {
+                &>p {
+                    color: $color_active;
+                }
+                &>md-icon {
+                    color: $color_active;
+                }
+            }
+        }
+    }
+
+    &>.notifyDetailContainer {
+        &>.replyElement.newTask {
+            padding: 1em;
+
+            &>div md-input-container {
+                width: 100%;
+            }
+
+
+            &>.titleInput {
+                font-size: 14px;
+                margin-bottom: 0.5em;
+
+                &>md-input-container {
+                    height: 15px;
+                }
+            }
+
+            &>.datePicker {
+                &>p {
+                    font-size: 12px;
+                    color: $color_gray_text;
+                }
+            }
+
+            &>.optionsContainer {
+                width: 30%;
+
+                &>p {
+                    font-size: 12px;
+                    color: $color_gray_text;
+                }
+            }
+
+            &>.editAction {
+                position: absolute;
+                bottom: 0;
+                right: 20px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

@@ -1,0 +1,100 @@
+.allContainer .superContainer .cont .contentContainer {
+
+    &>.addTask {
+        &>.md-button.md-fab {
+            background-color: $color_blue_brighter;
+        }
+        &>p {
+            color: $color_blue_brighter;
+        }
+    }
+
+    &>.eventItem.tasks {
+        &>.blueEvent.normal{
+          background-color: $color_blue;
+          color: white;
+          padding: 1em 1em;
+          margin: 0.2em 0 0.7em 0;
+          &>md-icon {
+            color: white;
+            cursor: pointer;
+          }
+        }
+        &>.blueEvent.toggle{
+          background-color: $color_blue;
+          color: white;
+          padding: 1em 1em;
+          margin: 0.2em 0 0em 0;
+          &>md-icon {
+            color: white;
+            cursor: pointer;
+          }
+        }
+        &>.toggeable{
+            background-color: white;
+            color: $color_blue;
+            padding: 1em 1em;
+            margin: 0em 0 0.7em 0;
+            &>.menuItemContainer {
+                &>.menuItem {
+                    margin-right: 2em;
+
+                    &:nth-child(1) {
+                        margin-left: 2em;
+                    }
+
+                    &>a {
+                        color: $color_blue;
+                        font-size: 12px;
+                        text-decoration: none;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                        position: relative;
+
+                        &:hover {
+                            color: $color_blue_brighter;
+                        }
+                    }
+
+                    &>.border {
+
+                        bottom: -14px;
+                        position: relative;
+                    }
+
+                    &>.textActive {
+                            color: $color_blue;
+                        }
+
+                    &>.active {
+                        border-bottom: 4px solid $color_active;
+                    }
+                }
+            }
+          }
+          &>.tasksHead{
+            padding: 0.5em 0.5em;
+          }
+          &>.tasksContent{
+            padding: 1em 1em;
+            &>div{
+              background-color: white;
+              padding: 1em 1em;
+              margin: 0.5em 0 0.5em 0;
+              text-align: center;
+            }
+          }
+
+        &>.eventInfo {
+            &>.eventTitle > div {
+                &>.taskSubtitle {
+                    color: $color_blue_brighter;
+                }
+            }
+            &:hover {
+                background: $color_blue_brighter;
+                color: $color_white;
+            }
+        }
+    }
+}

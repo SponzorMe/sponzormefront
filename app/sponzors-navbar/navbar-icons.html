@@ -1,0 +1,16 @@
+<div class="menuItems md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+  <div class="menuItemContainer" layout="row">
+  </div>
+  <div class="buttons" layout="row" layout-align="start center">
+    <a ng-controller="NotificationController" href="#sponzors/notifications">
+      <md-icon aria-label="b" ng-if="!help">notifications</md-icon>
+      <md-icon aria-label="b" class="color-fuchsia" ng-if="help">notifications_active</md-icon>
+    </a>
+    <a href="#/sponzors/invite" class="md-icon-button">
+      <md-icon aria-label="b">favorite</md-icon>
+    </a>
+    <a href="#/logout" class="md-icon-button">
+      <md-icon aria-label="b">exit_to_app</md-icon>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,169 @@
+<div layout-fill class="allContainer">
+
+ <!-- navbar 1 -->
+ <div ng-include src="'./components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+    <div class="cont" flex>
+      <div class="createContainer" class="md-whiteframe-24dp" layout="column" flex>
+        <div class="logo">
+          <figure layout="row" layout-align="center center">
+            <img src="../images/rocket.svg" alt="">
+          </figure>
+        </div>
+        <div class="createTitle" layout="column" layout-align="center center" ng-show="firstPage">
+          <h1 translate>createSponzor.completeFields</h1>
+          <span class="sponzor" translate>createSponzor.asSponzor</span>
+        </div>
+        <div class="createTitle" layout="column" layout-align="center center" ng-hide="firstPage">
+          <h1 translate>createSponzor.tellUsAboutYou</h1>
+        </div>
+
+        <form ng-submit="doCustomization()"
+          id="createForm"
+          name="createForm"
+          novalidate
+          class="formContainer"
+          layout-align="center center"
+          layout="column">
+
+          <div flex="50" layout="column" layout-align="center center">
+            <div class="firstPageContainer" ng-show="firstPage">
+              <div class="fullname" layout="row">
+                <md-input-container class="sponzors">
+                  <label translate>createSponzor.firstName</label>
+                  <input type="text" name="name" ng-model="create.firstname" required>
+                  <div ng-messages="createForm.name.$error">
+                    <div ng-message="required">{{'createSponzor.pleaseEnterYourFirstName'|translate}}</div>
+                  </div>
+                </md-input-container>
+                <md-input-container class="sponzors">
+                  <label translate>createSponzor.lastName</label>
+                  <input type="text" name="lastName" ng-model="create.lastname" required>
+                  <div ng-messages="createForm.lastName.$error">
+                    <div ng-message="required">{{'createSponzor.pleaseEnterYourLastName'|translate}}</div>
+                  </div>
+               </md-input-container>
+              </div>
+
+              <div class="email" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                  <label translate>createSponzor.email</label>
+                  <input type="email" name="email" ng-model="create.email" required>
+                  <div ng-messages="createForm.email.$error">
+                    <div ng-message="email">{{'createSponzor.enterValidEmail'|translate}}</div>
+                    <div ng-message="required">{{'createSponzor.pleaseEnterYourEmail'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="password" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                  <label translate>createSponzor.password</label>
+                  <input type="password" name="password" ng-model="create.password" required>
+                  <div ng-messages="createForm.password.$error">
+                    <div ng-message="required">{{'createSponzor.pleaseEnterPassword'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div class="passwordConfirm" layout="column" layout-align="center stretch">
+                <md-input-container class="sponzors">
+                  <label translate>createSponzor.confirmPassword</label>
+                  <input type="password" name="passwordConfirm" ng-model="create.password_confirmation" required>
+                  <div ng-messages="createForm.passwordConfirm.$error">
+                    <div ng-message="required">{{'createSponzor.pleaseConfirmPassword'|translate}}</div>
+                  </div>
+                </md-input-container>
+              </div>
+
+              <div class="btnCont" layout="row" layout-align="center center">
+                <md-button class="md-raised sendButton next" ng-click="doCreate()"><span translate>createSponzor.next</span></md-button>
+              </div>
+            </div>
+
+            <div class="secondPageContainer" ng-hide="firstPage" layout="column" layout-align="center center">
+              <div class="backButton">
+                <md-button ng-click="toggleCreateForm()"><md-icon>reply</md-icon></md-button>
+              </div>
+
+              <div class="supCont" layout="column" layout-align="center stretch">
+                <div class="ageGender" layout="row">
+                  <md-input-container class="sponzors">
+                    <label translate>createSponzor.age</label>
+                    <md-select class="sponzors" name="userAge" ng-model="create.age" required>
+                      <md-option ng-repeat="i in ageRange" value="{{i}}">{{i}}</md-option>
+                    </md-select>
+                    <div ng-messages="createForm.userAge.$error" createForm.$dirty>
+                      <div ng-message="required">{{'createSponzor.pleaseEnterYourAge'| translate}}</div>
+                    </div>
+                  </md-input-container>
+
+                  <md-input-container class="sponzors">
+                    <label translate>createSponzor.gender</label>
+                    <md-select class="sponzors" name="userGender" ng-model="create.gender" required>
+                      <md-option value="0"><span translate>createSponzor.men</span></md-option>
+                      <md-option value="1"><span translate>createSponzor.woman</span></md-option>
+                      <md-option value="2"><span translate>createSponzor.other</span></md-option>
+                    </md-select>
+                    <div ng-messages="createForm.userGender.$error" createForm.$dirty>
+                      <div ng-message="required">{{'createSponzor.pleaseChooseASex'| translate}}</div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <div class="userLanguage"  layout="column" layout-align="center stretch">
+                  <md-input-container class="sponzors">
+                    <label translate>createSponzor.preferLanguage</label>
+                    <md-select class="sponzors" name="userLanguage" ng-model="create.language" required>
+                      <md-option value="spanish">{{'general.spanish'| translate}}</md-option>
+                      <md-option value="english">{{'general.english'| translate}}</md-option>
+                      <md-option value="portugesse">{{'general.portuguese'| translate}}</md-option>
+                    </md-select>
+                    <div ng-messages="createForm.userLanguage.$error" createForm.$dirty>
+                      <div ng-message="required">{{'createSponzor.pleaseChooseLanguage'| translate}}</div>
+                    </div>
+                  </md-input-container>
+                </div>
+
+                <div class="userLocation" layout="column" layout-align="center stretch">
+                  <md-input-container class="sponzors">
+                    <label translate>createSponzor.location</label>
+                    <input ng-model="create.location" name="userLocation" required/>
+                    <div ng-messages="createForm.userLocation.$error" createForm.$dirty>
+                      <div ng-message="required">{{'createSponzor.pleaseEnterLocation'| translate}}</div>
+                    </div>
+                  </md-input-container>
+                </div>
+              </div>
+
+
+              <div>
+                <div class="createTitle" layout="column" layout-align="center center">
+                  <h1>{{'createSponzor.areYouInterestedIn'| translate}}</h1>
+                </div>
+                <div class="interests" layout="column" layout-gt-xs="row" layout-align="center center" layout-wrap>
+                  <md-input-container flex-gt-xs="25" ng-repeat="category in categories">
+                    <label translate>{{category.title}}</label>
+                    <md-select name="" ng-model="create.interests"required>
+                      <md-option ng-repeat="interest in category.interests" value="{{interest.id_interest}}" >{{interest.name|translate}}</md-option>
+                    </md-select>
+                  </md-input-container>
+                </div>
+              </div>
+            </div>
+            <md-button class="md-raised sendButton send" type="submit" ng-hide="firstPage"><span translate>send</span></md-button>
+          </div>
+        </form>
+
+
+        <div class="createFormSubmit" layout="row" layout-align="center center" ng-show="isSuccess() === true">
+        </div>
+
+        <div class="confirmText" layout="column" layout-align="center center" ng-show="submitSucces()">
+          <h1 translate>emailconfirm</h1>
+        </div>
+      </div>
+    </div>
+  </md-content>
+
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>

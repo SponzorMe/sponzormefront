@@ -1,0 +1,94 @@
+<div layout-fill class="allContainer">
+
+  <!-- navbar 1 -->
+  <div ng-include src="'./components/navbar/navbar.html'"></div>
+
+  <md-content class="superContainer" layout="row">
+
+    <!-- sidenav -->
+    <div class="sidenavSuperContainer md-whiteframe-8dp" ng-include src="'./components/sidenav/sidenavOrg.html'" ng-controller="SidenavController"></div>
+
+    <div class="cont" flex>
+      <div class="menuItems menuItemsOrganizer md-whiteframe-1dp" layout="row" layout-align="space-between center" hide-xs hide-sm>
+        <head-nav active="sponzors"></head-nav>
+        <organizers-navbar></organizers-navbar>
+      </div>
+      <responsive-nav></responsive-nav>
+      <div class="contentContainer">
+        <div class="notifyDetailContainer" layout="column">
+          <div class="eventTitles" layout="row" hide show-lg flex="100">
+            <div layout="row" flex="70">
+              <p flex="30" layout="row" layout-align="center center" translate>organizersSponzors.sponzorName</p>
+              <p flex="30" layout="row" layout-align="center center" translate>organizersSponzors.event</p>
+              <p flex="20" layout="row" layout-align="center center" translate>organizersSponzors.sponzorshipType</p>
+              <p flex="20" layout="row" layout-align="center center" translate>organizersSponzors.status</p>
+            </div>
+            <p layout="row" layout-align="center center" flex="30" translate>organizersSponzors.actions</p>
+          </div>
+          <div class="eventItem organizerSponzors" layout="column" layout-gt-xs="row" ng-repeat="item in osc.user.sponzorships_like_organizer" flex="100">
+            <a class="eventInfo" href="" layout="row" layout-align="start" flex="70">
+              <p class="eventTitle sponzorOrganizer" flex="30" layout="row" layout-align="center center" translate>{{item.sponzor.name}}</p>
+              <p class="eventDate" flex="30" layout="row" layout-align="center center">{{item.event.title}}</p>
+              <p class="eventSponzorType" flex="20" layout="row" layout-align="center center" translate>{{item.perk.kind+' - $'+item.perk.usd}}</p>
+              <p class="eventStatus" flex="20" layout="row" layout-align="center center" translate>
+                {{osc.statuses[item.status]}}
+              </p>
+            </a>
+            <div class="actionSponzor" layout="row" layout-align="center center" flex="30">
+              <a href="" ng-click="osc.acceptSponzorship(item.id, $index)" ng-if="item.status < 1 && !item.loading">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.acceptSponzorship'|translate}}
+                </md-tooltip>
+                <md-icon>thumb_up</md-icon>
+              </a>
+              <a href="" ng-if="item.loading"> <md-progress-circular md-mode="indeterminate"></md-progress-circular></a>
+              <a href="" ng-click="osc.unacceptSponzorship(item.id, $index)" ng-if="item.status >= 1 && !item.loading">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.unacceptSponzorship'|translate}}
+                </md-tooltip>
+                <md-icon>thumb_down</md-icon>
+              </a>
+              <a href="#/organizers/sponzor/profile/{{item.sponzor.id}}">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.seeSponzorProfile'|translate}}
+                </md-tooltip>
+                <md-icon>person</md-icon>
+              </a>
+              <a href="#/organizers/event/tasks/{{item.event.id}}">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.seeEventTasks'|translate}}
+                </md-tooltip>
+                <md-icon>assignment</md-icon>
+              </a>
+              <a href="" ng-click="osc.seeCause(item)">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.seeCause'|translate}}
+                </md-tooltip>
+                <md-icon>help</md-icon>
+              </a>
+              <a href="#/organizers/chat/sponzorship/{{item.id}}">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.chatWithSponzor'|translate}}
+                </md-tooltip>
+                <md-icon>comment</md-icon>
+              </a>
+              <a href="#/organizers/sponsor/rating/{{$index}}" ng-if="item.rated_organizer == 0">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.rateSponzor'|translate}}
+                </md-tooltip>
+                <md-icon>stars</md-icon>
+              </a>
+              <a href="" ng-if="item.rated_organizer == 1">
+                <md-tooltip md-direction="bottom">
+                  {{'organizersSponzors.rateSponzor'|translate}}
+                </md-tooltip>
+                <md-icon>playlist_add_check</md-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-content>
+  <div ng-include src="'./components/footer/footer.html'"></div>
+</div>
