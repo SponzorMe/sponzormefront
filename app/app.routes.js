@@ -45,8 +45,8 @@
 
       .when('/activation/:token', {
         templateUrl: 'login/login.html',
-        controller: 'LoginController',
-        controllerAs: 'lc'
+        controller: 'ActivationController',
+        controllerAs: 'ac'
       })
 
       .when('/forgot', {
