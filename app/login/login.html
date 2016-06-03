@@ -28,13 +28,15 @@
                 </md-input-container>
                 <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"> <span translate>login.login</span> </md-button>
                 <md-divider></md-divider>
-                <md-button class="md-raised md-cornered facebookButton" ng-click="lc.loginWithFacebook()" layout="row" layout-align="center center">
-                <span translate>login.facebook</span> </md-button>
-                <md-divider></md-divider>
+                <md-button class="md-fav md-cornered facebookButton" md-no-focus-style="true" ng-click="lc.loginWithFacebook()" layout="row"
+                  layout-align="center center">
+                  <md-icon md-svg-src="images/facebook.svg"></md-icon><span translate>login.facebook</span> </md-button>
+
+                <div class="forgotSponzor">
+                  <a href="#/forgot" translate>login.forgot</a>
+                </div>
               </form>
-              <div class="forgotSponzor">
-                <a href="#/forgot" translate>login.forgot</a>
-              </div>
+
             </div>
           </md-content>
         </md-tab>
@@ -60,13 +62,14 @@
                 </md-input-container>
                 <md-button class="md-raised md-cornered loginButton" type="submit" layout="row" layout-align="center center"> <span translate>login.login</span> </md-button>
                 <md-divider></md-divider>
-                <md-button class="md-raised md-cornered facebookButton" ng-click="lc.loginWithFacebook()" layout="row" layout-align="center center">
-                <span translate>login.facebook</span> </md-button>
-                <md-divider></md-divider>
+                <md-button class="md-fav md-cornered facebookButton" md-no-focus-style="true" ng-click="lc.loginWithFacebook()" layout="row"
+                  layout-align="center center">
+                  <md-icon md-svg-src="images/facebook.svg"></md-icon><span translate>login.facebook</span> </md-button>
+                <div class="forgotOrganizer">
+                  <a href="#/forgot" translate>login.forgot</a>
+                </div>
               </form>
-              <div class="forgotOrganizer">
-                <a href="#/forgot" translate>login.forgot</a>
-              </div>
+
             </div>
           </md-content>
         </md-tab>

@@ -29,18 +29,17 @@
         }
 
         .login-tabs {
-            height: 50vh;
-            margin-top: 1.5em;
+            height: 63vh;
             overflow: hidden;
             width: 30%;
             
             @media screen and (max-width: $media_step1_bottom) {
                 width: 90%;
-                height: 52vh;
+                height: 63vh;
             }
             
             @media (min-width: $media_step1_bottom) and (max-width: $media_step1_top) {
-                width: 50%;
+                width: 60%;
             }
             
             md-tabs-content-wrapper {

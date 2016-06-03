@@ -34,6 +34,16 @@
         .md-button.md-raised:not([disabled]):hover {
             background-color: rgb(181, 179, 179);
         }
+        &>.forgotSponzor {
+        padding: 0;
+        margin: 1em 0;
+        &>a {
+            color: $color_active;
+            cursor: pointer;
+        }
+    }
+
+    
     }
 
     &>form.organizerForm {
@@ -61,18 +71,7 @@
         .md-button.md-raised:not([disabled]):hover {
             background-color: rgb(181, 179, 179);
         }
-    }
-
-    &>.forgotSponzor {
-        padding: 0;
-        margin: 1em 0;
-        &>a {
-            color: $color_active;
-            cursor: pointer;
-        }
-    }
-
-    &>.forgotOrganizer {
+        &>.forgotOrganizer {
         padding: 0;
         margin: 1em 0;
         &>a {
@@ -80,6 +79,9 @@
             cursor: pointer;
         }
     }
+    }
+
+    
 
     &>form.resendForm {
         &>.resendText {
